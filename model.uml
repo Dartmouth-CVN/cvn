@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_6Rk08PEnEeWZiKN-HBJWfg" name="NewModel">
+  <packagedElement xmi:type="uml:Actor" xmi:id="_-vcucPEnEeWZiKN-HBJWfg" name="Admin"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_AbG_APEoEeWZiKN-HBJWfg" name="AssignStaff"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_BSi9UPEoEeWZiKN-HBJWfg" name="Authorize">
+    <include xmi:id="_CoCJkPEoEeWZiKN-HBJWfg" addition="_AbG_APEoEeWZiKN-HBJWfg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_DNm70PEoEeWZiKN-HBJWfg" memberEnd="_DNni4PEoEeWZiKN-HBJWfg _DNpYEPEoEeWZiKN-HBJWfg">
+    <ownedEnd xmi:id="_DNni4PEoEeWZiKN-HBJWfg" type="_-vcucPEnEeWZiKN-HBJWfg" association="_DNm70PEoEeWZiKN-HBJWfg"/>
+    <ownedEnd xmi:id="_DNpYEPEoEeWZiKN-HBJWfg" type="_AbG_APEoEeWZiKN-HBJWfg" association="_DNm70PEoEeWZiKN-HBJWfg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_FtxygPEoEeWZiKN-HBJWfg" name="Actor2"/>
+</uml:Model>
