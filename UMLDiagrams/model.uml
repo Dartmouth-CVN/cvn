@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_rMcxoPFjEeWeEMyAgNfpSg" name="NewModel">
+  <packagedElement xmi:type="uml:Actor" xmi:id="_2VCS0PFnEeWeEMyAgNfpSg" name="Medical Staff"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_5a2NMPFnEeWeEMyAgNfpSg" name="Sign In"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_6Fqr0PFnEeWeEMyAgNfpSg" name="Add Patient Info">
+    <include xmi:id="_Hm5KQPFqEeWeEMyAgNfpSg" addition="_60MlwPFnEeWeEMyAgNfpSg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_60MlwPFnEeWeEMyAgNfpSg" name="Authenticate Credentials"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_8WWVAPFnEeWeEMyAgNfpSg" name="Edit Patient Info">
+    <include xmi:id="_G-u-EPFqEeWeEMyAgNfpSg" addition="_60MlwPFnEeWeEMyAgNfpSg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_-gZxwPFnEeWeEMyAgNfpSg" name="Export Patient Info">
+    <include xmi:id="_IXObAPFqEeWeEMyAgNfpSg" addition="_60MlwPFnEeWeEMyAgNfpSg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="__Ra_APFnEeWeEMyAgNfpSg" name="Add New Patient">
+    <include xmi:id="_GDs5MPFqEeWeEMyAgNfpSg" addition="_60MlwPFnEeWeEMyAgNfpSg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_ERdxcPFoEeWeEMyAgNfpSg" memberEnd="_ERdxcfFoEeWeEMyAgNfpSg _EReYgPFoEeWeEMyAgNfpSg">
+    <ownedEnd xmi:id="_ERdxcfFoEeWeEMyAgNfpSg" type="_2VCS0PFnEeWeEMyAgNfpSg" association="_ERdxcPFoEeWeEMyAgNfpSg"/>
+    <ownedEnd xmi:id="_EReYgPFoEeWeEMyAgNfpSg" type="_-gZxwPFnEeWeEMyAgNfpSg" association="_ERdxcPFoEeWeEMyAgNfpSg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_EvLBIPFoEeWeEMyAgNfpSg" memberEnd="_EvLoMPFoEeWeEMyAgNfpSg _EvLoMfFoEeWeEMyAgNfpSg">
+    <ownedEnd xmi:id="_EvLoMPFoEeWeEMyAgNfpSg" type="_2VCS0PFnEeWeEMyAgNfpSg" association="_EvLBIPFoEeWeEMyAgNfpSg"/>
+    <ownedEnd xmi:id="_EvLoMfFoEeWeEMyAgNfpSg" type="_6Fqr0PFnEeWeEMyAgNfpSg" association="_EvLBIPFoEeWeEMyAgNfpSg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_FOXekPFoEeWeEMyAgNfpSg" memberEnd="_FOYFoPFoEeWeEMyAgNfpSg _FOYFofFoEeWeEMyAgNfpSg">
+    <ownedEnd xmi:id="_FOYFoPFoEeWeEMyAgNfpSg" type="_2VCS0PFnEeWeEMyAgNfpSg" association="_FOXekPFoEeWeEMyAgNfpSg"/>
+    <ownedEnd xmi:id="_FOYFofFoEeWeEMyAgNfpSg" type="_8WWVAPFnEeWeEMyAgNfpSg" association="_FOXekPFoEeWeEMyAgNfpSg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_F96FIPFoEeWeEMyAgNfpSg" memberEnd="_F96sMPFoEeWeEMyAgNfpSg _F96sMfFoEeWeEMyAgNfpSg">
+    <ownedEnd xmi:id="_F96sMPFoEeWeEMyAgNfpSg" type="__Ra_APFnEeWeEMyAgNfpSg" association="_F96FIPFoEeWeEMyAgNfpSg"/>
+    <ownedEnd xmi:id="_F96sMfFoEeWeEMyAgNfpSg" type="_2VCS0PFnEeWeEMyAgNfpSg" association="_F96FIPFoEeWeEMyAgNfpSg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_pJykEPFoEeWeEMyAgNfpSg" name="User"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_rTFL0PFoEeWeEMyAgNfpSg" memberEnd="_rTFy4PFoEeWeEMyAgNfpSg _rTFy4fFoEeWeEMyAgNfpSg">
+    <ownedEnd xmi:id="_rTFy4PFoEeWeEMyAgNfpSg" type="_pJykEPFoEeWeEMyAgNfpSg" association="_rTFL0PFoEeWeEMyAgNfpSg"/>
+    <ownedEnd xmi:id="_rTFy4fFoEeWeEMyAgNfpSg" type="_5a2NMPFnEeWeEMyAgNfpSg" association="_rTFL0PFoEeWeEMyAgNfpSg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_yJDlIPFoEeWeEMyAgNfpSg" name="Patient"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_0u9QYPFoEeWeEMyAgNfpSg" name="View Records">
+    <include xmi:id="_xd0vcPFrEeWeEMyAgNfpSg" addition="_60MlwPFnEeWeEMyAgNfpSg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_1vzCUPFoEeWeEMyAgNfpSg" name="View Statistics">
+    <include xmi:id="_x9K94PFrEeWeEMyAgNfpSg" addition="_60MlwPFnEeWeEMyAgNfpSg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_3ZdHwPFoEeWeEMyAgNfpSg" memberEnd="_3ZdHwfFoEeWeEMyAgNfpSg _3ZdHwvFoEeWeEMyAgNfpSg">
+    <ownedEnd xmi:id="_3ZdHwfFoEeWeEMyAgNfpSg" type="_yJDlIPFoEeWeEMyAgNfpSg" association="_3ZdHwPFoEeWeEMyAgNfpSg"/>
+    <ownedEnd xmi:id="_3ZdHwvFoEeWeEMyAgNfpSg" type="_0u9QYPFoEeWeEMyAgNfpSg" association="_3ZdHwPFoEeWeEMyAgNfpSg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_4BR8wPFoEeWeEMyAgNfpSg" memberEnd="_4BSj0PFoEeWeEMyAgNfpSg _4BSj0fFoEeWeEMyAgNfpSg">
+    <ownedEnd xmi:id="_4BSj0PFoEeWeEMyAgNfpSg" type="_yJDlIPFoEeWeEMyAgNfpSg" association="_4BR8wPFoEeWeEMyAgNfpSg"/>
+    <ownedEnd xmi:id="_4BSj0fFoEeWeEMyAgNfpSg" type="_1vzCUPFoEeWeEMyAgNfpSg" association="_4BR8wPFoEeWeEMyAgNfpSg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_6CGlAPFoEeWeEMyAgNfpSg" name="Admin"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_8oIzIPFoEeWeEMyAgNfpSg" name="Add Staff">
+    <include xmi:id="_tIDCAPFrEeWeEMyAgNfpSg" addition="_60MlwPFnEeWeEMyAgNfpSg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_Aom-8PFpEeWeEMyAgNfpSg" name="Delete Staff">
+    <include xmi:id="_siqdAPFrEeWeEMyAgNfpSg" addition="_60MlwPFnEeWeEMyAgNfpSg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_CXZcAPFpEeWeEMyAgNfpSg" name="Manage Staff">
+    <include xmi:id="_r8Lr0PFrEeWeEMyAgNfpSg" addition="_60MlwPFnEeWeEMyAgNfpSg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_OdkuMPFqEeWeEMyAgNfpSg" memberEnd="_OdlVQPFqEeWeEMyAgNfpSg _OdlVQfFqEeWeEMyAgNfpSg">
+    <ownedEnd xmi:id="_OdlVQPFqEeWeEMyAgNfpSg" type="_6CGlAPFoEeWeEMyAgNfpSg" association="_OdkuMPFqEeWeEMyAgNfpSg"/>
+    <ownedEnd xmi:id="_OdlVQfFqEeWeEMyAgNfpSg" type="_CXZcAPFpEeWeEMyAgNfpSg" association="_OdkuMPFqEeWeEMyAgNfpSg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_O67YkPFqEeWeEMyAgNfpSg" memberEnd="_O67YkfFqEeWeEMyAgNfpSg _O67YkvFqEeWeEMyAgNfpSg">
+    <ownedEnd xmi:id="_O67YkfFqEeWeEMyAgNfpSg" type="_6CGlAPFoEeWeEMyAgNfpSg" association="_O67YkPFqEeWeEMyAgNfpSg"/>
+    <ownedEnd xmi:id="_O67YkvFqEeWeEMyAgNfpSg" type="_Aom-8PFpEeWeEMyAgNfpSg" association="_O67YkPFqEeWeEMyAgNfpSg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_PmzAEPFqEeWeEMyAgNfpSg" memberEnd="_PmzAEfFqEeWeEMyAgNfpSg _PmzAEvFqEeWeEMyAgNfpSg">
+    <ownedEnd xmi:id="_PmzAEfFqEeWeEMyAgNfpSg" type="_6CGlAPFoEeWeEMyAgNfpSg" association="_PmzAEPFqEeWeEMyAgNfpSg"/>
+    <ownedEnd xmi:id="_PmzAEvFqEeWeEMyAgNfpSg" type="_8oIzIPFoEeWeEMyAgNfpSg" association="_PmzAEPFqEeWeEMyAgNfpSg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_B9nisPFsEeWeEMyAgNfpSg" name="Import Data">
+    <include xmi:id="_J0SkAPFsEeWeEMyAgNfpSg" addition="_60MlwPFnEeWeEMyAgNfpSg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_Ipgy8PFsEeWeEMyAgNfpSg" memberEnd="_Ipgy8fFsEeWeEMyAgNfpSg _IphaAPFsEeWeEMyAgNfpSg">
+    <ownedEnd xmi:id="_Ipgy8fFsEeWeEMyAgNfpSg" type="_6CGlAPFoEeWeEMyAgNfpSg" association="_Ipgy8PFsEeWeEMyAgNfpSg"/>
+    <ownedEnd xmi:id="_IphaAPFsEeWeEMyAgNfpSg" type="_B9nisPFsEeWeEMyAgNfpSg" association="_Ipgy8PFsEeWeEMyAgNfpSg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_oFeDgPFsEeWeEMyAgNfpSg" name="Assign Staff">
+    <include xmi:id="_udhxwPFsEeWeEMyAgNfpSg" addition="_60MlwPFnEeWeEMyAgNfpSg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_KaqLAPFtEeWeEMyAgNfpSg" memberEnd="_KaqLAfFtEeWeEMyAgNfpSg _KaqLAvFtEeWeEMyAgNfpSg">
+    <ownedEnd xmi:id="_KaqLAfFtEeWeEMyAgNfpSg" type="_6CGlAPFoEeWeEMyAgNfpSg" association="_KaqLAPFtEeWeEMyAgNfpSg"/>
+    <ownedEnd xmi:id="_KaqLAvFtEeWeEMyAgNfpSg" type="_oFeDgPFsEeWeEMyAgNfpSg" association="_KaqLAPFtEeWeEMyAgNfpSg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_Nb8KsPFtEeWeEMyAgNfpSg" name="CVN"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_ORCmsPFtEeWeEMyAgNfpSg" name="Notify User"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_P52XkPFtEeWeEMyAgNfpSg" name="Update Database"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_TpggMPFtEeWeEMyAgNfpSg" memberEnd="_TphHQPFtEeWeEMyAgNfpSg _TphHQfFtEeWeEMyAgNfpSg">
+    <ownedEnd xmi:id="_TphHQPFtEeWeEMyAgNfpSg" type="_Nb8KsPFtEeWeEMyAgNfpSg" association="_TpggMPFtEeWeEMyAgNfpSg"/>
+    <ownedEnd xmi:id="_TphHQfFtEeWeEMyAgNfpSg" type="_ORCmsPFtEeWeEMyAgNfpSg" association="_TpggMPFtEeWeEMyAgNfpSg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_UM79YPFtEeWeEMyAgNfpSg" memberEnd="_UM79YfFtEeWeEMyAgNfpSg _UM8kcPFtEeWeEMyAgNfpSg">
+    <ownedEnd xmi:id="_UM79YfFtEeWeEMyAgNfpSg" type="_Nb8KsPFtEeWeEMyAgNfpSg" association="_UM79YPFtEeWeEMyAgNfpSg"/>
+    <ownedEnd xmi:id="_UM8kcPFtEeWeEMyAgNfpSg" type="_P52XkPFtEeWeEMyAgNfpSg" association="_UM79YPFtEeWeEMyAgNfpSg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_lMG0QPFtEeWeEMyAgNfpSg" name="Perform Analysis"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_ptyPsPFtEeWeEMyAgNfpSg" memberEnd="_ptyPsfFtEeWeEMyAgNfpSg _ptyPsvFtEeWeEMyAgNfpSg">
+    <ownedEnd xmi:id="_ptyPsfFtEeWeEMyAgNfpSg" type="_Nb8KsPFtEeWeEMyAgNfpSg" association="_ptyPsPFtEeWeEMyAgNfpSg"/>
+    <ownedEnd xmi:id="_ptyPsvFtEeWeEMyAgNfpSg" type="_lMG0QPFtEeWeEMyAgNfpSg" association="_ptyPsPFtEeWeEMyAgNfpSg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_JfwXEPFvEeWeEMyAgNfpSg" name="Analyse Patient">
+    <include xmi:id="_MUGG8PFvEeWeEMyAgNfpSg" addition="_60MlwPFnEeWeEMyAgNfpSg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_Lflg0PFvEeWeEMyAgNfpSg" memberEnd="_Lflg0fFvEeWeEMyAgNfpSg _LfmH4PFvEeWeEMyAgNfpSg">
+    <ownedEnd xmi:id="_Lflg0fFvEeWeEMyAgNfpSg" type="_2VCS0PFnEeWeEMyAgNfpSg" association="_Lflg0PFvEeWeEMyAgNfpSg"/>
+    <ownedEnd xmi:id="_LfmH4PFvEeWeEMyAgNfpSg" type="_JfwXEPFvEeWeEMyAgNfpSg" association="_Lflg0PFvEeWeEMyAgNfpSg"/>
+  </packagedElement>
+</uml:Model>
