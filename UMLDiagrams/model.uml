@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_rMcxoPFjEeWeEMyAgNfpSg" name="NewModel">
   <packagedElement xmi:type="uml:Actor" xmi:id="_2VCS0PFnEeWeEMyAgNfpSg" name="Medical Staff"/>
-  <packagedElement xmi:type="uml:UseCase" xmi:id="_5a2NMPFnEeWeEMyAgNfpSg" name="Sign In"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_5a2NMPFnEeWeEMyAgNfpSg" name="Sign In">
+    <extend xmi:id="_u6j3UPIBEeWK6Nk0M-LRTQ" extendedCase="_tasAAPIBEeWK6Nk0M-LRTQ"/>
+    <include xmi:id="_OFFPEPIBEeWK6Nk0M-LRTQ" addition="_60MlwPFnEeWeEMyAgNfpSg"/>
+  </packagedElement>
   <packagedElement xmi:type="uml:UseCase" xmi:id="_6Fqr0PFnEeWeEMyAgNfpSg" name="Add Patient Info">
     <include xmi:id="_Hm5KQPFqEeWeEMyAgNfpSg" addition="_60MlwPFnEeWeEMyAgNfpSg"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:UseCase" xmi:id="_60MlwPFnEeWeEMyAgNfpSg" name="Authenticate Credentials"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_60MlwPFnEeWeEMyAgNfpSg" name="Authenticate Credentials">
+    <extend xmi:id="_o7U4wPIBEeWK6Nk0M-LRTQ" extendedCase="_nyFYwPIBEeWK6Nk0M-LRTQ"/>
+  </packagedElement>
   <packagedElement xmi:type="uml:UseCase" xmi:id="_8WWVAPFnEeWeEMyAgNfpSg" name="Edit Patient Info">
     <include xmi:id="_G-u-EPFqEeWeEMyAgNfpSg" addition="_60MlwPFnEeWeEMyAgNfpSg"/>
   </packagedElement>
@@ -31,7 +36,9 @@
     <ownedEnd xmi:id="_F96sMPFoEeWeEMyAgNfpSg" type="__Ra_APFnEeWeEMyAgNfpSg" association="_F96FIPFoEeWeEMyAgNfpSg"/>
     <ownedEnd xmi:id="_F96sMfFoEeWeEMyAgNfpSg" type="_2VCS0PFnEeWeEMyAgNfpSg" association="_F96FIPFoEeWeEMyAgNfpSg"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Actor" xmi:id="_pJykEPFoEeWeEMyAgNfpSg" name="User"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_pJykEPFoEeWeEMyAgNfpSg" name="User">
+    <eAnnotations xmi:id="_M0BFQPIAEeWK6Nk0M-LRTQ"/>
+  </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_rTFL0PFoEeWeEMyAgNfpSg" memberEnd="_rTFy4PFoEeWeEMyAgNfpSg _rTFy4fFoEeWeEMyAgNfpSg">
     <ownedEnd xmi:id="_rTFy4PFoEeWeEMyAgNfpSg" type="_pJykEPFoEeWeEMyAgNfpSg" association="_rTFL0PFoEeWeEMyAgNfpSg"/>
     <ownedEnd xmi:id="_rTFy4fFoEeWeEMyAgNfpSg" type="_5a2NMPFnEeWeEMyAgNfpSg" association="_rTFL0PFoEeWeEMyAgNfpSg"/>
@@ -110,4 +117,43 @@
     <ownedEnd xmi:id="_Lflg0fFvEeWeEMyAgNfpSg" type="_2VCS0PFnEeWeEMyAgNfpSg" association="_Lflg0PFvEeWeEMyAgNfpSg"/>
     <ownedEnd xmi:id="_LfmH4PFvEeWeEMyAgNfpSg" type="_JfwXEPFvEeWeEMyAgNfpSg" association="_Lflg0PFvEeWeEMyAgNfpSg"/>
   </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_la7JkPIAEeWK6Nk0M-LRTQ" memberEnd="_lbApIPIAEeWK6Nk0M-LRTQ _lbBQMPIAEeWK6Nk0M-LRTQ">
+    <ownedEnd xmi:id="_lbApIPIAEeWK6Nk0M-LRTQ" type="_6CGlAPFoEeWeEMyAgNfpSg" association="_la7JkPIAEeWK6Nk0M-LRTQ"/>
+    <ownedEnd xmi:id="_lbBQMPIAEeWK6Nk0M-LRTQ" type="_JfwXEPFvEeWeEMyAgNfpSg" association="_la7JkPIAEeWK6Nk0M-LRTQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_l8MDkPIAEeWK6Nk0M-LRTQ" memberEnd="_l8MDkfIAEeWK6Nk0M-LRTQ _l8MqoPIAEeWK6Nk0M-LRTQ">
+    <ownedEnd xmi:id="_l8MDkfIAEeWK6Nk0M-LRTQ" type="_6CGlAPFoEeWeEMyAgNfpSg" association="_l8MDkPIAEeWK6Nk0M-LRTQ"/>
+    <ownedEnd xmi:id="_l8MqoPIAEeWK6Nk0M-LRTQ" type="__Ra_APFnEeWeEMyAgNfpSg" association="_l8MDkPIAEeWK6Nk0M-LRTQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_mbZvIPIAEeWK6Nk0M-LRTQ" memberEnd="_mbaWMPIAEeWK6Nk0M-LRTQ _mbaWMfIAEeWK6Nk0M-LRTQ">
+    <ownedEnd xmi:id="_mbaWMPIAEeWK6Nk0M-LRTQ" type="_6CGlAPFoEeWeEMyAgNfpSg" association="_mbZvIPIAEeWK6Nk0M-LRTQ"/>
+    <ownedEnd xmi:id="_mbaWMfIAEeWK6Nk0M-LRTQ" type="_6Fqr0PFnEeWeEMyAgNfpSg" association="_mbZvIPIAEeWK6Nk0M-LRTQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_nC8QQPIAEeWK6Nk0M-LRTQ" memberEnd="_nC8QQfIAEeWK6Nk0M-LRTQ _nC8QQvIAEeWK6Nk0M-LRTQ">
+    <ownedEnd xmi:id="_nC8QQfIAEeWK6Nk0M-LRTQ" type="_6CGlAPFoEeWeEMyAgNfpSg" association="_nC8QQPIAEeWK6Nk0M-LRTQ"/>
+    <ownedEnd xmi:id="_nC8QQvIAEeWK6Nk0M-LRTQ" type="_-gZxwPFnEeWeEMyAgNfpSg" association="_nC8QQPIAEeWK6Nk0M-LRTQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_nt1AUPIAEeWK6Nk0M-LRTQ" memberEnd="_nt1AUfIAEeWK6Nk0M-LRTQ _nt1nYPIAEeWK6Nk0M-LRTQ">
+    <ownedEnd xmi:id="_nt1AUfIAEeWK6Nk0M-LRTQ" type="_6CGlAPFoEeWeEMyAgNfpSg" association="_nt1AUPIAEeWK6Nk0M-LRTQ"/>
+    <ownedEnd xmi:id="_nt1nYPIAEeWK6Nk0M-LRTQ" type="_8WWVAPFnEeWeEMyAgNfpSg" association="_nt1AUPIAEeWK6Nk0M-LRTQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_0MF30PIAEeWK6Nk0M-LRTQ" memberEnd="_0MGe4PIAEeWK6Nk0M-LRTQ _0MGe4fIAEeWK6Nk0M-LRTQ">
+    <ownedEnd xmi:id="_0MGe4PIAEeWK6Nk0M-LRTQ" type="_6CGlAPFoEeWeEMyAgNfpSg" association="_0MF30PIAEeWK6Nk0M-LRTQ"/>
+    <ownedEnd xmi:id="_0MGe4fIAEeWK6Nk0M-LRTQ" type="_0u9QYPFoEeWeEMyAgNfpSg" association="_0MF30PIAEeWK6Nk0M-LRTQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_02T5gPIAEeWK6Nk0M-LRTQ" memberEnd="_02T5gfIAEeWK6Nk0M-LRTQ _02UgkPIAEeWK6Nk0M-LRTQ">
+    <ownedEnd xmi:id="_02T5gfIAEeWK6Nk0M-LRTQ" type="_6CGlAPFoEeWeEMyAgNfpSg" association="_02T5gPIAEeWK6Nk0M-LRTQ"/>
+    <ownedEnd xmi:id="_02UgkPIAEeWK6Nk0M-LRTQ" type="_1vzCUPFoEeWeEMyAgNfpSg" association="_02T5gPIAEeWK6Nk0M-LRTQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_DGyVgPIBEeWK6Nk0M-LRTQ" memberEnd="_DGyVgfIBEeWK6Nk0M-LRTQ _DGy8kPIBEeWK6Nk0M-LRTQ">
+    <ownedEnd xmi:id="_DGyVgfIBEeWK6Nk0M-LRTQ" type="_2VCS0PFnEeWeEMyAgNfpSg" association="_DGyVgPIBEeWK6Nk0M-LRTQ"/>
+    <ownedEnd xmi:id="_DGy8kPIBEeWK6Nk0M-LRTQ" type="_0u9QYPFoEeWeEMyAgNfpSg" association="_DGyVgPIBEeWK6Nk0M-LRTQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_Dw30UPIBEeWK6Nk0M-LRTQ" memberEnd="_Dw4bYPIBEeWK6Nk0M-LRTQ _Dw4bYfIBEeWK6Nk0M-LRTQ">
+    <ownedEnd xmi:id="_Dw4bYPIBEeWK6Nk0M-LRTQ" type="_2VCS0PFnEeWeEMyAgNfpSg" association="_Dw30UPIBEeWK6Nk0M-LRTQ"/>
+    <ownedEnd xmi:id="_Dw4bYfIBEeWK6Nk0M-LRTQ" type="_1vzCUPFoEeWeEMyAgNfpSg" association="_Dw30UPIBEeWK6Nk0M-LRTQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_S9xcUPIBEeWK6Nk0M-LRTQ" name="Cancel"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_nyFYwPIBEeWK6Nk0M-LRTQ" name="Unauthorized User"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_tasAAPIBEeWK6Nk0M-LRTQ" name="Invalid Credentials"/>
 </uml:Model>
