@@ -1,5 +1,7 @@
 package dhmc.view;
 
+import dhmc.Main;
+
 public class MyScheduleController {
 
 	private Main mainApp;

@@ -1,6 +1,6 @@
 package dhmc.view;
 
-import application.Main;
+import dhmc.Main;
 
 public class PatientDashController {
 	private Main mainApp;

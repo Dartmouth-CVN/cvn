@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 public class Main extends Application {
@@ -39,6 +40,19 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 
 			primaryStage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void showPatientDash() {
+		try {
+			// Load root layout from fxml file.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/PatientDash.fxml"));
+			AnchorPane patientDash = (AnchorPane) loader.load();
+
+			rootLayout.setCenter(patientDash);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
