@@ -14,8 +14,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.65">
+<AnchorPane prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <SplitPane dividerPositions="0.2792642140468227" layoutX="126.0" layoutY="112.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -49,7 +48,12 @@
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <children>
                               <TextField layoutY="5.0" maxWidth="40.0" prefHeight="27.0" prefWidth="40.0" />
-                              <Label layoutX="47.0" layoutY="10.0" prefHeight="17.0" prefWidth="14.0" text=":" />
+                              <Label layoutX="42.0" layoutY="9.0" prefHeight="17.0" prefWidth="7.0" text=":" />
+                              <TextField layoutX="47.0" layoutY="5.0" maxWidth="40.0" prefHeight="27.0" prefWidth="40.0" />
+                              <Label layoutX="100.0" layoutY="10.0" text="to" />
+                              <TextField layoutX="131.0" layoutY="4.0" maxWidth="40.0" prefHeight="27.0" prefWidth="40.0" />
+                              <TextField layoutX="178.0" layoutY="4.0" maxWidth="40.0" prefHeight="27.0" prefWidth="40.0" />
+                              <Label layoutX="173.0" layoutY="9.0" prefHeight="17.0" prefWidth="7.0" text=":" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -58,7 +62,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <TableView layoutX="-1.0" layoutY="45.0" prefHeight="314.0" prefWidth="498.0">
+                  <TableView layoutX="-1.0" layoutY="45.0" prefHeight="319.0" prefWidth="498.0">
                     <columns>
                       <TableColumn prefWidth="75.0" text="Time" />
                       <TableColumn prefWidth="75.0" text="Title" />
@@ -66,7 +70,7 @@
                     </columns>
                   </TableView>
                   <Button layoutX="208.0" layoutY="374.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="82.0" text="Done" />
-                  <Label layoutX="22.0" layoutY="6.0" text="Results:" />
+                  <Label layoutX="22.0" layoutY="9.0" text="Results:" />
                </children>
             </AnchorPane>
         </items>
