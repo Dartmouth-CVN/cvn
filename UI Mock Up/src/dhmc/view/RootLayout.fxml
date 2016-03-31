@@ -11,16 +11,16 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleNew" text="New" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleOpen" text="Open..." />
-                  <MenuItem mnemonicParsing="false" onAction="#handleSave" text="Save" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleSaveAs" text="Save As..." />
-              <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+                  <MenuItem mnemonicParsing="false" text="New" />
+                  <MenuItem mnemonicParsing="false" text="Open..." />
+                  <MenuItem mnemonicParsing="false" text="Save" />
+                  <MenuItem mnemonicParsing="false" text="Save As..." />
+              <MenuItem mnemonicParsing="false" text="Exit" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Statistics">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleShowBirthdayStatistics" text="Show Statistics" />
+                  <MenuItem mnemonicParsing="false" text="Show Statistics" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
