@@ -32,10 +32,10 @@
                                   <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label prefHeight="31.0" prefWidth="172.0" text="Doctor" textAlignment="CENTER" />
-                                    <Label prefHeight="31.0" prefWidth="171.0" text="Nurse" textAlignment="CENTER" GridPane.rowIndex="1" />
-                                    <Label prefHeight="31.0" prefWidth="146.0" text="Room#" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <Label prefHeight="31.0" prefWidth="145.0" text="Phone" textAlignment="CENTER" GridPane.columnIndex="1" />
+                                    <Label prefHeight="31.0" prefWidth="172.0" text="Title" textAlignment="CENTER" />
+                                    <Label prefHeight="31.0" prefWidth="171.0" text="Email" textAlignment="CENTER" GridPane.rowIndex="1" />
+                                    <Label prefHeight="31.0" prefWidth="146.0" text="Phone" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Label prefHeight="31.0" prefWidth="145.0" text="Office" textAlignment="CENTER" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane layoutX="14.0" layoutY="23.0" prefHeight="119.0" prefWidth="129.0">
@@ -73,21 +73,15 @@
                                       </rowConstraints>
                                        <children>
                                           <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                                          <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../../../../../../Documents/CS3733/random_images/preferences_icon.png" />
-                                             </image></ImageView>
+                                          <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                                           <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                             <image>
-                                                <Image url="@../../../../../../Documents/CS3733/random_images/stats_icon.png" />
-                                             </image></ImageView>
-                                          <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                                              <image>
                                                 <Image url="@../../../../../../Documents/CS3733/random_images/Magnifying_glass_icon.png" />
                                              </image></ImageView>
+                                          <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                                           <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                                              <image>
-                                                <Image url="@../../../../../../Documents/CS3733/random_images/nurse_icon.png" />
+                                                <Image url="@../../../../../../Documents/CS3733/random_images/MyPatient_icon.png" />
                                              </image>
                                           </ImageView>
                                           <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER">
@@ -110,17 +104,7 @@
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
             </content>
           </Tab>
-            <Tab text="MyStaff">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-               </content>
-            </Tab>
-            <Tab text="Stats">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-               </content>
-            </Tab>
-            <Tab text="Preferences">
+            <Tab text="MyPatients">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
