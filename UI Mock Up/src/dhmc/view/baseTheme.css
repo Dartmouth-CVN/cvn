@@ -20,3 +20,9 @@
 .table-view .column-header {
     -fx-background-color: transparent;
 }
+
+.rounded-icon{
+	-fx-border-width: 20px;
+	-fx-border-color: black;
+	-fx-background-radius: 30;
+}
