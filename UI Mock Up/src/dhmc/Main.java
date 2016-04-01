@@ -2,6 +2,8 @@ package dhmc;
 
 import java.io.IOException;
 
+import dhmc.view.LoginController;
+import dhmc.view.PatientDashController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -20,8 +22,10 @@ public class Main extends Application {
 		this.primaryStage.setTitle("DHMC - Health App 3.0");
 
 		initRootLayout();
-		
-		showPatientDash();
+
+		showLogin();
+
+		// showPatientDash();
 	}
 
 	public static void main(String[] args) {
@@ -44,7 +48,26 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public void showLogin() {
+		try {
+			// Load root layout from fxml file.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/Login.fxml"));
+			AnchorPane login = (AnchorPane) loader.load();
+			
+			primaryStage.setScene(new Scene(login));
+
+			LoginController controller = loader.getController();
+			controller.setMainApp(this);
+
+//			primaryStage.setWidth(400);
+//			primaryStage.setHeight(300);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public void showPatientDash() {
 		try {
 			// Load root layout from fxml file.
@@ -53,13 +76,29 @@ public class Main extends Application {
 			AnchorPane patientDash = (AnchorPane) loader.load();
 
 			rootLayout.setCenter(patientDash);
+
+			PatientDashController controller = loader.getController();
+			controller.setMainApp(this);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 	
-	public Stage getPrimaryStage(){
+	public void showMySchedule(){
+		
+	}
+
+	public Stage getPrimaryStage() {
 		return primaryStage;
+	}
+	
+	public void setVerticalDimensions(){
+		primaryStage.setWidth(600);
+		primaryStage.setHeight(700);
+	}
+
+	public void setHorizontalDimensions() {
+		primaryStage.setWidth(800);
+		primaryStage.setHeight(600);
 	}
 }

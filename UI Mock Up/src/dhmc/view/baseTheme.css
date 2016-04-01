@@ -1,28 +1,5 @@
-.table-view{
-   -fx-background-color: transparent;
-}
+@import url(https://fonts.googleapis.com/css?family=Josefin+Sans);
 
-.table-view .column-header-background{
-    -fx-background-color: transparent;
-}
-
-.table-view .column-header, .table-view .filler {
-    -fx-border-width: 0 0 1 0;
-    -fx-background-color: black;
-    -fx-border-color: 
-        transparent
-        1
-        derive(-fx-base, 80%) 
-        transparent;
-   /* -fx-border-insets: 0 10 1 0; */
-}
-
-.table-view .column-header {
-    -fx-background-color: transparent;
-}
-
-.rounded-icon{
-	-fx-border-width: 20px;
-	-fx-border-color: black;
-	-fx-background-radius: 30;
+.root{
+    -fx-font-family: "Josefin Sans";
 }
