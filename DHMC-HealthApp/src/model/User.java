@@ -1,0 +1,71 @@
+package model;
+
+abstract class User {
+	private String firstName;
+	private String lastName;
+	private String userid;
+	private String username;
+	private String password;
+	private Contact contactInfo;
+	
+	public User(String firstName, String lastName, String userid, String username, String password, int id) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userid = userid;
+		this.username = username;
+		this.password = password;
+		this.contactInfo = new Contact(id);
+	}
+	
+	public String getFirstName() {
+		return this.firstName;
+	}
+	
+	public String getLastName() {
+		return this.lastName;
+	}
+	
+	public String getUserid() {
+		return this.userid;
+	}
+	
+	public String getUsername() {
+		return this.username;
+	}
+	
+	public String getPassword() {
+		return this.password;
+	}
+	
+	public Contact getContactInfo() {
+		return this.contactInfo;
+	}
+	
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+	
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	public void login() {
+		
+	}
+	
+	public void update() {
+		
+	}
+}
