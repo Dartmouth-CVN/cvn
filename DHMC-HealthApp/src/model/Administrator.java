@@ -26,7 +26,6 @@ class Administrator extends User {
 	public int assignMedicalStaff(Patient patient, MedicalStaff staff) {
 		patient.addMedicalStaff(staff);
 		staff.addPatient(patient);
-		staff.assignedPatients.
 		return 1; //after saving to database 
 	}
 	
