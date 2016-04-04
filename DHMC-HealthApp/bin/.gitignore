@@ -1,2 +1,4 @@
-/.project
-/src/
+/controller/
+/dhmc/
+/model/
+/view/
