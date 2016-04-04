@@ -1,5 +1,7 @@
 package model;
 
+import java.io.File;
+
 class Administrator extends User {
 
 	public Administrator(String firstName, String lastName, String userid, String username, String password, int id) {

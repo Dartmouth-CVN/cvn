@@ -7,6 +7,8 @@ abstract class User {
 	private String username;
 	private String password;
 	private Contact contactInfo;
+	// private Location room;
+	// private Schedule schedule;
 	
 	public User(String firstName, String lastName, String userid, String username, String password, int id) {
 		this.firstName = firstName;
@@ -15,6 +17,8 @@ abstract class User {
 		this.username = username;
 		this.password = password;
 		this.contactInfo = new Contact(id);
+		// this.schedule = new Schedule();
+		// TODO: Determine value of room when patient is not in the hospital
 	}
 	
 	public String getFirstName() {
@@ -60,12 +64,25 @@ abstract class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	/*
+	public Location getRoom() {
+		return this.room;
+	}
 	
+	public void setRoom(Location room) {
+		this.room = room;
+	}
+	
+	public Schedule getSchedule() {
+		return this.schedule;
+	}
+	*/
 	public void login() {
-		
+		// Database access
 	}
 	
 	public void update() {
-		
+		// Database access
 	}
+
 }
