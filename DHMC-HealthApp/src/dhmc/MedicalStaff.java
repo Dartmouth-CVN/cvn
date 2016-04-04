@@ -1,4 +1,4 @@
-package model;
+package dhmc;
 import java.util.LinkedList;
 
 class MedicalStaff extends User {

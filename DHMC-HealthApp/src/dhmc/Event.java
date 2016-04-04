@@ -1,4 +1,4 @@
-package model;
+package dhmc;
 import java.time.LocalDateTime;
 
 class Event {

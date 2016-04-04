@@ -1,4 +1,4 @@
-package model;
+package dhmc;
 
 class Location {
 	private int id;

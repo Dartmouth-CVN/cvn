@@ -1,4 +1,4 @@
-package model;
+package dhmc;
 import java.util.LinkedList;
 import java.time.LocalDateTime;
 

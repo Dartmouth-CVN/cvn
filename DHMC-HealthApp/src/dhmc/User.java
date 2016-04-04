@@ -1,4 +1,4 @@
-package model;
+package dhmc;
 
 abstract class User {
 	private String firstName;
