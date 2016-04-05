@@ -4,11 +4,20 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+//import org.apache.derby.jdbc.EmbeddedDriver;
 import java.sql.SQLException;
 
 public class DatabaseHandler {
+	
+	public static void main(String[] args ){
+		new DatabaseHandler();
+	}
 
-	private static Connection conn1 = null;
+	private static Connection connection;
+	
+	public DatabaseHandler(){
+		connect();
+	}
 	
 	/**
 	 * Connect the application to the database for storage or retrieval.
@@ -16,12 +25,11 @@ public class DatabaseHandler {
 	 * @return
 	 */
 	public boolean connect(){
-
 		try {
 			// connect method - embedded driver
-			String dbURL1 = "jdbc:derby:C:/Users/Matt/MyDB;create=true";
-			conn1 = DriverManager.getConnection(dbURL1);
-			if (conn1 != null) {
+			String url = "jdbc:derby:db;create=true";
+			connection = DriverManager.getConnection(url);
+			if (connection != null) {
 				System.out.println("Connected to database #1");
 			}
 		} catch (SQLException ex) {
@@ -30,16 +38,12 @@ public class DatabaseHandler {
 			return false;
 		}return true;
 	}
-	
 	/**
 	 *  Create initial tables for application to query from when first started.
 	 * 
 	 * @return
 	 */
-	public boolean createTables(){
-		
-	
-	}
+	//public boolean createTables();
 	
 	
 	/**
@@ -53,7 +57,7 @@ public class DatabaseHandler {
 		boolean found = false;
 		this.connect();
 		try {
-			PreparedStatement pstmt = conn1.prepareStatement("select username, password from app.posts where username = '" + username + "' and password = '" + password + "'");
+			PreparedStatement pstmt = connection.prepareStatement("select username, password from app.posts where username = '" + username + "' and password = '" + password + "'");
 			ResultSet rset = pstmt.executeQuery();	 
 			// Process the results
 			if (rset != null){
@@ -76,7 +80,7 @@ public class DatabaseHandler {
 		
 		this.connect();
 		try {
-			PreparedStatement pstmt = conn1.prepareStatement("insert into....");
+			PreparedStatement pstmt = connection.prepareStatement("insert into....");
 			ResultSet rset = pstmt.executeQuery();	
 			rset.close();
 			pstmt.close();
