@@ -10,6 +10,8 @@ class Patient extends User {
 	public Patient(String firstName, String lastName, String userid, String username, int id) {
 		super(firstName, lastName, userid, username, id);
 		this.assignedStaff = new LinkedList<MedicalStaff>();
+		this.preferences = new PatientProfile();
+		this.medication = new LinkedList<Medication>();
 	}
 	
 	public LinkedList<MedicalStaff> getAssignedStaff() {

@@ -4,8 +4,8 @@ import java.io.File;
 
 class Administrator extends User {
 
-	public Administrator(String firstName, String lastName, String userid, String username, String password, int id) {
-		super(firstName, lastName, userid, username, password, id);
+	public Administrator(String firstName, String lastName, String userid, String username, int id) {
+		super(firstName, lastName, userid, username, id);
 	}
 	
 	public int importData(File inFile) {

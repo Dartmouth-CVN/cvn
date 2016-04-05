@@ -6,8 +6,8 @@ class MedicalStaff extends User {
 	protected LinkedList<Patient> assignedPatients;
 	
 	
-	public MedicalStaff(String firstName, String lastName, String userid, String username, String password, int id) {
-		super(firstName, lastName, userid, username, password, id);
+	public MedicalStaff(String firstName, String lastName, String userid, String username, int id) {
+		super(firstName, lastName, userid, username, id);
 	}
 	
 	public int addPatient (Patient patient) {
