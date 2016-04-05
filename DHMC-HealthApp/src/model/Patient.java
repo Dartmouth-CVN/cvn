@@ -4,12 +4,11 @@ import java.util.LinkedList;
 class Patient extends User {
 	// private LinkedList<Caregiver> caregivers;
 	protected LinkedList<MedicalStaff> assignedStaff;
-	// private PatientProfile preferences;
-	// private LinkedList<Medication> medication;
-	// HealthProfile is going to be changed to an attribute of PatientProfile
+	private PatientProfile preferences;
+	private LinkedList<Medication> medication;
 
-	public Patient(String firstName, String lastName, String userid, String username, String password, int id) {
-		super(firstName, lastName, userid, username, password, id);
+	public Patient(String firstName, String lastName, String userid, String username, int id) {
+		super(firstName, lastName, userid, username, id);
 		this.assignedStaff = new LinkedList<MedicalStaff>();
 	}
 	
@@ -32,7 +31,7 @@ class Patient extends User {
 	public LinkedList<Caregiver> getCaregivers() {
 		return this.caregivers;
 	}
-	 
+	
 	public void addCaregiver(Caregiver caregiver) {
 		if (this.caregivers.indexOf(caregiver) < 0) {
 			this.caregivers.add(caregiver);
@@ -44,7 +43,7 @@ class Patient extends User {
 			this.caregivers.remove(caregiver);
 		}
 	}
-	
+	*/
 	public LinkedList<Medication> getMedication() {
 		return this.medication;
 	}
@@ -64,5 +63,5 @@ class Patient extends User {
 	public PatientProfile getPreferences() {
 		return this.preferences;
 	}
-	*/
+	
 }
