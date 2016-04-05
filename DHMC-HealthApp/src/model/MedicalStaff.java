@@ -5,6 +5,7 @@ class MedicalStaff extends User {
 	
 	protected LinkedList<Patient> assignedPatients;
 	
+	
 	public MedicalStaff(String firstName, String lastName, String userid, String username, String password, int id) {
 		super(firstName, lastName, userid, username, password, id);
 	}
@@ -47,5 +48,9 @@ class MedicalStaff extends User {
 			System.out.println("The patient requested doesn't seem to exist");
 			return 0;
 		}
+	}
+	
+	public int perscribe(Patient patient, Medication medication) {
+		return 0;
 	}
 }
