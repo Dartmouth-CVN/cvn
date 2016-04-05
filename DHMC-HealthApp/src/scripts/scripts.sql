@@ -1,1 +1,3 @@
-CREATE TABLE login(id INTEGER, username VARCHAR(20), password VARCHAR(200));
+CREATE TABLE healthapp.login(id int AUTO_INCREMENT, username VARCHAR(20), password VARCHAR(200));
+
+/*drop TABLE healthapp.LOGIN;*/

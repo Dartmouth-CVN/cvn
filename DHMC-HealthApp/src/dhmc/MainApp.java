@@ -33,7 +33,6 @@ public class MainApp extends Application {
 	public DatabaseHandler getDatabseHandler(){
 		return dbHandler;
 	}
-	
 
 	public void initRootLayout() {
 		try {

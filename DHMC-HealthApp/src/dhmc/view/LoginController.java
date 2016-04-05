@@ -30,7 +30,5 @@ public class LoginController {
 		String uname = username.getText();
 		String pass = password.getText();
 		
-		
-		
 	}
 }
