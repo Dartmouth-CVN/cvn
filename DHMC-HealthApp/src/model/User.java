@@ -5,17 +5,15 @@ abstract class User {
 	private String lastName;
 	private String userid;
 	private String username;
-	private String password;
 	private Contact contactInfo;
 	private Schedule schedule;
 	private Location room;
 	
-	public User(String firstName, String lastName, String userid, String username, String password, int id) {
+	public User(String firstName, String lastName, String userid, String username, int id) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userid = userid;
 		this.username = username;
-		this.password = password;
 		this.contactInfo = new Contact(id);
 		this.schedule = new Schedule(id);
 		this.room = null;
@@ -35,10 +33,6 @@ abstract class User {
 	
 	public String getUsername() {
 		return this.username;
-	}
-	
-	public String getPassword() {
-		return this.password;
 	}
 	
 	public Contact getContactInfo() {
@@ -61,10 +55,6 @@ abstract class User {
 		this.username = username;
 	}
 	
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
 	public Location getRoom() {
 		return this.room;
 	}
@@ -75,14 +65,6 @@ abstract class User {
 	
 	public Schedule getSchedule() {
 		return this.schedule;
-	}
-
-	public void login() {
-		// Database access
-	}
-	
-	public void update() {
-		// Database access
 	}
 
 }
