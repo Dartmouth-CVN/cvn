@@ -1,7 +1,7 @@
 ----------------------------------------------------------------
-Wed Apr 06 11:00:59 EDT 2016:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): instance a816c00e-0153-ec17-3e3e-0000064285b8 
-on database directory /Users/mrampiah/Documents/workspace/git/cvn/DHMC-HealthApp/db with class loader sun.misc.Launcher$AppClassLoader@1b6d3586 
+Wed Apr 06 14:30:34 EDT 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): instance a816c00e-0153-ecd7-1f2f-0000063b16e8 
+on database directory /Users/mrampiah/Documents/workspace/git/cvn/DHMC-HealthApp/healthapp2DB with class loader sun.misc.Launcher$AppClassLoader@1b6d3586 
 Loaded from file:/Library/Java/JavaVirtualMachines/jdk1.8.0_65.jdk/Contents/Home/db/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_65-b17

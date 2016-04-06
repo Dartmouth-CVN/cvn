@@ -30,10 +30,11 @@ public class LoginController {
 		String uname = username.getText();
 		String pass = password.getText();
 		
-		boolean login = mainApp.getDatabseHandler().login(uname, pass);
+		String user = mainApp.getDatabseHandler().login(uname, pass);
 		
-		if(login == true)
-			System.out.println("login success");
+		if(user != null){
+			
+		}
 		else
 			System.out.println("login failure");
 	}
