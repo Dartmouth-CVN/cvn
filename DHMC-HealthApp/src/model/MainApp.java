@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import view.AdminDashController;
 import view.LoginController;
 
 public class MainApp extends Application {
@@ -25,8 +26,8 @@ public class MainApp extends Application {
 
 		initRootLayout();
 
-		//showLogin();
-		showAdminDash();
+		showLogin();
+//		showAdminDash();
 	}
 
 	public static void main(String[] args) {
@@ -77,7 +78,7 @@ public class MainApp extends Application {
         try {
             // Load admin overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/AdminDash.fxml"));
+            loader.setLocation(MainApp.class.getResource("../view/AdminDash.fxml"));
             AnchorPane adminDash = (AnchorPane) loader.load();
 
             // Set person overview into the center of root layout.

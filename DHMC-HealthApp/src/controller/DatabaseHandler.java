@@ -33,7 +33,7 @@ public class DatabaseHandler {
 //				createTables();
 //				insertUser();
 //				insertLoginUser();
-				getLoginUsers();
+//				getLoginUsers();
 				
 			}
 		} catch (SQLException ex) {

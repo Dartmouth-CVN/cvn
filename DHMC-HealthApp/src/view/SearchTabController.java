@@ -1,14 +1,10 @@
-package dhmc.view;
+package view;
 
 import java.awt.TextField;
-import dhmc.Main;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.image.ImageView;
+import model.MainApp;
 
 public class SearchTabController {
 	
@@ -23,7 +19,7 @@ public class SearchTabController {
 	private TextField searchField;
 
     // Reference to the main application.
-    private Main mainApp;
+    private MainApp mainApp;
 
     /**
      * The constructor.
@@ -50,8 +46,8 @@ public class SearchTabController {
      * 
      * @param mainApp
      */
-    public void setMain(Main main) {
-        this.mainApp = main;
+    public void setMain(MainApp mainApp) {
+        this.mainApp = mainApp;
 
         //get the list of profiles from another class
         //personTable.setItems(mainApp.getPersonData());

@@ -1,6 +1,6 @@
-package dhmc.view;
+package view;
 
-import dhmc.Main;
+import model.MainApp;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -26,7 +26,7 @@ public class AdminDashController {
 	private ImageView importImage = new ImageView();
 
     // Reference to the main application.
-    private Main mainApp;
+    private MainApp mainApp;
 
     /**
      * The constructor.
@@ -49,8 +49,8 @@ public class AdminDashController {
      * 
      * @param mainApp
      */
-    public void setMain(Main main) {
-        this.mainApp = main;
+    public void setMain(MainApp mainApp) {
+        this.mainApp = mainApp;
 
         //get the list of profiles from another class
         //personTable.setItems(mainApp.getPersonData());

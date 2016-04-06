@@ -1,17 +1,17 @@
-package dhmc.view;
+package view;
 
 import java.io.IOException;
 
-import dhmc.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import model.MainApp;
 
 public class PatientDashController {
-	private Main mainApp;
+	private MainApp mainApp;
 	@FXML
 	TabPane tabPane;
 	@FXML
@@ -27,17 +27,17 @@ public class PatientDashController {
 	}
 
 	public void handleTabSwitch(Number newValue) {
-		if (newValue.intValue() == 1) {
-			mainApp.setHorizontalDimensions();
-			showMySchedule();
-		}
+//		if (newValue.intValue() == 1) {
+//			mainApp.setHorizontalDimensions();
+//			showMySchedule();
+//		}
 	}
 
 	public void showMySchedule() {
 		try {
 			// Load root layout from fxml file.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("view/MySchedule.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/MySchedule.fxml"));
 			AnchorPane mySchedule = (AnchorPane) loader.load();
 
 			tabPane.getTabs().get(1).setContent(mySchedule);
@@ -50,7 +50,7 @@ public class PatientDashController {
 		// primaryStage.setScene(calendar);
 	}
 
-	public void setMainApp(Main mainApp) {
+	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 	}
 

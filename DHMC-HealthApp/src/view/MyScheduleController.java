@@ -1,21 +1,19 @@
-package dhmc.view;
+package view;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+
 
 //import com.calendarfx.model.Calendar;
 //import com.calendarfx.model.CalendarSource;
 //import com.calendarfx.view.CalendarView;
 
-import dhmc.Main;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import model.MainApp;
 
 public class MyScheduleController {
 
-	private Main mainApp;
+	private MainApp mainApp;
 	@FXML
 	private AnchorPane calendarPane;
 
@@ -26,7 +24,7 @@ public class MyScheduleController {
 	private void initialize() {
 	}
 
-	public void setMainApp(Main mainApp) {
+	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 	}
 
