@@ -9,8 +9,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dhmc.view.LoginController">
    <children>
-      <TextField layoutX="95.0" layoutY="103.0" prefHeight="28.0" prefWidth="215.0" promptText="Username" />
-      <PasswordField layoutX="96.0" layoutY="174.0" prefHeight="28.0" prefWidth="215.0" promptText="Password" />
+      <TextField fx:id="username" layoutX="95.0" layoutY="103.0" prefHeight="28.0" prefWidth="215.0" promptText="Username" />
+      <PasswordField fx:id="password" layoutX="96.0" layoutY="174.0" prefHeight="28.0" prefWidth="215.0" promptText="Password" />
       <Button layoutX="159.0" layoutY="222.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="44.0" prefWidth="83.0" text="Login" />
       <ImageView fitHeight="71.0" fitWidth="290.0" layoutX="58.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
          <image>

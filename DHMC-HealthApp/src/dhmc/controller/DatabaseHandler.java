@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DatabaseHandler {
 
@@ -12,10 +13,6 @@ public class DatabaseHandler {
     private static ResultSet rs;
 	private static Connection connection;
 	
-	public static void main(String[] args) {
-		new DatabaseHandler();
-	}
-
 	public DatabaseHandler() {
 		connect();
 	}
@@ -31,7 +28,7 @@ public class DatabaseHandler {
 			String url = "jdbc:derby:db;create=true";
 			connection = DriverManager.getConnection(url);
 			if (connection != null) {
-				System.out.println("Connected to database #1");
+				System.out.println("Connected to Health App database");
 			}
 		} catch (SQLException ex) {
 			System.out.println("Connection Failed! Check output console");
@@ -56,18 +53,19 @@ public class DatabaseHandler {
 	 */
 	public boolean login(String username, String password) {
 		try {
-			connect();
-			ps = connection.prepareStatement("SELECT * FROM healthapp.login WHERE username = ?;");
-			ps.setString(1, username);
+			ps = connection.prepareStatement("select * FROM login");
+//			ps.setStrinag(1, username);
 			rs = ps.executeQuery();
-			if (rs.next()) {
-				if(password.equals(rs.getString("password")))
+			System.out.println(rs.next());
+			while (rs.next()) {
+				System.out.println(rs.getString("lastname"));
+				if(password.equals(rs.getString("lastname")))
 					return true;
 				else
 					return false;
 			}
 		} catch (SQLException e) {
-			
+			System.out.println("error in the prepared statement\n"+e.getMessage());
 		}
 		return false;
 	}

@@ -18,6 +18,8 @@ public class MainApp extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
+		dbHandler = new DatabaseHandler();
+		
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("DHMC - Health App 3.0");
 
