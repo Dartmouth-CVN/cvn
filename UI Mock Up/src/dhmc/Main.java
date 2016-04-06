@@ -25,8 +25,8 @@ public class Main extends Application {
 
 		initRootLayout();
 
-		//showLogin();
-		showAdminDash();
+		showLogin();
+		//showAdminDash();
 		// showPatientDash();
 	}
 
