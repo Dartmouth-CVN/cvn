@@ -1,4 +1,4 @@
-package dhmc.controller;
+package controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -28,9 +28,6 @@ public class DatabaseHandler {
 			connection = DriverManager.getConnection(url);
 			if (connection != null) {
 				System.out.println("Connected to Health App database");
-			
-				insertLoginUser();
-				getLoginUsers();
 			}
 		} catch (SQLException ex) {
 			System.out.println("Connection Failed! Check output console");
