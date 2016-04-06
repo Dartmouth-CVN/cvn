@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dhmc.view.AdminDashController">
+<AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dhmc.view.PatientDashController">
    <children>
       <TabPane fx:id="tabPane" prefHeight="600.0" prefWidth="600.0" styleClass="root" stylesheets="@baseTheme.css" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab fx:id="dashTab" text="Dash">
+          <Tab text="Dash">
                <content>
                   <SplitPane dividerPositions="0.26" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
                     <items>
@@ -32,10 +32,10 @@
                                   <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label prefHeight="31.0" prefWidth="172.0" text="Title" textAlignment="CENTER" />
-                                    <Label prefHeight="31.0" prefWidth="171.0" text="Email" textAlignment="CENTER" GridPane.rowIndex="1" />
-                                    <Label prefHeight="31.0" prefWidth="146.0" text="Phone" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <Label prefHeight="31.0" prefWidth="145.0" text="Office" textAlignment="CENTER" GridPane.columnIndex="1" />
+                                    <Label prefHeight="31.0" prefWidth="172.0" text="Doctor" textAlignment="CENTER" />
+                                    <Label prefHeight="31.0" prefWidth="171.0" text="Nurse" textAlignment="CENTER" GridPane.rowIndex="1" />
+                                    <Label prefHeight="31.0" prefWidth="146.0" text="Room#" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Label prefHeight="31.0" prefWidth="145.0" text="Phone" textAlignment="CENTER" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane layoutX="14.0" layoutY="23.0" prefHeight="119.0" prefWidth="129.0">
@@ -73,22 +73,26 @@
                                       </rowConstraints>
                                        <children>
                                           <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                                          <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                                          <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                                          <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                                          <ImageView fx:id="searchImage" fitHeight="115.0" fitWidth="127.0" onMouseClicked="#handleSearchSwitch" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                                          <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                             <image>
+                                                <Image url="@../../../resources/images/preferences_icon.png" />
+                                             </image></ImageView>
+                                          <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                             <image>
+                                                <Image url="@../../../resources/images/stats_icon.png" />
+                                             </image></ImageView>
+                                          <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                                              <image>
                                                 <Image url="@../../../resources/images/search-icon.png" />
+                                             </image></ImageView>
+                                          <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                                             <image>
+                                                <Image url="@../../../resources/images/nurse_icon.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="scheduleImage" fitHeight="115.0" fitWidth="127.0" onMouseClicked="#handleScheduleSwitch" pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER">
+                                          <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER">
                                              <image>
                                                 <Image url="@../../../resources/images/Calendar_icon.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="importImage" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#handleImportSwitch" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
-                                             <image>
-                                                <Image url="@../../../resources/images/import%20data.jpg" />
                                              </image>
                                           </ImageView>
                                        </children>
@@ -101,17 +105,27 @@
                   </SplitPane>
                </content>
           </Tab>
-          <Tab fx:id="scheduleTab" text="Schedule">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
+          <Tab text="Schedule">
+               <content>
+                  <AnchorPane />
+               </content>
           </Tab>
-            <Tab fx:id="searchTab" text="Search">
+            <Tab text="MyStaff">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
             </Tab>
-            <Tab fx:id="importTab" text="Import">
+            <Tab text="Stats">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+            <Tab text="Preferences">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+            <Tab text="Search">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
