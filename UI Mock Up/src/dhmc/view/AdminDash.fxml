@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dhmc.view.AdminDashController">
    <children>
-      <TabPane prefHeight="600.0" prefWidth="600.0" styleClass="root" stylesheets="@baseTheme.css" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" prefHeight="600.0" prefWidth="600.0" styleClass="root" stylesheets="@baseTheme.css" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Dash">
+          <Tab fx:id="dashTab" text="Dash">
                <content>
                   <SplitPane dividerPositions="0.26" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
                     <items>
@@ -76,12 +76,12 @@
                                           <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                                           <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                                           <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                                          <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                                          <ImageView fx:id="searchImage" fitHeight="115.0" fitWidth="127.0" onMouseClicked="#handleSearchSwitch" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                                              <image>
                                                 <Image url="@../../../resources/images/search-icon.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER">
+                                          <ImageView fx:id="scheduleImage" fitHeight="115.0" fitWidth="127.0" onMouseClicked="#handleScheduleSwitch" pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER">
                                              <image>
                                                 <Image url="@../../../resources/images/Calendar_icon.png" />
                                              </image>
@@ -96,12 +96,17 @@
                   </SplitPane>
                </content>
           </Tab>
-          <Tab text="Schedule">
+          <Tab fx:id="scheduleTab" text="Schedule">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
             </content>
           </Tab>
-            <Tab text="Search">
+            <Tab fx:id="searchTab" text="Search">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+            <Tab fx:id="importTab" text="Import">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>

@@ -2,14 +2,15 @@ package dhmc;
 
 import java.io.IOException;
 
+import dhmc.view.AdminDashController;
 import dhmc.view.LoginController;
 import dhmc.view.PatientDashController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 public class Main extends Application {
 
@@ -23,8 +24,8 @@ public class Main extends Application {
 
 		initRootLayout();
 
-		showLogin();
-
+		//showLogin();
+		showAdminDash();
 		// showPatientDash();
 	}
 
@@ -82,6 +83,25 @@ public class Main extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void showAdminDash() {
+        try {
+            // Load admin overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/AdminDash.fxml"));
+            AnchorPane adminDash = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(adminDash);
+
+            // Give the controller access to the main.
+            AdminDashController controller = loader.getController();
+            controller.setMain(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 	}
 	
 	public void showMySchedule(){
