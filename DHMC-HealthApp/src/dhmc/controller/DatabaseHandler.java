@@ -28,9 +28,6 @@ public class DatabaseHandler {
 			connection = DriverManager.getConnection(url);
 			if (connection != null) {
 				System.out.println("Connected to Health App database");
-			
-				insertLoginUser();
-				getLoginUsers();
 			}
 		} catch (SQLException ex) {
 			System.out.println("Connection Failed! Check output console");
@@ -45,7 +42,7 @@ public class DatabaseHandler {
 			ps = connection.prepareStatement("INSERT INTO healthapp2.Login (username, password, user_id, role) VALUES (?, ?, ?, ?)");
 			ps.setString(1, "admin2");
 			ps.setString(2, "pass");
-			ps.setInt(3, 2);
+			ps.setInt(3, 1);
 			ps.setString(4, "Admin");
 			ps.execute();
 			System.out.println("Inserted login user");
@@ -74,11 +71,11 @@ public class DatabaseHandler {
 	public void insertUser(){
 		try{
 			ps = connection.prepareStatement("INSERT INTO healthapp2.User_Account (user_id, firstname, lastname) VALUES (?, ?, ?)");
-			ps.setString(2, "firstname2");
-			ps.setString(3, "lastname2");
-			ps.setInt(1, 2);
+			ps.setString(2, "firstname");
+			ps.setString(3, "lastname");
+			ps.setInt(1, 1);
 			ps.execute();
-			System.out.println("inserted user2");
+			System.out.println("inserted user");
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -136,7 +133,8 @@ public class DatabaseHandler {
 	public void createTables() {
 		try {
 			ps = connection.prepareStatement("CREATE TABLE healthapp2.User_Account("
-					+ "user_id int NOT NULL, firstname VARCHAR(20), lastname VARCHAR(20), Primary Key(user_id))");
+					+ "user_id int NOT NULL, firstname VARCHAR(20), lastname VARCHAR(20)," 
+					+"username VARCHAR(20), password VARCHAR(20), role VARCHAR(20), Primary Key(user_id))");
 			ps.execute();
 
 			ps = connection.prepareStatement("CREATE TABLE healthapp2.Login("
@@ -239,12 +237,72 @@ public class DatabaseHandler {
 		return null;
 	}
 
+//	/**
+//	 * Finds patient from database given userID.
+//	 * @param userID
+//	 * @return Patient Object
+//	 */
+//	 public Patient findPatient(int userID){
+//		 try {
+//			 ps = connection.prepareStatement("SELECT * FROM Patient Natural Join User_Account WHERE User_ID = ?;");
+//			 ps.setInt(1, userID);
+//			 rs = ps.executeQuery();
+//			 if (rs.next()) {
+//				 Patient patient = new Patient(rs.getString("firstname"),
+//						 rs.getString("lastname"), rs.getString("username"), rs.getString("password"), rs.getInt("User_ID")); 
+//				 connection.close();
+//				 return patient;
+//			 }
+//		 } catch (SQLException e) {
+//		 }
+//		 return null;
+//	 }
+//	/**
+//	 * Finds MedicalStaff from database given userID.
+//	 * @param userID
+//	 * @return MedicalStaff Object
+//	 */
+//	 public MedicalStaff findMedicalStaff(int userID){
+//		 try {
+//			 ps = connection.prepareStatement("SELECT * FROM MedicalStaff Natural Join User_Account WHERE WHERE User_ID = ?;");
+//			 ps.setInt(1, userID);
+//			 rs = ps.executeQuery();
+//			 if (rs.next()) {
+//				 MedicalStaff MedicalStaff = new MedicalStaff(rs.getString("firstname"),
+//						 rs.getString("lastname"), rs.getString("username"), rs.getString("password"), rs.getInt("User_ID")); 
+//				 connection.close();
+//				 return MedicalStaff;
+//			 }
+//		 } catch (SQLException e) {
+//		 }
+//		 return null;
+//	 }
+//	 /**
+//	  * Finds Administrator from database given userID.
+//	  * @param userID
+//	  * @return Administrator Object
+//	  */
+//	 public Administrator findAdministrator(int userID){
+//		 try {
+//			 ps = connection.prepareStatement(
+//					 "SELECT * FROM Administrator Natural Join User_Account WHERE User_ID = ?;");
+//			 ps.setInt(1, userID);
+//			 rs = ps.executeQuery();
+//			 if (rs.next()) {
+//				 Administrator Administrator = new Administrator(rs.getString("firstname"),
+//						 rs.getString("lastname"), rs.getString("username"), rs.getString("password"), rs.getInt("User_ID")); 
+//				 connection.close();
+//				 return Administrator;
+//			 }
+//		 } catch (SQLException e) {
+//		 }
+//		 return null;
+//	 }
+	 
+	 
+	 
+	 
 	
-	
-	 /**
-	 * Adds patient entry into database.
-	 * @param patient
-	 */
 //	 public void storePatient(Patient patient){
 //	
 //	 this.connect();

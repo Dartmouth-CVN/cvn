@@ -3,9 +3,18 @@ package dhmc;
 import java.io.File;
 
 class Administrator extends User {
-
-	public Administrator(String firstName, String lastName, String userid, String username, String password, int id) {
-		super(firstName, lastName, userid, username, password, id);
+	private int Admin_id;
+	public Administrator(String firstName, String lastName, String username, String password, int id, int Admin_id) {
+		super(firstName, lastName, username, password, id, "Administrator");
+		this.Admin_id = Admin_id;
+	}
+	
+	public int getAdmin_ID(){
+		return this.Admin_id;
+	}
+	
+	public void setAdmin_ID(int id){
+		this.Admin_id = id;
 	}
 	
 	public int importData(File inFile) {

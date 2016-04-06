@@ -4,9 +4,18 @@ import java.util.LinkedList;
 class MedicalStaff extends User {
 	
 	protected LinkedList<Patient> assignedPatients;
+	private int Med_ID;
+	public MedicalStaff(String firstName, String lastName, String username, String password, int id, int Med_ID) {
+		super(firstName, lastName, username, password, id, "MedicalStaff");
+		this.Med_ID = Med_ID;
+	}
 	
-	public MedicalStaff(String firstName, String lastName, String userid, String username, String password, int id) {
-		super(firstName, lastName, userid, username, password, id);
+	public int getMed_ID(){
+		return this.Med_ID;
+	}
+	
+	public void setMed_ID(int id){
+		this.Med_ID = id;
 	}
 	
 	public int addPatient (Patient patient) {

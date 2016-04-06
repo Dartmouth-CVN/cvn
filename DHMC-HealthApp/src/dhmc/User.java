@@ -3,22 +3,25 @@ package dhmc;
 abstract class User {
 	private String firstName;
 	private String lastName;
-	private String userid;
 	private String username;
 	private String password;
 	private Contact contactInfo;
 	private Schedule schedule;
 	private Location room;
+	private int id;
+	private String role;
+	// role is either "Patient", "MedicalStaff", or "Administrator"
 	
-	public User(String firstName, String lastName, String userid, String username, String password, int id) {
+	public User(String firstName, String lastName, String username, String password, int id, String role) {
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.userid = userid;
 		this.username = username;
 		this.password = password;
 		this.contactInfo = new Contact(id);
 		this.schedule = new Schedule(id);
 		this.room = null;
+		this.id =id;
+		this.role = role;
 	}
 	
 	public String getFirstName() {
@@ -29,8 +32,8 @@ abstract class User {
 		return this.lastName;
 	}
 	
-	public String getUserid() {
-		return this.userid;
+	public int getUserid() {
+		return this.id;
 	}
 	
 	public String getUsername() {
@@ -45,6 +48,10 @@ abstract class User {
 		return this.contactInfo;
 	}
 	
+	public String getRole(){
+		return this.role;
+	}
+	
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
@@ -53,8 +60,8 @@ abstract class User {
 		this.lastName = lastName;
 	}
 	
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setUserid(int userid) {
+		this.id = userid;
 	}
 	
 	public void setUsername(String username) {
@@ -63,6 +70,10 @@ abstract class User {
 	
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public void setRole(String role){
+		this.role = role;
 	}
 	
 	public Location getRoom() {
@@ -76,7 +87,7 @@ abstract class User {
 	public Schedule getSchedule() {
 		return this.schedule;
 	}
-
+	
 	public void login() {
 		// Database access
 	}

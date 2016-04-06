@@ -8,8 +8,8 @@ class Patient extends User {
 	// private LinkedList<Medication> medication;
 	// HealthProfile is going to be changed to an attribute of PatientProfile
 
-	public Patient(String firstName, String lastName, String userid, String username, String password, int id) {
-		super(firstName, lastName, userid, username, password, id);
+	public Patient(String firstName, String lastName, String username, String password, int id) {
+		super(firstName, lastName, username, password, id, "Patient");
 		this.assignedStaff = new LinkedList<MedicalStaff>();
 	}
 	
