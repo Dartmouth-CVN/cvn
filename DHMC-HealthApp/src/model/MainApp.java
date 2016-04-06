@@ -25,7 +25,8 @@ public class MainApp extends Application {
 
 		initRootLayout();
 
-		showLogin();
+		//showLogin();
+		showAdminDash();
 	}
 
 	public static void main(String[] args) {
@@ -71,4 +72,25 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
+	
+	public void showAdminDash() {
+        try {
+            // Load admin overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/AdminDash.fxml"));
+            AnchorPane adminDash = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(adminDash);
+
+            // Give the controller access to the main.
+            AdminDashController controller = loader.getController();
+            controller.setMain(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	
 }
