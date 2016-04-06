@@ -1,15 +1,15 @@
-package dhmc;
+package model;
 
 import java.io.IOException;
 
-import dhmc.controller.DatabaseHandler;
-import dhmc.view.LoginController;
+import controller.DatabaseHandler;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import view.LoginController;
 
 public class MainApp extends Application {
 	private DatabaseHandler dbHandler;
@@ -40,7 +40,7 @@ public class MainApp extends Application {
 		try {
 			// Load root layout from fxml file.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
+			loader.setLocation(MainApp.class.getResource("../view/RootLayout.fxml"));
 			rootLayout = (BorderPane) loader.load();
 
 			// Show the scene containing the root layout.
@@ -57,7 +57,7 @@ public class MainApp extends Application {
 		try {
 			// Load root layout from fxml file.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/Login.fxml"));
+			loader.setLocation(MainApp.class.getResource("../view/Login.fxml"));
 			AnchorPane login = (AnchorPane) loader.load();
 			
 			primaryStage.setScene(new Scene(login));

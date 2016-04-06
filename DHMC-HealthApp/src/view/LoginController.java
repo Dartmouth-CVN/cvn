@@ -1,9 +1,9 @@
-package dhmc.view;
+package view;
 
-import dhmc.MainApp;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import model.MainApp;
 
 public class LoginController {
 	private MainApp mainApp;
