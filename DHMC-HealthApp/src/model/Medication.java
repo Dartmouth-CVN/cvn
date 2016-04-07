@@ -2,7 +2,7 @@ package model;
 
 import java.time.LocalDate;
 
-class Medication {
+public class Medication {
 	private String name;
 	private String dosage;
 	private String directions;

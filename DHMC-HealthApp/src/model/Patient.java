@@ -1,7 +1,7 @@
 package model;
 import java.util.LinkedList;
 
-class Patient extends User {
+public class Patient extends User {
 	// private LinkedList<Caregiver> caregivers;
 	protected LinkedList<MedicalStaff> assignedStaff;
 	private PatientProfile preferences;

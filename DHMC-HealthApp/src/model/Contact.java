@@ -1,7 +1,7 @@
 package model;
 import java.util.LinkedList;
 
-class Contact {
+public class Contact {
 	private int id;
 	private LinkedList<String> phone;
 	private LinkedList<String> email;

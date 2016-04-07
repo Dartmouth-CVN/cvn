@@ -1,3 +1,5 @@
+package model;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -5,6 +7,12 @@ import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Scanner;
+import model.Patient;
+
+// TODO: We need to find a way to import Medical Staff and Medications from Strings,
+// given that the constructors require more fields. A possible solution is a simpler version
+// of the constructor using default values for the other fields
+// This can be in Iteration 2 if necessary
 
 public class CSVParsingUtils {
 
@@ -57,12 +65,12 @@ public class CSVParsingUtils {
 	}
 
 	public static String patientToCSV(Patient pt) {
-		String output = pt.getUserId();
+		String output = pt.getUserid();
 		output += "," + pt.getLastName();
 		output += "," + pt.getFirstName();
 		output += ", Null,\"";
 		for (MedicalStaff ms : pt.getAssignedStaff())
-			output += ms.getUserId() + ",";
+			output += ms.getUserid() + ",";
 		output += "\",Null,";
 		for (Medication med : pt.getMedication())
 			output += med.getName() + ",";
