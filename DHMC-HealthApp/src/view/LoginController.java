@@ -33,7 +33,8 @@ public class LoginController {
 		String user = mainApp.getDatabseHandler().login(uname, pass);
 		
 		if(user != null){
-			
+			System.out.println(user);
+			mainApp.showAdminDash();
 		}
 		else
 			System.out.println("login failure");

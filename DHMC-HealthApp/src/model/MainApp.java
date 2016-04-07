@@ -76,13 +76,14 @@ public class MainApp extends Application {
 	
 	public void showAdminDash() {
         try {
+        	System.out.println("Login success, loading Admin Dash");
             // Load admin overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("../view/AdminDash.fxml"));
             AnchorPane adminDash = (AnchorPane) loader.load();
 
             // Set person overview into the center of root layout.
-            rootLayout.setCenter(adminDash);
+            primaryStage.setScene(new Scene(adminDash));
 
             // Give the controller access to the main.
             AdminDashController controller = loader.getController();
@@ -92,6 +93,4 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
 	}
-	
-	
 }
