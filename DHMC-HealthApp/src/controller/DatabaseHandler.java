@@ -270,7 +270,7 @@ public class DatabaseHandler {
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				Patient patient = new Patient(rs.getString("firstname"),
-						rs.getString("lastname"), rs.getString("username"), rs.getString("user_ID"), rs.getInt("patient_ID")); 
+						rs.getString("lastname"), rs.getString("username"), rs.getString("user_id"), rs.getInt("patient_id")); 
 				connection.close();
 				return patient;
 			}
@@ -290,7 +290,7 @@ public class DatabaseHandler {
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				MedicalStaff MedicalStaff = new MedicalStaff(rs.getString("firstname"),
-						rs.getString("lastname"), rs.getString("username"), rs.getString("User_ID"), rs.getInt("med_id")); 
+						rs.getString("lastname"), rs.getString("username"), rs.getString("user_id"), rs.getInt("med_id")); 
 				connection.close();
 				return MedicalStaff;
 			}
@@ -306,12 +306,12 @@ public class DatabaseHandler {
 	public Administrator findAdministrator(int userID){
 		try {
 			ps = connection.prepareStatement(
-					"SELECT * FROM Administrator Natural Join User_Account WHERE User_ID = ?;");
+					"SELECT * FROM Administrator Natural Join User_Account WHERE user_id = ?;");
 			ps.setInt(1, userID);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				Administrator Administrator = new Administrator(rs.getString("firstname"),
-						rs.getString("lastname"), rs.getString("username"), rs.getString("User_ID"), rs.getInt("admin_id")); 
+						rs.getString("lastname"), rs.getString("username"), rs.getString("user_id"), rs.getInt("admin_id")); 
 				connection.close();
 				return Administrator;
 			}
