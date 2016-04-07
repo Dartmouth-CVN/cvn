@@ -1,0 +1,76 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Scanner;
+
+public class CSVParsingUtils {
+
+	public static LinkedList<Patient> CSVImport(String str) {
+		return CSVImport(new File(str));
+	}
+
+	public static LinkedList<Patient> CSVImport(File f) {
+		LinkedList<Patient> output = new LinkedList<Patient>();
+		Scanner fileReader;
+		try {
+			fileReader = new Scanner(f);
+		} catch (FileNotFoundException e1) { // If the file doesn't exist, abort
+			System.out.println("File not Found");
+			e1.printStackTrace();
+			return null;
+		}
+
+		while (fileReader.hasNextLine()) // Parses the file line by line
+			output.add(makePatient(fileReader.nextLine().split(",")));
+		fileReader.close();
+		return output;
+	}
+
+	public static void CSVExport(String output, LinkedList<Patient> src) {
+		PrintWriter toFile;
+		try {
+			toFile = new PrintWriter(output, "UTF-8");
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return;
+		}
+		for (Patient pt : src) {
+			toFile.println(patientToCSV(pt));
+		}
+
+		toFile.close();
+	}
+
+	public static Patient makePatient(String[] pt) {
+		Patient output = new Patient(pt[2], pt[1], pt[0], pt[3], 0);
+		String[] staff = pt[5].split(",");
+		for (String member : staff)
+			output.addMedicalStaff(member);
+		String[] meds = pt[7].split(",");
+		for (String med : meds)
+			output.addMedication(new Medication(med));
+
+		return output;
+	}
+
+	public static String patientToCSV(Patient pt) {
+		String output = pt.getUserId();
+		output += "," + pt.getLastName();
+		output += "," + pt.getFirstName();
+		output += ", Null,\"";
+		for (MedicalStaff ms : pt.getAssignedStaff())
+			output += ms.getUserId() + ",";
+		output += "\",Null,";
+		for (Medication med : pt.getMedication())
+			output += med.getName() + ",";
+		output += "\"";
+		for (int i = 0; i < 13; i++)
+			output += ",Null";
+		output += ",*END*";
+
+		return output;
+	}
+}

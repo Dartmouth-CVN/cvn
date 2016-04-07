@@ -3,9 +3,9 @@ package dhmc.view;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import com.calendarfx.model.Calendar;
-import com.calendarfx.model.CalendarSource;
-import com.calendarfx.view.CalendarView;
+//import com.calendarfx.model.Calendar;
+//import com.calendarfx.model.CalendarSource;
+//import com.calendarfx.view.CalendarView;
 
 import dhmc.Main;
 import javafx.application.Platform;
@@ -32,23 +32,23 @@ public class MyScheduleController {
 
 	public void initCalendar() {
 		System.out.println("initialize schedule");
-		CalendarView calendarView = new CalendarView();
+		//CalendarView calendarView = new CalendarView();
 
-		Calendar patientCalendar = new Calendar("Schedule - Patient");
+		//Calendar patientCalendar = new Calendar("Schedule - Patient");
 
-		CalendarSource myCalendarSource = new CalendarSource("My Calendars");
-		myCalendarSource.getCalendars().add(patientCalendar);
+		//CalendarSource myCalendarSource = new CalendarSource("My Calendars");
+		//myCalendarSource.getCalendars().add(patientCalendar);
 
-		calendarView.getCalendarSources().add(myCalendarSource);
-		calendarView.setRequestedTime(LocalTime.now());
+		//calendarView.getCalendarSources().add(myCalendarSource);
+		//calendarView.setRequestedTime(LocalTime.now());
 
 		Thread updateTimeThread = new Thread("Calendar: Update Time Thread") {
 			@Override
 			public void run() {
 				while (true) {
 					Platform.runLater(() -> {
-						calendarView.setToday(LocalDate.now());
-						calendarView.setTime(LocalTime.now());
+						//calendarView.setToday(LocalDate.now());
+						//calendarView.setTime(LocalTime.now());
 					});
 
 					try {
@@ -64,6 +64,6 @@ public class MyScheduleController {
 		updateTimeThread.setDaemon(true);
 		updateTimeThread.start();
 
-		Scene scene = new Scene(calendarView);
+		//Scene scene = new Scene(calendarView);
 	}
 }

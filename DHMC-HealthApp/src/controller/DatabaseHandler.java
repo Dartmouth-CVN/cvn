@@ -24,10 +24,17 @@ public class DatabaseHandler {
 	public boolean connect() {
 		try {
 			// connect method - embedded driver
-			String url = "jdbc:derby:healthapp2DB;create=true";
+			String url = "jdbc:derby:HealthAppDB;create=true";
 			connection = DriverManager.getConnection(url);
 			if (connection != null) {
 				System.out.println("Connected to Health App database");
+				
+//				dropTables();
+//				createTables();
+//				insertUser();
+//				insertLoginUser();
+//				getLoginUsers();
+				
 			}
 		} catch (SQLException ex) {
 			System.out.println("Connection Failed! Check output console");
@@ -39,11 +46,10 @@ public class DatabaseHandler {
 	
 	public void insertLoginUser(){
 		try {
-			ps = connection.prepareStatement("INSERT INTO healthapp2.Login (username, password, user_id, role) VALUES (?, ?, ?, ?)");
-			ps.setString(1, "admin2");
+			ps = connection.prepareStatement("INSERT INTO app.login (username, password, user_id) VALUES (?, ?, ?)");
+			ps.setString(1, "admin");
 			ps.setString(2, "pass");
-			ps.setInt(3, 2);
-			ps.setString(4, "Admin");
+			ps.setInt(3, 1);
 			ps.execute();
 			System.out.println("Inserted login user");
 		} catch (SQLException e) {
@@ -52,10 +58,9 @@ public class DatabaseHandler {
 		}
 	}
 	
-	
 	public void getLoginUsers(){
 		try {
-			ps = connection.prepareStatement("SELECT * FROM healthapp2.Login");
+			ps = connection.prepareStatement("SELECT * FROM app.login");
 			
 			rs = ps.executeQuery();
 			while(rs.next()){
@@ -67,15 +72,13 @@ public class DatabaseHandler {
 		}
 	}
 	
-	
 	public void insertUser(){
 		try{
-			ps = connection.prepareStatement("INSERT INTO healthapp2.User_Account (user_id, firstname, lastname) VALUES (?, ?, ?)");
-			ps.setString(2, "firstname2");
-			ps.setString(3, "lastname2");
-			ps.setInt(1, 2);
+			ps = connection.prepareStatement("INSERT INTO app.user_account (firstname, lastname) VALUES (?, ?)");
+			ps.setString(1, "firstname");
+			ps.setString(2, "lastname");
 			ps.execute();
-			System.out.println("inserted user2");
+			System.out.println("inserted user");
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -85,43 +88,43 @@ public class DatabaseHandler {
 	public void dropTables(){
 
 		try {
-			ps = connection.prepareStatement("drop table healthapp2.Login");
+			ps = connection.prepareStatement("drop table app.login");
 			ps.execute();
 
-			ps = connection.prepareStatement("drop table healthapp2.Contact");
+			ps = connection.prepareStatement("drop table app.contact");
 			ps.execute();
 
-			ps = connection.prepareStatement("drop table healthapp2.Location");
+			ps = connection.prepareStatement("drop table app.location");
 			ps.execute();
 
-			ps = connection.prepareStatement("drop table healthapp2.Event");
+			ps = connection.prepareStatement("drop table app.event");
 			ps.execute();
 			
-			ps = connection.prepareStatement("drop table healthapp2.Schedule");
+			ps = connection.prepareStatement("drop table app.schedule");
 			ps.execute();
 
-			ps = connection.prepareStatement("drop table healthapp2.Administrator");
+			ps = connection.prepareStatement("drop table app.administrator");
 			ps.execute();
 
-			ps = connection.prepareStatement("drop table healthapp2.MedicalStaff");
+			ps = connection.prepareStatement("drop table app.medication");
+			ps.execute();
+			
+			ps = connection.prepareStatement("drop table app.treats");
 			ps.execute();
 
-			ps = connection.prepareStatement("drop table healthapp2.Patient");
+			ps = connection.prepareStatement("drop table app.medical_staff");
 			ps.execute();
 
-			ps = connection.prepareStatement("drop table healthapp2.Caregiver");
+			ps = connection.prepareStatement("drop table app.patient");
 			ps.execute();
 
-			ps = connection.prepareStatement("drop table healthapp2.HealthInfo");
+			ps = connection.prepareStatement("drop table app.caregiver");
 			ps.execute();
 
-			ps = connection.prepareStatement("drop table healthapp2.Treats");
+			ps = connection.prepareStatement("drop table app.health_info");
 			ps.execute();
 
-			ps = connection.prepareStatement("drop table healthapp2.Medication");
-			ps.execute();
-
-			ps = connection.prepareStatement("drop table healthapp2.User_Account");
+			ps = connection.prepareStatement("drop table app.user_account");
 			ps.execute();
 
 		} catch (SQLException e) {
@@ -132,72 +135,90 @@ public class DatabaseHandler {
 	
 	public void createTables() {
 		try {
-			ps = connection.prepareStatement("CREATE TABLE healthapp2.User_Account("
-					+ "user_id int NOT NULL, firstname VARCHAR(20), lastname VARCHAR(20), Primary Key(user_id))");
+//			ps = connection.prepareStatement("create schema healthapp");
+//			ps.execute();
+			
+			ps = connection.prepareStatement("CREATE TABLE app.user_account("
+					+ "user_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
+					+ "firstname VARCHAR(20), lastname VARCHAR(20), Primary Key(user_id))");
 			ps.execute();
 
-			ps = connection.prepareStatement("CREATE TABLE healthapp2.Login("
-					+ "id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)"
-					+ ", username VARCHAR(20), password VARCHAR(200), user_id int,"
-					+ "FOREIGN KEY(user_id) REFERENCES healthapp2.User_Account(user_id))");
+			ps = connection.prepareStatement("CREATE TABLE app.login("
+					+ "login_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+					+ "username VARCHAR(20), password VARCHAR(200), user_id int,"
+					+ "FOREIGN KEY(user_id) REFERENCES app.user_account(user_id), Primary Key(login_id) )");
 			ps.execute();
 
-			ps = connection.prepareStatement("CREATE TABLE healthapp2.Contact("
-					+ "user_id int, phone VARCHAR(20), email VARCHAR(20), address VARCHAR(100), "
-					+ "FOREIGN KEY(user_id) REFERENCES healthapp2.User_Account(user_id))");
+			ps = connection.prepareStatement("CREATE TABLE app.contact("
+					+ "contact_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+					+ " user_id int, phone VARCHAR(20), email VARCHAR(20), address VARCHAR(100), "
+					+ "FOREIGN KEY(user_id) REFERENCES app.user_account(user_id), Primary Key(contact_id))");
 			ps.execute();
 
-			ps = connection.prepareStatement(
-					"CREATE TABLE healthapp2.Location(" + "name VARCHAR(20),location_type VARCHAR(20),User_ID int,"
-							+ "FOREIGN KEY(user_id) REFERENCES healthapp2.User_Account(user_id))");
+			ps = connection.prepareStatement("CREATE TABLE app.location(" 
+					+ "location_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
+					+ "name VARCHAR(20), location_type VARCHAR(20), Primary Key(location_id))");
 			ps.execute();
 
-			ps = connection.prepareStatement("CREATE TABLE healthapp2.Schedule("
-					+ "Schedule_ID int Primary Key, User_ID int, FOREIGN KEY(user_id) "
-					+ "REFERENCES healthapp2.User_Account(user_id))");
+			ps = connection.prepareStatement("CREATE TABLE app.schedule("
+					+ "schedule_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+					+ " user_id int, FOREIGN KEY(user_id) REFERENCES app.user_account(user_id),"
+					+ "Primary Key(schedule_id) )");
 			ps.execute();
 
-			ps = connection.prepareStatement("CREATE TABLE healthapp2.Event("
-					+ "Event_ID int, name VARCHAR(20), Event_Date DATE, category VARCHAR(20), "
-					+ "Schedule_ID int, FOREIGN KEY(Schedule_ID) " + "REFERENCES healthapp2.Schedule(Schedule_ID))");
+			ps = connection.prepareStatement("CREATE TABLE app.event("
+					+ "event_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+					+ "name VARCHAR(20), event_date DATE, category VARCHAR(20), "
+					+ "schedule_id int, FOREIGN KEY(schedule_id) " + "REFERENCES app.Schedule(schedule_id))");
 			ps.execute();
 
-			ps = connection.prepareStatement("CREATE TABLE healthapp2.Administrator("
-					+ "Administrator_ID int Primary KEY, user_id int, FOREIGN KEY(user_id) "
-					+ "REFERENCES healthapp2.User_Account(user_id))");
+			ps = connection.prepareStatement("CREATE TABLE app.administrator("
+					+ "admin_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+					+ "user_id int, FOREIGN KEY(user_id) REFERENCES app.user_account(user_id),"
+					+ "Primary Key(admin_id) )");
 			ps.execute();
 
-			ps = connection.prepareStatement("CREATE TABLE healthapp2.MedicalStaff("
-					+ "Medical_ID int Primary Key, user_id int, role VARCHAR(20), FOREIGN KEY(user_id)"
-					+ " REFERENCES healthapp2.User_Account(user_id))");
+			ps = connection.prepareStatement("CREATE TABLE app.medical_staff("
+					+ "med_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+					+ "user_id int, role VARCHAR(20), FOREIGN KEY(user_id) REFERENCES app.user_account(user_id),"
+					+ "Primary Key(med_id) )");
 			ps.execute();
 
-			ps = connection.prepareStatement("CREATE TABLE healthapp2.Patient(Patient_ID int NOT NULL, User_ID int,"
-					+ " PRIMARY KEY(Patient_ID), FOREIGN KEY(user_id) REFERENCES healthapp2.User_Account(user_id))");
+			ps = connection.prepareStatement("CREATE TABLE app.patient("
+					+ "patient_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+					+ " user_id int, PRIMARY KEY(patient_id), "
+					+ "FOREIGN KEY(user_id) REFERENCES app.user_account(user_id))");
 			ps.execute();
 
-			ps = connection.prepareStatement("CREATE TABLE healthapp2.Caregiver("
-					+ "User_ID int, name VARCHAR(20), phone VARCHAR(20), email VARCHAR(20),"
-					+ " address VARCHAR(100), FOREIGN KEY(user_id) " + "REFERENCES healthapp2.Patient(user_id) )");
+			ps = connection.prepareStatement("CREATE TABLE app.caregiver("
+					+ "caregiver_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+					+ "patient_id int, name VARCHAR(20), phone VARCHAR(20), email VARCHAR(20),"
+					+ " address VARCHAR(100), FOREIGN KEY(patient_id) REFERENCES app.patient(patient_id),"
+					+ "Primary Key(caregiver_id) )");
 			ps.execute();
 
 			ps = connection
-					.prepareStatement("CREATE TABLE healthapp2.HealthInfo( User_ID int,height int, weight double, "
-							+ "excerciseFrequency int, dateRecorded date, FOREIGN KEY(user_id) "
-							+ "REFERENCES healthapp2.Patient(user_id))");
+					.prepareStatement("CREATE TABLE app.health_info("
+							+ "health_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+							+ "patient_id int, height int, weight double, excerciseFrequency int, dateRecorded date, "
+							+ "FOREIGN KEY(patient_id) REFERENCES app.patient(patient_id), "
+							+ "Primary Key(health_id) )");
 			ps.execute();
 
 			ps = connection.prepareStatement(
-					"CREATE TABLE healthapp2.Treats(" + "User_ID int,Medical_ID int,FOREIGN KEY(user_id) "
-							+ "REFERENCES healthapp2.Patient(user_id),FOREIGN KEY(Medical_ID) "
-							+ "REFERENCES healthapp2.MedicalStaff(Medical_ID))");
+					"CREATE TABLE app.treats("
+					+ "treats_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+					+ "patient_id int, med_id int, "
+					+ "FOREIGN KEY(patient_id) REFERENCES app.patient(patient_id),"
+					+ "FOREIGN KEY(med_id) REFERENCES app.medical_staff(med_id))");
 			ps.execute();
 
-			ps = connection.prepareStatement("CREATE TABLE healthapp2.Medication( "
-					+ "User_ID int, Medical_ID int, name VARCHAR(20), dosage VARCHAR(20), "
+			ps = connection.prepareStatement("CREATE TABLE app.medication( "
+					+ "medication_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+					+ "patient_id int, med_id int, name VARCHAR(20), dosage VARCHAR(20), "
 					+ "directions VARCHAR(100), refills int, nextRefillDate date, "
-					+ "FOREIGN KEY(user_id) REFERENCES healthapp2.Patient(user_id), "
-					+ "FOREIGN KEY(Medical_ID) REFERENCES healthapp2.MedicalStaff(Medical_ID))");
+					+ "FOREIGN KEY(patient_id) REFERENCES app.patient(patient_id), "
+					+ "FOREIGN KEY(med_id) REFERENCES app.medical_staff(med_id))");
 			ps.execute();
 			System.out.println("Tables created");
 		} catch (SQLException e) {
@@ -205,12 +226,6 @@ public class DatabaseHandler {
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * Create initial tables for healthapp2lication to query from when first started.
-	 * 
-	 * @return
-	 */
-	// public boolean createTables();
 
 	/**
 	 * Checks if the given username and password are known in the database.
@@ -221,17 +236,17 @@ public class DatabaseHandler {
 	 */
 	public String login(String username, String password) {
 		try {
-			ps = connection.prepareStatement("SELECT * FROM healthapp2.login WHERE username = ?");
+			ps = connection.prepareStatement("SELECT * FROM app.login WHERE username = ?");
 			ps.setString(1, username);
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				if(password.equals(rs.getString("password")))
-					return rs.getString("role");
+					return "username: " + rs.getString("username");
 				else
 					return null;
 			}
 		} catch (SQLException e) {
-			System.out.println("error in the prepared statement\n"+e.getMessage());
+			System.out.println("error in the prepared statement\n " + e.getMessage());
 		}
 		return null;
 	}
