@@ -16,6 +16,8 @@ public class MainApp extends Application {
 	private DatabaseHandler dbHandler;
 	private Stage primaryStage;
 	private BorderPane rootLayout;
+	
+	private AnchorPane adminDash;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -26,7 +28,10 @@ public class MainApp extends Application {
 
 		initRootLayout();
 
+		loadAdminDash();
+		
 		showLogin();
+		
 //		showAdminDash();
 	}
 
@@ -74,23 +79,26 @@ public class MainApp extends Application {
 		}
 	}
 	
-	public void showAdminDash() {
+	public void loadAdminDash(){
+		// Load admin overview
+		FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainApp.class.getResource("../view/AdminDash.fxml"));
         try {
-        	System.out.println("Login success, loading Admin Dash");
-            // Load admin overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("../view/AdminDash.fxml"));
-            AnchorPane adminDash = (AnchorPane) loader.load();
+			adminDash = (AnchorPane) loader.load();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-            // Set person overview into the center of root layout.
-            primaryStage.setScene(new Scene(adminDash));
+        // Give the controller access to the main.
+        AdminDashController controller = loader.getController();
+        controller.setMain(this);
 
-            // Give the controller access to the main.
-            AdminDashController controller = loader.getController();
-            controller.setMain(this);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+	}
+	
+	public void showAdminDash() {
+        System.out.println("Login success, loading Admin Dash...");
+		// Set person overview into the center of root layout.
+		primaryStage.setScene(new Scene(adminDash));
 	}
 }
