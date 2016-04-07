@@ -8,15 +8,17 @@ abstract class User {
 	private Contact contactInfo;
 	private Schedule schedule;
 	private Location room;
-	
-	public User(String firstName, String lastName, String userid, String username, int id) {
+	private String role;
+	//role is either "Patient", "MedicalStaff", "Administrator"
+	public User(String firstName, String lastName, String username, int id, String role) {
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.userid = userid;
 		this.username = username;
 		this.contactInfo = new Contact(id);
 		this.schedule = new Schedule(id);
 		this.room = null;
+		this.id =id;
+		this.role = role;
 	}
 	
 	public String getFirstName() {

@@ -7,8 +7,8 @@ class Patient extends User {
 	private PatientProfile preferences;
 	private LinkedList<Medication> medication;
 
-	public Patient(String firstName, String lastName, String userid, String username, int id) {
-		super(firstName, lastName, userid, username, id);
+	public Patient(String firstName, String lastName, String username, int id) {
+		super(firstName, lastName, username, id, "Patient");
 		this.assignedStaff = new LinkedList<MedicalStaff>();
 		this.preferences = new PatientProfile();
 		this.medication = new LinkedList<Medication>();

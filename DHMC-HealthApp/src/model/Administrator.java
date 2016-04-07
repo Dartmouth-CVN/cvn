@@ -3,9 +3,10 @@ package model;
 import java.io.File;
 
 class Administrator extends User {
-
-	public Administrator(String firstName, String lastName, String userid, String username, int id) {
-		super(firstName, lastName, userid, username, id);
+	private int Admin_ID;
+	public Administrator(String firstName, String lastName, String username,  int id, int Admin_id) {
+		super(firstName, lastName, username, id, "Administrator");
+		this.Admin_ID = Admin_id;
 	}
 	
 	public int importData(File inFile) {
