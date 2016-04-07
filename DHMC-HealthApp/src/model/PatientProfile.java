@@ -7,15 +7,15 @@ class PatientProfile {
 	private LinkedList<String> pets;
 	private LinkedList<String> likedMeals;
 	private LinkedList<String> dislikedMeals;
-	private HealthProfile healthProfile;
-	private boolean wantsAlarm;
+//	private HealthProfile healthProfile;
+//	private boolean wantsAlarm;
 	
 	public PatientProfile() {
 		this.family = new LinkedList<String>();
 		this.pets = new LinkedList<String>();
 		this.likedMeals = new LinkedList<String>();
 		this.dislikedMeals = new LinkedList<String>();
-		this.wantsAlarm = false;
+//		this.wantsAlarm = false;
 	}
 	
 	public void addFamily(String newFamily) {
@@ -34,13 +34,30 @@ class PatientProfile {
 		dislikedMeals.add(newMeal);
 	}
 	
-	public void setHealthProfile(HealthProfile profile) {
-		healthProfile = profile;
+	public void removeFamily(String family) {
+		this.family.remove(family);
 	}
 	
-	public void setAlarm(boolean alarm) {
-		wantsAlarm = alarm;
+	public void removePet(String pet) {
+		pets.remove(pet);
 	}
+	
+	public void removeLikedMeal(String meal) {
+		likedMeals.remove(meal);
+	}
+	
+	public void removeDislikedMeal(String meal) {
+		dislikedMeals.remove(meal);
+	}
+	
+	
+//	public void setHealthProfile(HealthProfile profile) {
+//		healthProfile = profile;
+//	}
+	
+//	public void setAlarm(boolean alarm) {
+//		wantsAlarm = alarm;
+//	}
 	
 	public LinkedList<String> getFamily() {
 		return family;
@@ -58,11 +75,11 @@ class PatientProfile {
 		return dislikedMeals;
 	}
 	
-	public HealthProfile getHealthProfile() {
-		return healthProfile;
-	}
-	
-	public boolean yesAlarm() {
-		return wantsAlarm;
-	}
+//	public HealthProfile getHealthProfile() {
+//		return healthProfile;
+//	}
+//	
+//	public boolean yesAlarm() {
+//		return wantsAlarm;
+//	}
 }

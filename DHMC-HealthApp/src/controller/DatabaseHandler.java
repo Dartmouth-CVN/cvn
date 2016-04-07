@@ -319,5 +319,17 @@ public class DatabaseHandler {
 		}
 		return null;
 	}
+	
+	public void updatePatient(Patient p) {
+		
+	}
+	
+	public void updateMedicalStaff(MedicalStaff staff) {
+		
+	}
+	
+	public void updateAdmin(Administrator admin) {
+		
+	}
 
 }

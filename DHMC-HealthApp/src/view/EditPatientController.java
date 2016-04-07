@@ -94,4 +94,8 @@ public class EditPatientController {
 			box.getChildren().remove(box.getChildren().size()-2);
 		}
 	}
+	
+	public void update() {
+		mainApp.getDatabseHandler().updatePatient(p);
+	}
 }
