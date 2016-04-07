@@ -51,11 +51,10 @@
                      <content>
                         <AnchorPane accessibleText="Name" prefHeight="0.0" prefWidth="1208.0">
                            <children>
-                              <TextField fx:id="firstNameTF" layoutX="178.0" layoutY="15.0" onAction="#initialize" onKeyReleased="#handleNames" prefHeight="31.0" prefWidth="200.0" promptText="First Name" />
-                              <TextField fx:id="lastNameTF" layoutX="460.0" layoutY="15.0" onKeyReleased="#handleNames" prefHeight="31.0" prefWidth="200.0" promptText="Last Name" />
-                              <TextField fx:id="emailTF" layoutX="178.0" layoutY="65.0" onKeyReleased="#handleNames" prefHeight="31.0" prefWidth="200.0" promptText="Email Address" />
-                              <TextField fx:id="phoneTF" layoutX="460.0" layoutY="65.0" onKeyReleased="#handleNames" prefHeight="31.0" prefWidth="200.0" promptText="Phone Number" />
-                              <TextArea fx:id="savedInfo" layoutX="223.0" layoutY="182.0" prefHeight="257.0" prefWidth="356.0" />
+                              <TextField fx:id="firstNameTF" layoutX="178.0" layoutY="15.0" onAction="#initialize" onKeyReleased="#pressEnter" prefHeight="31.0" prefWidth="200.0" promptText="First Name" />
+                              <TextField fx:id="lastNameTF" layoutX="460.0" layoutY="15.0" onKeyReleased="#pressEnter" prefHeight="31.0" prefWidth="200.0" promptText="Last Name" />
+                              <TextField fx:id="emailTF" layoutX="178.0" layoutY="65.0" onKeyReleased="#pressEnter" prefHeight="31.0" prefWidth="200.0" promptText="Email Address" />
+                              <TextField fx:id="phoneTF" layoutX="460.0" layoutY="65.0" onKeyReleased="#pressEnter" prefHeight="31.0" prefWidth="200.0" promptText="Phone Number" />
                               <Label layoutX="40.0" layoutY="22.0" text="Name">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
@@ -70,7 +69,7 @@
                               <Label layoutX="132.0" layoutY="72.0" text="Email:" />
                               <Label layoutX="412.0" layoutY="22.0" text="Last:" />
                               <Label layoutX="406.0" layoutY="72.0" text="Phone:" />
-                              <Button layoutX="377.0" layoutY="125.0" mnemonicParsing="false" onMouseClicked="#handleNames" text="Save" />
+                              <Button layoutX="377.0" layoutY="125.0" mnemonicParsing="false" onAction="#saveGeneralInfo" text="Save" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -79,15 +78,15 @@
                      <content>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <ScrollPane fx:id="sp" layoutX="161.0" layoutY="32.0" prefHeight="303.0" prefWidth="443.0">
+                              <ScrollPane fx:id="familySP" layoutX="161.0" layoutY="32.0" prefHeight="303.0" prefWidth="268.0">
                                  <content>
-                                    <VBox fx:id="box" prefHeight="292.0" prefWidth="441.0">
+                                    <VBox fx:id="familyVB" prefHeight="292.0" prefWidth="262.0">
                                        <children>
                                           <TextField prefHeight="31.0" prefWidth="344.0" promptText="Family Member Name" />
                                           <ToolBar prefHeight="45.0" prefWidth="212.0">
                                             <items>
-                                                <Button fx:id="add" mnemonicParsing="false" onAction="#addFamily" prefHeight="25.0" prefWidth="50.0" text="+" />
-                                              <Button fx:id="delete" mnemonicParsing="false" onAction="#deleteFamily" prefHeight="23.0" prefWidth="50.0" text="-" />
+                                                <Button fx:id="familyAdd" mnemonicParsing="false" onAction="#addFamily" prefHeight="25.0" prefWidth="50.0" text="+" />
+                                              <Button fx:id="familyDelete" mnemonicParsing="false" onAction="#deleteFamily" prefHeight="23.0" prefWidth="50.0" text="-" />
                                             </items>
                                           </ToolBar>
                                        </children>
@@ -99,22 +98,28 @@
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <VBox fx:id="box3" layoutX="162.0" layoutY="370.0" prefHeight="292.0" prefWidth="441.0">
-                                 <children>
-                                    <TextField prefHeight="31.0" prefWidth="344.0" promptText="Pet Name - Species - Breed" />
-                                    <ToolBar prefHeight="45.0" prefWidth="212.0">
-                                       <items>
-                                          <Button fx:id="add3" mnemonicParsing="false" onAction="#addFamily" prefHeight="25.0" prefWidth="50.0" text="+" />
-                                          <Button fx:id="delete3" mnemonicParsing="false" onAction="#deleteFamily" prefHeight="23.0" prefWidth="50.0" text="-" />
-                                       </items>
-                                    </ToolBar>
-                                 </children>
-                              </VBox>
                               <Label layoutX="34.0" layoutY="376.0" text="Pet Information">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
+                              <ScrollPane fx:id="petSP" layoutX="161.0" layoutY="371.0" prefHeight="310.0" prefWidth="270.0">
+                                 <content>
+                                    <VBox fx:id="petVB" prefHeight="304.0" prefWidth="266.0">
+                                       <children>
+                                          <TextField prefHeight="31.0" prefWidth="344.0" promptText="Pet Name - Species - Breed" />
+                                          <ToolBar prefHeight="45.0" prefWidth="212.0">
+                                             <items>
+                                                <Button fx:id="petAdd" mnemonicParsing="false" onAction="#addPet" prefHeight="25.0" prefWidth="50.0" text="+" />
+                                                <Button fx:id="petDelete" mnemonicParsing="false" onAction="#deletePet" prefHeight="23.0" prefWidth="50.0" text="-" />
+                                             </items>
+                                          </ToolBar>
+                                       </children>
+                                    </VBox>
+                                 </content>
+                              </ScrollPane>
+                              <TextArea fx:id="savedFamilyInfo" layoutX="477.0" layoutY="65.0" prefHeight="617.0" prefWidth="346.0" />
+                              <Button layoutX="626.0" layoutY="26.0" mnemonicParsing="false" text="Save" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -123,15 +128,15 @@
                      <content>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <ScrollPane fx:id="sp1" layoutX="161.0" layoutY="32.0" prefHeight="409.0" prefWidth="443.0">
+                              <ScrollPane fx:id="exerciseSP" layoutX="161.0" layoutY="32.0" prefHeight="409.0" prefWidth="327.0">
                                  <content>
-                                    <VBox fx:id="box1" prefHeight="292.0" prefWidth="441.0">
+                                    <VBox fx:id="exerciseVB" prefHeight="403.0" prefWidth="325.0">
                                        <children>
                                           <TextField prefHeight="31.0" prefWidth="344.0" promptText="Exercise" />
                                           <ToolBar prefHeight="45.0" prefWidth="212.0">
                                              <items>
-                                                <Button fx:id="add1" mnemonicParsing="false" onAction="#addFamily" prefHeight="25.0" prefWidth="50.0" text="+" />
-                                                <Button fx:id="delete1" mnemonicParsing="false" onAction="#deleteFamily" prefHeight="23.0" prefWidth="50.0" text="-" />
+                                                <Button fx:id="exerciseAdd" mnemonicParsing="false" onAction="#addExercise" prefHeight="25.0" prefWidth="50.0" text="+" />
+                                                <Button fx:id="exerciseDelete" mnemonicParsing="false" onAction="#deleteExercise" prefHeight="23.0" prefWidth="50.0" text="-" />
                                              </items>
                                           </ToolBar>
                                        </children>
@@ -143,6 +148,8 @@
                                     <Font name="System Bold Italic" size="13.0" />
                                  </font>
                               </Label>
+                              <Button fx:id="saveFitness" layoutX="653.0" layoutY="26.0" mnemonicParsing="false" text="Save" />
+                              <TextArea fx:id="savedFitnessInfo" layoutX="525.0" layoutY="64.0" prefHeight="374.0" prefWidth="303.0" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -151,15 +158,15 @@
                      <content>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <ScrollPane fx:id="sp2" layoutX="161.0" layoutY="32.0" prefHeight="409.0" prefWidth="443.0">
+                              <ScrollPane fx:id="likedMealSP" layoutX="162.0" layoutY="69.0" prefHeight="223.0" prefWidth="295.0">
                                  <content>
-                                    <VBox fx:id="box2" prefHeight="292.0" prefWidth="441.0">
+                                    <VBox fx:id="likedMealVB" prefHeight="220.0" prefWidth="293.0">
                                        <children>
-                                          <TextField prefHeight="31.0" prefWidth="344.0" promptText="Meal Item" />
-                                          <ToolBar prefHeight="45.0" prefWidth="212.0">
+                                          <TextField prefHeight="30.0" prefWidth="293.0" promptText="Liked Meal Item" />
+                                          <ToolBar prefHeight="48.0" prefWidth="293.0">
                                              <items>
-                                                <Button fx:id="add2" mnemonicParsing="false" onAction="#addFamily" prefHeight="25.0" prefWidth="50.0" text="+" />
-                                                <Button fx:id="delete2" mnemonicParsing="false" onAction="#deleteFamily" prefHeight="23.0" prefWidth="50.0" text="-" />
+                                                <Button fx:id="likedMealAdd" mnemonicParsing="false" onAction="#addLikedMeal" prefHeight="25.0" prefWidth="50.0" text="+" />
+                                                <Button fx:id="likedMealDelete" mnemonicParsing="false" onAction="#deleteLikedMeal" prefHeight="23.0" prefWidth="50.0" text="-" />
                                              </items>
                                           </ToolBar>
                                        </children>
@@ -171,6 +178,25 @@
                                     <Font name="System Bold Italic" size="13.0" />
                                  </font>
                               </Label>
+                              <ScrollPane fx:id="dislikedMealSP" layoutX="504.0" layoutY="68.0" prefHeight="224.0" prefWidth="309.0">
+                                 <content>
+                                    <VBox fx:id="dislikedMealVB" prefHeight="220.0" prefWidth="305.0">
+                                       <children>
+                                          <TextField prefHeight="30.0" prefWidth="305.0" promptText="Disliked Meal Item" />
+                                          <ToolBar prefHeight="48.0" prefWidth="305.0">
+                                            <items>
+                                              <Button fx:id="dislikedMealAdd" mnemonicParsing="false" onAction="#addDislikedMeal" prefHeight="27.0" prefWidth="50.0" text="+" />
+                                                <Button fx:id="dislikedMealDelete" layoutX="10.0" layoutY="11.0" mnemonicParsing="false" onAction="#deleteDislikedMeal" prefHeight="27.0" prefWidth="50.0" text="-" />
+                                            </items>
+                                          </ToolBar>
+                                       </children>
+                                    </VBox>
+                                 </content>
+                              </ScrollPane>
+                              <Label layoutX="273.0" layoutY="39.0" text="Liked Meals" />
+                              <Label layoutX="615.0" layoutY="39.0" text="Disliked Meals" />
+                              <TextArea fx:id="savedDietInfo" layoutX="162.0" layoutY="337.0" prefHeight="257.0" prefWidth="296.0" />
+                              <Button fx:id="saveDiet" layoutX="635.0" layoutY="337.0" mnemonicParsing="false" text="Save" />
                            </children>
                         </AnchorPane>
                      </content>

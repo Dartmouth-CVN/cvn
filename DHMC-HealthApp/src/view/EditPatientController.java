@@ -31,19 +31,88 @@ public class EditPatientController {
 	private TextField phoneTF;
 	
 	@FXML
-	private TextArea savedInfo;
+	private TextArea savedGeneralInfo;
 	
 	@FXML
-	private ScrollPane sp;
-
-	@FXML
-	private VBox box;
+	private TextArea savedFamilyInfo;
 	
 	@FXML
-	private Button add;
+	private TextArea savedFitnessInfo;
+	
+	@FXML
+	private TextArea savedDietInfo;
+	
+	@FXML
+	private ScrollPane familySP;
 
 	@FXML
-	private Button delete;
+	private ScrollPane petSP;
+	
+	@FXML
+	private ScrollPane exerciseSP;
+	
+	@FXML
+	private ScrollPane likedMealSP;
+	
+	@FXML
+	private ScrollPane dislikedMealSP;
+
+	@FXML
+	private VBox familyVB;
+
+	@FXML
+	private VBox petVB;
+
+	@FXML
+	private VBox exerciseVB;
+
+	@FXML
+	private VBox likedMealVB;
+
+	@FXML
+	private VBox dislikedMealVB;
+	
+	@FXML
+	private Button familyAdd;
+
+	@FXML
+	private Button familyDelete;
+	
+	@FXML
+	private Button petAdd;
+
+	@FXML
+	private Button petDelete;
+	
+	@FXML
+	private Button exerciseAdd;
+
+	@FXML
+	private Button exerciseDelete;
+	
+	@FXML
+	private Button likedMealAdd;
+
+	@FXML
+	private Button likedMealDelete;
+	
+	@FXML
+	private Button dislikedMealAdd;
+
+	@FXML
+	private Button dislikedMealDelete;
+	
+	@FXML
+	private Button saveGeneral;
+	
+	@FXML
+	private Button saveFamily;
+	
+	@FXML
+	private Button saveFitness;
+	
+	@FXML
+	private Button saveDiet;
 	
 	MainApp mainApp;
 	
@@ -53,27 +122,29 @@ public class EditPatientController {
 	}
 
 	@FXML
-	public void handleNames(KeyEvent event){
+	public void pressEnter(KeyEvent event){
 
-		if(!event.getCode().equals(KeyCode.ENTER))
-			return;
-		else {
-			String first = firstNameTF.getText();
-			String last = lastNameTF.getText();
-			String email = emailTF.getText();
-			String phone = phoneTF.getText();
-			
-			p.setFirstName(first);
-			p.setLastName(last);
-			p.getContactInfo().makePrimaryEmail(email);
-			p.getContactInfo().makePrimaryPhone(phone);
-			
-			savedInfo.setText("Saved Information:\n" +
-					"First Name: " + p.getFirstName() + "\n" +
-					"Last Name: " + p.getLastName() + "\n" +
-					"Email: " + p.getContactInfo().getPrimaryEmail() + "\n" +
-					"Phone: " + p.getContactInfo().getPrimaryPhone()); 
+		if(event.getCode().equals(KeyCode.ENTER)) {
+			saveGeneralInfo();
 		}
+	}
+	
+	public void saveGeneralInfo() {
+		String first = firstNameTF.getText();
+		String last = lastNameTF.getText();
+		String email = emailTF.getText();
+		String phone = phoneTF.getText();
+		
+		p.setFirstName(first);
+		p.setLastName(last);
+		p.getContactInfo().makePrimaryEmail(email);
+		p.getContactInfo().makePrimaryPhone(phone);
+		
+		savedGeneralInfo.setText("Saved Information:\n" +
+				"First Name: " + p.getFirstName() + "\n" +
+				"Last Name: " + p.getLastName() + "\n" +
+				"Email: " + p.getContactInfo().getPrimaryEmail() + "\n" +
+				"Phone: " + p.getContactInfo().getPrimaryPhone()); 
 	}
 	
 	
@@ -85,17 +156,73 @@ public class EditPatientController {
 	public void addFamily() {
 		TextField newFamily = new TextField();
 		newFamily.setPromptText("Family Member Name");
-		box.getChildren().add(box.getChildren().size()-2, newFamily);
+		familyVB.getChildren().add(familyVB.getChildren().size()-2, newFamily);
 	}
 	
 	@FXML
 	public void deleteFamily() {
-		if(box.getChildren().size() > 2) {
-			box.getChildren().remove(box.getChildren().size()-2);
+		if(familyVB.getChildren().size() > 2) {
+			familyVB.getChildren().remove(familyVB.getChildren().size()-2);
+		}
+	}
+	
+	@FXML
+	public void addPet() {
+		TextField newPet = new TextField();
+		newPet.setPromptText("Pet Name - Species - Breed");
+		petVB.getChildren().add(petVB.getChildren().size()-2, newPet);
+	}
+	
+	@FXML
+	public void deletePet() {
+		if(petVB.getChildren().size() > 2) {
+			petVB.getChildren().remove(petVB.getChildren().size()-2);
+		}
+	}
+	
+	@FXML
+	public void addExercise() {
+		TextField newExercise = new TextField();
+		newExercise.setPromptText("Exercise");
+		exerciseVB.getChildren().add(exerciseVB.getChildren().size()-2, newExercise);
+	}
+	
+	@FXML
+	public void deleteExercise() {
+		if(exerciseVB.getChildren().size() > 2) {
+			exerciseVB.getChildren().remove(exerciseVB.getChildren().size()-2);
+		}
+	}
+	
+	@FXML
+	public void addLikedMeal() {
+		TextField newLikedMeal = new TextField();
+		newLikedMeal.setPromptText("Liked Meal Item");
+		likedMealVB.getChildren().add(likedMealVB.getChildren().size()-2, newLikedMeal);
+	}
+	
+	@FXML
+	public void deleteLikedMeal() {
+		if(likedMealVB.getChildren().size() > 2) {
+			likedMealVB.getChildren().remove(likedMealVB.getChildren().size()-2);
+		}
+	}
+	
+	@FXML
+	public void addDislikedMeal() {
+		TextField newDislikedMeal = new TextField();
+		newDislikedMeal.setPromptText("Disliked Meal Item");
+		dislikedMealVB.getChildren().add(dislikedMealVB.getChildren().size()-2, newDislikedMeal);
+	}
+	
+	@FXML
+	public void deleteDislikedMeal() {
+		if(dislikedMealVB.getChildren().size() > 2) {
+			dislikedMealVB.getChildren().remove(dislikedMealVB.getChildren().size()-2);
 		}
 	}
 	
 	public void update() {
-		mainApp.getDatabseHandler().updatePatient(p);
+		mainApp.getDatabaseHandler().updatePatient(p);
 	}
 }

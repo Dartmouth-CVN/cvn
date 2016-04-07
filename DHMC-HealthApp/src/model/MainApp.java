@@ -34,7 +34,7 @@ public class MainApp extends Application {
 		launch(args);
 	}
 	
-	public DatabaseHandler getDatabseHandler(){
+	public DatabaseHandler getDatabaseHandler(){
 		return dbHandler;
 	}
 

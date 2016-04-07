@@ -30,7 +30,7 @@ public class LoginController {
 		String uname = username.getText();
 		String pass = password.getText();
 		
-		String user = mainApp.getDatabseHandler().login(uname, pass);
+		String user = mainApp.getDatabaseHandler().login(uname, pass);
 		
 		if(user != null){
 			System.out.println(user);
