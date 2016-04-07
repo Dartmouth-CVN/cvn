@@ -74,9 +74,10 @@ public class DatabaseHandler {
 	
 	public void insertUser(){
 		try{
-			ps = connection.prepareStatement("INSERT INTO app.user_account (firstname, lastname) VALUES (?, ?)");
+			ps = connection.prepareStatement("INSERT INTO app.user_account (firstname, lastname, role) VALUES (?, ?, ?)");
 			ps.setString(1, "firstname");
 			ps.setString(2, "lastname");
+			ps.setString(3, "role");
 			ps.execute();
 			System.out.println("inserted user");
 		}catch (SQLException e) {
@@ -140,7 +141,7 @@ public class DatabaseHandler {
 			
 			ps = connection.prepareStatement("CREATE TABLE app.user_account("
 					+ "user_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
-					+ "firstname VARCHAR(20), lastname VARCHAR(20), Primary Key(user_id))");
+					+ "firstname VARCHAR(20), lastname VARCHAR(20), role VARCHAR(20), Primary Key(user_id))");
 			ps.execute();
 
 			ps = connection.prepareStatement("CREATE TABLE app.login("
@@ -253,51 +254,66 @@ public class DatabaseHandler {
 
 	
 	
-	 /**
-	 * Adds patient entry into database.
-	 * @param patient
+	/**
+	 * Finds patient from database given userID.
+	 * @param userID
+	 * @return Patient Object
 	 */
-//	 public void storePatient(Patient patient){
-//	
-//	 this.connect();
-//	 try {
-//	 PreparedStatement pstmt = connection.prepareStatement("insert into....");
-//	 ResultSet rset = pstmt.executeQuery();
-//	 rset.close();
-//	 pstmt.close();
-//	
-//	 } catch (SQLException e) {
-//	 System.out.println("Get Data Failed! Check output console");
-//	 e.printStackTrace();
-//	 return ;
-//	 } return ;
-//	 }
-//	
-//	 /**
-//	 * Finds patient from database given userID
-//	 * @param userID
-//	 * @return Patient object
-//	 */
-//	 public Patient getPatient(String userID){
-//	
-//	 }
-//	
-//	 /**
-//	 * Finds medicalstaff from database given name
-//	 * @param name
-//	 * @return
-//	 */
-//	 public MedicalStaff findMedicalStaff(String name){
-//	
-//	 }
-//	
-//	 /**
-//	 * Finds patient from database fiven name.
-//	 * @param name
-//	 * @return
-//	 */
-//	 public Patient findPatient(String name){
-//	
-//	 }
+	public Patient findPatient(int userID){
+		try {
+			ps = connection.prepareStatement("SELECT * FROM Patient Natural Join User_Account WHERE User_ID = ?;");
+			ps.setInt(1, userID);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				Patient patient = new Patient(rs.getString("firstname"),
+						rs.getString("lastname"), rs.getString("username"), rs.getInt("User_ID")); 
+				connection.close();
+				return patient;
+			}
+		} catch (SQLException e) {
+		}
+		return null;
+	}
+	/**
+	 * Finds MedicalStaff from database given userID.
+	 * @param userID
+	 * @return MedicalStaff Object
+	 */
+	public MedicalStaff findMedicalStaff(int userID){
+		try {
+			ps = connection.prepareStatement("SELECT * FROM MedicalStaff Natural Join User_Account WHERE User_ID = ?;");
+			ps.setInt(1, userID);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				MedicalStaff MedicalStaff = new MedicalStaff(rs.getString("firstname"),
+						rs.getString("lastname"), rs.getString("username"), rs.getInt("User_ID"), rs.getInt("med_id")); 
+				connection.close();
+				return MedicalStaff;
+			}
+		} catch (SQLException e) {
+		}
+		return null;
+	}
+	/**
+	 * Finds Administrator from database given userID.
+	 * @param userID
+	 * @return Administrator Object
+	 */
+	public Administrator findAdministrator(int userID){
+		try {
+			ps = connection.prepareStatement(
+					"SELECT * FROM Administrator Natural Join User_Account WHERE User_ID = ?;");
+			ps.setInt(1, userID);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				Administrator Administrator = new Administrator(rs.getString("firstname"),
+						rs.getString("lastname"), rs.getString("username"), rs.getString("User_ID"), rs.getInt("admin_id")); 
+				connection.close();
+				return Administrator;
+			}
+		} catch (SQLException e) {
+		}
+		return null;
+	}
 
 }
