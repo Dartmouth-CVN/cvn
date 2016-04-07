@@ -17,6 +17,14 @@ public class Medication {
 		this.nextRefillDate = nextRefillDate;
 	}
 	
+	public Medication(String name) {
+		this.name = name;
+		this.dosage = "Enter Dosage";
+		this.directions = "Enter Directions";
+		this.refills = 0;
+		this.nextRefillDate = null;
+	}
+	
 	public String getName() {
 		return this.name;
 	}

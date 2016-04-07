@@ -26,7 +26,8 @@ public class AdminDashController {
 	private ImageView importImage = new ImageView();
 
     // Reference to the main application.
-    private MainApp mainApp;
+    @SuppressWarnings("unused")
+	private MainApp mainApp;
 
     /**
      * The constructor.

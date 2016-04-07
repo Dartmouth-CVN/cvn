@@ -4,11 +4,16 @@ import java.util.LinkedList;
 public class MedicalStaff extends User {
 	
 	protected LinkedList<Patient> assignedPatients;
-	private int Med_ID;
+	private int medID;
 	
-	public MedicalStaff(String firstName, String lastName, String username, String password, int id, int Med_ID) {
-		super(firstName, lastName, username, id, "MedicalStaff");
-		this.Med_ID = Med_ID;
+	public MedicalStaff(String firstName, String lastName, String username, String userID, int medID) {
+		super(firstName, lastName, username, userID, "MedicalStaff");
+		this.setMedID(medID);
+	}
+	
+	public MedicalStaff(String username) {
+		super("Enter First Name", "Enter Last Name", username, "Enter userID", "MedicalStaff");
+		this.setMedID(0);
 	}
 	
 	public int addPatient (Patient patient) {
@@ -51,7 +56,15 @@ public class MedicalStaff extends User {
 		}
 	}
 	
-	public int perscribe(Patient patient, Medication medication) {
+	public int prescribe(Patient patient, Medication medication) {
 		return 0;
+	}
+
+	public int getMedID() {
+		return medID;
+	}
+
+	public void setMedID(int medID) {
+		this.medID = medID;
 	}
 }

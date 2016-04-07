@@ -2,11 +2,11 @@ package model;
 
 import java.io.File;
 
-class Administrator extends User {
-	private int Admin_ID;
-	public Administrator(String firstName, String lastName, String username,  int id, int Admin_id) {
-		super(firstName, lastName, username, id, "Administrator");
-		this.Admin_ID = Admin_id;
+public class Administrator extends User {
+	private int adminID;
+	public Administrator(String firstName, String lastName, String username,  String userID, int adminID) {
+		super(firstName, lastName, username, userID, "Administrator");
+		this.setAdminID(adminID);
 	}
 	
 	public int importData(File inFile) {
@@ -58,5 +58,13 @@ class Administrator extends User {
 		//fetch staff from database
 		//bring staff to edit screen
 		return 1; //on success
+	}
+
+	public int getAdminID() {
+		return adminID;
+	}
+
+	public void setAdminID(int adminID) {
+		this.adminID = adminID;
 	}
 }

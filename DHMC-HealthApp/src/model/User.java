@@ -3,22 +3,22 @@ package model;
 public abstract class User {
 	private String firstName;
 	private String lastName;
-	private String userid;
+	private String userID;
 	private String username;
 	private Contact contactInfo;
 	private Schedule schedule;
 	private Location room;
 	private String role;
 	//role is either "Patient", "MedicalStaff", "Administrator"
-	public User(String firstName, String lastName, String username, int id, String role) {
+	public User(String firstName, String lastName, String username, String id, String role) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.username = username;
 		this.contactInfo = new Contact(id);
-		this.schedule = new Schedule(id);
+		//this.schedule = new Schedule(id);
 		this.room = null;
-		this.id =id;
-		this.role = role;
+		this.userID =id;
+		this.setRole(role);
 	}
 	
 	public String getFirstName() {
@@ -29,8 +29,8 @@ public abstract class User {
 		return this.lastName;
 	}
 	
-	public String getUserid() {
-		return this.userid;
+	public String getUserID() {
+		return this.userID;
 	}
 	
 	public String getUsername() {
@@ -49,8 +49,8 @@ public abstract class User {
 		this.lastName = lastName;
 	}
 	
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setUseriID(String userid) {
+		this.userID = userid;
 	}
 	
 	public void setUsername(String username) {
@@ -67,6 +67,14 @@ public abstract class User {
 	
 	public Schedule getSchedule() {
 		return this.schedule;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 }

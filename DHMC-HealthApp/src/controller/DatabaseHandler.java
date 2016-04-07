@@ -6,6 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import model.Administrator;
+import model.MedicalStaff;
+import model.Patient;
+
 public class DatabaseHandler {
 
     private static PreparedStatement ps;
@@ -266,7 +270,7 @@ public class DatabaseHandler {
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				Patient patient = new Patient(rs.getString("firstname"),
-						rs.getString("lastname"), rs.getString("username"), rs.getInt("User_ID")); 
+						rs.getString("lastname"), rs.getString("username"), rs.getString("user_ID"), rs.getInt("patient_ID")); 
 				connection.close();
 				return patient;
 			}
@@ -286,7 +290,7 @@ public class DatabaseHandler {
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				MedicalStaff MedicalStaff = new MedicalStaff(rs.getString("firstname"),
-						rs.getString("lastname"), rs.getString("username"), rs.getInt("User_ID"), rs.getInt("med_id")); 
+						rs.getString("lastname"), rs.getString("username"), rs.getString("User_ID"), rs.getInt("med_id")); 
 				connection.close();
 				return MedicalStaff;
 			}

@@ -6,12 +6,14 @@ public class Patient extends User {
 	protected LinkedList<MedicalStaff> assignedStaff;
 	private PatientProfile preferences;
 	private LinkedList<Medication> medication;
-
-	public Patient(String firstName, String lastName, String username, int id) {
-		super(firstName, lastName, username, id, "Patient");
+	private int patientID;
+	
+	public Patient(String firstName, String lastName, String username, String userID, int patientID) {
+		super(firstName, lastName, username, userID, "Patient");
 		this.assignedStaff = new LinkedList<MedicalStaff>();
 		this.preferences = new PatientProfile();
 		this.medication = new LinkedList<Medication>();
+		this.patientID = patientID;
 	}
 	
 	public LinkedList<MedicalStaff> getAssignedStaff() {
@@ -64,6 +66,14 @@ public class Patient extends User {
 	
 	public PatientProfile getPreferences() {
 		return this.preferences;
+	}
+
+	public int getPatientID() {
+		return patientID;
+	}
+
+	public void setPatientID(int patientID) {
+		this.patientID = patientID;
 	}
 	
 }

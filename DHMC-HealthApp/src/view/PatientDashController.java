@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import model.MainApp;
 
 public class PatientDashController {
+	@SuppressWarnings("unused")
 	private MainApp mainApp;
 	@FXML
 	TabPane tabPane;

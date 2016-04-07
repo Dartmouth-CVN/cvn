@@ -2,19 +2,19 @@ package model;
 import java.util.LinkedList;
 
 public class Contact {
-	private int id;
+	private String id;
 	private LinkedList<String> phone;
 	private LinkedList<String> email;
 	private LinkedList<String> address;
 
-	public Contact(int id) {
-		this.id = id;
+	public Contact(String id2) {
+		this.id = id2;
 		this.phone = new LinkedList<String>();
 		this.email = new LinkedList<String>();
 		this.address = new LinkedList<String>();
 	}
 	
-	public int getID() {
+	public String getID() {
 		return this.id;
 	}
 	

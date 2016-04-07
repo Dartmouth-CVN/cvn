@@ -1,8 +1,6 @@
-package application;
+package controller;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

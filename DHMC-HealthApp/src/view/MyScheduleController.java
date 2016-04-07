@@ -13,6 +13,7 @@ import model.MainApp;
 
 public class MyScheduleController {
 
+	@SuppressWarnings("unused")
 	private MainApp mainApp;
 	@FXML
 	private AnchorPane calendarPane;

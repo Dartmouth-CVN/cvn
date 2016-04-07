@@ -19,7 +19,8 @@ public class SearchTabController {
 	private TextField searchField;
 
     // Reference to the main application.
-    private MainApp mainApp;
+    @SuppressWarnings("unused")
+	private MainApp mainApp;
 
     /**
      * The constructor.
@@ -59,7 +60,8 @@ public class SearchTabController {
     @FXML
     private void handleFindPatient() {
    
-    	String name = searchField.getText();
+    	@SuppressWarnings("unused")
+		String name = searchField.getText();
     	
     	//search through the database with the given name
     	
