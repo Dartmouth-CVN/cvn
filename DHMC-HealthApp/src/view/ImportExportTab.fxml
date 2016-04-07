@@ -7,7 +7,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ImportExportController">
   <tabs>
     <Tab text="Import/Export">
       <content>
@@ -21,9 +21,9 @@
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Import CSV:" textAlignment="CENTER" wrappingWidth="287.13671875" />
                            </children>
                         </AnchorPane>
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="291.0" text="Browse..." />
+                        <Button fx:id="fileButton" mnemonicParsing="false" onAction="#chooseFile" prefHeight="25.0" prefWidth="291.0" text="Browse..." />
                         <AnchorPane prefHeight="82.0" prefWidth="296.0" />
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="291.0" text="No file selected" />
+                        <Button fx:id="importButton" mnemonicParsing="false" onAction="#importCSV" prefHeight="25.0" prefWidth="291.0" text="No file selected" />
                      </children>
                   </VBox>
                   <Separator orientation="VERTICAL" prefHeight="200.0" />
@@ -33,7 +33,7 @@
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="29.0" prefWidth="288.0" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Export CSV:" textAlignment="CENTER" wrappingWidth="287.13671875" />
                         <AnchorPane prefHeight="36.0" prefWidth="296.0" />
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="291.0" text="Export!" />
+                        <Button fx:id="exportButton" mnemonicParsing="false" onAction="#exportCSV" prefHeight="25.0" prefWidth="291.0" text="Export!" />
                         <AnchorPane prefHeight="82.0" prefWidth="296.0" />
                      </children>
                   </VBox>

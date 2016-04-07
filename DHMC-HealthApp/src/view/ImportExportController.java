@@ -1,14 +1,18 @@
-package controller;
+package view;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.LinkedList;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
-//import model.mainApp;
+import model.MainApp;
+import model.Patient;
 
 public class ImportExportController {
-	// private MainApp mainApp;
+	private MainApp mainApp;
 
 	@FXML
 	private Button fileButton;
@@ -18,18 +22,17 @@ public class ImportExportController {
 	private Button exportButton;
 
 	private File curFile;
-	//	private LinkedList<Patient> pts;
-	
-	
-	/*
-	 * public void setMainApp(MainApp mainApp) { this.mainApp = mainApp; }
-	 */
+	private LinkedList<Patient> pts;
+
+	public void setMainApp(MainApp mainApp) {
+		this.mainApp = mainApp;
+	}
 
 	@FXML
 	private void initialize() {
 
 	}
-
+	@FXML
 	public void chooseFile() {
 		FileChooser fc = new FileChooser();
 		fc.setTitle("Select CSV to import");
@@ -37,17 +40,17 @@ public class ImportExportController {
 		if (curFile.exists())
 			importButton.setText("Import " + curFile.getName());
 	}
-/*
+	@FXML
 	public void importCSV() {
 		if (curFile != null && curFile.exists())
 			pts = model.CSVParsingUtils.CSVImport(curFile);
 	}
-
-	public void exportCSV(){
+	@FXML
+	public void exportCSV() {
 		int curFileInt = 1;
-		while (	Files.exists(Paths.get("exported"+1+".csv")))
+		while (Files.exists(Paths.get("exported" + curFileInt + ".csv")))
 			curFileInt++;
-		model.CSVParsingUtils.CSVExport("exported"+1+".csv", pts);
+		model.CSVParsingUtils.CSVExport("exported" + curFileInt + ".csv", pts);
 	}
-	*/
+
 }
