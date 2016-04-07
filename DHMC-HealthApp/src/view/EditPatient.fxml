@@ -9,12 +9,10 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EditPatientController">
+<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditPatientController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -45,40 +43,34 @@
          <children>
             <Accordion>
               <panes>
-                <TitledPane animated="false" prefWidth="1210.0" text="General Information">
+                <TitledPane animated="false" text="General Information">
                      <content>
                         <AnchorPane accessibleText="Name" prefHeight="0.0" prefWidth="1208.0">
                            <children>
-                              <TextField fx:id="firstNameTF" layoutX="88.0" layoutY="15.0" onAction="#initialize" onKeyReleased="#handleNames" prefHeight="31.0" prefWidth="205.0" promptText="Please enter your first name" />
-                              <TextField fx:id="lastNameTF" layoutX="308.0" layoutY="15.0" onKeyReleased="#handleNames" prefHeight="31.0" prefWidth="205.0" promptText="Please enter your last name" />
+                              <TextField fx:id="tf" layoutX="88.0" layoutY="15.0" prefHeight="31.0" prefWidth="205.0" promptText="Please enter your first name" />
+                              <TextField layoutX="308.0" layoutY="15.0" prefHeight="31.0" prefWidth="205.0" promptText="Please enter your last name" />
                               <TextArea layoutX="14.0" layoutY="14.0" minHeight="-Infinity" prefHeight="32.0" prefWidth="61.0" scaleShape="false" text="Name" />
-                              <TextField fx:id="emailTF" layoutX="178.0" layoutY="65.0" onKeyReleased="#handleNames" prefHeight="31.0" prefWidth="231.0" promptText="Please enter your email address" />
-                              <TextField fx:id="phoneTF" layoutX="422.0" layoutY="65.0" onKeyReleased="#handleNames" prefHeight="31.0" prefWidth="298.0" promptText="Please enter your prefered phone number" />
+                              <TextField layoutX="178.0" layoutY="65.0" prefHeight="31.0" prefWidth="231.0" promptText="Please enter your email address" />
+                              <TextField layoutX="422.0" layoutY="65.0" prefHeight="31.0" prefWidth="298.0" promptText="Please enter your prefered phone number" />
                               <TextArea layoutX="11.0" layoutY="65.0" minHeight="-Infinity" prefHeight="32.0" prefWidth="154.0" scaleShape="false" text="Contact Information" />
-                              <TextArea fx:id="savedInfo" layoutX="14.0" layoutY="124.0" prefHeight="308.0" prefWidth="500.0" />
                            </children>
                         </AnchorPane>
                      </content>
                   </TitledPane>
-                  <TitledPane animated="false" layoutX="10.0" layoutY="41.0" prefHeight="357.0" prefWidth="1210.0" text="About you">
+                  <TitledPane animated="false" layoutX="10.0" layoutY="41.0" prefHeight="738.0" prefWidth="1210.0" text="About you">
                      <content>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <TextArea layoutY="32.0" minHeight="-Infinity" prefHeight="32.0" prefWidth="147.0" scaleShape="false" text="Family Information" />
-                              <ScrollPane fx:id="sp" layoutX="161.0" layoutY="32.0" prefHeight="409.0" prefWidth="443.0">
-                                 <content>
-                                    <VBox fx:id="box" prefHeight="292.0" prefWidth="441.0">
+                              <TextArea layoutY="29.0" minHeight="-Infinity" prefHeight="32.0" prefWidth="147.0" scaleShape="false" text="Family Information" />
+                              <ScrollPane layoutX="165.0" layoutY="45.0" prefHeight="200.0" prefWidth="200.0">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="181.0" prefWidth="188.0">
                                        <children>
-                                          <TextField prefHeight="31.0" prefWidth="344.0" promptText="Family Member Name" />
-                                          <ToolBar prefHeight="45.0" prefWidth="212.0">
-                                            <items>
-                                                <Button fx:id="add" mnemonicParsing="false" onAction="#addFamily" prefHeight="25.0" prefWidth="50.0" text="+" />
-                                              <Button fx:id="delete" mnemonicParsing="false" onAction="#deleteFamily" prefHeight="31.0" prefWidth="50.0" text="-" />
-                                            </items>
-                                          </ToolBar>
+                                          <TextField layoutX="4.0" layoutY="29.0" prefHeight="32.0" prefWidth="176.0" promptText="Family Member Name" />
+                                          <Button layoutX="68.0" layoutY="100.0" mnemonicParsing="false" text="+" />
                                        </children>
-                                    </VBox>
-                                 </content>
+                                    </AnchorPane>
+                                </content>
                               </ScrollPane>
                            </children>
                         </AnchorPane>
