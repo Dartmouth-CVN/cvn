@@ -32,10 +32,10 @@
                                   <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label prefHeight="31.0" prefWidth="172.0" text="Title" textAlignment="CENTER" />
-                                    <Label prefHeight="31.0" prefWidth="171.0" text="Email" textAlignment="CENTER" GridPane.rowIndex="1" />
-                                    <Label prefHeight="31.0" prefWidth="146.0" text="Phone" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <Label prefHeight="31.0" prefWidth="145.0" text="Office" textAlignment="CENTER" GridPane.columnIndex="1" />
+                                    <Label prefHeight="31.0" prefWidth="172.0" text="Administrator" textAlignment="CENTER" />
+                                    <Label prefHeight="31.0" prefWidth="171.0" text="dummy@admins.com" textAlignment="CENTER" GridPane.rowIndex="1" />
+                                    <Label prefHeight="31.0" prefWidth="146.0" text=" (719) - 224 - 1938" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Label prefHeight="31.0" prefWidth="145.0" text="SL 305" textAlignment="CENTER" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane layoutX="14.0" layoutY="23.0" prefHeight="119.0" prefWidth="129.0">
@@ -47,7 +47,7 @@
                                   <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="45.0" valignment="CENTER" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label alignment="CENTER" prefHeight="31.0" prefWidth="129.0" text="FirstName LastName" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                                    <Label alignment="CENTER" prefHeight="31.0" prefWidth="129.0" text="Dummy Administrator" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                                     <ImageView fitHeight="85.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../../resources/images/blank-profile-picture.png" />
