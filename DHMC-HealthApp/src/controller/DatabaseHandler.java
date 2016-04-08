@@ -409,7 +409,34 @@ public class DatabaseHandler {
 		} catch (SQLException e) {
 		}
 	}
-
+//	public void insertPatient(Patient p) {
+//		PatientProfile preferences = p.getPreferences();
+//		Object family = p.getFamily();
+//		Object pets = p.getPets();
+//		Object liked_meals = p.getLikedMeals();
+//		Object disliked_meals = p.getDislikedMeals();
+//		Object fitness_info = p.getFitness();
+//		
+//		try {
+//			int userID = insertUser(p.getFirstName(), p.getLastName(), p.getRole());
+//			ps = connection.prepareStatement(
+//			"INSERT INTO app.patient (user_id, family, pets, liked_meals, disliked_meals, fitness_info) " 
+//			+ "VALUES (?, ?, ?, ?, ?, ?)");
+//			
+//			ps.setInt(1, userID);
+//			ps.setObject(2, family);
+//			ps.setObject(3, pets);
+//			ps.setObject(4, liked_meals);
+//			ps.setObject(5, disliked_meals);
+//			ps.setObject(6, fitness_info);
+//			
+//			System.out.printf("inserted patient: %s %s\n", p.getFirstName(), p.getLastName());
+//
+//			ps.executeUpdate();
+//			ps.close();
+//		} catch (SQLException e) {
+//		}
+//	}
 	public void insertMedicalStaff(MedicalStaff staff) {
 		try {
 			ps = connection.prepareStatement(
