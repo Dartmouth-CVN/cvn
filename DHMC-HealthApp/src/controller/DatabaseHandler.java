@@ -37,6 +37,7 @@ public class DatabaseHandler {
 
 //				dropTables();
 //				createTables();
+				insertUser();
 				insertLoginUser();
 //				getLoginUsers();
 				insertPatient();
@@ -352,6 +353,32 @@ public class DatabaseHandler {
 			ps.setString(1, firstName);
 			ps.setString(2, lastName);
 			ps.setString(3, role);
+			ps.executeUpdate();
+			int userID = 0;
+
+			rs = ps.getGeneratedKeys();
+			if (rs != null && rs.next()) {
+				userID = rs.getInt(1);
+			}else{
+				System.out.println("Couldn't return any id");
+			}
+			return userID;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
+	public int insertUser(){
+		try {
+			ps = connection.prepareStatement(
+					"INSERT INTO app.user_account (firstname, lastname, role) VALUES(?, ?, ?)",
+					Statement.RETURN_GENERATED_KEYS);
+
+			ps.setString(1, "Dummy");
+			ps.setString(2, "User");
+			ps.setString(3, "Patient");
 			ps.executeUpdate();
 			int userID = 0;
 
