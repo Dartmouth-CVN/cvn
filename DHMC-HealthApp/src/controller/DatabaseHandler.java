@@ -261,7 +261,6 @@ public class DatabaseHandler {
 			ps.setInt(1, userID);
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				PatientProfile patProfile = new PatientProfile();
 				Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
 						rs.getString("user_id"), rs.getInt("patient_id"));
 				connection.close();
