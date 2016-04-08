@@ -97,9 +97,12 @@ public class AdminDashController {
 	 */
 	@FXML
 	private void handleScheduleSwitch() {
-
 		tabPane.getSelectionModel().select(scheduleTab);
 
+	}
+	
+	private void handleDashSwitch(){
+		tabPane.getSelectionModel().select(dashTab);
 	}
 
 	/**

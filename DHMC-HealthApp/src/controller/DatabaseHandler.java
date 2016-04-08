@@ -23,7 +23,7 @@ public class DatabaseHandler {
 	private static Connection connection;
 
 	public DatabaseHandler() {
-		connect();
+		connect(true);
 	}
 
 	/**
@@ -31,7 +31,7 @@ public class DatabaseHandler {
 	 * 
 	 * @return
 	 */
-	public boolean connect() {
+	public boolean connect(boolean create) {
 		try {
 			// connect method - embedded driver
 			EmbeddedDataSource ds = new EmbeddedDataSource();
@@ -41,14 +41,15 @@ public class DatabaseHandler {
 			if (connection != null) {
 				System.out.println("Connected to Health App database");
 
-//				 dropTables();
-//				 createTables();
-//				 insertUser();
-//				 insertLoginUser();
-//				 insertPatient();
-//				 getLoginUsers();
-//				 getPatients();
-
+				if(create){
+//					dropTables();
+					createTables();
+					insertUser();
+					insertLoginUser();
+					insertPatient();
+					getLoginUsers();
+					getPatients();
+				}
 			}
 		} catch (SQLException ex) {
 			System.out.println("Connection Failed! Check output console");
@@ -279,7 +280,7 @@ public class DatabaseHandler {
 	 */
 	public Patient findPatient(int userID) {
 		try {
-			connect();
+			connect(false);
 			ps = connection.prepareStatement("SELECT * FROM patient NATURAL JOIN user_account WHERE user_id = ?");
 			ps.setInt(1, userID);
 			rs = ps.executeQuery();
@@ -296,13 +297,13 @@ public class DatabaseHandler {
 		return null;
 	}
 
-	public LinkedList<SimpleUser> searchPatient(String name) {
-		LinkedList<SimpleUser> patientList = new LinkedList<SimpleUser>();
+	public ObservableList<SimpleUser> searchPatient(String name) {
+		ObservableList<SimpleUser> patientList = FXCollections.observableArrayList();
 		try {
+			connect(false);
 			ps = connection.prepareStatement(
-					"SELECT * FROM patient Natural Join user_account " + "WHERE firstname = ? OR lastname = ?");
+					"SELECT * FROM patient Natural Join user_account " + "WHERE firstname = ?");
 			ps.setString(1, name);
-			ps.setString(2, name);
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				SimpleUser user = new SimpleUser(rs.getInt("user_id"), rs.getString("firstname"),
@@ -312,6 +313,7 @@ public class DatabaseHandler {
 
 			connection.close();
 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 		}
 		return patientList;
 	}
@@ -336,7 +338,7 @@ public class DatabaseHandler {
 	public LinkedList<Patient> getPTS() {
 		LinkedList<Patient> personData = new LinkedList<Patient>();
 		try {
-			connect();
+			connect(false);
 			ps = connection.prepareStatement("SELECT * FROM patient NATURAL JOIN user_account");
 			rs = ps.executeQuery();
 			while (rs.next()) {
@@ -462,6 +464,7 @@ public class DatabaseHandler {
 
 	public int insertUser(String firstName, String lastName, String role) {
 		try {
+			connect(false);
 			ps = connection.prepareStatement("INSERT INTO app.user_account (firstname, lastname, role) VALUES(?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 
@@ -487,6 +490,7 @@ public class DatabaseHandler {
 
 	public int insertUser() {
 		try {
+			connect(false);
 			ps = connection.prepareStatement("INSERT INTO app.user_account (firstname, lastname, role) VALUES(?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 
@@ -612,7 +616,7 @@ public class DatabaseHandler {
 
 	public void updatePatient(Patient p) {
 		try {
-			connect();
+			connect(false);
 			ps = connection.prepareStatement("UPDATE app.user_account SET firstname = ?, lastname = ?, role = ? "
 					+ "WHERE user_id = ?");
 
