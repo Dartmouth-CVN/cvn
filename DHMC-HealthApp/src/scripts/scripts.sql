@@ -1,3 +1,4 @@
+SELECT * FROM app.users;
 
 CREATE TABLE healthapp.login(id int AUTO_INCREMENT, username VARCHAR(20), password VARCHAR(200));
 

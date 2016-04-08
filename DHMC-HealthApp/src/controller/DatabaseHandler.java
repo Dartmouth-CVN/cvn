@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import model.Administrator;
 import model.MedicalStaff;
 import model.Patient;
-import model.PatientProfile;
+import model.SimpleUser;
 
 public class DatabaseHandler {
 
@@ -37,11 +37,12 @@ public class DatabaseHandler {
 				System.out.println("Connected to Health App database");
 
 //				dropTables();
-				createTables();
-				insertUser();
-				insertLoginUser();
+//				createTables();
+//				insertUser();
+//				insertLoginUser();
 //				getLoginUsers();
-				insertPatient();
+//				insertPatient();
+//				getPatients();
 
 			}
 		} catch (SQLException ex) {
@@ -79,6 +80,21 @@ public class DatabaseHandler {
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				System.out.println(rs.getString("username"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void getPatients() {
+		try {
+			ps = connection.prepareStatement("SELECT * FROM app.patient NATURAL JOIN user_account");
+
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				System.out.printf("Patient id: %d Patient Name: %s\n", 
+						rs.getInt("patient_id"), rs.getString("firstname"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -271,7 +287,29 @@ public class DatabaseHandler {
 		}
 		return null;
 	}
-/**  You might need this version of findpatient at some point, returns fitness, food ect...  **/
+
+	public LinkedList<SimpleUser> searchPatient(String name) {
+		LinkedList<SimpleUser> patientList = new LinkedList<SimpleUser>();
+		try {
+			ps = connection.prepareStatement("SELECT * FROM patient Natural Join user_account "
+					+ "WHERE firstname = ? OR lastname = ?");
+			ps.setString(1, name);
+			ps.setString(2, name);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				SimpleUser user = new SimpleUser(rs.getInt("user_id"), rs.getString("firstname"), 
+						rs.getString("lastname"));
+//				System.out.printf("patient firstname: %s\n", patient.getFirstName());
+				patientList.add(user);
+			}
+
+			connection.close();
+		} catch (SQLException e) {
+		}
+		return patientList;
+	}
+
+	/**  You might need this version of findpatient at some point, returns fitness, food ect...  **/
 //	public Patient findPatient(int userID) {
 //		try {
 //			ps = connection.prepareStatement("SELECT * FROM Patient Natural Join User_Account WHERE User_ID = ?;");
@@ -437,7 +475,8 @@ public class DatabaseHandler {
 		} catch (SQLException e) {
 		}
 	}
-//	public void insertPatient(Patient p) {
+
+//		public void insertPatient(Patient p) {
 //		PatientProfile preferences = p.getPreferences();
 //		Object family = p.getFamily();
 //		Object pets = p.getPets();
