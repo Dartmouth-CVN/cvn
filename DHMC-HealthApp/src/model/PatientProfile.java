@@ -2,7 +2,7 @@ package model;
 
 import java.util.LinkedList;
 
-class PatientProfile {
+public class PatientProfile {
 	private LinkedList<String> family;
 	private LinkedList<String> pets;
 	private LinkedList<String> likedMeals;

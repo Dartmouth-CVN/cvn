@@ -147,6 +147,62 @@ public class EditPatientController {
 				"Phone: " + p.getContactInfo().getPrimaryPhone()); 
 	}
 	
+	public void saveFamilyInfo() {
+		int i;
+		TextField field;
+		String familyList = "";
+		String petList = "";
+		String newFamily;
+		String newPet;
+		
+		for (i = 0; i < (familyVB.getChildren().size() - 1); i++) {
+			field = (TextField) familyVB.getChildren().get(i);
+			this.p.getPreferences().addFamily(field.getText());
+		}
+		
+		for (i = 0; i < (petVB.getChildren().size() - 1); i++) {
+			field = (TextField) petVB.getChildren().get(i);
+			this.p.getPreferences().addPet(field.getText());
+		}
+		
+		for(i = 0; i < this.p.getPreferences().getFamily().size(); i++) {
+			newFamily = this.p.getPreferences().getFamily().get(i);
+			familyList = familyList + newFamily + "\n";
+		}
+		
+		for(i = 0; i < this.p.getPreferences().getPets().size(); i++) {
+			newPet = this.p.getPreferences().getPets().get(i);
+			petList = petList + newPet + "\n";
+		}
+		
+		savedFamilyInfo.setText("Saved Family Information:\n\nFamily Members:\n" + familyList + "\nPets:\n" + petList);
+	}
+	
+	
+	
+	public void saveFitnessInfo() {
+		int i;
+		TextField field;
+		String exerciseList = "";
+		String newExercise;
+		
+		for (i = 0; i < (exerciseVB.getChildren().size() - 1); i++) {
+			field = (TextField) exerciseVB.getChildren().get(i);
+			this.p.getPreferences().add(field.getText());
+		}
+		
+		for(i = 0; i < this.p.getPreferences().getFamily().size(); i++) {
+			newFamily = this.p.getPreferences().getFamily().get(i);
+			familyList = familyList + newFamily + "\n";
+		}
+		
+		
+		savedFamilyInfo.setText("Saved Family Information:\n\nFamily Members:\n" + familyList + "\nPets:\n" + petList);
+	}
+	
+	public void saveDietInfo() {
+		
+	}
 	
 	public void setMainApp(MainApp app){
 		this.mainApp = app;
