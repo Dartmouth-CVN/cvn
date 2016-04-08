@@ -1,10 +1,18 @@
 package view;
 
 import model.MainApp;
+
+import java.io.IOException;
+
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 public class AdminDashController {
 	
@@ -24,6 +32,8 @@ public class AdminDashController {
 	private ImageView searchImage = new ImageView();
 	@FXML
 	private ImageView importImage = new ImageView();
+	@FXML
+	private Button editButton = new Button();
 
     // Reference to the main application.
     @SuppressWarnings("unused")
@@ -111,6 +121,27 @@ public class AdminDashController {
     private void handleImportSwitch() {
 
     	tabPane.getSelectionModel().select(importTab);
+    	
+    }
+    
+    /**
+     * Called when the user clicks the edit profile button.
+     */
+    @FXML
+    private void handleEditProfile() {
+    	
+    	Parent root;
+    	
+        try {
+            root = FXMLLoader.load(getClass().getClassLoader().getResource("path/to/other/view.fxml"), resources);
+            Stage stage = new Stage();
+            stage.setTitle("My New Stage Title");
+            stage.setScene(new Scene(root, 450, 450));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     	
     }
 }
