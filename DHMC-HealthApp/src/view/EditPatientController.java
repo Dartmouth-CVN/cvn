@@ -145,6 +145,7 @@ public class EditPatientController {
 				"Last Name: " + p.getLastName() + "\n" +
 				"Email: " + p.getContactInfo().getPrimaryEmail() + "\n" +
 				"Phone: " + p.getContactInfo().getPrimaryPhone()); 
+		mainApp.getDatabaseHandler().updatePatient(p);
 	}
 	
 	public void saveFamilyInfo() {
@@ -176,6 +177,7 @@ public class EditPatientController {
 		}
 		
 		savedFamilyInfo.setText("Saved Family Information:\n\nFamily Members:\n" + familyList + "\nPets:\n" + petList);
+		mainApp.getDatabaseHandler().updatePatient(p);
 	}
 	
 	
@@ -198,6 +200,7 @@ public class EditPatientController {
 		
 		
 		savedFitnessInfo.setText("Saved Fitness Information:\n\nExercises:\n" + exerciseList);
+		mainApp.getDatabaseHandler().updatePatient(p);
 	}
 	
 	public void saveDietInfo() {
@@ -229,6 +232,7 @@ public class EditPatientController {
 		}
 		
 		savedDietInfo.setText("Saved Diet Information:\n\nLiked Meals:\n" + likedMealList + "\nDisliked Meals:\n" + dislikedMealList);
+		mainApp.getDatabaseHandler().updatePatient(p);
 	}
 	
 	public void setMainApp(MainApp app){
