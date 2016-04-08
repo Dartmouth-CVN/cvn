@@ -131,35 +131,66 @@ public class AdminDashController {
 	// ImportandExportThings
 
 	@FXML
-	private Button fileButton;
+	private Button csvButton;
 	@FXML
-	private Button importButton;
+	private Button importCSVButton;
 	@FXML
-	private Button exportButton;
+	private Button exportCSVButton;
 
-	private File curFile;
+	@FXML
+	private Button tsvButton;
+	@FXML
+	private Button importTSVButton;
+	@FXML
+	private Button exportTSVButton;
+
+	private File curCSV;
+	private File curTSV;
 	private LinkedList<Patient> pts;
 
 	@FXML
-	public void chooseFile() {
+	public void chooseCSV() {
 		FileChooser fc = new FileChooser();
 		fc.setTitle("Select CSV to import");
-		curFile = fc.showOpenDialog(null);
-		if (curFile.exists())
-			importButton.setText("Import " + curFile.getName());
+		curCSV = fc.showOpenDialog(null);
+		if (curCSV.exists())
+			importCSVButton.setText("Import " + curCSV.getName());
 	}
 
 	@FXML
 	public void importCSV() {
-		if (curFile != null && curFile.exists())
-			pts = model.CSVParsingUtils.CSVImport(curFile);
+		if (curCSV != null && curCSV.exists())
+			pts = model.CSVParsingUtils.CSVImport(curCSV);
+	}
+	
+	@FXML
+	public void chooseTSV() {
+		FileChooser fc = new FileChooser();
+		fc.setTitle("Select TSV to import");
+		curTSV = fc.showOpenDialog(null);
+		if (curTSV.exists())
+			importTSVButton.setText("Import " + curTSV.getName());
 	}
 
+	@FXML
+	public void importTSV() {
+		if (curTSV != null && curTSV.exists())
+			pts = model.CSVParsingUtils.TSVImport(curTSV);
+	}
+	
 	@FXML
 	public void exportCSV() {
 		int curFileInt = 1;
 		while (Files.exists(Paths.get("exported" + curFileInt + ".csv")))
 			curFileInt++;
 		model.CSVParsingUtils.CSVExport("exported" + curFileInt + ".csv", pts);
+	}
+	@FXML
+	public void exportTSV(){
+		int curFileInt = 1;
+		while (Files.exists(Paths.get("exported" + curFileInt + ".tsv")))
+			curFileInt++;
+		model.CSVParsingUtils.TSVExport("exported" + curFileInt + ".tsv", pts);
+	
 	}
 }

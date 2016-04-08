@@ -19,6 +19,18 @@ public class CSVParsingUtils {
 	}
 
 	public static LinkedList<Patient> CSVImport(File f) {
+		return ImportSepValuesFile(f, ",");
+	}
+
+	public static LinkedList<Patient> TSVImport(String str) {
+		return TSVImport(new File(str));
+	}
+
+	public static LinkedList<Patient> TSVImport(File f) {
+		return ImportSepValuesFile(f, "\t");
+	}
+
+	public static LinkedList<Patient> ImportSepValuesFile(File f, String delimiter) {
 		LinkedList<Patient> output = new LinkedList<Patient>();
 		Scanner fileReader;
 		try {
@@ -30,12 +42,20 @@ public class CSVParsingUtils {
 		}
 
 		while (fileReader.hasNextLine()) // Parses the file line by line
-			output.add(makePatient(fileReader.nextLine().split(",")));
+			output.add(makePatient(fileReader.nextLine().split(delimiter)));
 		fileReader.close();
 		return output;
 	}
 
 	public static void CSVExport(String output, LinkedList<Patient> src) {
+		ExportSepValuesFile(output, src, ",");
+	}
+
+	public static void TSVExport(String output, LinkedList<Patient> src) {
+		ExportSepValuesFile(output, src, "\t");
+	}
+
+	public static void ExportSepValuesFile(String output, LinkedList<Patient> src, String delimiter) {
 		PrintWriter toFile;
 		try {
 			toFile = new PrintWriter(output, "UTF-8");
@@ -44,7 +64,7 @@ public class CSVParsingUtils {
 			return;
 		}
 		for (Patient pt : src) {
-			toFile.println(patientToCSV(pt));
+			toFile.println(patientToSepValuesFile(pt, delimiter));
 		}
 
 		toFile.close();
@@ -62,20 +82,20 @@ public class CSVParsingUtils {
 		return output;
 	}
 
-	public static String patientToCSV(Patient pt) {
+	public static String patientToSepValuesFile(Patient pt, String delimiter) {
 		String output = pt.getUserID();
-		output += "," + pt.getLastName();
-		output += "," + pt.getFirstName();
-		output += ", Null,\"";
+		output += delimiter + pt.getLastName();
+		output += delimiter + pt.getFirstName();
+		output += delimiter + "Null" + delimiter + "\"";
 		for (MedicalStaff ms : pt.getAssignedStaff())
-			output += ms.getUserID() + ",";
-		output += "\",Null,";
+			output += ms.getUserID() + delimiter;
+		output += "\"" + delimiter + "Null" + delimiter;
 		for (Medication med : pt.getMedication())
-			output += med.getName() + ",";
+			output += med.getName() + delimiter;
 		output += "\"";
 		for (int i = 0; i < 13; i++)
-			output += ",Null";
-		output += ",*END*";
+			output += delimiter + "Null";
+		output += delimiter + "*END*";
 
 		return output;
 	}
