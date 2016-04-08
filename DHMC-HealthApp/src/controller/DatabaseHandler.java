@@ -144,7 +144,7 @@ public class DatabaseHandler {
 //			ps.execute();
 			
 			ps = connection.prepareStatement("CREATE TABLE app.user_account("
-					+ "user_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
+					+ "user_id VARCHAR(10) NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
 					+ "firstname VARCHAR(20), lastname VARCHAR(20), role VARCHAR(20), Primary Key(user_id))");
 			ps.execute();
 
