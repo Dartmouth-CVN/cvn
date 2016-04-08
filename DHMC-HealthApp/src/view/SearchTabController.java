@@ -1,9 +1,10 @@
 package view;
 
-import java.awt.TextField;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import model.MainApp;
 
 public class SearchTabController {
@@ -17,6 +18,16 @@ public class SearchTabController {
     private TableColumn<Integer, String> lastNameColumn;
 	@FXML
 	private TextField searchField;
+	@FXML
+	private Label roomLabel = new Label();
+	@FXML
+	private Label nameLabel = new Label();
+	@FXML
+	private Label doctorLabel = new Label();
+	@FXML
+	private Label nurseLabel = new Label();
+	@FXML
+	private Label phoneLabel = new Label();
 
     // Reference to the main application.
     @SuppressWarnings("unused")
@@ -66,6 +77,16 @@ public class SearchTabController {
     	//search through the database with the given name
     	
     	//display into TableView
+    	
+    }
+    
+    /**
+     * Called when the user clicks edit profile button.
+     */
+    @FXML
+    private void handleEditProfile() {
+   
+    	mainApp.showEditProfile();
     	
     }
 }
