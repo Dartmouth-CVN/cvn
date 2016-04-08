@@ -36,17 +36,18 @@ public class DatabaseHandler {
 			// connect method - embedded driver
 			EmbeddedDataSource ds = new EmbeddedDataSource();
 			ds.setDatabaseName("HealthApp");
+			ds.setCreateDatabase("create");
 			connection = ds.getConnection();
 			if (connection != null) {
 				System.out.println("Connected to Health App database");
 
-				// dropTables();
-				// createTables();
-				// insertUser();
-				// insertLoginUser();
-				// insertPatient();
-				// getLoginUsers();
-				// getPatients();
+//				 dropTables();
+//				 createTables();
+//				 insertUser();
+//				 insertLoginUser();
+//				 insertPatient();
+//				 getLoginUsers();
+//				 getPatients();
 
 			}
 		} catch (SQLException ex) {
@@ -278,16 +279,19 @@ public class DatabaseHandler {
 	 */
 	public Patient findPatient(int userID) {
 		try {
-			ps = connection.prepareStatement("SELECT * FROM Patient Natural Join User_Account WHERE User_ID = ?;");
+			connect();
+			ps = connection.prepareStatement("SELECT * FROM patient NATURAL JOIN user_account WHERE user_id = ?");
 			ps.setInt(1, userID);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
 						rs.getString("user_id"), rs.getInt("patient_id"));
+				System.out.println("Patient name: " + patient.getFirstName());
 				connection.close();
 				return patient;
 			}
 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 		}
 		return null;
 	}

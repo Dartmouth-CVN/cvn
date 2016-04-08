@@ -9,6 +9,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import model.MainApp;
+import model.Patient;
 import model.SimpleUser;
 
 public class SearchTabController {
@@ -34,6 +35,8 @@ public class SearchTabController {
 	private Label nurseLabel = new Label();
 	@FXML
 	private Label phoneLabel = new Label();
+	
+	private int userID;
 
 	// Reference to the main application.
 	private MainApp mainApp;
@@ -75,6 +78,7 @@ public class SearchTabController {
 		roomLabel.setText("Room " + rand.nextInt(10) + 1);
 		nurseLabel.setText("Nurse " + rand.nextInt(10) + 1);
 		phoneLabel.setText(phoneNumbers[rand.nextInt(2)]);
+		userID = idColumn.getCellData(profileTable.getSelectionModel().getSelectedIndex());
 	}
 
 	/**
@@ -113,7 +117,9 @@ public class SearchTabController {
 	 */
 	@FXML
 	private void handleEditProfile() {
-		mainApp.showEditProfile();
+		Patient patient = mainApp.getDatabaseHandler().findPatient(userID);
+		if(patient != null)
+			mainApp.showEditProfile(patient);
 
 	}
 }
