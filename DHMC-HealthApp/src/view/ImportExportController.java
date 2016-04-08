@@ -12,7 +12,6 @@ import model.MainApp;
 import model.Patient;
 
 public class ImportExportController {
-	private MainApp mainApp;
 
 	@FXML
 	private Button fileButton;
@@ -24,9 +23,6 @@ public class ImportExportController {
 	private File curFile;
 	private LinkedList<Patient> pts;
 
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
-	}
 
 	@FXML
 	private void initialize() {
