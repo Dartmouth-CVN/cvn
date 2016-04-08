@@ -43,12 +43,12 @@ public class DatabaseHandler {
 
 				if(create){
 //					dropTables();
-					createTables();
-					insertUser();
-					insertLoginUser();
-					insertPatient();
-					getLoginUsers();
-					getPatients();
+//					createTables();
+//					insertUser();
+//					insertLoginUser();
+//					insertPatient();
+//					getLoginUsers();
+//					getPatients();
 				}
 			}
 		} catch (SQLException ex) {
@@ -287,7 +287,6 @@ public class DatabaseHandler {
 			if (rs.next()) {
 				Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
 						rs.getString("user_id"), rs.getInt("patient_id"));
-				System.out.println("Patient name: " + patient.getFirstName());
 				connection.close();
 				return patient;
 			}
@@ -344,7 +343,6 @@ public class DatabaseHandler {
 			while (rs.next()) {
 				Patient user = new Patient(rs.getString("firstname"), 
 						rs.getString("lastname"), String.valueOf(rs.getInt("user_id")), rs.getInt("patient_id"));
-				System.out.println("Patient x: " + user.getFirstName());
 				personData.add(user);
 			}
 

@@ -1,6 +1,7 @@
 2,Patient,Dummy,Null,"",Null,",Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,*END*
-3,Last name2,First name,Null,"",Null,",Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,*END*
+3,Last name,First name,Null,"",Null,",Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,*END*
 4,String,String,Null,"",Null,",Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,*END*
-5,Null,Null,Null,"",Null,",Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,*END*
+5,Patient,New,Null,"",Null,",Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,*END*
 6,Smith,John,Null,"",Null,",Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,*END*
 7,fish,a,Null,"",Null,",Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,*END*
+8,Wong,Wilson,Male,””,Null,",Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,*END*
