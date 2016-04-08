@@ -139,7 +139,7 @@ public class MainApp extends Application {
 	}
 
 	public void setHorizontalLayout() {
-		primaryStage.setWidth(800);
+		primaryStage.setWidth(600);
 		primaryStage.setHeight(600);
 	}
 

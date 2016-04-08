@@ -1,5 +1,8 @@
 package view;
 
+import java.util.Random;
+
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -55,6 +58,23 @@ public class SearchTabController {
 		 * profileTable.getSelectionModel().selectedItemProperty().addListener(
 		 * (observable, oldValue, newValue) -> showPersonDetails(newValue));
 		 */
+		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
+        lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
+        idColumn.setCellValueFactory(cellData -> cellData.getValue().getUserIDProperty().asObject());
+        
+        //set table listener
+        profileTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> showUserDetails(newValue));
+	}
+	
+	private void showUserDetails(SimpleUser user){
+		nameLabel.setText(user.getFirstName() + " " + user.getLastName());
+		Random rand = new Random();
+		String[] phoneNumbers = {"(508) 737-3661", "(857) 250-5168", "(703) 309-3778"};
+		doctorLabel.setText("Doctor " + rand.nextInt(10) + 1);
+		roomLabel.setText("Room " + rand.nextInt(10) + 1);
+		nurseLabel.setText("Nurse " + rand.nextInt(10) + 1);
+		phoneLabel.setText(phoneNumbers[rand.nextInt(2)]);
 	}
 
 	/**
@@ -76,8 +96,11 @@ public class SearchTabController {
 	private void handleFindPatient() {
 		String name = searchField.getText();
 
-		if (!name.equals("")){
+		if (!name.equals(""))
 			profileTable.getItems().setAll(mainApp.getDatabaseHandler().searchPatient(name));
+		else{
+			ObservableList<SimpleUser> personData = mainApp.getDatabaseHandler().searchPatient();
+			profileTable.setItems(personData);	
 		}
 		// search through the database with the given name
 

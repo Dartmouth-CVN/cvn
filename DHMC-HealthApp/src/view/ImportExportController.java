@@ -38,8 +38,10 @@ public class ImportExportController {
 	}
 	@FXML
 	public void importCSV() {
-		if (curFile != null && curFile.exists())
+		if (curFile != null && curFile.exists()){
 			pts = model.CSVParsingUtils.CSVImport(curFile);
+			
+		}
 	}
 	@FXML
 	public void exportCSV() {

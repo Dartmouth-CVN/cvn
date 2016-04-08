@@ -1,13 +1,16 @@
 package controller;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 
+import org.apache.derby.jdbc.EmbeddedDataSource;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import model.Administrator;
 import model.MedicalStaff;
 import model.Patient;
@@ -31,18 +34,19 @@ public class DatabaseHandler {
 	public boolean connect() {
 		try {
 			// connect method - embedded driver
-			String url = "jdbc:derby:HealthAppDB;create=true";
-			connection = DriverManager.getConnection(url);
+			EmbeddedDataSource ds = new EmbeddedDataSource();
+			ds.setDatabaseName("HealthApp");
+			connection = ds.getConnection();
 			if (connection != null) {
 				System.out.println("Connected to Health App database");
 
-//				dropTables();
-//				createTables();
-//				insertUser();
-//				insertLoginUser();
-//				getLoginUsers();
-//				insertPatient();
-//				getPatients();
+				// dropTables();
+				// createTables();
+				// insertUser();
+				// insertLoginUser();
+				// insertPatient();
+				// getLoginUsers();
+				// getPatients();
 
 			}
 		} catch (SQLException ex) {
@@ -59,7 +63,7 @@ public class DatabaseHandler {
 			ps = connection.prepareStatement("INSERT INTO app.login (username, password, user_id) VALUES (?, ?, ?)");
 			ps.setString(1, "admin");
 			ps.setString(2, "pass");
-			ps.setInt(3, userID );
+			ps.setInt(3, userID);
 			ps.execute();
 			System.out.println("Inserted login user");
 		} catch (SQLException e) {
@@ -67,8 +71,8 @@ public class DatabaseHandler {
 			e.printStackTrace();
 		}
 	}
-	
-	public void insertPatient(){
+
+	public void insertPatient() {
 		Patient patient = new Patient("Dummy", "Patient", "", 0);
 		insertPatient(patient);
 	}
@@ -86,15 +90,15 @@ public class DatabaseHandler {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void getPatients() {
 		try {
 			ps = connection.prepareStatement("SELECT * FROM app.patient NATURAL JOIN user_account");
 
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				System.out.printf("Patient id: %d Patient Name: %s\n", 
-						rs.getInt("patient_id"), rs.getString("firstname"));
+				System.out.printf("Patient id: %d Patient Name: %s\n", rs.getInt("patient_id"),
+						rs.getString("firstname"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -152,8 +156,8 @@ public class DatabaseHandler {
 
 	public void createTables() {
 		try {
-//			 ps = connection.prepareStatement("create schema healthapp");
-//			 ps.execute();
+			// ps = connection.prepareStatement("create schema healthapp");
+			// ps.execute();
 
 			ps = connection.prepareStatement("CREATE TABLE app.user_account("
 					+ "user_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
@@ -291,15 +295,14 @@ public class DatabaseHandler {
 	public LinkedList<SimpleUser> searchPatient(String name) {
 		LinkedList<SimpleUser> patientList = new LinkedList<SimpleUser>();
 		try {
-			ps = connection.prepareStatement("SELECT * FROM patient Natural Join user_account "
-					+ "WHERE firstname = ? OR lastname = ?");
+			ps = connection.prepareStatement(
+					"SELECT * FROM patient Natural Join user_account " + "WHERE firstname = ? OR lastname = ?");
 			ps.setString(1, name);
 			ps.setString(2, name);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				SimpleUser user = new SimpleUser(rs.getInt("user_id"), rs.getString("firstname"), 
+				SimpleUser user = new SimpleUser(rs.getInt("user_id"), rs.getString("firstname"),
 						rs.getString("lastname"));
-//				System.out.printf("patient firstname: %s\n", patient.getFirstName());
 				patientList.add(user);
 			}
 
@@ -309,35 +312,60 @@ public class DatabaseHandler {
 		return patientList;
 	}
 
-	/**  You might need this version of findpatient at some point, returns fitness, food ect...  **/
-//	public Patient findPatient(int userID) {
-//		try {
-//			ps = connection.prepareStatement("SELECT * FROM Patient Natural Join User_Account WHERE User_ID = ?;");
-//			ps.setInt(1, userID);
-//			rs = ps.executeQuery();
-//			if (rs.next()) {
-//				
-//				Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
-//						rs.getString("user_id"), rs.getInt("patient_id"));
-//				PatientProfile patProfile = patient.getPreferences();		
-//				//cast objects back to linkedlist<strings>
-//				LinkedList<String> family = (LinkedList<String>) rs.getObject("family");
-//				LinkedList<String> liked_meals = (LinkedList<String>) rs.getObject("liked_meals");
-//				LinkedList<String> disliked_meals = (LinkedList<String>) rs.getObject("disliked_meals");
-//				LinkedList<String> fitness_info = (LinkedList<String>) rs.getObject("fitness_info");
-//				patProfile.setFamily(family);
-//				patProfile.setLikedMeals(liked_meals); 
-//				patProfile.setDislikedMeals(disliked_meals); 
-//				patProfile.setFitness(fitness_info); 
-//				patient.setPreferences(patProfile);
-//				connection.close();
-//				return patient;
-//			}
-//		} catch (SQLException e) {
-//		}
-//		return null;
-//	}
-	
+	public ObservableList<SimpleUser> searchPatient() {
+		ObservableList<SimpleUser> personData = FXCollections.observableArrayList();
+		try {
+			ps = connection.prepareStatement("SELECT * FROM patient NATURAL JOIN user_account");
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				SimpleUser user = new SimpleUser(rs.getInt("user_id"), rs.getString("firstname"),
+						rs.getString("lastname"));
+				personData.add(user);
+			}
+
+			connection.close();
+		} catch (SQLException e) {
+		}
+		return personData;
+	}
+
+	/**
+	 * You might need this version of findpatient at some point, returns
+	 * fitness, food ect...
+	 **/
+	// public Patient findPatient(int userID) {
+	// try {
+	// ps = connection.prepareStatement("SELECT * FROM Patient Natural Join
+	// User_Account WHERE User_ID = ?;");
+	// ps.setInt(1, userID);
+	// rs = ps.executeQuery();
+	// if (rs.next()) {
+	//
+	// Patient patient = new Patient(rs.getString("firstname"),
+	// rs.getString("lastname"),
+	// rs.getString("user_id"), rs.getInt("patient_id"));
+	// PatientProfile patProfile = patient.getPreferences();
+	// //cast objects back to linkedlist<strings>
+	// LinkedList<String> family = (LinkedList<String>) rs.getObject("family");
+	// LinkedList<String> liked_meals = (LinkedList<String>)
+	// rs.getObject("liked_meals");
+	// LinkedList<String> disliked_meals = (LinkedList<String>)
+	// rs.getObject("disliked_meals");
+	// LinkedList<String> fitness_info = (LinkedList<String>)
+	// rs.getObject("fitness_info");
+	// patProfile.setFamily(family);
+	// patProfile.setLikedMeals(liked_meals);
+	// patProfile.setDislikedMeals(disliked_meals);
+	// patProfile.setFitness(fitness_info);
+	// patient.setPreferences(patProfile);
+	// connection.close();
+	// return patient;
+	// }
+	// } catch (SQLException e) {
+	// }
+	// return null;
+	// }
+
 	/**
 	 * Finds MedicalStaff from database given userID.
 	 * 
@@ -382,11 +410,10 @@ public class DatabaseHandler {
 		}
 		return null;
 	}
-	
+
 	public int findUser(int userID) {
 		try {
-			ps = connection
-					.prepareStatement("SELECT * FROM app.user_account WHERE user_id = ?");
+			ps = connection.prepareStatement("SELECT * FROM app.user_account WHERE user_id = ?");
 			ps.setInt(1, userID);
 			rs = ps.executeQuery();
 			if (rs.next()) {
@@ -396,11 +423,10 @@ public class DatabaseHandler {
 		}
 		return -1;
 	}
-	
+
 	public int findAnyUser() {
 		try {
-			ps = connection
-					.prepareStatement("SELECT * FROM app.user_account");
+			ps = connection.prepareStatement("SELECT * FROM app.user_account");
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				return rs.getInt("user_id");
@@ -409,11 +435,10 @@ public class DatabaseHandler {
 		}
 		return -1;
 	}
-	
-	public int insertUser(String firstName, String lastName, String role){
+
+	public int insertUser(String firstName, String lastName, String role) {
 		try {
-			ps = connection.prepareStatement(
-					"INSERT INTO app.user_account (firstname, lastname, role) VALUES(?, ?, ?)",
+			ps = connection.prepareStatement("INSERT INTO app.user_account (firstname, lastname, role) VALUES(?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 
 			ps.setString(1, firstName);
@@ -425,7 +450,7 @@ public class DatabaseHandler {
 			rs = ps.getGeneratedKeys();
 			if (rs != null && rs.next()) {
 				userID = rs.getInt(1);
-			}else{
+			} else {
 				System.out.println("Couldn't return any id");
 			}
 			return userID;
@@ -435,11 +460,10 @@ public class DatabaseHandler {
 		}
 		return -1;
 	}
-	
-	public int insertUser(){
+
+	public int insertUser() {
 		try {
-			ps = connection.prepareStatement(
-					"INSERT INTO app.user_account (firstname, lastname, role) VALUES(?, ?, ?)",
+			ps = connection.prepareStatement("INSERT INTO app.user_account (firstname, lastname, role) VALUES(?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 
 			ps.setString(1, "Dummy");
@@ -451,7 +475,7 @@ public class DatabaseHandler {
 			rs = ps.getGeneratedKeys();
 			if (rs != null && rs.next()) {
 				userID = rs.getInt(1);
-			}else{
+			} else {
 				System.out.println("Couldn't return any id");
 			}
 			return userID;
@@ -466,7 +490,7 @@ public class DatabaseHandler {
 		try {
 			int userID = insertUser(p.getFirstName(), p.getLastName(), p.getRole());
 			ps = connection.prepareStatement("INSERT INTO app.patient (user_id) VALUES (?)");
-			
+
 			ps.setInt(1, userID);
 			System.out.printf("inserted patient: %s %s\n", p.getFirstName(), p.getLastName());
 
@@ -476,34 +500,52 @@ public class DatabaseHandler {
 		}
 	}
 
-//		public void insertPatient(Patient p) {
-//		PatientProfile preferences = p.getPreferences();
-//		Object family = p.getFamily();
-//		Object pets = p.getPets();
-//		Object liked_meals = p.getLikedMeals();
-//		Object disliked_meals = p.getDislikedMeals();
-//		Object fitness_info = p.getFitness();
-//		
-//		try {
-//			int userID = insertUser(p.getFirstName(), p.getLastName(), p.getRole());
-//			ps = connection.prepareStatement(
-//			"INSERT INTO app.patient (user_id, family, pets, liked_meals, disliked_meals, fitness_info) " 
-//			+ "VALUES (?, ?, ?, ?, ?, ?)");
-//			
-//			ps.setInt(1, userID);
-//			ps.setObject(2, family);
-//			ps.setObject(3, pets);
-//			ps.setObject(4, liked_meals);
-//			ps.setObject(5, disliked_meals);
-//			ps.setObject(6, fitness_info);
-//			
-//			System.out.printf("inserted patient: %s %s\n", p.getFirstName(), p.getLastName());
-//
-//			ps.executeUpdate();
-//			ps.close();
-//		} catch (SQLException e) {
-//		}
-//	}
+	public void insertPatients(LinkedList<Patient> patients) {
+		try {
+			for (Patient p : patients) {
+				int userID = insertUser(p.getFirstName(), p.getLastName(), p.getRole());
+				ps = connection.prepareStatement("INSERT INTO app.patient (user_id) VALUES (?)");
+
+				ps.setInt(1, userID);
+				System.out.printf("inserted patient: %s %s\n", p.getFirstName(), p.getLastName());
+
+				ps.executeUpdate();
+			}
+			ps.close();
+		} catch (SQLException e) {
+		}
+	}
+
+	// public void insertPatient(Patient p) {
+	// PatientProfile preferences = p.getPreferences();
+	// Object family = p.getFamily();
+	// Object pets = p.getPets();
+	// Object liked_meals = p.getLikedMeals();
+	// Object disliked_meals = p.getDislikedMeals();
+	// Object fitness_info = p.getFitness();
+	//
+	// try {
+	// int userID = insertUser(p.getFirstName(), p.getLastName(), p.getRole());
+	// ps = connection.prepareStatement(
+	// "INSERT INTO app.patient (user_id, family, pets, liked_meals,
+	// disliked_meals, fitness_info) "
+	// + "VALUES (?, ?, ?, ?, ?, ?)");
+	//
+	// ps.setInt(1, userID);
+	// ps.setObject(2, family);
+	// ps.setObject(3, pets);
+	// ps.setObject(4, liked_meals);
+	// ps.setObject(5, disliked_meals);
+	// ps.setObject(6, fitness_info);
+	//
+	// System.out.printf("inserted patient: %s %s\n", p.getFirstName(),
+	// p.getLastName());
+	//
+	// ps.executeUpdate();
+	// ps.close();
+	// } catch (SQLException e) {
+	// }
+	// }
 	public void insertMedicalStaff(MedicalStaff staff) {
 		try {
 			ps = connection.prepareStatement(

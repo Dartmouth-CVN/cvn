@@ -116,7 +116,7 @@ public class AdminDashController {
 
 	public void setHorizontalLayout() {
 		System.out.println("changing dash size...");
-		adminDash.setPrefWidth(800);
+		adminDash.setPrefWidth(600);
 		adminDash.setPrefHeight(450);
 	}
 
