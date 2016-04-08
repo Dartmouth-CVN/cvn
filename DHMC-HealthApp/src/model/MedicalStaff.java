@@ -6,13 +6,13 @@ public class MedicalStaff extends User {
 	protected LinkedList<Patient> assignedPatients;
 	private int medID;
 	
-	public MedicalStaff(String firstName, String lastName, String username, String userID, int medID) {
-		super(firstName, lastName, username, userID, "MedicalStaff");
+	public MedicalStaff(String firstName, String lastName, String userID, int medID) {
+		super(firstName, lastName, userID, "MedicalStaff");
 		this.setMedID(medID);
 	}
 	
-	public MedicalStaff(String username) {
-		super("Enter First Name", "Enter Last Name", username, "Enter userID", "MedicalStaff");
+	public MedicalStaff(String userID) {
+		super("Enter First Name", "Enter Last Name", userID, "MedicalStaff");
 		this.setMedID(0);
 	}
 	

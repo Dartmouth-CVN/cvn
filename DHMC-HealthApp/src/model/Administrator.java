@@ -4,8 +4,8 @@ import java.io.File;
 
 public class Administrator extends User {
 	private int adminID;
-	public Administrator(String firstName, String lastName, String username,  String userID, int adminID) {
-		super(firstName, lastName, username, userID, "Administrator");
+	public Administrator(String firstName, String lastName, String userID, int adminID) {
+		super(firstName, lastName, userID, "Administrator");
 		this.setAdminID(adminID);
 	}
 	

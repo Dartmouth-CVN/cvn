@@ -2,11 +2,12 @@ package model;
 
 import java.util.LinkedList;
 
-class PatientProfile {
+public class PatientProfile {
 	private LinkedList<String> family;
 	private LinkedList<String> pets;
 	private LinkedList<String> likedMeals;
 	private LinkedList<String> dislikedMeals;
+	private LinkedList<String> fitness;
 //	private HealthProfile healthProfile;
 //	private boolean wantsAlarm;
 	
@@ -15,6 +16,7 @@ class PatientProfile {
 		this.pets = new LinkedList<String>();
 		this.likedMeals = new LinkedList<String>();
 		this.dislikedMeals = new LinkedList<String>();
+		this.setFitness(new LinkedList<String>());
 //		this.wantsAlarm = false;
 	}
 	
@@ -73,6 +75,18 @@ class PatientProfile {
 	
 	public LinkedList<String> getDislikedMeals() {
 		return dislikedMeals;
+	}
+
+	public LinkedList<String> getFitness() {
+		return fitness;
+	}
+
+	public void setFitness(LinkedList<String> fitness) {
+		this.fitness = fitness;
+	}
+	
+	public void addFitness(String newFitness) {
+		this.fitness.add(newFitness);
 	}
 	
 //	public HealthProfile getHealthProfile() {

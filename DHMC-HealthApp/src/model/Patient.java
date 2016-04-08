@@ -7,11 +7,9 @@ public class Patient extends User {
 	private PatientProfile preferences;
 	private LinkedList<Medication> medication;
 	private int patientID;
-	private LinkedList<String> pets;
-	private LinkedList<String> food;
 	
-	public Patient(String firstName, String lastName, String username, String userID, int patientID) {
-		super(firstName, lastName, username, userID, "Patient");
+	public Patient(String firstName, String lastName, String userID, int patientID) {
+		super(firstName, lastName, userID, "Patient");
 		this.assignedStaff = new LinkedList<MedicalStaff>();
 		this.preferences = new PatientProfile();
 		this.medication = new LinkedList<Medication>();
@@ -76,22 +74,6 @@ public class Patient extends User {
 
 	public void setPatientID(int patientID) {
 		this.patientID = patientID;
-	}
-
-	public LinkedList<String> getPets() {
-		return pets;
-	}
-
-	public void setPets(LinkedList<String> pets) {
-		this.pets = pets;
-	}
-
-	public LinkedList<String> getFood() {
-		return food;
-	}
-
-	public void setFood(LinkedList<String> food) {
-		this.food = food;
 	}
 	
 }
