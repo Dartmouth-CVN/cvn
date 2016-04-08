@@ -320,16 +320,121 @@ public class DatabaseHandler {
 		return null;
 	}
 	
+	public void insertPatient(Patient p){
+		try {
+				ps = connection.prepareStatement( 
+				"INSERT INTO user_account (firstname, lastname, user_id, username, role) VALUES(?,?,?,?,?);" 
+				+ "INSERT INTO patient (user_id, patient_id) VALUES (?,?);");
+						
+				ps.setString(1, p.getFirstName());	
+				ps.setString(2, p.getLastName());
+				ps.setInt(3, Integer.parseInt(p.getUserID()));
+				ps.setString(4, p.getUsername());
+				ps.setString(5, p.getRole());
+				
+				ps.setInt(6, Integer.parseInt(p.getUserID()));
+				ps.setInt(7, p.getPatientID());
+				
+				int rset = ps.executeUpdate();
+				ps.close();
+			} catch (SQLException e) {
+		}
+	 }
+	 
+	 public void insertMedicalStaff(MedicalStaff staff){
+		try {
+				ps = connection.prepareStatement( 
+				"INSERT INTO user_account (firstname, lastname, user_id, username, role) VALUES(?,?,?,?,?);" 
+				+ "INSERT INTO medical_staff (user_id, med_id) VALUES (?,?);");
+						
+				ps.setString(1, staff.getFirstName());	
+				ps.setString(2, staff.getLastName());
+				ps.setInt(3, Integer.parseInt(staff.getUserID()));
+				ps.setString(4, staff.getUsername());
+				ps.setString(5, staff.getRole());
+				
+				ps.setInt(6, Integer.parseInt(staff.getUserID()));
+				ps.setInt(7, staff.getMedID());
+				
+				int rset = ps.executeUpdate();
+				ps.close();
+			} catch (SQLException e) {
+		}
+	 }
+	 
+	  public void insertAdmin(Administrator admin){
+		try {
+				ps = connection.prepareStatement( 
+				"INSERT INTO user_account (firstname, lastname, user_id, username, role) VALUES(?,?,?,?,?);" 
+				+ "INSERT INTO administrator (user_id, admin_id) VALUES (?,?);");
+						
+				ps.setString(1, admin.getFirstName());	
+				ps.setString(2, admin.getLastName());
+				ps.setInt(3, Integer.parseInt(admin.getUserID()));
+				ps.setString(4, admin.getUsername());
+				ps.setString(5, admin.getRole());
+				
+				ps.setInt(6, Integer.parseInt(admin.getUserID()));
+				ps.setInt(7, admin.getAdminID());
+				
+				int rset = ps.executeUpdate();
+				ps.close();
+			} catch (SQLException e) {
+		}
+	 }
+	
 	public void updatePatient(Patient p) {
-		
+		try {
+            ps = connection.prepareStatement( 
+			"UPDATE user_account SET firstname = ?, lastname = ?, role = ?" 
+			+ "FROM user_account"
+			+ "WHERE user_id = ?;");
+                    
+            ps.setString(1, p.getFirstName());	
+			ps.setString(2, p.getLastName());
+			ps.setString(3, p.getRole());
+			ps.setInt(4, Integer.parseInt(p.getUserID()));
+			
+            int rset = ps.executeUpdate();
+			ps.close();
+        } catch (SQLException e) {
+        }
 	}
 	
 	public void updateMedicalStaff(MedicalStaff staff) {
-		
+		try {
+            ps = connection.prepareStatement( 
+			"UPDATE user_account SET firstname = ?, lastname = ?, role = ?" 
+			+ "FROM user_account"
+			+ "WHERE user_id = ?;");
+                    
+            ps.setString(1, staff.getFirstName());	
+			ps.setString(2, staff.getLastName());
+			ps.setString(3, staff.getRole());
+			ps.setInt(4, Integer.parseInt(staff.getUserID()));
+			
+            int rset = ps.executeUpdate();
+			ps.close();
+        } catch (SQLException e) {
+        }
 	}
 	
 	public void updateAdmin(Administrator admin) {
-		
+		try {
+            ps = connection.prepareStatement( 
+			"UPDATE user_account SET firstname = ?, lastname = ?, role = ?" 
+			+ "FROM user_account"
+			+ "WHERE user_id = ?;");
+                    
+			ps.setString(1, admin.getFirstName());	
+			ps.setString(2, admin.getLastName());
+			ps.setString(3, admin.getRole());
+			ps.setInt(4, Integer.parseInt(admin.getUserID()));
+			
+            int rset = ps.executeUpdate();
+			ps.close();
+        } catch (SQLException e) {
+        }
 	}
 
 }
