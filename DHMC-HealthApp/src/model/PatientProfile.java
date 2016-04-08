@@ -80,7 +80,19 @@ public class PatientProfile {
 	public LinkedList<String> getFitness() {
 		return fitness;
 	}
-
+	
+	public void setFamily(LinkedList<String> family) {
+		this.family = family;
+	}
+	
+	public void setLikedMeals(LinkedList<String> LikedMeal) {
+		this.likedMeals = LikedMeal;
+	}
+	
+	public void setDislikedMeals(LinkedList<String> dislikedMeals) {
+		this.dislikedMeals = dislikedMeals;
+	}
+	
 	public void setFitness(LinkedList<String> fitness) {
 		this.fitness = fitness;
 	}

@@ -64,6 +64,10 @@ public class Patient extends User {
 		}
 	}
 	
+	public void setPreferences(PatientProfile preferences) {
+		this.preferences = preferences;
+	}
+	
 	public PatientProfile getPreferences() {
 		return this.preferences;
 	}

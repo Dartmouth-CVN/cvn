@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
 
 import model.Administrator;
 import model.MedicalStaff;
@@ -261,7 +262,6 @@ public class DatabaseHandler {
 			ps.setInt(1, userID);
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				PatientProfile patProfile = new PatientProfile();
 				Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
 						rs.getString("user_id"), rs.getInt("patient_id"));
 				connection.close();
@@ -271,7 +271,35 @@ public class DatabaseHandler {
 		}
 		return null;
 	}
-
+/**  You might need this version of findpatient at some point, returns fitness, food ect...  **/
+//	public Patient findPatient(int userID) {
+//		try {
+//			ps = connection.prepareStatement("SELECT * FROM Patient Natural Join User_Account WHERE User_ID = ?;");
+//			ps.setInt(1, userID);
+//			rs = ps.executeQuery();
+//			if (rs.next()) {
+//				
+//				Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
+//						rs.getString("user_id"), rs.getInt("patient_id"));
+//				PatientProfile patProfile = patient.getPreferences();		
+//				//cast objects back to linkedlist<strings>
+//				LinkedList<String> family = (LinkedList<String>) rs.getObject("family");
+//				LinkedList<String> liked_meals = (LinkedList<String>) rs.getObject("liked_meals");
+//				LinkedList<String> disliked_meals = (LinkedList<String>) rs.getObject("disliked_meals");
+//				LinkedList<String> fitness_info = (LinkedList<String>) rs.getObject("fitness_info");
+//				patProfile.setFamily(family);
+//				patProfile.setLikedMeals(liked_meals); 
+//				patProfile.setDislikedMeals(disliked_meals); 
+//				patProfile.setFitness(fitness_info); 
+//				patient.setPreferences(patProfile);
+//				connection.close();
+//				return patient;
+//			}
+//		} catch (SQLException e) {
+//		}
+//		return null;
+//	}
+	
 	/**
 	 * Finds MedicalStaff from database given userID.
 	 * 
@@ -409,7 +437,34 @@ public class DatabaseHandler {
 		} catch (SQLException e) {
 		}
 	}
-
+//	public void insertPatient(Patient p) {
+//		PatientProfile preferences = p.getPreferences();
+//		Object family = p.getFamily();
+//		Object pets = p.getPets();
+//		Object liked_meals = p.getLikedMeals();
+//		Object disliked_meals = p.getDislikedMeals();
+//		Object fitness_info = p.getFitness();
+//		
+//		try {
+//			int userID = insertUser(p.getFirstName(), p.getLastName(), p.getRole());
+//			ps = connection.prepareStatement(
+//			"INSERT INTO app.patient (user_id, family, pets, liked_meals, disliked_meals, fitness_info) " 
+//			+ "VALUES (?, ?, ?, ?, ?, ?)");
+//			
+//			ps.setInt(1, userID);
+//			ps.setObject(2, family);
+//			ps.setObject(3, pets);
+//			ps.setObject(4, liked_meals);
+//			ps.setObject(5, disliked_meals);
+//			ps.setObject(6, fitness_info);
+//			
+//			System.out.printf("inserted patient: %s %s\n", p.getFirstName(), p.getLastName());
+//
+//			ps.executeUpdate();
+//			ps.close();
+//		} catch (SQLException e) {
+//		}
+//	}
 	public void insertMedicalStaff(MedicalStaff staff) {
 		try {
 			ps = connection.prepareStatement(
