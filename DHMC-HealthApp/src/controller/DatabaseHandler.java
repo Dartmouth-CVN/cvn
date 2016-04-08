@@ -36,7 +36,7 @@ public class DatabaseHandler {
 				System.out.println("Connected to Health App database");
 
 //				dropTables();
-//				createTables();
+				createTables();
 				insertUser();
 				insertLoginUser();
 //				getLoginUsers();
