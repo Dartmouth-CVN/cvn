@@ -178,12 +178,14 @@ public class AdminDashController {
 	public void importTSV() {
 		if (curTSV != null && curTSV.exists()){
 			pts = model.CSVParsingUtils.TSVImport(curTSV);
+			mainApp.getDatabaseHandler().insertPatients(pts);
 		}
 	}
 	
 	@FXML
 	public void exportCSV() {
 		int curFileInt = 1;
+		pts = mainApp.getDatabaseHandler().getPTS();
 		while (Files.exists(Paths.get("exported" + curFileInt + ".csv")))
 			curFileInt++;
 		model.CSVParsingUtils.CSVExport("exported" + curFileInt + ".csv", pts);
@@ -191,6 +193,7 @@ public class AdminDashController {
 	@FXML
 	public void exportTSV(){
 		int curFileInt = 1;
+		pts = mainApp.getDatabaseHandler().getPTS();
 		while (Files.exists(Paths.get("exported" + curFileInt + ".tsv")))
 			curFileInt++;
 		model.CSVParsingUtils.TSVExport("exported" + curFileInt + ".tsv", pts);

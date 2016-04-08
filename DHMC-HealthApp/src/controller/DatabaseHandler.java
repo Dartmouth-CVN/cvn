@@ -332,6 +332,26 @@ public class DatabaseHandler {
 		}
 		return personData;
 	}
+	
+	public LinkedList<Patient> getPTS() {
+		LinkedList<Patient> personData = new LinkedList<Patient>();
+		try {
+			connect();
+			ps = connection.prepareStatement("SELECT * FROM patient NATURAL JOIN user_account");
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				Patient user = new Patient(rs.getString("firstname"), 
+						rs.getString("lastname"), String.valueOf(rs.getInt("user_id")), rs.getInt("patient_id"));
+				System.out.println("Patient x: " + user.getFirstName());
+				personData.add(user);
+			}
+
+			connection.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return personData;
+	}
 
 	/**
 	 * You might need this version of findpatient at some point, returns
@@ -592,17 +612,20 @@ public class DatabaseHandler {
 
 	public void updatePatient(Patient p) {
 		try {
-			ps = connection.prepareStatement("UPDATE app.user_account SET firstname = ?, lastname = ?, role = ?"
-					+ "FROM app.user_account" + "WHERE user_id = ?");
+			connect();
+			ps = connection.prepareStatement("UPDATE app.user_account SET firstname = ?, lastname = ?, role = ? "
+					+ "WHERE user_id = ?");
 
 			ps.setString(1, p.getFirstName());
 			ps.setString(2, p.getLastName());
 			ps.setString(3, p.getRole());
 			ps.setInt(4, Integer.parseInt(p.getUserID()));
+			System.out.println("updated patient: " + p.getFirstName());
 
-			int rset = ps.executeUpdate();
+			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 

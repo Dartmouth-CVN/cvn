@@ -74,9 +74,9 @@ public class SearchTabController {
 		nameLabel.setText(user.getFirstName() + " " + user.getLastName());
 		Random rand = new Random();
 		String[] phoneNumbers = {"(508) 737-3661", "(857) 250-5168", "(703) 309-3778"};
-		doctorLabel.setText("Doctor " + rand.nextInt(10) + 1);
-		roomLabel.setText("Room " + rand.nextInt(10) + 1);
-		nurseLabel.setText("Nurse " + rand.nextInt(10) + 1);
+		doctorLabel.setText("Doctor " + (rand.nextInt(10) + 1) );
+		roomLabel.setText("Room " + (rand.nextInt(10) + 1) );
+		nurseLabel.setText("Nurse " + (rand.nextInt(10) + 1) );
 		phoneLabel.setText(phoneNumbers[rand.nextInt(2)]);
 		userID = idColumn.getCellData(profileTable.getSelectionModel().getSelectedIndex());
 	}
