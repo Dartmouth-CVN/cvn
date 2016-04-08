@@ -10,10 +10,9 @@ public abstract class User {
 	private Location room;
 	private String role;
 	//role is either "Patient", "MedicalStaff", "Administrator"
-	public User(String firstName, String lastName, String username, String id, String role) {
+	public User(String firstName, String lastName, String id, String role) {
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.username = username;
 		this.contactInfo = new Contact(id);
 		//this.schedule = new Schedule(id);
 		this.room = null;
@@ -33,10 +32,6 @@ public abstract class User {
 		return this.userID;
 	}
 	
-	public String getUsername() {
-		return this.username;
-	}
-	
 	public Contact getContactInfo() {
 		return this.contactInfo;
 	}
@@ -51,10 +46,6 @@ public abstract class User {
 	
 	public void setUseriID(String userid) {
 		this.userID = userid;
-	}
-	
-	public void setUsername(String username) {
-		this.username = username;
 	}
 	
 	public Location getRoom() {
