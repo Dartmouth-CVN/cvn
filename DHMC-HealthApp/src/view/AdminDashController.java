@@ -159,8 +159,10 @@ public class AdminDashController {
 
 	@FXML
 	public void importCSV() {
-		if (curCSV != null && curCSV.exists())
+		if (curCSV != null && curCSV.exists()){
 			pts = model.CSVParsingUtils.CSVImport(curCSV);
+			mainApp.getDatabaseHandler().insertPatients(pts);
+		}
 	}
 	
 	@FXML
@@ -174,8 +176,9 @@ public class AdminDashController {
 
 	@FXML
 	public void importTSV() {
-		if (curTSV != null && curTSV.exists())
+		if (curTSV != null && curTSV.exists()){
 			pts = model.CSVParsingUtils.TSVImport(curTSV);
+		}
 	}
 	
 	@FXML

@@ -113,7 +113,6 @@ public class SearchTabController {
 	 */
 	@FXML
 	private void handleEditProfile() {
-
 		mainApp.showEditProfile();
 
 	}
