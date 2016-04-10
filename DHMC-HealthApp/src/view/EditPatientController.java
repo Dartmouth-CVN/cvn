@@ -116,9 +116,18 @@ public class EditPatientController {
 	
 	MainApp mainApp;
 	
+	
+	
 	@FXML
 	public void initialize(){
 
+	}
+	
+	public void setPatient(Patient p){
+		System.out.println("Setting patient: " + p.getFirstName());
+		firstNameTF.setText(p.getFirstName());
+		lastNameTF.setText(p.getLastName());
+		this.p = p;
 	}
 
 	@FXML

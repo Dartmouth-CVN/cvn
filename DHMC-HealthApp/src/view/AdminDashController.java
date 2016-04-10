@@ -97,9 +97,12 @@ public class AdminDashController {
 	 */
 	@FXML
 	private void handleScheduleSwitch() {
-
 		tabPane.getSelectionModel().select(scheduleTab);
 
+	}
+	
+	private void handleDashSwitch(){
+		tabPane.getSelectionModel().select(dashTab);
 	}
 
 	/**
@@ -159,8 +162,10 @@ public class AdminDashController {
 
 	@FXML
 	public void importCSV() {
-		if (curCSV != null && curCSV.exists())
+		if (curCSV != null && curCSV.exists()){
 			pts = model.CSVParsingUtils.CSVImport(curCSV);
+			mainApp.getDatabaseHandler().insertPatients(pts);
+		}
 	}
 	
 	@FXML
@@ -174,13 +179,16 @@ public class AdminDashController {
 
 	@FXML
 	public void importTSV() {
-		if (curTSV != null && curTSV.exists())
+		if (curTSV != null && curTSV.exists()){
 			pts = model.CSVParsingUtils.TSVImport(curTSV);
+			mainApp.getDatabaseHandler().insertPatients(pts);
+		}
 	}
 	
 	@FXML
 	public void exportCSV() {
 		int curFileInt = 1;
+		pts = mainApp.getDatabaseHandler().getPTS();
 		while (Files.exists(Paths.get("exported" + curFileInt + ".csv")))
 			curFileInt++;
 		model.CSVParsingUtils.CSVExport("exported" + curFileInt + ".csv", pts);
@@ -188,6 +196,7 @@ public class AdminDashController {
 	@FXML
 	public void exportTSV(){
 		int curFileInt = 1;
+		pts = mainApp.getDatabaseHandler().getPTS();
 		while (Files.exists(Paths.get("exported" + curFileInt + ".tsv")))
 			curFileInt++;
 		model.CSVParsingUtils.TSVExport("exported" + curFileInt + ".tsv", pts);

@@ -118,7 +118,7 @@ public class MainApp extends Application {
 		primaryStage.setScene(new Scene(adminDash));
 	}
 
-	public void showEditProfile() {
+	public void showEditProfile(Patient patient) {
 		try {
 			// Load root layout from fxml file.
 			FXMLLoader loader = new FXMLLoader();
@@ -130,6 +130,7 @@ public class MainApp extends Application {
 
 			EditPatientController controller = loader.getController();
 			controller.setMainApp(this);
+			controller.setPatient(patient);
 
 			editProfileStage.setTitle("Edit Profile");
 			editProfileStage.show();

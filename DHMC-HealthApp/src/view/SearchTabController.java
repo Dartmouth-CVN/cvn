@@ -9,6 +9,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import model.MainApp;
+import model.Patient;
 import model.SimpleUser;
 
 public class SearchTabController {
@@ -35,6 +36,8 @@ public class SearchTabController {
 	@FXML
 	private Label phoneLabel = new Label();
 
+	private int userID;
+
 	// Reference to the main application.
 	private MainApp mainApp;
 
@@ -59,22 +62,23 @@ public class SearchTabController {
 		 * (observable, oldValue, newValue) -> showPersonDetails(newValue));
 		 */
 		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
-        lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
-        idColumn.setCellValueFactory(cellData -> cellData.getValue().getUserIDProperty().asObject());
-        
-        //set table listener
-        profileTable.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> showUserDetails(newValue));
+		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
+		idColumn.setCellValueFactory(cellData -> cellData.getValue().getUserIDProperty().asObject());
+
+		// set table listener
+		profileTable.getSelectionModel().selectedItemProperty()
+				.addListener((observable, oldValue, newValue) -> showUserDetails(newValue));
 	}
-	
-	private void showUserDetails(SimpleUser user){
+
+	private void showUserDetails(SimpleUser user) {
 		nameLabel.setText(user.getFirstName() + " " + user.getLastName());
 		Random rand = new Random();
-		String[] phoneNumbers = {"(508) 737-3661", "(857) 250-5168", "(703) 309-3778"};
-		doctorLabel.setText("Doctor " + rand.nextInt(10) + 1);
-		roomLabel.setText("Room " + rand.nextInt(10) + 1);
-		nurseLabel.setText("Nurse " + rand.nextInt(10) + 1);
+		String[] phoneNumbers = { "(508) 737-3661", "(857) 250-5168", "(703) 309-3778" };
+		doctorLabel.setText("Doctor " + (rand.nextInt(10) + 1));
+		roomLabel.setText("Room " + (rand.nextInt(10) + 1));
+		nurseLabel.setText("Nurse " + (rand.nextInt(10) + 1));
 		phoneLabel.setText(phoneNumbers[rand.nextInt(2)]);
+		userID = idColumn.getCellData(profileTable.getSelectionModel().getSelectedIndex());
 	}
 
 	/**
@@ -96,11 +100,12 @@ public class SearchTabController {
 	private void handleFindPatient() {
 		String name = searchField.getText();
 
-		if (!name.equals(""))
-			profileTable.getItems().setAll(mainApp.getDatabaseHandler().searchPatient(name));
-		else{
+		if (!name.equals("")) {
+			ObservableList<SimpleUser> personData = mainApp.getDatabaseHandler().searchPatient(name);
+			profileTable.setItems(personData);
+		} else {
 			ObservableList<SimpleUser> personData = mainApp.getDatabaseHandler().searchPatient();
-			profileTable.setItems(personData);	
+			profileTable.setItems(personData);
 		}
 		// search through the database with the given name
 
@@ -113,8 +118,9 @@ public class SearchTabController {
 	 */
 	@FXML
 	private void handleEditProfile() {
-
-		mainApp.showEditProfile();
+		Patient patient = mainApp.getDatabaseHandler().findPatient(userID);
+		if (patient != null)
+			mainApp.showEditProfile(patient);
 
 	}
 }
