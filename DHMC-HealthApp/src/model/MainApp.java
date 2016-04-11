@@ -5,10 +5,12 @@ import java.io.IOException;
 import controller.DatabaseHandler;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import view.AdminDashController;
 import view.EditPatientController;
@@ -29,11 +31,7 @@ public class MainApp extends Application {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("DHMC - Health App v1.0");
 
-		initRootLayout();
-
 		showLogin();
-
-		// showAdminDash();
 	}
 
 	public static void main(String[] args) {
@@ -54,12 +52,20 @@ public class MainApp extends Application {
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
-			primaryStage.setResizable(false);
+			setStageDimensions(scene);
+			showAdminDash();
 
-			primaryStage.show();
 		} catch (IOException e) {
-			e.printStackTrace();
+			printError(e);
 		}
+	}
+	
+	public void setStageDimensions(Scene s){
+		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+	    primaryStage.setX((screenBounds.getWidth() - s.getWidth() ) / 2); 
+	    primaryStage.setY((screenBounds.getHeight() - s.getHeight()) / 2);  
+		primaryStage.setResizable(true);
+//		primaryStage.setFullScreen(true);
 	}
 
 	public void showLogin() {
@@ -73,49 +79,25 @@ public class MainApp extends Application {
 
 			LoginController controller = loader.getController();
 			controller.setMainApp(this);
-
-			// primaryStage.setWidth(400);
-			// primaryStage.setHeight(300);
+			primaryStage.show();
 		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void loadSearchTab() {
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(MainApp.class.getResource("../view/GlobalSearch.fxml"));
-		try {
-			AnchorPane searchTab = (AnchorPane) loader.load();
-
-			TabPane tab = (TabPane) adminDash.getChildren().get(0);
-
-			tab.getTabs().get(2).setContent(searchTab);
-			SearchTabController controller = loader.getController();
-			controller.setMain(this);
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			printError(e);
 		}
 	}
 
 	public void showAdminDash() {
-		System.out.println("Login success, loading Admin Dash...");
-		// Set person overview into the center of root layout.
-		// Load admin overview
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(MainApp.class.getResource("../view/AdminDash.fxml"));
 		try {
+			System.out.println("Login success, loading Admin Dash...");
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("../view/AdminDash.fxml"));
 			adminDash = (AnchorPane) loader.load();
+			// Give the controller access to the main.
+			AdminDashController controller = loader.getController();
+			controller.setMainApp(this);
+			rootLayout.setCenter(adminDash);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			printError(e);
 		}
-
-		// Give the controller access to the main.
-		AdminDashController controller = loader.getController();
-		controller.setMain(this);
-		primaryStage.setScene(new Scene(adminDash));
 	}
 
 	public void showEditProfile(Patient patient) {
@@ -135,21 +117,16 @@ public class MainApp extends Application {
 			editProfileStage.setTitle("Edit Profile");
 			editProfileStage.show();
 		} catch (IOException e) {
-			e.printStackTrace();
+			printError(e);
 		}
 	}
-
-	public void setHorizontalLayout() {
-		primaryStage.setWidth(600);
-		primaryStage.setHeight(600);
+	
+	public void changeScreenSize(Scene s){
 	}
 
-	public void setVerticalLayout() {
-
+	public static void printError(Exception e) {
+		System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
 	}
-
-	public void setBaseLayout() {
-		primaryStage.setWidth(600);
-		primaryStage.setHeight(600);
-	}
+	
+	
 }

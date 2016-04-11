@@ -2,6 +2,9 @@ package model;
 
 import java.io.File;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
+
 public class Administrator extends User {
 	private int adminID;
 	public Administrator(String firstName, String lastName, String userID, int adminID) {
@@ -66,5 +69,23 @@ public class Administrator extends User {
 
 	public void setAdminID(int adminID) {
 		this.adminID = adminID;
+	}
+
+	@Override
+	public StringProperty getFirstNameProperty() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public StringProperty getLastNameProperty() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IntegerProperty getUserIDProperty() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +13,8 @@ import org.apache.derby.jdbc.EmbeddedDataSource;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Administrator;
+import model.IDisplayable;
+import model.MainApp;
 import model.MedicalStaff;
 import model.Patient;
 import model.PatientProfile;
@@ -22,17 +25,16 @@ public class DatabaseHandler {
 	private static PreparedStatement ps;
 	private static ResultSet rs;
 	private static Connection connection;
+	private static DatabaseMetaData metaData;
+	private boolean success;// monitors if sql interactions result in errors
 
 	public DatabaseHandler() {
-		connect(true);
+		connect();
+		createTables();
 	}
 
-	/**
-	 * Connect the application to the database for storage or retrieval.
-	 * 
-	 * @return
-	 */
-	public boolean connect(boolean create) {
+	public boolean connect() {
+		boolean connected = false;
 		try {
 			// connect method - embedded driver
 			EmbeddedDataSource ds = new EmbeddedDataSource();
@@ -40,248 +42,287 @@ public class DatabaseHandler {
 			ds.setCreateDatabase("create");
 			connection = ds.getConnection();
 			if (connection != null) {
-				System.out.println("Connected to Health App database");
-
-				if (create) {
-					// dropTables();
-					// createTables();
-					// insertUser();
-					// insertLoginUser();
-					// insertPatient();
-					// getLoginUsers();
-					// getPatients();
-				}
-			}
-		} catch (SQLException ex) {
-			System.out.println("Connection Failed! Check output console");
-			ex.printStackTrace();
-			return false;
-		}
-		return true;
-	}
-
-	public void insertLoginUser() {
-		try {
-			int userID = findAnyUser();
-			ps = connection.prepareStatement("INSERT INTO app.login (username, password, user_id) VALUES (?, ?, ?)");
-			ps.setString(1, "admin");
-			ps.setString(2, "pass");
-			ps.setInt(3, userID);
-			ps.execute();
-			System.out.println("Inserted login user");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public void insertPatient() {
-		Patient patient = new Patient("Dummy", "Patient", "", 0);
-		insertPatient(patient);
-	}
-
-	public void getLoginUsers() {
-		try {
-			ps = connection.prepareStatement("SELECT * FROM app.login");
-
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				System.out.println(rs.getString("username"));
+				System.out.println("Connected to database");
+				metaData = connection.getMetaData();
+				connected = true;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MainApp.printError(e);
 		}
+		return connected;
 	}
 
-	public void getPatients() {
+	public boolean createUserAccountsTable() {
+		success = false;
 		try {
-			ps = connection.prepareStatement("SELECT * FROM app.patient NATURAL JOIN user_account");
-
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				System.out.printf("Patient id: %d Patient Name: %s\n", rs.getInt("patient_id"),
-						rs.getString("firstname"));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public void dropTables() {
-
-		try {
-			ps = connection.prepareStatement("drop table app.login");
-			ps.execute();
-
-			ps = connection.prepareStatement("drop table app.contact");
-			ps.execute();
-
-			ps = connection.prepareStatement("drop table app.location");
-			ps.execute();
-
-			ps = connection.prepareStatement("drop table app.event");
-			ps.execute();
-
-			ps = connection.prepareStatement("drop table app.schedule");
-			ps.execute();
-
-			ps = connection.prepareStatement("drop table app.administrator");
-			ps.execute();
-
-			ps = connection.prepareStatement("drop table app.medication");
-			ps.execute();
-
-			ps = connection.prepareStatement("drop table app.treats");
-			ps.execute();
-
-			ps = connection.prepareStatement("drop table app.medical_staff");
-			ps.execute();
-
-			ps = connection.prepareStatement("drop table app.patient");
-			ps.execute();
-
-			ps = connection.prepareStatement("drop table app.caregiver");
-			ps.execute();
-
-			ps = connection.prepareStatement("drop table app.health_info");
-			ps.execute();
-
-			ps = connection.prepareStatement("drop table app.user_account");
-			ps.execute();
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public void createTables() {
-		try {
-			// ps = connection.prepareStatement("create schema healthapp");
-			// ps.execute();
-
-			ps = connection.prepareStatement("CREATE TABLE app.user_account("
+			ps = connection.prepareStatement("CREATE TABLE user_account("
 					+ "user_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
 					+ "firstname VARCHAR(20), lastname VARCHAR(20), role VARCHAR(20),"
 					+ "family blob (16M), pets blob (16M), liked_meals blob (16M), disliked_meals blob (16M), "
 					+ "fitness_info blob (16M), Primary Key(user_id) )");
 			ps.execute();
+			success = true;
+		} catch (SQLException e) {
+			MainApp.printError(e);
+		}
+		return success;
+	}
 
-			ps = connection.prepareStatement("CREATE TABLE app.login("
+	public boolean createLoginTable() {
+		success = false;
+		try {
+			ps = connection.prepareStatement("CREATE TABLE login("
 					+ "login_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
 					+ "username VARCHAR(20), password VARCHAR(200), user_id int,"
-					+ "FOREIGN KEY(user_id) REFERENCES app.user_account(user_id), Primary Key(login_id) )");
+					+ "FOREIGN KEY(user_id) REFERENCES user_account(user_id), Primary Key(login_id) )");
 			ps.execute();
+			success = true;
+		} catch (SQLException e) {
+			MainApp.printError(e);
+		}
+		return success;
+	}
 
-			ps = connection.prepareStatement("CREATE TABLE app.contact("
-					+ "contact_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-					+ " user_id int, phone VARCHAR(20), email VARCHAR(20), address VARCHAR(100), "
-					+ "FOREIGN KEY(user_id) REFERENCES app.user_account(user_id), Primary Key(contact_id))");
-			ps.execute();
-
-			ps = connection.prepareStatement("CREATE TABLE app.location("
+	public boolean createLocationTable() {
+		success = false;
+		try {
+			ps = connection.prepareStatement("CREATE TABLE location("
 					+ "location_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
 					+ "name VARCHAR(20), location_type VARCHAR(20), Primary Key(location_id))");
 			ps.execute();
+			success = true;
+		} catch (SQLException e) {
+			MainApp.printError(e);
+		}
+		return success;
+	}
 
-			ps = connection.prepareStatement("CREATE TABLE app.schedule("
+	public boolean createScheduleTable() {
+		success = false;
+		try {
+			ps = connection.prepareStatement("CREATE TABLE schedule("
 					+ "schedule_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-					+ " user_id int, FOREIGN KEY(user_id) REFERENCES app.user_account(user_id),"
+					+ " user_id int, FOREIGN KEY(user_id) REFERENCES user_account(user_id),"
 					+ "Primary Key(schedule_id) )");
 			ps.execute();
+			success = true;
+		} catch (SQLException e) {
+			MainApp.printError(e);
+		}
+		return success;
+	}
 
-			ps = connection.prepareStatement("CREATE TABLE app.event("
+	public boolean createEventTable() {
+		success = false;
+		try {
+			ps = connection.prepareStatement("CREATE TABLE event("
 					+ "event_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
 					+ "name VARCHAR(20), event_date DATE, category VARCHAR(20), "
-					+ "schedule_id int, FOREIGN KEY(schedule_id) " + "REFERENCES app.Schedule(schedule_id))");
+					+ "schedule_id int, FOREIGN KEY(schedule_id) " + "REFERENCES Schedule(schedule_id))");
 			ps.execute();
+			success = true;
+		} catch (SQLException e) {
+			MainApp.printError(e);
+		}
+		return success;
+	}
 
-			ps = connection.prepareStatement("CREATE TABLE app.administrator("
+	public boolean createAdminTable() {
+		success = false;
+		try {
+			ps = connection.prepareStatement("CREATE TABLE admin("
 					+ "admin_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-					+ "user_id int, FOREIGN KEY(user_id) REFERENCES app.user_account(user_id),"
+					+ "user_id int, FOREIGN KEY(user_id) REFERENCES user_account(user_id),"
 					+ "Primary Key(admin_id) )");
 			ps.execute();
+			success = true;
+		} catch (SQLException e) {
+			MainApp.printError(e);
+		}
+		return success;
+	}
 
-			ps = connection.prepareStatement("CREATE TABLE app.medical_staff("
+	public boolean createMedicalStaffTable() {
+		success = false;
+		try {
+			ps = connection.prepareStatement("CREATE TABLE medical_staff("
 					+ "med_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-					+ "user_id int, role VARCHAR(20), FOREIGN KEY(user_id) REFERENCES app.user_account(user_id),"
+					+ "user_id int, role VARCHAR(20), FOREIGN KEY(user_id) REFERENCES user_account(user_id),"
 					+ "Primary Key(med_id) )");
 			ps.execute();
+			success = true;
+		} catch (SQLException e) {
+			MainApp.printError(e);
+		}
+		return success;
+	}
 
-			ps = connection.prepareStatement("CREATE TABLE app.patient("
+	public boolean createPatientTable() {
+		success = false;
+		try {
+			ps = connection.prepareStatement("CREATE TABLE patient("
 					+ "patient_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
 					+ " user_id int, PRIMARY KEY(patient_id), "
-					+ "FOREIGN KEY(user_id) REFERENCES app.user_account(user_id))");
+					+ "FOREIGN KEY(user_id) REFERENCES user_account(user_id))");
 			ps.execute();
 
-			ps = connection.prepareStatement("CREATE TABLE app.caregiver("
+			success = true;
+		} catch (SQLException e) {
+			MainApp.printError(e);
+		}
+		return success;
+	}
+
+	public boolean createCaregiverTable() {
+		success = false;
+		try {
+			ps = connection.prepareStatement("CREATE TABLE caregiver("
 					+ "caregiver_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
 					+ "patient_id int, name VARCHAR(20), phone VARCHAR(20), email VARCHAR(20),"
-					+ " address VARCHAR(100), FOREIGN KEY(patient_id) REFERENCES app.patient(patient_id),"
+					+ " address VARCHAR(100), FOREIGN KEY(patient_id) REFERENCES patient(patient_id),"
 					+ "Primary Key(caregiver_id) )");
 			ps.execute();
+			success = true;
+		} catch (SQLException e) {
+			MainApp.printError(e);
+		}
+		return success;
+	}
 
-			ps = connection.prepareStatement("CREATE TABLE app.health_info("
+	public boolean createHealthInfoTable() {
+		success = false;
+		try {
+			ps = connection.prepareStatement("CREATE TABLE health_info("
 					+ "health_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
 					+ "patient_id int, height int, weight double, excerciseFrequency int, dateRecorded date, "
-					+ "FOREIGN KEY(patient_id) REFERENCES app.patient(patient_id),Primary Key(health_id) )");
+					+ "FOREIGN KEY(patient_id) REFERENCES patient(patient_id),Primary Key(health_id) )");
 			ps.execute();
+			success = true;
+		} catch (SQLException e) {
+			MainApp.printError(e);
+		}
+		return success;
+	}
 
-			ps = connection.prepareStatement("CREATE TABLE app.treats("
+	public boolean createStaffAssignmentTable() {
+		success = false;
+		try {
+			ps = connection.prepareStatement("CREATE TABLE staff_assignment("
 					+ "treats_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-					+ "patient_id int, med_id int, " + "FOREIGN KEY(patient_id) REFERENCES app.patient(patient_id),"
-					+ "FOREIGN KEY(med_id) REFERENCES app.medical_staff(med_id))");
+					+ "patient_id int, med_id int, " + "FOREIGN KEY(patient_id) REFERENCES patient(patient_id),"
+					+ "FOREIGN KEY(med_id) REFERENCES medical_staff(med_id))");
 			ps.execute();
+			success = true;
+		} catch (SQLException e) {
+			MainApp.printError(e);
+		}
+		return success;
+	}
 
-			ps = connection.prepareStatement("CREATE TABLE app.medication( "
+	public boolean createMedicationTable() {
+		success = false;
+		try {
+			ps = connection.prepareStatement("CREATE TABLE medication( "
 					+ "medication_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
 					+ "patient_id int, med_id int, name VARCHAR(20), dosage VARCHAR(20), "
 					+ "directions VARCHAR(100), refills int, nextRefillDate date, "
-					+ "FOREIGN KEY(patient_id) REFERENCES app.patient(patient_id), "
-					+ "FOREIGN KEY(med_id) REFERENCES app.medical_staff(med_id))");
+					+ "FOREIGN KEY(patient_id) REFERENCES patient(patient_id), "
+					+ "FOREIGN KEY(med_id) REFERENCES medical_staff(med_id))");
 			ps.execute();
-			System.out.println("Tables created");
+			success = true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MainApp.printError(e);
+		}
+		return success;
+	}
+
+	public void createTables() {
+		try {
+			connect();
+			// check if the tables exist in our schema, create if they dont
+			rs = metaData.getTables(null, "APP", "USER_ACCOUNT", null);
+			if (!rs.next())
+				createUserAccountsTable();
+
+			rs = metaData.getTables(null, "APP", "LOGIN", null);
+			if (!rs.next())
+				createLoginTable();
+
+			rs = metaData.getTables(null, "APP", "LOCATION", null);
+			if (!rs.next())
+				createLocationTable();
+
+			rs = metaData.getTables(null, "APP", "SCHEDULE", null);
+			if (!rs.next())
+				createScheduleTable();
+
+			rs = metaData.getTables(null, "APP", "EVENT", null);
+			if (!rs.next())
+				createEventTable();
+
+			rs = metaData.getTables(null, "APP", "ADMIN", null);
+			if (!rs.next())
+				createAdminTable();
+
+			rs = metaData.getTables(null, "APP", "MEDICAL_STAFF", null);
+			if (!rs.next())
+				createMedicalStaffTable();
+
+			rs = metaData.getTables(null, "APP", "PATIENT", null);
+			if (!rs.next())
+				createPatientTable();
+
+			rs = metaData.getTables(null, "APP", "HEALTH_INFO", null);
+			if (!rs.next())
+				createHealthInfoTable();
+
+			rs = metaData.getTables(null, "APP", "STAFF_ASSIGNMENT", null);
+			if (!rs.next())
+				createStaffAssignmentTable();
+
+			rs = metaData.getTables(null, "APP", "MEDICATION", null);
+			if (!rs.next())
+				createMedicationTable();
+			if (ps != null) {
+				ps.close();
+				System.out.println("Tables created");
+			}
+		} catch (SQLException e) {
+			MainApp.printError(e);
 		}
 	}
 
 	/**
-	 * Checks if the given username and password are known in the database.
+	 * Validates the input login credentials.
 	 * 
 	 * @param username
 	 * @param password
 	 * @return
 	 */
 	public String login(String username, String password) {
+		String userID = null;
 		try {
-			ps = connection.prepareStatement("SELECT * FROM app.login WHERE username = ?");
+			ps = connection.prepareStatement("SELECT * FROM login NATURAL JOIN user_account  WHERE username = ?");
 			ps.setString(1, username);
 			rs = ps.executeQuery();
-			while (rs.next()) {
+			if (rs.next()) {
 				if (password.equals(rs.getString("password")))
-					return "username: " + rs.getString("username");
-				else
-					return null;
+					userID = rs.getString("user_id");
 			}
 		} catch (SQLException e) {
-			System.out.println("error in the prepared statement\n " + e.getMessage());
+			System.out.printf("Unable to validate login\n%s ", e.getMessage());
 		}
-		return null;
+		return userID;
 	}
 
 	/**
 	 * Finds patient from database given userID.
-	 * 
 	 * @param userID
 	 * @return Patient Object
 	 */
 	public Patient findPatient(int userID) {
 		try {
-			connect(false);
+			connect();
 			ps = connection.prepareStatement("SELECT * FROM patient NATURAL JOIN user_account WHERE user_id = ?");
 			ps.setInt(1, userID);
 			rs = ps.executeQuery();
@@ -297,19 +338,19 @@ public class DatabaseHandler {
 		return null;
 	}
 
-	//rename SimpleUser to..
-	public ObservableList<SimpleUser> searchPatient(String name) {
-		ObservableList<SimpleUser> patientList = FXCollections.observableArrayList();
+	// rename SimpleUser to..
+	public ObservableList<IDisplayable> searchPatient(String name) {
+		ObservableList<IDisplayable> patientList = FXCollections.observableArrayList();
 		try {
-			connect(false);
+			connect();
 			ps = connection
 					.prepareStatement("SELECT * FROM patient Natural Join user_account " + "WHERE firstname = ?");
 			ps.setString(1, name);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				SimpleUser user = new SimpleUser(rs.getInt("user_id"), rs.getString("firstname"),
-						rs.getString("lastname"));
-				patientList.add(user);
+				Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
+						String.valueOf(rs.getInt("user_id")), rs.getInt("patient_id"));
+				patientList.add(patient);
 			}
 
 			connection.close();
@@ -319,15 +360,15 @@ public class DatabaseHandler {
 		return patientList;
 	}
 
-	public ObservableList<SimpleUser> searchPatient() {
-		ObservableList<SimpleUser> personData = FXCollections.observableArrayList();
+	public ObservableList<IDisplayable> searchPatient() {
+		ObservableList<IDisplayable> personData = FXCollections.observableArrayList();
 		try {
 			ps = connection.prepareStatement("SELECT * FROM patient NATURAL JOIN user_account");
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				SimpleUser user = new SimpleUser(rs.getInt("user_id"), rs.getString("firstname"),
-						rs.getString("lastname"));
-				personData.add(user);
+				Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
+						String.valueOf(rs.getInt("user_id")), rs.getInt("patient_id"));
+				personData.add(patient);
 			}
 
 			connection.close();
@@ -339,7 +380,7 @@ public class DatabaseHandler {
 	public LinkedList<Patient> getPTS() {
 		LinkedList<Patient> personData = new LinkedList<Patient>();
 		try {
-			connect(false);
+			connect();
 			ps = connection.prepareStatement("SELECT * FROM patient NATURAL JOIN user_account");
 			rs = ps.executeQuery();
 			while (rs.next()) {
@@ -386,7 +427,7 @@ public class DatabaseHandler {
 	public Administrator findAdministrator(int userID) {
 		try {
 			ps = connection
-					.prepareStatement("SELECT * FROM app.administrator Natural Join User_Account WHERE user_id = ?;");
+					.prepareStatement("SELECT * FROM administrator Natural Join User_Account WHERE user_id = ?;");
 			ps.setInt(1, userID);
 			rs = ps.executeQuery();
 			if (rs.next()) {
@@ -402,7 +443,7 @@ public class DatabaseHandler {
 
 	public int findUser(int userID) {
 		try {
-			ps = connection.prepareStatement("SELECT * FROM app.user_account WHERE user_id = ?");
+			ps = connection.prepareStatement("SELECT * FROM user_account WHERE user_id = ?");
 			ps.setInt(1, userID);
 			rs = ps.executeQuery();
 			if (rs.next()) {
@@ -415,7 +456,7 @@ public class DatabaseHandler {
 
 	public int findAnyUser() {
 		try {
-			ps = connection.prepareStatement("SELECT * FROM app.user_account");
+			ps = connection.prepareStatement("SELECT * FROM user_account");
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				return rs.getInt("user_id");
@@ -427,8 +468,8 @@ public class DatabaseHandler {
 
 	public int insertUser(String firstName, String lastName, String role) {
 		try {
-			connect(false);
-			ps = connection.prepareStatement("INSERT INTO app.user_account (firstname, lastname, role) VALUES(?, ?, ?)",
+			connect();
+			ps = connection.prepareStatement("INSERT INTO user_account (firstname, lastname, role) VALUES(?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 
 			ps.setString(1, firstName);
@@ -453,8 +494,8 @@ public class DatabaseHandler {
 
 	public int insertUser() {
 		try {
-			connect(false);
-			ps = connection.prepareStatement("INSERT INTO app.user_account (firstname, lastname, role) VALUES(?, ?, ?)",
+			connect();
+			ps = connection.prepareStatement("INSERT INTO user_account (firstname, lastname, role) VALUES(?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 
 			ps.setString(1, "Dummy");
@@ -480,7 +521,7 @@ public class DatabaseHandler {
 	public void insertPatient(Patient p) {
 		try {
 			int userID = insertUser(p.getFirstName(), p.getLastName(), p.getRole());
-			ps = connection.prepareStatement("INSERT INTO app.patient (user_id) VALUES (?)");
+			ps = connection.prepareStatement("INSERT INTO patient (user_id) VALUES (?)");
 
 			ps.setInt(1, userID);
 			System.out.printf("inserted patient: %s %s\n", p.getFirstName(), p.getLastName());
@@ -495,7 +536,7 @@ public class DatabaseHandler {
 		try {
 			for (Patient p : patients) {
 				int userID = insertUser(p.getFirstName(), p.getLastName(), p.getRole());
-				ps = connection.prepareStatement("INSERT INTO app.patient (user_id) VALUES (?)");
+				ps = connection.prepareStatement("INSERT INTO patient (user_id) VALUES (?)");
 
 				ps.setInt(1, userID);
 				System.out.printf("inserted patient: %s %s\n", p.getFirstName(), p.getLastName());
@@ -508,38 +549,40 @@ public class DatabaseHandler {
 	}
 
 	public void insertPatient2(Patient p) {
-	 PatientProfile preferences = p.getPreferences();
-//	 Object family = p.getFamily();
-//	 Object pets = p.getPets();
-//	 Object liked_meals = p.getLikedMeals();
-//	 Object disliked_meals = p.getDislikedMeals();
-//	 Object fitness_info = p.getFitness();
-//	
-//	 try {
-//	 int userID = insertUser(p.getFirstName(), p.getLastName(), p.getRole());
-//	 ps = connection.prepareStatement("INSERT INTO app.patient (user_id, family, pets, liked_meals,  disliked_meals, fitness_info) "
-//	 + "VALUES (?, ?, ?, ?, ?, ?)");
-//	
-//	 ps.setInt(1, userID);
-//	 ps.setObject(2, family);
-//	 ps.setObject(3, pets);
-//	 ps.setObject(4, liked_meals);
-//	 ps.setObject(5, disliked_meals);
-//	 ps.setObject(6, fitness_info);
-//	
-//	 System.out.printf("inserted patient: %s %s\n", p.getFirstName(),
-//	 p.getLastName());
-//	
-//	 ps.executeUpdate();
-//	 ps.close();
-//	 } catch (SQLException e) {
-//	 }
-	 }
+		PatientProfile preferences = p.getPreferences();
+		// Object family = p.getFamily();
+		// Object pets = p.getPets();
+		// Object liked_meals = p.getLikedMeals();
+		// Object disliked_meals = p.getDislikedMeals();
+		// Object fitness_info = p.getFitness();
+		//
+		// try {
+		// int userID = insertUser(p.getFirstName(), p.getLastName(),
+		// p.getRole());
+		// ps = connection.prepareStatement("INSERT INTO patient (user_id,
+		// family, pets, liked_meals, disliked_meals, fitness_info) "
+		// + "VALUES (?, ?, ?, ?, ?, ?)");
+		//
+		// ps.setInt(1, userID);
+		// ps.setObject(2, family);
+		// ps.setObject(3, pets);
+		// ps.setObject(4, liked_meals);
+		// ps.setObject(5, disliked_meals);
+		// ps.setObject(6, fitness_info);
+		//
+		// System.out.printf("inserted patient: %s %s\n", p.getFirstName(),
+		// p.getLastName());
+		//
+		// ps.executeUpdate();
+		// ps.close();
+		// } catch (SQLException e) {
+		// }
+	}
 
 	public void insertMedicalStaff(MedicalStaff staff) {
 		try {
 			ps = connection.prepareStatement(
-					"INSERT INTO app.user_account (firstname, lastname, user_id, role) VALUES(?, ?, ?, ?);"
+					"INSERT INTO user_account (firstname, lastname, user_id, role) VALUES(?, ?, ?, ?);"
 							+ "INSERT INTO medical_staff (user_id) VALUES (?,?)");
 
 			ps.setString(1, staff.getFirstName());
@@ -559,7 +602,7 @@ public class DatabaseHandler {
 	public void insertAdmin(Administrator admin) {
 		try {
 			ps = connection.prepareStatement(
-					"INSERT INTO app.user_account (firstname, lastname, user_id, role) VALUES(?, ?, ?, ?);"
+					"INSERT INTO user_account (firstname, lastname, user_id, role) VALUES(?, ?, ?, ?);"
 							+ "INSERT INTO administrator (user_id) VALUES (?)");
 
 			ps.setString(1, admin.getFirstName());
@@ -578,9 +621,9 @@ public class DatabaseHandler {
 
 	public void updatePatient(Patient p) {
 		try {
-			connect(false);
+			connect();
 			ps = connection.prepareStatement(
-					"UPDATE app.user_account SET firstname = ?, lastname = ?, role = ? " + "WHERE user_id = ?");
+					"UPDATE user_account SET firstname = ?, lastname = ?, role = ? " + "WHERE user_id = ?");
 
 			ps.setString(1, p.getFirstName());
 			ps.setString(2, p.getLastName());
@@ -597,8 +640,8 @@ public class DatabaseHandler {
 
 	public void updateMedicalStaff(MedicalStaff staff) {
 		try {
-			ps = connection.prepareStatement("UPDATE app.user_account SET firstname = ?, lastname = ?, role = ?"
-					+ "FROM app.user_account" + "WHERE user_id = ?");
+			ps = connection.prepareStatement("UPDATE user_account SET firstname = ?, lastname = ?, role = ?"
+					+ "FROM user_account" + "WHERE user_id = ?");
 
 			ps.setString(1, staff.getFirstName());
 			ps.setString(2, staff.getLastName());
@@ -624,6 +667,54 @@ public class DatabaseHandler {
 			int rset = ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {
+		}
+	}
+
+	public void dropTables() {
+		try {
+			connect();
+			ps = connection.prepareStatement("drop table login");
+			ps.execute();
+
+			ps = connection.prepareStatement("drop table contact");
+			ps.execute();
+
+			ps = connection.prepareStatement("drop table location");
+			ps.execute();
+
+			ps = connection.prepareStatement("drop table event");
+			ps.execute();
+
+			ps = connection.prepareStatement("drop table schedule");
+			ps.execute();
+
+			ps = connection.prepareStatement("drop table administrator");
+			ps.execute();
+
+			ps = connection.prepareStatement("drop table medication");
+			ps.execute();
+
+			ps = connection.prepareStatement("drop table treats");
+			ps.execute();
+
+			ps = connection.prepareStatement("drop table medical_staff");
+			ps.execute();
+
+			ps = connection.prepareStatement("drop table patient");
+			ps.execute();
+
+			ps = connection.prepareStatement("drop table caregiver");
+			ps.execute();
+
+			ps = connection.prepareStatement("drop table health_info");
+			ps.execute();
+
+			ps = connection.prepareStatement("drop table user_account");
+			ps.execute();
+
+			ps.close();
+		} catch (SQLException e) {
+			MainApp.printError(e);
 		}
 	}
 

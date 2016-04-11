@@ -1,6 +1,6 @@
 package model;
 
-public abstract class User {
+public abstract class User implements IDisplayable{
 	private String firstName;
 	private String lastName;
 	private String userID;

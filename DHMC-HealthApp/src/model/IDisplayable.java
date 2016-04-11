@@ -5,7 +5,7 @@ import javafx.beans.property.StringProperty;
 
 public interface IDisplayable {
 
-	public int getUserID();
+	public String getUserID();
 
 	public String getFirstName();
 

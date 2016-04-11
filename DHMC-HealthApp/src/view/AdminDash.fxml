@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -12,10 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="adminDash" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AdminDashController">
    <children>
@@ -116,52 +111,6 @@
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
             </Tab>
-          <Tab text="Import/Export">
-            <content>
-                  <HBox>
-                     <children>
-                        <VBox>
-                           <children>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="47.0" prefWidth="296.0" />
-                              <AnchorPane prefHeight="76.0" prefWidth="288.0">
-                                 <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Import CSV:" textAlignment="CENTER" wrappingWidth="287.13671875" />
-                                 </children>
-                              </AnchorPane>
-                              <Button fx:id="csvButton" mnemonicParsing="false" onAction="#chooseCSV" prefHeight="25.0" prefWidth="291.0" text="Browse..." />
-                              <AnchorPane prefHeight="82.0" prefWidth="296.0" />
-                              <Button fx:id="importCSVButton" mnemonicParsing="false" onAction="#importCSV" prefHeight="25.0" prefWidth="291.0" text="No file selected" />
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="47.0" prefWidth="296.0" />
-                              <AnchorPane prefHeight="76.0" prefWidth="288.0">
-                                 <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Import TSV:" textAlignment="CENTER" wrappingWidth="287.13671875" />
-                                 </children>
-                              </AnchorPane>
-                              <Button fx:id="tsvButton" mnemonicParsing="false" onAction="#chooseTSV" prefHeight="25.0" prefWidth="291.0" text="Browse..." />
-                              <AnchorPane prefHeight="82.0" prefWidth="296.0" />
-                              <Button fx:id="importTSVButton" mnemonicParsing="false" onAction="#importTSV" prefHeight="25.0" prefWidth="291.0" text="No file selected" />
-                           </children>
-                        </VBox>
-                        <Separator orientation="VERTICAL" prefHeight="200.0" />
-                        <AnchorPane prefHeight="371.0" prefWidth="299.0" />
-                        <VBox>
-                           <children>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="29.0" prefWidth="288.0" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Export CSV:" textAlignment="CENTER" wrappingWidth="287.13671875" />
-                              <AnchorPane prefHeight="36.0" prefWidth="296.0" />
-                              <Button fx:id="exportCSVButton" mnemonicParsing="false" onAction="#exportCSV" prefHeight="25.0" prefWidth="291.0" text="Export!" />
-                              <AnchorPane prefHeight="82.0" prefWidth="296.0" />
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="29.0" prefWidth="288.0" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Export TSV:" textAlignment="CENTER" wrappingWidth="287.13671875" />
-                              <AnchorPane prefHeight="36.0" prefWidth="296.0" />
-                              <Button fx:id="exportTSVButton" mnemonicParsing="false" onAction="#exportTSV" prefHeight="25.0" prefWidth="291.0" text="Export!" />
-                              <AnchorPane prefHeight="82.0" prefWidth="296.0" />
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
-            </content>
-          </Tab>
         </tabs>
       </TabPane>
    </children>

@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import model.IDisplayable;
 import model.MainApp;
 import model.Patient;
 import model.SimpleUser;
@@ -16,13 +17,13 @@ public class SearchTabController {
 
 	// Integer will be replaced with Profile model
 	@FXML
-	private TableView<SimpleUser> profileTable;
+	private TableView<IDisplayable> profileTable;
 	@FXML
-	private TableColumn<SimpleUser, Integer> idColumn;
+	private TableColumn<IDisplayable, Integer> idColumn;
 	@FXML
-	private TableColumn<SimpleUser, String> firstNameColumn;
+	private TableColumn<IDisplayable, String> firstNameColumn;
 	@FXML
-	private TableColumn<SimpleUser, String> lastNameColumn;
+	private TableColumn<IDisplayable, String> lastNameColumn;
 	@FXML
 	private TextField searchField;
 	@FXML
@@ -70,7 +71,7 @@ public class SearchTabController {
 				.addListener((observable, oldValue, newValue) -> showUserDetails(newValue));
 	}
 
-	private void showUserDetails(SimpleUser user) {
+	private void showUserDetails(IDisplayable user) {
 		nameLabel.setText(user.getFirstName() + " " + user.getLastName());
 		Random rand = new Random();
 		String[] phoneNumbers = { "(508) 737-3661", "(857) 250-5168", "(703) 309-3778" };
@@ -101,10 +102,10 @@ public class SearchTabController {
 		String name = searchField.getText();
 
 		if (!name.equals("")) {
-			ObservableList<SimpleUser> personData = mainApp.getDatabaseHandler().searchPatient(name);
+			ObservableList<IDisplayable> personData = mainApp.getDatabaseHandler().searchPatient(name);
 			profileTable.setItems(personData);
 		} else {
-			ObservableList<SimpleUser> personData = mainApp.getDatabaseHandler().searchPatient();
+			ObservableList<IDisplayable> personData = mainApp.getDatabaseHandler().searchPatient();
 			profileTable.setItems(personData);
 		}
 		// search through the database with the given name

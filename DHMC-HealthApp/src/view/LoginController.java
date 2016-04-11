@@ -36,7 +36,8 @@ public class LoginController {
 			String user = mainApp.getDatabaseHandler().login(uname, pass);
 
 			if (user != null) {
-				mainApp.showAdminDash();
+				System.out.println(user);
+				mainApp.initRootLayout();
 			} else
 				System.out.println("login failure");
 		}

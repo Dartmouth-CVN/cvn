@@ -4,11 +4,13 @@ import model.MainApp;
 import model.Patient;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.LinkedList;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -20,20 +22,28 @@ public class AdminDashController {
 
 	@FXML
 	private TabPane tabPane;
+
 	@FXML
 	private Tab dashTab = new Tab();
+
 	@FXML
 	private Tab scheduleTab = new Tab();
+
 	@FXML
 	private Tab importTab = new Tab();
+
 	@FXML
 	private Tab searchTab = new Tab();
+
 	@FXML
 	private ImageView scheduleImage = new ImageView();
+
 	@FXML
 	private ImageView searchImage = new ImageView();
+
 	@FXML
 	private ImageView importImage = new ImageView();
+
 	@FXML
 	private AnchorPane adminDash;
 
@@ -61,7 +71,7 @@ public class AdminDashController {
 	 * 
 	 * @param mainApp
 	 */
-	public void setMain(MainApp mainApp) {
+	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 
 		// get the list of profiles from another class
@@ -100,8 +110,8 @@ public class AdminDashController {
 		tabPane.getSelectionModel().select(scheduleTab);
 
 	}
-	
-	private void handleDashSwitch(){
+
+	private void handleDashSwitch() {
 		tabPane.getSelectionModel().select(dashTab);
 	}
 
@@ -110,19 +120,21 @@ public class AdminDashController {
 	 */
 	@FXML
 	private void handleSearchSwitch() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("../view/GlobalSearch.fxml"));
+			AnchorPane globalSearch = (AnchorPane) loader.load();
 
-		mainApp.setHorizontalLayout();
-		setHorizontalLayout();
-		mainApp.loadSearchTab();
-		tabPane.getSelectionModel().select(searchTab);
+			searchTab.setContent(globalSearch);
+
+			SearchTabController controller = loader.getController();
+			controller.setMain(mainApp);
+
+			tabPane.getSelectionModel().select(searchTab);
+		} catch (IOException e) {
+			MainApp.printError(e);
+		}
 	}
-
-	public void setHorizontalLayout() {
-		System.out.println("changing dash size...");
-		adminDash.setPrefWidth(600);
-		adminDash.setPrefHeight(450);
-	}
-
 	/**
 	 * Called when the user clicks on import image.
 	 */
@@ -131,75 +143,4 @@ public class AdminDashController {
 		tabPane.getSelectionModel().select(importTab);
 	}
 
-	// ImportandExportThings
-
-	@FXML
-	private Button csvButton;
-	@FXML
-	private Button importCSVButton;
-	@FXML
-	private Button exportCSVButton;
-
-	@FXML
-	private Button tsvButton;
-	@FXML
-	private Button importTSVButton;
-	@FXML
-	private Button exportTSVButton;
-
-	private File curCSV;
-	private File curTSV;
-	private LinkedList<Patient> pts;
-
-	@FXML
-	public void chooseCSV() {
-		FileChooser fc = new FileChooser();
-		fc.setTitle("Select CSV to import");
-		curCSV = fc.showOpenDialog(null);
-		if (curCSV.exists())
-			importCSVButton.setText("Import " + curCSV.getName());
-	}
-
-	@FXML
-	public void importCSV() {
-		if (curCSV != null && curCSV.exists()){
-			pts = model.CSVParsingUtils.CSVImport(curCSV);
-			mainApp.getDatabaseHandler().insertPatients(pts);
-		}
-	}
-	
-	@FXML
-	public void chooseTSV() {
-		FileChooser fc = new FileChooser();
-		fc.setTitle("Select TSV to import");
-		curTSV = fc.showOpenDialog(null);
-		if (curTSV.exists())
-			importTSVButton.setText("Import " + curTSV.getName());
-	}
-
-	@FXML
-	public void importTSV() {
-		if (curTSV != null && curTSV.exists()){
-			pts = model.CSVParsingUtils.TSVImport(curTSV);
-			mainApp.getDatabaseHandler().insertPatients(pts);
-		}
-	}
-	
-	@FXML
-	public void exportCSV() {
-		int curFileInt = 1;
-		pts = mainApp.getDatabaseHandler().getPTS();
-		while (Files.exists(Paths.get("exported" + curFileInt + ".csv")))
-			curFileInt++;
-		model.CSVParsingUtils.CSVExport("exported" + curFileInt + ".csv", pts);
-	}
-	@FXML
-	public void exportTSV(){
-		int curFileInt = 1;
-		pts = mainApp.getDatabaseHandler().getPTS();
-		while (Files.exists(Paths.get("exported" + curFileInt + ".tsv")))
-			curFileInt++;
-		model.CSVParsingUtils.TSVExport("exported" + curFileInt + ".tsv", pts);
-	
-	}
 }

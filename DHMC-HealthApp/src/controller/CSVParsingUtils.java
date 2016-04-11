@@ -1,4 +1,4 @@
-package model;
+package controller;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,6 +6,10 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.Scanner;
+
+import model.MedicalStaff;
+import model.Medication;
+import model.Patient;
 
 // TODO: We need to find a way to import Medical Staff and Medications from Strings,
 // given that the constructors require more fields. A possible solution is a simpler version

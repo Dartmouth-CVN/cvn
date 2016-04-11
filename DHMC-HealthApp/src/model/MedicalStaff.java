@@ -1,6 +1,9 @@
 package model;
 import java.util.LinkedList;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
+
 public class MedicalStaff extends User {
 	
 	protected LinkedList<Patient> assignedPatients;
@@ -66,5 +69,23 @@ public class MedicalStaff extends User {
 
 	public void setMedID(int medID) {
 		this.medID = medID;
+	}
+
+	@Override
+	public StringProperty getFirstNameProperty() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public StringProperty getLastNameProperty() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IntegerProperty getUserIDProperty() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
