@@ -6,6 +6,10 @@ class HealthProfile {
 	private int ehrid;
 	private ArrayList<Integer> height;
 	private ArrayList<Double> weight;
+	//TODO: fitbit integration: XML/HTML
+	/*
+	 * 
+	 */
 	
 	public HealthProfile() {
 		this.ehrid = 0;

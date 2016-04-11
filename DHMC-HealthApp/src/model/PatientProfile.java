@@ -7,7 +7,7 @@ public class PatientProfile {
 	private LinkedList<String> pets;
 	private LinkedList<String> likedMeals;
 	private LinkedList<String> dislikedMeals;
-	private LinkedList<String> fitness;
+	private LinkedList<String> fitness;//goes into health profile
 //	private HealthProfile healthProfile;
 //	private boolean wantsAlarm;
 	

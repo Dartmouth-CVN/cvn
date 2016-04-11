@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import model.Administrator;
 import model.MedicalStaff;
 import model.Patient;
+import model.PatientProfile;
 import model.SimpleUser;
 
 public class DatabaseHandler {
@@ -41,14 +42,14 @@ public class DatabaseHandler {
 			if (connection != null) {
 				System.out.println("Connected to Health App database");
 
-				if(create){
-//					dropTables();
-//					createTables();
-//					insertUser();
-//					insertLoginUser();
-//					insertPatient();
-//					getLoginUsers();
-//					getPatients();
+				if (create) {
+					// dropTables();
+					// createTables();
+					// insertUser();
+					// insertLoginUser();
+					// insertPatient();
+					// getLoginUsers();
+					// getPatients();
 				}
 			}
 		} catch (SQLException ex) {
@@ -296,12 +297,13 @@ public class DatabaseHandler {
 		return null;
 	}
 
+	//rename SimpleUser to..
 	public ObservableList<SimpleUser> searchPatient(String name) {
 		ObservableList<SimpleUser> patientList = FXCollections.observableArrayList();
 		try {
 			connect(false);
-			ps = connection.prepareStatement(
-					"SELECT * FROM patient Natural Join user_account " + "WHERE firstname = ?");
+			ps = connection
+					.prepareStatement("SELECT * FROM patient Natural Join user_account " + "WHERE firstname = ?");
 			ps.setString(1, name);
 			rs = ps.executeQuery();
 			while (rs.next()) {
@@ -333,7 +335,7 @@ public class DatabaseHandler {
 		}
 		return personData;
 	}
-	
+
 	public LinkedList<Patient> getPTS() {
 		LinkedList<Patient> personData = new LinkedList<Patient>();
 		try {
@@ -341,8 +343,8 @@ public class DatabaseHandler {
 			ps = connection.prepareStatement("SELECT * FROM patient NATURAL JOIN user_account");
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				Patient user = new Patient(rs.getString("firstname"), 
-						rs.getString("lastname"), String.valueOf(rs.getInt("user_id")), rs.getInt("patient_id"));
+				Patient user = new Patient(rs.getString("firstname"), rs.getString("lastname"),
+						String.valueOf(rs.getInt("user_id")), rs.getInt("patient_id"));
 				personData.add(user);
 			}
 
@@ -352,43 +354,6 @@ public class DatabaseHandler {
 		}
 		return personData;
 	}
-
-	/**
-	 * You might need this version of findpatient at some point, returns
-	 * fitness, food ect...
-	 **/
-	// public Patient findPatient(int userID) {
-	// try {
-	// ps = connection.prepareStatement("SELECT * FROM Patient Natural Join
-	// User_Account WHERE User_ID = ?;");
-	// ps.setInt(1, userID);
-	// rs = ps.executeQuery();
-	// if (rs.next()) {
-	//
-	// Patient patient = new Patient(rs.getString("firstname"),
-	// rs.getString("lastname"),
-	// rs.getString("user_id"), rs.getInt("patient_id"));
-	// PatientProfile patProfile = patient.getPreferences();
-	// //cast objects back to linkedlist<strings>
-	// LinkedList<String> family = (LinkedList<String>) rs.getObject("family");
-	// LinkedList<String> liked_meals = (LinkedList<String>)
-	// rs.getObject("liked_meals");
-	// LinkedList<String> disliked_meals = (LinkedList<String>)
-	// rs.getObject("disliked_meals");
-	// LinkedList<String> fitness_info = (LinkedList<String>)
-	// rs.getObject("fitness_info");
-	// patProfile.setFamily(family);
-	// patProfile.setLikedMeals(liked_meals);
-	// patProfile.setDislikedMeals(disliked_meals);
-	// patProfile.setFitness(fitness_info);
-	// patient.setPreferences(patProfile);
-	// connection.close();
-	// return patient;
-	// }
-	// } catch (SQLException e) {
-	// }
-	// return null;
-	// }
 
 	/**
 	 * Finds MedicalStaff from database given userID.
@@ -542,36 +507,35 @@ public class DatabaseHandler {
 		}
 	}
 
-	// public void insertPatient(Patient p) {
-	// PatientProfile preferences = p.getPreferences();
-	// Object family = p.getFamily();
-	// Object pets = p.getPets();
-	// Object liked_meals = p.getLikedMeals();
-	// Object disliked_meals = p.getDislikedMeals();
-	// Object fitness_info = p.getFitness();
-	//
-	// try {
-	// int userID = insertUser(p.getFirstName(), p.getLastName(), p.getRole());
-	// ps = connection.prepareStatement(
-	// "INSERT INTO app.patient (user_id, family, pets, liked_meals,
-	// disliked_meals, fitness_info) "
-	// + "VALUES (?, ?, ?, ?, ?, ?)");
-	//
-	// ps.setInt(1, userID);
-	// ps.setObject(2, family);
-	// ps.setObject(3, pets);
-	// ps.setObject(4, liked_meals);
-	// ps.setObject(5, disliked_meals);
-	// ps.setObject(6, fitness_info);
-	//
-	// System.out.printf("inserted patient: %s %s\n", p.getFirstName(),
-	// p.getLastName());
-	//
-	// ps.executeUpdate();
-	// ps.close();
-	// } catch (SQLException e) {
-	// }
-	// }
+	public void insertPatient2(Patient p) {
+	 PatientProfile preferences = p.getPreferences();
+//	 Object family = p.getFamily();
+//	 Object pets = p.getPets();
+//	 Object liked_meals = p.getLikedMeals();
+//	 Object disliked_meals = p.getDislikedMeals();
+//	 Object fitness_info = p.getFitness();
+//	
+//	 try {
+//	 int userID = insertUser(p.getFirstName(), p.getLastName(), p.getRole());
+//	 ps = connection.prepareStatement("INSERT INTO app.patient (user_id, family, pets, liked_meals,  disliked_meals, fitness_info) "
+//	 + "VALUES (?, ?, ?, ?, ?, ?)");
+//	
+//	 ps.setInt(1, userID);
+//	 ps.setObject(2, family);
+//	 ps.setObject(3, pets);
+//	 ps.setObject(4, liked_meals);
+//	 ps.setObject(5, disliked_meals);
+//	 ps.setObject(6, fitness_info);
+//	
+//	 System.out.printf("inserted patient: %s %s\n", p.getFirstName(),
+//	 p.getLastName());
+//	
+//	 ps.executeUpdate();
+//	 ps.close();
+//	 } catch (SQLException e) {
+//	 }
+	 }
+
 	public void insertMedicalStaff(MedicalStaff staff) {
 		try {
 			ps = connection.prepareStatement(
@@ -615,8 +579,8 @@ public class DatabaseHandler {
 	public void updatePatient(Patient p) {
 		try {
 			connect(false);
-			ps = connection.prepareStatement("UPDATE app.user_account SET firstname = ?, lastname = ?, role = ? "
-					+ "WHERE user_id = ?");
+			ps = connection.prepareStatement(
+					"UPDATE app.user_account SET firstname = ?, lastname = ?, role = ? " + "WHERE user_id = ?");
 
 			ps.setString(1, p.getFirstName());
 			ps.setString(2, p.getLastName());
