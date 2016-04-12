@@ -28,9 +28,24 @@ public class DatabaseHandler {
 	private static DatabaseMetaData metaData;
 	private boolean success;// monitors if sql interactions result in errors
 
-	public DatabaseHandler() {
+	private static DatabaseHandler uniqueInstance;
+
+	private DatabaseHandler() {
 		connect();
 		createTables();
+	}
+
+	/**
+	 * Get the unique database instance
+	 * @return DatabaseHandler object
+	 */
+	public static DatabaseHandler getUniqueInstance() {
+		if (connection != null)
+			return uniqueInstance;
+		else {
+			uniqueInstance = new DatabaseHandler();
+			return uniqueInstance;
+		}
 	}
 
 	public boolean connect() {
@@ -317,6 +332,7 @@ public class DatabaseHandler {
 
 	/**
 	 * Finds patient from database given userID.
+	 * 
 	 * @param userID
 	 * @return Patient Object
 	 */
