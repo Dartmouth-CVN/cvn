@@ -11,6 +11,8 @@ public class PatientProfile {
 //	private HealthProfile healthProfile;
 //	private boolean wantsAlarm;
     private LinkedList<Meal> menu; //to be implemented with Meal class --JD
+    private LinkedList<String> allergies;
+    private LinkedList<String> dietaryRestrictions;
 	
 	public PatientProfile() {
 		this.family = new LinkedList<FamilyMember>();
@@ -18,8 +20,28 @@ public class PatientProfile {
 		this.setFitness(new LinkedList<String>());
 //		this.wantsAlarm = false;
         this.menu = new LinkedList<Meal>();     //to be implemented with Meal class --JD
+        this.allergies = new LinkedList<String>();
+        this.dietaryRestrictions = new LinkedList<String>();
 	}
 	
+	public void addAllergy(String newAllergy){
+		allergies.add(newAllergy);
+	}
+	public void removeAllergy(String allergy){
+		allergies.remove(allergy);
+	}
+	public LinkedList<String> getAllergies(){
+		return allergies;
+	}
+	public void addDietaryRestrictions(String newDietaryRestrictions){
+		dietaryRestrictions.add(newDietaryRestrictions);
+	}
+	public void removeDietaryRestrictions(String restrictions){
+		dietaryRestrictions.remove(restrictions);
+	}
+	public LinkedList<String> getDietaryRestrictions(){
+		return dietaryRestrictions;
+	}
 	public void addFamily(FamilyMember newFamily) {
 		family.add(newFamily);
 	}
