@@ -33,10 +33,13 @@ public class DatabaseHandler {
 	private DatabaseHandler() {
 		connect();
 		createTables();
+		insertDummyUser();
+		insertDummyLogin();
 	}
 
 	/**
 	 * Get the unique database instance
+	 * 
 	 * @return DatabaseHandler object
 	 */
 	public static DatabaseHandler getUniqueInstance() {
@@ -45,6 +48,36 @@ public class DatabaseHandler {
 		else {
 			uniqueInstance = new DatabaseHandler();
 			return uniqueInstance;
+		}
+	}
+
+	public void insertDummyLogin() {
+		try {
+			ps = connection.prepareStatement(
+					"INSERT INTO login (username, password, user_id) VALUES(?, ?, ?)");
+
+			ps.setString(1, "admin");
+			ps.setString(2, "pass");
+			ps.setInt(3, 1);
+
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			MainApp.printError(e);
+		}
+	}
+	
+	public void insertDummyUser() {
+		try {
+			ps = connection.prepareStatement(
+					"INSERT INTO user_account (firstname, lastname) VALUES(?, ?)");
+
+			ps.setString(1, "Dummy");
+			ps.setString(2, "User");
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			MainApp.printError(e);
 		}
 	}
 
