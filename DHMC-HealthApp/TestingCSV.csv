@@ -1,0 +1,5 @@
+Userid,Last name,First name,username,caregivers,assigned staff,preferences,medication,adress,phone,email,contact.id,location.id,location name,location type,schedule.id,events,event.name,event date,event category,event.id,assigned patients,*END*
+String,String,String,String,LinkedList<userid>,LinkedList<String>,PatientProfile,LinkedList<String>,LinkedList<String>,LinkedList<String>,LinkedList<String>,int,int,String,String,int,LinkedList<Event>,String,LocalDateTime,String,int,LinkedList<Patient>,String
+Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,Null,*END*
+1111,Smith,John,jsmith,Null,Null,Empty profile,Advil,"1 Main Street Worcester, MA 01609","000-000-0000, 111-111-1111",jsmith@email.com,2222,3333,a room,room,4444,Null,Null,Null,Null,Null,Null,*END*
+blub,fish,a,notafish,Null,Fishdoctor,bubbles,fishfood,big lake,Null,,fish,*#(%^)@,front desk,fishbowl,5555,Null,Null,Null,Null,Null,Null,*END*
