@@ -9,6 +9,10 @@ class HealthProfile {
 		this.setHealthInfo(new ArrayList<HealthInfo>());
 	}
 
+	public HealthProfile(ArrayList<HealthInfo> info) {
+		this.setHealthInfo(info);
+	}
+
 	public ArrayList<HealthInfo> getHealthInfo() {
 		return healthInfo;
 	}
