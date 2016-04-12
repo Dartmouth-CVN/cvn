@@ -36,6 +36,16 @@ public class RootController {
 			mainApp.getDatabaseHandler().insertPatients(pts);
 		}
 	}
+	
+	public void importFitBitCSV() {
+		FileChooser fc = new FileChooser();
+		fc.setTitle("Select FitBit CSV to import");
+		curCSV = fc.showOpenDialog(null);
+		if (curCSV != null && curCSV.exists()) {
+			pts = controller.CSVParsingUtils.CSVImport(curCSV);
+			mainApp.getDatabaseHandler().insertPatients(pts);
+		}
+	}
 
 	public void importTSV() {
 		FileChooser fc = new FileChooser();

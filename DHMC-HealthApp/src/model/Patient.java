@@ -9,6 +9,7 @@ public class Patient extends User {
 	protected LinkedList<MedicalStaff> assignedStaff;
 	private PatientProfile preferences;
 	private LinkedList<Medication> medication;
+	private LinkedList<HealthInfo> healthInfo;
 	private int patientID;
 	
 	public Patient(String firstName, String lastName, String userID, int patientID) {
@@ -17,6 +18,7 @@ public class Patient extends User {
 		this.preferences = new PatientProfile();
 		this.medication = new LinkedList<Medication>();
 		this.patientID = patientID;
+		this.healthInfo = new LinkedList<HealthInfo>();
 	}
 	
 	public LinkedList<MedicalStaff> getAssignedStaff() {
@@ -100,5 +102,16 @@ public class Patient extends User {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public LinkedList<HealthInfo> getHealthInfo() {
+		return healthInfo;
+	}
+
+	public void setHealthInfo(LinkedList<HealthInfo> healthInfo) {
+		this.healthInfo = healthInfo;
+	}
 	
+	public void addHealthInfo(HealthInfo healthInfo) {
+		this.healthInfo.add(healthInfo);
+	}
 }

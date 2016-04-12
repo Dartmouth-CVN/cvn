@@ -1,9 +1,7 @@
 package model;
 
-import java.util.Date;
-
 public class HealthInfo {
-	private Date date;
+	private String date;
 	private double height;
 	private double weight;
 	private double bmi;
@@ -24,7 +22,7 @@ public class HealthInfo {
 	
 	
 	public HealthInfo () {
-		this.date = null;
+		this.date = "";
 		this.height = 0;
 		this.weight = 0;
 		this.bmi = 0;
@@ -46,10 +44,10 @@ public class HealthInfo {
 	
 	
 	
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public double getHeight() {
