@@ -3,41 +3,21 @@ package model;
 import java.util.ArrayList;
 
 class HealthProfile {
-	private int ehrid;
-	private ArrayList<Integer> height;
-	private ArrayList<Double> weight;
-	//TODO: fitbit integration: XML/HTML
-	/*
-	 * 
-	 */
+	private ArrayList<HealthInfo> healthInfo;
 	
 	public HealthProfile() {
-		this.ehrid = 0;
-		this.height = new ArrayList<Integer>();
-		this.weight = new ArrayList<Double>();
+		this.setHealthInfo(new ArrayList<HealthInfo>());
 	}
 
-	public int getEhrid() {
-		return ehrid;
+	public ArrayList<HealthInfo> getHealthInfo() {
+		return healthInfo;
 	}
 
-	public ArrayList<Double> getWeight() {
-		return weight;
-	}
-
-	public ArrayList<Integer> getHeight() {
-		return height;
+	public void setHealthInfo(ArrayList<HealthInfo> healthInfo) {
+		this.healthInfo = healthInfo;
 	}
 	
-	public void setEhrid(int ehrid) {
-		this.ehrid = ehrid;
-	}
-
-	public void setHeight(int height) {
-		this.height.add(height);
-	}
-
-	public void addWeight(double newWeight) {
-		this.weight.add(newWeight);
+	public void addHealthInfo(HealthInfo info) {
+		healthInfo.add(info);
 	}
 }
