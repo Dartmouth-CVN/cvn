@@ -129,6 +129,7 @@ public class DatabaseHandler {
 		}
 		return success;
 	}
+	
 	public boolean createLocationTable() {
 		success = false;
 		try {
@@ -237,8 +238,8 @@ public class DatabaseHandler {
 
 	/*
 	 * add fields:
-	 * string date, double [height + weight + bmi + fat, caloriesBurned, steps, distance, floors, minSedentary,
-	 * minLightlyActive, minFairlyActive, minVeryActive, activityCalories, minAsleep, minAwake, numAwakenings, timeInBed
+	 * string date, double [height, weight, bmi, fat, caloriesBurned, steps, distance, floors, minSedentary,
+	 * minLightlyActive, minFairlyActive, minVeryActive, activityCalories, minAsleep, minAwake, numAwakenings, timeInBed]
 	 */
 	public boolean createHealthInfoTable() {
 		success = false;
@@ -254,7 +255,7 @@ public class DatabaseHandler {
 		}
 		return success;
 	}
-
+	
 	public boolean createStaffAssignmentTable() {
 		success = false;
 		try {
@@ -390,7 +391,6 @@ public class DatabaseHandler {
 		return null;
 	}
 
-	// rename SimpleUser to..
 	public ObservableList<IDisplayable> searchPatient(String name) {
 		ObservableList<IDisplayable> patientList = FXCollections.observableArrayList();
 		try {
