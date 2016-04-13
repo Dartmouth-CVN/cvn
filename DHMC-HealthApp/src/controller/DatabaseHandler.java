@@ -757,7 +757,7 @@ public class DatabaseHandler {
 				connect();
 				ps = connection.prepareStatement("DELETE FROM pet WHERE patient_id = ?");
 				ps.setInt(1, p.getPatientID);
-				rs = ps.executeUpdate();
+				int rset = ps.executeUpdate();
 				
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
@@ -780,7 +780,7 @@ public class DatabaseHandler {
 					ps.setString(2, pet.getSpecies);
 					ps.setInt(3, pet.getQuantity);
 					ps.setBoolean(4, pet.getAllergyFriendly);
-					rs = ps.executeUpdate();
+					int rset = ps.executeUpdate();
 					}
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
