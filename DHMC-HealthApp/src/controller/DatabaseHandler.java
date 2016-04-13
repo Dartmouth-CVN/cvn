@@ -747,6 +747,68 @@ public class DatabaseHandler {
 		} catch (SQLException e) {
 		}
 	}
+	/**
+	 * 
+	 * @param p
+	 */
+	public void removeAllPets(Patient p){
+
+		try {
+				connect();
+				ps = connection.prepareStatement("DELETE FROM pet WHERE patient_id = ?");
+				ps.setInt(1, p.getPatientID);
+				rs = ps.executeUpdate();
+				
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+	}
+	/**
+	 * 
+	 * @param p
+	 */
+	public void updatePets(Patient p){
+		LinkedList<Pet> patientPets = p.getPet;
+		try {
+				connect();
+				//remove all current patient pets
+				removeAllPets(Patient p);
+				//update with new list of pets
+				ps = connection.prepareStatement("INSERT INTO pet (patient_id, species, quantity, allergy_friendly) VALUES(?,?,?,?)");
+				for (Pet pet: patientPets){	
+					ps.setInt(1, p.getPatientID);
+					ps.setString(2, pet.getSpecies);
+					ps.setInt(3, pet.getQuantity);
+					ps.setBoolean(4, pet.getAllergyFriendly);
+					rs = ps.executeUpdate();
+					}
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+	}
+	/**
+	 * 
+	 * @param p
+	 * @return
+	 */
+	public LinkedList<Pet> searchPatientPets(Patient p){
+		LinkedList<Pet> patientPets = new LinkedList<Pet>();
+		try {
+				connect();
+				ps = connection.prepareStatement("SELECT * FROM pet WHERE patient_id = ?");
+				ps.setInt(1, p.getPatientID);
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					Pet pet = new Pet(rs.getString("species"), rs.getInt("quantity"),
+							rs.getBoolean("allergy_friendly"));
+					patientPets.add(pet);
+				}
+				connection.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		return patientPets;
+	}
 
 	public void dropTables() {
 		try {
