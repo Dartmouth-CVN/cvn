@@ -57,7 +57,7 @@ public class DatabaseHandler {
 
 			ps.setString(1, "admin");
 			ps.setString(2, "pass");
-			ps.setInt(3, 1);
+			ps.setString(3, "Patient1");
 
 			ps.executeUpdate();
 			ps.close();
@@ -69,10 +69,10 @@ public class DatabaseHandler {
 	public void insertDummyUser() {
 		try {
 			ps = connection.prepareStatement(
-					"INSERT INTO user_account (firstname, lastname) VALUES(?, ?)");
-
-			ps.setString(1, "Dummy");
-			ps.setString(2, "User");
+					"INSERT INTO user_account (user_id, firstname, lastname) VALUES(?, ?, ?)");
+			ps.setString(1, "Patient1");
+			ps.setString(2, "Dummy");
+			ps.setString(3, "User");
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {
@@ -103,7 +103,7 @@ public class DatabaseHandler {
 		success = false;
 		try {
 			ps = connection.prepareStatement("CREATE TABLE user_account("
-					+ "user_id VARCHAR(10), firstname VARCHAR(20), lastname VARCHAR(20), contact BLOB (10M) "
+					+ "user_id VARCHAR(10), firstname VARCHAR(20), lastname VARCHAR(20), contact BLOB (10M),"
 					+ "Primary Key(user_id) )");
 			ps.execute();
 			success = true;
@@ -277,8 +277,8 @@ public class DatabaseHandler {
 					+ "health_id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
 					+ "patient_id INT, date DATE, height DOUBLE, weight DOUBLE, bmi DOUBLE, fat DOUBLE, caloriesBurned DOUBLE, "
 					+ "steps DOUBLE, distance DOUBLE, floors DOUBLE, minSedentary DOUBLE, minLightlyActive DOUBLE,"
-					+ "minFairlyActive DOUBLE, minVeryActive, activityCalories DOUBLE, minAsleep DOUBLE,"
-					+ "minAwake DOUBLE, numAwakenings DOUBLE, timeInBed DOUBLE"
+					+ "minFairlyActive DOUBLE, minVeryActive DOUBLE, activityCalories DOUBLE, minAsleep DOUBLE,"
+					+ "minAwake DOUBLE, numAwakenings DOUBLE, timeInBed DOUBLE,"
 					+ "FOREIGN KEY(patient_id) REFERENCES patient(patient_id),Primary Key(health_id) )");
 			ps.execute();
 			success = true;
