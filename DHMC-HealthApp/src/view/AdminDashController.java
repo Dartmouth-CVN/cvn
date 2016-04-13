@@ -105,7 +105,7 @@ public class AdminDashController {
 			loader.setLocation(MainApp.class.getResource("../view/MySchedule.fxml"));
 			AnchorPane mySchedule = (AnchorPane) loader.load();
 
-			searchTab.setContent(mySchedule);
+			scheduleTab.setContent(mySchedule);
 
 			MyScheduleController controller = loader.getController();
 			controller.setMainApp(mainApp);
@@ -144,7 +144,7 @@ public class AdminDashController {
 	}
 	
 	/**
-	 * Clicking search image opens the search tab.
+	 * Clicking schedule image opens the schedule tab.
 	 */
 	@FXML private void handleScheduleImage(){
 		
