@@ -14,7 +14,7 @@
 
 <AnchorPane fx:id="adminDash" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AdminDashController">
    <children>
-      <TabPane fx:id="tabPane" prefHeight="600.0" prefWidth="600.0" styleClass="root" stylesheets="@baseTheme.css" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" prefHeight="600.0" prefWidth="600.0" styleClass="root" stylesheets="@baseTheme.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
           <Tab fx:id="dashTab" text="Dash">
                <content>
@@ -59,7 +59,7 @@
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="485.0" prefWidth="600.0">
                            <children>
-                              <ScrollPane prefHeight="420.0" prefWidth="770.0">
+                              <ScrollPane prefHeight="420.0" prefWidth="770.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <content>
                                     <GridPane prefHeight="420.0" prefWidth="600.0">
                                       <columnConstraints>
@@ -84,11 +84,6 @@
                                           <ImageView fx:id="scheduleImage" fitHeight="115.0" fitWidth="127.0" onMouseClicked="#handleScheduleSwitch" pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER">
                                              <image>
                                                 <Image url="@../../resources/images/Calendar_icon.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="importImage" fitHeight="115.0" fitWidth="192.0" onMouseClicked="#handleImportSwitch" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
-                                             <image>
-                                                <Image url="@../../resources/images/import%20data.jpg" />
                                              </image>
                                           </ImageView>
                                        </children>
