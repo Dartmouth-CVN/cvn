@@ -12,7 +12,7 @@ public class MedicalStaff extends User {
 	
 	public MedicalStaff(String firstName, String lastName, String position, String userID, int medID) {
 		super(firstName, lastName, userID);
-		this.position = position;
+		this.setPosition(position);
 		this.setMedID(medID);
 	}
 	
@@ -89,5 +89,13 @@ public class MedicalStaff extends User {
 	public IntegerProperty getUserIDProperty() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
 	}
 }

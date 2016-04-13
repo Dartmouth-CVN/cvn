@@ -30,6 +30,10 @@ public class Pet {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	
+	public boolean getAllergyFriendly() {
+		return this.allergyFriendly;
+	}
 
 	public void setAllergyFriendly(boolean allergyFriendly) {
 		this.allergyFriendly = allergyFriendly;

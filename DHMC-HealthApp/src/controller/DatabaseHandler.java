@@ -17,7 +17,7 @@ import model.IDisplayable;
 import model.MainApp;
 import model.MedicalStaff;
 import model.Patient;
-import model.PatientProfile;
+import model.Pet;
 
 public class DatabaseHandler {
 
@@ -632,7 +632,7 @@ public class DatabaseHandler {
 	}
 
 	public void insertPatient2(Patient p) {
-		PatientProfile preferences = p.getPreferences();
+		// PatientProfile preferences = p.getPreferences();
 		// Object family = p.getFamily();
 		// Object pets = p.getPets();
 		// Object liked_meals = p.getLikedMeals();
@@ -694,7 +694,7 @@ public class DatabaseHandler {
 			ps.setInt(6, Integer.parseInt(admin.getUserID()));
 			ps.setInt(7, admin.getAdminID());
 
-			int rset = ps.executeUpdate();
+			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {
 		}
@@ -727,7 +727,7 @@ public class DatabaseHandler {
 			ps.setString(2, staff.getLastName());
 			ps.setInt(4, Integer.parseInt(staff.getUserID()));
 
-			int rset = ps.executeUpdate();
+			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {
 		}
@@ -742,7 +742,7 @@ public class DatabaseHandler {
 			ps.setString(2, admin.getLastName());
 			ps.setInt(4, Integer.parseInt(admin.getUserID()));
 
-			int rset = ps.executeUpdate();
+			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {
 		}
@@ -757,7 +757,7 @@ public class DatabaseHandler {
 				connect();
 				ps = connection.prepareStatement("DELETE FROM pet WHERE patient_id = ?");
 				ps.setInt(1, p.getPatientID());
-				int rset = ps.executeUpdate();
+				ps.executeUpdate();
 				
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
@@ -768,19 +768,19 @@ public class DatabaseHandler {
 	 * @param p
 	 */
 	public void updatePets(Patient p){
-		LinkedList<Pet> patientPets = p.getPet();
+		LinkedList<Pet> patientPets = p.getPreferences().getPets();
 		try {
 				connect();
 				//remove all current patient pets
-				removeAllPets(Patient p);
+				removeAllPets(p);
 				//update with new list of pets
 				ps = connection.prepareStatement("INSERT INTO pet (patient_id, species, quantity, allergy_friendly) VALUES(?,?,?,?)");
 				for (Pet pet: patientPets){	
 					ps.setInt(1, p.getPatientID());
-					ps.setString(2, pet.getSpecies);
-					ps.setInt(3, pet.getQuantity);
-					ps.setBoolean(4, pet.getAllergyFriendly);
-					int rset = ps.executeUpdate();
+					ps.setString(2, pet.getSpecies());
+					ps.setInt(3, pet.getQuantity());
+					ps.setBoolean(4, pet.getAllergyFriendly());
+					ps.executeUpdate();
 					}
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());

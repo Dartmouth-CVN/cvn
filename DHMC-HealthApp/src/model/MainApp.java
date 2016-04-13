@@ -7,7 +7,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
@@ -15,7 +14,6 @@ import javafx.stage.Stage;
 import view.AdminDashController;
 import view.EditPatientController;
 import view.LoginController;
-import view.SearchTabController;
 
 public class MainApp extends Application {
 	private DatabaseHandler dbHandler;
