@@ -3,9 +3,8 @@ package model;
 import java.util.LinkedList;
 
 public class PatientProfile {
-	private LinkedList<FamilyMember> family;
+	private LinkedList<Caregiver> caregivers;
 	private LinkedList<Pet> pets; 
-	//private LinkedList<String> dislikedMeals;
 	private LinkedList<String> fitness;//goes into health profile
 //	private HealthProfile healthProfile;
 //	private boolean wantsAlarm;
@@ -14,7 +13,7 @@ public class PatientProfile {
     private LinkedList<String> dietaryRestrictions;
 	
 	public PatientProfile() {
-		this.family = new LinkedList<FamilyMember>();
+		this.caregivers = new LinkedList<Caregiver>();
 		this.pets = new LinkedList<Pet>();
 		this.setFitness(new LinkedList<String>());
 //		this.wantsAlarm = false;
@@ -41,8 +40,8 @@ public class PatientProfile {
 	public LinkedList<String> getDietaryRestrictions(){
 		return dietaryRestrictions;
 	}
-	public void addFamily(FamilyMember newFamily) {
-		family.add(newFamily);
+	public void addCaregiver(Caregiver newCaregiver) {
+		caregivers.add(newCaregiver);
 	}
 	
 	public void addPet(Pet newPet) {
@@ -53,8 +52,8 @@ public class PatientProfile {
 		menu.add(newMeal);
 	}
 		
-	public void removeFamily(FamilyMember family) {
-		this.family.remove(family);
+	public void removeCaregiver(Caregiver newCaregiver) {
+		this.caregivers.remove(newCaregiver);
 	}
 	
 	public void removePet(Pet pet) {
@@ -73,8 +72,8 @@ public class PatientProfile {
 //		wantsAlarm = alarm;
 //	}
 	
-	public LinkedList<FamilyMember> getFamily() {
-		return family;
+	public LinkedList<Caregiver> getCaregiver() {
+		return caregivers;
 	}
 	
 	public LinkedList<Pet> getPets() {
@@ -89,8 +88,8 @@ public class PatientProfile {
 		return fitness;
 	}
 	
-	public void setFamily(LinkedList<FamilyMember> family) {
-		this.family = family;
+	public void setCaregiver(LinkedList<Caregiver> newCaregiver) {
+		this.caregivers = newCaregiver;
 	}
 	
 	public void setFitness(LinkedList<String> fitness) {
