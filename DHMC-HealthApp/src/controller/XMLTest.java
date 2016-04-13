@@ -8,9 +8,11 @@ public class XMLTest {
 
 	public static void main(String[] args) {
 		LinkedList<Patient> pts = CSVParsingUtils.CSVImport("TestingCSV.csv");
-
+		/*
 		XMLParsingUtils.writePatientsToXML("test.xml", pts);
-		CSVParsingUtils.CSVExport("exported420", pts);
+		CSVParsingUtils.CSVExport("exported420.csv", pts);
+		*/
+		XMLParsingUtils.writePatientsToHTML(null, pts);
 	}
 
 }
