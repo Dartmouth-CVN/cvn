@@ -15,7 +15,7 @@ public class HealthInfo {
 	private double minSedentary;
 	private double minLightlyActive;
 	private double minFairlyActive;
-	private double minVeryACtive;
+	private double minVeryActive;
 	private double activityCalories;
 	private double minAsleep;
 	private double minAwake;
@@ -36,7 +36,7 @@ public class HealthInfo {
 		this.minSedentary = 0;
 		this.minLightlyActive = 0;
 		this.minFairlyActive = 0;
-		this.minVeryACtive = 0;
+		this.minVeryActive = 0;
 		this.activityCalories = 0;
 		this.minAsleep = 0;
 		this.minAwake = 0;
@@ -119,10 +119,10 @@ public class HealthInfo {
 		this.minFairlyActive = minFairlyActive;
 	}
 	public double getMinVeryACtive() {
-		return minVeryACtive;
+		return minVeryActive;
 	}
 	public void setMinVeryACtive(double minVeryACtive) {
-		this.minVeryACtive = minVeryACtive;
+		this.minVeryActive = minVeryACtive;
 	}
 	public double getActivityCalories() {
 		return activityCalories;
