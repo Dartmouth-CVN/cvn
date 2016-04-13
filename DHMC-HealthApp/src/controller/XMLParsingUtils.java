@@ -31,8 +31,8 @@ public class XMLParsingUtils {
 
 		}
 		output += "</patient-list>";
-		//System.out.println(output);
-		if(filename!=null){
+		// System.out.println(output);
+		if (filename != null) {
 			try {
 				PrintWriter toFile = new PrintWriter(filename);
 				toFile.write(output);
@@ -40,9 +40,9 @@ public class XMLParsingUtils {
 			} catch (FileNotFoundException e) {
 				System.out.println("CVN does not have write permission to this location.");
 			}
-			
+
 		}
-			
+
 		return output;
 	}
 
@@ -131,32 +131,38 @@ public class XMLParsingUtils {
 	}
 
 	/**
-	 * Given a LinkedList of Patients, create an HTML page from the XML
-	 * formatted version of that list.
+	 * Given a LinkedList of patients, write an HTML file to the provided
+	 * location from the Patients
 	 * 
 	 * @param filename
-	 *            the name of the HTML file to write to
+	 *            the name of the file to write to
 	 * @param pts
-	 *            the LinkedList of Patients to convert
+	 *            the patients to write
+	 * @return the contents of the file as a String
 	 */
-	public static void writePatientsToHTML(String filename, LinkedList<Patient> pts) {
-		String contents = writePatientsToXML(null, pts);
-		contents = XMLtoHTMLTag(contents, "patient", "tr");
-		contents = XMLtoHTMLTag(contents, "patient-list", "table");
-		
-		System.out.println(contents);
-	}
-	
-	/**
-	 * Replaces the tag in the given String with another
-	 * @param toSwap the String in which replacement occurs
-	 * @param tag the tag to change
-	 * @param newTag the tag to replace the old tag
-	 */
-	private static String XMLtoHTMLTag(String toSwap, String tag, String newTag){
-		toSwap=toSwap.replace("<"+tag+">", "<"+newTag+">");
-		toSwap=toSwap.replace("</"+tag+">", "</"+newTag+">");	
+	public static String writePatientsToHTML(String filename, LinkedList<Patient> pts) {
+		String output = "<table>\n";
+		for (Patient p : pts) {
+			output += XMLLine("tr",
+					XMLLine("h1", p.getFirstName() + " " + p.getLastName())
+							+ XMLLine("h2", p.getUserID() + ": " + String.valueOf(p.getPatientID())),
+					true) + "<hr>" + XMLList("tr", "div", XMLParseMedStaff(p.getAssignedStaff()))
+					+ XMLList("tr", "div", XMLParseMedication(p.getMedication())) + "<hr>";
 
-		return toSwap;
+		}
+		output += "</table>";		
+		if (filename != null) {
+			try {
+				PrintWriter toFile = new PrintWriter(filename);
+				toFile.write(output);
+				toFile.close();
+			} catch (FileNotFoundException e) {
+				System.out.println("CVN does not have write permission to this location.");
+			}
+
+		}
+
+		return output;
 	}
+
 }
