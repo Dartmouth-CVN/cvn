@@ -131,15 +131,15 @@ public class FitBitParsingUtils {
 									break;
 									
 				case "Activities":  System.out.println(line);
-									output.get(i).setCaloriesBurned(Double.parseDouble(info[1]));
-				 					output.get(i).setSteps(Double.parseDouble(info[2]));
+									output.get(i).setCaloriesBurned(Double.parseDouble(info[1]));    //quotes
+				 					output.get(i).setSteps(Double.parseDouble(info[2]));             //quotes
 				 					output.get(i).setDistance(Double.parseDouble(info[3]));
 				 					output.get(i).setFloors(Double.parseDouble(info[4]));
 				 					output.get(i).setMinSedentary(Double.parseDouble(info[5]));
 				 					output.get(i).setMinLightlyActive(Double.parseDouble(info[6]));
 				 					output.get(i).setMinFairlyActive(Double.parseDouble(info[7]));
 				 					output.get(i).setMinVeryActive(Double.parseDouble(info[8]));
-				 					output.get(i).setActivityCalories(Double.parseDouble(info[9]));
+				 					output.get(i).setActivityCalories(Double.parseDouble(info[9]));  //quotesu7
 				 					i++;
 				 					break;
 				 					
