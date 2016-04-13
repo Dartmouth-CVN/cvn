@@ -756,7 +756,7 @@ public class DatabaseHandler {
 		try {
 				connect();
 				ps = connection.prepareStatement("DELETE FROM pet WHERE patient_id = ?");
-				ps.setInt(1, p.getPatientID);
+				ps.setInt(1, p.getPatientID());
 				int rset = ps.executeUpdate();
 				
 			} catch (SQLException e) {
@@ -768,7 +768,7 @@ public class DatabaseHandler {
 	 * @param p
 	 */
 	public void updatePets(Patient p){
-		LinkedList<Pet> patientPets = p.getPet;
+		LinkedList<Pet> patientPets = p.getPet();
 		try {
 				connect();
 				//remove all current patient pets
@@ -776,7 +776,7 @@ public class DatabaseHandler {
 				//update with new list of pets
 				ps = connection.prepareStatement("INSERT INTO pet (patient_id, species, quantity, allergy_friendly) VALUES(?,?,?,?)");
 				for (Pet pet: patientPets){	
-					ps.setInt(1, p.getPatientID);
+					ps.setInt(1, p.getPatientID());
 					ps.setString(2, pet.getSpecies);
 					ps.setInt(3, pet.getQuantity);
 					ps.setBoolean(4, pet.getAllergyFriendly);
@@ -796,7 +796,7 @@ public class DatabaseHandler {
 		try {
 				connect();
 				ps = connection.prepareStatement("SELECT * FROM pet WHERE patient_id = ?");
-				ps.setInt(1, p.getPatientID);
+				ps.setInt(1, p.getPatientID());
 				rs = ps.executeQuery();
 				while (rs.next()) {
 					Pet pet = new Pet(rs.getString("species"), rs.getInt("quantity"),
