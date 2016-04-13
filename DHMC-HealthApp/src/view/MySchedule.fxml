@@ -19,7 +19,7 @@
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
                               <Label layoutX="14.0" layoutY="14.0" text="My Scheduled Events" />
-                              <TableView layoutX="-1.0" layoutY="33.0" prefHeight="261.0" prefWidth="444.0">
+                              <TableView layoutX="-1.0" layoutY="33.0" prefHeight="261.0" prefWidth="444.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="33.0">
                                 <columns>
                                   <TableColumn prefWidth="102.0" text="Time" />
                                   <TableColumn prefWidth="201.0" text="Title" />
@@ -31,14 +31,14 @@
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
                               <Label layoutX="14.0" layoutY="14.0" text="Available/Upcoming Events" />
-                              <TableView layoutY="43.0" prefHeight="253.0" prefWidth="442.0">
+                              <TableView layoutY="43.0" prefHeight="253.0" prefWidth="442.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="43.0">
                                 <columns>
                                   <TableColumn prefWidth="104.0" text="Time" />
                                   <TableColumn prefWidth="201.0" text="Title" />
                                     <TableColumn prefWidth="136.0" text="Location" />
                                 </columns>
                               </TableView>
-                              <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="190.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="190.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="266.0" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="240.1546392440796" AnchorPane.topAnchor="12.0">
                                  <image>
                                     <Image url="@../../../resources/images/search-icon.png" />
                                  </image>
@@ -51,7 +51,7 @@
             </AnchorPane>
           <AnchorPane fx:id="calendarPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <ImageView fitHeight="347.0" fitWidth="559.0" layoutX="-11.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="347.0" fitWidth="559.0" layoutX="132.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="125.0" AnchorPane.leftAnchor="132.0" AnchorPane.rightAnchor="131.39175415039062" AnchorPane.topAnchor="126.0">
                      <image>
                         <Image url="@../../../../../../../../Desktop/Screen%20Shot%202016-04-01%20at%202.24.10%20PM.png" />
                      </image>
