@@ -107,7 +107,7 @@ public class CSVParsingUtils {
 			if (curChar == '\"')
 				inQuotes = !inQuotes;
 			else if (curChar == delimiter.charAt(0) && !inQuotes) {
-				output.add(curVal);
+				output.add(curVal.trim());
 				curVal = "";
 			} else {
 				curVal += curChar;
