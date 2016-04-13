@@ -3,56 +3,67 @@ package model;
 import java.util.LinkedList;
 
 public class PatientProfile {
-	private LinkedList<String> family;
-	private LinkedList<String> pets;
-	private LinkedList<String> likedMeals;
-	private LinkedList<String> dislikedMeals;
+	private LinkedList<Caregiver> caregivers;
+	private LinkedList<Pet> pets; 
 	private LinkedList<String> fitness;//goes into health profile
 //	private HealthProfile healthProfile;
 //	private boolean wantsAlarm;
+    private LinkedList<Meal> menu; //to be implemented with Meal class --JD
+    private LinkedList<String> allergies;
+    private LinkedList<String> dietaryRestrictions;
 	
 	public PatientProfile() {
-		this.family = new LinkedList<String>();
-		this.pets = new LinkedList<String>();
-		this.likedMeals = new LinkedList<String>();
-		this.dislikedMeals = new LinkedList<String>();
+		this.caregivers = new LinkedList<Caregiver>();
+		this.pets = new LinkedList<Pet>();
 		this.setFitness(new LinkedList<String>());
 //		this.wantsAlarm = false;
+        this.menu = new LinkedList<Meal>();     //to be implemented with Meal class --JD
+        this.allergies = new LinkedList<String>();
+        this.dietaryRestrictions = new LinkedList<String>();
 	}
 	
-	public void addFamily(String newFamily) {
-		family.add(newFamily);
+	public void addAllergy(String newAllergy){
+		allergies.add(newAllergy);
+	}
+	public void removeAllergy(String allergy){
+		allergies.remove(allergy);
+	}
+	public LinkedList<String> getAllergies(){
+		return allergies;
+	}
+	public void addDietaryRestrictions(String newDietaryRestrictions){
+		dietaryRestrictions.add(newDietaryRestrictions);
+	}
+	public void removeDietaryRestrictions(String restrictions){
+		dietaryRestrictions.remove(restrictions);
+	}
+	public LinkedList<String> getDietaryRestrictions(){
+		return dietaryRestrictions;
+	}
+	public void addCaregiver(Caregiver newCaregiver) {
+		caregivers.add(newCaregiver);
 	}
 	
-	public void addPet(String newPet) {
+	public void addPet(Pet newPet) {
 		pets.add(newPet);
 	}
 	
-	public void addLikedMeal(String newMeal) {
-		likedMeals.add(newMeal);
+	public void addMeal(Meal newMeal) { 	//to be implemented with Meal class --JD
+		menu.add(newMeal);
+	}
+		
+	public void removeCaregiver(Caregiver newCaregiver) {
+		this.caregivers.remove(newCaregiver);
 	}
 	
-	public void addDislikedMeal(String newMeal) {
-		dislikedMeals.add(newMeal);
-	}
-	
-	public void removeFamily(String family) {
-		this.family.remove(family);
-	}
-	
-	public void removePet(String pet) {
+	public void removePet(Pet pet) {
 		pets.remove(pet);
 	}
 	
-	public void removeLikedMeal(String meal) {
-		likedMeals.remove(meal);
+	public void removeMeal (Meal removedmeal) {	//to be implemented with Meal class --JD
+		menu.remove(removedmeal);
 	}
-	
-	public void removeDislikedMeal(String meal) {
-		dislikedMeals.remove(meal);
-	}
-	
-	
+		
 //	public void setHealthProfile(HealthProfile profile) {
 //		healthProfile = profile;
 //	}
@@ -61,36 +72,24 @@ public class PatientProfile {
 //		wantsAlarm = alarm;
 //	}
 	
-	public LinkedList<String> getFamily() {
-		return family;
+	public LinkedList<Caregiver> getCaregiver() {
+		return caregivers;
 	}
 	
-	public LinkedList<String> getPets() {
+	public LinkedList<Pet> getPets() {
 		return pets;
 	}
 	
-	public LinkedList<String> getLikedMeals() {
-		return likedMeals;
-	}
-	
-	public LinkedList<String> getDislikedMeals() {
-		return dislikedMeals;
-	}
+	public LinkedList<Meal> getMenu() {			//to be implemented with Meal class --JD
+		return menu;
+	}	 
 
 	public LinkedList<String> getFitness() {
 		return fitness;
 	}
 	
-	public void setFamily(LinkedList<String> family) {
-		this.family = family;
-	}
-	
-	public void setLikedMeals(LinkedList<String> LikedMeal) {
-		this.likedMeals = LikedMeal;
-	}
-	
-	public void setDislikedMeals(LinkedList<String> dislikedMeals) {
-		this.dislikedMeals = dislikedMeals;
+	public void setCaregiver(LinkedList<Caregiver> newCaregiver) {
+		this.caregivers = newCaregiver;
 	}
 	
 	public void setFitness(LinkedList<String> fitness) {
@@ -100,6 +99,10 @@ public class PatientProfile {
 	public void addFitness(String newFitness) {
 		this.fitness.add(newFitness);
 	}
+	public void setMenu(LinkedList<Meal> menu) {			//to be implemented with Meal class --JD
+		this.menu = menu;
+	}			
+	
 	
 //	public HealthProfile getHealthProfile() {
 //		return healthProfile;
