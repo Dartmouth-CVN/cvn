@@ -5,17 +5,19 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 
 public class MedicalStaff extends User {
+	private String position;
 	
 	protected LinkedList<Patient> assignedPatients;
 	private int medID;
 	
-	public MedicalStaff(String firstName, String lastName, String userID, int medID) {
-		super(firstName, lastName, userID, "MedicalStaff");
+	public MedicalStaff(String firstName, String lastName, String position, String userID, int medID) {
+		super(firstName, lastName, userID);
+		this.position = position;
 		this.setMedID(medID);
 	}
 	
 	public MedicalStaff(String userID) {
-		super("Enter First Name", "Enter Last Name", userID, "MedicalStaff");
+		super("Enter First Name", "Enter Last Name", userID);
 		this.setMedID(0);
 	}
 	

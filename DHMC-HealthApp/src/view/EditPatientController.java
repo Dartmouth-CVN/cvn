@@ -167,22 +167,22 @@ public class EditPatientController {
 		
 		for (i = 0; i < (familyVB.getChildren().size() - 1); i++) {
 			field = (TextField) familyVB.getChildren().get(i);
-			this.p.getPreferences().addFamily(field.getText());
+//			this.p.getPreferences().addFamily(field.getText());
 		}
 		
 		for (i = 0; i < (petVB.getChildren().size() - 1); i++) {
 			field = (TextField) petVB.getChildren().get(i);
-			this.p.getPreferences().addPet(field.getText());
+//			this.p.getPreferences().addPet(field.getText());
 		}
 		
-		for(i = 0; i < this.p.getPreferences().getFamily().size(); i++) {
-			newFamily = this.p.getPreferences().getFamily().get(i);
-			familyList = familyList + newFamily + "\n";
-		}
+//		for(i = 0; i < this.p.getPreferences().getFamily().size(); i++) {
+//			newFamily = this.p.getPreferences().getFamily().get(i);
+//			familyList = familyList + newFamily + "\n";
+//		}
 		
 		for(i = 0; i < this.p.getPreferences().getPets().size(); i++) {
-			newPet = this.p.getPreferences().getPets().get(i);
-			petList = petList + newPet + "\n";
+//			newPet = this.p.getPreferences().getPets().get(i);
+//			petList = petList + newPet + "\n";
 		}
 		
 		savedFamilyInfo.setText("Saved Family Information:\n\nFamily Members:\n" + familyList + "\nPets:\n" + petList);
@@ -219,26 +219,26 @@ public class EditPatientController {
 		String dislikedMealList = "";
 		String newLikedMeal;
 		String newDislikedMeal;
-		
-		for (i = 0; i < (likedMealVB.getChildren().size() - 1); i++) {
-			field = (TextField) likedMealVB.getChildren().get(i);
-			this.p.getPreferences().addLikedMeal(field.getText());
-		}
-		
-		for (i = 0; i < (dislikedMealVB.getChildren().size() - 1); i++) {
-			field = (TextField) dislikedMealVB.getChildren().get(i);
-			this.p.getPreferences().addDislikedMeal(field.getText());
-		}
-		
-		for(i = 0; i < this.p.getPreferences().getLikedMeals().size(); i++) {
-			newLikedMeal = this.p.getPreferences().getLikedMeals().get(i);
-			likedMealList = likedMealList + newLikedMeal + "\n";
-		}
-		
-		for(i = 0; i < this.p.getPreferences().getDislikedMeals().size(); i++) {
-			newDislikedMeal = this.p.getPreferences().getDislikedMeals().get(i);
-			dislikedMealList = dislikedMealList + newDislikedMeal + "\n";
-		}
+//		
+//		for (i = 0; i < (likedMealVB.getChildren().size() - 1); i++) {
+//			field = (TextField) likedMealVB.getChildren().get(i);
+//			this.p.getPreferences().addLikedMeal(field.getText());
+//		}
+//		
+//		for (i = 0; i < (dislikedMealVB.getChildren().size() - 1); i++) {
+//			field = (TextField) dislikedMealVB.getChildren().get(i);
+//			this.p.getPreferences().addDislikedMeal(field.getText());
+//		}
+//		
+//		for(i = 0; i < this.p.getPreferences().getLikedMeals().size(); i++) {
+//			newLikedMeal = this.p.getPreferences().getLikedMeals().get(i);
+//			likedMealList = likedMealList + newLikedMeal + "\n";
+//		}
+//		
+//		for(i = 0; i < this.p.getPreferences().getDislikedMeals().size(); i++) {
+//			newDislikedMeal = this.p.getPreferences().getDislikedMeals().get(i);
+//			dislikedMealList = dislikedMealList + newDislikedMeal + "\n";
+//		}
 		
 		savedDietInfo.setText("Saved Diet Information:\n\nLiked Meals:\n" + likedMealList + "\nDisliked Meals:\n" + dislikedMealList);
 		mainApp.getDatabaseHandler().updatePatient(p);
