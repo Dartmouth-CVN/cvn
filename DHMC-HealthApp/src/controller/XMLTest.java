@@ -12,7 +12,7 @@ public class XMLTest {
 		XMLParsingUtils.writePatientsToXML("test.xml", pts);
 		CSVParsingUtils.CSVExport("exported420.csv", pts);
 		*/
-		XMLParsingUtils.writePatientsToHTML(null, pts);
+		System.out.println(XMLParsingUtils.writePatientsToHTML(null, pts));
 	}
 
 }
