@@ -18,7 +18,6 @@ import model.MainApp;
 import model.MedicalStaff;
 import model.Patient;
 import model.PatientProfile;
-import model.SimpleUser;
 
 public class DatabaseHandler {
 
@@ -130,7 +129,6 @@ public class DatabaseHandler {
 		}
 		return success;
 	}
-
 	public boolean createLocationTable() {
 		success = false;
 		try {
@@ -237,6 +235,11 @@ public class DatabaseHandler {
 		return success;
 	}
 
+	/*
+	 * add fields:
+	 * string date, double [height + weight + bmi + fat, caloriesBurned, steps, distance, floors, minSedentary,
+	 * minLightlyActive, minFairlyActive, minVeryActive, activityCalories, minAsleep, minAwake, numAwakenings, timeInBed
+	 */
 	public boolean createHealthInfoTable() {
 		success = false;
 		try {
