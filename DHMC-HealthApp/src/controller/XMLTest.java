@@ -10,6 +10,7 @@ public class XMLTest {
 		LinkedList<Patient> pts = CSVParsingUtils.CSVImport("TestingCSV.csv");
 
 		XMLParsingUtils.writePatientsToXML("test.xml", pts);
+		CSVParsingUtils.CSVExport("exported420", pts);
 	}
 
 }

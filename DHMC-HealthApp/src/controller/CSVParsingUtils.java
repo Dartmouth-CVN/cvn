@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Scanner;
-
 import model.MedicalStaff;
 import model.Medication;
 import model.Patient;
@@ -46,9 +46,30 @@ public class CSVParsingUtils {
 		}
 
 		while (fileReader.hasNextLine()) // Parses the file line by line
-			output.add(makePatient(fileReader.nextLine().split(delimiter)));
+			output.add(makePatient(splitSepValuesLine(fileReader.nextLine(), delimiter)));
 		fileReader.close();
 		return output;
+	}
+
+	public static String[] splitSepValuesLine(String s, String delimiter) {
+		LinkedList<String> output = new LinkedList<String>();
+		String curVal = "";
+		boolean inQuotes = false;
+		while (s.length() > 0) {
+			char curChar = s.charAt(0);
+			if (curChar == '\"')
+				inQuotes = !inQuotes;
+			if (curChar == delimiter.charAt(0) && !inQuotes) {
+				output.add(curVal);
+				curVal = "";
+			} else {
+				curVal += curChar;
+			}
+			s = s.substring(1);
+		}
+		String[] outputArr = new String[output.size()];
+		output.toArray(outputArr);
+		return outputArr;
 	}
 
 	public static void CSVExport(String output, LinkedList<Patient> src) {
@@ -75,6 +96,7 @@ public class CSVParsingUtils {
 	}
 
 	public static Patient makePatient(String[] pt) {
+		System.out.println(Arrays.toString(pt));
 		Patient output = new Patient(pt[2], pt[1], pt[0], 0);
 		String[] staff = pt[5].split(",");
 		for (String member : staff)
