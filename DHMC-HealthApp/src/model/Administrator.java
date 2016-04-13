@@ -8,7 +8,7 @@ import javafx.beans.property.StringProperty;
 public class Administrator extends User {
 	private int adminID;
 	public Administrator(String firstName, String lastName, String userID, int adminID) {
-		super(firstName, lastName, userID, "Administrator");
+		super(firstName, lastName, userID);
 		this.setAdminID(adminID);
 	}
 	

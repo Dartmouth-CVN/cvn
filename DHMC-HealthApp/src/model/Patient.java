@@ -12,7 +12,7 @@ public class Patient extends User {
 	private int patientID;
 	
 	public Patient(String firstName, String lastName, String userID, int patientID) {
-		super(firstName, lastName, userID, "Patient");
+		super(firstName, lastName, userID);
 		this.assignedStaff = new LinkedList<MedicalStaff>();
 		this.preferences = new PatientProfile();
 		this.medication = new LinkedList<Medication>();

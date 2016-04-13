@@ -4,19 +4,14 @@ import java.util.LinkedList;
 
 public class PatientProfile {
 	private LinkedList<Caregiver> caregivers;
-	private LinkedList<Pet> pets; 
-	private LinkedList<String> fitness;//goes into health profile
-//	private HealthProfile healthProfile;
-//	private boolean wantsAlarm;
+	private LinkedList<Pet> pets;
     private LinkedList<Meal> menu; //to be implemented with Meal class --JD
-    private LinkedList<String> allergies;
-    private LinkedList<String> dietaryRestrictions;
+    private LinkedList<String> allergies; //moved to healthInfo?
+    private LinkedList<String> dietaryRestrictions; //might be better as part of menu? maybe a "restricted" boolean
 	
 	public PatientProfile() {
 		this.caregivers = new LinkedList<Caregiver>();
 		this.pets = new LinkedList<Pet>();
-		this.setFitness(new LinkedList<String>());
-//		this.wantsAlarm = false;
         this.menu = new LinkedList<Meal>();     //to be implemented with Meal class --JD
         this.allergies = new LinkedList<String>();
         this.dietaryRestrictions = new LinkedList<String>();
@@ -84,21 +79,10 @@ public class PatientProfile {
 		return menu;
 	}	 
 
-	public LinkedList<String> getFitness() {
-		return fitness;
-	}
-	
 	public void setCaregiver(LinkedList<Caregiver> newCaregiver) {
 		this.caregivers = newCaregiver;
 	}
 	
-	public void setFitness(LinkedList<String> fitness) {
-		this.fitness = fitness;
-	}
-	
-	public void addFitness(String newFitness) {
-		this.fitness.add(newFitness);
-	}
 	public void setMenu(LinkedList<Meal> menu) {			//to be implemented with Meal class --JD
 		this.menu = menu;
 	}			

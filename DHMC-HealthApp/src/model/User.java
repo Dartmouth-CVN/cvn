@@ -4,20 +4,17 @@ public abstract class User implements IDisplayable{
 	private String firstName;
 	private String lastName;
 	private String userID;
-	private String username;
 	private Contact contactInfo;
 	private Schedule schedule;
 	private Location room;
-	private String role;
 	//role is either "Patient", "MedicalStaff", "Administrator"
-	public User(String firstName, String lastName, String id, String role) {
+	public User(String firstName, String lastName, String id) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.contactInfo = new Contact(id);
 		//this.schedule = new Schedule(id);
 		this.room = null;
 		this.userID =id;
-		this.setRole(role);
 	}
 	
 	public String getFirstName() {
@@ -59,13 +56,4 @@ public abstract class User implements IDisplayable{
 	public Schedule getSchedule() {
 		return this.schedule;
 	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
 }

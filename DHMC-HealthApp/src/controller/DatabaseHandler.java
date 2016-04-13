@@ -103,10 +103,8 @@ public class DatabaseHandler {
 		success = false;
 		try {
 			ps = connection.prepareStatement("CREATE TABLE user_account("
-					+ "user_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
-					+ "firstname VARCHAR(20), lastname VARCHAR(20), role VARCHAR(20),"
-					+ "family blob (16M), pets blob (16M), liked_meals blob (16M), disliked_meals blob (16M), "
-					+ "fitness_info blob (16M), Primary Key(user_id) )");
+					+ "user_id VARCHAR(10), firstname VARCHAR(20), lastname VARCHAR(20), contact BLOB (10M) "
+					+ "Primary Key(user_id) )");
 			ps.execute();
 			success = true;
 		} catch (SQLException e) {
@@ -119,8 +117,8 @@ public class DatabaseHandler {
 		success = false;
 		try {
 			ps = connection.prepareStatement("CREATE TABLE login("
-					+ "login_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-					+ "username VARCHAR(20), password VARCHAR(200), user_id int,"
+					+ "login_id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+					+ "username VARCHAR(20), password VARCHAR(200), user_id VARCHAR(10),"
 					+ "FOREIGN KEY(user_id) REFERENCES user_account(user_id), Primary Key(login_id) )");
 			ps.execute();
 			success = true;
@@ -134,7 +132,7 @@ public class DatabaseHandler {
 		success = false;
 		try {
 			ps = connection.prepareStatement("CREATE TABLE location("
-					+ "location_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
+					+ "location_id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
 					+ "name VARCHAR(20), location_type VARCHAR(20), Primary Key(location_id))");
 			ps.execute();
 			success = true;
@@ -148,8 +146,8 @@ public class DatabaseHandler {
 		success = false;
 		try {
 			ps = connection.prepareStatement("CREATE TABLE schedule("
-					+ "schedule_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-					+ " user_id int, FOREIGN KEY(user_id) REFERENCES user_account(user_id),"
+					+ "schedule_id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+					+ " user_id VARCHAR(10), FOREIGN KEY(user_id) REFERENCES user_account(user_id),"
 					+ "Primary Key(schedule_id) )");
 			ps.execute();
 			success = true;
@@ -163,9 +161,9 @@ public class DatabaseHandler {
 		success = false;
 		try {
 			ps = connection.prepareStatement("CREATE TABLE event("
-					+ "event_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+					+ "event_id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
 					+ "name VARCHAR(20), event_date DATE, category VARCHAR(20), "
-					+ "schedule_id int, FOREIGN KEY(schedule_id) " + "REFERENCES Schedule(schedule_id))");
+					+ "schedule_id INT, FOREIGN KEY(schedule_id) " + "REFERENCES Schedule(schedule_id))");
 			ps.execute();
 			success = true;
 		} catch (SQLException e) {
@@ -178,8 +176,8 @@ public class DatabaseHandler {
 		success = false;
 		try {
 			ps = connection.prepareStatement("CREATE TABLE admin("
-					+ "admin_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-					+ "user_id int, FOREIGN KEY(user_id) REFERENCES user_account(user_id),"
+					+ "admin_id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+					+ "user_id VARCHAR(10), FOREIGN KEY(user_id) REFERENCES user_account(user_id),"
 					+ "Primary Key(admin_id) )");
 			ps.execute();
 			success = true;
@@ -194,7 +192,7 @@ public class DatabaseHandler {
 		try {
 			ps = connection.prepareStatement("CREATE TABLE medical_staff("
 					+ "med_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-					+ "user_id int, role VARCHAR(20), FOREIGN KEY(user_id) REFERENCES user_account(user_id),"
+					+ "user_id VARCHAR(10), position VARCHAR(20), FOREIGN KEY(user_id) REFERENCES user_account(user_id),"
 					+ "Primary Key(med_id) )");
 			ps.execute();
 			success = true;
@@ -209,10 +207,41 @@ public class DatabaseHandler {
 		try {
 			ps = connection.prepareStatement("CREATE TABLE patient("
 					+ "patient_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-					+ " user_id int, PRIMARY KEY(patient_id), "
+					+ " user_id VARCHAR(10), PRIMARY KEY(patient_id), "
 					+ "FOREIGN KEY(user_id) REFERENCES user_account(user_id))");
 			ps.execute();
 
+			success = true;
+		} catch (SQLException e) {
+			MainApp.printError(e);
+		}
+		return success;
+	}
+	
+	public boolean createPetTable() {
+		success = false;
+		try {
+			ps = connection.prepareStatement("CREATE TABLE pet("
+					+ "pet_id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+					+ "species VARCHAR(20), quantity INT, allergy_friendly BOOLEAN, patient_id INT, PRIMARY KEY(patient_id), "
+					+ "FOREIGN KEY(patient_id) REFERENCES patient(patient_id))");
+			ps.execute();
+			success = true;
+		} catch (SQLException e) {
+			MainApp.printError(e);
+		}
+		return success;
+	}
+	
+	public boolean createMealTable() {
+		success = false;
+		try {
+			ps = connection.prepareStatement("CREATE TABLE meal("
+					+ "meal_id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+					+ "name VARCHAR(20), calories INT, like BOOLEAN, dislike BOOLEAN, notes LONG VARCHAR"
+					+ " patient_id INT, PRIMARY KEY(patient_id), "
+					+ "FOREIGN KEY(patient_id) REFERENCES patient(patient_id))");
+			ps.execute();
 			success = true;
 		} catch (SQLException e) {
 			MainApp.printError(e);
@@ -224,9 +253,9 @@ public class DatabaseHandler {
 		success = false;
 		try {
 			ps = connection.prepareStatement("CREATE TABLE caregiver("
-					+ "caregiver_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-					+ "patient_id int, name VARCHAR(20), phone VARCHAR(20), email VARCHAR(20),"
-					+ " address VARCHAR(100), FOREIGN KEY(patient_id) REFERENCES patient(patient_id),"
+					+ "caregiver_id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+					+ "patient_id INT, name VARCHAR(20), isFamily? BOOLEAN, relation VARCHAR(10),"
+					+ "FOREIGN KEY(patient_id) REFERENCES patient(patient_id),"
 					+ "Primary Key(caregiver_id) )");
 			ps.execute();
 			success = true;
@@ -245,8 +274,11 @@ public class DatabaseHandler {
 		success = false;
 		try {
 			ps = connection.prepareStatement("CREATE TABLE health_info("
-					+ "health_id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-					+ "patient_id int, height int, weight double, excerciseFrequency int, dateRecorded date, "
+					+ "health_id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
+					+ "patient_id INT, date DATE, height DOUBLE, weight DOUBLE, bmi DOUBLE, fat DOUBLE, caloriesBurned DOUBLE, "
+					+ "steps DOUBLE, distance DOUBLE, floors DOUBLE, minSedentary DOUBLE, minLightlyActive DOUBLE,"
+					+ "minFairlyActive DOUBLE, minVeryActive, activityCalories DOUBLE, minAsleep DOUBLE,"
+					+ "minAwake DOUBLE, numAwakenings DOUBLE, timeInBed DOUBLE"
 					+ "FOREIGN KEY(patient_id) REFERENCES patient(patient_id),Primary Key(health_id) )");
 			ps.execute();
 			success = true;
@@ -460,10 +492,10 @@ public class DatabaseHandler {
 			ps.setInt(1, userID);
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				MedicalStaff MedicalStaff = new MedicalStaff(rs.getString("firstname"), rs.getString("lastname"),
-						rs.getString("user_id"), rs.getInt("med_id"));
+				MedicalStaff medicalStaff = new MedicalStaff(rs.getString("firstname"), rs.getString("lastname"),
+						rs.getString("position"), rs.getString("user_id"), rs.getInt("med_id"));
 				connection.close();
-				return MedicalStaff;
+				return medicalStaff;
 			}
 		} catch (SQLException e) {
 		}
@@ -518,7 +550,7 @@ public class DatabaseHandler {
 		return -1;
 	}
 
-	public int insertUser(String firstName, String lastName, String role) {
+	public int insertUser(String firstName, String lastName) {
 		try {
 			connect();
 			ps = connection.prepareStatement("INSERT INTO user_account (firstname, lastname, role) VALUES(?, ?, ?)",
@@ -526,7 +558,6 @@ public class DatabaseHandler {
 
 			ps.setString(1, firstName);
 			ps.setString(2, lastName);
-			ps.setString(3, role);
 			ps.executeUpdate();
 			int userID = 0;
 
@@ -572,7 +603,7 @@ public class DatabaseHandler {
 
 	public void insertPatient(Patient p) {
 		try {
-			int userID = insertUser(p.getFirstName(), p.getLastName(), p.getRole());
+			int userID = insertUser(p.getFirstName(), p.getLastName());
 			ps = connection.prepareStatement("INSERT INTO patient (user_id) VALUES (?)");
 
 			ps.setInt(1, userID);
@@ -587,7 +618,7 @@ public class DatabaseHandler {
 	public void insertPatients(LinkedList<Patient> patients) {
 		try {
 			for (Patient p : patients) {
-				int userID = insertUser(p.getFirstName(), p.getLastName(), p.getRole());
+				int userID = insertUser(p.getFirstName(), p.getLastName());
 				ps = connection.prepareStatement("INSERT INTO patient (user_id) VALUES (?)");
 
 				ps.setInt(1, userID);
@@ -634,18 +665,17 @@ public class DatabaseHandler {
 	public void insertMedicalStaff(MedicalStaff staff) {
 		try {
 			ps = connection.prepareStatement(
-					"INSERT INTO user_account (firstname, lastname, user_id, role) VALUES(?, ?, ?, ?);"
+					"INSERT INTO user_account (firstname, lastname, user_id) VALUES(?, ?, ?);"
 							+ "INSERT INTO medical_staff (user_id) VALUES (?,?)");
 
 			ps.setString(1, staff.getFirstName());
 			ps.setString(2, staff.getLastName());
 			ps.setInt(3, Integer.parseInt(staff.getUserID()));
-			ps.setString(5, staff.getRole());
 
 			ps.setInt(6, Integer.parseInt(staff.getUserID()));
 			ps.setInt(7, staff.getMedID());
 
-			int rset = ps.executeUpdate();
+			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {
 		}
@@ -654,13 +684,12 @@ public class DatabaseHandler {
 	public void insertAdmin(Administrator admin) {
 		try {
 			ps = connection.prepareStatement(
-					"INSERT INTO user_account (firstname, lastname, user_id, role) VALUES(?, ?, ?, ?);"
+					"INSERT INTO user_account (firstname, lastname, user_id) VALUES(?, ?, ?);"
 							+ "INSERT INTO administrator (user_id) VALUES (?)");
 
 			ps.setString(1, admin.getFirstName());
 			ps.setString(2, admin.getLastName());
 			ps.setInt(3, Integer.parseInt(admin.getUserID()));
-			ps.setString(5, admin.getRole());
 
 			ps.setInt(6, Integer.parseInt(admin.getUserID()));
 			ps.setInt(7, admin.getAdminID());
@@ -679,7 +708,6 @@ public class DatabaseHandler {
 
 			ps.setString(1, p.getFirstName());
 			ps.setString(2, p.getLastName());
-			ps.setString(3, p.getRole());
 			ps.setInt(4, Integer.parseInt(p.getUserID()));
 			System.out.println("updated patient: " + p.getFirstName());
 
@@ -697,7 +725,6 @@ public class DatabaseHandler {
 
 			ps.setString(1, staff.getFirstName());
 			ps.setString(2, staff.getLastName());
-			ps.setString(3, staff.getRole());
 			ps.setInt(4, Integer.parseInt(staff.getUserID()));
 
 			int rset = ps.executeUpdate();
@@ -713,7 +740,6 @@ public class DatabaseHandler {
 
 			ps.setString(1, admin.getFirstName());
 			ps.setString(2, admin.getLastName());
-			ps.setString(3, admin.getRole());
 			ps.setInt(4, Integer.parseInt(admin.getUserID()));
 
 			int rset = ps.executeUpdate();
