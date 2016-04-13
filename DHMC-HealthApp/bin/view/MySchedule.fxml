@@ -40,7 +40,7 @@
                               </TableView>
                               <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="190.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="266.0" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="240.1546392440796" AnchorPane.topAnchor="12.0">
                                  <image>
-                                    <Image url="@../../../resources/images/search-icon.png" />
+                                    <Image url="@../../resources/images/Calendar_icon.png" />
                                  </image>
                               </ImageView>
                            </children>
@@ -51,9 +51,9 @@
             </AnchorPane>
           <AnchorPane fx:id="calendarPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <ImageView fitHeight="347.0" fitWidth="559.0" layoutX="132.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="125.0" AnchorPane.leftAnchor="132.0" AnchorPane.rightAnchor="131.39175415039062" AnchorPane.topAnchor="126.0">
+                  <ImageView fitHeight="352.0" fitWidth="375.0" layoutX="86.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="123.0" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="85.0" AnchorPane.topAnchor="123.0">
                      <image>
-                        <Image url="@../../../../../../../../Desktop/Screen%20Shot%202016-04-01%20at%202.24.10%20PM.png" />
+                        <Image url="@../../resources/images/Calendar_icon.png" />
                      </image>
                   </ImageView>
                </children></AnchorPane>

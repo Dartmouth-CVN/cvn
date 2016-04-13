@@ -24,13 +24,7 @@ public class AdminDashController {
 	private TabPane tabPane;
 
 	@FXML
-	private Tab dashTab = new Tab();
-
-	@FXML
 	private Tab scheduleTab = new Tab();
-
-	@FXML
-	private Tab importTab = new Tab();
 
 	@FXML
 	private Tab searchTab = new Tab();
@@ -40,9 +34,6 @@ public class AdminDashController {
 
 	@FXML
 	private ImageView searchImage = new ImageView();
-
-	@FXML
-	private ImageView importImage = new ImageView();
 
 	@FXML
 	private AnchorPane adminDash;
@@ -63,6 +54,8 @@ public class AdminDashController {
 	 */
 	@FXML
 	private void initialize() {
+		loadSearchTab();
+		loadScheduleTab();
 		// list admin's profile at the top of dashboard
 	}
 
@@ -103,23 +96,30 @@ public class AdminDashController {
 	 */
 
 	/**
-	 * Called when the user clicks on the calendar image.
+	 * Loads and sets content of the schedule tab.
 	 */
 	@FXML
-	private void handleScheduleSwitch() {
-		tabPane.getSelectionModel().select(scheduleTab);
+	private void loadScheduleTab() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("../view/MySchedule.fxml"));
+			AnchorPane mySchedule = (AnchorPane) loader.load();
 
+			searchTab.setContent(mySchedule);
+
+			MyScheduleController controller = loader.getController();
+			controller.setMainApp(mainApp);
+
+		} catch (IOException e) {
+			MainApp.printError(e);
+		}
+		
 	}
-
-	private void handleDashSwitch() {
-		tabPane.getSelectionModel().select(dashTab);
-	}
-
+	
 	/**
-	 * Called when the user clicks on search image.
+	 * Loads and sets the contents of the search tab.
 	 */
-	@FXML
-	private void handleSearchSwitch() {
+	private void loadSearchTab() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/GlobalSearch.fxml"));
@@ -130,17 +130,25 @@ public class AdminDashController {
 			SearchTabController controller = loader.getController();
 			controller.setMain(mainApp);
 
-			tabPane.getSelectionModel().select(searchTab);
 		} catch (IOException e) {
 			MainApp.printError(e);
 		}
 	}
+	
 	/**
-	 * Called when the user clicks on import image.
+	 * Clicking search image opens the search tab.
 	 */
-	@FXML
-	private void handleImportSwitch() {
-		tabPane.getSelectionModel().select(importTab);
+	@FXML private void handleSearchImage(){
+		
+		tabPane.getSelectionModel().select(searchTab);
+	}
+	
+	/**
+	 * Clicking search image opens the search tab.
+	 */
+	@FXML private void handleScheduleImage(){
+		
+		tabPane.getSelectionModel().select(scheduleTab);
 	}
 
 }
