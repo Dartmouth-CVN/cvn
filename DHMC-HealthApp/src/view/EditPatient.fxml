@@ -47,7 +47,7 @@
         </menus>
       </MenuBar>
    </top>
-   <left>
+   <bottom>
       <AnchorPane prefHeight="771.0" prefWidth="1235.0" BorderPane.alignment="CENTER">
          <children>
             <Accordion prefHeight="693.0" prefWidth="1235.0">
@@ -199,7 +199,6 @@
                                     <RadioButton fx:id="mealDislikeButton" layoutX="165.0" layoutY="152.0" mnemonicParsing="false" onAction="#dislikeMeal" text="Dislike" />
                                     <TextArea fx:id="mealNotes" layoutX="41.0" layoutY="181.0" prefHeight="190.0" prefWidth="331.0" promptText="Special notes..." />
                                     <RadioButton fx:id="mealNeutralButton" layoutX="294.0" layoutY="153.0" mnemonicParsing="false" onAction="#unlikeMeal" selected="true" text="Neutral" />
-                                    <Button layoutX="174.0" layoutY="398.0" mnemonicParsing="false" text="Save" />
                                  </children>
                               </AnchorPane>
                               <ButtonBar layoutX="258.0" layoutY="533.0" prefHeight="40.0" prefWidth="200.0">
@@ -214,7 +213,9 @@
                   </TitledPane>
               </panes>
             </Accordion>
+            <Button layoutX="414.0" layoutY="715.0" mnemonicParsing="false" onAction="#save" prefHeight="50.0" prefWidth="90.0" text="Save" />
+            <Button layoutX="747.0" layoutY="715.0" mnemonicParsing="false" onAction="#exit" prefHeight="50.0" prefWidth="90.0" text="Cancel" />
          </children>
       </AnchorPane>
-   </left>
+   </bottom>
 </BorderPane>

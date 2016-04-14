@@ -200,4 +200,15 @@ public class EditPatientController {
 		mealLikeButton.setSelected(false);
 	}
 	
+	@FXML private void switchFamilyMember() {
+		
+	}
+	
+	@FXML private void switchMeal() {
+		
+	}
+	
+	@FXML private void save() {
+		update();
+	}
 }
