@@ -18,6 +18,7 @@ import model.MainApp;
 import model.MedicalStaff;
 import model.Patient;
 import model.PatientProfile;
+import model.Pet;
 
 public class DatabaseHandler {
 
@@ -52,8 +53,7 @@ public class DatabaseHandler {
 
 	public void insertDummyLogin() {
 		try {
-			ps = connection.prepareStatement(
-					"INSERT INTO login (username, password, user_id) VALUES(?, ?, ?)");
+			ps = connection.prepareStatement("INSERT INTO login (username, password, user_id) VALUES(?, ?, ?)");
 
 			ps.setString(1, "admin");
 			ps.setString(2, "pass");
@@ -65,11 +65,10 @@ public class DatabaseHandler {
 			MainApp.printError(e);
 		}
 	}
-	
+
 	public void insertDummyUser() {
 		try {
-			ps = connection.prepareStatement(
-					"INSERT INTO user_account (user_id, firstname, lastname) VALUES(?, ?, ?)");
+			ps = connection.prepareStatement("INSERT INTO user_account (user_id, firstname, lastname) VALUES(?, ?, ?)");
 			ps.setString(1, "Patient1");
 			ps.setString(2, "Dummy");
 			ps.setString(3, "User");
@@ -127,7 +126,7 @@ public class DatabaseHandler {
 		}
 		return success;
 	}
-	
+
 	public boolean createLocationTable() {
 		success = false;
 		try {
@@ -217,7 +216,7 @@ public class DatabaseHandler {
 		}
 		return success;
 	}
-	
+
 	public boolean createPetTable() {
 		success = false;
 		try {
@@ -232,7 +231,7 @@ public class DatabaseHandler {
 		}
 		return success;
 	}
-	
+
 	public boolean createMealTable() {
 		success = false;
 		try {
@@ -255,8 +254,7 @@ public class DatabaseHandler {
 			ps = connection.prepareStatement("CREATE TABLE caregiver("
 					+ "caregiver_id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
 					+ "patient_id INT, name VARCHAR(20), isFamily? BOOLEAN, relation VARCHAR(10),"
-					+ "FOREIGN KEY(patient_id) REFERENCES patient(patient_id),"
-					+ "Primary Key(caregiver_id) )");
+					+ "FOREIGN KEY(patient_id) REFERENCES patient(patient_id)," + "Primary Key(caregiver_id) )");
 			ps.execute();
 			success = true;
 		} catch (SQLException e) {
@@ -266,9 +264,10 @@ public class DatabaseHandler {
 	}
 
 	/*
-	 * add fields:
-	 * string date, double [height, weight, bmi, fat, caloriesBurned, steps, distance, floors, minSedentary,
-	 * minLightlyActive, minFairlyActive, minVeryActive, activityCalories, minAsleep, minAwake, numAwakenings, timeInBed]
+	 * add fields: string date, double [height, weight, bmi, fat,
+	 * caloriesBurned, steps, distance, floors, minSedentary, minLightlyActive,
+	 * minFairlyActive, minVeryActive, activityCalories, minAsleep, minAwake,
+	 * numAwakenings, timeInBed]
 	 */
 	public boolean createHealthInfoTable() {
 		success = false;
@@ -287,7 +286,7 @@ public class DatabaseHandler {
 		}
 		return success;
 	}
-	
+
 	public boolean createStaffAssignmentTable() {
 		success = false;
 		try {
@@ -631,42 +630,10 @@ public class DatabaseHandler {
 		}
 	}
 
-	public void insertPatient2(Patient p) {
-		PatientProfile preferences = p.getPreferences();
-		// Object family = p.getFamily();
-		// Object pets = p.getPets();
-		// Object liked_meals = p.getLikedMeals();
-		// Object disliked_meals = p.getDislikedMeals();
-		// Object fitness_info = p.getFitness();
-		//
-		// try {
-		// int userID = insertUser(p.getFirstName(), p.getLastName(),
-		// p.getRole());
-		// ps = connection.prepareStatement("INSERT INTO patient (user_id,
-		// family, pets, liked_meals, disliked_meals, fitness_info) "
-		// + "VALUES (?, ?, ?, ?, ?, ?)");
-		//
-		// ps.setInt(1, userID);
-		// ps.setObject(2, family);
-		// ps.setObject(3, pets);
-		// ps.setObject(4, liked_meals);
-		// ps.setObject(5, disliked_meals);
-		// ps.setObject(6, fitness_info);
-		//
-		// System.out.printf("inserted patient: %s %s\n", p.getFirstName(),
-		// p.getLastName());
-		//
-		// ps.executeUpdate();
-		// ps.close();
-		// } catch (SQLException e) {
-		// }
-	}
-
 	public void insertMedicalStaff(MedicalStaff staff) {
 		try {
-			ps = connection.prepareStatement(
-					"INSERT INTO user_account (firstname, lastname, user_id) VALUES(?, ?, ?);"
-							+ "INSERT INTO medical_staff (user_id) VALUES (?,?)");
+			ps = connection.prepareStatement("INSERT INTO user_account (firstname, lastname, user_id) VALUES(?, ?, ?);"
+					+ "INSERT INTO medical_staff (user_id) VALUES (?,?)");
 
 			ps.setString(1, staff.getFirstName());
 			ps.setString(2, staff.getLastName());
@@ -683,9 +650,8 @@ public class DatabaseHandler {
 
 	public void insertAdmin(Administrator admin) {
 		try {
-			ps = connection.prepareStatement(
-					"INSERT INTO user_account (firstname, lastname, user_id) VALUES(?, ?, ?);"
-							+ "INSERT INTO administrator (user_id) VALUES (?)");
+			ps = connection.prepareStatement("INSERT INTO user_account (firstname, lastname, user_id) VALUES(?, ?, ?);"
+					+ "INSERT INTO administrator (user_id) VALUES (?)");
 
 			ps.setString(1, admin.getFirstName());
 			ps.setString(2, admin.getLastName());
@@ -747,28 +713,30 @@ public class DatabaseHandler {
 		} catch (SQLException e) {
 		}
 	}
+
 	/**
 	 * 
 	 * @param p
 	 */
-	public void removeAllPets(Patient p){
+	public void removeAllPets(Patient p) {
 
 		try {
-				connect();
-				ps = connection.prepareStatement("DELETE FROM pet WHERE patient_id = ?");
-				ps.setInt(1, p.getPatientID());
-				int rset = ps.executeUpdate();
-				
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
+			connect();
+			ps = connection.prepareStatement("DELETE FROM pet WHERE patient_id = ?");
+			ps.setInt(1, p.getPatientID());
+			int rset = ps.executeUpdate();
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
 	}
+
 	/**
 	 * 
 	 * @param p
 	 */
 	public void updatePets(Patient p){
-		LinkedList<Pet> patientPets = p.getPet();
+		LinkedList<Pet> patientPets = p.getPreferences().getPets();
 		try {
 				connect();
 				//remove all current patient pets
@@ -786,27 +754,27 @@ public class DatabaseHandler {
 				System.out.println(e.getMessage());
 			}
 	}
+
 	/**
 	 * 
 	 * @param p
 	 * @return
 	 */
-	public LinkedList<Pet> searchPatientPets(Patient p){
+	public LinkedList<Pet> searchPatientPets(Patient p) {
 		LinkedList<Pet> patientPets = new LinkedList<Pet>();
 		try {
-				connect();
-				ps = connection.prepareStatement("SELECT * FROM pet WHERE patient_id = ?");
-				ps.setInt(1, p.getPatientID());
-				rs = ps.executeQuery();
-				while (rs.next()) {
-					Pet pet = new Pet(rs.getString("species"), rs.getInt("quantity"),
-							rs.getBoolean("allergy_friendly"));
-					patientPets.add(pet);
-				}
-				connection.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
+			connect();
+			ps = connection.prepareStatement("SELECT * FROM pet WHERE patient_id = ?");
+			ps.setInt(1, p.getPatientID());
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				Pet pet = new Pet(rs.getString("species"), rs.getInt("quantity"), rs.getBoolean("allergy_friendly"));
+				patientPets.add(pet);
 			}
+			connection.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
 		return patientPets;
 	}
 
@@ -855,6 +823,40 @@ public class DatabaseHandler {
 			ps.close();
 		} catch (SQLException e) {
 			MainApp.printError(e);
+		}
+	}
+
+	public int getUserIDHelper(String firstname, String lastname) {
+		try {
+			connect();
+			ps = connection
+					.prepareStatement("SELECT firstname FROM user_account WHERE firstname = ? AND lastname = ? ");
+			ps.setString(1, firstname);
+			ps.setString(2, lastname);
+			rs = ps.executeQuery();
+			rs.last();
+			return rs.getRow();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;
+	}
+
+	public String getUserID(String firstname, String lastname, String type) {
+		int position = getUserIDHelper(firstname, lastname);
+		int code = (firstname.hashCode() + position) + (lastname.hashCode() + position);
+		switch (type) {
+		case "Patient":
+			return "P" + code;
+		case "Medical Staff":
+			return "M" + code;
+		case "Admin":
+			return "M" + code;
+		case "Caregiver":
+			return "C" + code;
+		default:
+			return null;
 		}
 	}
 
