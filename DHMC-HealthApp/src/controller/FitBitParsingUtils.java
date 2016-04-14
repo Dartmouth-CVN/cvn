@@ -69,7 +69,7 @@ public class FitBitParsingUtils {
 				 					output.get(i).setMinLightlyActive(Double.parseDouble(info[6]));
 				 					output.get(i).setMinFairlyActive(Double.parseDouble(info[7]));
 				 					output.get(i).setMinVeryActive(Double.parseDouble(info[8]));
-				 					output.get(i).setActivityCalories(Double.parseDouble(info[9].replace(",", "")));  //quotesu7
+				 					//output.get(i).setActivityCalories(Double.parseDouble(info[9].replace(",", "")));  //quotesu7
 				 					i++;
 				 					break;
 				 					
@@ -80,7 +80,9 @@ public class FitBitParsingUtils {
 									output.get(i).setTimeInBed(Double.parseDouble(info[4]));
 									i++;
 									break;
-				case "No State":    break;
+									
+				case "No State":    line = fileReader.nextLine();
+									break;
 			}
 		}
 		fileReader.close();
