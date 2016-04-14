@@ -56,46 +56,46 @@
                      <content>
                         <AnchorPane accessibleText="Name" prefHeight="0.0" prefWidth="1208.0">
                            <children>
-                              <TextField fx:id="firstNameTF" layoutX="93.0" layoutY="240.0" onAction="#initialize" onKeyReleased="#pressEnter" prefHeight="32.0" prefWidth="221.0" promptText="First Name" />
-                              <TextField fx:id="lastNameTF" layoutX="359.0" layoutY="241.0" onKeyReleased="#pressEnter" prefHeight="31.0" prefWidth="200.0" promptText="Last Name" />
+                              <TextField fx:id="firstName" layoutX="93.0" layoutY="240.0" onAction="#initialize" prefHeight="32.0" prefWidth="221.0" promptText="First Name" />
+                              <TextField fx:id="lastName" layoutX="359.0" layoutY="241.0" prefHeight="31.0" prefWidth="200.0" promptText="Last Name" />
                               <AnchorPane layoutX="674.0" layoutY="42.0" prefHeight="561.0" prefWidth="554.0">
                                  <children>
-                                    <VBox layoutX="25.0" layoutY="40.0" prefHeight="259.0" prefWidth="211.0">
+                                    <VBox fx:id="patientPhone" layoutX="25.0" layoutY="40.0" prefHeight="259.0" prefWidth="211.0">
                                        <children>
                                           <ScrollPane prefHeight="266.0" prefWidth="211.0">
                                              <content>
-                                                <TextField prefHeight="27.0" prefWidth="209.0" />
+                                                <TextField prefHeight="27.0" prefWidth="209.0" promptText="Phone Number" />
                                              </content>
                                           </ScrollPane>
                                        </children>
                                     </VBox>
-                                    <ButtonBar layoutX="49.0" layoutY="295.0" prefHeight="40.0" prefWidth="152.0">
+                                    <ButtonBar layoutX="37.0" layoutY="302.0" prefHeight="1.0" prefWidth="141.0">
                                        <buttons>
-                                          <Button mnemonicParsing="false" text="+" />
-                                          <Button mnemonicParsing="false" prefWidth="78.0" text="-" />
+                                          <Button mnemonicParsing="false" onAction="#addPatientPhone" text="+" />
+                                          <Button mnemonicParsing="false" onAction="#removePatientPhone" prefWidth="78.0" text="-" />
                                        </buttons>
                                     </ButtonBar>
                                     <Label layoutX="45.0" layoutY="15.0" text="Phone Numbers" />
-                                    <VBox layoutX="297.0" layoutY="37.0" prefHeight="278.0" prefWidth="230.0">
+                                    <VBox fx:id="patientEmail" layoutX="297.0" layoutY="37.0" prefHeight="278.0" prefWidth="230.0">
                                        <children>
-                                          <ScrollPane prefHeight="266.0" prefWidth="211.0">
+                                          <ScrollPane prefHeight="266.0" prefWidth="139.0">
                                              <content>
-                                                <TextField prefHeight="27.0" prefWidth="209.0" />
+                                                <TextField prefHeight="27.0" prefWidth="227.0" promptText="Email Address" />
                                              </content>
                                           </ScrollPane>
                                        </children>
                                     </VBox>
-                                    <ButtonBar layoutX="329.0" layoutY="299.0" prefHeight="40.0" prefWidth="152.0">
+                                    <ButtonBar layoutX="304.0" layoutY="302.0" prefHeight="22.0" prefWidth="79.0">
                                        <buttons>
-                                          <Button mnemonicParsing="false" text="+" />
-                                          <Button mnemonicParsing="false" prefWidth="78.0" text="-" />
+                                          <Button mnemonicParsing="false" onAction="#addPatientEmail" text="+" />
+                                          <Button mnemonicParsing="false" onAction="#removePatientEmail" prefWidth="78.0" text="-" />
                                        </buttons>
                                     </ButtonBar>
                                     <Label layoutX="338.0" layoutY="14.0" text="Email Addresses" />
-                                    <TextArea layoutX="37.0" layoutY="366.0" prefHeight="176.0" prefWidth="479.0" promptText="Address" />
+                                    <TextArea fx:id="patientAddress" layoutX="37.0" layoutY="366.0" prefHeight="176.0" prefWidth="479.0" promptText="Address" />
                                  </children>
                               </AnchorPane>
-                              <DatePicker layoutX="92.0" layoutY="298.0" />
+                              <DatePicker fx:id="patientBirthday" layoutX="92.0" layoutY="298.0" promptText="Birthday" />
                               <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="105.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../resources/images/blank-profile-picture.png" />
@@ -109,69 +109,69 @@
                      <content>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <TableView layoutX="58.0" layoutY="31.0" prefHeight="283.0" prefWidth="489.0">
+                              <TableView fx:id="familyTable" layoutX="58.0" layoutY="31.0" prefHeight="283.0" prefWidth="489.0">
                                 <columns>
                                   <TableColumn prefWidth="306.2144241333008" text="Name" />
                                   <TableColumn prefWidth="182.78558349609375" text="Relationship" />
                                 </columns>
                               </TableView>
-                              <ButtonBar layoutX="194.0" layoutY="318.0" prefHeight="40.0" prefWidth="200.0">
+                              <ButtonBar layoutX="168.0" layoutY="314.0" prefHeight="40.0" prefWidth="200.0">
                                 <buttons>
-                                  <Button mnemonicParsing="false" text="+" />
-                                    <Button mnemonicParsing="false" text="-" />
+                                  <Button mnemonicParsing="false" onAction="#addFamilyMember" text="+" />
+                                    <Button mnemonicParsing="false" onAction="#removeFamilyMember" text="-" />
                                 </buttons>
                               </ButtonBar>
                               <AnchorPane layoutX="652.0" layoutY="19.0" prefHeight="532.0" prefWidth="554.0">
                                  <children>
-                                    <TextField layoutX="39.0" layoutY="51.0" prefHeight="35.0" prefWidth="480.0" promptText="New Family Member..." />
-                                    <TextField layoutX="317.0" layoutY="100.0" prefHeight="33.0" prefWidth="204.0" promptText="Relationship" />
+                                    <TextField fx:id="familyMemName" layoutX="39.0" layoutY="51.0" prefHeight="35.0" prefWidth="480.0" promptText="New Family Member..." />
+                                    <TextField fx:id="familyMemRel" layoutX="317.0" layoutY="100.0" prefHeight="33.0" prefWidth="204.0" promptText="Relationship" />
                                     <Label layoutX="44.0" layoutY="16.0" text="Family member details:" />
-                                    <VBox layoutX="28.0" layoutY="212.0" prefHeight="259.0" prefWidth="211.0">
+                                    <VBox fx:id="familyMemPhone" layoutX="28.0" layoutY="212.0" prefHeight="259.0" prefWidth="211.0">
                                        <children>
                                           <ScrollPane prefHeight="266.0" prefWidth="211.0">
                                              <content>
-                                                <TextField prefHeight="27.0" prefWidth="209.0" />
+                                                <TextField prefHeight="27.0" prefWidth="209.0" promptText="Phone Number" />
                                              </content>
                                           </ScrollPane>
                                        </children>
                                     </VBox>
                                     <ButtonBar layoutX="33.0" layoutY="476.0" prefHeight="40.0" prefWidth="152.0">
                                       <buttons>
-                                        <Button mnemonicParsing="false" text="+" />
-                                          <Button mnemonicParsing="false" prefWidth="78.0" text="-" />
+                                        <Button mnemonicParsing="false" onAction="#addFamilyMemPhone" text="+" />
+                                          <Button mnemonicParsing="false" onAction="#removeFamilyMemPhone" prefWidth="78.0" text="-" />
                                       </buttons>
                                     </ButtonBar>
                                     <Label layoutX="40.0" layoutY="182.0" text="Phone Numbers" />
-                                    <VBox layoutX="313.0" layoutY="215.0" prefHeight="259.0" prefWidth="211.0">
+                                    <VBox fx:id="familyMemEmail" layoutX="313.0" layoutY="215.0" prefHeight="259.0" prefWidth="211.0">
                                        <children>
                                           <ScrollPane prefHeight="266.0" prefWidth="211.0">
                                              <content>
-                                                <TextField prefHeight="27.0" prefWidth="209.0" />
+                                                <TextField prefHeight="27.0" prefWidth="209.0" promptText="Email Address" />
                                              </content>
                                           </ScrollPane>
                                        </children>
                                     </VBox>
                                     <ButtonBar layoutX="312.0" layoutY="475.0" prefHeight="40.0" prefWidth="152.0">
                                        <buttons>
-                                          <Button mnemonicParsing="false" text="+" />
-                                          <Button mnemonicParsing="false" prefWidth="78.0" text="-" />
+                                          <Button mnemonicParsing="false" onAction="#addFamilyMemEmail" text="+" />
+                                          <Button mnemonicParsing="false" onAction="#removeFamilyMemEmail" prefWidth="78.0" text="-" />
                                        </buttons>
                                     </ButtonBar>
                                     <Label layoutX="317.0" layoutY="191.0" text="Email Addresses" />
-                                    <DatePicker layoutX="35.0" layoutY="105.0" prefHeight="28.0" prefWidth="156.0" />
+                                    <DatePicker fx:id="familyMemBirthday" layoutX="40.0" layoutY="103.0" prefHeight="28.0" prefWidth="156.0" promptText="Birthday" />
                                  </children>
                               </AnchorPane>
-                              <TableView layoutX="67.0" layoutY="367.0" prefHeight="169.0" prefWidth="489.0">
+                              <TableView fx:id="petTable" layoutX="67.0" layoutY="367.0" prefHeight="169.0" prefWidth="489.0">
                                 <columns>
                                     <TableColumn prefWidth="162.23026275634766" text="Name" />
                                   <TableColumn prefWidth="134.49307250976562" text="Species" />
                                   <TableColumn prefWidth="196.5069580078125" text="Allergy Friendly" />
                                 </columns>
                               </TableView>
-                              <ButtonBar layoutX="186.0" layoutY="533.0" prefHeight="40.0" prefWidth="200.0">
+                              <ButtonBar layoutX="168.0" layoutY="531.0" prefHeight="40.0" prefWidth="200.0">
                                  <buttons>
-                                    <Button mnemonicParsing="false" text="+" />
-                                    <Button mnemonicParsing="false" text="-" />
+                                    <Button mnemonicParsing="false" onAction="#addPet" text="+" />
+                                    <Button mnemonicParsing="false" onAction="#removePet" text="-" />
                                  </buttons>
                               </ButtonBar>
                            </children>
@@ -182,7 +182,7 @@
                      <content>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <TableView layoutX="35.0" layoutY="55.0" prefHeight="478.0" prefWidth="694.0">
+                              <TableView fx:id="mealTable" layoutX="35.0" layoutY="55.0" prefHeight="478.0" prefWidth="694.0">
                                 <columns>
                                   <TableColumn prefWidth="236.5583324432373" text="Name" />
                                   <TableColumn prefWidth="98.441650390625" text="Calories" />
@@ -193,19 +193,19 @@
                               </TableView>
                               <AnchorPane layoutX="779.0" layoutY="54.0" prefHeight="462.0" prefWidth="414.0">
                                  <children>
-                                    <TextField layoutX="39.0" layoutY="55.0" prefHeight="35.0" prefWidth="297.0" promptText="Name" />
-                                    <TextField layoutX="39.0" layoutY="113.0" prefHeight="24.0" prefWidth="167.0" promptText="Calories" />
-                                    <RadioButton layoutX="48.0" layoutY="152.0" mnemonicParsing="false" text="Like" />
-                                    <RadioButton layoutX="165.0" layoutY="152.0" mnemonicParsing="false" text="Dislike" />
-                                    <TextArea layoutX="41.0" layoutY="181.0" prefHeight="190.0" prefWidth="331.0" promptText="Special notes..." />
-                                    <RadioButton layoutX="294.0" layoutY="153.0" mnemonicParsing="false" text="Neutral" />
+                                    <TextField fx:id="mealName" layoutX="39.0" layoutY="55.0" prefHeight="35.0" prefWidth="297.0" promptText="Name" />
+                                    <TextField fx:id="mealCal" layoutX="39.0" layoutY="113.0" prefHeight="24.0" prefWidth="167.0" promptText="Calories" />
+                                    <RadioButton fx:id="mealLikeButton" layoutX="48.0" layoutY="152.0" mnemonicParsing="false" onAction="#likeMeal" text="Like" />
+                                    <RadioButton fx:id="mealDislikeButton" layoutX="165.0" layoutY="152.0" mnemonicParsing="false" onAction="#dislikeMeal" text="Dislike" />
+                                    <TextArea fx:id="mealNotes" layoutX="41.0" layoutY="181.0" prefHeight="190.0" prefWidth="331.0" promptText="Special notes..." />
+                                    <RadioButton fx:id="mealNeutralButton" layoutX="294.0" layoutY="153.0" mnemonicParsing="false" onAction="#unlikeMeal" selected="true" text="Neutral" />
                                     <Button layoutX="174.0" layoutY="398.0" mnemonicParsing="false" text="Save" />
                                  </children>
                               </AnchorPane>
-                              <ButtonBar layoutX="213.0" layoutY="572.0" prefHeight="40.0" prefWidth="200.0">
+                              <ButtonBar layoutX="258.0" layoutY="533.0" prefHeight="40.0" prefWidth="200.0">
                                 <buttons>
-                                  <Button mnemonicParsing="false" text="+" />
-                                    <Button mnemonicParsing="false" text="-" />
+                                  <Button mnemonicParsing="false" onAction="#addMeal" text="+" />
+                                    <Button mnemonicParsing="false" onAction="#removeMeal" text="-" />
                                 </buttons>
                               </ButtonBar>
                            </children>
