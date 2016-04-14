@@ -692,7 +692,7 @@ public class DatabaseHandler {
 
 			ps.setString(1, staff.getFirstName());
 			ps.setString(2, staff.getLastName());
-			ps.setString(4, staff.getUserID());
+			ps.setString(3, staff.getUserID());
 
 			ps.executeUpdate();
 			ps.close();
@@ -702,12 +702,12 @@ public class DatabaseHandler {
 
 	public void updateAdmin(Administrator admin) {
 		try {
-			ps = connection.prepareStatement("UPDATE user_account SET firstname = ?, lastname = ?, role = ?"
+			ps = connection.prepareStatement("UPDATE user_account SET firstname = ?, lastname = ?, "
 					+ "FROM user_account" + "WHERE user_id = ?");
 
 			ps.setString(1, admin.getFirstName());
 			ps.setString(2, admin.getLastName());
-			ps.setString(4, admin.getUserID());
+			ps.setString(3, admin.getUserID());
 
 			ps.executeUpdate();
 			ps.close();
