@@ -6,6 +6,7 @@ public class Meal {
 	private String name;
 	private int calories;
 	private boolean liked;
+	private boolean disliked;
 	private String specialnotes;
 	private int mealID;
 	public Meal(String name, int calories, LinkedList<String> ingredients, boolean liked, String specialnotes){
@@ -23,7 +24,7 @@ public class Meal {
 		return this.calories;
 	}
 
-	public boolean isLiked(){
+	public boolean getLiked(){
 		return this.liked;
 	}
 
@@ -53,6 +54,14 @@ public class Meal {
 	
 	public int getMealID(){
 		return this.mealID;
+	}
+
+	public boolean getDisliked() {
+		return disliked;
+	}
+
+	public void setDisliked(boolean disliked) {
+		this.disliked = disliked;
 	}
 }
 

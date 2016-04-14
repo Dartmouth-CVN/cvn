@@ -15,6 +15,7 @@ import javafx.collections.ObservableList;
 import model.Administrator;
 import model.IDisplayable;
 import model.MainApp;
+import model.Meal;
 import model.MedicalStaff;
 import model.Patient;
 import model.PatientProfile;
@@ -630,37 +631,6 @@ public class DatabaseHandler {
 		}
 	}
 
-	public void insertPatient2(Patient p) {
-		// PatientProfile preferences = p.getPreferences();
-		// Object family = p.getFamily();
-		// Object pets = p.getPets();
-		// Object liked_meals = p.getLikedMeals();
-		// Object disliked_meals = p.getDislikedMeals();
-		// Object fitness_info = p.getFitness();
-		//
-		// try {
-		// int userID = insertUser(p.getFirstName(), p.getLastName(),
-		// p.getRole());
-		// ps = connection.prepareStatement("INSERT INTO patient (user_id,
-		// family, pets, liked_meals, disliked_meals, fitness_info) "
-		// + "VALUES (?, ?, ?, ?, ?, ?)");
-		//
-		// ps.setInt(1, userID);
-		// ps.setObject(2, family);
-		// ps.setObject(3, pets);
-		// ps.setObject(4, liked_meals);
-		// ps.setObject(5, disliked_meals);
-		// ps.setObject(6, fitness_info);
-		//
-		// System.out.printf("inserted patient: %s %s\n", p.getFirstName(),
-		// p.getLastName());
-		//
-		// ps.executeUpdate();
-		// ps.close();
-		// } catch (SQLException e) {
-		// }
-	}
-
 	public void insertMedicalStaff(MedicalStaff staff) {
 		try {
 			ps = connection.prepareStatement("INSERT INTO user_account (firstname, lastname, user_id) VALUES(?, ?, ?);"
@@ -701,11 +671,11 @@ public class DatabaseHandler {
 		try {
 			connect();
 			ps = connection.prepareStatement(
-					"UPDATE user_account SET firstname = ?, lastname = ?, role = ? " + "WHERE user_id = ?");
+					"UPDATE user_account SET firstname = ?, lastname = ? WHERE user_id = ?");
 
 			ps.setString(1, p.getFirstName());
 			ps.setString(2, p.getLastName());
-			ps.setInt(4, Integer.parseInt(p.getUserID()));
+			ps.setString(3, p.getUserID());
 			System.out.println("updated patient: " + p.getFirstName());
 
 			ps.executeUpdate();
@@ -717,12 +687,12 @@ public class DatabaseHandler {
 
 	public void updateMedicalStaff(MedicalStaff staff) {
 		try {
-			ps = connection.prepareStatement("UPDATE user_account SET firstname = ?, lastname = ?, role = ?"
+			ps = connection.prepareStatement("UPDATE user_account SET firstname = ?, lastname = ?, "
 					+ "FROM user_account" + "WHERE user_id = ?");
 
 			ps.setString(1, staff.getFirstName());
 			ps.setString(2, staff.getLastName());
-			ps.setInt(4, Integer.parseInt(staff.getUserID()));
+			ps.setString(4, staff.getUserID());
 
 			ps.executeUpdate();
 			ps.close();
@@ -737,7 +707,7 @@ public class DatabaseHandler {
 
 			ps.setString(1, admin.getFirstName());
 			ps.setString(2, admin.getLastName());
-			ps.setInt(4, Integer.parseInt(admin.getUserID()));
+			ps.setString(4, admin.getUserID());
 
 			ps.executeUpdate();
 			ps.close();
@@ -745,69 +715,44 @@ public class DatabaseHandler {
 		}
 	}
 
-	/**
-	 * 
-	 * @param p
-	 */
-	public void removeAllPets(Patient p) {
-
-		try {
-			connect();
-			ps = connection.prepareStatement("DELETE FROM pet WHERE patient_id = ?");
-			ps.setInt(1, p.getPatientID());
-			int rset = ps.executeUpdate();
-
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-	}
-
 
 	/**
 	 * 
 	 * @param p
 	 */
-	public void updatePets(Patient p){
-		LinkedList<Pet> patientPets = p.getPreferences().getPets();
+	public void updatePet(Pet pet){
+		
 		try {
 				connect();
-				//remove all current patient pets
-				removeAllPets(p);
-				//update with new list of pets
-				ps = connection.prepareStatement("INSERT INTO pet (patient_id, species, quantity, allergy_friendly) VALUES(?,?,?,?)");
-				for (Pet pet: patientPets){	
-					ps.setInt(1, p.getPatientID());
-					ps.setString(2, pet.getSpecies());
-					ps.setInt(3, pet.getQuantity());
-					ps.setBoolean(4, pet.getAllergyFriendly());
-					ps.executeUpdate();
-					}
+				ps = connection.prepareStatement("UPDATE medical_staff SET species = ?, quantity = ?, allergy_friendly = ? WHERE pet_id = ?");
+				ps.setString(1, pet.getSpecies());
+				ps.setInt(2, pet.getQuantity());
+				ps.setBoolean(3, pet.getAllergyFriendly());
+				ps.setInt(4, pet.getPetID());
+				ps.executeUpdate();
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
 	}
 
-	/**
-	 * 
-	 * @param p
-	 * @return
-	 */
-	public LinkedList<Pet> searchPatientPets(Patient p) {
-		LinkedList<Pet> patientPets = new LinkedList<Pet>();
+
+	public void updateMeal(Meal meal){
+
 		try {
 			connect();
-			ps = connection.prepareStatement("SELECT * FROM pet WHERE patient_id = ?");
-			ps.setInt(1, p.getPatientID());
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				Pet pet = new Pet(rs.getString("species"), rs.getInt("quantity"), rs.getBoolean("allergy_friendly"));
-				patientPets.add(pet);
-			}
-			connection.close();
+			ps = connection.prepareStatement("UPDATE medical_staff SET name = ?, calories = ?, like = ?, dislike = ?, notes = ? " 
+					+ "WHERE meal_id = ?");
+			ps.setString(1, meal.getName());
+			ps.setInt(2, meal.getCalories());
+			ps.setBoolean(3, meal.getLiked());
+			ps.setBoolean(4, meal.getDisliked());
+			ps.setString(5, meal.getSpecialNotes());
+			ps.setInt(6, meal.getMealID());
+
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		return patientPets;
 	}
 
 	public void dropTables() {
