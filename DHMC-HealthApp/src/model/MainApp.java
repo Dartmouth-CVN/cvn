@@ -1,6 +1,7 @@
 package model;
 
 import java.io.IOException;
+import java.net.URL;
 
 import controller.DatabaseHandler;
 import javafx.application.Application;
@@ -49,8 +50,10 @@ public class MainApp extends Application {
 
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(rootLayout);
+
 			primaryStage.setScene(scene);
 			setStageDimensions(scene);
+
 			showAdminDash();
 
 		} catch (IOException e) {
@@ -93,6 +96,7 @@ public class MainApp extends Application {
 			AdminDashController controller = loader.getController();
 			controller.setMainApp(this);
 			rootLayout.setCenter(adminDash);
+			
 		} catch (IOException e) {
 			printError(e);
 		}
