@@ -736,7 +736,11 @@ public class DatabaseHandler {
 			}
 	}
 
-
+	/**
+	 * Insert a meal object into table based on patient
+	 * @param meal object
+	 * @param p patient object
+	 */
 	public void insertMeal(Meal meal, Patient p){
 		try {
 			ps = connection.prepareStatement("INSERT INTO meal (name, calories, like, dislike, notes, patient_id) VALUES(?, ?, ?, ?, ?, ?)");
@@ -752,7 +756,11 @@ public class DatabaseHandler {
 		} catch (SQLException e) {
 		}
 	}
-	
+	/**
+	 * Finds meal based on patient id and updates fields with fields from meal object
+	 * @param meal
+	 * @param p
+	 */
 	public void updateMeal(Meal meal, Patient p){
 
 		try {
@@ -771,7 +779,11 @@ public class DatabaseHandler {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+	/**
+	 * Insert into caregiver table fields from caregiver object based on patient id
+	 * @param caregiver
+	 * @param p
+	 */
 	public void insertCaregiver(Caregiver caregiver, Patient p){
 		try {
 			ps = connection.prepareStatement("INSERT INTO caregiver (name, isFamily?, relation, patient_id) VALUES(?, ?, ?, ?)");
@@ -785,7 +797,10 @@ public class DatabaseHandler {
 		} catch (SQLException e) {
 		}
 }
-
+	/**
+	 * Updates fields of given caregiver in table with new fields from caregiver input.
+	 * @param caregiver
+	 */
 	public void updateCaregiver(Caregiver caregiver){
 		
 		try {
@@ -802,7 +817,11 @@ public class DatabaseHandler {
 				System.out.println(e.getMessage());
 			}
 	}
-
+	/**
+	 * Insert into HealthInfo table healthinfo fields by new object
+	 * @param info
+	 * @param p
+	 */
 	public void insertHealthInfo(HealthInfo info, Patient p){
 		try {
 			ps = connection.prepareStatement("INSERT INTO health_info (date, height, weight, bmi, fat, caloriesBurned, "
