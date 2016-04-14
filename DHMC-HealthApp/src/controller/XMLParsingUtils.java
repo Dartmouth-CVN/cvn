@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.LinkedList;
 
 import model.MedicalStaff;
@@ -15,8 +17,9 @@ public class XMLParsingUtils {
 	 *            the name of the file to write to
 	 * @param pts
 	 *            the patients to write
+	 * @return the contents of the file as a String
 	 */
-	public static void writePatientsToXML(String filename, LinkedList<Patient> pts) {
+	public static String writePatientsToXML(String filename, LinkedList<Patient> pts) {
 		String output = "<patient-list>\n";
 		for (Patient p : pts) {
 			output += XMLLine("patient",
@@ -28,7 +31,19 @@ public class XMLParsingUtils {
 
 		}
 		output += "</patient-list>";
-		System.out.println(output);
+		// System.out.println(output);
+		if (filename != null) {
+			try {
+				PrintWriter toFile = new PrintWriter(filename);
+				toFile.write(output);
+				toFile.close();
+			} catch (FileNotFoundException e) {
+				System.out.println("CVN does not have write permission to this location.");
+			}
+
+		}
+
+		return output;
 	}
 
 	/**
@@ -114,4 +129,40 @@ public class XMLParsingUtils {
 			output[i] = meds.get(i).getName();
 		return output;
 	}
+
+	/**
+	 * Given a LinkedList of patients, write an HTML file to the provided
+	 * location from the Patients
+	 * 
+	 * @param filename
+	 *            the name of the file to write to
+	 * @param pts
+	 *            the patients to write
+	 * @return the contents of the file as a String
+	 */
+	public static String writePatientsToHTML(String filename, LinkedList<Patient> pts) {
+		String output = "<table>\n";
+		for (Patient p : pts) {
+			output += XMLLine("tr",
+					XMLLine("h1", p.getFirstName() + " " + p.getLastName())
+							+ XMLLine("h2", p.getUserID() + ": " + String.valueOf(p.getPatientID())),
+					true) + "<hr>" + XMLList("tr", "div", XMLParseMedStaff(p.getAssignedStaff()))
+					+ XMLList("tr", "div", XMLParseMedication(p.getMedication())) + "<hr>";
+
+		}
+		output += "</table>";		
+		if (filename != null) {
+			try {
+				PrintWriter toFile = new PrintWriter(filename);
+				toFile.write(output);
+				toFile.close();
+			} catch (FileNotFoundException e) {
+				System.out.println("CVN does not have write permission to this location.");
+			}
+
+		}
+
+		return output;
+	}
+
 }

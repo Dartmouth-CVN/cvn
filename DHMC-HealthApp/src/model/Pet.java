@@ -4,7 +4,7 @@ public class Pet {
 	private String species;
 	private int quantity;
 	private boolean allergyFriendly;
-
+	private int petID;
 	public Pet(String species, int quantity, boolean allergyFriendly) {
 		this.species = species;
 		this.quantity = quantity;
@@ -30,9 +30,20 @@ public class Pet {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	
+	public boolean getAllergyFriendly() {
+		return this.allergyFriendly;
+	}
 
 	public void setAllergyFriendly(boolean allergyFriendly) {
 		this.allergyFriendly = allergyFriendly;
 	}
 
+	public void setPetID(int id){
+		this.petID = id;
+	}
+	
+	public int getPetID(){
+		return this.petID;
+	}
 }

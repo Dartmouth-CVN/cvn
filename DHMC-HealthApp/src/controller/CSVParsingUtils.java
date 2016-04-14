@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Scanner;
 import model.MedicalStaff;
@@ -107,8 +106,8 @@ public class CSVParsingUtils {
 			char curChar = s.charAt(0);
 			if (curChar == '\"')
 				inQuotes = !inQuotes;
-			if (curChar == delimiter.charAt(0) && !inQuotes) {
-				output.add(curVal);
+			else if (curChar == delimiter.charAt(0) && !inQuotes) {
+				output.add(curVal.trim());
 				curVal = "";
 			} else {
 				curVal += curChar;
@@ -177,7 +176,6 @@ public class CSVParsingUtils {
 	 * @return the Patient represented by pt.
 	 */
 	public static Patient makePatient(String[] pt) {
-		System.out.println(Arrays.toString(pt));
 		Patient output = new Patient(pt[2], pt[1], pt[0], 0);
 		String[] staff = pt[5].split(",");
 		for (String member : staff)

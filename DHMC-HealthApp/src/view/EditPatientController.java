@@ -157,68 +157,68 @@ public class EditPatientController {
 		mainApp.getDatabaseHandler().updatePatient(p);
 	}
 	
-	public void saveFamilyInfo() {
-		int i;
-		TextField field;
-		String familyList = "";
-		String petList = "";
-		String newFamily;
-		String newPet;
-		
-		for (i = 0; i < (familyVB.getChildren().size() - 1); i++) {
-			field = (TextField) familyVB.getChildren().get(i);
+//	public void saveFamilyInfo() {
+//		int i;
+//		TextField field;
+//		String familyList = "";
+//		String petList = "";
+//		String newFamily;
+//		String newPet;
+//		
+//		for (i = 0; i < (familyVB.getChildren().size() - 1); i++) {
+//			field = (TextField) familyVB.getChildren().get(i);
 //			this.p.getPreferences().addFamily(field.getText());
-		}
-		
-		for (i = 0; i < (petVB.getChildren().size() - 1); i++) {
-			field = (TextField) petVB.getChildren().get(i);
+//		}
+//		
+//		for (i = 0; i < (petVB.getChildren().size() - 1); i++) {
+//			field = (TextField) petVB.getChildren().get(i);
 //			this.p.getPreferences().addPet(field.getText());
-		}
-		
+//		}
+//		
 //		for(i = 0; i < this.p.getPreferences().getFamily().size(); i++) {
 //			newFamily = this.p.getPreferences().getFamily().get(i);
 //			familyList = familyList + newFamily + "\n";
 //		}
-		
-		for(i = 0; i < this.p.getPreferences().getPets().size(); i++) {
+//		
+//		for(i = 0; i < this.p.getPreferences().getPets().size(); i++) {
 //			newPet = this.p.getPreferences().getPets().get(i);
 //			petList = petList + newPet + "\n";
-		}
-		
-		savedFamilyInfo.setText("Saved Family Information:\n\nFamily Members:\n" + familyList + "\nPets:\n" + petList);
-		mainApp.getDatabaseHandler().updatePatient(p);
-	}
+//		}
+//		
+//		savedFamilyInfo.setText("Saved Family Information:\n\nFamily Members:\n" + familyList + "\nPets:\n" + petList);
+//		mainApp.getDatabaseHandler().updatePatient(p);
+//	}
 	
 	
 	
-	public void saveFitnessInfo() {
-		int i;
-		TextField field;
-		String exerciseList = "";
-		String newExercise;
-		
-		for (i = 0; i < (exerciseVB.getChildren().size() - 1); i++) {
-			field = (TextField) exerciseVB.getChildren().get(i);
-			this.p.getPreferences().addFitness(field.getText());
-		}
-		
-		for(i = 0; i < this.p.getPreferences().getFitness().size(); i++) {
-			newExercise = this.p.getPreferences().getFitness().get(i);
-			exerciseList = exerciseList + newExercise + "\n";
-		}
-		
-		
-		savedFitnessInfo.setText("Saved Fitness Information:\n\nExercises:\n" + exerciseList);
-		mainApp.getDatabaseHandler().updatePatient(p);
-	}
+//	public void saveFitnessInfo() {
+//		int i;
+//		TextField field;
+//		String exerciseList = "";
+//		String newExercise;
+//		
+//		for (i = 0; i < (exerciseVB.getChildren().size() - 1); i++) {
+//			field = (TextField) exerciseVB.getChildren().get(i);
+//			this.p.getPreferences().addFitness(field.getText());
+//		}
+//		
+//		for(i = 0; i < this.p.getPreferences().getFitness().size(); i++) {
+//			newExercise = this.p.getPreferences().getFitness().get(i);
+//			exerciseList = exerciseList + newExercise + "\n";
+//		}
+//		
+//		
+//		savedFitnessInfo.setText("Saved Fitness Information:\n\nExercises:\n" + exerciseList);
+//		mainApp.getDatabaseHandler().updatePatient(p);
+//	}
 	
-	public void saveDietInfo() {
-		int i;
-		TextField field;
-		String likedMealList = "";
-		String dislikedMealList = "";
-		String newLikedMeal;
-		String newDislikedMeal;
+//	public void saveDietInfo() {
+//		int i;
+//		TextField field;
+//		String likedMealList = "";
+//		String dislikedMealList = "";
+//		String newLikedMeal;
+//		String newDislikedMeal;
 //		
 //		for (i = 0; i < (likedMealVB.getChildren().size() - 1); i++) {
 //			field = (TextField) likedMealVB.getChildren().get(i);
@@ -239,10 +239,10 @@ public class EditPatientController {
 //			newDislikedMeal = this.p.getPreferences().getDislikedMeals().get(i);
 //			dislikedMealList = dislikedMealList + newDislikedMeal + "\n";
 //		}
-		
-		savedDietInfo.setText("Saved Diet Information:\n\nLiked Meals:\n" + likedMealList + "\nDisliked Meals:\n" + dislikedMealList);
-		mainApp.getDatabaseHandler().updatePatient(p);
-	}
+//		
+//		savedDietInfo.setText("Saved Diet Information:\n\nLiked Meals:\n" + likedMealList + "\nDisliked Meals:\n" + dislikedMealList);
+//		mainApp.getDatabaseHandler().updatePatient(p);
+//	}
 	
 	public void setMainApp(MainApp app){
 		this.mainApp = app;

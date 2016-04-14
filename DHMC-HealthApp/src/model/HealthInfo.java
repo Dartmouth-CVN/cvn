@@ -1,9 +1,7 @@
 package model;
 
-import java.util.Date;
-
 public class HealthInfo {
-	private Date date;
+	private String date;
 	private double height;
 	private double weight;
 	private double bmi;
@@ -15,7 +13,7 @@ public class HealthInfo {
 	private double minSedentary;
 	private double minLightlyActive;
 	private double minFairlyActive;
-	private double minVeryACtive;
+	private double minVeryActive;
 	private double activityCalories;
 	private double minAsleep;
 	private double minAwake;
@@ -24,7 +22,7 @@ public class HealthInfo {
 	
 	
 	public HealthInfo () {
-		this.date = null;
+		this.date = "";
 		this.height = 0;
 		this.weight = 0;
 		this.bmi = 0;
@@ -36,7 +34,7 @@ public class HealthInfo {
 		this.minSedentary = 0;
 		this.minLightlyActive = 0;
 		this.minFairlyActive = 0;
-		this.minVeryACtive = 0;
+		this.minVeryActive = 0;
 		this.activityCalories = 0;
 		this.minAsleep = 0;
 		this.minAwake = 0;
@@ -46,10 +44,10 @@ public class HealthInfo {
 	
 	
 	
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public double getHeight() {
@@ -119,10 +117,10 @@ public class HealthInfo {
 		this.minFairlyActive = minFairlyActive;
 	}
 	public double getMinVeryACtive() {
-		return minVeryACtive;
+		return minVeryActive;
 	}
-	public void setMinVeryACtive(double minVeryACtive) {
-		this.minVeryACtive = minVeryACtive;
+	public void setMinVeryActive(double minVeryActive) {
+		this.minVeryActive = minVeryActive;
 	}
 	public double getActivityCalories() {
 		return activityCalories;
