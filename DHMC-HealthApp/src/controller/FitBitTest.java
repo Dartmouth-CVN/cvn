@@ -1,11 +1,9 @@
-package controler;
+package controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
-import java.util.LinkedList;
 
-import controller.FitBitParsingUtils;
-import model.HealthInfo;
 import org.junit.Test;
 
 public class FitBitTest {

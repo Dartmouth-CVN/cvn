@@ -11,7 +11,6 @@ import javafx.scene.control.TextField;
 import model.IDisplayable;
 import model.MainApp;
 import model.Patient;
-import model.SimpleUser;
 
 public class SearchTabController {
 
