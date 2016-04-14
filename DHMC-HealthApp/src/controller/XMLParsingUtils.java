@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.util.LinkedList;
 
 import model.MedicalStaff;
-import model.Medication;
 import model.Patient;
 
 public class XMLParsingUtils {
@@ -25,8 +24,8 @@ public class XMLParsingUtils {
 			output += XMLLine("patient",
 					XMLLine("firstname", p.getFirstName()) + XMLLine("lastname", p.getLastName())
 							+ XMLLine("id", p.getUserID()) + XMLLine("patient_id", String.valueOf(p.getPatientID()))
-							+ XMLList("assigned_staff", "staff", XMLParseMedStaff(p.getAssignedStaff()))
-							+ XMLList("perscribed_meds", "medication", XMLParseMedication(p.getMedication())),
+							+ XMLList("assigned_staff", "staff", XMLParseMedStaff(p.getAssignedStaff()))/*
+							+ XMLList("prescribed_meds", "medication", XMLParseMedication(p.getMedication()))*/,
 					true);
 
 		}
@@ -123,12 +122,12 @@ public class XMLParsingUtils {
 	 *            the LinkedList to provide
 	 * @return the String in XML format
 	 */
-	private static String[] XMLParseMedication(LinkedList<Medication> meds) {
-		String[] output = new String[meds.size()];
-		for (int i = 0; i < output.length; i++)
-			output[i] = meds.get(i).getName();
-		return output;
-	}
+//	private static String[] XMLParseMedication(LinkedList<Medication> meds) {
+//		String[] output = new String[meds.size()];
+//		for (int i = 0; i < output.length; i++)
+//			output[i] = meds.get(i).getName();
+//		return output;
+//	}
 
 	/**
 	 * Given a LinkedList of patients, write an HTML file to the provided
@@ -146,8 +145,8 @@ public class XMLParsingUtils {
 
 			output += XMLLine("h2", p.getFirstName() + " " + p.getLastName())
 					+ XMLLine("h3", p.getUserID() + " : " + String.valueOf(p.getPatientID()))
-					+ "<hr>"+ XMLLine("p","Assigned Personnel:") + XMLList("div", "p", XMLParseMedStaff(p.getAssignedStaff()))
-					+ "<hr>" +XMLLine("p","Perscribed Meds:\n") + XMLList("div", "p", XMLParseMedication(p.getMedication())) + "<hr>";
+					+ "<hr>"+ XMLLine("p","Assigned Personnel:") + XMLList("div", "p", XMLParseMedStaff(p.getAssignedStaff()))/*
+					+ "<hr>" +XMLLine("p","Perscribed Meds:\n") + XMLList("div", "p", XMLParseMedication(p.getMedication()))*/ + "<hr>";
 
 		}
 		if (filename != null) {

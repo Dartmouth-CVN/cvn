@@ -6,8 +6,8 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.Scanner;
+
 import model.MedicalStaff;
-import model.Medication;
 import model.Patient;
 
 // TODO: We need to find a way to import Medical Staff and Medications from Strings,
@@ -196,7 +196,7 @@ public class CSVParsingUtils {
 		String[] staff = pt[5].split(",");
 		for (String member : staff)
 			output.addMedicalStaff(new MedicalStaff(member));
-		String[] meds = pt[7].split(",");
+//		String[] meds = pt[7].split(",");
 //		for (String med : meds)
 //			output.addMedication(new Medication(med));
 
