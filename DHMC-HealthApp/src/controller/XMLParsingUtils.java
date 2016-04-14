@@ -2,6 +2,7 @@ package controller;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.LinkedList;
 
 import model.MedicalStaff;
@@ -25,7 +26,10 @@ public class XMLParsingUtils {
 			output += XMLLine("patient",
 					XMLLine("firstname", p.getFirstName()) + XMLLine("lastname", p.getLastName())
 							+ XMLLine("id", p.getUserID()) + XMLLine("patient_id", String.valueOf(p.getPatientID()))
-							+ XMLList("assigned_staff", "staff", XMLParseMedStaff(p.getAssignedStaff())),
+							+ XMLList("assigned_staff", "staff", XMLParseMedStaff(p.getAssignedStaff()))
+							+ XMLLine("contact-info", XMLList("address-list", "address", p.getContactInfo().getAddress())
+									+XMLList("phone-number-list", "phone-number", p.getContactInfo().getPhone())
+									+XMLList("email-list","email",p.getContactInfo().getEmail())),
 					true);
 
 		}
@@ -78,7 +82,10 @@ public class XMLParsingUtils {
 		output += content;
 		if (major)
 			output += "\n";
-		output += "</" + tag + ">\n";
+		if (tag.split(" ").length > 1)
+			output += "</" + tag.split(" ")[0] + ">\n";
+		else
+			output += "</" + tag + ">\n";
 		return output;
 	}
 
@@ -94,11 +101,15 @@ public class XMLParsingUtils {
 	 *            the entries for the list
 	 * @return the String in XML format
 	 */
-	private static String XMLList(String tag, String subtag, String[] content) {
+	private static String XMLList(String tag, String subtag, Iterable<String> content) {
 		String inner = "";
 		for (String c : content)
 			inner += XMLLine(subtag, c);
 		return XMLLine(tag, inner, true);
+	}
+
+	private static String XMLList(String tag, String subtag, String[] content) {
+		return XMLList(tag, subtag, Arrays.asList(content));
 	}
 
 	/**
@@ -147,30 +158,31 @@ public class XMLParsingUtils {
 		String head = "<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\"> \n";
 		// The head tag in the HTML document
 		head += XMLLine("title", "Patient List");
+		head += XMLLine("style type=\"text/css\"",
+				"h1{color:blue;}hr{border-style:dashed;}hr.main{border-width:5px;border-style:solid;}hr.end{border-width:3px;border-style:solid;}");
 
 		String body = XMLLine("h1", "List of Patients: " + pts.size() + " Total");
 		// The body tag in the HTML document
-		body += "<hr>\n";
+		body += "<hr class=\"main\">\n";
 		for (Patient p : pts) {
 
 			body += XMLLine("h2", p.getFirstName() + " " + p.getLastName())
 					+ XMLLine("h3", p.getUserID() + " : " + String.valueOf(p.getPatientID())) + "<hr>\n"
 					+ XMLLine("p", "Assigned Personnel:") + XMLList("div", "p", XMLParseMedStaff(p.getAssignedStaff()))
-					+ "<hr>\n";
-			// +XMLLine("p","Perscribed Meds:\n") + XMLList("div", "p",
-			// XMLParseMedication(p.getMedication())) + "<hr>";
-			output += XMLLine("h2", p.getFirstName() + " " + p.getLastName())
-					+ XMLLine("h3", p.getUserID() + " : " + String.valueOf(p.getPatientID())) + "<hr>"
-					+ XMLLine("p", "Assigned Personnel:")
-					+ XMLList("div", "p", XMLParseMedStaff(
-							p.getAssignedStaff()))/*
-													 * + "<hr>" +XMLLine("p",
-													 * "Perscribed Meds:\n") +
-													 * XMLList("div", "p",
-													 * XMLParseMedication(p.
-													 * getMedication()))
-													 */
-					+ "<hr>";
+					+ "<hr class=\"end\">\n";
+			/*
+			 * +XMLLine("p","Perscribed Meds:\n") + XMLList("div", "p", //
+			 * XMLParseMedication(p.getMedication())) + "<hr>"; output +=
+			 * XMLLine("h2", p.getFirstName() + " " + p.getLastName()) +
+			 * XMLLine("h3", p.getUserID() + " : " +
+			 * String.valueOf(p.getPatientID())) + "<hr>" + XMLLine("p",
+			 * "Assigned Personnel:") + XMLList("div", "p", XMLParseMedStaff(
+			 * p.getAssignedStaff()))/* + "<hr>" +XMLLine("p",
+			 * "Perscribed Meds:\n") + XMLList("div", "p", XMLParseMedication(p.
+			 * getMedication()))
+			 * 
+			 * + "<hr>";
+			 */
 
 		}
 
