@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+import model.MainApp;
 import model.MedicalStaff;
 import model.Patient;
 
@@ -78,7 +79,7 @@ public class CSVParsingUtils {
 			fileReader = new Scanner(f);
 		} catch (FileNotFoundException e1) { // If the file doesn't exist, abort
 			System.out.println("File not Found");
-			e1.printStackTrace();
+			MainApp.printError(e1); 
 			return null;
 		}
 
@@ -188,7 +189,7 @@ public class CSVParsingUtils {
 		try {
 			toFile = new PrintWriter(output, "UTF-8");
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
-			e.printStackTrace();
+			MainApp.printError(e);
 			return;
 		}
 		for (Patient pt : src) {
