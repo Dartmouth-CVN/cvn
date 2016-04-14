@@ -209,6 +209,57 @@ public class EditPatientController {
 	}
 	
 	@FXML private void save() {
+		int i;
+		TextField field;
+		String text;
+		LinkedList<String> list = new LinkedList<String>();
+		LinkedList<String> phone = p.getContactInfo().getPhone();
+		LinkedList<String> email = p.getContactInfo().getEmail();
+		
+		
+		p.setFirstName(firstName.getText());
+		p.setLastName(lastName.getText());
+		p.setBirthday(patientBirthday.getValue());
+		p.getContactInfo().makePrimaryAddress(patientAddress.getText());
+		
+		for (i = 0; i < patientPhone.getChildren().size(); i++) {
+			field = (TextField) patientPhone.getChildren().get(i);
+			text = field.getText();
+			if (!text.equals("")) {
+				list.add(text);
+				p.getContactInfo().addPhone(text);
+			}
+		}
+		
+		p.getContactInfo().makePrimaryPhone(list.getFirst());
+		
+		for (i = 0; i < phone.size(); i++) {
+			text = phone.get(i);
+			if (!list.contains(text)) {
+				p.getContactInfo().removePhone(text);
+			}
+		}
+		
+		list = new LinkedList<String>();
+		
+		for (i = 0; i < patientEmail.getChildren().size(); i++) {
+			field = (TextField) patientEmail.getChildren().get(i);
+			text = field.getText();
+			if (!text.equals("")) {
+				list.add(text);
+				p.getContactInfo().addEmail(text);
+			}
+		}
+		
+		p.getContactInfo().makePrimaryEmail(list.getFirst());
+		
+		for (i = 0; i < email.size(); i++) {
+			text = email.get(i);
+			if (!list.contains(text)) {
+				p.getContactInfo().removeEmail(text);
+			}
+		}
+		
 		update();
 	}
 }
