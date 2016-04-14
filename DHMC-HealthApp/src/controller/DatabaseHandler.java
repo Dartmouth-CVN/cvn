@@ -20,7 +20,6 @@ import model.MainApp;
 import model.Meal;
 import model.MedicalStaff;
 import model.Patient;
-import model.PatientProfile;
 import model.Pet;
 
 public class DatabaseHandler {
@@ -722,15 +721,15 @@ public class DatabaseHandler {
 	 * 
 	 * @param p
 	 */
-	public void updatePet(Pet pet){
+	public void updatePet(Pet pet, Patient p){
 		
 		try {
 				connect();
-				ps = connection.prepareStatement("UPDATE medical_staff SET species = ?, quantity = ?, allergy_friendly = ? WHERE pet_id = ?");
+				ps = connection.prepareStatement("UPDATE pet SET species = ?, quantity = ?, allergy_friendly = ? WHERE patient_id = ?");
 				ps.setString(1, pet.getSpecies());
 				ps.setInt(2, pet.getQuantity());
 				ps.setBoolean(3, pet.getAllergyFriendly());
-				ps.setInt(4, pet.getPetID());
+				ps.setInt(4, p.getPatientID());
 				ps.executeUpdate();
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
@@ -738,18 +737,18 @@ public class DatabaseHandler {
 	}
 
 
-	public void updateMeal(Meal meal){
+	public void updateMeal(Meal meal, Patient p){
 
 		try {
 			connect();
-			ps = connection.prepareStatement("UPDATE medical_staff SET name = ?, calories = ?, like = ?, dislike = ?, notes = ? " 
-					+ "WHERE meal_id = ?");
+			ps = connection.prepareStatement("UPDATE meal SET name = ?, calories = ?, like = ?, dislike = ?, notes = ? " 
+					+ "WHERE patient_id = ?");
 			ps.setString(1, meal.getName());
 			ps.setInt(2, meal.getCalories());
 			ps.setBoolean(3, meal.getLiked());
 			ps.setBoolean(4, meal.getDisliked());
 			ps.setString(5, meal.getSpecialNotes());
-			ps.setInt(6, meal.getMealID());
+			ps.setInt(6, p.getPatientID());
 
 			ps.executeUpdate();
 		} catch (SQLException e) {
@@ -774,7 +773,7 @@ public class DatabaseHandler {
 			}
 	}
 
-	public void updateHealthInfo(HealthInfo info){
+	public void updateHealthInfo(HealthInfo info, Patient p){
 
 		try {
 				connect();
@@ -782,7 +781,7 @@ public class DatabaseHandler {
 					+ "bmi = ?, fat = ?, caloriesBurned = ?, steps = ?, distance = ?, floors = ?, minSedentary = ?, "
 					+ "minLightlyActive = ?, minFairlyActive = ?, minVeryActive = ?, activityCalories = ?, minAsleep = ?, "
 					+ "minAwake = ?, numAwakenings = ?, timeInBed = ? "
-					+ "WHERE  = ?");
+					+ "WHERE  patient_id = ?");
 				ps.setString(1, info.getDate());
 				ps.setDouble(2, info.getHeight());
 				ps.setDouble(3, info.getWeight());
@@ -801,15 +800,13 @@ public class DatabaseHandler {
 				ps.setDouble(16, info.getMinAwake());
 				ps.setDouble(17, info.getNumAwakenings());
 				ps.setDouble(18, info.getTimeInBed());
+				ps.setDouble(18, p.getPatientID());
 				
-
 				ps.executeUpdate();
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
 	}
-
-
 
 	public void dropTables() {
 		try {

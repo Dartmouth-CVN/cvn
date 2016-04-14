@@ -156,7 +156,7 @@
                                                    </children>
                                                 </GridPane>
                                                 <Label fx:id="nameLabel" layoutX="55.0" layoutY="141.0" text="Name" />
-                                                <Button layoutX="31.0" layoutY="182.0" mnemonicParsing="false" onMouseClicked="#handleEditProfile" text="Edit Profile" />
+                                                <Button layoutX="268.0" layoutY="181.0" mnemonicParsing="false" onMouseClicked="#handleEditProfile" text="Edit Profile" />
                                              </children>
                                           </AnchorPane>
                                        </content>

@@ -5,7 +5,7 @@ public abstract class User implements IDisplayable{
 	private String lastName;
 	private String userID;
 	private Contact contactInfo;
-	private Schedule schedule;
+	// private Schedule schedule;
 	private Location room;
 	//role is either "Patient", "MedicalStaff", "Administrator"
 	public User(String firstName, String lastName, String id) {
@@ -53,7 +53,7 @@ public abstract class User implements IDisplayable{
 		this.room = room;
 	}
 	
-	public Schedule getSchedule() {
-		return this.schedule;
-	}
+//	public Schedule getSchedule() {
+//		return this.schedule;
+//	}
 }

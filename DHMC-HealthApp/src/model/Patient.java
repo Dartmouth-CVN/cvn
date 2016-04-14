@@ -8,14 +8,14 @@ public class Patient extends User {
 	// private LinkedList<Caregiver> caregivers;
 	protected LinkedList<MedicalStaff> assignedStaff;
 	private PatientProfile preferences;
-	private LinkedList<Medication> medication;
+	// private LinkedList<Medication> medication;
 	private int patientID;
 	
 	public Patient(String firstName, String lastName, String userID, int patientID) {
 		super(firstName, lastName, userID);
 		this.assignedStaff = new LinkedList<MedicalStaff>();
 		this.preferences = new PatientProfile();
-		this.medication = new LinkedList<Medication>();
+		// this.medication = new LinkedList<Medication>();
 		this.patientID = patientID;
 	}
 	
@@ -51,21 +51,21 @@ public class Patient extends User {
 		}
 	}
 	*/
-	public LinkedList<Medication> getMedication() {
-		return this.medication;
-	}
-	
-	public void addMedication(Medication medication) {
-		if (this.medication.indexOf(medication) < 0) {
-			this.medication.add(medication);
-		}
-	}
-	
-	public void removeMedication(Medication medication) {
-		if (this.medication.indexOf(medication) >= 0) {
-			this.medication.remove(medication);
-		}
-	}
+//	public LinkedList<Medication> getMedication() {
+//		return this.medication;
+//	}
+//	
+//	public void addMedication(Medication medication) {
+//		if (this.medication.indexOf(medication) < 0) {
+//			this.medication.add(medication);
+//		}
+//	}
+//	
+//	public void removeMedication(Medication medication) {
+//		if (this.medication.indexOf(medication) >= 0) {
+//			this.medication.remove(medication);
+//		}
+//	}
 	
 	public void setPreferences(PatientProfile preferences) {
 		this.preferences = preferences;
