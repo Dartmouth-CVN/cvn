@@ -808,8 +808,6 @@ public class DatabaseHandler {
 			}
 	}
 
-
-
 	public void dropTables() {
 		try {
 			connect();
