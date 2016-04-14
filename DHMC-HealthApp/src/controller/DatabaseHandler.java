@@ -725,9 +725,9 @@ public class DatabaseHandler {
 		
 		try {
 				connect();
-				ps = connection.prepareStatement("UPDATE pet SET species = ?, quantity = ?, allergy_friendly = ? WHERE patient_id = ?");
+				ps = connection.prepareStatement("UPDATE pet SET species = ?, name = ?, allergy_friendly = ? WHERE patient_id = ?");
 				ps.setString(1, pet.getSpecies());
-				ps.setInt(2, pet.getQuantity());
+				ps.setString(2, pet.getName());
 				ps.setBoolean(3, pet.getAllergyFriendly());
 				ps.setInt(4, p.getPatientID());
 				ps.executeUpdate();
@@ -743,8 +743,8 @@ public class DatabaseHandler {
 
 			ps.setString(1, meal.getName());
 			ps.setInt(2, meal.getCalories());
-			ps.setBoolean(3, meal.getLiked());
-			ps.setBoolean(4, meal.getDisliked());
+			ps.setBoolean(3, meal.didLike());
+			ps.setBoolean(4, meal.didDislike());
 			ps.setString(5, meal.getSpecialNotes());
 			ps.setInt(6, p.getPatientID());
 			ps.executeUpdate();
@@ -761,8 +761,8 @@ public class DatabaseHandler {
 					+ "WHERE patient_id = ?");
 			ps.setString(1, meal.getName());
 			ps.setInt(2, meal.getCalories());
-			ps.setBoolean(3, meal.getLiked());
-			ps.setBoolean(4, meal.getDisliked());
+			ps.setBoolean(3, meal.didLike());
+			ps.setBoolean(4, meal.didDislike());
 			ps.setString(5, meal.getSpecialNotes());
 			ps.setInt(6, p.getPatientID());
 

@@ -1,18 +1,21 @@
 package model;
 
+import java.time.LocalDate;
+
 public class Caregiver {
 	private String name;
-	private int age;
+	private LocalDate birthday;
 	private String relation;
 	private Contact contactInfo;
 	private boolean isFamily;
 	private int caregiverID;
-	public Caregiver (String name, int age, String relation, Contact contactInfo, boolean familymember){
+	
+	public Caregiver (String name, LocalDate birthday, String relation, Contact contactInfo, boolean isFamily){
 		this.name = name;
-		this.age = age;
+		this.birthday = birthday;
 		this.relation = relation;
 		this.contactInfo = contactInfo;
-		this.isFamily = familymember;
+		this.isFamily = isFamily;
 		
 	}
 	
@@ -25,11 +28,11 @@ public class Caregiver {
 	public Contact getContactInfo() {
 		return contactInfo;
 	}
-	public int getAge() {
-		return age;
+	public LocalDate getBirthday() {
+		return birthday;
 	}
-	public void setAge(int age) {
-		this.age = age;
+	public void setBirthday(LocalDate birthday) {
+		this.birthday = birthday;
 	}
 	public String getName() {
 		return name;

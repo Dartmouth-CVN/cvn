@@ -1,7 +1,5 @@
 package model;
 
-import java.time.LocalDate;
-
 public class HealthInfo {
 	private String date;
 	private double height;
