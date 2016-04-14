@@ -1,25 +1,30 @@
 package model;
 
 public class Pet {
+	private String name;
 	private String species;
-	private int quantity;
 	private boolean allergyFriendly;
 	private int petID;
-	public Pet(String species, int quantity, boolean allergyFriendly) {
+	public Pet(String name, String species, boolean allergyFriendly) {
+		this.setName(name);
 		this.species = species;
-		this.quantity = quantity;
 		this.allergyFriendly = allergyFriendly;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getSpecies() {
 		return this.species;
 	}
 
-	public int getQuantity() {
-		return this.quantity;
-	}
 
-	public boolean isAllergy() {
+	public boolean isAllergyFriendly() {
 		return this.allergyFriendly;
 	}
 
@@ -27,9 +32,6 @@ public class Pet {
 		this.species = species;
 	}
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
 	
 	public boolean getAllergyFriendly() {
 		return this.allergyFriendly;
