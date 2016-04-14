@@ -721,21 +721,7 @@ public class DatabaseHandler {
 	 */
 	public void updatePet(Pet pet, Patient p) {
 
-<<<<<<< HEAD
 		try {
-<<<<<<< HEAD
-			connect();
-			ps = connection.prepareStatement(
-					"UPDATE pet SET species = ?, quantity = ?, allergy_friendly = ? WHERE patient_id = ?");
-			ps.setString(1, pet.getSpecies());
-			ps.setInt(2, pet.getQuantity());
-			ps.setBoolean(3, pet.getAllergyFriendly());
-			ps.setInt(4, p.getPatientID());
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-=======
 				connect();
 				ps = connection.prepareStatement("UPDATE pet SET species = ?, name = ?, allergy_friendly = ? WHERE patient_id = ?");
 				ps.setString(1, pet.getSpecies());
@@ -746,18 +732,11 @@ public class DatabaseHandler {
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
->>>>>>> 4111ebb979751f16ec0b4ded85d2f0bd71909d5d
 	}
-
-	public void insertMeal(Meal meal, Patient p) {
-=======
 	/**
-	 * Insert a meal object into table based on patient
-	 * @param meal object
 	 * @param p patient object
 	 */
 	public void insertMeal(Meal meal, Patient p){
->>>>>>> b721b80041f9a5071c3b0fbfacfe12feea70271e
 		try {
 			ps = connection.prepareStatement(
 					"INSERT INTO meal (name, calories, like, dislike, notes, patient_id) VALUES(?, ?, ?, ?, ?, ?)");
@@ -773,17 +752,13 @@ public class DatabaseHandler {
 		} catch (SQLException e) {
 		}
 	}
-<<<<<<< HEAD
 
-	public void updateMeal(Meal meal, Patient p) {
-=======
 	/**
 	 * Finds meal based on patient id and updates fields with fields from meal object
 	 * @param meal
 	 * @param p
 	 */
 	public void updateMeal(Meal meal, Patient p){
->>>>>>> b721b80041f9a5071c3b0fbfacfe12feea70271e
 
 		try {
 			connect();
@@ -801,17 +776,12 @@ public class DatabaseHandler {
 			System.out.println(e.getMessage());
 		}
 	}
-<<<<<<< HEAD
 
-	public void insertCaregiver(Caregiver caregiver, Patient p) {
-=======
-	/**
-	 * Insert into caregiver table fields from caregiver object based on patient id
+	/** Insert into caregiver table fields from caregiver object based on patient id
 	 * @param caregiver
 	 * @param p
 	 */
 	public void insertCaregiver(Caregiver caregiver, Patient p){
->>>>>>> b721b80041f9a5071c3b0fbfacfe12feea70271e
 		try {
 			ps = connection.prepareStatement(
 					"INSERT INTO caregiver (name, isFamily?, relation, patient_id) VALUES(?, ?, ?, ?)");
@@ -824,31 +794,9 @@ public class DatabaseHandler {
 			ps.close();
 		} catch (SQLException e) {
 		}
-<<<<<<< HEAD
 	}
 
-	public void updateCaregiver(Caregiver caregiver) {
-
-		try {
-			connect();
-			ps = connection.prepareStatement(
-					"UPDATE caregiver SET name = ?, isFamily? = ?, relation = ? " + "WHERE caregiver_id = ?");
-			ps.setString(1, caregiver.getName());
-			ps.setBoolean(2, caregiver.getIsFamily());
-			ps.setString(3, caregiver.getRelation());
-			ps.setInt(4, caregiver.getCaregiverID());
-
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-	}
-
-	public void insertHealthInfo(HealthInfo info, Patient p) {
-=======
-}
-	/**
-	 * Updates fields of given caregiver in table with new fields from caregiver input.
+	/** Updates fields of given caregiver in table with new fields from caregiver input.
 	 * @param caregiver
 	 */
 	public void updateCaregiver(Caregiver caregiver){
@@ -873,7 +821,6 @@ public class DatabaseHandler {
 	 * @param p
 	 */
 	public void insertHealthInfo(HealthInfo info, Patient p){
->>>>>>> b721b80041f9a5071c3b0fbfacfe12feea70271e
 		try {
 			ps = connection.prepareStatement("INSERT INTO health_info (date, height, weight, bmi, fat, caloriesBurned, "
 					+ "steps, distance, floors, minSedentary, minLightlyActive, minFairlyActive, minVeryActive, activityCalories, "
