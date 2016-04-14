@@ -1,7 +1,6 @@
 package model;
 
 import java.io.IOException;
-import java.net.URL;
 
 import controller.DatabaseHandler;
 import javafx.application.Application;

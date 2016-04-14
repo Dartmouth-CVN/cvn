@@ -1,67 +1,70 @@
 package model;
-import java.util.LinkedList;
-
 
 public class Meal {
 	private String name;
 	private int calories;
-	private boolean liked;
-	private boolean disliked;
-	private String specialnotes;
+	private boolean like;
+	private boolean dislike;
+	private String notes;
 	private int mealID;
-	public Meal(String name, int calories, LinkedList<String> ingredients, boolean liked, String specialnotes){
+	public Meal(String name, int calories, boolean like, boolean dislike, String notes){
 		this.name = name;
 		this.calories = calories;
-		this.liked = liked;
-		this.specialnotes = specialnotes;
+		this.like = like;
+		this.dislike = dislike;
+		this.notes = notes;
 	}
 
-	public String getName(){
-		return this.name;
+	public boolean didLike(){
+		return this.like;
 	}
 
 	public int getCalories(){
 		return this.calories;
 	}
 
-	public boolean getLiked(){
-		return this.liked;
+	public int getMealID(){
+		return this.mealID;
+	}
+
+	public String getName(){
+		return this.name;
 	}
 
 	public String getSpecialNotes(){
-		return this.specialnotes;
+		return this.notes;
 	}
 
-	public void setName(String name){
-		this.name = name;
+	public boolean didDislike() {
+		return dislike;
 	}
 
 	public void setCalories(int calories){
 		this.calories = calories;
 	}
 
-	public void setLiked(boolean liked){
-		this.liked = liked;
+	public void setDislike(boolean dislike) {
+		this.dislike = dislike;
 	}
 
-	public void setSpecialNotes(String specialnotes){
-		this.specialnotes = specialnotes;
+	public void setDisliked(boolean disliked) {
+		this.dislike = disliked;
+	}
+	
+	public void setLike(boolean like){
+		this.like = like;
 	}
 	
 	public void setMealID(int id){
 		this.mealID = id;
 	}
-	
-	public int getMealID(){
-		return this.mealID;
+
+	public void setName(String name){
+		this.name = name;
 	}
 
-	public boolean getDisliked() {
-		return disliked;
-	}
-
-	public void setDisliked(boolean disliked) {
-		this.disliked = disliked;
+	public void setSpecialNotes(String specialnotes){
+		this.notes = specialnotes;
 	}
 }
 
