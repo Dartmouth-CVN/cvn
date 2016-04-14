@@ -17,10 +17,7 @@ import model.IDisplayable;
 import model.MainApp;
 import model.MedicalStaff;
 import model.Patient;
-<<<<<<< HEAD
 import model.PatientProfile;
-=======
->>>>>>> 6f1f71384988bf8bfb3acd9eb6363fa5ddea9235
 import model.Pet;
 
 public class DatabaseHandler {
@@ -633,8 +630,6 @@ public class DatabaseHandler {
 		}
 	}
 
-<<<<<<< HEAD
-=======
 	public void insertPatient2(Patient p) {
 		// PatientProfile preferences = p.getPreferences();
 		// Object family = p.getFamily();
@@ -666,7 +661,6 @@ public class DatabaseHandler {
 		// }
 	}
 
->>>>>>> 6f1f71384988bf8bfb3acd9eb6363fa5ddea9235
 	public void insertMedicalStaff(MedicalStaff staff) {
 		try {
 			ps = connection.prepareStatement("INSERT INTO user_account (firstname, lastname, user_id) VALUES(?, ?, ?);"
@@ -758,7 +752,6 @@ public class DatabaseHandler {
 	public void removeAllPets(Patient p) {
 
 		try {
-<<<<<<< HEAD
 			connect();
 			ps = connection.prepareStatement("DELETE FROM pet WHERE patient_id = ?");
 			ps.setInt(1, p.getPatientID());
@@ -767,17 +760,8 @@ public class DatabaseHandler {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-=======
-				connect();
-				ps = connection.prepareStatement("DELETE FROM pet WHERE patient_id = ?");
-				ps.setInt(1, p.getPatientID());
-				ps.executeUpdate();
-				
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
->>>>>>> 6f1f71384988bf8bfb3acd9eb6363fa5ddea9235
 	}
+
 
 	/**
 	 * 
