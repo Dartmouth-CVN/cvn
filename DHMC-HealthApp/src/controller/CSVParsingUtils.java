@@ -197,8 +197,8 @@ public class CSVParsingUtils {
 		for (String member : staff)
 			output.addMedicalStaff(new MedicalStaff(member));
 		String[] meds = pt[7].split(",");
-		for (String med : meds)
-			output.addMedication(new Medication(med));
+//		for (String med : meds)
+//			output.addMedication(new Medication(med));
 
 		return output;
 	}
@@ -220,8 +220,8 @@ public class CSVParsingUtils {
 		for (MedicalStaff ms : pt.getAssignedStaff())
 			output += ms.getUserID() + delimiter;
 		output += "\"" + delimiter + "Null" + delimiter;
-		for (Medication med : pt.getMedication())
-			output += med.getName() + delimiter;
+//		for (Medication med : pt.getMedication())
+//			output += med.getName() + delimiter;
 		output += "\"";
 		for (int i = 0; i < 13; i++)
 			output += delimiter + "Null";
