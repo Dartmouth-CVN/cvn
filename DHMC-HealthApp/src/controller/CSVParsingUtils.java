@@ -244,7 +244,7 @@ public class CSVParsingUtils {
 		output.getContactInfo().addEmail(email);
 		String[] pets = pt[9].split(",");
 		for (String pet : pets)
-			output.getPreferences().addPet(new Pet(pet, 0, false));
+			output.getPreferences().addPet(new Pet(pet, null, false));
 		String[] allergies = pt[10].split(",");
 		for (String allergy : allergies)
 			output.getPreferences().addAllergy(allergy);
