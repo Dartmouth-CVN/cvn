@@ -838,7 +838,7 @@ public class DatabaseHandler {
 			ps.setDouble(10, info.getMinSedentary());
 			ps.setDouble(11, info.getMinLightlyActive());
 			ps.setDouble(12, info.getMinFairlyActive());
-			ps.setDouble(13, info.getMinVeryACtive());
+			ps.setDouble(13, info.getMinVeryActive());
 			ps.setDouble(14, info.getActivityCalories());
 			ps.setDouble(15, info.getMinAsleep());
 			ps.setDouble(16, info.getMinAwake());
@@ -871,7 +871,7 @@ public class DatabaseHandler {
 			ps.setDouble(10, info.getMinSedentary());
 			ps.setDouble(11, info.getMinLightlyActive());
 			ps.setDouble(12, info.getMinFairlyActive());
-			ps.setDouble(13, info.getMinVeryACtive());
+			ps.setDouble(13, info.getMinVeryActive());
 			ps.setDouble(14, info.getActivityCalories());
 			ps.setDouble(15, info.getMinAsleep());
 			ps.setDouble(16, info.getMinAwake());

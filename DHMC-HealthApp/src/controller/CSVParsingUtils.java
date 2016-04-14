@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+import model.HealthInfo;
 import model.MainApp;
 import model.MedicalStaff;
 import model.Patient;
@@ -400,5 +401,36 @@ public class CSVParsingUtils {
 	 */
 	private static String stringIfTrue(String s, boolean b) {
 		return (b) ? s : "";
+	}
+
+	/**
+	 * Writes fitbit data for all patients as a CSV
+	 * 
+	 * @param pts
+	 *            the patients to write
+	 */
+	public static void fitbitExport(LinkedList<Patient> pts) {
+		String filename = "fitbitExported";
+		int i = 1;
+		File exFile = new File("fitbitExported");
+		while (exFile.exists()) {
+			exFile = new File(filename + i);
+			i++;
+		}
+
+		PrintWriter toWrite;
+		try {
+			toWrite = new PrintWriter(exFile);
+		} catch (FileNotFoundException e) {
+			MainApp.printError(e);
+			return;
+		}
+		for (Patient p : pts)
+			for (HealthInfo h : p.getHealthInfo()) {
+				String toPrint = h.getDate() + "," + h.getHeight() + "," + h.getWeight() + "," + h.getBmi() + ","
+						+ h.getFat() + "," + h.getCaloriesBurned() + "," + h.getSteps() + "," + h.getDistance() + ","
+						+ h.getFloors() + "," + h.getMinSedentary()+","+h.getMinLightlyActive()+","+h.getMinFairlyActive()+","+h.getMinVeryActive();
+			}
+		toWrite.close();
 	}
 }
