@@ -5,14 +5,14 @@ public class Caregiver {
 	private int age;
 	private String relation;
 	private Contact contactInfo;
-	private boolean familymember;
-
+	private boolean isFamily;
+	private int caregiverID;
 	public Caregiver (String name, int age, String relation, Contact contactInfo, boolean familymember){
 		this.name = name;
 		this.age = age;
 		this.relation = relation;
 		this.contactInfo = contactInfo;
-		this.familymember = familymember;
+		this.isFamily = familymember;
 		
 	}
 	
@@ -38,12 +38,20 @@ public class Caregiver {
 		this.name = name;
 	}
 
-	public boolean isFamilymember() {
-		return familymember;
+	public boolean getIsFamily() {
+		return isFamily;
 	}
 
-	public void setFamilymember(boolean familymember) {
-		this.familymember = familymember;
+	public void setIsFamily(boolean familymember) {
+		this.isFamily = familymember;
+	}
+
+	public int getCaregiverID() {
+		return caregiverID;
+	}
+
+	public void setCaregiverID(int caregiverID) {
+		this.caregiverID = caregiverID;
 	}
 	
 

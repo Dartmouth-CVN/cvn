@@ -13,6 +13,8 @@ import org.apache.derby.jdbc.EmbeddedDataSource;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Administrator;
+import model.Caregiver;
+import model.HealthInfo;
 import model.IDisplayable;
 import model.MainApp;
 import model.Meal;
@@ -754,6 +756,60 @@ public class DatabaseHandler {
 			System.out.println(e.getMessage());
 		}
 	}
+
+	public void updateCaregiver(Caregiver caregiver){
+		
+		try {
+				connect();
+				ps = connection.prepareStatement("UPDATE caregiver SET name = ?, isFamily? = ?, relation = ? " 
+					+ "WHERE caregiver_id = ?");
+				ps.setString(1, caregiver.getName());
+				ps.setBoolean(2, caregiver.getIsFamily());
+				ps.setString(3, caregiver.getRelation());
+				ps.setInt(4, caregiver.getCaregiverID());
+				
+				ps.executeUpdate();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+	}
+
+	public void updateHealthInfo(HealthInfo info){
+
+		try {
+				connect();
+				ps = connection.prepareStatement("UPDATE health_info SET date = ?, height = ?, weight = ?, " 
+					+ "bmi = ?, fat = ?, caloriesBurned = ?, steps = ?, distance = ?, floors = ?, minSedentary = ?, "
+					+ "minLightlyActive = ?, minFairlyActive = ?, minVeryActive = ?, activityCalories = ?, minAsleep = ?, "
+					+ "minAwake = ?, numAwakenings = ?, timeInBed = ? "
+					+ "WHERE  = ?");
+				ps.setDate(1, info.getDate());
+				ps.setDouble(2, info.getHeight());
+				ps.setDouble(3, info.getWeight());
+				ps.setDouble(4, info.getBmi());
+				ps.setDouble(5, info.getFat());
+				ps.setDouble(6, info.getCaloriesBurned());
+				ps.setDouble(7, info.getSteps());
+				ps.setDouble(8, info.getDistance());
+				ps.setDouble(9, info.getFloors());
+				ps.setDouble(10, info.getMinSedentary());
+				ps.setDouble(11, info.getMinLightlyActive());
+				ps.setDouble(12, info.getMinFairlyActive());
+				ps.setDouble(13, info.getMinVeryACtive());
+				ps.setDouble(14, info.getActivityCalories());
+				ps.setDouble(15, info.getMinAsleep());
+				ps.setDouble(16, info.getMinAwake());
+				ps.setDouble(17, info.getNumAwakenings());
+				ps.setDouble(18, info.getTimeInBed());
+				
+
+				ps.executeUpdate();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+	}
+
+
 
 	public void dropTables() {
 		try {
