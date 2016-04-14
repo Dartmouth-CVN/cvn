@@ -1,0 +1,17 @@
+
+.root {
+	
+	-fx-background-color: #FFFFFF;
+}
+
+.button {
+	-fx-background-color: #1A3B61;
+	-fx-text-fill: #FFFFFF;
+	-fx-cursor: hand;
+	-fx-transition: all .5s;
+}
+
+.button:hover{
+	-fx-background-color: rgba(26, 59, 97, .7);
+}
+
