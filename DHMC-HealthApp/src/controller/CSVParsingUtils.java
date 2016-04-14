@@ -6,8 +6,8 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.Scanner;
+
 import model.MedicalStaff;
-import model.Medication;
 import model.Patient;
 
 // TODO: We need to find a way to import Medical Staff and Medications from Strings,
@@ -83,35 +83,37 @@ public class CSVParsingUtils {
 		}
 
 		while (fileReader.hasNextLine()) // Parses the file line by line
-			output.add(makePatient(splitSepValuesLineAndRemoveCommasFromVal(fileReader.nextLine(), delimiter)));
+			output.add(makePatient(splitSepValuesLine(fileReader.nextLine(), delimiter)));
 		fileReader.close();
 		return output;
 	}
 
-	
 	/**
 	 * 
 	 */
 	public static String removeCommas(String s) {
 		String retVal = "";
-		for(int i = 0; i < s.length(); i++) {
-			if(s.charAt(i) != ',') {
+		for (int i = 0; i < s.length(); i++) {
+			if (s.charAt(i) != ',') {
 				retVal += s.charAt(i);
 			}
 		}
 		return retVal;
 	}
+
 	/**
 	 * Splits a line of values delimited by a given delimiter, treating quoted
-	 * sections as a whole.
+	 * sections as a whole, removing commas if remCommas is true
 	 * 
 	 * @param s
 	 *            the line to split
 	 * @param delimiter
 	 *            the delimiter with with to split it
+	 * @param remCommas
+	 *            if internal commas should be removed
 	 * @return an array of String containing all the individual values
 	 */
-	public static String[] splitSepValuesLineAndRemoveCommasFromVal(String s, String delimiter) {
+	public static String[] splitSepValuesLine(String s, String delimiter, boolean remCommas) {
 		LinkedList<String> output = new LinkedList<String>();
 		String curVal = "";
 		boolean inQuotes = false;
@@ -120,21 +122,33 @@ public class CSVParsingUtils {
 			if (curChar == '\"')
 				inQuotes = !inQuotes;
 			else if (curChar == delimiter.charAt(0) && !inQuotes) {
-				output.add(removeCommas(curVal.trim()));
+				String toAdd = curVal.trim();
+				if (remCommas)
+					removeCommas(toAdd);
+				output.add(toAdd);
 				curVal = "";
 			} else {
 				curVal += curChar;
 			}
 		}
-		if(curVal.length() > 0) {
-			output.add(removeCommas(curVal.trim()));
+		if (curVal.length() > 0) {
+			String toAdd = curVal.trim();
+			if (remCommas)
+				removeCommas(toAdd);
+			output.add(toAdd);
 		}
 		String[] outputArr = new String[output.size()];
 		output.toArray(outputArr);
 		return outputArr;
 	}
 
-	
+	public static String[] splitSepValuesLine(String s, String delimiter) {
+		return splitSepValuesLine(s,delimiter,false);
+	}
+	public static String[] splitSepValuesLineAndRemoveCommasFromVal(String s, String delimiter) {
+		return splitSepValuesLine(s,delimiter,true);
+	}
+
 	/**
 	 * Given a filename, writes a linked list of Patients into a CSV
 	 * 
@@ -196,9 +210,10 @@ public class CSVParsingUtils {
 		String[] staff = pt[5].split(",");
 		for (String member : staff)
 			output.addMedicalStaff(new MedicalStaff(member));
+		@SuppressWarnings("unused") //Medication currently disabled
 		String[] meds = pt[7].split(",");
-//		for (String med : meds)
-//			output.addMedication(new Medication(med));
+		// for (String med : meds)
+		// output.addMedication(new Medication(med));
 
 		return output;
 	}
@@ -207,8 +222,10 @@ public class CSVParsingUtils {
 	 * Given a Patient and a delimiter, create a corresponding line for a
 	 * Separated Values File
 	 * 
-	 * @param pt the Patient to represent
-	 * @param delimiter the one-character String with which to delimit the Strings
+	 * @param pt
+	 *            the Patient to represent
+	 * @param delimiter
+	 *            the one-character String with which to delimit the Strings
 	 * @return the delimited String representing pt
 	 */
 	public static String patientToSepValuesFile(Patient pt, String delimiter) {
@@ -220,8 +237,8 @@ public class CSVParsingUtils {
 		for (MedicalStaff ms : pt.getAssignedStaff())
 			output += ms.getUserID() + delimiter;
 		output += "\"" + delimiter + "Null" + delimiter;
-//		for (Medication med : pt.getMedication())
-//			output += med.getName() + delimiter;
+		// for (Medication med : pt.getMedication())
+		// output += med.getName() + delimiter;
 		output += "\"";
 		for (int i = 0; i < 13; i++)
 			output += delimiter + "Null";

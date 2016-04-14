@@ -26,8 +26,9 @@ public class XMLParsingUtils {
 					XMLLine("firstname", p.getFirstName()) + XMLLine("lastname", p.getLastName())
 							+ XMLLine("id", p.getUserID()) + XMLLine("patient_id", String.valueOf(p.getPatientID()))
 							+ XMLList("assigned_staff", "staff", XMLParseMedStaff(p.getAssignedStaff()))
-							+ XMLList("perscribed_meds", "medication", XMLParseMedication(p.getMedication())),
-					true);
+					// + XMLList("perscribed_meds", "medication",
+					// XMLParseMedication(p.getMedication())),
+					, true);
 
 		}
 		output += "</patient-list>";
@@ -113,6 +114,7 @@ public class XMLParsingUtils {
 		String[] output = new String[staffMembers.size()];
 		for (int i = 0; i < output.length; i++)
 			output[i] = staffMembers.get(i).getUserID();
+
 		return output;
 	}
 
@@ -123,6 +125,7 @@ public class XMLParsingUtils {
 	 *            the LinkedList to provide
 	 * @return the String in XML format
 	 */
+	@SuppressWarnings("unused") // Medication currently disabled
 	private static String[] XMLParseMedication(LinkedList<Medication> meds) {
 		String[] output = new String[meds.size()];
 		for (int i = 0; i < output.length; i++)
@@ -141,15 +144,33 @@ public class XMLParsingUtils {
 	 * @return the contents of the file as a String
 	 */
 	public static String writePatientsToHTML(String filename, LinkedList<Patient> pts) {
-		String output = "";
+		String output = ""; // The HTML String to output
+
+		String head = "<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\"> \n";
+		// The head tag in the HTML document
+		head += XMLLine("title", "Patient List");
+		
+		String body = XMLLine("h1", "List of Patients: "+pts.size()+" Total");
+		// The body tag in the HTML document
+		body += "<hr>\n";
 		for (Patient p : pts) {
 
-			output += XMLLine("h2", p.getFirstName() + " " + p.getLastName())
-					+ XMLLine("h3", p.getUserID() + " : " + String.valueOf(p.getPatientID()))
-					+ "<hr>"+ XMLLine("p","Assigned Personnel:") + XMLList("div", "p", XMLParseMedStaff(p.getAssignedStaff()))
-					+ "<hr>" +XMLLine("p","Perscribed Meds:\n") + XMLList("div", "p", XMLParseMedication(p.getMedication())) + "<hr>";
+			body += XMLLine("h2", p.getFirstName() + " " + p.getLastName())
+					+ XMLLine("h3", p.getUserID() + " : " + String.valueOf(p.getPatientID())) + "<hr>\n"
+					+ XMLLine("p", "Assigned Personnel:") + XMLList("div", "p", XMLParseMedStaff(p.getAssignedStaff()))
+					+ "<hr>\n";
+			// +XMLLine("p","Perscribed Meds:\n") + XMLList("div", "p",
+			// XMLParseMedication(p.getMedication())) + "<hr>";
 
 		}
+
+		// Putting the head and body together
+		output += XMLLine("head", head, true);
+		output += XMLLine("body", body, true);
+		output = XMLLine("html", output, true);
+		output = "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">"
+				+ "\n"+output;
+
 		if (filename != null) {
 			try {
 				PrintWriter toFile = new PrintWriter(filename);
