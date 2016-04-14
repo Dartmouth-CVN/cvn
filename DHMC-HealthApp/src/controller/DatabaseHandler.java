@@ -20,7 +20,6 @@ import model.MainApp;
 import model.Meal;
 import model.MedicalStaff;
 import model.Patient;
-import model.PatientProfile;
 import model.Pet;
 
 public class DatabaseHandler {

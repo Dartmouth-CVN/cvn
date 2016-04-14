@@ -83,11 +83,24 @@ public class CSVParsingUtils {
 		}
 
 		while (fileReader.hasNextLine()) // Parses the file line by line
-			output.add(makePatient(splitSepValuesLine(fileReader.nextLine(), delimiter)));
+			output.add(makePatient(splitSepValuesLineAndRemoveCommasFromVal(fileReader.nextLine(), delimiter)));
 		fileReader.close();
 		return output;
 	}
 
+	
+	/**
+	 * 
+	 */
+	public static String removeCommas(String s) {
+		String retVal = "";
+		for(int i = 0; i < s.length(); i++) {
+			if(s.charAt(i) != ',') {
+				retVal += s.charAt(i);
+			}
+		}
+		return retVal;
+	}
 	/**
 	 * Splits a line of values delimited by a given delimiter, treating quoted
 	 * sections as a whole.
@@ -98,27 +111,30 @@ public class CSVParsingUtils {
 	 *            the delimiter with with to split it
 	 * @return an array of String containing all the individual values
 	 */
-	public static String[] splitSepValuesLine(String s, String delimiter) {
+	public static String[] splitSepValuesLineAndRemoveCommasFromVal(String s, String delimiter) {
 		LinkedList<String> output = new LinkedList<String>();
 		String curVal = "";
 		boolean inQuotes = false;
-		while (s.length() > 0) {
-			char curChar = s.charAt(0);
+		for (int i = 0; i < s.length(); i++) {
+			char curChar = s.charAt(i);
 			if (curChar == '\"')
 				inQuotes = !inQuotes;
 			else if (curChar == delimiter.charAt(0) && !inQuotes) {
-				output.add(curVal.trim());
+				output.add(removeCommas(curVal.trim()));
 				curVal = "";
 			} else {
 				curVal += curChar;
 			}
-			s = s.substring(1);
+		}
+		if(curVal.length() > 0) {
+			output.add(removeCommas(curVal.trim()));
 		}
 		String[] outputArr = new String[output.size()];
 		output.toArray(outputArr);
 		return outputArr;
 	}
 
+	
 	/**
 	 * Given a filename, writes a linked list of Patients into a CSV
 	 * 
@@ -181,8 +197,8 @@ public class CSVParsingUtils {
 		for (String member : staff)
 			output.addMedicalStaff(new MedicalStaff(member));
 		String[] meds = pt[7].split(",");
-		for (String med : meds)
-			output.addMedication(new Medication(med));
+//		for (String med : meds)
+//			output.addMedication(new Medication(med));
 
 		return output;
 	}
@@ -204,8 +220,8 @@ public class CSVParsingUtils {
 		for (MedicalStaff ms : pt.getAssignedStaff())
 			output += ms.getUserID() + delimiter;
 		output += "\"" + delimiter + "Null" + delimiter;
-		for (Medication med : pt.getMedication())
-			output += med.getName() + delimiter;
+//		for (Medication med : pt.getMedication())
+//			output += med.getName() + delimiter;
 		output += "\"";
 		for (int i = 0; i < 13; i++)
 			output += delimiter + "Null";

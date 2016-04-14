@@ -141,16 +141,15 @@ public class XMLParsingUtils {
 	 * @return the contents of the file as a String
 	 */
 	public static String writePatientsToHTML(String filename, LinkedList<Patient> pts) {
-		String output = "<table>\n";
+		String output = "";
 		for (Patient p : pts) {
-			output += XMLLine("tr",
-					XMLLine("h1", p.getFirstName() + " " + p.getLastName())
-							+ XMLLine("h2", p.getUserID() + ": " + String.valueOf(p.getPatientID())),
-					true) + "<hr>" + XMLList("tr", "div", XMLParseMedStaff(p.getAssignedStaff()))
-					+ XMLList("tr", "div", XMLParseMedication(p.getMedication())) + "<hr>";
+
+			output += XMLLine("h2", p.getFirstName() + " " + p.getLastName())
+					+ XMLLine("h3", p.getUserID() + " : " + String.valueOf(p.getPatientID()))
+					+ "<hr>"+ XMLLine("p","Assigned Personnel:") + XMLList("div", "p", XMLParseMedStaff(p.getAssignedStaff()))
+					+ "<hr>" +XMLLine("p","Perscribed Meds:\n") + XMLList("div", "p", XMLParseMedication(p.getMedication())) + "<hr>";
 
 		}
-		output += "</table>";		
 		if (filename != null) {
 			try {
 				PrintWriter toFile = new PrintWriter(filename);

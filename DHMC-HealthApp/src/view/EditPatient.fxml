@@ -16,9 +16,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EditPatientController">
+<BorderPane prefHeight="800.0" prefWidth="1235.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EditPatientController">
    <top>
-      <MenuBar BorderPane.alignment="CENTER">
+      <MenuBar prefHeight="29.0" prefWidth="1256.0" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
@@ -43,9 +43,9 @@
       </MenuBar>
    </top>
    <left>
-      <AnchorPane prefHeight="771.0" prefWidth="1217.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="771.0" prefWidth="1235.0" BorderPane.alignment="CENTER">
          <children>
-            <Accordion>
+            <Accordion prefHeight="693.0" prefWidth="1235.0">
               <panes>
                 <TitledPane animated="false" prefWidth="1210.0" text="General Information">
                      <content>
