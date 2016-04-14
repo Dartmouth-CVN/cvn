@@ -7,7 +7,7 @@ import javafx.beans.property.StringProperty;
 public class Patient extends User {
 	// private LinkedList<Caregiver> caregivers;
 	protected LinkedList<MedicalStaff> assignedStaff;
-	protected LinkedList<HealthInfo> healthInfo;
+	private LinkedList<HealthInfo> healthInfo;
 	private PatientProfile preferences;
 	// private LinkedList<Medication> medication;
 	private int patientID;
@@ -16,6 +16,7 @@ public class Patient extends User {
 		super(firstName, lastName, userID);
 		this.assignedStaff = new LinkedList<MedicalStaff>();
 		this.preferences = new PatientProfile();
+		this.healthInfo = new LinkedList<HealthInfo>();
 		// this.medication = new LinkedList<Medication>();
 		this.patientID = patientID;
 	}
@@ -83,6 +84,8 @@ public class Patient extends User {
 	public void setPatientID(int patientID) {
 		this.patientID = patientID;
 	}
+	
+	
 
 	@Override
 	public StringProperty getFirstNameProperty() {
@@ -101,10 +104,30 @@ public class Patient extends User {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	private void deleteDuplicateFitBitInfo() {
-		for(int i = 0; i < healthInfo.size(); i++) {
-			
-		}
+
+	public LinkedList<HealthInfo> getHealthInfo() {
+		return healthInfo;
 	}
+
+	public void setHealthInfo(LinkedList<HealthInfo> healthInfo) {
+		this.healthInfo = healthInfo;
+	}
+	
+	public void addHealthInfo(HealthInfo newInfo) {
+		this.healthInfo.add(newInfo);
+	}
+	
+	public void addHealthInfoList(LinkedList<HealthInfo> info) {
+		this.healthInfo.addAll(info);
+	}
+	
+//	private void deleteDuplicateFitBitInfo() {
+//		HealthInfo temp = new HealthInfo();
+//		healthInfo.sort(HealthInfo.date.equals());
+//		for(int i = 0; i < healthInfo.size(); i++) {
+//			for(int j = 0; i < healthInfo.size(); i++) {
+//				
+//			}
+//		}
+//	}
 }
