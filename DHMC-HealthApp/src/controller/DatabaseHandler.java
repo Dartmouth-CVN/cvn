@@ -224,7 +224,7 @@ public class DatabaseHandler {
 		try {
 			ps = connection.prepareStatement("CREATE TABLE pet("
 					+ "pet_id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-					+ "species VARCHAR(20), quantity INT, allergy_friendly BOOLEAN, patient_id INT, PRIMARY KEY(patient_id), "
+					+ "name VARCHAR(10), species VARCHAR(20), allergy_friendly BOOLEAN, patient_id INT, PRIMARY KEY(patient_id), "
 					+ "FOREIGN KEY(patient_id) REFERENCES patient(patient_id))");
 			ps.execute();
 			success = true;
@@ -255,7 +255,7 @@ public class DatabaseHandler {
 		try {
 			ps = connection.prepareStatement("CREATE TABLE caregiver("
 					+ "caregiver_id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-					+ "patient_id INT, name VARCHAR(20), isFamily? BOOLEAN, relation VARCHAR(10),"
+					+ "patient_id INT, name VARCHAR(20), birthday DATE isFamily? BOOLEAN, relation VARCHAR(10),"
 					+ "FOREIGN KEY(patient_id) REFERENCES patient(patient_id)," + "Primary Key(caregiver_id) )");
 			ps.execute();
 			success = true;
