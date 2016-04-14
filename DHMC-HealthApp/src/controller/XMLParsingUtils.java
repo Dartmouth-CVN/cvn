@@ -25,10 +25,8 @@ public class XMLParsingUtils {
 			output += XMLLine("patient",
 					XMLLine("firstname", p.getFirstName()) + XMLLine("lastname", p.getLastName())
 							+ XMLLine("id", p.getUserID()) + XMLLine("patient_id", String.valueOf(p.getPatientID()))
-							+ XMLList("assigned_staff", "staff", XMLParseMedStaff(p.getAssignedStaff()))
-					// + XMLList("perscribed_meds", "medication",
-					// XMLParseMedication(p.getMedication())),
-					, true);
+							+ XMLList("assigned_staff", "staff", XMLParseMedStaff(p.getAssignedStaff())),
+					true);
 
 		}
 		output += "</patient-list>";
@@ -149,8 +147,8 @@ public class XMLParsingUtils {
 		String head = "<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\"> \n";
 		// The head tag in the HTML document
 		head += XMLLine("title", "Patient List");
-		
-		String body = XMLLine("h1", "List of Patients: "+pts.size()+" Total");
+
+		String body = XMLLine("h1", "List of Patients: " + pts.size() + " Total");
 		// The body tag in the HTML document
 		body += "<hr>\n";
 		for (Patient p : pts) {
@@ -161,6 +159,18 @@ public class XMLParsingUtils {
 					+ "<hr>\n";
 			// +XMLLine("p","Perscribed Meds:\n") + XMLList("div", "p",
 			// XMLParseMedication(p.getMedication())) + "<hr>";
+			output += XMLLine("h2", p.getFirstName() + " " + p.getLastName())
+					+ XMLLine("h3", p.getUserID() + " : " + String.valueOf(p.getPatientID())) + "<hr>"
+					+ XMLLine("p", "Assigned Personnel:")
+					+ XMLList("div", "p", XMLParseMedStaff(
+							p.getAssignedStaff()))/*
+													 * + "<hr>" +XMLLine("p",
+													 * "Perscribed Meds:\n") +
+													 * XMLList("div", "p",
+													 * XMLParseMedication(p.
+													 * getMedication()))
+													 */
+					+ "<hr>";
 
 		}
 
@@ -168,8 +178,8 @@ public class XMLParsingUtils {
 		output += XMLLine("head", head, true);
 		output += XMLLine("body", body, true);
 		output = XMLLine("html", output, true);
-		output = "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">"
-				+ "\n"+output;
+		output = "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">" + "\n"
+				+ output;
 
 		if (filename != null) {
 			try {

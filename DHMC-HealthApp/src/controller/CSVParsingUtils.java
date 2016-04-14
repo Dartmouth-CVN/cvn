@@ -210,10 +210,15 @@ public class CSVParsingUtils {
 		String[] staff = pt[5].split(",");
 		for (String member : staff)
 			output.addMedicalStaff(new MedicalStaff(member));
+
 		@SuppressWarnings("unused") //Medication currently disabled
 		String[] meds = pt[7].split(",");
 		// for (String med : meds)
 		// output.addMedication(new Medication(med));
+
+//		String[] meds = pt[7].split(",");
+//		for (String med : meds)
+//			output.addMedication(new Medication(med));
 
 		return output;
 	}
