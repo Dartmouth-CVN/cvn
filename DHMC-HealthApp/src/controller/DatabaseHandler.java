@@ -783,7 +783,7 @@ public class DatabaseHandler {
 					+ "minLightlyActive = ?, minFairlyActive = ?, minVeryActive = ?, activityCalories = ?, minAsleep = ?, "
 					+ "minAwake = ?, numAwakenings = ?, timeInBed = ? "
 					+ "WHERE  = ?");
-				ps.setDate(1, info.getDate());
+				ps.setString(1, info.getDate());
 				ps.setDouble(2, info.getHeight());
 				ps.setDouble(3, info.getWeight());
 				ps.setDouble(4, info.getBmi());
@@ -808,8 +808,6 @@ public class DatabaseHandler {
 				System.out.println(e.getMessage());
 			}
 	}
-
-
 
 	public void dropTables() {
 		try {
