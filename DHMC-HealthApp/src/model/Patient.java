@@ -7,6 +7,7 @@ import javafx.beans.property.StringProperty;
 public class Patient extends User {
 	// private LinkedList<Caregiver> caregivers;
 	protected LinkedList<MedicalStaff> assignedStaff;
+	protected LinkedList<HealthInfo> healthInfo;
 	private PatientProfile preferences;
 	// private LinkedList<Medication> medication;
 	private int patientID;
@@ -101,4 +102,9 @@ public class Patient extends User {
 		return null;
 	}
 	
+	private void deleteDuplicateFitBitInfo() {
+		for(int i = 0; i < healthInfo.size(); i++) {
+			
+		}
+	}
 }
