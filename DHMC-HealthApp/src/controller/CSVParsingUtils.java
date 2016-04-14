@@ -10,6 +10,7 @@ import java.util.Scanner;
 import model.MainApp;
 import model.MedicalStaff;
 import model.Patient;
+import model.Pet;
 
 // TODO: We need to find a way to import Medical Staff and Medications from Strings,
 // given that the constructors require more fields. A possible solution is a simpler version
@@ -79,7 +80,7 @@ public class CSVParsingUtils {
 			fileReader = new Scanner(f);
 		} catch (FileNotFoundException e1) { // If the file doesn't exist, abort
 			System.out.println("File not Found");
-			MainApp.printError(e1); 
+			MainApp.printError(e1);
 			return null;
 		}
 
@@ -144,10 +145,11 @@ public class CSVParsingUtils {
 	}
 
 	public static String[] splitSepValuesLine(String s, String delimiter) {
-		return splitSepValuesLine(s,delimiter,false);
+		return splitSepValuesLine(s, delimiter, false);
 	}
+
 	public static String[] splitSepValuesLineAndRemoveCommasFromVal(String s, String delimiter) {
-		return splitSepValuesLine(s,delimiter,true);
+		return splitSepValuesLine(s, delimiter, true);
 	}
 
 	/**
@@ -157,9 +159,15 @@ public class CSVParsingUtils {
 	 *            the name of the CSV to write to
 	 * @param src
 	 *            the Patients to write
+	 * @param shouldEx
+	 *            which fields to write, default all
 	 */
+	public static void CSVExport(String output, LinkedList<Patient> src, boolean[] shouldEx) {
+		ExportSepValuesFile(output, src, ",", shouldEx);
+	}
+
 	public static void CSVExport(String output, LinkedList<Patient> src) {
-		ExportSepValuesFile(output, src, ",");
+		ExportSepValuesFile(output, src, ",", null);
 	}
 
 	/**
@@ -169,9 +177,15 @@ public class CSVParsingUtils {
 	 *            the name of the TSV to write to
 	 * @param src
 	 *            the Patients to write
+	 * @param shouldEx
+	 *            which fields to write, default all
 	 */
+	public static void TSVExport(String output, LinkedList<Patient> src, boolean[] shouldEx) {
+		ExportSepValuesFile(output, src, "\t", shouldEx);
+	}
+
 	public static void TSVExport(String output, LinkedList<Patient> src) {
-		ExportSepValuesFile(output, src, "\t");
+		ExportSepValuesFile(output, src, "\t", null);
 	}
 
 	/**
@@ -181,10 +195,13 @@ public class CSVParsingUtils {
 	 *            the name of the Separated Values File to write to
 	 * @param src
 	 *            the Patients to write
+	 * @param shouldEx
+	 *            which fields to write, default all
 	 * @param delimiter
 	 *            the delimiter of the Separated Values File
 	 */
-	public static void ExportSepValuesFile(String output, LinkedList<Patient> src, String delimiter) {
+	public static void ExportSepValuesFile(String output, LinkedList<Patient> src, String delimiter,
+			boolean[] shouldEx) {
 		PrintWriter toFile;
 		try {
 			toFile = new PrintWriter(output, "UTF-8");
@@ -193,7 +210,7 @@ public class CSVParsingUtils {
 			return;
 		}
 		for (Patient pt : src) {
-			toFile.println(patientToSepValuesFile(pt, delimiter));
+			toFile.println(patientToSepValuesFile(pt, delimiter, shouldEx));
 		}
 
 		toFile.close();
@@ -207,20 +224,33 @@ public class CSVParsingUtils {
 	 * @return the Patient represented by pt.
 	 */
 	public static Patient makePatient(String[] pt) {
+
 		Patient output = new Patient(pt[2], pt[1], pt[0], 0);
-		String[] staff = pt[5].split(",");
+		String[] staff = pt[4].split(",");
 		for (String member : staff)
 			output.addMedicalStaff(new MedicalStaff(member));
 
-		@SuppressWarnings("unused") //Medication currently disabled
-		String[] meds = pt[7].split(",");
+		@SuppressWarnings("unused") // Medication currently disabled
+		String[] meds = pt[5].split(",");
 		// for (String med : meds)
 		// output.addMedication(new Medication(med));
 
-//		String[] meds = pt[7].split(",");
-//		for (String med : meds)
-//			output.addMedication(new Medication(med));
-
+		String address = pt[6];
+		output.getContactInfo().addAddress(address);
+		String[] phoneNumbers = pt[7].split(",");
+		for (String number : phoneNumbers)
+			output.getContactInfo().addPhone(number);
+		String email = pt[8];
+		output.getContactInfo().addEmail(email);
+		String[] pets = pt[9].split(",");
+		for (String pet : pets)
+			output.getPreferences().addPet(new Pet(pet, 0, false));
+		String[] allergies = pt[10].split(",");
+		for (String allergy : allergies)
+			output.getPreferences().addAllergy(allergy);
+		String[] dietaryNeeds = pt[11].split(",");
+		for (String diet : dietaryNeeds)
+			output.getPreferences().addDietaryRestrictions(diet);
 		return output;
 	}
 
@@ -232,24 +262,143 @@ public class CSVParsingUtils {
 	 *            the Patient to represent
 	 * @param delimiter
 	 *            the one-character String with which to delimit the Strings
+	 * @param shouldEx
+	 *            A boolean array indicated which fields should be exported, by
+	 *            default all
 	 * @return the delimited String representing pt
 	 */
-	public static String patientToSepValuesFile(Patient pt, String delimiter) {
-		delimiter = String.valueOf(delimiter.charAt(0));
-		String output = pt.getUserID();
-		output += delimiter + pt.getLastName();
-		output += delimiter + pt.getFirstName();
-		output += delimiter + "Null" + delimiter + "\"";
-		for (MedicalStaff ms : pt.getAssignedStaff())
-			output += ms.getUserID() + delimiter;
-		output += "\"" + delimiter + "Null" + delimiter;
-		// for (Medication med : pt.getMedication())
-		// output += med.getName() + delimiter;
-		output += "\"";
-		for (int i = 0; i < 13; i++)
-			output += delimiter + "Null";
-		output += delimiter + "*END*";
+	public static String patientToSepValuesFile(Patient pt, String delimiter, boolean[] shouldEx) {
 
+		// Important note;
+		// Woe be to those who delve into this code
+		// Those sorry souls who search for meaning
+		// In this wasteland
+		// the light of comments
+		// is but an ember
+		//
+		// So if you have an issue, ask Sean, since he wrote this mess
+		//
+
+		delimiter = String.valueOf(delimiter.charAt(0));
+		if (shouldEx == null) {
+			shouldEx = new boolean[0];
+		}
+		if (shouldEx.length < 12) {
+			boolean[] newArr = new boolean[12];
+			for (int i = 0; i < shouldEx.length; i++)
+				newArr[i] = shouldEx[i];
+			for (int i = shouldEx.length; i < newArr.length; i++)
+				newArr[i] = true;
+			shouldEx = newArr;
+		}
+
+		String output = stringIfTrue(pt.getUserID(), shouldEx[0]);
+		output += delimiter;
+		output += stringIfTrue(pt.getFirstName(), shouldEx[1]);
+		output += delimiter;
+		output += stringIfTrue(pt.getLastName(), shouldEx[2]);
+		output += delimiter;
+		// output += stringIfTrue(pt.getCaregivers(), shouldEx[3]);
+		// Caregivers yet to be implemented
+		output += stringIfTrue("None", shouldEx[3]);
+		output += delimiter;
+		if (shouldEx[4]) {
+			output += "\"";
+			LinkedList<MedicalStaff> ms = pt.getAssignedStaff();
+			if (ms.size() > 0) {
+				for (int i = 0; i < ms.size() - 1; i++)
+					output += ms.get(i).getUserID() + ",";
+				output += ms.get(ms.size() - 1).getUserID();
+			}
+			output += "\"";
+		}
+		output += delimiter;
+		// output += stringIfTrue(pt.getMedication(), shouldEx[3]);
+		// Medication yet to be implemented
+		output += stringIfTrue("None", shouldEx[5]);
+		output += delimiter;
+		if (shouldEx[6]) {
+			output += "\"";
+			LinkedList<String> addresses = pt.getContactInfo().getAddress();
+			if (addresses.size() > 0) {
+				for (int i = 0; i < addresses.size() - 1; i++)
+					output += addresses.get(i) + ",";
+				output += addresses.get(addresses.size() - 1);
+			}
+			output += "\"";
+		}
+		output += delimiter;
+		if (shouldEx[7]) {
+			output += "\"";
+			LinkedList<String> phonenumbers = pt.getContactInfo().getPhone();
+			if (phonenumbers.size() > 0) {
+				for (int i = 0; i < phonenumbers.size() - 1; i++)
+					output += phonenumbers.get(i) + ",";
+				output += phonenumbers.get(phonenumbers.size() - 1);
+			}
+			output += "\"";
+		}
+		output += delimiter;
+		if (shouldEx[8]) {
+			output += "\"";
+			LinkedList<String> emails = pt.getContactInfo().getEmail();
+			if (emails.size() > 0) {
+				for (int i = 0; i < emails.size() - 1; i++)
+					output += emails.get(i) + ",";
+				output += emails.get(emails.size() - 1);
+			}
+			output += "\"";
+		}
+		output += delimiter;
+		if (shouldEx[9]) {
+			output += "\"";
+			LinkedList<Pet> pets = pt.getPreferences().getPets();
+			if (pets.size() > 0) {
+				for (int i = 0; i < pets.size() - 1; i++)
+					output += pets.get(i).getSpecies() + ",";
+				output += pets.get(pets.size() - 1).getSpecies();
+			}
+			output += "\"";
+		}
+		output += delimiter;
+		if (shouldEx[10]) {
+			output += "\"";
+			LinkedList<String> allergies = pt.getPreferences().getAllergies();
+			if (allergies.size() > 0) {
+				for (int i = 0; i < allergies.size() - 1; i++)
+					output += allergies.get(i) + ",";
+				output += allergies.get(allergies.size() - 1);
+			}
+			output += "\"";
+		}
+		output += delimiter;
+		if (shouldEx[11]) {
+			output += "\"";
+			LinkedList<String> diets = pt.getPreferences().getDietaryRestrictions();
+			if (diets.size() > 0) {
+				for (int i = 0; i < diets.size() - 1; i++)
+					output += diets.get(i) + ",";
+				output += diets.get(diets.size() - 1);
+			}
+			output += "\"";
+		}
 		return output;
+	}
+
+	public static String patientToSepValuesFile(Patient pt, String delimiter) {
+		return patientToSepValuesFile(pt, delimiter, null);
+	}
+
+	/**
+	 * Returns s if b is true, "" otherwise
+	 * 
+	 * @param s
+	 *            the String to return
+	 * @param b
+	 *            whether or not to return the given String
+	 * @return either s or an empty String
+	 */
+	private static String stringIfTrue(String s, boolean b) {
+		return (b) ? s : "";
 	}
 }
