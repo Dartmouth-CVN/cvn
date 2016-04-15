@@ -45,6 +45,7 @@ public class AdminDashController {
 	private MainApp mainApp;
 
 	private AnchorPane editPatient;
+	private FXMLLoader editPatientLoader;
 
 	/**
 	 * The constructor. The constructor is called before the initialize()
@@ -147,49 +148,43 @@ public class AdminDashController {
 	 */
 	@FXML
 	private void loadAddPatientTab() {
-		try {
-			addPatientTab.setContent(addPatient);
+		if (editPatient != null)
+			editPatient = null;
 
-			EditPatientController controller = loader.getController();
-			controller.setMainApp(mainApp);
-
-			tabPane.getSelectionModel().select(addPatientTab);
-		} catch (IOException e) {
-			MainApp.printError(e);
-		}
-
+		getAddPatientTab();
 	}
 
-	/**
-	 * Loads and sets content of the edit patient tab.
-	 */
+	public void getAddPatientTab() {
+		addPatientTab.setContent(getEditPatientTab(new Patient()));
+		tabPane.getSelectionModel().select(addPatientTab);
+	}
 
-	public void loadEditPatientTab(Patient patient) {
-		try {
-			editPatientTab.setContent(editPatient);
-
-			controller.loadFields();
-
-			tabPane.getSelectionModel().select(editPatientTab);
-
-		} catch (IOException e) {
-			MainApp.printError(e);
+	private FXMLLoader getEditPatientLoader() {
+		if (editPatientLoader == null) {
+			return new FXMLLoader();
+		} else {
+			return editPatientLoader;
 		}
 	}
 
-	private AnchorPane getEditPatient() {
-		return editPatient;
+	public AnchorPane getEditPatientTab(Patient p) {
+		if (editPatient == null) {
+			loadEditPatient(p);
+			return editPatient;
+		} else {
+			return editPatient;
+		}
 	}
 
-	private void loadEditPatient() {
-
+	private void loadEditPatient(Patient patient) {
 		try {
-			FXMLLoader editPatientLoader = new FXMLLoader();
+			editPatientLoader = getEditPatientLoader();
 			editPatientLoader.setLocation(MainApp.class.getResource("../view/EditPatient.fxml"));
 			editPatient = (AnchorPane) editPatientLoader.load();
 			EditPatientController controller = editPatientLoader.getController();
 			controller.setMainApp(mainApp);
-			controller.setPatient(new Patient());
+			controller.setPatient(patient);
+			controller.loadFields();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
