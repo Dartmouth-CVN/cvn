@@ -35,6 +35,14 @@ public class Patient extends User {
 		initObservers();
 	}
 	
+	public Patient() {
+		super("First", "Last", "", new Contact());
+		this.assignedStaff = new LinkedList<MedicalStaff>();
+		this.preferences = new PatientProfile();
+		this.patientID = 0;
+		initObservers();
+	}
+	
 	public void initObservers(){
 		firstNameProperty = new SimpleStringProperty(getFirstName());
 		lastNameProperty = new SimpleStringProperty(getLastName());
