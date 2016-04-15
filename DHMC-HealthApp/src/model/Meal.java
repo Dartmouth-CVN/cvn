@@ -7,12 +7,21 @@ public class Meal {
 	private boolean dislike;
 	private String notes;
 	private int mealID;
+	
 	public Meal(String name, int calories, boolean like, boolean dislike, String notes){
 		this.name = name;
 		this.calories = calories;
 		this.like = like;
 		this.dislike = dislike;
 		this.notes = notes;
+	}
+	
+	public Meal() {
+		this.name = "New Meal";
+		this.calories = 0;
+		this.like = false;
+		this.dislike = false;
+		this.notes = "";
 	}
 
 	public boolean didLike(){

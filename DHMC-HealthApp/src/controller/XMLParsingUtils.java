@@ -108,7 +108,7 @@ public class XMLParsingUtils {
 	private static String XMLList(String tag, String subtag, Iterable<String> content) {
 		String inner = "";
 		for (String c : content)
-			inner += XMLLine(subtag, c);
+			inner += XMLLine(subtag, c) +"<br>";
 		return XMLLine(tag, inner, true);
 	}
 

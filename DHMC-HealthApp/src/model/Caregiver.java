@@ -19,6 +19,14 @@ public class Caregiver {
 		
 	}
 	
+	public Caregiver() {
+		this.name = "New Caregiver";
+		this.birthday = LocalDate.now();
+		this.relation = "";
+		this.contactInfo = new Contact();
+		this.isFamily = true;
+	}
+	
 	public String getRelation() {
 		return relation;
 	}
