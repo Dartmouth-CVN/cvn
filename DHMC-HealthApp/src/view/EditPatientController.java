@@ -3,6 +3,8 @@ package view;
 import java.io.File;
 import java.util.LinkedList;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
@@ -57,7 +59,7 @@ public class EditPatientController {
 	}
 	
 	public void update() {
-		mainApp.getDatabaseHandler().updatePatient(p);
+		MainApp.getDatabaseHandler().updatePatient(p);
 	}
 	
 	// Functions and attributes to communicate with EditPatient.fxml
@@ -95,11 +97,11 @@ public class EditPatientController {
 	
 	
 	@FXML private void initialize() {
+		System.out.println("Initializing EditPatient View");
 		TextField temp;
 		int i;
 		LinkedList<String> phoneNums = p.getContactInfo().getPhone();
 		LinkedList<String> emails = p.getContactInfo().getEmail();
-		
 		firstName.setText(p.getFirstName());
 		lastName.setText(p.getLastName());
 		patientBirthday.setValue(p.getBirthday());
@@ -127,6 +129,15 @@ public class EditPatientController {
 		familyRels.setCellValueFactory(new PropertyValueFactory<Caregiver, String>("relation"));
 		familyTable.setItems(FXCollections.observableArrayList(p.getPreferences().getCaregiver()));
 		
+		familyTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Caregiver>(){
+
+			@Override
+			public void changed(ObservableValue<? extends Caregiver> observable, Caregiver oldValue,
+					Caregiver newValue) {
+				switchFamilyMember(oldValue, newValue);
+			}
+		});
+		
 		petNames.setCellValueFactory(new PropertyValueFactory<Pet, String>("name"));
 		petSpecies.setCellValueFactory(new PropertyValueFactory<Pet, String>("species"));
 		petAllergyFriendly.setCellValueFactory(new PropertyValueFactory<Pet, Boolean>("allergyFriendly"));
@@ -138,6 +149,15 @@ public class EditPatientController {
 		mealDisliked.setCellValueFactory(new PropertyValueFactory<Meal, Boolean>("dislike"));
 		mealNotesCol.setCellValueFactory(new PropertyValueFactory<Meal, String>("notes"));
 		mealTable.setItems(FXCollections.observableArrayList(p.getPreferences().getMenu()));
+		
+		mealTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Meal>(){
+
+			@Override
+			public void changed(ObservableValue<? extends Meal> observable, Meal oldValue,
+					Meal newValue) {
+				switchMeal(oldValue, newValue);
+			}
+		});
 	}
 	
 	@FXML private void addPatientPhone() {
@@ -197,27 +217,39 @@ public class EditPatientController {
 	}
 	
 	@FXML private void addFamilyMember() {
-		// Add new family member to patient table
+		familyTable.getItems().add(new Caregiver());
 	}
 	
 	@FXML private void removeFamilyMember() {
-		// Remove selected family member from table
+		int selectionIndex = familyTable.getSelectionModel().getSelectedIndex();
+		
+		if (selectionIndex >= 0) {
+			familyTable.getItems().remove(selectionIndex);
+		}
 	}
 	
 	@FXML private void addPet() {
-		// Add new pet to table
+		petTable.getItems().add(new Pet());
 	}
 	
 	@FXML private void removePet() {
-		// Remove selected pet from table
+		int selectionIndex = petTable.getSelectionModel().getSelectedIndex();
+		
+		if (selectionIndex >= 0) {
+			petTable.getItems().remove(selectionIndex);
+		}
 	}
 	
 	@FXML private void addMeal() {
-		// Add new meal to table
+		mealTable.getItems().add(new Meal());
 	}
 	
 	@FXML private void removeMeal() {
-		// Remove selected meal from table
+		int selectionIndex = mealTable.getSelectionModel().getSelectedIndex();
+		
+		if (selectionIndex >= 0) {
+			mealTable.getItems().remove(selectionIndex);
+		}
 	}
 	
 	@FXML private void likeMeal() {
@@ -235,12 +267,12 @@ public class EditPatientController {
 		mealLikeButton.setSelected(false);
 	}
 	
-	@FXML private void switchFamilyMember() {
+	private void switchFamilyMember(Caregiver oldValue, Caregiver newValue) {
 		// Save previously selected family member
 		// Set fields on right of screen with info for new selected family member
 	}
 	
-	@FXML private void switchMeal() {
+	private void switchMeal(Meal oldValue, Meal newValue) {
 		// Save previously selected meal
 		// Set fields on right of screen with info for new selected meal
 	}
