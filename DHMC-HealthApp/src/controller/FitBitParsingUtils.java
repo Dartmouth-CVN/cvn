@@ -12,7 +12,7 @@ public class FitBitParsingUtils {
 		return fitBitImport(new File(str));
 	}
 
-	
+
 	/**
 	 * 
 	 * @param f: a CSV file containing fitbit data
@@ -28,12 +28,12 @@ public class FitBitParsingUtils {
 			e1.printStackTrace();
 			return null;
 		}
-		
+
 		int i = 0;
 		String state = "No State";
 		while(fileReader.hasNextLine()) {
 			String line = fileReader.nextLine();
-			
+
 			if(!hasData(line)) {
 				continue;
 			} 
@@ -56,40 +56,47 @@ public class FitBitParsingUtils {
 				continue;
 			} 
 			String [] info = CSVParsingUtils.splitSepValuesLineAndRemoveCommasFromVal(line, ",");
-			
+
 			switch(state) {
-				case "Body":    	HealthInfo hi = new HealthInfo();
-									hi.setDate(info[0]);
-									hi.setWeight(Double.parseDouble(info[1]));
-									hi.setBmi(Double.parseDouble(info[2]));
-									hi.setFat(Double.parseDouble(info[3]));
-									output.add(hi);
-									break;
-									
-				case "Activities":  output.get(i).setCaloriesBurned(Double.parseDouble(info[1].replace(",", "")));   
-				 					output.get(i).setSteps(Double.parseDouble(info[2].replace(",", "")));            
-				 					output.get(i).setDistance(Double.parseDouble(info[3]));
-				 					output.get(i).setFloors(Double.parseDouble(info[4]));
-				 					output.get(i).setMinSedentary(Double.parseDouble(info[5]));
-				 					output.get(i).setMinLightlyActive(Double.parseDouble(info[6]));
-				 					output.get(i).setMinFairlyActive(Double.parseDouble(info[7]));
-				 					output.get(i).setMinVeryActive(Double.parseDouble(info[8]));
-				 					output.get(i).setActivityCalories(Double.parseDouble(info[9].replace(",", ""))); 
-				 					i++;
-				 					break;
-				 					
-				case "Sleep": 		output.get(i).setMinAsleep(Double.parseDouble(info[1]));
-									output.get(i).setMinAwake(Double.parseDouble(info[2]));
-									output.get(i).setNumAwakenings(Double.parseDouble(info[3]));
-									output.get(i).setTimeInBed(Double.parseDouble(info[4]));
-									i++;
-									break;
+			case "Body":    	
+				HealthInfo hi = new HealthInfo();
+				System.out.println("Importing Body Info");
+				hi.setDate(info[0]);
+				hi.setWeight(Double.parseDouble(info[1]));
+				hi.setBmi(Double.parseDouble(info[2]));
+				hi.setFat(Double.parseDouble(info[3]));
+				output.add(hi);
+				break;
+
+			case "Activities":  
+				System.out.println("Importing Activity Info");
+				output.get(i).setCaloriesBurned(Double.parseDouble(info[1].replace(",", "")));   
+				output.get(i).setSteps(Double.parseDouble(info[2].replace(",", "")));            
+				output.get(i).setDistance(Double.parseDouble(info[3]));
+				output.get(i).setFloors(Double.parseDouble(info[4]));
+				output.get(i).setMinSedentary(Double.parseDouble(info[5]));
+				output.get(i).setMinLightlyActive(Double.parseDouble(info[6]));
+				output.get(i).setMinFairlyActive(Double.parseDouble(info[7]));
+				output.get(i).setMinVeryActive(Double.parseDouble(info[8]));
+				output.get(i).setActivityCalories(Double.parseDouble(info[9].replace(",", ""))); 
+				i++;
+				break;
+
+			case "Sleep": 	
+				System.out.println("Importing Sleep Info");	
+				output.get(i).setMinAsleep(Double.parseDouble(info[1]));
+				output.get(i).setMinAwake(Double.parseDouble(info[2]));
+				output.get(i).setNumAwakenings(Double.parseDouble(info[3]));
+				output.get(i).setTimeInBed(Double.parseDouble(info[4]));
+				i++;
+				break;
 			}
 		}
 		fileReader.close();
+		System.out.println("FitBit Import Complete!");
 		return output;
 	}
-	
+
 	/**
 	 * This function will check to see if a given string contains any nonwhitespace or noncomma characters
 	 * 
