@@ -42,11 +42,8 @@ public class Patient extends User {
 		this.assignedStaff = new LinkedList<MedicalStaff>();
 		this.preferences = new PatientProfile();
 		this.patientID = 0;
-<<<<<<< HEAD
 		newPatient = true;
-=======
 		this.healthInfo = new LinkedList<HealthInfo>();
->>>>>>> 5d4f7deac9f0db043648c01ff596b4740a92ed78
 		initObservers();
 	}
 	
