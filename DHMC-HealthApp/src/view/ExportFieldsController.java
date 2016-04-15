@@ -1,15 +1,10 @@
 package view;
 
-<<<<<<< HEAD
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 
-=======
->>>>>>> e94c7b2ee15a039eea24f6d26f5e4df568392b89
 import controller.CSVParsingUtils;
+import controller.XMLParsingUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -304,14 +299,19 @@ public class ExportFieldsController {
 		for(int i = 0; i < fields.length; i++){
 			fields[i] = fieldCheck.get(i);
 		}
-		
-
+		String name = "Exported" + LocalTime.now(); 
 		if (CSVRadioButton.isSelected()) {
-			 CSVParsingUtils.CSVExport("Exported" + LocalTime.now() + ".csv", MainApp.getDatabaseHandler().getPatientList(), fields);
+			 CSVParsingUtils.CSVExport(name + ".csv", MainApp.getDatabaseHandler().getPatientList(), fields);
 			 MainApp.showAlert("Export CSV done");
-		} else {
-			 CSVParsingUtils.TSVExport("Exported" + LocalTime.now() + ".csv", MainApp.getDatabaseHandler().getPatientList(), fields);
+		} else if(TSVRadioButton.isSelected())  {
+			 CSVParsingUtils.TSVExport(name + ".tsv", MainApp.getDatabaseHandler().getPatientList(), fields);
 			 MainApp.showAlert("Export TSV done");
+		}else if(XMLRadioButton.isSelected())  {
+			XMLParsingUtils.writePatientsToXML(name + ".xml", MainApp.getDatabaseHandler().getPatientList());
+			 MainApp.showAlert("Export XML done");
+		}else if(HTMLRadioButton.isSelected())  {
+			XMLParsingUtils.writePatientsToHTML(name + ".html", MainApp.getDatabaseHandler().getPatientList());
+			 MainApp.showAlert("Export HTML done");
 		}
 	}
 	

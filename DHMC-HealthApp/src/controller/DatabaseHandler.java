@@ -84,7 +84,7 @@ public class DatabaseHandler {
 	}
 
 	public void populateDatabase() {
-//		addUsers(200);
+		addUsers(200);
 		// addAdministrators();
 		// addPatients();
 		// addMedicalStaff();
@@ -482,7 +482,7 @@ public class DatabaseHandler {
 		success = false;
 		try {
 			if (connect()) {
-				ps = connection.prepareStatement(" SELECT * FROM patient NATURAL JOIN user_account WHERE user_id = ?");
+				ps = connection.prepareStatement(" SELECT * FROM user_account WHERE user_id = ?");
 				ps.setString(1, userID);
 				rs = ps.executeQuery();
 				if (rs.next()) {
@@ -490,7 +490,7 @@ public class DatabaseHandler {
 					baip = new ByteArrayInputStream(blob.getBytes(1L, (int) blob.length()));
 					ois = new ObjectInputStream(baip);
 					Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
-							rs.getString("user_id"), rs.getInt("patient_id"), (Contact) ois.readObject());
+							rs.getString("user_id"), 0, (Contact) ois.readObject());
 					connection.close();
 					System.out.println(patient.getContactInfo().getPrimaryEmail());
 					return patient;
@@ -549,11 +549,11 @@ public class DatabaseHandler {
 		LinkedList<Patient> patientList = new LinkedList<Patient>();
 		try {
 			if (connect()) {
-				ps = connection.prepareStatement("SELECT * FROM patient Natural Join user_account");
+				ps = connection.prepareStatement("SELECT * FROM user_account");
 				rs = ps.executeQuery();
 				while (rs.next()) {
 					Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
-							rs.getString("user_id"), rs.getInt("patient_id"));
+							rs.getString("user_id"), 0);
 					patientList.add(patient);
 				}
 
@@ -813,7 +813,6 @@ public class DatabaseHandler {
 
 				ps.setString(1, firstName);
 				ps.setString(2, lastName);
-				System.out.println(contactInfo.getPrimaryAddress());
 				ps.setBinaryStream(3, objectToBlob(contactInfo));
 				ps.setString(4, userID);
 
