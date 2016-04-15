@@ -257,7 +257,7 @@ public class DatabaseHandler {
 		try {
 			ps = connection.prepareStatement("CREATE TABLE caregiver("
 					+ "caregiver_id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-					+ "patient_id INT, name VARCHAR(20), birthday DATE isFamily? BOOLEAN, relation VARCHAR(10),"
+					+ "patient_id INT, name VARCHAR(20), birthday DATE isFamily? BOOLEAN, relation VARCHAR(10), contact_info BLOB (10M) "
 					+ "FOREIGN KEY(patient_id) REFERENCES patient(patient_id)," + "Primary Key(caregiver_id) )");
 			ps.execute();
 			success = true;
