@@ -30,6 +30,7 @@ public class Patient extends User {
 		super(firstName, lastName, userID, contactInfo);
 		this.assignedStaff = new LinkedList<MedicalStaff>();
 		this.preferences = new PatientProfile();
+		this.healthInfo = new LinkedList<HealthInfo>();
 		// this.medication = new LinkedList<Medication>();
 		this.patientID = patientID;
 		initObservers();
@@ -40,6 +41,7 @@ public class Patient extends User {
 		this.assignedStaff = new LinkedList<MedicalStaff>();
 		this.preferences = new PatientProfile();
 		this.patientID = 0;
+		this.healthInfo = new LinkedList<HealthInfo>();
 		initObservers();
 	}
 	
