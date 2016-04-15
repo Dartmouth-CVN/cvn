@@ -116,7 +116,7 @@ public class HealthInfo {
 	public void setMinFairlyActive(double minFairlyActive) {
 		this.minFairlyActive = minFairlyActive;
 	}
-	public double getMinVeryACtive() {
+	public double getMinVeryActive() {
 		return minVeryActive;
 	}
 	public void setMinVeryActive(double minVeryActive) {

@@ -13,7 +13,7 @@ public class XMLTest {
 		boolean[] test = {false};
 		CSVParsingUtils.CSVExport("exported420.csv", pts, test);
 		
-		System.out.println(XMLParsingUtils.writePatientsToHTML("null", pts));
+		System.out.println(XMLParsingUtils.writePatientsToHTML("patients.html", pts));
 
 	}
 

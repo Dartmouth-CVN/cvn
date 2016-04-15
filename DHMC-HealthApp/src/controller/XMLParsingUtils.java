@@ -27,9 +27,11 @@ public class XMLParsingUtils {
 					XMLLine("firstname", p.getFirstName()) + XMLLine("lastname", p.getLastName())
 							+ XMLLine("id", p.getUserID()) + XMLLine("patient_id", String.valueOf(p.getPatientID()))
 							+ XMLList("assigned_staff", "staff", XMLParseMedStaff(p.getAssignedStaff()))
-							+ XMLLine("contact-info", XMLList("address-list", "address", p.getContactInfo().getAddress())
-									+XMLList("phone-number-list", "phone-number", p.getContactInfo().getPhone())
-									+XMLList("email-list","email",p.getContactInfo().getEmail())),
+							+ XMLLine("contact-info",
+									XMLList("address-list", "address", p.getContactInfo().getAddress())
+											+ XMLList("phone-number-list", "phone-number",
+													p.getContactInfo().getPhone())
+											+ XMLList("email-list", "email", p.getContactInfo().getEmail())),
 					true);
 
 		}
@@ -76,13 +78,15 @@ public class XMLParsingUtils {
 	 * @return the XMLified String
 	 */
 	private static String XMLLine(String tag, String content, boolean major) {
-		String output = "<" + tag + ">";
+		String output = (tag != null) ? "<" + tag + ">" : "";
 		if (major)
 			output += "\n\n";
 		output += content;
 		if (major)
 			output += "\n";
-		if (tag.split(" ").length > 1)
+		if (tag == null)
+			output += "\n";
+		else if (tag.split(" ").length > 1)
 			output += "</" + tag.split(" ")[0] + ">\n";
 		else
 			output += "</" + tag + ">\n";
@@ -167,9 +171,13 @@ public class XMLParsingUtils {
 		for (Patient p : pts) {
 
 			body += XMLLine("h2", p.getFirstName() + " " + p.getLastName())
-					+ XMLLine("h3", p.getUserID() + " : " + String.valueOf(p.getPatientID())) + "<hr>\n"
-					+ XMLLine("p", "Assigned Personnel:") + XMLList("div", "p", XMLParseMedStaff(p.getAssignedStaff()))
-					+ "<hr class=\"end\">\n";
+					//+ XMLLine("h3", p.getUserID() + " : " + String.valueOf(p.getPatientID()))
+					+ XMLLine("h3", "Contact Info:") 
+					+ XMLList(null,"div",p.getContactInfo().getEmail()) + "<br>"
+					+ XMLList(null,"div",p.getContactInfo().getAddress()) + "<br>"
+					+ XMLList(null,"div",p.getContactInfo().getPhone()) + "<br>"
+					+"<hr>\n" + XMLLine("h3", "Assigned Personnel:")
+					+ XMLList("div", "p", XMLParseMedStaff(p.getAssignedStaff())) + "<hr class=\"end\">\n";
 			/*
 			 * +XMLLine("p","Perscribed Meds:\n") + XMLList("div", "p", //
 			 * XMLParseMedication(p.getMedication())) + "<hr>"; output +=
