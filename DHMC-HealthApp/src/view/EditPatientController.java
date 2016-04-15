@@ -46,6 +46,10 @@ public class EditPatientController {
 	public void setMainApp(MainApp app) {
 		this.mainApp = app;
 	}
+	
+	public Patient getPatient() {
+		return this.p;
+	}
 
 	public void setPatient(Patient p) {
 		this.p = p;
@@ -67,7 +71,7 @@ public class EditPatientController {
 
 	@FXML
 	TextField firstName;
-	@FXML
+	@FXML 
 	TextField lastName;
 	@FXML
 	TextArea patientAddress;
@@ -342,8 +346,16 @@ public class EditPatientController {
 
 	@FXML
 	private void save() {
+		saveInfo();
+	}
+	
+	public void saveNames() {
 		p.setFirstName(firstName.getText());
 		p.setLastName(lastName.getText());
+	}
+	
+	public void saveInfo() {
+		saveNames();
 		p.setBirthday(patientBirthday.getValue());
 		p.getContactInfo().makePrimaryAddress(patientAddress.getText());
 
