@@ -1,7 +1,9 @@
 package view;
 
+import java.io.File;
 import java.util.LinkedList;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
@@ -9,8 +11,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import model.Caregiver;
+import model.HealthInfo;
 import model.MainApp;
 import model.Meal;
 import model.Patient;
@@ -22,6 +27,8 @@ public class EditPatientController {
 	
 	private Patient p;
 	MainApp mainApp;
+	private File curCSV;
+	private LinkedList<HealthInfo> info;
 	
 	public EditPatientController(Patient p) {
 		this.p = p;
@@ -37,6 +44,16 @@ public class EditPatientController {
 	
 	public void setPatient (Patient p) {
 		this.p = p;
+	}
+	
+	@FXML public void importFitBitCSV() {
+		FileChooser fc = new FileChooser();
+		fc.setTitle("Select FitBit CSV to import");
+		curCSV = fc.showOpenDialog(null);
+		if (curCSV != null && curCSV.exists()) {
+			info = controller.FitBitParsingUtils.fitBitImport(curCSV);
+			p.addHealthInfoList(info);
+		}
 	}
 	
 	public void update() {
@@ -70,11 +87,11 @@ public class EditPatientController {
 	@FXML TableColumn<Meal, String> mealNames;
 	@FXML TableColumn<Meal, Integer> mealCals;
 	@FXML TableColumn<Meal, Boolean> mealLiked;
-	@FXML TableColumn<Meal, Boolean> mealDiskliked;
+	@FXML TableColumn<Meal, Boolean> mealDisliked;
 	@FXML TableColumn<Meal, String> mealNotesCol;
 	@FXML RadioButton mealLikeButton;
 	@FXML RadioButton mealDislikeButton;
-	@FXML RadioButton mealNeutralButton;
+	@FXML RadioButton mealNeutralButton;;
 	
 	
 	@FXML private void initialize() {
@@ -102,7 +119,25 @@ public class EditPatientController {
 			}
 			temp = (TextField) patientEmail.getChildren().get(i);
 			temp.setText(emails.get(i));
+			
+			
 		}
+		//Readying the tables
+		familyNames.setCellValueFactory(new PropertyValueFactory<Caregiver, String>("name"));
+		familyRels.setCellValueFactory(new PropertyValueFactory<Caregiver, String>("relation"));
+		familyTable.setItems(FXCollections.observableArrayList(p.getPreferences().getCaregiver()));
+		
+		petNames.setCellValueFactory(new PropertyValueFactory<Pet, String>("name"));
+		petSpecies.setCellValueFactory(new PropertyValueFactory<Pet, String>("species"));
+		petAllergyFriendly.setCellValueFactory(new PropertyValueFactory<Pet, Boolean>("allergyFriendly"));
+		petTable.setItems(FXCollections.observableArrayList(p.getPreferences().getPets()));
+		
+		mealNames.setCellValueFactory(new PropertyValueFactory<Meal, String>("name"));
+		mealCals.setCellValueFactory(new PropertyValueFactory<Meal, Integer>("calories"));
+		mealLiked.setCellValueFactory(new PropertyValueFactory<Meal, Boolean>("like"));
+		mealDisliked.setCellValueFactory(new PropertyValueFactory<Meal, Boolean>("dislike"));
+		mealNotesCol.setCellValueFactory(new PropertyValueFactory<Meal, String>("notes"));
+		mealTable.setItems(FXCollections.observableArrayList(p.getPreferences().getMenu()));
 	}
 	
 	@FXML private void addPatientPhone() {
@@ -162,27 +197,27 @@ public class EditPatientController {
 	}
 	
 	@FXML private void addFamilyMember() {
-		
+		// Add new family member to patient table
 	}
 	
 	@FXML private void removeFamilyMember() {
-		
+		// Remove selected family member from table
 	}
 	
 	@FXML private void addPet() {
-		
+		// Add new pet to table
 	}
 	
 	@FXML private void removePet() {
-		
+		// Remove selected pet from table
 	}
 	
 	@FXML private void addMeal() {
-		
+		// Add new meal to table
 	}
 	
 	@FXML private void removeMeal() {
-		
+		// Remove selected meal from table
 	}
 	
 	@FXML private void likeMeal() {
@@ -201,11 +236,13 @@ public class EditPatientController {
 	}
 	
 	@FXML private void switchFamilyMember() {
-		
+		// Save previously selected family member
+		// Set fields on right of screen with info for new selected family member
 	}
 	
 	@FXML private void switchMeal() {
-		
+		// Save previously selected meal
+		// Set fields on right of screen with info for new selected meal
 	}
 	
 	@FXML private void save() {
@@ -259,6 +296,10 @@ public class EditPatientController {
 				p.getContactInfo().removeEmail(text);
 			}
 		}
+		
+		// Save family information
+		// Save pet information
+		// Save meal information
 		
 		update();
 	}

@@ -8,7 +8,6 @@
 	-fx-background-color: #1A3B61;
 	-fx-text-fill: #FFFFFF;
 	-fx-cursor: hand;
-	-fx-transition: all .5s;
 }
 
 .button:hover{

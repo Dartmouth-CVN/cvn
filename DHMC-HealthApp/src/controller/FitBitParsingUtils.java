@@ -12,6 +12,12 @@ public class FitBitParsingUtils {
 		return fitBitImport(new File(str));
 	}
 
+	
+	/**
+	 * 
+	 * @param f: a CSV file containing fitbit data
+	 * @return a LinkedList of HealthInfo that contains all of the FitBit data
+	 */
 	public static LinkedList<HealthInfo> fitBitImport(File f) {
 		LinkedList<HealthInfo> output = new LinkedList<HealthInfo>();
 		Scanner fileReader;
@@ -81,6 +87,13 @@ public class FitBitParsingUtils {
 		return output;
 	}
 	
+	/**
+	 * This function will check to see if a given string contains any nonwhitespace or noncomma characters
+	 * 
+	 * 
+	 * @param s: the string to check
+	 * @return a boolean that will be true if any valid characters are detected
+	 */
 	static boolean hasData(String s) {
 		int counter = 0;
 		for(int i = 0; i < s.length(); i++) {

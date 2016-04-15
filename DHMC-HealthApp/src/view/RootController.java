@@ -33,7 +33,7 @@ public class RootController {
 		curCSV = fc.showOpenDialog(null);
 		if (curCSV != null && curCSV.exists()) {
 			pts = controller.CSVParsingUtils.CSVImport(curCSV);
-			mainApp.getDatabaseHandler().insertPatients(pts);
+			MainApp.getDatabaseHandler().insertPatients(pts);
 		}
 	}
 
@@ -43,7 +43,7 @@ public class RootController {
 		curTSV = fc.showOpenDialog(null);
 		if (curTSV != null && curTSV.exists()) {
 			pts = controller.CSVParsingUtils.TSVImport(curTSV);
-			mainApp.getDatabaseHandler().insertPatients(pts);
+			MainApp.getDatabaseHandler().insertPatients(pts);
 		}
 	}
 

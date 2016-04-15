@@ -1,8 +1,6 @@
 package model;
-import java.time.LocalDate;
 import java.util.LinkedList;
 
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 
 public class Patient extends User {
@@ -127,16 +125,13 @@ public class Patient extends User {
 	}
 	
 	public void addHealthInfoList(LinkedList<HealthInfo> info) {
-		this.healthInfo.addAll(info);
+		for(int i = 0; i < info.size(); i++) {
+			for(int j = 0; j< healthInfo.size(); j++) {
+				if(info.get(i).equals(healthInfo.get(j))) {
+					info.remove(i);
+				}
+			}
+			healthInfo.add(info.get(i));
+		}
 	}
-	
-//	private void deleteDuplicateFitBitInfo() {
-//		HealthInfo temp = new HealthInfo();
-//		healthInfo.sort(HealthInfo.date.equals());
-//		for(int i = 0; i < healthInfo.size(); i++) {
-//			for(int j = 0; i < healthInfo.size(); i++) {
-//				
-//			}
-//		}
-//	}
 }
