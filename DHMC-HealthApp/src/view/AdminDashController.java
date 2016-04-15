@@ -23,7 +23,7 @@ public class AdminDashController {
 
 	@FXML
 	private Tab searchTab = new Tab();
-	
+
 	@FXML
 	private Tab exportTab = new Tab();
 
@@ -144,7 +144,7 @@ public class AdminDashController {
 			MainApp.printError(e);
 		}
 	}
-	
+
 	/**
 	 * Loads and sets the contents of the export tab.
 	 */
@@ -162,15 +162,11 @@ public class AdminDashController {
 		}
 	}
 
-
 	/**
 	 * Loads and sets content of the add patient tab.
 	 */
 	@FXML
 	private void loadAddPatientTab() {
-		if (editPatient != null)
-			editPatient = null;
-
 		getAddPatientTab();
 	}
 
@@ -178,39 +174,39 @@ public class AdminDashController {
 		addPatientTab.setContent(getEditPatientTab(new Patient()));
 		tabPane.getSelectionModel().select(addPatientTab);
 	}
+	
+	public void showEditPatientTab(Patient p) {
+		editPatientTab.setContent(getEditPatientTab(p));
+		tabPane.getSelectionModel().select(editPatientTab);
+	}
 
 	private FXMLLoader getEditPatientLoader() {
 		editPatientLoader = null;
-			editPatientLoader = new FXMLLoader();
-			editPatientLoader.setLocation(MainApp.class.getResource("../view/EditPatient.fxml"));
-			try {
-				editPatient = (AnchorPane) editPatientLoader.load();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return editPatientLoader;
+		editPatientLoader = new FXMLLoader();
+		editPatientLoader.setLocation(MainApp.class.getResource("../view/EditPatient.fxml"));
+		try {
+			editPatient = (AnchorPane) editPatientLoader.load();
+		} catch (IOException e) {
+			MainApp.printError(e);
+		}
+		return editPatientLoader;
 	}
 
 	public AnchorPane getEditPatientTab(Patient p) {
 		try {
 			loadEditPatient(p);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MainApp.printError(e);
 		}
-		editPatientTab.setContent(editPatient);
-		tabPane.getSelectionModel().select(editPatientTab);
 		return editPatient;
 	}
 
-	private void loadEditPatient(Patient patient) throws IOException {
+	public void loadEditPatient(Patient patient) throws IOException {
 		editPatientLoader = getEditPatientLoader();
 		EditPatientController controller = editPatientLoader.getController();
 		controller.setMainApp(mainApp);
 		controller.setPatient(patient);
 		controller.loadFields();
-
 	}
 
 	/**

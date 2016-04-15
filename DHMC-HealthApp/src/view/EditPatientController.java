@@ -59,6 +59,7 @@ public class EditPatientController {
 		if (curCSV != null && curCSV.exists()) {
 			info = controller.FitBitParsingUtils.fitBitImport(curCSV);
 			p.addHealthInfoList(info);
+			MainApp.showAlert("FitBit import successful!");
 		}
 	}
 
@@ -355,12 +356,8 @@ public class EditPatientController {
 		p.getContactInfo().makePrimaryAddress(patientAddress.getText());
 
 		if ( (p.getNewPatient() && p.save()) || (!p.getNewPatient() && p.update())) {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("General Information");
-			alert.setHeaderText("Info");
-			alert.setContentText("Update successful!");
-
-			alert.showAndWait();
+			MainApp.showAlert("Update successful!");
 		}
 	}
+	
 }

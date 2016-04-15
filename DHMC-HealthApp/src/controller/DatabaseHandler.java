@@ -545,7 +545,7 @@ public class DatabaseHandler {
 		return patientList;
 	}
 
-	public LinkedList<Patient> getPTS() {
+	public LinkedList<Patient> getPatientList() {
 		LinkedList<Patient> patientList = new LinkedList<Patient>();
 		try {
 			if (connect()) {

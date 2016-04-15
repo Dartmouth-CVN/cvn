@@ -1,10 +1,14 @@
 package view;
 
+import java.util.LinkedList;
+
+import controller.CSVParsingUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import model.MainApp;
+import model.Patient;
 
 public class ExportFieldsController {
 
@@ -143,9 +147,11 @@ public class ExportFieldsController {
 		fields[11] = false;
 
 		if (personalCSVRadioButton.isSelected()) {
-//			CSVExport("Exported", DatabaseHandler.getUniqueInstance().searchPatient(), fields);
+			// CSVExport("Exported",
+			// DatabaseHandler.getUniqueInstance().searchPatient(), fields);
 		} else {
-//			TSVExport("Exported", DatabaseHandler.getUniqueInstance().searchPatient(), fields);
+			// TSVExport("Exported",
+			// DatabaseHandler.getUniqueInstance().searchPatient(), fields);
 		}
 
 	}
@@ -181,15 +187,11 @@ public class ExportFieldsController {
 		fields[19] = bedTimeCheckBox.isSelected();
 
 		if (personalCSVRadioButton.isSelected()) {
-
-			// CSVExport("Exported",
-			// DatabaseHandler.getUniqueInstance().searchPatient(), fields);
-
+			 CSVParsingUtils.CSVExport("Exported", MainApp.getDatabaseHandler().getPatientList(), fields);
+			 MainApp.showAlert("CSV export completed");
 		} else {
-
-			// TSVExport("Exported",
-			// DatabaseHandler.getUniqueInstance().searchPatient(), fields);
-
+			CSVParsingUtils.TSVExport("Exported", MainApp.getDatabaseHandler().getPatientList(), fields);
+			 MainApp.showAlert("TSV export completed");
 		}
 	}
 
@@ -217,11 +219,13 @@ public class ExportFieldsController {
 
 		if (personalCSVRadioButton.isSelected()) {
 
-//			CSVExport("Exported", DatabaseHandler.getUniqueInstance().searchPatient(), fields);
+			// CSVExport("Exported",
+			// DatabaseHandler.getUniqueInstance().searchPatient(), fields);
 
 		} else {
 
-//			TSVExport("Exported", DatabaseHandler.getUniqueInstance().searchPatient(), fields);
+			// TSVExport("Exported",
+			// DatabaseHandler.getUniqueInstance().searchPatient(), fields);
 
 		}
 	}

@@ -7,6 +7,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
@@ -107,7 +109,7 @@ public class MainApp extends Application {
 	}
 	
 	public void showEditProfile(Patient patient){
-		dashController.getEditPatientTab(patient);
+		dashController.showEditPatientTab(patient);
 	}
 	
 	public void showAddPatient(){
@@ -119,6 +121,15 @@ public class MainApp extends Application {
 
 	public static void printError(Exception e) {
 		System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
+	}
+	
+	public static void showAlert(String message){
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("General Information");
+		alert.setHeaderText("Info");
+		alert.setContentText(message);
+
+		alert.showAndWait();
 	}
 	
 	
