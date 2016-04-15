@@ -84,7 +84,7 @@ public class DatabaseHandler {
 	}
 
 	public void populateDatabase() {
-		addUsers(200);
+//		addUsers(200);
 		// addAdministrators();
 		// addPatients();
 		// addMedicalStaff();
@@ -94,7 +94,7 @@ public class DatabaseHandler {
 		while (number-- > 0) {
 			String firstname = getRandomFirstName();
 			String lastname = getRandomLastName();
-			String userID = getUserID(firstname, lastname, "Patient");
+			String userID = generateUserID(firstname, lastname, "Patient");
 			LinkedList<String> numbers = new LinkedList<String>();
 			for (int i = 0; i < 3; i++)
 				numbers.add(getRandomPhoneNumber());
@@ -165,7 +165,7 @@ public class DatabaseHandler {
 			ds.setCreateDatabase("create");
 			connection = ds.getConnection();
 			if (connection != null) {
-				System.out.println("Connected to database");
+//				System.out.println("Connected to database");
 				metaData = connection.getMetaData();
 				connected = true;
 			}
@@ -512,7 +512,6 @@ public class DatabaseHandler {
 //				ps.setString(2, name);
 				rs = ps.executeQuery();
 				while (rs.next()) {
-					System.out.println("chad again");
 					Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
 							rs.getString("user_id"), rs.getInt("patient_id"));
 					patientList.add(patient);
@@ -530,11 +529,11 @@ public class DatabaseHandler {
 		ObservableList<IDisplayable> patientList = FXCollections.observableArrayList();
 		try {
 			if (connect()) {
-				ps = connection.prepareStatement("SELECT * FROM patient Natural Join user_account");
+				ps = connection.prepareStatement("SELECT * FROM user_account");
 				rs = ps.executeQuery();
 				while (rs.next()) {
 					Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
-							rs.getString("user_id"), rs.getInt("patient_id"));
+							rs.getString("user_id"), 0);
 					patientList.add(patient);
 				}
 
@@ -677,9 +676,12 @@ public class DatabaseHandler {
 	public boolean insertPatient(Patient p) {
 		success = false;
 		try {
+			if(p.getUserID().equals(""))
+				p.setUseriID(generateUserID(p.getFirstName(), p.getLastName(), "Patient"));
+			System.out.println(p.getUserID());
+			
 			if (insertUser(p.getUserID(), p.getFirstName(), p.getLastName(), p.getContactInfo()) && connect()) {
 				ps = connection.prepareStatement("INSERT INTO patient (user_id) VALUES (?)");
-
 				ps.setString(1, p.getUserID());
 				ps.executeUpdate();
 				ps.close();
@@ -1091,9 +1093,9 @@ public class DatabaseHandler {
 		return -1;
 	}
 
-	public String getUserID(String firstname, String lastname, String type) {
+	public String generateUserID(String firstname, String lastname, String type) {
 		int position = getUserIDHelper(firstname, lastname);
-		int code = (firstname.hashCode() + position) + (lastname.hashCode() + position);
+		int code = Math.abs((firstname.hashCode() + position) + (lastname.hashCode() + position));
 		switch (type) {
 		case "Patient":
 			return "P" + code;

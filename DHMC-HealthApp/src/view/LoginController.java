@@ -27,18 +27,19 @@ public class LoginController {
 	}
 
 	public void handleLogin() {
-		String uname = username.getText();
-		String pass = password.getText();
+		mainApp.initRootLayout();
+//		String uname = username.getText();
+//		String pass = password.getText();
 
-		if (uname.equals("") || pass.equals(""))
-			System.out.println("Must enter username and password");
-		else {
-			String user = MainApp.getDatabaseHandler().login(uname, pass);
-
-			if (user != null) {
-				mainApp.initRootLayout();
-			} else
-				System.out.println("login failure");
-		}
+//		if (uname.equals("") || pass.equals(""))
+//			System.out.println("Must enter username and password");
+//		else {
+//			String user = MainApp.getDatabaseHandler().login(uname, pass);
+//
+//			if (user != null) {
+//				mainApp.initRootLayout();
+//			} else
+//				System.out.println("login failure");
+//		}
 	}
 }

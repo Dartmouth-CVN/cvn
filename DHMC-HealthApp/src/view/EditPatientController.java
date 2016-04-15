@@ -361,15 +361,12 @@ public class EditPatientController {
 		for (DisplayString phoneNumber : patientPhones)
 			p.getContactInfo().addPhone(phoneNumber.getString());
 
-		// convoluted way of making the first item in the list the primary
-		p.getContactInfo().makePrimaryPhone(p.getContactInfo().getPhone().getFirst());
-
 		for (DisplayString email : patientEmails)
 			p.getContactInfo().addEmail(email.getString());
 		
 		p.getContactInfo().makePrimaryAddress(patientAddress.getText());
 
-		if (p.update()) {
+		if ( (p.getNewPatient() && p.save()) || (!p.getNewPatient() && p.update())) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("General Information");
 			alert.setHeaderText("Info");

@@ -11,6 +11,7 @@ public class Patient extends User {
 	private PatientProfile preferences;
 	// private LinkedList<Medication> medication;
 	private int patientID;
+	private boolean newPatient = false;
 
 	private StringProperty firstNameProperty;
 	private StringProperty lastNameProperty;
@@ -36,10 +37,11 @@ public class Patient extends User {
 	}
 	
 	public Patient() {
-		super("First", "Last", "", new Contact());
+		super("First Name", "Last Name", "", new Contact());
 		this.assignedStaff = new LinkedList<MedicalStaff>();
 		this.preferences = new PatientProfile();
 		this.patientID = 0;
+		newPatient = true;
 		initObservers();
 	}
 	
@@ -63,6 +65,14 @@ public class Patient extends User {
 		if (this.assignedStaff.indexOf(staff) >= 0) {
 			this.assignedStaff.remove(staff);
 		}
+	}
+	
+	public void setNewPatient(boolean patient){
+		newPatient = patient;
+	}
+	
+	public boolean getNewPatient(){
+		return newPatient;
 	}
 	/*
 	public LinkedList<Caregiver> getCaregivers() {
@@ -153,5 +163,9 @@ public class Patient extends User {
 	
 	public boolean update(){
 		return MainApp.getDatabaseHandler().updatePatient(this);
+	}
+	
+	public boolean save(){
+		return MainApp.getDatabaseHandler().insertPatient(this);
 	}
 }
