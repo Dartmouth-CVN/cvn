@@ -170,7 +170,7 @@ public class AdminDashController {
 		}
 
 	}
-
+	
 
 	/**
 	 * Clicking search image opens the search tab.
