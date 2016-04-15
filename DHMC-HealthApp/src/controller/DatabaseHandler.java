@@ -487,7 +487,7 @@ public class DatabaseHandler {
 					ByteArrayInputStream baip = new ByteArrayInputStream(blob.getBytes(1, (int) blob.length()));
 					ObjectInputStream ois = new ObjectInputStream(baip);
 					Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
-							rs.getString("user_id"), rs.getInt("patient_id"), new Contact(userID) );
+							rs.getString("user_id"), rs.getInt("patient_id"), new Contact() );
 					connection.close();
 					return patient;
 				}
