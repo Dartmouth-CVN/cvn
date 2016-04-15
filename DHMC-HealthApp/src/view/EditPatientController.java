@@ -97,7 +97,6 @@ public class EditPatientController {
 	
 	
 	@FXML private void initialize() {
-		System.out.println("Initializing EditPatient View");
 		TextField temp;
 		int i;
 		LinkedList<String> phoneNums = p.getContactInfo().getPhone();
