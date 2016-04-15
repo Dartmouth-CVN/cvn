@@ -14,11 +14,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ExportFieldsController">
+<AnchorPane prefHeight="365.0" prefWidth="632.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ExportFieldsController">
    <children>
       <Pane layoutY="1.0" maxHeight="300.0" maxWidth="600.0" minHeight="300.0" minWidth="600.0" prefHeight="300.0" prefWidth="600.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
          <children>
-            <Accordion layoutY="-2.0" prefHeight="300.0" prefWidth="600.0">
+            <Accordion layoutY="-2.0" prefHeight="300.0" prefWidth="632.0">
               <panes>
                 <TitledPane animated="false" text="Personal Information">
                   <content>
@@ -64,20 +64,7 @@
                                  </children>
                               </GridPane>
                               <Button fx:id="personalClearAllButton" layoutX="524.0" layoutY="185.0" mnemonicParsing="false" onAction="#handlePersonalClearButton" text="Clear All" />
-                              <Button fx:id="personalSelectAllButton" layoutX="445.0" layoutY="185.0" mnemonicParsing="false" onAction="#handlePersonalSelectButton" text="Select All" />
-                              <Button fx:id="personalExportButton" layoutX="386.0" layoutY="185.0" mnemonicParsing="false" onAction="#handlePersonalExportButton" text="Export" />
-                              <RadioButton fx:id="personalTSVRadioButton" layoutX="312.0" layoutY="185.0" mnemonicParsing="false" text="TSV File">
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="ExportFileType2" />
-                                 </toggleGroup>
-                              </RadioButton>
-                              <RadioButton fx:id="personalCSVRadioButton" layoutX="236.0" layoutY="185.0" mnemonicParsing="false" text="CSV File">
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="ExportFileType2" />
-                                 </toggleGroup>
-                              </RadioButton>
-                              <RadioButton fx:id="personalHTMLRadioButton" layoutX="147.0" layoutY="185.0" mnemonicParsing="false" text="HTML File" toggleGroup="$ExportFileType2" />
-                              <RadioButton fx:id="personalTSVRadioButton2" layoutX="57.0" layoutY="185.0" mnemonicParsing="false" text="XML File" toggleGroup="$ExportFileType2" />
+                              <Button fx:id="personalSelectAllButton" layoutX="438.0" layoutY="185.0" mnemonicParsing="false" onAction="#handlePersonalSelectButton" text="Select All" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -142,27 +129,17 @@
                                  </children>
                               </GridPane>
                               <Button fx:id="healthClearAllButton" layoutX="524.0" layoutY="185.0" mnemonicParsing="false" onAction="#handleHealthClearButton" text="Clear All" />
-                              <Button fx:id="healthSelectAllButton" layoutX="446.0" layoutY="185.0" mnemonicParsing="false" onAction="#handleHealthSelectButton" text="Select All" />
-                              <Button fx:id="healthExportButton" layoutX="383.0" layoutY="185.0" mnemonicParsing="false" onAction="#handleHealthExportButton" text="Export" />
-                              <RadioButton fx:id="healthTSVRadioButton" layoutX="312.0" layoutY="189.0" mnemonicParsing="false" text="TSV File">
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="ExportFileType1" />
-                                 </toggleGroup>
-                              </RadioButton>
-                              <RadioButton fx:id="healthCSVRadioButton" layoutX="236.0" layoutY="189.0" mnemonicParsing="false" text="CSV File">
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="ExportFileType1" />
-                                 </toggleGroup>
-                              </RadioButton>
-                           </children></AnchorPane>
+                              <Button fx:id="healthSelectAllButton" layoutX="439.0" layoutY="185.0" mnemonicParsing="false" onAction="#handleHealthSelectButton" text="Select All" />
+                           </children>
+                        </AnchorPane>
                   </content>
                 </TitledPane>
                 <TitledPane animated="false" text="Preferences">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="preferenceClearAllButton" layoutX="524.0" layoutY="185.0" mnemonicParsing="false" onAction="#handlePreferenceClearButton" text="Clear All" />
-                              <Button fx:id="preferenceSelectAllButton" layoutX="450.0" layoutY="186.0" mnemonicParsing="false" onAction="#handlePreferenceSelectButton" text="Select All" />
+                              <Button fx:id="preferenceClearAllButton" layoutX="539.0" layoutY="185.0" mnemonicParsing="false" onAction="#handlePreferenceClearButton" text="Clear All" />
+                              <Button fx:id="preferenceSelectAllButton" layoutX="437.0" layoutY="185.0" mnemonicParsing="false" onAction="#handlePreferenceSelectButton" text="Select All" />
                               <GridPane prefHeight="128.0" prefWidth="500.0">
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="281.0" minWidth="10.0" prefWidth="145.0" />
@@ -189,20 +166,21 @@
                                     </Label>
                                  </children>
                               </GridPane>
-                              <Button fx:id="preferenceExportButton" layoutX="393.0" layoutY="185.0" mnemonicParsing="false" onAction="#handlePreferenceExportButton" text="Export" />
-                              <RadioButton fx:id="preferenceTSVRadioButton" layoutX="325.0" layoutY="187.0" mnemonicParsing="false" text="TSV File">
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="ExportFileType" />
-                                 </toggleGroup>
-                              </RadioButton>
-                              <RadioButton fx:id="preferenceCSVRadioButton" layoutX="250.0" layoutY="185.0" mnemonicParsing="false" text="CSV File" toggleGroup="$ExportFileType" />
-                              <RadioButton fx:id="preferenceHTMLRadioButton" layoutX="151.0" layoutY="185.0" mnemonicParsing="false" text="HTML File" toggleGroup="$ExportFileType" />
-                              <RadioButton fx:id="preferenceXMLRadioButton" layoutX="63.0" layoutY="185.0" mnemonicParsing="false" text="XML File" toggleGroup="$ExportFileType" />
-                           </children></AnchorPane>
+                           </children>
+                        </AnchorPane>
                   </content>
                 </TitledPane>
               </panes>
             </Accordion>
+            <Button layoutX="492.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleExport" text="Export" />
+            <RadioButton fx:id="XMLRadioButton" layoutX="53.0" layoutY="327.0" mnemonicParsing="false" text="XML File">
+               <toggleGroup>
+                  <ToggleGroup fx:id="fileType" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="HTMLRadioButton" layoutX="159.0" layoutY="327.0" mnemonicParsing="false" text="HTML File" toggleGroup="$fileType" />
+            <RadioButton fx:id="CSVRadioButton" layoutX="271.0" layoutY="327.0" mnemonicParsing="false" text="CSV File" toggleGroup="$fileType" />
+            <RadioButton fx:id="TSVRadioButton" layoutX="374.0" layoutY="327.0" mnemonicParsing="false" text="TSV File" toggleGroup="$fileType" />
          </children>
       </Pane>
    </children>

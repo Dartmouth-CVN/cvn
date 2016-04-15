@@ -1,6 +1,10 @@
 package view;
 
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 
 import controller.CSVParsingUtils;
 import javafx.fxml.FXML;
@@ -13,17 +17,13 @@ import model.Patient;
 public class ExportFieldsController {
 
 	@FXML
-	private RadioButton personalCSVRadioButton = new RadioButton();
+	private RadioButton CSVRadioButton = new RadioButton();
 	@FXML
-	private RadioButton personalTSVRadioButton = new RadioButton();
+	private RadioButton TSVRadioButton = new RadioButton();
 	@FXML
-	private RadioButton healthCSVRadioButton = new RadioButton();
+	private RadioButton XMLRadioButton = new RadioButton();
 	@FXML
-	private RadioButton healthTSVRadioButton = new RadioButton();
-	@FXML
-	private RadioButton preferenceCSVRadioButton = new RadioButton();
-	@FXML
-	private RadioButton preferenceTSVRadioButton = new RadioButton();
+	private RadioButton HTMLRadioButton = new RadioButton();
 	@FXML
 	private CheckBox firstNameCheckBox = new CheckBox();
 	@FXML
@@ -97,6 +97,8 @@ public class ExportFieldsController {
 
 	// Reference to the main application.
 	private MainApp mainApp;
+	
+	private ArrayList<Boolean> fieldCheck;
 
 	/**
 	 * The constructor. The constructor is called before the initialize()
@@ -111,7 +113,7 @@ public class ExportFieldsController {
 	 */
 	@FXML
 	private void initialize() {
-
+		fieldCheck = new ArrayList<Boolean>();
 	}
 
 	/**
@@ -128,8 +130,7 @@ public class ExportFieldsController {
 	/**
 	 * Called when the user clicks the Go button.
 	 */
-	@FXML
-	private void handlePersonalExportButton() {
+	public void handlePersonalExport() {
 
 		boolean[] fields = new boolean[12];
 
@@ -145,23 +146,15 @@ public class ExportFieldsController {
 		fields[9] = false;
 		fields[10] = false;
 		fields[11] = false;
-
-		if (personalCSVRadioButton.isSelected()) {
-			// CSVExport("Exported",
-			// DatabaseHandler.getUniqueInstance().searchPatient(), fields);
-		} else {
-			// TSVExport("Exported",
-			// DatabaseHandler.getUniqueInstance().searchPatient(), fields);
-		}
-
+		
+		for(boolean bool : fields )
+			fieldCheck.add(bool);
 	}
 
 	/**
 	 * Called when the user clicks the Go button.
 	 */
-	@FXML
-	private void handleHealthExportButton() {
-
+	public void handleHealthExport() {
 		boolean[] fields = new boolean[20];
 
 		fields[0] = true;
@@ -175,7 +168,6 @@ public class ExportFieldsController {
 		fields[8] = stepsCheckBox.isSelected();
 		fields[9] = distanceCheckBox.isSelected();
 		fields[10] = floorsCheckBox.isSelected();
-		;
 		fields[11] = sedentaryTimeCheckBox.isSelected();
 		fields[12] = lightlyActiveTimeCheckBox.isSelected();
 		fields[13] = fairlyActiveTimeCheckBox.isSelected();
@@ -186,21 +178,15 @@ public class ExportFieldsController {
 		fields[18] = timesWokenUpCheckBox.isSelected();
 		fields[19] = bedTimeCheckBox.isSelected();
 
-		if (personalCSVRadioButton.isSelected()) {
-			 CSVParsingUtils.CSVExport("Exported", MainApp.getDatabaseHandler().getPatientList(), fields);
-			 MainApp.showAlert("CSV export completed");
-		} else {
-			CSVParsingUtils.TSVExport("Exported", MainApp.getDatabaseHandler().getPatientList(), fields);
-			 MainApp.showAlert("TSV export completed");
-		}
+		for(boolean bool : fields )
+			fieldCheck.add(bool);
 	}
 
 	// Ignore this method, preference according WILL NOT BE IMPLEMENTED
 	/**
 	 * Called when the user clicks the Go button.
 	 */
-	@FXML
-	private void handlePreferenceExportButton() {
+	public void handlePreferenceExport() {
 
 		boolean[] fields = new boolean[12];
 
@@ -216,18 +202,6 @@ public class ExportFieldsController {
 		fields[9] = false;
 		fields[10] = false;
 		fields[11] = false;
-
-		if (personalCSVRadioButton.isSelected()) {
-
-			// CSVExport("Exported",
-			// DatabaseHandler.getUniqueInstance().searchPatient(), fields);
-
-		} else {
-
-			// TSVExport("Exported",
-			// DatabaseHandler.getUniqueInstance().searchPatient(), fields);
-
-		}
 	}
 
 	@FXML
@@ -318,4 +292,25 @@ public class ExportFieldsController {
 
 	}
 
+	@FXML
+	private void handleExport(){
+		handlePersonalExport();
+		handleHealthExport();
+		handlePreferenceExport();
+		
+		boolean[] fields = new boolean[fieldCheck.size()];
+		for(int i = 0; i < fields.length; i++){
+			fields[i] = fieldCheck.get(i);
+		}
+		
+
+		if (CSVRadioButton.isSelected()) {
+			 CSVParsingUtils.CSVExport("Exported" + LocalTime.now() + ".csv", MainApp.getDatabaseHandler().getPatientList(), fields);
+			 MainApp.showAlert("Export CSV done");
+		} else {
+			 CSVParsingUtils.TSVExport("Exported" + LocalTime.now() + ".csv", MainApp.getDatabaseHandler().getPatientList(), fields);
+			 MainApp.showAlert("Export TSV done");
+		}
+	}
+	
 }
