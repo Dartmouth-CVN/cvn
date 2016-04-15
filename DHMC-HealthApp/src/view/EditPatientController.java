@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.LinkedList;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -338,17 +337,6 @@ public class EditPatientController {
 	private void unlikeMeal() {
 		mealDislikeButton.setSelected(false);
 		mealLikeButton.setSelected(false);
-	}
-
-	private void switchFamilyMember(Caregiver oldValue, Caregiver newValue) {
-		// Save previously selected family member
-		// Set fields on right of screen with info for new selected family
-		// member
-	}
-
-	private void switchMeal(Meal oldValue, Meal newValue) {
-		// Save previously selected meal
-		// Set fields on right of screen with info for new selected meal
 	}
 
 	@FXML

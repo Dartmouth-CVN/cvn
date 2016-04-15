@@ -1,10 +1,5 @@
 package view;
 
-import java.io.File;
-
-import controller.CSVParsingUtils;
-import controller.DatabaseHandler;
-import controller.XMLParsingUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -18,10 +13,6 @@ public class ExportFieldsController {
 	@FXML
 	private RadioButton personalTSVRadioButton = new RadioButton();
 	@FXML
-	private RadioButton personalXMLRadioButton = new RadioButton();
-	@FXML
-	private RadioButton personalHTMLRadioButton = new RadioButton();
-	@FXML
 	private RadioButton healthCSVRadioButton = new RadioButton();
 	@FXML
 	private RadioButton healthTSVRadioButton = new RadioButton();
@@ -29,11 +20,6 @@ public class ExportFieldsController {
 	private RadioButton preferenceCSVRadioButton = new RadioButton();
 	@FXML
 	private RadioButton preferenceTSVRadioButton = new RadioButton();
-	@FXML
-	private RadioButton preferenceXMLRadioButton = new RadioButton();
-	@FXML
-	private RadioButton preferenceHTMLRadioButton = new RadioButton();
-	
 	@FXML
 	private CheckBox firstNameCheckBox = new CheckBox();
 	@FXML
@@ -157,15 +143,9 @@ public class ExportFieldsController {
 		fields[11] = false;
 
 		if (personalCSVRadioButton.isSelected()) {
-			CSVParsingUtils.CSVExport(createFilename("Exported", ".csv"), DatabaseHandler.getUniqueInstance().getPTS(), fields);
-		} else if(personalTSVRadioButton.isSelected()){
-			CSVParsingUtils.TSVExport(createFilename("Exported", ".tsv"), DatabaseHandler.getUniqueInstance().getPTS(), fields);
-		}else if(personalXMLRadioButton.isSelected()){
-			XMLParsingUtils.writePatientsToXML(createFilename("Exported", ".xml"), DatabaseHandler.getUniqueInstance().getPTS(), fields);
-		}else if(personalHTMLRadioButton.isSelected()){
-			XMLParsingUtils.writePatientsToHTML(createFilename("Exported", ".html"), DatabaseHandler.getUniqueInstance().getPTS(), fields);
-		}else{
-			return;
+//			CSVExport("Exported", DatabaseHandler.getUniqueInstance().searchPatient(), fields);
+		} else {
+//			TSVExport("Exported", DatabaseHandler.getUniqueInstance().searchPatient(), fields);
 		}
 
 	}
@@ -202,12 +182,12 @@ public class ExportFieldsController {
 
 		if (personalCSVRadioButton.isSelected()) {
 
-			// CSVExport(createFilename("Exported", ",
+			// CSVExport("Exported",
 			// DatabaseHandler.getUniqueInstance().searchPatient(), fields);
 
 		} else {
 
-			// TSVExport(createFilename("Exported", ",
+			// TSVExport("Exported",
 			// DatabaseHandler.getUniqueInstance().searchPatient(), fields);
 
 		}
@@ -235,16 +215,14 @@ public class ExportFieldsController {
 		fields[10] = false;
 		fields[11] = false;
 
-		if (preferenceCSVRadioButton.isSelected()) {
-			CSVParsingUtils.CSVExport(createFilename("Exported", ".csv"), DatabaseHandler.getUniqueInstance().getPTS(), fields);
-		} else if(preferenceTSVRadioButton.isSelected()){
-			CSVParsingUtils.TSVExport(createFilename("Exported", ".tsv"), DatabaseHandler.getUniqueInstance().getPTS(), fields);
-		}else if(preferenceXMLRadioButton.isSelected()){
-			XMLParsingUtils.writePatientsToXML(createFilename("Exported", ".xml"), DatabaseHandler.getUniqueInstance().getPTS(), fields);
-		}else if(preferenceHTMLRadioButton.isSelected()){
-			XMLParsingUtils.writePatientsToHTML(createFilename("Exported", ".html"), DatabaseHandler.getUniqueInstance().getPTS(), fields);
-		}else{
-			return;
+		if (personalCSVRadioButton.isSelected()) {
+
+//			CSVExport("Exported", DatabaseHandler.getUniqueInstance().searchPatient(), fields);
+
+		} else {
+
+//			TSVExport("Exported", DatabaseHandler.getUniqueInstance().searchPatient(), fields);
+
 		}
 	}
 
@@ -334,16 +312,6 @@ public class ExportFieldsController {
 		foodCheckBox.setSelected(false);
 		petsCheckBox.setSelected(false);
 
-	}
-	
-	private String createFilename(String base, String extension){
-		File toEx = new File(base+extension);
-		int i=1;
-		while(toEx.exists()){
-			toEx = new File(base+i+extension);
-			i++;
-		}
-		return base+i+extension;
 	}
 
 }

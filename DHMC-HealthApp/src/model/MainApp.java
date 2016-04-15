@@ -12,7 +12,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import view.AdminDashController;
-import view.EditPatientController;
 import view.LoginController;
 import view.RootController;
 

@@ -59,6 +59,15 @@ public class AdminDashController {
 	 */
 	@FXML
 	private void initialize() {
+
+		tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
+			@Override
+			public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
+				if (t1 == addPatientTab)
+					loadAddPatientTab();
+			}
+		});
+
 		loadExportTab();
 	}
 

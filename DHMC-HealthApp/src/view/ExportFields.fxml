@@ -65,7 +65,7 @@
                               </GridPane>
                               <Button fx:id="personalClearAllButton" layoutX="524.0" layoutY="185.0" mnemonicParsing="false" onAction="#handlePersonalClearButton" text="Clear All" />
                               <Button fx:id="personalSelectAllButton" layoutX="445.0" layoutY="185.0" mnemonicParsing="false" onAction="#handlePersonalSelectButton" text="Select All" />
-                              <Button fx:id="personalExportButton" layoutX="386.0" layoutY="185.0" mnemonicParsing="false" text="Export" />
+                              <Button fx:id="personalExportButton" layoutX="386.0" layoutY="185.0" mnemonicParsing="false" onAction="#handlePersonalExportButton" text="Export" />
                               <RadioButton fx:id="personalTSVRadioButton" layoutX="312.0" layoutY="185.0" mnemonicParsing="false" text="TSV File">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="ExportFileType2" />
@@ -143,7 +143,7 @@
                               </GridPane>
                               <Button fx:id="healthClearAllButton" layoutX="524.0" layoutY="185.0" mnemonicParsing="false" onAction="#handleHealthClearButton" text="Clear All" />
                               <Button fx:id="healthSelectAllButton" layoutX="446.0" layoutY="185.0" mnemonicParsing="false" onAction="#handleHealthSelectButton" text="Select All" />
-                              <Button fx:id="healthExportButton" layoutX="383.0" layoutY="185.0" mnemonicParsing="false" text="Export" />
+                              <Button fx:id="healthExportButton" layoutX="383.0" layoutY="185.0" mnemonicParsing="false" onAction="#handleHealthExportButton" text="Export" />
                               <RadioButton fx:id="healthTSVRadioButton" layoutX="312.0" layoutY="189.0" mnemonicParsing="false" text="TSV File">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="ExportFileType1" />
@@ -189,7 +189,7 @@
                                     </Label>
                                  </children>
                               </GridPane>
-                              <Button fx:id="preferenceExportButton" layoutX="393.0" layoutY="185.0" mnemonicParsing="false" text="Export" />
+                              <Button fx:id="preferenceExportButton" layoutX="393.0" layoutY="185.0" mnemonicParsing="false" onAction="#handlePreferenceExportButton" text="Export" />
                               <RadioButton fx:id="preferenceTSVRadioButton" layoutX="325.0" layoutY="187.0" mnemonicParsing="false" text="TSV File">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="ExportFileType" />
