@@ -6,14 +6,10 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 import model.MainApp;
 import model.Patient;
 
@@ -27,6 +23,9 @@ public class AdminDashController {
 
 	@FXML
 	private Tab searchTab = new Tab();
+	
+	@FXML
+	private Tab exportTab = new Tab();
 
 	@FXML
 	private Tab addPatientTab = new Tab();
@@ -60,7 +59,18 @@ public class AdminDashController {
 	 */
 	@FXML
 	private void initialize() {
+<<<<<<< HEAD
 		
+=======
+		tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
+			@Override
+			public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
+				if (t1 == addPatientTab)
+					loadAddPatientTab();
+			}
+		});
+		loadExportTab();
+>>>>>>> 8c6409b4e764373270f92db789a403e4a8de6bd2
 	}
 
 	/**
@@ -136,6 +146,24 @@ public class AdminDashController {
 			MainApp.printError(e);
 		}
 	}
+	
+	/**
+	 * Loads and sets the contents of the export tab.
+	 */
+	private void loadExportTab() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("../view/ExportFields.fxml"));
+			AnchorPane export = (AnchorPane) loader.load();
+
+			ExportFieldsController controller = loader.getController();
+			controller.setMain(mainApp);
+			exportTab.setContent(export);
+		} catch (IOException e) {
+			MainApp.printError(e);
+		}
+	}
+
 
 	/**
 	 * Loads and sets content of the add patient tab.
