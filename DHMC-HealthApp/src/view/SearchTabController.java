@@ -106,7 +106,6 @@ public class SearchTabController {
 	@FXML
 	private void handleEditProfile() {
 		Patient patient = MainApp.getDatabaseHandler().getPatient(userID);
-		System.out.println(patient.getFirstName());
 		if (patient != null)
 			mainApp.showEditProfile(patient);
 
