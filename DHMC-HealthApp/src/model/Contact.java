@@ -1,7 +1,8 @@
 package model;
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class Contact {
+public class Contact implements Serializable{
 	private String id;
 	private LinkedList<String> phone;
 	private LinkedList<String> email;

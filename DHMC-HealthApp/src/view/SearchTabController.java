@@ -88,8 +88,6 @@ public class SearchTabController {
 	 */
 	public void setMain(MainApp mainApp) {
 		this.mainApp = mainApp;
-		// get the list of profiles from another class
-		// personTable.setItems(mainApp.getPersonData());
 	}
 
 	/**
@@ -99,10 +97,10 @@ public class SearchTabController {
 	private void handleFindPatient() {
 		String name = searchField.getText();
 		if (!name.equals("")) {
-			ObservableList<IDisplayable> personData = mainApp.getDatabaseHandler().searchPatient(name);
+			ObservableList<IDisplayable> personData = MainApp.getDatabaseHandler().searchPatient(name);
 			profileTable.setItems(personData);
 		} else {
-			ObservableList<IDisplayable> personData = mainApp.getDatabaseHandler().searchPatient();
+			ObservableList<IDisplayable> personData = MainApp.getDatabaseHandler().searchPatient();
 			profileTable.setItems(personData);
 		}
 		// search through the database with the given name
@@ -116,7 +114,7 @@ public class SearchTabController {
 	 */
 	@FXML
 	private void handleEditProfile() {
-		Patient patient = mainApp.getDatabaseHandler().getPatient(userID);
+		Patient patient = MainApp.getDatabaseHandler().getPatient(userID);
 		if (patient != null)
 			mainApp.showEditProfile(patient);
 

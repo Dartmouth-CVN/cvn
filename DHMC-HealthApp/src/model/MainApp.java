@@ -16,7 +16,7 @@ import view.EditPatientController;
 import view.LoginController;
 
 public class MainApp extends Application {
-	private DatabaseHandler dbHandler;
+	private static DatabaseHandler dbHandler;
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 
@@ -36,8 +36,9 @@ public class MainApp extends Application {
 		launch(args);
 	}
 
-	public DatabaseHandler getDatabaseHandler() {
-		System.out.println(dbHandler.getPatient("Patient1"));
+	public static DatabaseHandler getDatabaseHandler() {
+		if(dbHandler == null)
+			return DatabaseHandler.getUniqueInstance();
 		return dbHandler;
 	}
 
