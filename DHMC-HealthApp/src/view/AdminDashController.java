@@ -141,8 +141,8 @@ public class AdminDashController {
 
 			addPatientTab.setContent(addPatient);
 
-			AddPatientController controller = loader.getController();
-			controller.setMainApp(mainApp);
+//			AddPatientController controller = loader.getController();
+//			controller.setMainApp(mainApp);
 
 		} catch (IOException e) {
 			MainApp.printError(e);

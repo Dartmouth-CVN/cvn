@@ -33,16 +33,17 @@ public class FitBitParsingUtils {
 		String state = "No State";
 		while(fileReader.hasNextLine()) {
 			String line = fileReader.nextLine();
-			if(line.substring(0,4).equals("Body")) {
+			String firstItem = line.split(",")[0];
+			if(firstItem.equals("Body")) {
 				state = "Body";
 				line = fileReader.nextLine();
 				continue;
-			} else if(line.substring(0, 10).equals("Activities")) {
+			} else if(firstItem.equals("Activities")) {
 				state = "Activities";
 				line = fileReader.nextLine();
 				i=0;
 				continue;
-			} else if(line.substring(0,5).equals("Sleep")) {
+			} else if(firstItem.equals("Sleep")) {
 				state = "Sleep";
 				line = fileReader.nextLine();
 				i=0;
