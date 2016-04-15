@@ -220,7 +220,7 @@ public class CSVParsingUtils {
 	 */
 	public static Patient makePatient(String[] pt) {
 
-		Patient output = new Patient(pt[2], pt[1], pt[0], 0);
+		Patient output = new Patient(pt[1], pt[2], pt[0], 0);
 		String[] staff = pt[4].split(",");
 		for (String member : staff)
 			output.addMedicalStaff(new MedicalStaff(member));

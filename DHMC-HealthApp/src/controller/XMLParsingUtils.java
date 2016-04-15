@@ -223,8 +223,7 @@ public class XMLParsingUtils extends GeneralParsingUtils {
 		body += "<hr class=\"main\">\n";
 		for (Patient p : pts) {
 
-			body += XMLLine("h2", stringIfTrue(p.getFirstName(), shouldEx[1])) + " "
-					+ stringIfTrue(p.getLastName(), shouldEx[2])
+			body += XMLLine("h2", stringIfTrue(p.getFirstName(), shouldEx[1]) + " " + stringIfTrue(p.getLastName(), shouldEx[2]))
 					+ XMLLine("h3", stringIfTrue(p.getUserID() + " : ", shouldEx[0]))
 					// String.valueOf(p.getPatientID()))
 					+ XMLLine("h3", "Contact Info:")
