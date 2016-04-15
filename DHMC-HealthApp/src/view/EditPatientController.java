@@ -20,7 +20,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
 import model.Caregiver;
-import model.DisplayString;
 import model.HealthInfo;
 import model.MainApp;
 import model.Meal;
