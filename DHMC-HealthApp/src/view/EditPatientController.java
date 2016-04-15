@@ -366,9 +366,7 @@ public class EditPatientController {
 
 		for (DisplayString email : patientEmails)
 			p.getContactInfo().addEmail(email.getString());
-
-		p.getContactInfo().makePrimaryEmail(p.getContactInfo().getEmail().getFirst());
-
+		
 		p.getContactInfo().makePrimaryAddress(patientAddress.getText());
 
 		if (p.update()) {

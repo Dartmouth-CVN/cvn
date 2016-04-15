@@ -2,9 +2,12 @@ package view;
 
 import java.io.IOException;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
@@ -41,6 +44,9 @@ public class AdminDashController {
 	// Reference to the main application.
 	private MainApp mainApp;
 
+	private AnchorPane editPatient;
+	private FXMLLoader editPatientLoader;
+
 	/**
 	 * The constructor. The constructor is called before the initialize()
 	 * method.
@@ -54,6 +60,13 @@ public class AdminDashController {
 	 */
 	@FXML
 	private void initialize() {
+		tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
+			@Override
+			public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
+				if (t1 == addPatientTab)
+					loadAddPatientTab();
+			}
+		});
 	}
 
 	/**
@@ -135,50 +148,50 @@ public class AdminDashController {
 	 */
 	@FXML
 	private void loadAddPatientTab() {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("../view/AddPatient.fxml"));
-			AnchorPane addPatient = (AnchorPane) loader.load();
+		if (editPatient != null)
+			editPatient = null;
 
-			addPatientTab.setContent(addPatient);
+		getAddPatientTab();
+	}
 
-//			AddPatientController controller = loader.getController();
-//			controller.setMainApp(mainApp);
+	public void getAddPatientTab() {
+		addPatientTab.setContent(getEditPatientTab(new Patient()));
+		tabPane.getSelectionModel().select(addPatientTab);
+	}
 
-		} catch (IOException e) {
-			MainApp.printError(e);
+	private FXMLLoader getEditPatientLoader() {
+		if (editPatientLoader == null) {
+			return new FXMLLoader();
+		} else {
+			return editPatientLoader;
 		}
-
 	}
 
-	/**
-	 * Loads and sets content of the edit patient tab.
-	 */
-	@FXML
-	private void loadEditPatientTab() {
-		
+	public AnchorPane getEditPatientTab(Patient p) {
+		if (editPatient == null) {
+			loadEditPatient(p);
+			return editPatient;
+		} else {
+			return editPatient;
+		}
 	}
-	
-	public void loadEditPatientTab(Patient patient){
+
+	private void loadEditPatient(Patient patient) {
 		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("../view/EditPatient.fxml"));
-			AnchorPane editPatient = (AnchorPane) loader.load();
-
-			editPatientTab.setContent(editPatient);
-
-			EditPatientController controller = loader.getController();
+			editPatientLoader = getEditPatientLoader();
+			editPatientLoader.setLocation(MainApp.class.getResource("../view/EditPatient.fxml"));
+			editPatient = (AnchorPane) editPatientLoader.load();
+			EditPatientController controller = editPatientLoader.getController();
 			controller.setMainApp(mainApp);
 			controller.setPatient(patient);
 			controller.loadFields();
-
-			tabPane.getSelectionModel().select(editPatientTab);
-
 		} catch (IOException e) {
-			MainApp.printError(e);
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
 	}
-	
+
 	/**
 	 * Clicking search image opens the search tab.
 	 */

@@ -105,7 +105,7 @@ public class MainApp extends Application {
 	}
 	
 	public void showEditProfile(Patient patient){
-		dashController.loadEditPatientTab(patient);
+		dashController.getEditPatientTab(patient);
 	}
 	
 	public void changeScreenSize(Scene s){
