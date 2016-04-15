@@ -182,27 +182,27 @@ public class EditPatientController {
 	}
 	
 	@FXML private void addFamilyMember() {
-		
+		// Add new family member to patient table
 	}
 	
 	@FXML private void removeFamilyMember() {
-		
+		// Remove selected family member from table
 	}
 	
 	@FXML private void addPet() {
-		
+		// Add new pet to table
 	}
 	
 	@FXML private void removePet() {
-		
+		// Remove selected pet from table
 	}
 	
 	@FXML private void addMeal() {
-		
+		// Add new meal to table
 	}
 	
 	@FXML private void removeMeal() {
-		
+		// Remove selected meal from table
 	}
 	
 	@FXML private void likeMeal() {
@@ -221,11 +221,13 @@ public class EditPatientController {
 	}
 	
 	@FXML private void switchFamilyMember() {
-		
+		// Save previously selected family member
+		// Set fields on right of screen with info for new selected family member
 	}
 	
 	@FXML private void switchMeal() {
-		
+		// Save previously selected meal
+		// Set fields on right of screen with info for new selected meal
 	}
 	
 	@FXML private void save() {
@@ -279,6 +281,10 @@ public class EditPatientController {
 				p.getContactInfo().removeEmail(text);
 			}
 		}
+		
+		// Save family information
+		// Save pet information
+		// Save meal information
 		
 		update();
 	}
