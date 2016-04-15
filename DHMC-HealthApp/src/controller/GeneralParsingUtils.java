@@ -20,7 +20,7 @@ public abstract class GeneralParsingUtils {
 	 *            whether or not to return the given String
 	 * @return either s or an empty String
 	 */
-	private static String stringIfTrue(String s, boolean b) {
+	protected static String stringIfTrue(String s, boolean b) {
 		return (b) ? s : "";
 	}
 	

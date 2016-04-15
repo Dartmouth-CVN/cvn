@@ -4,12 +4,13 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.stream.Collectors;
 
 import model.MedicalStaff;
 import model.Medication;
 import model.Patient;
 
-public class XMLParsingUtils {
+public class XMLParsingUtils extends GeneralParsingUtils {
 	/**
 	 * Given a LinkedList of patients, write an XML file to the provided
 	 * location from the Patients
@@ -18,20 +19,54 @@ public class XMLParsingUtils {
 	 *            the name of the file to write to
 	 * @param pts
 	 *            the patients to write
+	 * @param shouldEx
+	 *            which fields to export
 	 * @return the contents of the file as a String
 	 */
-	public static String writePatientsToXML(String filename, LinkedList<Patient> pts) {
+	public static String writePatientsToXML(String filename, LinkedList<Patient> pts, boolean[] shouldEx) {
+		if (shouldEx == null) {
+			shouldEx = new boolean[0];
+		}
+		if (shouldEx.length < 12) {
+			boolean[] newArr = new boolean[12];
+			for (int i = 0; i < shouldEx.length; i++)
+				newArr[i] = shouldEx[i];
+			for (int i = shouldEx.length; i < newArr.length; i++)
+				newArr[i] = true;
+			shouldEx = newArr;
+		}
 		String output = "<patient-list>\n";
 		for (Patient p : pts) {
-			output += XMLLine("patient",
-					XMLLine("firstname", p.getFirstName()) + XMLLine("lastname", p.getLastName())
-							+ XMLLine("id", p.getUserID()) + XMLLine("patient_id", String.valueOf(p.getPatientID()))
-							+ XMLList("assigned_staff", "staff", XMLParseMedStaff(p.getAssignedStaff()))
-							+ XMLLine("contact-info",
-									XMLList("address-list", "address", p.getContactInfo().getAddress())
-											+ XMLList("phone-number-list", "phone-number",
-													p.getContactInfo().getPhone())
-											+ XMLList("email-list", "email", p.getContactInfo().getEmail())),
+			output += XMLLine("patient", stringIfTrue(XMLLine("userID", p.getUserID()), shouldEx[0])
+					+ stringIfTrue(XMLLine("firstname", p.getFirstName()),
+							shouldEx[1])
+					+ stringIfTrue(XMLLine("lastname", p.getLastName()), shouldEx[2])
+					+ stringIfTrue(XMLList("caregivers-list", "caregiver",
+							p.getPreferences().getCaregiver().stream().map(c -> c.getName())
+									.collect(Collectors.toCollection(LinkedList::new))),
+							shouldEx[3])
+					+ stringIfTrue(XMLList("staff-list", "staff", XMLParseMedStaff(p.getAssignedStaff())), shouldEx[4])
+					// +
+					// stringIfTrue(XMLList("medication-list","medication",p.getMedication().stream().map(
+					// c ->
+					// c.getName()).collect(Collectors.toCollection(LinkedList::new))),
+					// shouldEx[5])
+					+ XMLLine("contact-info",
+							stringIfTrue(XMLList("address-list", "address", p.getContactInfo().getAddress()),
+									shouldEx[6])
+									+ stringIfTrue(
+											XMLList("phone-number-list", "phone-number", p.getContactInfo().getPhone()),
+											shouldEx[7])
+									+ stringIfTrue(XMLList("email-list", "email", p.getContactInfo().getEmail()),
+											shouldEx[8]))
+					+ stringIfTrue(XMLList("pets-list", "pet",
+							p.getPreferences().getPets().stream().map(c -> c.getName())
+									.collect(Collectors.toCollection(LinkedList::new))),
+							shouldEx[9])
+					+ stringIfTrue(XMLList("allergies-list", "allergy", p.getPreferences().getAllergies()),
+							shouldEx[10])
+					+ stringIfTrue(XMLList("diets-list", "diet", p.getPreferences().getDietaryRestrictions()),
+							shouldEx[11]),
 					true);
 
 		}
@@ -49,6 +84,10 @@ public class XMLParsingUtils {
 		}
 
 		return output;
+	}
+
+	public static String writePatientsToXML(String filename, LinkedList<Patient> pts) {
+		return writePatientsToXML(filename, pts, null);
 	}
 
 	/**
@@ -108,7 +147,7 @@ public class XMLParsingUtils {
 	private static String XMLList(String tag, String subtag, Iterable<String> content) {
 		String inner = "";
 		for (String c : content)
-			inner += XMLLine(subtag, c) +"<br>";
+			inner += XMLLine(subtag, c) + "<br>";
 		return XMLLine(tag, inner, true);
 	}
 
@@ -156,7 +195,21 @@ public class XMLParsingUtils {
 	 *            the patients to write
 	 * @return the contents of the file as a String
 	 */
-	public static String writePatientsToHTML(String filename, LinkedList<Patient> pts) {
+	public static String writePatientsToHTML(String filename, LinkedList<Patient> pts,boolean shouldEx[] ) {
+		
+		if (shouldEx == null) {
+			shouldEx = new boolean[0];
+		}
+		if (shouldEx.length < 12) {
+			boolean[] newArr = new boolean[12];
+			for (int i = 0; i < shouldEx.length; i++)
+				newArr[i] = shouldEx[i];
+			for (int i = shouldEx.length; i < newArr.length; i++)
+				newArr[i] = true;
+			shouldEx = newArr;
+		}
+		
+		
 		String output = ""; // The HTML String to output
 
 		String head = "<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\"> \n";
@@ -170,14 +223,20 @@ public class XMLParsingUtils {
 		body += "<hr class=\"main\">\n";
 		for (Patient p : pts) {
 
-			body += XMLLine("h2", p.getFirstName() + " " + p.getLastName())
-					//+ XMLLine("h3", p.getUserID() + " : " + String.valueOf(p.getPatientID()))
-					+ XMLLine("h3", "Contact Info:") 
-					+ XMLList(null,null,p.getContactInfo().getEmail()) + "<br>"
-					+ XMLList(null,null,p.getContactInfo().getAddress()) + "<br>"
-					+ XMLList(null,null,p.getContactInfo().getPhone()) + "<br>"
-					+"<hr>\n" + XMLLine("h3", "Assigned Personnel:")
-					+ XMLList(null, null, XMLParseMedStaff(p.getAssignedStaff())) + "<hr class=\"end\">\n";
+			body += XMLLine("h2", stringIfTrue(p.getFirstName(), shouldEx[1])) + " "
+					+ stringIfTrue(p.getLastName(), shouldEx[2])
+					+ XMLLine("h3", stringIfTrue(p.getUserID() + " : ", shouldEx[0]))
+					// String.valueOf(p.getPatientID()))
+					+ XMLLine("h3", "Contact Info:")
+					+ stringIfTrue(XMLList(null, null, p.getContactInfo().getEmail()), shouldEx[8]) + "<br>"
+					+ stringIfTrue(XMLList(null, null, p.getContactInfo().getAddress()), shouldEx[6]) + "<br>"
+					+ stringIfTrue(XMLList(null, null, p.getContactInfo().getPhone()), shouldEx[7]) + "<br>" + "<hr>\n"
+					+ XMLLine("h3", "Assigned Personnel:")
+					+ stringIfTrue(XMLList(null, null, XMLParseMedStaff(p.getAssignedStaff())), shouldEx[4]) + "<hr>\n"
+					+ XMLLine("h3", "Caregivers:")
+					+ stringIfTrue(XMLList(null, null, p.getPreferences().getCaregiver().stream().map(c -> c.getName())
+							.collect(Collectors.toCollection(LinkedList::new))), shouldEx[5])
+					+ "<hr class=\"end\">\n";
 			/*
 			 * +XMLLine("p","Perscribed Meds:\n") + XMLList("div", "p", //
 			 * XMLParseMedication(p.getMedication())) + "<hr>"; output +=
@@ -215,4 +274,7 @@ public class XMLParsingUtils {
 		return output;
 	}
 
+	public static String writePatientsToHTML(String filename, LinkedList<Patient> pts) {
+		return writePatientsToHTML(filename,pts,null);
+	}
 }
