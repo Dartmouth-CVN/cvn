@@ -188,6 +188,8 @@ public class AdminDashController {
 	public AnchorPane getEditPatientTab(Patient p) {
 		if (editPatient == null) {
 			loadEditPatient(p);
+			editPatientTab.setContent(editPatient);
+			tabPane.getSelectionModel().select(editPatientTab);
 			return editPatient;
 		} else {
 			return editPatient;
