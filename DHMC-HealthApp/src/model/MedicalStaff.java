@@ -1,7 +1,6 @@
 package model;
 import java.util.LinkedList;
 
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 
 public class MedicalStaff extends User {

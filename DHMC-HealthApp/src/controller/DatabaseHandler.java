@@ -556,6 +556,26 @@ public class DatabaseHandler {
 		return patientPets;
 	}
 
+	public LinkedList<HealthInfo> getHealthInfo(Patient patient){
+		LinkedList<HealthInfo> patientHealthInfo = new LinkedList<HealthInfo>();
+		try {
+			ps = connection.prepareStatement("SELECT * FROM health_info WHERE patient_id = ?;");
+			ps.setInt(1, patient.getPatientID());
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				HealthInfo info = new HealthInfo(rs.getString("date"), rs.getDouble("height"), rs.getDouble("weight"), rs.getDouble("bmi"), 
+						rs.getDouble("fat"), rs.getDouble("caloriesBurned"), rs.getDouble("steps"), rs.getDouble("distance"),rs.getDouble("floors"),
+						rs.getDouble("minSedentary"), rs.getDouble("minLightlyActive"), rs.getDouble("minFairlyActive"), rs.getDouble("minVeryActive"), 
+						rs.getDouble("activityCalories"),rs.getDouble("minAsleep"), rs.getDouble("minAwake"), rs.getDouble("numAwakenings"), 
+						rs.getDouble("timeInBed"));	
+				patientHealthInfo.add(info);
+			}
+			connection.close();
+		} catch (SQLException e) {
+		}
+		return patientHealthInfo;
+	}
+
 	public LinkedList<Meal> getMeals(Patient patient) {
 		LinkedList<Meal> patientMeals = new LinkedList<Meal>();
 		try {
