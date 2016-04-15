@@ -49,7 +49,7 @@ public class RootController {
 
 	public void exportCSV() {
 		int curFileInt = 1;
-		pts = mainApp.getDatabaseHandler().getPTS();
+//		pts = mainApp.getDatabaseHandler().getPTS();
 		while (Files.exists(Paths.get("exported" + curFileInt + ".csv")))
 			curFileInt++;
 		controller.CSVParsingUtils.CSVExport("exported" + curFileInt + ".csv", pts);
@@ -57,7 +57,7 @@ public class RootController {
 
 	public void exportTSV() {
 		int curFileInt = 1;
-		pts = mainApp.getDatabaseHandler().getPTS();
+//		pts = mainApp.getDatabaseHandler().getPTS();
 		while (Files.exists(Paths.get("exported" + curFileInt + ".tsv")))
 			curFileInt++;
 		controller.CSVParsingUtils.TSVExport("exported" + curFileInt + ".tsv", pts);

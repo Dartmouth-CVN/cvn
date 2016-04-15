@@ -1,4 +1,5 @@
 package model;
+import java.time.LocalDate;
 import java.util.LinkedList;
 
 import javafx.beans.property.IntegerProperty;
@@ -14,6 +15,14 @@ public class Patient extends User {
 	
 	public Patient(String firstName, String lastName, String userID, int patientID) {
 		super(firstName, lastName, userID);
+		this.assignedStaff = new LinkedList<MedicalStaff>();
+		this.preferences = new PatientProfile();
+		// this.medication = new LinkedList<Medication>();
+		this.patientID = patientID;
+	}
+	
+	public Patient(String firstName, String lastName, String userID, int patientID, Contact contactInfo) {
+		super(firstName, lastName, userID, contactInfo);
 		this.assignedStaff = new LinkedList<MedicalStaff>();
 		this.preferences = new PatientProfile();
 		// this.medication = new LinkedList<Medication>();
@@ -97,7 +106,7 @@ public class Patient extends User {
 	}
 
 	@Override
-	public IntegerProperty getUserIDProperty() {
+	public StringProperty getUserIDProperty() {
 		// TODO Auto-generated method stub
 		return null;
 	}

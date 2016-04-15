@@ -38,6 +38,14 @@ public class Contact {
 		return this.email.getFirst();
 	}
 	
+	public void setPhone(LinkedList<String> phone){
+		this.phone = phone;
+	}
+	
+	public void setEmail(LinkedList<String> email){
+		this.email = email;
+	}
+	
 	public String getPrimaryAddress() {
 		return this.address.getFirst();
 	}

@@ -117,11 +117,9 @@ public class AdminDashController {
 			loader.setLocation(MainApp.class.getResource("../view/GlobalSearch.fxml"));
 			AnchorPane globalSearch = (AnchorPane) loader.load();
 
-			searchTab.setContent(globalSearch);
-
 			SearchTabController controller = loader.getController();
 			controller.setMain(mainApp);
-
+			searchTab.setContent(globalSearch);
 		} catch (IOException e) {
 			MainApp.printError(e);
 		}

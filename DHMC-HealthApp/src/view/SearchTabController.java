@@ -18,7 +18,7 @@ public class SearchTabController {
 	@FXML
 	private TableView<IDisplayable> profileTable;
 	@FXML
-	private TableColumn<IDisplayable, Integer> idColumn;
+	private TableColumn<IDisplayable, String> idColumn;
 	@FXML
 	private TableColumn<IDisplayable, String> firstNameColumn;
 	@FXML
@@ -36,7 +36,7 @@ public class SearchTabController {
 	@FXML
 	private Label phoneLabel = new Label();
 
-	private int userID;
+	private String userID;
 
 	// Reference to the main application.
 	private MainApp mainApp;
@@ -63,7 +63,7 @@ public class SearchTabController {
 		 */
 		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
 		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
-		idColumn.setCellValueFactory(cellData -> cellData.getValue().getUserIDProperty().asObject());
+		idColumn.setCellValueFactory(cellData -> cellData.getValue().getUserIDProperty());
 
 		// set table listener
 		profileTable.getSelectionModel().selectedItemProperty()
@@ -88,7 +88,6 @@ public class SearchTabController {
 	 */
 	public void setMain(MainApp mainApp) {
 		this.mainApp = mainApp;
-
 		// get the list of profiles from another class
 		// personTable.setItems(mainApp.getPersonData());
 	}
@@ -99,7 +98,6 @@ public class SearchTabController {
 	@FXML
 	private void handleFindPatient() {
 		String name = searchField.getText();
-
 		if (!name.equals("")) {
 			ObservableList<IDisplayable> personData = mainApp.getDatabaseHandler().searchPatient(name);
 			profileTable.setItems(personData);
@@ -118,7 +116,7 @@ public class SearchTabController {
 	 */
 	@FXML
 	private void handleEditProfile() {
-		Patient patient = mainApp.getDatabaseHandler().findPatient(userID);
+		Patient patient = mainApp.getDatabaseHandler().getPatient(userID);
 		if (patient != null)
 			mainApp.showEditProfile(patient);
 
