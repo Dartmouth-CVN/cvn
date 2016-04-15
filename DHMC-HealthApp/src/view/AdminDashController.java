@@ -50,6 +50,9 @@ public class AdminDashController {
 	 */
 	@FXML
 	private void initialize() {
+		loadScheduleTab();
+		loadSearchTab();
+		//loadEditPatientTab();
 		// list admin's profile at the top of dashboard
 	}
 

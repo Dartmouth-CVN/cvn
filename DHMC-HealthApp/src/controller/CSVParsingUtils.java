@@ -95,13 +95,7 @@ public class CSVParsingUtils {
 	 * 
 	 */
 	public static String removeCommas(String s) {
-		String retVal = "";
-		for (int i = 0; i < s.length(); i++) {
-			if (s.charAt(i) != ',') {
-				retVal += s.charAt(i);
-			}
-		}
-		return retVal;
+		return s.replace(",", "");
 	}
 
 	/**
@@ -127,7 +121,7 @@ public class CSVParsingUtils {
 			else if (curChar == delimiter.charAt(0) && !inQuotes) {
 				String toAdd = curVal.trim();
 				if (remCommas)
-					removeCommas(toAdd);
+					toAdd=removeCommas(toAdd);
 				output.add(toAdd);
 				curVal = "";
 			} else {
@@ -137,7 +131,7 @@ public class CSVParsingUtils {
 		if (curVal.length() > 0) {
 			String toAdd = curVal.trim();
 			if (remCommas)
-				removeCommas(toAdd);
+				toAdd=removeCommas(toAdd);
 			output.add(toAdd);
 		}
 		String[] outputArr = new String[output.size()];
