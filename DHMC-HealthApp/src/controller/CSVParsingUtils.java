@@ -16,7 +16,7 @@ import model.Pet;
 // TODO: We need to find a way to import Medical Staff and Medications from Strings,
 // given that the constructors require more fields. A possible solution is a simpler version
 // of the constructor using default values for the other fields
-// This can be in Iteration 2 if necessary
+// This can be in Iteration 2 (3?) if necessary
 
 public class CSVParsingUtils {
 

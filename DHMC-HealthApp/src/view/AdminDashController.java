@@ -22,6 +22,10 @@ public class AdminDashController {
 	private Tab searchTab = new Tab();
 
 	@FXML
+	private Tab addPatientTab = new Tab();
+	@FXML
+	private Tab editPatientTab = new Tab();
+	@FXML
 	private ImageView scheduleImage = new ImageView();
 
 	@FXML
@@ -105,9 +109,9 @@ public class AdminDashController {
 		} catch (IOException e) {
 			MainApp.printError(e);
 		}
-		
+
 	}
-	
+
 	/**
 	 * Loads and sets the contents of the search tab.
 	 */
@@ -124,20 +128,65 @@ public class AdminDashController {
 			MainApp.printError(e);
 		}
 	}
-	
+
+	/**
+	 * Loads and sets content of the add patient tab.
+	 */
+	@FXML
+	private void loadAddPatientTab() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("../view/AddPatient.fxml"));
+			AnchorPane addPatient = (AnchorPane) loader.load();
+
+			addPatientTab.setContent(addPatient);
+
+			AddPatientController controller = loader.getController();
+			controller.setMainApp(mainApp);
+
+		} catch (IOException e) {
+			MainApp.printError(e);
+		}
+
+	}
+
+	/**
+	 * Loads and sets content of the edit patient tab.
+	 */
+	@FXML
+	private void loadEditPatientTab() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("../view/EditPatient.fxml"));
+			AnchorPane editPatient = (AnchorPane) loader.load();
+
+			editPatientTab.setContent(editPatient);
+
+			EditPatientController controller = loader.getController();
+			controller.setMainApp(mainApp);
+
+		} catch (IOException e) {
+			MainApp.printError(e);
+		}
+
+	}
+
+
 	/**
 	 * Clicking search image opens the search tab.
 	 */
-	@FXML private void handleSearchImage(){
-		
+	@FXML
+	private void handleSearchImage() {
+
 		tabPane.getSelectionModel().select(searchTab);
 	}
-	
+
 	/**
 	 * Clicking schedule image opens the schedule tab.
 	 */
-	@FXML private void handleScheduleImage(){
-		
+	@FXML
+	private void handleScheduleImage() {
+
 		tabPane.getSelectionModel().select(scheduleTab);
 	}
 
