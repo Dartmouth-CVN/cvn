@@ -1,18 +1,20 @@
 package view;
 
+<<<<<<< HEAD
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+=======
+>>>>>>> e94c7b2ee15a039eea24f6d26f5e4df568392b89
 import controller.CSVParsingUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import model.MainApp;
-import model.Patient;
 
 public class ExportFieldsController {
 
