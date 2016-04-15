@@ -5,10 +5,17 @@ public class Pet {
 	private String species;
 	private boolean allergyFriendly;
 	private int petID;
+	
 	public Pet(String name, String species, boolean allergyFriendly) {
 		this.setName(name);
 		this.species = species;
 		this.allergyFriendly = allergyFriendly;
+	}
+	
+	public Pet() {
+		this.name = "New Pet";
+		this.species = "";
+		this.allergyFriendly = false;
 	}
 
 	public String getName() {

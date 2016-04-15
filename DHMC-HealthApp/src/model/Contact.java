@@ -8,8 +8,15 @@ public class Contact implements Serializable{
 	private LinkedList<String> email;
 	private LinkedList<String> address;
 
-	public Contact(String id2) {
-		this.id = id2;
+	public Contact(String id) {
+		this.id = id;
+		this.phone = new LinkedList<String>();
+		this.email = new LinkedList<String>();
+		this.address = new LinkedList<String>();
+	}
+	
+	public Contact() {
+		this.id = "Unassigned";
 		this.phone = new LinkedList<String>();
 		this.email = new LinkedList<String>();
 		this.address = new LinkedList<String>();
