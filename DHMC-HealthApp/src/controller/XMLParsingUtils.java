@@ -173,11 +173,11 @@ public class XMLParsingUtils {
 			body += XMLLine("h2", p.getFirstName() + " " + p.getLastName())
 					//+ XMLLine("h3", p.getUserID() + " : " + String.valueOf(p.getPatientID()))
 					+ XMLLine("h3", "Contact Info:") 
-					+ XMLList(null,"div",p.getContactInfo().getEmail()) + "<br>"
-					+ XMLList(null,"div",p.getContactInfo().getAddress()) + "<br>"
-					+ XMLList(null,"div",p.getContactInfo().getPhone()) + "<br>"
+					+ XMLList(null,null,p.getContactInfo().getEmail()) + "<br>"
+					+ XMLList(null,null,p.getContactInfo().getAddress()) + "<br>"
+					+ XMLList(null,null,p.getContactInfo().getPhone()) + "<br>"
 					+"<hr>\n" + XMLLine("h3", "Assigned Personnel:")
-					+ XMLList("div", "p", XMLParseMedStaff(p.getAssignedStaff())) + "<hr class=\"end\">\n";
+					+ XMLList(null, null, XMLParseMedStaff(p.getAssignedStaff())) + "<hr class=\"end\">\n";
 			/*
 			 * +XMLLine("p","Perscribed Meds:\n") + XMLList("div", "p", //
 			 * XMLParseMedication(p.getMedication())) + "<hr>"; output +=

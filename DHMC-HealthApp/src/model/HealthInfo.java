@@ -42,7 +42,29 @@ public class HealthInfo {
 		this.timeInBed = 0;
 	}
 	
-	
+	public HealthInfo (String date, double height, double weight, double bmi, 
+			double fat, double caloriesBurned, double steps, double distance, double floors,
+			double minSedentary, double minLightlyActive, double minFairlyActive, double minVeryActive, double activityCalories,
+			double minAsleep, double minAwake, double numAwakenings, double timeInBed) {
+		this.date = date;
+		this.height = height;
+		this.weight = weight;
+		this.bmi = bmi;
+		this.fat = fat;
+		this.caloriesBurned = caloriesBurned;
+		this.steps = steps;
+		this.distance = distance;
+		this.floors = floors;
+		this.minSedentary = minSedentary;
+		this.minLightlyActive = minLightlyActive;
+		this.minFairlyActive = minFairlyActive;
+		this.minVeryActive = minVeryActive;
+		this.activityCalories = activityCalories;
+		this.minAsleep = minAsleep;
+		this.minAwake = minAwake;
+		this.numAwakenings = numAwakenings;
+		this.timeInBed = timeInBed;
+	}
 	
 	public String getDate() {
 		return date;
