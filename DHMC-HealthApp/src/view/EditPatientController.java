@@ -56,6 +56,7 @@ public class EditPatientController {
 		if (curCSV != null && curCSV.exists()) {
 			info = controller.FitBitParsingUtils.fitBitImport(curCSV);
 			p.addHealthInfoList(info);
+			System.out.println("Imported FitBit Data");
 		}
 	}
 
@@ -422,5 +423,6 @@ public class EditPatientController {
 		// Save meal information
 
 		update();
+		mainApp.showAdminDash();
 	}
 }

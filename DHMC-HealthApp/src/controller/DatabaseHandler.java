@@ -838,6 +838,10 @@ public class DatabaseHandler {
 		}
 		return success;
 	}
+	
+	public boolean updatePets(LinkedList<Pet> pets, Patient p) {
+		return true;
+	}
 
 	/**
 	 * Finds meal based on patient id and updates fields with fields from meal
@@ -863,6 +867,10 @@ public class DatabaseHandler {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
+	}
+	
+	public void updateMeals(LinkedList<Meal> meals, Patient p) {
+	
 	}
 
 	/**
@@ -908,6 +916,10 @@ public class DatabaseHandler {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
+	}
+	
+	public void updateCaregivers(LinkedList<Caregiver> caregivers, Patient p) {
+		
 	}
 
 	/**

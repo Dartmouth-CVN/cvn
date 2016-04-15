@@ -33,6 +33,7 @@ public class FitBitParsingUtils {
 		String state = "No State";
 		while(fileReader.hasNextLine()) {
 			String line = fileReader.nextLine();
+			System.out.println(line);
 			if(line.substring(0,4).equals("Body")) {
 				state = "Body";
 				line = fileReader.nextLine();
