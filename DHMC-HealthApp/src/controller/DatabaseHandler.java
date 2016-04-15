@@ -540,6 +540,27 @@ public class DatabaseHandler {
 		return patientList;
 	}
 
+	public LinkedList<Patient> getPTS() {
+		LinkedList<Patient> patientList = new LinkedList<Patient>();
+		try {
+			if (connect()) {
+				ps = connection.prepareStatement("SELECT * FROM patient Natural Join user_account");
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
+							rs.getString("user_id"), rs.getInt("patient_id"));
+					patientList.add(patient);
+				}
+
+				connection.close();
+			}
+		} catch (SQLException e) {
+			MainApp.printError(e);
+		}
+		return patientList;
+	}
+	
+	
 	public LinkedList<Pet> getPets(Patient patient) {
 		LinkedList<Pet> patientPets = new LinkedList<Pet>();
 		try {
