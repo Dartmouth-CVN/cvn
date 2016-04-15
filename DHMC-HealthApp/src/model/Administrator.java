@@ -2,7 +2,6 @@ package model;
 
 import java.io.File;
 
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 
 public class Administrator extends User {

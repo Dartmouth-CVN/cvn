@@ -2,6 +2,7 @@ package view;
 
 import java.util.LinkedList;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
@@ -9,6 +10,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import model.Caregiver;
 import model.MainApp;
@@ -70,7 +72,7 @@ public class EditPatientController {
 	@FXML TableColumn<Meal, String> mealNames;
 	@FXML TableColumn<Meal, Integer> mealCals;
 	@FXML TableColumn<Meal, Boolean> mealLiked;
-	@FXML TableColumn<Meal, Boolean> mealDiskliked;
+	@FXML TableColumn<Meal, Boolean> mealDisliked;
 	@FXML TableColumn<Meal, String> mealNotesCol;
 	@FXML RadioButton mealLikeButton;
 	@FXML RadioButton mealDislikeButton;
@@ -102,7 +104,25 @@ public class EditPatientController {
 			}
 			temp = (TextField) patientEmail.getChildren().get(i);
 			temp.setText(emails.get(i));
+			
+			
 		}
+		//Readying the tables
+		familyNames.setCellValueFactory(new PropertyValueFactory<Caregiver, String>("name"));
+		familyRels.setCellValueFactory(new PropertyValueFactory<Caregiver, String>("relation"));
+		familyTable.setItems(FXCollections.observableArrayList(p.getPreferences().getCaregiver()));
+		
+		petNames.setCellValueFactory(new PropertyValueFactory<Pet, String>("name"));
+		petSpecies.setCellValueFactory(new PropertyValueFactory<Pet, String>("species"));
+		petAllergyFriendly.setCellValueFactory(new PropertyValueFactory<Pet, Boolean>("allergyFriendly"));
+		petTable.setItems(FXCollections.observableArrayList(p.getPreferences().getPets()));
+		
+		mealNames.setCellValueFactory(new PropertyValueFactory<Meal, String>("name"));
+		mealCals.setCellValueFactory(new PropertyValueFactory<Meal, Integer>("calories"));
+		mealLiked.setCellValueFactory(new PropertyValueFactory<Meal, Boolean>("like"));
+		mealDisliked.setCellValueFactory(new PropertyValueFactory<Meal, Boolean>("dislike"));
+		mealNotesCol.setCellValueFactory(new PropertyValueFactory<Meal, String>("notes"));
+		mealTable.setItems(FXCollections.observableArrayList(p.getPreferences().getMenu()));
 	}
 	
 	@FXML private void addPatientPhone() {
