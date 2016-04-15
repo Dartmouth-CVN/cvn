@@ -38,11 +38,6 @@
                                     <TableColumn prefWidth="136.0" text="Location" />
                                 </columns>
                               </TableView>
-                              <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="190.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="266.0" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="240.1546392440796" AnchorPane.topAnchor="12.0">
-                                 <image>
-                                    <Image url="@../../resources/images/Calendar_icon.png" />
-                                 </image>
-                              </ImageView>
                            </children>
                         </AnchorPane>
                     </items>
@@ -53,7 +48,7 @@
                <children>
                   <ImageView fitHeight="352.0" fitWidth="375.0" layoutX="86.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="123.0" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="85.0" AnchorPane.topAnchor="123.0">
                      <image>
-                        <Image url="@../../resources/images/Calendar_icon.png" />
+                        <Image url="@../../resources/images/Calendar_icon_font_awesome.svg_.png" />
                      </image>
                   </ImageView>
                </children></AnchorPane>
