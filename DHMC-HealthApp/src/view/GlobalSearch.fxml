@@ -13,6 +13,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -80,8 +81,11 @@
                                              <children>
                                                 <CheckBox mnemonicParsing="false" text="Patients" />
                                                 <CheckBox mnemonicParsing="false" prefHeight="18.0" prefWidth="134.0" text="Medical Staff" GridPane.columnIndex="1" />
-                                                <RadioButton mnemonicParsing="false" text="Male" GridPane.columnIndex="2" />
-                                                <RadioButton mnemonicParsing="false" text="Female" GridPane.columnIndex="3" />
+                                                <RadioButton mnemonicParsing="false" text="Male" GridPane.columnIndex="2">
+                                                   <toggleGroup>
+                                                      <ToggleGroup fx:id="gender" />
+                                                   </toggleGroup></RadioButton>
+                                                <RadioButton mnemonicParsing="false" text="Female" toggleGroup="$gender" GridPane.columnIndex="3" />
                                                 <Label prefHeight="17.0" prefWidth="108.0" text="Age Range:" GridPane.columnIndex="4" />
                                                 <TextField GridPane.columnIndex="5" />
                                              </children>
