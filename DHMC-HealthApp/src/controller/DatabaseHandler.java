@@ -84,7 +84,7 @@ public class DatabaseHandler {
 	}
 
 	public void populateDatabase() {
-		addUsers(20);
+		addUsers(200);
 		// addAdministrators();
 		// addPatients();
 		// addMedicalStaff();
