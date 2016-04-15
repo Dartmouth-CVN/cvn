@@ -1,14 +1,11 @@
 package view;
 
-import java.util.LinkedList;
-
 import controller.CSVParsingUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import model.MainApp;
-import model.Patient;
 
 public class ExportFieldsController {
 

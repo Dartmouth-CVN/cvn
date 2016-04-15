@@ -1,14 +1,13 @@
 package view;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
@@ -355,15 +354,34 @@ public class EditPatientController {
 	}
 	
 	public void saveInfo() {
+		ArrayList<String> array = new ArrayList<String>();
 		saveNames();
 		p.setBirthday(patientBirthday.getValue());
 		p.getContactInfo().makePrimaryAddress(patientAddress.getText());
 
-		for (DisplayString phoneNumber : patientPhones)
+		for (DisplayString phoneNumber : patientPhones) {
 			p.getContactInfo().addPhone(phoneNumber.getString());
+			array.add(phoneNumber.getString());
+		}
+		
+		for (String phone : p.getContactInfo().getPhone()) {
+			if (!array.contains(phone)) {
+				p.getContactInfo().removePhone(phone);
+			}
+		}
+		
+		array = new ArrayList<String>();
 
-		for (DisplayString email : patientEmails)
+		for (DisplayString email : patientEmails) {
 			p.getContactInfo().addEmail(email.getString());
+			array.add(email.getString());
+		}
+		
+		for (String email : p.getContactInfo().getEmail()) {
+			if (!array.contains(email)) {
+				p.getContactInfo().removePhone(email);
+			}
+		}
 		
 		p.getContactInfo().makePrimaryAddress(patientAddress.getText());
 
