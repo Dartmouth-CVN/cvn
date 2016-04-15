@@ -1,5 +1,6 @@
 package view;
 
+import java.io.File;
 import java.util.LinkedList;
 
 import javafx.collections.FXCollections;
@@ -12,7 +13,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import model.Caregiver;
+import model.HealthInfo;
 import model.MainApp;
 import model.Meal;
 import model.Patient;
@@ -24,6 +27,8 @@ public class EditPatientController {
 	
 	private Patient p;
 	MainApp mainApp;
+	private File curCSV;
+	private LinkedList<HealthInfo> info;
 	
 	public EditPatientController(Patient p) {
 		this.p = p;
@@ -39,6 +44,16 @@ public class EditPatientController {
 	
 	public void setPatient (Patient p) {
 		this.p = p;
+	}
+	
+	@FXML public void importFitBitCSV() {
+		FileChooser fc = new FileChooser();
+		fc.setTitle("Select FitBit CSV to import");
+		curCSV = fc.showOpenDialog(null);
+		if (curCSV != null && curCSV.exists()) {
+			info = controller.FitBitParsingUtils.fitBitImport(curCSV);
+			p.addHealthInfoList(info);
+		}
 	}
 	
 	public void update() {
@@ -76,7 +91,7 @@ public class EditPatientController {
 	@FXML TableColumn<Meal, String> mealNotesCol;
 	@FXML RadioButton mealLikeButton;
 	@FXML RadioButton mealDislikeButton;
-	@FXML RadioButton mealNeutralButton;
+	@FXML RadioButton mealNeutralButton;;
 	
 	
 	@FXML private void initialize() {
