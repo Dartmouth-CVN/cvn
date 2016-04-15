@@ -1,12 +1,27 @@
 package view;
 
+import controller.CSVParsingUtils;
+import controller.DatabaseHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.RadioButton;
 import model.MainApp;
 
 public class ExportFieldsController {
 
+	@FXML
+	private RadioButton personalCSVRadioButton = new RadioButton();
+	@FXML
+	private RadioButton personalTSVRadioButton = new RadioButton();
+	@FXML
+	private RadioButton healthCSVRadioButton = new RadioButton();
+	@FXML
+	private RadioButton healthTSVRadioButton = new RadioButton();
+	@FXML
+	private RadioButton preferenceCSVRadioButton = new RadioButton();
+	@FXML
+	private RadioButton preferenceTSVRadioButton = new RadioButton();
 	@FXML
 	private CheckBox firstNameCheckBox = new CheckBox();
 	@FXML
@@ -72,7 +87,11 @@ public class ExportFieldsController {
 	@FXML
 	private Button preferenceClearAllButton = new Button();
 	@FXML
-	private Button exportButton = new Button();
+	private Button personalExportButton = new Button();
+	@FXML
+	private Button healthExportButton = new Button();
+	@FXML
+	private Button preferenceExportButton = new Button();
 	
 
 
@@ -110,11 +129,112 @@ public class ExportFieldsController {
 	 * Called when the user clicks the Go button.
 	 */
 	@FXML
-	private void handleExportButton() {
+	private void handlePersonalExportButton() {
+		
+		boolean[] fields = new boolean [12];
+		
+		fields[0] = false;
+		fields[1] = firstNameCheckBox.isSelected();
+		fields[2] = lastNameCheckBox.isSelected();
+		fields[3] = false;
+		fields[4] = false;
+		fields[5] = false;
+		fields[6] = addressCheckBox.isSelected();
+		fields[7] = phoneNumberCheckBox.isSelected();
+		fields[8] = emailAddressCheckBox.isSelected();
+		fields[9] = false;
+		fields[10] = false;
+		fields[11] = false;
+		
 
+		if (personalCSVRadioButton.isSelected()) {
+			
+			CSVExport("Exported", DatabaseHandler.getUniqueInstance().searchPatient(), fields);
+			
+		} else {
+			
+			TSVExport("Exported", DatabaseHandler.getUniqueInstance().searchPatient(), fields);
+
+		}
+		
 		
 
 	}
+	
+	/**
+	 * Called when the user clicks the Go button.
+	 */
+	@FXML
+	private void handleHealthExportButton() {
+		
+		boolean[] fields = new boolean [20];
+		
+		fields[0] = true;
+		fields[1] = true;
+		fields[2] = dateCheckBox.isSelected();
+		fields[3] = heightCheckBox.isSelected();
+		fields[4] = weightCheckBox.isSelected();
+		fields[5] = BMICheckBox.isSelected();
+		fields[6] = fatCheckBox.isSelected();
+		fields[7] = caloriesBurnedCheckBox.isSelected();
+		fields[8] = stepsCheckBox.isSelected();
+		fields[9] = distanceCheckBox.isSelected();
+		fields[10] = floorsCheckBox.isSelected();;
+		fields[11] = sedentaryTimeCheckBox.isSelected();
+		fields[12] = lightlyActiveTimeCheckBox.isSelected();
+		fields[13] = fairlyActiveTimeCheckBox.isSelected();
+		fields[14] = veryActiveTimeCheckBox.isSelected();
+		fields[15] = activityCaloriesCheckBox.isSelected();
+		fields[16] = timeAsleepCheckBox.isSelected();
+		fields[17] = timeAwakeCheckBox.isSelected();
+		fields[18] = timesWokenUpCheckBox.isSelected();
+		fields[19] = bedTimeCheckBox.isSelected();
+
+		
+
+		if (personalCSVRadioButton.isSelected()) {
+			
+			CSVExport("Exported", DatabaseHandler.getUniqueInstance().searchPatient(), fields);
+			
+		} else {
+			
+			TSVExport("Exported", DatabaseHandler.getUniqueInstance().searchPatient(), fields);
+
+		}
+	
+		
+		//Ignore this method, preference according WILL NOT BE IMPLEMENTED
+		/**
+		 * Called when the user clicks the Go button.
+		 */
+		@FXML
+		private void handlePreferenceExportButton() {
+			
+			boolean[] fields = new boolean [12];
+			
+			fields[0] = false;
+			fields[1] = firstNameCheckBox.isSelected();
+			fields[2] = lastNameCheckBox.isSelected();
+			fields[3] = false;
+			fields[4] = false;
+			fields[5] = false;
+			fields[6] = addressCheckBox.isSelected();
+			fields[7] = phoneNumberCheckBox.isSelected();
+			fields[8] = emailAddressCheckBox.isSelected();
+			fields[9] = false;
+			fields[10] = false;
+			fields[11] = false;
+			
+
+			if (personalCSVRadioButton.isSelected()) {
+				
+				CSVExport("Exported", DatabaseHandler.getUniqueInstance().searchPatient(), fields);
+				
+			} else {
+				
+				TSVExport("Exported", DatabaseHandler.getUniqueInstance().searchPatient(), fields);
+
+			}
 	
 	@FXML
 	private void handlePersonalSelectButton() {
