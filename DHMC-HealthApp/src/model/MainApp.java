@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import view.AdminDashController;
 import view.EditPatientController;
 import view.LoginController;
+import view.RootController;
 
 public class MainApp extends Application {
 	private static DatabaseHandler dbHandler;
@@ -52,6 +53,8 @@ public class MainApp extends Application {
 
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(rootLayout);
+			RootController controller = loader.getController();
+			controller.setMainApp(this);
 
 			primaryStage.setScene(scene);
 			setStageDimensions(scene);
@@ -106,6 +109,10 @@ public class MainApp extends Application {
 	
 	public void showEditProfile(Patient patient){
 		dashController.getEditPatientTab(patient);
+	}
+	
+	public void showAddPatient(){
+		dashController.getAddPatientTab();
 	}
 	
 	public void changeScreenSize(Scene s){

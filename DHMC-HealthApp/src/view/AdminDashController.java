@@ -59,6 +59,9 @@ public class AdminDashController {
 	 */
 	@FXML
 	private void initialize() {
+<<<<<<< HEAD
+		
+=======
 		tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
 			@Override
 			public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
@@ -67,6 +70,7 @@ public class AdminDashController {
 			}
 		});
 		loadExportTab();
+>>>>>>> 8c6409b4e764373270f92db789a403e4a8de6bd2
 	}
 
 	/**
@@ -178,37 +182,36 @@ public class AdminDashController {
 	}
 
 	private FXMLLoader getEditPatientLoader() {
-		if (editPatientLoader == null) {
-			return new FXMLLoader();
-		} else {
+		editPatientLoader = null;
+			editPatientLoader = new FXMLLoader();
+			editPatientLoader.setLocation(MainApp.class.getResource("../view/EditPatient.fxml"));
+			try {
+				editPatient = (AnchorPane) editPatientLoader.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return editPatientLoader;
-		}
 	}
 
 	public AnchorPane getEditPatientTab(Patient p) {
-		if (editPatient == null) {
-			loadEditPatient(p);
-			editPatientTab.setContent(editPatient);
-			tabPane.getSelectionModel().select(editPatientTab);
-			return editPatient;
-		} else {
-			return editPatient;
-		}
-	}
-
-	private void loadEditPatient(Patient patient) {
 		try {
-			editPatientLoader = getEditPatientLoader();
-			editPatientLoader.setLocation(MainApp.class.getResource("../view/EditPatient.fxml"));
-			editPatient = (AnchorPane) editPatientLoader.load();
-			EditPatientController controller = editPatientLoader.getController();
-			controller.setMainApp(mainApp);
-			controller.setPatient(patient);
-			controller.loadFields();
+			loadEditPatient(p);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		editPatientTab.setContent(editPatient);
+		tabPane.getSelectionModel().select(editPatientTab);
+		return editPatient;
+	}
+
+	private void loadEditPatient(Patient patient) throws IOException {
+		editPatientLoader = getEditPatientLoader();
+		EditPatientController controller = editPatientLoader.getController();
+		controller.setMainApp(mainApp);
+		controller.setPatient(patient);
+		controller.loadFields();
 
 	}
 
@@ -226,7 +229,6 @@ public class AdminDashController {
 	 */
 	@FXML
 	private void handleScheduleImage() {
-
 		tabPane.getSelectionModel().select(scheduleTab);
 	}
 

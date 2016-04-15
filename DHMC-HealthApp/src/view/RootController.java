@@ -23,6 +23,11 @@ public class RootController {
 	private void initialize() {
 	}
 	
+	@FXML
+	private void addNewPatient() {
+		mainApp.showAddPatient();
+	}
+	
 	public void setMainApp(MainApp mainApp){
 		this.mainApp = mainApp;
 	}
