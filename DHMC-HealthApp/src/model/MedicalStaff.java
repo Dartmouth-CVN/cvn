@@ -97,4 +97,10 @@ public class MedicalStaff extends User {
 	public void setPosition(String position) {
 		this.position = position;
 	}
+
+	@Override
+	public void initObservers() {
+		// TODO Auto-generated method stub
+		
+	}
 }

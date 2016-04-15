@@ -92,8 +92,6 @@ public class ExportFieldsController {
 	private Button healthExportButton = new Button();
 	@FXML
 	private Button preferenceExportButton = new Button();
-	
-
 
 	// Reference to the main application.
 	private MainApp mainApp;
@@ -111,7 +109,7 @@ public class ExportFieldsController {
 	 */
 	@FXML
 	private void initialize() {
-		
+
 	}
 
 	/**
@@ -130,9 +128,9 @@ public class ExportFieldsController {
 	 */
 	@FXML
 	private void handlePersonalExportButton() {
-		
-		boolean[] fields = new boolean [12];
-		
+
+		boolean[] fields = new boolean[12];
+
 		fields[0] = false;
 		fields[1] = firstNameCheckBox.isSelected();
 		fields[2] = lastNameCheckBox.isSelected();
@@ -145,30 +143,23 @@ public class ExportFieldsController {
 		fields[9] = false;
 		fields[10] = false;
 		fields[11] = false;
-		
 
 		if (personalCSVRadioButton.isSelected()) {
-			
-			CSVExport("Exported", DatabaseHandler.getUniqueInstance().searchPatient(), fields);
-			
+//			CSVExport("Exported", DatabaseHandler.getUniqueInstance().searchPatient(), fields);
 		} else {
-			
-			TSVExport("Exported", DatabaseHandler.getUniqueInstance().searchPatient(), fields);
-
+//			TSVExport("Exported", DatabaseHandler.getUniqueInstance().searchPatient(), fields);
 		}
-		
-		
 
 	}
-	
+
 	/**
 	 * Called when the user clicks the Go button.
 	 */
 	@FXML
 	private void handleHealthExportButton() {
-		
-		boolean[] fields = new boolean [20];
-		
+
+		boolean[] fields = new boolean[20];
+
 		fields[0] = true;
 		fields[1] = true;
 		fields[2] = dateCheckBox.isSelected();
@@ -179,7 +170,8 @@ public class ExportFieldsController {
 		fields[7] = caloriesBurnedCheckBox.isSelected();
 		fields[8] = stepsCheckBox.isSelected();
 		fields[9] = distanceCheckBox.isSelected();
-		fields[10] = floorsCheckBox.isSelected();;
+		fields[10] = floorsCheckBox.isSelected();
+		;
 		fields[11] = sedentaryTimeCheckBox.isSelected();
 		fields[12] = lightlyActiveTimeCheckBox.isSelected();
 		fields[13] = fairlyActiveTimeCheckBox.isSelected();
@@ -190,52 +182,52 @@ public class ExportFieldsController {
 		fields[18] = timesWokenUpCheckBox.isSelected();
 		fields[19] = bedTimeCheckBox.isSelected();
 
-		
-
 		if (personalCSVRadioButton.isSelected()) {
-			
-			CSVExport("Exported", DatabaseHandler.getUniqueInstance().searchPatient(), fields);
-			
+
+			// CSVExport("Exported",
+			// DatabaseHandler.getUniqueInstance().searchPatient(), fields);
+
 		} else {
-			
-			TSVExport("Exported", DatabaseHandler.getUniqueInstance().searchPatient(), fields);
+
+			// TSVExport("Exported",
+			// DatabaseHandler.getUniqueInstance().searchPatient(), fields);
 
 		}
-	
-		
-		//Ignore this method, preference according WILL NOT BE IMPLEMENTED
-		/**
-		 * Called when the user clicks the Go button.
-		 */
-		@FXML
-		private void handlePreferenceExportButton() {
-			
-			boolean[] fields = new boolean [12];
-			
-			fields[0] = false;
-			fields[1] = firstNameCheckBox.isSelected();
-			fields[2] = lastNameCheckBox.isSelected();
-			fields[3] = false;
-			fields[4] = false;
-			fields[5] = false;
-			fields[6] = addressCheckBox.isSelected();
-			fields[7] = phoneNumberCheckBox.isSelected();
-			fields[8] = emailAddressCheckBox.isSelected();
-			fields[9] = false;
-			fields[10] = false;
-			fields[11] = false;
-			
+	}
 
-			if (personalCSVRadioButton.isSelected()) {
-				
-				CSVExport("Exported", DatabaseHandler.getUniqueInstance().searchPatient(), fields);
-				
-			} else {
-				
-				TSVExport("Exported", DatabaseHandler.getUniqueInstance().searchPatient(), fields);
+	// Ignore this method, preference according WILL NOT BE IMPLEMENTED
+	/**
+	 * Called when the user clicks the Go button.
+	 */
+	@FXML
+	private void handlePreferenceExportButton() {
 
-			}
-	
+		boolean[] fields = new boolean[12];
+
+		fields[0] = false;
+		fields[1] = firstNameCheckBox.isSelected();
+		fields[2] = lastNameCheckBox.isSelected();
+		fields[3] = false;
+		fields[4] = false;
+		fields[5] = false;
+		fields[6] = addressCheckBox.isSelected();
+		fields[7] = phoneNumberCheckBox.isSelected();
+		fields[8] = emailAddressCheckBox.isSelected();
+		fields[9] = false;
+		fields[10] = false;
+		fields[11] = false;
+
+		if (personalCSVRadioButton.isSelected()) {
+
+//			CSVExport("Exported", DatabaseHandler.getUniqueInstance().searchPatient(), fields);
+
+		} else {
+
+//			TSVExport("Exported", DatabaseHandler.getUniqueInstance().searchPatient(), fields);
+
+		}
+	}
+
 	@FXML
 	private void handlePersonalSelectButton() {
 
@@ -244,11 +236,10 @@ public class ExportFieldsController {
 		userNameCheckBox.setSelected(true);
 		addressCheckBox.setSelected(true);
 		phoneNumberCheckBox.setSelected(true);
-		emailAddressCheckBox.setSelected(true);	
-
+		emailAddressCheckBox.setSelected(true);
 
 	}
-	
+
 	@FXML
 	private void handlePersonalClearButton() {
 
@@ -257,10 +248,10 @@ public class ExportFieldsController {
 		userNameCheckBox.setSelected(false);
 		addressCheckBox.setSelected(false);
 		phoneNumberCheckBox.setSelected(false);
-		emailAddressCheckBox.setSelected(false);	
+		emailAddressCheckBox.setSelected(false);
 
 	}
-	
+
 	@FXML
 	private void handleHealthSelectButton() {
 
@@ -284,7 +275,7 @@ public class ExportFieldsController {
 		sedentaryTimeCheckBox.setSelected(true);
 
 	}
-	
+
 	@FXML
 	private void handleHealthClearButton() {
 
@@ -308,7 +299,7 @@ public class ExportFieldsController {
 		sedentaryTimeCheckBox.setSelected(false);
 
 	}
-	
+
 	@FXML
 	private void handlePreferenceSelectButton() {
 
@@ -316,7 +307,7 @@ public class ExportFieldsController {
 		petsCheckBox.setSelected(true);
 
 	}
-	
+
 	@FXML
 	private void handlePreferenceClearButton() {
 
@@ -326,4 +317,3 @@ public class ExportFieldsController {
 	}
 
 }
-

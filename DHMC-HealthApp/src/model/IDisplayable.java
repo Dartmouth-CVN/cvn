@@ -15,5 +15,7 @@ public interface IDisplayable {
 	public StringProperty getLastNameProperty() ;
 
 	public StringProperty getUserIDProperty();
+	
+	public void initObservers();
 
 }

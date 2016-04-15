@@ -3,6 +3,10 @@ import java.io.Serializable;
 import java.util.LinkedList;
 
 public class Contact implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2789588534495622114L;
 	private String id;
 	private LinkedList<String> phone;
 	private LinkedList<String> email;
@@ -52,6 +56,10 @@ public class Contact implements Serializable{
 	
 	public void setEmail(LinkedList<String> email){
 		this.email = email;
+	}
+	
+	public void setAddress(LinkedList<String> address){
+		this.address = address;
 	}
 	
 	public String getPrimaryAddress() {

@@ -21,6 +21,7 @@ public class MainApp extends Application {
 	private BorderPane rootLayout;
 
 	private AnchorPane adminDash;
+	private AdminDashController dashController;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -94,35 +95,17 @@ public class MainApp extends Application {
 			loader.setLocation(MainApp.class.getResource("../view/AdminDash.fxml"));
 			adminDash = (AnchorPane) loader.load();
 			// Give the controller access to the main.
-			AdminDashController controller = loader.getController();
-			controller.setMainApp(this);
+			 dashController = loader.getController();
+			dashController.setMainApp(this);
 			rootLayout.setCenter(adminDash);
 			
 		} catch (IOException e) {
 			printError(e);
 		}
 	}
-
-	public void showEditProfile(Patient patient) {
-		try {
-			// Load root layout from fxml file.
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("../view/EditPatient.fxml"));
-			BorderPane editProfile = (BorderPane) loader.load();
-
-			Stage editProfileStage = new Stage();
-			editProfileStage.setScene(new Scene(editProfile));
-
-			EditPatientController controller = loader.getController();
-			controller.setMainApp(this);
-			controller.setPatient(patient);
-			controller.loadFields();
-
-			editProfileStage.setTitle("Edit Profile");
-			editProfileStage.show();
-		} catch (IOException e) {
-			printError(e);
-		}
+	
+	public void showEditProfile(Patient patient){
+		dashController.loadEditPatientTab(patient);
 	}
 	
 	public void changeScreenSize(Scene s){

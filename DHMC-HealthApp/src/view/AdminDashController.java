@@ -4,11 +4,15 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import model.MainApp;
+import model.Patient;
 
 public class AdminDashController {
 
@@ -50,10 +54,6 @@ public class AdminDashController {
 	 */
 	@FXML
 	private void initialize() {
-		loadScheduleTab();
-		loadSearchTab();
-		//loadEditPatientTab();
-		// list admin's profile at the top of dashboard
 	}
 
 	/**
@@ -156,6 +156,10 @@ public class AdminDashController {
 	 */
 	@FXML
 	private void loadEditPatientTab() {
+		
+	}
+	
+	public void loadEditPatientTab(Patient patient){
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/EditPatient.fxml"));
@@ -165,14 +169,16 @@ public class AdminDashController {
 
 			EditPatientController controller = loader.getController();
 			controller.setMainApp(mainApp);
+			controller.setPatient(patient);
+			controller.loadFields();
+
+			tabPane.getSelectionModel().select(editPatientTab);
 
 		} catch (IOException e) {
 			MainApp.printError(e);
 		}
-
 	}
 	
-
 	/**
 	 * Clicking search image opens the search tab.
 	 */

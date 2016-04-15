@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
@@ -14,9 +15,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import model.Caregiver;
+import model.DisplayString;
 import model.HealthInfo;
 import model.MainApp;
 import model.Meal;
@@ -59,10 +62,6 @@ public class EditPatientController {
 		}
 	}
 
-	public void update() {
-		MainApp.getDatabaseHandler().updatePatient(p);
-	}
-
 	// Functions and attributes to communicate with EditPatient.fxml
 
 	@FXML
@@ -86,13 +85,21 @@ public class EditPatientController {
 	@FXML
 	DatePicker familyMemBirthday;
 	@FXML
-	VBox patientPhone;
+	TableView<DisplayString> patientPhoneTable;
 	@FXML
-	VBox patientEmail;
+	TableView<DisplayString> patientEmailTable;
 	@FXML
-	VBox familyMemPhone;
+	TableView<DisplayString> familyPhoneTable;
 	@FXML
-	VBox familyMemEmail;
+	TableView<DisplayString> familyEmailTable;
+	@FXML
+	TableColumn<DisplayString, String> patientPhone;
+	@FXML
+	TableColumn<DisplayString, String> patientEmail;
+	@FXML
+	TableColumn<DisplayString, String> familyPhone;
+	@FXML
+	TableColumn<DisplayString, String> familyEmail;
 	@FXML
 	TableView<Caregiver> familyTable;
 	@FXML
@@ -124,142 +131,142 @@ public class EditPatientController {
 	@FXML
 	RadioButton mealDislikeButton;
 	@FXML
-	RadioButton mealNeutralButton;;
+	RadioButton mealNeutralButton;
+
+	ObservableList<DisplayString> patientPhones;
+	ObservableList<DisplayString> patientEmails;
+
+	ObservableList<Caregiver> familyMembers;
+	ObservableList<DisplayString> familyEmails;
+	ObservableList<DisplayString> familyPhones;
+	ObservableList<Caregiver> famNames;
+	ObservableList<Caregiver> famRels;
 
 	@FXML
 	private void initialize() {
+		patientPhones = FXCollections.observableArrayList();
+		patientEmails = FXCollections.observableArrayList();
+		familyMembers = FXCollections.observableArrayList();
+		famNames = FXCollections.observableArrayList();
+		famRels = FXCollections.observableArrayList();
+		familyPhones = FXCollections.observableArrayList();
+		familyEmails = FXCollections.observableArrayList();
+
+		patientPhoneTable.setItems(patientPhones);
+		patientEmailTable.setItems(patientEmails);
+		familyTable.setItems(familyMembers);
+
+		patientPhone.setCellFactory(TextFieldTableCell.forTableColumn());
+		patientEmail.setCellFactory(TextFieldTableCell.forTableColumn());
+		familyPhone.setCellFactory(TextFieldTableCell.forTableColumn());
+		familyEmail.setCellFactory(TextFieldTableCell.forTableColumn());
+
+		patientPhone.setCellValueFactory(cellData -> cellData.getValue().getStringProperty());
+		patientEmail.setCellValueFactory(cellData -> cellData.getValue().getStringProperty());
+		familyPhone.setCellValueFactory(cellData -> cellData.getValue().getStringProperty());
+		familyEmail.setCellValueFactory(cellData -> cellData.getValue().getStringProperty());
+		familyNames.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
+		familyRels.setCellValueFactory(cellData -> cellData.getValue().getRelationProperty());
 
 	}
 
 	public void loadFields() {
-		TextField temp;
 		int i;
-		System.out.println("Patient: " + p.getFirstName());
-		LinkedList<String> phoneNums = p.getContactInfo().getPhone();
-		LinkedList<String> emails = p.getContactInfo().getEmail();
 		firstName.setText(p.getFirstName());
 		lastName.setText(p.getLastName());
 		patientBirthday.setValue(p.getBirthday());
-//		patientAddress.setText(p.getContactInfo().getPrimaryAddress());
+		patientAddress.setText(p.getContactInfo().getPrimaryAddress());
 
-		for (i = 0; i < phoneNums.size(); i++) {
-			if (i > 0) {
-				addPatientPhone();
-			}
-			temp = (TextField) patientPhone.getChildren().get(i);
-			temp.setText(phoneNums.get(i));
-		}
+		for (String phoneNum : p.getContactInfo().getPhone())
+			patientPhones.add(new DisplayString(phoneNum));
 
-		for (i = 0; i < emails.size(); i++) {
-			if (i > 0) {
-				addPatientEmail();
-			}
-			temp = (TextField) patientEmail.getChildren().get(i);
-			temp.setText(emails.get(i));
+		for (String email : p.getContactInfo().getEmail())
+			patientEmails.add(new DisplayString(email));
 
-		}
-		// Readying the tables
-//		familyNames.setCellValueFactory(new PropertyValueFactory<Caregiver, String>("name"));
-//		familyRels.setCellValueFactory(new PropertyValueFactory<Caregiver, String>("relation"));
-//		familyTable.setItems(FXCollections.observableArrayList(p.getPreferences().getCaregiver()));
-//
-//		familyTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Caregiver>() {
-//
-//			@Override
-//			public void changed(ObservableValue<? extends Caregiver> observable, Caregiver oldValue,
-//					Caregiver newValue) {
-//				switchFamilyMember(oldValue, newValue);
-//			}
-//		});
+		// for(Caregiver family : p.)
 
-//		petNames.setCellValueFactory(new PropertyValueFactory<Pet, String>("name"));
-//		petSpecies.setCellValueFactory(new PropertyValueFactory<Pet, String>("species"));
-//		petAllergyFriendly.setCellValueFactory(new PropertyValueFactory<Pet, Boolean>("allergyFriendly"));
-//		petTable.setItems(FXCollections.observableArrayList(p.getPreferences().getPets()));
-//
-//		mealNames.setCellValueFactory(new PropertyValueFactory<Meal, String>("name"));
-//		mealCals.setCellValueFactory(new PropertyValueFactory<Meal, Integer>("calories"));
-//		mealLiked.setCellValueFactory(new PropertyValueFactory<Meal, Boolean>("like"));
-//		mealDisliked.setCellValueFactory(new PropertyValueFactory<Meal, Boolean>("dislike"));
-//		mealNotesCol.setCellValueFactory(new PropertyValueFactory<Meal, String>("notes"));
-//		mealTable.setItems(FXCollections.observableArrayList(p.getPreferences().getMenu()));
-//
-//		mealTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Meal>() {
-//
-//			@Override
-//			public void changed(ObservableValue<? extends Meal> observable, Meal oldValue, Meal newValue) {
-//				switchMeal(oldValue, newValue);
-//			}
-//		});
+		// familyNames.setCellValueFactory(cellData
+		// ->cellData.getValue().getStringProperty());
+		// familyRels.setCellValueFactory(new PropertyValueFactory<Caregiver,
+		// String>("relation"));
+		// familyTable.setItems(FXCollections.observableArrayList(p.getPreferences().getCaregiver()));
+		//
+		// familyTable.getSelectionModel().selectedItemProperty().addListener(new
+		// ChangeListener<Caregiver>() {
+		//
+		// petNames.setCellValueFactory(new PropertyValueFactory<Pet,
+		// String>("name"));
+		// petSpecies.setCellValueFactory(new PropertyValueFactory<Pet,
+		// String>("species"));
+		// petAllergyFriendly.setCellValueFactory(new PropertyValueFactory<Pet,
+		// Boolean>("allergyFriendly"));
+		// petTable.setItems(FXCollections.observableArrayList(p.getPreferences().getPets()));
+		//
+		// mealNames.setCellValueFactory(new PropertyValueFactory<Meal,
+		// String>("name"));
+		// mealCals.setCellValueFactory(new PropertyValueFactory<Meal,
+		// Integer>("calories"));
+		// mealLiked.setCellValueFactory(new PropertyValueFactory<Meal,
+		// Boolean>("like"));
+		// mealDisliked.setCellValueFactory(new PropertyValueFactory<Meal,
+		// Boolean>("dislike"));
+		// mealNotesCol.setCellValueFactory(new PropertyValueFactory<Meal,
+		// String>("notes"));
+		// mealTable.setItems(FXCollections.observableArrayList(p.getPreferences().getMenu()));
+		//
+		// mealTable.getSelectionModel().selectedItemProperty().addListener(new
+		// ChangeListener<Meal>() {
+		//
+		// @Override
+		// public void changed(ObservableValue<? extends Meal> observable, Meal
+		// oldValue, Meal newValue) {
+		// switchMeal(oldValue, newValue);
+		// }
+		// });
 	}
 
 	@FXML
 	private void addPatientPhone() {
-		TextField newPhone = new TextField();
-		newPhone.setPromptText("Phone Number");
-		patientPhone.getChildren().add(newPhone);
+		patientPhones.add(new DisplayString("Enter New Number..."));
 	}
 
 	@FXML
 	private void removePatientPhone() {
-		int size = patientPhone.getChildren().size();
-
-		if (size > 1) {
-			patientPhone.getChildren().remove(size - 1);
-		}
+		patientPhones.remove(patientPhoneTable.getSelectionModel().getSelectedIndex());
 	}
 
 	@FXML
 	private void addPatientEmail() {
-		TextField newEmail = new TextField();
-		newEmail.setPromptText("Email Address");
-		patientEmail.getChildren().add(newEmail);
+		patientEmails.add(new DisplayString("Enter new email..."));
 	}
 
 	@FXML
 	private void removePatientEmail() {
-		int size = patientEmail.getChildren().size();
-
-		if (size > 1) {
-			patientEmail.getChildren().remove(size - 1);
-		}
+		patientEmails.remove(patientEmailTable.getSelectionModel().getSelectedIndex());
 	}
 
 	@FXML
 	private void addFamilyMemPhone() {
-		TextField newPhone = new TextField();
-		newPhone.setPromptText("Phone Number");
-		familyMemPhone.getChildren().add(newPhone);
+		familyPhones.add(new DisplayString("Enter New Number..."));
 	}
 
 	@FXML
 	private void removeFamilyMemPhone() {
-		int size = familyMemPhone.getChildren().size();
-
-		if (size > 1) {
-			familyMemPhone.getChildren().remove(size - 1);
-		}
+		familyPhones.remove(familyPhoneTable.getSelectionModel().getSelectedIndex());
 	}
 
 	@FXML
 	private void addFamilyMemEmail() {
-		TextField newEmail = new TextField();
-		newEmail.setPromptText("Email Address");
-		familyMemEmail.getChildren().add(newEmail);
+		familyEmails.add(new DisplayString("Enter new email..."));
 	}
 
 	@FXML
 	private void removeFamilyMemEmail() {
-		int size = familyMemEmail.getChildren().size();
-
-		if (size > 1) {
-			familyMemEmail.getChildren().remove(size - 1);
-		}
+		familyEmails.remove(familyEmailTable.getSelectionModel().getSelectedIndex());
 	}
 
 	@FXML
 	private void addFamilyMember() {
-		familyTable.getItems().add(new Caregiver());
 	}
 
 	@FXML
@@ -330,60 +337,24 @@ public class EditPatientController {
 
 	@FXML
 	private void save() {
-		int i;
-		TextField field;
-		String text;
-		LinkedList<String> list = new LinkedList<String>();
-		LinkedList<String> phone = p.getContactInfo().getPhone();
-		LinkedList<String> email = p.getContactInfo().getEmail();
-
 		p.setFirstName(firstName.getText());
 		p.setLastName(lastName.getText());
 		p.setBirthday(patientBirthday.getValue());
 		p.getContactInfo().makePrimaryAddress(patientAddress.getText());
 
-		for (i = 0; i < patientPhone.getChildren().size(); i++) {
-			field = (TextField) patientPhone.getChildren().get(i);
-			text = field.getText();
-			if (!text.equals("")) {
-				list.add(text);
-				p.getContactInfo().addPhone(text);
-			}
-		}
+		for (DisplayString phoneNumber : patientPhones)
+			p.getContactInfo().addPhone(phoneNumber.getString());
 
-		p.getContactInfo().makePrimaryPhone(list.getFirst());
+		// convoluted way of making the first item in the list the primary
+		p.getContactInfo().makePrimaryPhone(p.getContactInfo().getPhone().getFirst());
 
-		for (i = 0; i < phone.size(); i++) {
-			text = phone.get(i);
-			if (!list.contains(text)) {
-				p.getContactInfo().removePhone(text);
-			}
-		}
+		for (DisplayString email : patientEmails)
+			p.getContactInfo().addEmail(email.getString());
 
-		list = new LinkedList<String>();
+		p.getContactInfo().makePrimaryEmail(p.getContactInfo().getEmail().getFirst());
 
-		for (i = 0; i < patientEmail.getChildren().size(); i++) {
-			field = (TextField) patientEmail.getChildren().get(i);
-			text = field.getText();
-			if (!text.equals("")) {
-				list.add(text);
-				p.getContactInfo().addEmail(text);
-			}
-		}
+		p.getContactInfo().makePrimaryAddress(patientAddress.getText());
 
-		p.getContactInfo().makePrimaryEmail(list.getFirst());
-
-		for (i = 0; i < email.size(); i++) {
-			text = email.get(i);
-			if (!list.contains(text)) {
-				p.getContactInfo().removeEmail(text);
-			}
-		}
-
-		// Save family information
-		// Save pet information
-		// Save meal information
-
-		update();
+		p.update();
 	}
 }

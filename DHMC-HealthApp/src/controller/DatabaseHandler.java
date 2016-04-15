@@ -100,7 +100,7 @@ public class DatabaseHandler {
 				numbers.add(getRandomPhoneNumber());
 			LinkedList<String> emails = new LinkedList<String>();
 			for (int i = 0; i < 3; i++)
-				numbers.add(getRandomEmail());
+				emails.add(getRandomEmail());
 
 			Contact contact = new Contact(userID);
 			contact.setPhone(numbers);
@@ -469,6 +469,9 @@ public class DatabaseHandler {
 		return userID;
 	}
 
+	private ByteArrayInputStream baip;
+	private ObjectInputStream ois;
+
 	/**
 	 * Finds patient from database given userID.
 	 * 
@@ -484,15 +487,16 @@ public class DatabaseHandler {
 				rs = ps.executeQuery();
 				if (rs.next()) {
 					Blob blob = rs.getBlob("contact_info");
-					ByteArrayInputStream baip = new ByteArrayInputStream(blob.getBytes(1, (int) blob.length()));
-					ObjectInputStream ois = new ObjectInputStream(baip);
+					baip = new ByteArrayInputStream(blob.getBytes(1L, (int) blob.length()));
+					ois = new ObjectInputStream(baip);
 					Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
-							rs.getString("user_id"), rs.getInt("patient_id"), new Contact() );
+							rs.getString("user_id"), rs.getInt("patient_id"), (Contact) ois.readObject());
 					connection.close();
+					System.out.println(patient.getContactInfo().getPrimaryEmail());
 					return patient;
 				}
 			}
-		} catch (SQLException | IOException e) {
+		} catch (SQLException | IOException | ClassNotFoundException e) {
 			MainApp.printError(e);
 		}
 		return null;
@@ -531,6 +535,7 @@ public class DatabaseHandler {
 							rs.getString("user_id"), rs.getInt("patient_id"));
 					patientList.add(patient);
 				}
+
 				connection.close();
 			}
 		} catch (SQLException e) {
@@ -558,8 +563,7 @@ public class DatabaseHandler {
 		}
 		return patientList;
 	}
-	
-	
+
 	public LinkedList<Pet> getPets(Patient patient) {
 		LinkedList<Pet> patientPets = new LinkedList<Pet>();
 		try {
@@ -576,18 +580,19 @@ public class DatabaseHandler {
 		return patientPets;
 	}
 
-	public LinkedList<HealthInfo> getHealthInfo(Patient patient){
+	public LinkedList<HealthInfo> getHealthInfo(Patient patient) {
 		LinkedList<HealthInfo> patientHealthInfo = new LinkedList<HealthInfo>();
 		try {
 			ps = connection.prepareStatement("SELECT * FROM health_info WHERE patient_id = ?;");
 			ps.setInt(1, patient.getPatientID());
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				HealthInfo info = new HealthInfo(rs.getString("date"), rs.getDouble("height"), rs.getDouble("weight"), rs.getDouble("bmi"), 
-						rs.getDouble("fat"), rs.getDouble("caloriesBurned"), rs.getDouble("steps"), rs.getDouble("distance"),rs.getDouble("floors"),
-						rs.getDouble("minSedentary"), rs.getDouble("minLightlyActive"), rs.getDouble("minFairlyActive"), rs.getDouble("minVeryActive"), 
-						rs.getDouble("activityCalories"),rs.getDouble("minAsleep"), rs.getDouble("minAwake"), rs.getDouble("numAwakenings"), 
-						rs.getDouble("timeInBed"));	
+				HealthInfo info = new HealthInfo(rs.getString("date"), rs.getDouble("height"), rs.getDouble("weight"),
+						rs.getDouble("bmi"), rs.getDouble("fat"), rs.getDouble("caloriesBurned"), rs.getDouble("steps"),
+						rs.getDouble("distance"), rs.getDouble("floors"), rs.getDouble("minSedentary"),
+						rs.getDouble("minLightlyActive"), rs.getDouble("minFairlyActive"),
+						rs.getDouble("minVeryActive"), rs.getDouble("activityCalories"), rs.getDouble("minAsleep"),
+						rs.getDouble("minAwake"), rs.getDouble("numAwakenings"), rs.getDouble("timeInBed"));
 				patientHealthInfo.add(info);
 			}
 			connection.close();
@@ -613,15 +618,24 @@ public class DatabaseHandler {
 		return patientMeals;
 	}
 
-	public boolean insertUser(String userID, String firstName, String lastName, Contact contactInfo) {
-		success = false;
+	public ByteArrayInputStream objectToBlob(Object o) {
+		ByteArrayInputStream bais = null;
 		try {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			ObjectOutputStream oos = new ObjectOutputStream(baos);
+			oos.writeObject( (Contact) o);
+			byte[] byteArray = baos.toByteArray();
+			bais = new ByteArrayInputStream(byteArray);
+		} catch (IOException e) {
+			MainApp.printError(e);
+		}
+		return bais;
+	}
+
+	public boolean insertUser(String userID, String firstName, String lastName, Contact contactInfo) {
+		success = false;
+		try {
 			if (connect()) {
-				oos.writeObject(contactInfo);
-				byte[] byteArray = baos.toByteArray();
-				ByteArrayInputStream bais = new ByteArrayInputStream(byteArray);
 				ps = connection
 						.prepareStatement("INSERT INTO user_account (user_id, firstname, lastname, contact_info) "
 								+ "VALUES(?, ?, ?, ?)");
@@ -629,14 +643,11 @@ public class DatabaseHandler {
 				ps.setString(1, userID);
 				ps.setString(2, firstName);
 				ps.setString(3, lastName);
-				ps.setBinaryStream(4, bais);
+				ps.setBinaryStream(4, objectToBlob(contactInfo));
 				ps.executeUpdate();
 				success = true;
 			}
 		} catch (SQLException e) {
-			MainApp.printError(e);
-		} catch (IOException e) {
-			System.err.println("Error inserting user");
 			MainApp.printError(e);
 		}
 		return success;
@@ -798,7 +809,8 @@ public class DatabaseHandler {
 
 				ps.setString(1, firstName);
 				ps.setString(2, lastName);
-				ps.setObject(3, contactInfo);
+				System.out.println(contactInfo.getPrimaryAddress());
+				ps.setBinaryStream(3, objectToBlob(contactInfo));
 				ps.setString(4, userID);
 
 				ps.executeUpdate();
@@ -858,7 +870,7 @@ public class DatabaseHandler {
 		}
 		return success;
 	}
-	
+
 	public boolean updatePets(LinkedList<Pet> pets, Patient p) {
 		return true;
 	}
@@ -888,9 +900,9 @@ public class DatabaseHandler {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+
 	public void updateMeals(LinkedList<Meal> meals, Patient p) {
-	
+
 	}
 
 	/**
@@ -937,9 +949,9 @@ public class DatabaseHandler {
 			System.out.println(e.getMessage());
 		}
 	}
-	
+
 	public void updateCaregivers(LinkedList<Caregiver> caregivers, Patient p) {
-		
+
 	}
 
 	/**

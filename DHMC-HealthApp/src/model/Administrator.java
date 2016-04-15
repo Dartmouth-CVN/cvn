@@ -87,4 +87,10 @@ public class Administrator extends User {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void initObservers() {
+		// TODO Auto-generated method stub
+		
+	}
 }

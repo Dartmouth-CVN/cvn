@@ -2,6 +2,9 @@ package model;
 
 import java.time.LocalDate;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class Caregiver {
 	private String name;
 	private LocalDate birthday;
@@ -10,13 +13,25 @@ public class Caregiver {
 	private boolean isFamily;
 	private int caregiverID;
 	
+	private StringProperty nameProperty;
+	private StringProperty relationProperty;
+	
 	public Caregiver (String name, LocalDate birthday, String relation, Contact contactInfo, boolean isFamily){
 		this.name = name;
 		this.birthday = birthday;
 		this.relation = relation;
 		this.contactInfo = contactInfo;
 		this.isFamily = isFamily;
-		
+		nameProperty = new SimpleStringProperty(name);
+		relationProperty = new SimpleStringProperty(relation);	
+	}
+	
+	public StringProperty getNameProperty(){
+		return nameProperty;
+	}
+	
+	public StringProperty getRelationProperty(){
+		return relationProperty;
 	}
 	
 	public Caregiver() {

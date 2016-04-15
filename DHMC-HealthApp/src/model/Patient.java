@@ -1,6 +1,7 @@
 package model;
 import java.util.LinkedList;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Patient extends User {
@@ -10,6 +11,10 @@ public class Patient extends User {
 	private PatientProfile preferences;
 	// private LinkedList<Medication> medication;
 	private int patientID;
+
+	private StringProperty firstNameProperty;
+	private StringProperty lastNameProperty;
+	private StringProperty userIDProperty;
 	
 	public Patient(String firstName, String lastName, String userID, int patientID) {
 		super(firstName, lastName, userID);
@@ -18,6 +23,7 @@ public class Patient extends User {
 		this.healthInfo = new LinkedList<HealthInfo>();
 		// this.medication = new LinkedList<Medication>();
 		this.patientID = patientID;
+		initObservers();
 	}
 	
 	public Patient(String firstName, String lastName, String userID, int patientID, Contact contactInfo) {
@@ -26,6 +32,13 @@ public class Patient extends User {
 		this.preferences = new PatientProfile();
 		// this.medication = new LinkedList<Medication>();
 		this.patientID = patientID;
+		initObservers();
+	}
+	
+	public void initObservers(){
+		firstNameProperty = new SimpleStringProperty(getFirstName());
+		lastNameProperty = new SimpleStringProperty(getLastName());
+		userIDProperty = new SimpleStringProperty(getUserID());
 	}
 	
 	public LinkedList<MedicalStaff> getAssignedStaff() {
@@ -91,25 +104,20 @@ public class Patient extends User {
 	public void setPatientID(int patientID) {
 		this.patientID = patientID;
 	}
-	
-	
 
 	@Override
 	public StringProperty getFirstNameProperty() {
-		// TODO Auto-generated method stub
-		return null;
+		return firstNameProperty;
 	}
 
 	@Override
 	public StringProperty getLastNameProperty() {
-		// TODO Auto-generated method stub
-		return null;
+		return lastNameProperty;
 	}
 
 	@Override
 	public StringProperty getUserIDProperty() {
-		// TODO Auto-generated method stub
-		return null;
+		return userIDProperty;
 	}
 
 	public LinkedList<HealthInfo> getHealthInfo() {
@@ -133,5 +141,9 @@ public class Patient extends User {
 			}
 			healthInfo.add(info.get(i));
 		}
+	}
+	
+	public void update(){
+		MainApp.getDatabaseHandler().updatePatient(this);
 	}
 }
