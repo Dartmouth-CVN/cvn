@@ -63,7 +63,10 @@ public class Contact implements Serializable{
 	}
 	
 	public String getPrimaryAddress() {
-		return this.address.getFirst();
+		if(!this.address.isEmpty())
+			return this.address.getFirst();
+		else
+			return "";
 	}
 	
 	public void addPhone(String phone) {

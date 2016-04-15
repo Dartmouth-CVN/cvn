@@ -143,7 +143,7 @@ public class Patient extends User {
 		}
 	}
 	
-	public void update(){
-		MainApp.getDatabaseHandler().updatePatient(this);
+	public boolean update(){
+		return MainApp.getDatabaseHandler().updatePatient(this);
 	}
 }

@@ -3,20 +3,21 @@ package view;
 import java.io.File;
 import java.util.LinkedList;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import model.Caregiver;
 import model.DisplayString;
@@ -168,10 +169,25 @@ public class EditPatientController {
 		familyNames.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
 		familyRels.setCellValueFactory(cellData -> cellData.getValue().getRelationProperty());
 
+		patientPhone.setOnEditCommit(new EventHandler<CellEditEvent<DisplayString, String>>() {
+			@Override
+			public void handle(CellEditEvent<DisplayString, String> t) {
+				int phoneIndex = patientPhoneTable.getSelectionModel().getSelectedIndex();
+				patientPhones.set(phoneIndex, new DisplayString(t.getNewValue()) );
+			}
+		});
+
+		patientEmail.setOnEditCommit(new EventHandler<CellEditEvent<DisplayString, String>>() {
+			@Override
+			public void handle(CellEditEvent<DisplayString, String> t) {
+				int emailIndex = patientEmailTable.getSelectionModel().getSelectedIndex();
+				patientEmails.set(emailIndex, new DisplayString(t.getNewValue()) );
+			}
+		});
+
 	}
 
 	public void loadFields() {
-		int i;
 		firstName.setText(p.getFirstName());
 		lastName.setText(p.getLastName());
 		patientBirthday.setValue(p.getBirthday());
@@ -355,6 +371,13 @@ public class EditPatientController {
 
 		p.getContactInfo().makePrimaryAddress(patientAddress.getText());
 
-		p.update();
+		if (p.update()) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("General Information");
+			alert.setHeaderText("Info");
+			alert.setContentText("Update successful!");
+
+			alert.showAndWait();
+		}
 	}
 }
