@@ -76,6 +76,8 @@
                                     <ToggleGroup fx:id="ExportFileType2" />
                                  </toggleGroup>
                               </RadioButton>
+                              <RadioButton fx:id="personalHTMLRadioButton" layoutX="147.0" layoutY="185.0" mnemonicParsing="false" text="HTML File" toggleGroup="$ExportFileType2" />
+                              <RadioButton fx:id="personalTSVRadioButton2" layoutX="57.0" layoutY="185.0" mnemonicParsing="false" text="XML File" toggleGroup="$ExportFileType2" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -194,6 +196,8 @@
                                  </toggleGroup>
                               </RadioButton>
                               <RadioButton fx:id="preferenceCSVRadioButton" layoutX="250.0" layoutY="185.0" mnemonicParsing="false" text="CSV File" toggleGroup="$ExportFileType" />
+                              <RadioButton fx:id="preferenceHTMLRadioButton" layoutX="151.0" layoutY="185.0" mnemonicParsing="false" text="HTML File" toggleGroup="$ExportFileType" />
+                              <RadioButton fx:id="preferenceXMLRadioButton" layoutX="63.0" layoutY="185.0" mnemonicParsing="false" text="XML File" toggleGroup="$ExportFileType" />
                            </children></AnchorPane>
                   </content>
                 </TitledPane>

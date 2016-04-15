@@ -6,14 +6,10 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 import model.MainApp;
 import model.Patient;
 
@@ -27,6 +23,9 @@ public class AdminDashController {
 
 	@FXML
 	private Tab searchTab = new Tab();
+	
+	@FXML
+	private Tab exportTab = new Tab();
 
 	@FXML
 	private Tab addPatientTab = new Tab();
@@ -67,6 +66,7 @@ public class AdminDashController {
 					loadAddPatientTab();
 			}
 		});
+		loadExportTab();
 	}
 
 	/**
@@ -142,6 +142,24 @@ public class AdminDashController {
 			MainApp.printError(e);
 		}
 	}
+	
+	/**
+	 * Loads and sets the contents of the export tab.
+	 */
+	private void loadExportTab() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("../view/ExportFields.fxml"));
+			AnchorPane export = (AnchorPane) loader.load();
+
+			ExportFieldsController controller = loader.getController();
+			controller.setMain(mainApp);
+			exportTab.setContent(export);
+		} catch (IOException e) {
+			MainApp.printError(e);
+		}
+	}
+
 
 	/**
 	 * Loads and sets content of the add patient tab.
