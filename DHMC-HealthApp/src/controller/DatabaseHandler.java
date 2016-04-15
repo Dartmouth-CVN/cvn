@@ -3,7 +3,9 @@ package controller;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
@@ -474,18 +476,23 @@ public class DatabaseHandler {
 	 * @return Patient Object
 	 */
 	public Patient getPatient(String userID) {
+		success = false;
 		try {
-			connect();
-			ps = connection.prepareStatement(" SELECT * FROM patient NATURAL JOIN user_account WHERE user_id = ?");
-			ps.setString(1, userID);
-			rs = ps.executeQuery();
-			if (rs.next()) {
-				Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
-						rs.getString("user_id"), rs.getInt("patient_id"), (Contact) rs.getObject("contact_info"));
-				connection.close();
-				return patient;
+			if (connect()) {
+				ps = connection.prepareStatement(" SELECT * FROM patient NATURAL JOIN user_account WHERE user_id = ?");
+				ps.setString(1, userID);
+				rs = ps.executeQuery();
+				if (rs.next()) {
+					Blob blob = rs.getBlob("contact_info");
+					ByteArrayInputStream baip = new ByteArrayInputStream(blob.getBytes(1, (int) blob.length()));
+					ObjectInputStream ois = new ObjectInputStream(baip);
+					Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
+							rs.getString("user_id"), rs.getInt("patient_id"), new Contact(userID) );
+					connection.close();
+					return patient;
+				}
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | IOException e) {
 			MainApp.printError(e);
 		}
 		return null;
@@ -630,14 +637,14 @@ public class DatabaseHandler {
 		}
 		return success;
 	}
-	
+
 	public boolean insertPatient(String userID) {
 		success = false;
 		try {
 			if (connect()) {
 				ps = connection.prepareStatement("INSERT INTO patient (user_id) VALUES (?)");
 
-				ps.setString(1, userID) ;
+				ps.setString(1, userID);
 				ps.executeUpdate();
 				ps.close();
 				success = true;

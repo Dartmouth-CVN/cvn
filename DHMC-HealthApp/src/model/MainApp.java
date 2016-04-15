@@ -35,7 +35,7 @@ public class MainApp extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-
+	
 	public static DatabaseHandler getDatabaseHandler() {
 		if(dbHandler == null)
 			return DatabaseHandler.getUniqueInstance();

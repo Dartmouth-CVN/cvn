@@ -214,7 +214,7 @@
               </panes>
             </Accordion>
             <Button layoutX="414.0" layoutY="715.0" mnemonicParsing="false" onAction="#save" prefHeight="50.0" prefWidth="90.0" text="Save" />
-            <Button layoutX="747.0" layoutY="715.0" mnemonicParsing="false" onAction="#exit" prefHeight="50.0" prefWidth="90.0" text="Cancel" />
+            <Button layoutX="747.0" layoutY="715.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="90.0" text="Cancel" />
          </children>
       </AnchorPane>
    </bottom>

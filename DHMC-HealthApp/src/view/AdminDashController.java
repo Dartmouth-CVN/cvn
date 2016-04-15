@@ -46,9 +46,6 @@ public class AdminDashController {
 	 */
 	@FXML
 	private void initialize() {
-		loadSearchTab();
-		loadScheduleTab();
-		// list admin's profile at the top of dashboard
 	}
 
 	/**
@@ -58,9 +55,6 @@ public class AdminDashController {
 	 */
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
-
-		// get the list of profiles from another class
-		// personTable.setItems(mainApp.getPersonData());
 	}
 
 	/**
@@ -101,11 +95,9 @@ public class AdminDashController {
 
 			MyScheduleController controller = loader.getController();
 			controller.setMainApp(mainApp);
-
 		} catch (IOException e) {
 			MainApp.printError(e);
-		}
-		
+		}	
 	}
 	
 	/**
@@ -113,12 +105,13 @@ public class AdminDashController {
 	 */
 	private void loadSearchTab() {
 		try {
+			System.out.println("Main app in Admin Dash: " + this.mainApp);
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/GlobalSearch.fxml"));
 			AnchorPane globalSearch = (AnchorPane) loader.load();
 
 			SearchTabController controller = loader.getController();
-			controller.setMain(mainApp);
+			controller.setMain(this.mainApp);
 			searchTab.setContent(globalSearch);
 		} catch (IOException e) {
 			MainApp.printError(e);
@@ -129,7 +122,7 @@ public class AdminDashController {
 	 * Clicking search image opens the search tab.
 	 */
 	@FXML private void handleSearchImage(){
-		
+		loadSearchTab();
 		tabPane.getSelectionModel().select(searchTab);
 	}
 	

@@ -33,10 +33,9 @@ public class LoginController {
 		if (uname.equals("") || pass.equals(""))
 			System.out.println("Must enter username and password");
 		else {
-			String user = mainApp.getDatabaseHandler().login(uname, pass);
+			String user = MainApp.getDatabaseHandler().login(uname, pass);
 
 			if (user != null) {
-				System.out.println(user);
 				mainApp.initRootLayout();
 			} else
 				System.out.println("login failure");

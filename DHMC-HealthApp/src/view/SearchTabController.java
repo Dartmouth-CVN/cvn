@@ -54,17 +54,12 @@ public class SearchTabController {
 	 */
 	@FXML
 	private void initialize() {
-
-		/*
-		 * Listen for selection changes and show the person details when
-		 * changed. unsure if we need this
-		 * profileTable.getSelectionModel().selectedItemProperty().addListener(
-		 * (observable, oldValue, newValue) -> showPersonDetails(newValue));
-		 */
 		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
 		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
 		idColumn.setCellValueFactory(cellData -> cellData.getValue().getUserIDProperty());
 
+		ObservableList<IDisplayable> personData = MainApp.getDatabaseHandler().searchPatient();
+		profileTable.setItems(personData);
 		// set table listener
 		profileTable.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> showUserDetails(newValue));
@@ -78,7 +73,7 @@ public class SearchTabController {
 		roomLabel.setText("Room " + (rand.nextInt(10) + 1));
 		nurseLabel.setText("Nurse " + (rand.nextInt(10) + 1));
 		phoneLabel.setText(phoneNumbers[rand.nextInt(2)]);
-		userID = idColumn.getCellData(profileTable.getSelectionModel().getSelectedIndex());
+		userID = user.getUserID();
 	}
 
 	/**
@@ -88,6 +83,7 @@ public class SearchTabController {
 	 */
 	public void setMain(MainApp mainApp) {
 		this.mainApp = mainApp;
+		System.out.println("Main app is : " + this.mainApp);
 	}
 
 	/**
@@ -103,10 +99,6 @@ public class SearchTabController {
 			ObservableList<IDisplayable> personData = MainApp.getDatabaseHandler().searchPatient();
 			profileTable.setItems(personData);
 		}
-		// search through the database with the given name
-
-		// display into TableView
-
 	}
 
 	/**
@@ -115,6 +107,7 @@ public class SearchTabController {
 	@FXML
 	private void handleEditProfile() {
 		Patient patient = MainApp.getDatabaseHandler().getPatient(userID);
+		System.out.println(patient.getFirstName());
 		if (patient != null)
 			mainApp.showEditProfile(patient);
 
