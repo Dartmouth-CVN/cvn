@@ -116,6 +116,7 @@ public class MainApp extends Application {
 			EditPatientController controller = loader.getController();
 			controller.setMainApp(this);
 			controller.setPatient(patient);
+			controller.loadFields();
 
 			editProfileStage.setTitle("Edit Profile");
 			editProfileStage.show();
