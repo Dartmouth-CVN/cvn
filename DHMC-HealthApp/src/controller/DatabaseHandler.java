@@ -531,7 +531,6 @@ public class DatabaseHandler {
 							rs.getString("user_id"), rs.getInt("patient_id"));
 					patientList.add(patient);
 				}
-
 				connection.close();
 			}
 		} catch (SQLException e) {
