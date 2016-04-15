@@ -21,6 +21,16 @@ public abstract class User implements IDisplayable{
 		this.userID =id;
 	}
 	
+	public User(String firstName, String lastName, String id, Contact contactInfo) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.contactInfo = contactInfo;
+		this.setBirthday(LocalDate.now());
+		//this.schedule = new Schedule(id);
+		// this.room = null;
+		this.userID =id;
+	}
+	
 	public String getFirstName() {
 		return this.firstName;
 	}

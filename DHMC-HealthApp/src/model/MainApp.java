@@ -37,6 +37,7 @@ public class MainApp extends Application {
 	}
 
 	public DatabaseHandler getDatabaseHandler() {
+		System.out.println(dbHandler.getPatient("Patient1"));
 		return dbHandler;
 	}
 

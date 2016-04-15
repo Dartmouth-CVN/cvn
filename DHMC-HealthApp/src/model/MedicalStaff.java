@@ -86,7 +86,7 @@ public class MedicalStaff extends User {
 	}
 
 	@Override
-	public IntegerProperty getUserIDProperty() {
+	public StringProperty getUserIDProperty() {
 		// TODO Auto-generated method stub
 		return null;
 	}

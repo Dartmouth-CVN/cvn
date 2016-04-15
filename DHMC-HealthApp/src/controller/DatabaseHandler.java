@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Random;
 
 import org.apache.derby.jdbc.EmbeddedDataSource;
 
@@ -33,12 +35,35 @@ public class DatabaseHandler {
 	private boolean success;// monitors if sql interactions result in errors
 
 	private static DatabaseHandler uniqueInstance;
+	private String[] firstNames = {"AARON", "ABDUL", "ABE", "ABEL", "ABRAHAM", "ABRAM", "ADALBERTO",
+			"ADAM","BARRY", "BART", "BARTON", "BASIL", "BEAU", "BEN", "BENEDICT", "BRANDEN", "BRANDON", "BRANT",
+			"BRENDAN", "CEDRIC", "CEDRICK", "CESAR", "CHAD", "CHADWICK", "CORTEZ", "CORY", "DEREK", "DERICK", 
+			"DONNIE", "DOUGLASS", "DOYLE", "FRITZ", "GABRIEL", "GAIL", "GENARO", "GENE", "GEOFFREY", "GEORGE", 
+			"Henry", "HERB", "HERBERT", "HERIBERTO", "HERMAN", "HERSCHEL", "IRVING", "IRWIN", "ISAAC", "ISAIAH",
+			"JEAN", "JED", "JEFFEREY", "JEFFERSON", "JEFFERY", "JESS", "JESS", "MOHAMED", "NED", "NEIL", "NOEL",
+			"NOLAN", "NORBERT", "NORBERTO", "NORMAN", "NORMAND", "NORRIS", "ODELL", "ODIS", "OLIN", "OLIVER", 
+			"ORVILLE", "OSCAR", "OSVALDO", "OSWALDO", "RANDELL", "RANDOLPH", "RANDY", "RAPHAEL", "RASHAD", "WYATT", 
+			"XAVIER", "YONG", "YOUNG", "ZACHARIAH", "ZACHARY", "ZACHERY", "ZACK", "ZACKARY", "ZANE"};
+	
+	String[] lastNames = {"SMITH", "JOHNSON", "MARTINEZ", "THOMAS", "JACKSON", "LEE", "WALKER", "PEREZ",
+			"HALL", "YOUNG", "ALLEN", "SANCHEZ", "WRIGHT", "KING", "SCOTT", "GREEN", "BAKER","CAMPBELL",
+			"MITCHELL", "ROBERTS", "CARTER", "PHILLIPS", "EVANS", "TURNER", "WARD", "COX", "DIAZ", "RICHARDSON"};
+	
+	String[] phoneNumbers = {"(741) 951-5271", "(561) 742-3921", "(784) 287-1076", "(838) 727-6573", 
+			"(500) 244-7083", "(943) 570-2414", "(874) 381-4941", "(367) 226-2040", "(815) 825-6662"};
+	
+	String[] emails = {"isi@tidur.org", "johu@codovo.org", "uj@orkimfah.com", "fapet@go.edu", "me@udaga.net",
+			"kenna@vecbu.com", "gunob@moahu.net", "nashulu@it.gov", "opwankiw@seiteevo.io", "tifinpim@za.io",
+			"nupedu@ta.edu", "juh@antof.com", "mewso@necuwnuk.io", "fuivif@daunen.gov", "hohzavi@paw.edu",
+			"motjeni@muvu.io", "setosuf@oti.org", "lad@kupez.gov", "uggako@filse.net", "pivop@wewjur.com"};
+	
+	Random randomNumber;
 
-	private DatabaseHandler() {
+ 	private DatabaseHandler() {
+		randomNumber = new Random(100);
 		connect();
 		createTables();
-		insertDummyUser();
-		insertDummyLogin();
+		populateDatabase();
 	}
 
 	/**
@@ -55,6 +80,50 @@ public class DatabaseHandler {
 		}
 	}
 
+	public void populateDatabase(){
+		addUsers(20);
+//		addAdministrators();
+//		addPatients();
+//		addMedicalStaff();
+	}
+	
+	public void addUsers(int number){
+		while(number-- > 0){
+			String firstname = getRandomFirstName();
+			String lastname = getRandomLastName();
+			String userID = getUserID(firstname, lastname, "Patient");
+			LinkedList<String> numbers = new LinkedList<String>();
+			for(int i = 0; i < 3; i++)
+				numbers.add(getRandomPhoneNumber());
+			LinkedList<String> emails = new LinkedList<String>();
+			for(int i = 0; i < 3; i++)
+				numbers.add(getRandomEmail());
+			
+			Contact contact = new Contact(userID);
+			contact.setPhone(numbers);
+			contact.setEmail(emails);
+			
+			insertUser(userID, firstname, lastname, contact);
+			
+		}
+	}
+	
+	public String getRandomFirstName(){
+		return firstNames[randomNumber.nextInt(firstNames.length)];
+	}
+	
+	public String getRandomLastName(){
+		return lastNames[randomNumber.nextInt(lastNames.length)];
+	}
+	
+	public String getRandomPhoneNumber(){
+		return phoneNumbers[randomNumber.nextInt(phoneNumbers.length)];
+	}
+	
+	public String getRandomEmail(){
+		return emails[randomNumber.nextInt(emails.length)];
+	}
+	
 	public void insertDummyLogin() {
 		try {
 			ps = connection.prepareStatement("INSERT INTO login (username, password, user_id) VALUES(?, ?, ?)");
@@ -402,20 +471,20 @@ public class DatabaseHandler {
 	 * @param userID
 	 * @return Patient Object
 	 */
-	public Patient findPatient(int userID) {
+	public Patient getPatient(String userID) {
 		try {
 			connect();
-			ps = connection.prepareStatement("SELECT * FROM patient NATURAL JOIN user_account WHERE user_id = ?");
-			ps.setInt(1, userID);
+			ps = connection.prepareStatement(" SELECT * FROM patient NATURAL JOIN user_account WHERE user_id = ?");
+			ps.setString(1, userID);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
-						rs.getString("user_id"), rs.getInt("patient_id"));
+						rs.getString("user_id"), rs.getInt("patient_id"), (Contact) rs.getObject("contact_info"));
 				connection.close();
 				return patient;
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			MainApp.printError(e);
 		}
 		return null;
 	}
@@ -424,9 +493,10 @@ public class DatabaseHandler {
 		ObservableList<IDisplayable> patientList = FXCollections.observableArrayList();
 		try {
 			connect();
-			ps = connection
-					.prepareStatement("SELECT * FROM patient Natural Join user_account " + "WHERE firstname = ?");
+			ps = connection.prepareStatement(
+					"SELECT * FROM patient Natural Join user_account" + " WHERE firstname LIKE ? OR lastname LIKE ?");
 			ps.setString(1, name);
+			ps.setString(2, name);
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
@@ -436,115 +506,31 @@ public class DatabaseHandler {
 
 			connection.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			MainApp.printError(e);
 		}
 		return patientList;
 	}
 
 	public ObservableList<IDisplayable> searchPatient() {
-		ObservableList<IDisplayable> personData = FXCollections.observableArrayList();
+		ObservableList<IDisplayable> patientList = FXCollections.observableArrayList();
 		try {
-			ps = connection.prepareStatement("SELECT * FROM patient NATURAL JOIN user_account");
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
-						String.valueOf(rs.getInt("user_id")), rs.getInt("patient_id"));
-				personData.add(patient);
-			}
+			if (connect()) {
+				System.out.println("Connected at least");
+				ps = connection.prepareStatement("SELECT * FROM patient Natural Join user_account");
+				rs = ps.executeQuery();
+				System.out.println("rows returned? " + rs.next());
+				while (rs.next()) {
+					Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
+							String.valueOf(rs.getInt("user_id")), rs.getInt("patient_id"));
+					patientList.add(patient);
+				}
 
-			connection.close();
-		} catch (SQLException e) {
-		}
-		return personData;
-	}
-
-	public LinkedList<Patient> getPTS() {
-		LinkedList<Patient> personData = new LinkedList<Patient>();
-		try {
-			connect();
-			ps = connection.prepareStatement("SELECT * FROM patient NATURAL JOIN user_account");
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				Patient user = new Patient(rs.getString("firstname"), rs.getString("lastname"),
-						String.valueOf(rs.getInt("user_id")), rs.getInt("patient_id"));
-				personData.add(user);
-			}
-
-			connection.close();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		return personData;
-	}
-
-	/**
-	 * Finds MedicalStaff from database given userID.
-	 * 
-	 * @param userID
-	 * @return MedicalStaff Object
-	 */
-	public MedicalStaff findMedicalStaff(int userID) {
-		try {
-			ps = connection.prepareStatement("SELECT * FROM MedicalStaff Natural Join User_Account WHERE User_ID = ?;");
-			ps.setInt(1, userID);
-			rs = ps.executeQuery();
-			if (rs.next()) {
-				MedicalStaff medicalStaff = new MedicalStaff(rs.getString("firstname"), rs.getString("lastname"),
-						rs.getString("position"), rs.getString("user_id"), rs.getInt("med_id"));
 				connection.close();
-				return medicalStaff;
 			}
 		} catch (SQLException e) {
+			MainApp.printError(e);
 		}
-		return null;
-	}
-
-	/**
-	 * Finds Administrator from database given userID.
-	 * 
-	 * @param userID
-	 * @return Administrator Object
-	 */
-	public Administrator findAdministrator(int userID) {
-		try {
-			ps = connection
-					.prepareStatement("SELECT * FROM administrator Natural Join User_Account WHERE user_id = ?;");
-			ps.setInt(1, userID);
-			rs = ps.executeQuery();
-			if (rs.next()) {
-				Administrator Administrator = new Administrator(rs.getString("firstname"), rs.getString("lastname"),
-						rs.getString("user_id"), rs.getInt("admin_id"));
-				connection.close();
-				return Administrator;
-			}
-		} catch (SQLException e) {
-		}
-		return null;
-	}
-
-	public int findUser(int userID) {
-		try {
-			ps = connection.prepareStatement("SELECT * FROM user_account WHERE user_id = ?");
-			ps.setInt(1, userID);
-			rs = ps.executeQuery();
-			if (rs.next()) {
-				return rs.getInt("user_id");
-			}
-		} catch (SQLException e) {
-		}
-		return -1;
-	}
-
-	public int findAnyUser() {
-		try {
-			ps = connection.prepareStatement("SELECT * FROM user_account");
-			rs = ps.executeQuery();
-			if (rs.next()) {
-				return rs.getInt("user_id");
-			}
-		} catch (SQLException e) {
-		}
-		return -1;
+		return patientList;
 	}
 
 	public LinkedList<Pet> getPets(Patient patient){
@@ -660,8 +646,7 @@ public class DatabaseHandler {
 		try {
 			if (connect()) {
 				ps = connection.prepareStatement(
-						"INSERT INTO pet (name, species, allergy_freindly, patient_id) "
-						+ "VALUES (?, ?, ?, ?)");
+						"INSERT INTO pet (name, species, allergy_freindly, patient_id) " + "VALUES (?, ?, ?, ?)");
 
 				ps.setString(1, pet.getName());
 				ps.setBoolean(2, pet.getAllergyFriendly());
@@ -768,6 +753,14 @@ public class DatabaseHandler {
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
+		}
+		return success;
+	}
+
+	public boolean updatePatient(Patient patient) {
+		success = false;
+		if (updateUser(patient.getUserID(), patient.getFirstName(), patient.getLastName(), patient.getContactInfo())) {
+			success = true;
 		}
 		return success;
 	}

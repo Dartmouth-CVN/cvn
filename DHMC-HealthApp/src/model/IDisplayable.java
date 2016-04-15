@@ -1,6 +1,5 @@
 package model;
 
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 
 public interface IDisplayable {
@@ -15,6 +14,6 @@ public interface IDisplayable {
 
 	public StringProperty getLastNameProperty() ;
 
-	public IntegerProperty getUserIDProperty();
+	public StringProperty getUserIDProperty();
 
 }
