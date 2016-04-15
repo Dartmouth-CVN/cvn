@@ -257,7 +257,7 @@ public class DatabaseHandler {
 		try {
 			ps = connection.prepareStatement("CREATE TABLE caregiver("
 					+ "caregiver_id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-					+ "patient_id INT, name VARCHAR(20), birthday DATE isFamily? BOOLEAN, relation VARCHAR(10), contact_info BLOB (10M) "
+					+ "patient_id INT, name VARCHAR(20), birthday DATE, isFamily? BOOLEAN, relation VARCHAR(10), contact_info BLOB (10M) "
 					+ "FOREIGN KEY(patient_id) REFERENCES patient(patient_id)," + "Primary Key(caregiver_id) )");
 			ps.execute();
 			success = true;
@@ -547,6 +547,76 @@ public class DatabaseHandler {
 		return -1;
 	}
 
+	public LinkedList<Pet> getPets(Patient patient){
+		LinkedList<Pet> patientPets = new LinkedList<Pet>();
+		try {
+				ps = connection.prepareStatement("SELECT * FROM pet WHERE patient_id = ?;");
+				ps.setInt(1, patient.getPatientID());
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					Pet pet = new Pet(rs.getString("name"), rs.getString("species"), rs.getBoolean("allergy_freindly"));	
+					patientPets.add(pet);
+				}
+				connection.close();
+			} catch (SQLException e) {
+			}
+			return patientPets;
+		}
+		
+
+
+//	public LinkedList<HealthInfo> getHealthInfo(Patient patient){
+//		LinkedList<HealthInfo> patientHealthInfo = new LinkedList<HealthInfo>();
+//		try {
+//				ps = connection.prepareStatement("SELECT * FROM health_info WHERE patient_id = ?;");
+//				ps.setInt(1, patient.getPatientID());
+//				rs = ps.executeQuery();
+//				while (rs.next()) {
+//					HealthInfo info = new HealthInfo(rs.getString("date"), rs.getDouble("height"), rs.getDouble("weight"), rs.getDouble("bmi"), 
+//							rs.getDouble("fat"), rs.getDouble("caloriesBurned"), rs.getDouble("steps"), rs.getDouble("distance"),rs.getDouble("floors"),
+//							rs.getDouble("minSedentary"), rs.getDouble("minLightlyActive"), rs.getDouble("minFairlyActive"), rs.getDouble("minVeryActive"), rs.getDouble("activityCalories"),
+//							rs.getDouble("minAsleep"), rs.getDouble("minAwake"), rs.getDouble("numAwakenings"), rs.getDouble("timeInBed"));	
+//					patientHealthInfo.add(info);
+//				}
+//				connection.close();
+//			} catch (SQLException e) {
+//			}
+//			return patientHealthInfo;
+//		}
+//		
+//	public LinkedList<Caregiver> getCaregivers(Patient patient) {
+//		LinkedList<Caregiver> patientCaregivers = new LinkedList<Caregiver>();
+//		try {
+//				ps = connection.prepareStatement("SELECT * FROM caregiver WHERE patient_id = ?;");
+//				ps.setInt(1, patient.getPatientID());
+//				rs = ps.executeQuery();
+//				while (rs.next()) {
+//					Caregiver caregiver = new Caregiver(rs.getString("name"), rs.getDate("birthday"), rs.getString("relation"), 
+//							(Contact)rs.getObject("contact_info"), rs.getBoolean("isFamily?"));	
+//					patientCaregivers.add(caregiver);
+//				}
+//				connection.close();
+//			} catch (SQLException e) {
+//			}
+//			return patientCaregivers;
+//	}
+
+	public LinkedList<Meal> getMeals(Patient patient){
+		LinkedList<Meal> patientMeals = new LinkedList<Meal>();
+		try {
+				ps = connection.prepareStatement("SELECT * FROM meal WHERE patient_id = ?;");
+				ps.setInt(1, patient.getPatientID());
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					Meal meal = new Meal(rs.getString("name"), rs.getInt("calories"), rs.getBoolean("like"), rs.getBoolean("dislike"), rs.getString("notes"));	
+					patientMeals.add(meal);
+				}
+				connection.close();
+			} catch (SQLException e) {
+			}
+			return patientMeals;
+		}
+	
 	public boolean insertUser(String userID, String firstName, String lastName, Contact contactInfo) {
 		success = false;
 		try {
