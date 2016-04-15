@@ -101,7 +101,6 @@
                                     <Image url="@../../resources/images/blank-profile-picture.png" />
                                  </image>
                               </ImageView>
-                              <Button layoutX="314.0" layoutY="61.0" mnemonicParsing="false" onAction="#importFitBitCSV" text="Import FitBit Data" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -214,8 +213,7 @@
                   </TitledPane>
               </panes>
             </Accordion>
-            <Button layoutX="414.0" layoutY="715.0" mnemonicParsing="false" onAction="#save" prefHeight="50.0" prefWidth="90.0" text="Save" />
-            <Button layoutX="747.0" layoutY="715.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="90.0" text="Cancel" />
+            <Button layoutX="568.0" layoutY="712.0" mnemonicParsing="false" onAction="#save" prefHeight="50.0" prefWidth="90.0" text="Save" />
          </children>
       </AnchorPane>
    </bottom>

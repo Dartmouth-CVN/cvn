@@ -83,7 +83,6 @@ public class SearchTabController {
 	 */
 	public void setMain(MainApp mainApp) {
 		this.mainApp = mainApp;
-		System.out.println("Main app is : " + this.mainApp);
 	}
 
 	/**

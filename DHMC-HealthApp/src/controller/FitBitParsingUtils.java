@@ -33,6 +33,10 @@ public class FitBitParsingUtils {
 		String state = "No State";
 		while(fileReader.hasNextLine()) {
 			String line = fileReader.nextLine();
+			
+			if(!hasData(line)) {
+				continue;
+			} 
 			String firstItem = line.split(",")[0];
 			if(firstItem.equals("Body")) {
 				state = "Body";
@@ -50,9 +54,7 @@ public class FitBitParsingUtils {
 				continue;
 			} else if(state.equals("No State")) {
 				continue;
-			} else if(!hasData(line)) {
-				continue;
-			}
+			} 
 			String [] info = CSVParsingUtils.splitSepValuesLineAndRemoveCommasFromVal(line, ",");
 			
 			switch(state) {

@@ -56,7 +56,6 @@ public class EditPatientController {
 		if (curCSV != null && curCSV.exists()) {
 			info = controller.FitBitParsingUtils.fitBitImport(curCSV);
 			p.addHealthInfoList(info);
-			System.out.println("Imported FitBit Data");
 		}
 	}
 
@@ -65,42 +64,6 @@ public class EditPatientController {
 	}
 
 	// Functions and attributes to communicate with EditPatient.fxml
-<<<<<<< HEAD
-	
-	@FXML TextField firstName;
-	@FXML TextField lastName;
-	@FXML TextArea patientAddress;
-	@FXML TextField familyMemName;
-	@FXML TextField familyMemRel;
-	@FXML TextField mealName;
-	@FXML TextField mealCal;
-	@FXML TextArea mealNotes;
-	@FXML DatePicker patientBirthday;
-	@FXML DatePicker familyMemBirthday;
-	@FXML VBox patientPhone;
-	@FXML VBox patientEmail;
-	@FXML VBox familyMemPhone;
-	@FXML VBox familyMemEmail;
-	@FXML TableView<Caregiver> familyTable;
-	@FXML TableColumn<Caregiver, String> familyNames;
-	@FXML TableColumn<Caregiver, String> familyRels;
-	@FXML TableView<Pet> petTable;
-	@FXML TableColumn<Pet, String> petNames;
-	@FXML TableColumn<Pet, String> petSpecies;
-	@FXML TableColumn<Pet, Boolean> petAllergyFriendly;
-	@FXML TableView<Meal> mealTable;
-	@FXML TableColumn<Meal, String> mealNames;
-	@FXML TableColumn<Meal, Integer> mealCals;
-	@FXML TableColumn<Meal, Boolean> mealLiked;
-	@FXML TableColumn<Meal, Boolean> mealDisliked;
-	@FXML TableColumn<Meal, String> mealNotesCol;
-	@FXML RadioButton mealLikeButton;
-	@FXML RadioButton mealDislikeButton;
-	@FXML RadioButton mealNeutralButton;;
-	
-	
-	@FXML private void initialize() {
-=======
 
 	@FXML
 	TextField firstName;
@@ -169,7 +132,6 @@ public class EditPatientController {
 	}
 
 	public void loadFields() {
->>>>>>> 6351d132e702f3041212761250cb38b125e0302e
 		TextField temp;
 		int i;
 		System.out.println("Patient: " + p.getFirstName());
@@ -423,6 +385,5 @@ public class EditPatientController {
 		// Save meal information
 
 		update();
-		mainApp.showAdminDash();
 	}
 }

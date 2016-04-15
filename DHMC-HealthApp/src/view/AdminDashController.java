@@ -50,8 +50,6 @@ public class AdminDashController {
 	 */
 	@FXML
 	private void initialize() {
-		loadSearchTab();
-		loadScheduleTab();
 		// list admin's profile at the top of dashboard
 	}
 
@@ -177,7 +175,7 @@ public class AdminDashController {
 	 */
 	@FXML
 	private void handleSearchImage() {
-
+		loadSearchTab();
 		tabPane.getSelectionModel().select(searchTab);
 	}
 
