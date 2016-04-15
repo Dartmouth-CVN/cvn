@@ -505,19 +505,21 @@ public class DatabaseHandler {
 	public ObservableList<IDisplayable> searchPatient(String name) {
 		ObservableList<IDisplayable> patientList = FXCollections.observableArrayList();
 		try {
-			connect();
-			ps = connection.prepareStatement(
-					"SELECT * FROM patient Natural Join user_account" + " WHERE firstname LIKE ? OR lastname LIKE ?");
-			ps.setString(1, name);
-			ps.setString(2, name);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
-						String.valueOf(rs.getInt("user_id")), rs.getInt("patient_id"));
-				patientList.add(patient);
-			}
+			if (connect()) {
+				ps = connection.prepareStatement("SELECT * FROM patient Natural Join user_account"
+						+ " WHERE firstname LIKE ?");
+				ps.setString(1, name);
+//				ps.setString(2, name);
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					System.out.println("chad again");
+					Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
+							rs.getString("user_id"), rs.getInt("patient_id"));
+					patientList.add(patient);
+				}
 
-			connection.close();
+				connection.close();
+			}
 		} catch (SQLException e) {
 			MainApp.printError(e);
 		}
@@ -623,7 +625,7 @@ public class DatabaseHandler {
 		try {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			ObjectOutputStream oos = new ObjectOutputStream(baos);
-			oos.writeObject( (Contact) o);
+			oos.writeObject((Contact) o);
 			byte[] byteArray = baos.toByteArray();
 			bais = new ByteArrayInputStream(byteArray);
 		} catch (IOException e) {
