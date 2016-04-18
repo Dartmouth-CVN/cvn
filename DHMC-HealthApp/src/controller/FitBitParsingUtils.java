@@ -2,11 +2,14 @@ package controller;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.Scanner;
 import model.HealthInfo;
+import model.MainApp;
+import model.Patient;
 
-public class FitBitParsingUtils {
+public class FitBitParsingUtils extends GeneralParsingUtils{
 
 	public static LinkedList<HealthInfo> fitBitImport(String str) {
 		return fitBitImport(new File(str));
@@ -96,21 +99,40 @@ public class FitBitParsingUtils {
 		System.out.println("FitBit Import Complete!");
 		return output;
 	}
-
 	/**
-	 * This function will check to see if a given string contains any nonwhitespace or noncomma characters
+	 * Writes fitbit data for all patients as a CSV
 	 * 
-	 * 
-	 * @param s: the string to check
-	 * @return a boolean that will be true if any valid characters are detected
+	 * @param pts
+	 *            the patients to write
 	 */
-	static boolean hasData(String s) {
-		int counter = 0;
-		for(int i = 0; i < s.length(); i++) {
-			if(Character.isWhitespace(s.charAt(i)) || s.charAt(i) == ',') {
-				counter++;
+	public static void fitbitExport(LinkedList<Patient> pts) {
+		String filename = "fitbitExported";
+		int i = 1;
+		File exFile = new File("fitbitExported");
+		while (exFile.exists()) {
+			exFile = new File(filename + i);
+			i++;
+		}
+
+		PrintWriter toWrite;
+		try {
+			toWrite = new PrintWriter(exFile);
+		} catch (FileNotFoundException e) {
+			MainApp.printError(e);
+			return;
+		}
+		for (Patient p : pts){
+			toWrite.println(p.getFirstName()+" "+p.getLastName());
+			for (HealthInfo h : p.getHealthInfo()) {
+				String toPrint = h.getDate() + "," + h.getHeight() + "," + h.getWeight() + "," + h.getBmi() + ","
+						+ h.getFat() + "," + h.getCaloriesBurned() + "," + h.getSteps() + "," + h.getDistance() + ","
+						+ h.getFloors() + "," + h.getMinSedentary() + "," + h.getMinLightlyActive() + ","
+						+ h.getMinFairlyActive() + "," + h.getMinVeryActive() + "," + h.getActivityCalories() + ","
+						+ h.getMinAsleep() + "," + h.getMinAwake() + "," + h.getNumAwakenings() + ","
+						+ h.getTimeInBed();
+				toWrite.println(toPrint);
 			}
 		}
-		return counter != s.length();
+		toWrite.close();
 	}
 }

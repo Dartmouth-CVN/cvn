@@ -2,12 +2,9 @@ package controller;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
 
-import model.MedicalStaff;
-import model.Medication;
 import model.Patient;
 
 public class XMLParsingUtils extends GeneralParsingUtils {
@@ -88,101 +85,6 @@ public class XMLParsingUtils extends GeneralParsingUtils {
 
 	public static String writePatientsToXML(String filename, LinkedList<Patient> pts) {
 		return writePatientsToXML(filename, pts, null);
-	}
-
-	/**
-	 * Writes a String of XML in the format < tag >content< /tag >
-	 * 
-	 * @param tag
-	 *            the tag to envelop the content
-	 * @param content
-	 *            the content to be enveloped
-	 * @return the String in XML format
-	 */
-	private static String XMLLine(String tag, String content) {
-		return XMLLine(tag, content, false);
-	}
-
-	/**
-	 * Writes a String of XML in the format < tag >content< /tag > with newlines
-	 * if major is true
-	 * 
-	 * @param tag
-	 *            the tag to envelop the content
-	 * @param content
-	 *            the content to be enveloped
-	 * @param major
-	 *            whether or not the XML should be formatted such that
-	 *            multi-line structures look nicer, by adding newlines
-	 * @return the XMLified String
-	 */
-	private static String XMLLine(String tag, String content, boolean major) {
-		String output = (tag != null) ? "<" + tag + ">" : "";
-		if (major)
-			output += "\n\n";
-		output += content;
-		if (major)
-			output += "\n";
-		if (tag == null)
-			output += "\n";
-		else if (tag.split(" ").length > 1)
-			output += "</" + tag.split(" ")[0] + ">\n";
-		else
-			output += "</" + tag + ">\n";
-		return output;
-	}
-
-	/**
-	 * Given an array of Strings to each be parsed by one sub-tag, surround that
-	 * list with a main tag
-	 * 
-	 * @param tag
-	 *            the tag to surround the whole list
-	 * @param subtag
-	 *            the tag to surround each entry in the list
-	 * @param content
-	 *            the entries for the list
-	 * @return the String in XML format
-	 */
-	private static String XMLList(String tag, String subtag, Iterable<String> content) {
-		String inner = "";
-		for (String c : content)
-			inner += XMLLine(subtag, c) + "<br>";
-		return XMLLine(tag, inner, true);
-	}
-
-	private static String XMLList(String tag, String subtag, String[] content) {
-		return XMLList(tag, subtag, Arrays.asList(content));
-	}
-
-	/**
-	 * Given a LinkedList of MedicalStaff, produce the appropriate XML String
-	 * 
-	 * @param staffMembers
-	 *            the LinkedList to provide
-	 * @return the String in XML format
-	 */
-	private static String[] XMLParseMedStaff(LinkedList<MedicalStaff> staffMembers) {
-		String[] output = new String[staffMembers.size()];
-		for (int i = 0; i < output.length; i++)
-			output[i] = staffMembers.get(i).getUserID();
-
-		return output;
-	}
-
-	/**
-	 * Given a LinkedList of Medication, produce the appropriate XML String
-	 * 
-	 * @param meds
-	 *            the LinkedList to provide
-	 * @return the String in XML format
-	 */
-	@SuppressWarnings("unused") // Medication currently disabled
-	private static String[] XMLParseMedication(LinkedList<Medication> meds) {
-		String[] output = new String[meds.size()];
-		for (int i = 0; i < output.length; i++)
-			output[i] = meds.get(i).getName();
-		return output;
 	}
 
 	/**

@@ -7,7 +7,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-import model.HealthInfo;
 import model.MainApp;
 import model.MedicalStaff;
 import model.Patient;
@@ -18,7 +17,7 @@ import model.Pet;
 // of the constructor using default values for the other fields
 // This can be in Iteration 2 (3?) if necessary
 
-public class CSVParsingUtils {
+public class CSVParsingUtils extends GeneralParsingUtils{
 
 	/**
 	 * Imports patients from a CSV with the given filename
@@ -39,7 +38,7 @@ public class CSVParsingUtils {
 	 * @return LinkedList of Patients in the CSV
 	 */
 	public static LinkedList<Patient> CSVImport(File f) {
-		return ImportSepValuesFile(f, ",");
+		return importSepValuesFilePatient(f, ",");
 	}
 
 	/**
@@ -61,7 +60,7 @@ public class CSVParsingUtils {
 	 * @return LinkedList of Patients in the TSV
 	 */
 	public static LinkedList<Patient> TSVImport(File f) {
-		return ImportSepValuesFile(f, "\t");
+		return importSepValuesFilePatient(f, "\t");
 	}
 
 	/**
@@ -74,7 +73,7 @@ public class CSVParsingUtils {
 	 *            the delimiter with which to parse it
 	 * @return LinkedList of Patients from the file
 	 */
-	public static LinkedList<Patient> ImportSepValuesFile(File f, String delimiter) {
+	public static LinkedList<Patient> importSepValuesFilePatient(File f, String delimiter) {
 		LinkedList<Patient> output = new LinkedList<Patient>();
 		Scanner fileReader;
 		try {
@@ -382,55 +381,5 @@ public class CSVParsingUtils {
 
 	public static String patientToSepValuesFile(Patient pt, String delimiter) {
 		return patientToSepValuesFile(pt, delimiter, null);
-	}
-
-	/**
-	 * Returns s if b is true, "" otherwise
-	 * 
-	 * @param s
-	 *            the String to return
-	 * @param b
-	 *            whether or not to return the given String
-	 * @return either s or an empty String
-	 */
-	private static String stringIfTrue(String s, boolean b) {
-		return (b) ? s : "";
-	}
-
-	/**
-	 * Writes fitbit data for all patients as a CSV
-	 * 
-	 * @param pts
-	 *            the patients to write
-	 */
-	public static void fitbitExport(LinkedList<Patient> pts) {
-		String filename = "fitbitExported";
-		int i = 1;
-		File exFile = new File("fitbitExported");
-		while (exFile.exists()) {
-			exFile = new File(filename + i);
-			i++;
-		}
-
-		PrintWriter toWrite;
-		try {
-			toWrite = new PrintWriter(exFile);
-		} catch (FileNotFoundException e) {
-			MainApp.printError(e);
-			return;
-		}
-		for (Patient p : pts){
-			toWrite.println(p.getFirstName()+" "+p.getLastName());
-			for (HealthInfo h : p.getHealthInfo()) {
-				String toPrint = h.getDate() + "," + h.getHeight() + "," + h.getWeight() + "," + h.getBmi() + ","
-						+ h.getFat() + "," + h.getCaloriesBurned() + "," + h.getSteps() + "," + h.getDistance() + ","
-						+ h.getFloors() + "," + h.getMinSedentary() + "," + h.getMinLightlyActive() + ","
-						+ h.getMinFairlyActive() + "," + h.getMinVeryActive() + "," + h.getActivityCalories() + ","
-						+ h.getMinAsleep() + "," + h.getMinAwake() + "," + h.getNumAwakenings() + ","
-						+ h.getTimeInBed();
-				toWrite.println(toPrint);
-			}
-		}
-		toWrite.close();
 	}
 }

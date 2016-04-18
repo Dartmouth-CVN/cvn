@@ -117,11 +117,34 @@ public class SearchTabController {
 
 	}
 	
+
 	@FXML
 	private void handleClickPatient() {
 		
 		// profileTab.setContent();
 		 profileTabPane.getTabs().add(profileTab);
 		
+	}
+	/**
+	 * TODO make a new view to see the patient's data without editing it
+	 * 
+	 * This function will open a patient to view their information
+	 * 
+	 */
+	@FXML
+	public void viewPatient() {
+		//Will open a new view to look at a given patient
+	}
+	
+	/**
+	 * TODO call the database to remove the patient
+	 * 
+	 * This function will remove a patient from the database
+	 * 
+	 */
+	@FXML
+	public void removePatient() {
+		//Database will be called
+
 	}
 }
