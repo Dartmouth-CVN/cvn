@@ -16,7 +16,7 @@
 
 <AnchorPane prefHeight="365.0" prefWidth="632.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ExportFieldsController">
    <children>
-      <Pane layoutY="1.0" maxHeight="300.0" maxWidth="600.0" minHeight="300.0" minWidth="600.0" prefHeight="300.0" prefWidth="600.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+      <Pane layoutY="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Accordion layoutY="-2.0" prefHeight="300.0" prefWidth="632.0">
               <panes>
@@ -172,15 +172,15 @@
                 </TitledPane>
               </panes>
             </Accordion>
-            <Button layoutX="492.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleExport" text="Export" />
-            <RadioButton fx:id="XMLRadioButton" layoutX="53.0" layoutY="327.0" mnemonicParsing="false" text="XML File">
+            <Button layoutX="568.0" layoutY="326.0" mnemonicParsing="false" onAction="#handleExport" text="Export" />
+            <RadioButton fx:id="XMLRadioButton" layoutX="129.0" layoutY="331.0" mnemonicParsing="false" text="XML File">
                <toggleGroup>
                   <ToggleGroup fx:id="fileType" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="HTMLRadioButton" layoutX="159.0" layoutY="327.0" mnemonicParsing="false" text="HTML File" toggleGroup="$fileType" />
-            <RadioButton fx:id="CSVRadioButton" layoutX="271.0" layoutY="327.0" mnemonicParsing="false" text="CSV File" toggleGroup="$fileType" />
-            <RadioButton fx:id="TSVRadioButton" layoutX="374.0" layoutY="327.0" mnemonicParsing="false" text="TSV File" toggleGroup="$fileType" />
+            <RadioButton fx:id="HTMLRadioButton" layoutX="235.0" layoutY="331.0" mnemonicParsing="false" text="HTML File" toggleGroup="$fileType" />
+            <RadioButton fx:id="CSVRadioButton" layoutX="347.0" layoutY="331.0" mnemonicParsing="false" text="CSV File" toggleGroup="$fileType" />
+            <RadioButton fx:id="TSVRadioButton" layoutX="450.0" layoutY="331.0" mnemonicParsing="false" text="TSV File" toggleGroup="$fileType" />
          </children>
       </Pane>
    </children>
