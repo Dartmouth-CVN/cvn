@@ -128,7 +128,7 @@ public class SearchTabController {
 			loader.setLocation(MainApp.class.getResource("../view/miniPatientProfile.fxml"));
 			AnchorPane miniProfile = (AnchorPane) loader.load();
 
-			MiniProfileController controller = loader.getController();
+			MiniPatientProfileController controller = loader.getController();
 			controller.setMain(mainApp);
 			profileTab.setContent(miniProfile);
 			profileTabPane.getTabs().add(profileTab);
