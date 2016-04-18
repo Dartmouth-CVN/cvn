@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="489.0" prefWidth="584.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="489.0" prefWidth="584.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MiniPatientProfileController">
    <children>
       <ImageView fitHeight="132.0" fitWidth="142.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -28,10 +28,10 @@
             <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label fx:id="doctorLabel" text="Name" />
-            <Label fx:id="nurseLabel" text="Phone" GridPane.rowIndex="1" />
-            <Label fx:id="phoneLabel11" text="ID" GridPane.columnIndex="1" />
-            <Label fx:id="phoneLabel111" text="Email" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="nameLabel" text="Name" />
+            <Label fx:id="phoneLabel" text="Phone" GridPane.rowIndex="1" />
+            <Label fx:id="idLabel" text="ID" GridPane.columnIndex="1" />
+            <Label fx:id="emailLabel" text="Email" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <Button layoutX="246.0" layoutY="181.0" mnemonicParsing="false" onAction="#handleEditProfile" onMouseClicked="#handleEditProfile" prefHeight="25.0" prefWidth="92.0" text="Edit Profile" />

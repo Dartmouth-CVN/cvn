@@ -14,7 +14,7 @@ import model.IDisplayable;
 import model.MainApp;
 import model.Patient;
 
-public class SearchTabController {
+public class MiniPatientProfileController {
 
 	// Integer will be replaced with Profile model
 	@FXML
@@ -38,22 +38,21 @@ public class SearchTabController {
 	@FXML
 	private Label phoneLabel = new Label();
 	@FXML
+	private Label idLabel = new Label();
+	@FXML
+	private Label emailLabel = new Label();
+	@FXML
 	private TabPane profileTabPane = new TabPane();
 	@FXML
 	private Tab profileTab = new Tab();
+	
 
 	private String userID;
 
 	// Reference to the main application.
 	private MainApp mainApp;
-
-	/**
-	 * The constructor. The constructor is called before the initialize()
-	 * method.
-	 */
-	public SearchTabController() {
-	}
-
+	
+	
 	/**
 	 * Initializes the controller class. This method is automatically called
 	 * after the fxml file has been loaded.
@@ -63,47 +62,81 @@ public class SearchTabController {
 		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
 		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
 		idColumn.setCellValueFactory(cellData -> cellData.getValue().getUserIDProperty());
-
+		//medstaff data
 		ObservableList<IDisplayable> personData = MainApp.getDatabaseHandler().searchPatient();
 		profileTable.setItems(personData);
 		// set table listener
 		profileTable.getSelectionModel().selectedItemProperty()
-				.addListener((observable, oldValue, newValue) -> showUserDetails(newValue));
+				.addListener((observable, oldValue, newValue) -> showMedStaffDetails(newValue));
 	}
 
-	private void showUserDetails(IDisplayable user) {
+	
+	public MiniPatientProfileController(IDisplayable user) {
+		
 		Patient p = MainApp.getDatabaseHandler().getPatient(user.getUserID());
 		nameLabel.setText(p.getFirstName() + " " + p.getLastName());
 		Random rand = new Random();
-		doctorLabel.setText("Doctor " + (rand.nextInt(10) + 1));
-		roomLabel.setText("Room " + (rand.nextInt(10) + 1));
-		nurseLabel.setText("Nurse " + (rand.nextInt(10) + 1));
+		//doctorLabel.setText("Doctor " + (rand.nextInt(10) + 1));
+		//roomLabel.setText("Room " + (rand.nextInt(10) + 1));
+		//nurseLabel.setText("Nurse " + (rand.nextInt(10) + 1));
 		phoneLabel.setText(p.getContactInfo().getPrimaryPhone());
+		idLabel.setText("ID: " + p.getUserID());
+		emailLabel.setText("Email: " + p.getContactInfo().getPrimaryEmail());
 		userID = p.getUserID();
 	}
-
+	
 	/**
-	 * Is called by the main application to give a reference back to itself.
-	 * 
-	 * @param mainApp
+	 * Method that displays med staff mini profile
+	 * @param user
 	 */
-	public void setMain(MainApp mainApp) {
-		this.mainApp = mainApp;
+	private void showMedStaffDetails(IDisplayable staff) {
+	
+		//MedicalStaff m = MainApp.getDatabaseHandler().getMedicalStaff(staff.getUserID());
+		
+		
 	}
+	
 
 	/**
-	 * Called when the user clicks the Go button.
+	 * Called when the user clicks edit profile button.
 	 */
 	@FXML
-	private void handleFindPatient() {
-		String name = searchField.getText();
-		if (!name.equals("")) {
-			ObservableList<IDisplayable> personData = MainApp.getDatabaseHandler().searchPatient(name);
-			profileTable.setItems(personData);
-		} else {
-			ObservableList<IDisplayable> personData = MainApp.getDatabaseHandler().searchPatient();
-			profileTable.setItems(personData);
-		}
-	}
+	private void handleEditProfile() {
+		Patient patient = MainApp.getDatabaseHandler().getPatient(userID);
+		if (patient != null)
+			mainApp.showEditProfile(patient);
 
+	}
+	
+
+	@FXML
+	private void handleClickPatient() {
+		
+		// profileTab.setContent();
+		 profileTabPane.getTabs().add(profileTab);
+		
+	}
+	/**
+	 * TODO make a new view to see the patient's data without editing it
+	 * 
+	 * This function will open a patient to view their information
+	 * 
+	 */
+	@FXML
+	public void viewPatient() {
+		//Will open a new view to look at a given patient
+	}
+	
+	/**
+	 * TODO call the database to remove the patient
+	 * 
+	 * This function will remove a patient from the database
+	 * 
+	 */
+	@FXML
+	public void removePatient() {
+		//Database will be called
+
+	}
+	
 }
