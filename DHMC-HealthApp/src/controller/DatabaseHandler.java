@@ -1029,6 +1029,38 @@ public class DatabaseHandler {
 		}
 	}
 
+	public String getLoginPass(String username) {
+		try {
+			connect();
+			ps = connection.prepareStatement("Select * FROM login WHERE username = ?");
+			ps.setString(1, username);
+			rs = ps.executeQuery();
+			if (rs.next()){
+				System.out.println(rs.getString("password"));
+				return rs.getString("password");
+			}
+		
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} return null;
+	}	
+	
+	public void updateDummyLogin(String username, String pass) {
+		try {
+			connect();
+			ps = connection.prepareStatement("UPDATE login SET password = ? WHERE username = ?");
+			ps.setString(1, pass);
+			ps.setString(2, username);
+			ps.executeUpdate();
+			System.out.println("finish update");
+
+		
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} return;
+	}	
+	
+	
 	public void dropTables() {
 		try {
 			connect();
