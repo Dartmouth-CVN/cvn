@@ -6,9 +6,12 @@ import java.util.ArrayList;
 import controller.CSVParsingUtils;
 import controller.XMLParsingUtils;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TitledPane;
+import javafx.scene.layout.Pane;
 import model.MainApp;
 
 public class ExportFieldsController {
@@ -91,7 +94,17 @@ public class ExportFieldsController {
 	private Button healthExportButton = new Button();
 	@FXML
 	private Button preferenceExportButton = new Button();
-
+	@FXML
+	private TitledPane personalPane = new TitledPane();
+	@FXML
+	private TitledPane healthPane = new TitledPane();
+	@FXML
+	private TitledPane preferencePane = new TitledPane();
+	
+	CheckBox[] personal = new CheckBox[6];
+	CheckBox[] health = new CheckBox[18];
+	CheckBox[] preference = new CheckBox[2];
+	
 	// Reference to the main application.
 	private MainApp mainApp;
 	
@@ -111,6 +124,7 @@ public class ExportFieldsController {
 	@FXML
 	private void initialize() {
 		fieldCheck = new ArrayList<Boolean>();
+		loadCheckBoxArrays();
 	}
 
 	/**
@@ -204,90 +218,59 @@ public class ExportFieldsController {
 	@FXML
 	private void handlePersonalSelectButton() {
 
-		firstNameCheckBox.setSelected(true);
-		lastNameCheckBox.setSelected(true);
-		userNameCheckBox.setSelected(true);
-		addressCheckBox.setSelected(true);
-		phoneNumberCheckBox.setSelected(true);
-		emailAddressCheckBox.setSelected(true);
-
+		for (int i = 0; i < personal.length; i++) {
+			
+			personal[i].setSelected(true);
+		}
 	}
 
 	@FXML
 	private void handlePersonalClearButton() {
 
-		firstNameCheckBox.setSelected(false);
-		lastNameCheckBox.setSelected(false);
-		userNameCheckBox.setSelected(false);
-		addressCheckBox.setSelected(false);
-		phoneNumberCheckBox.setSelected(false);
-		emailAddressCheckBox.setSelected(false);
-
+		for (int i = 0; i < personal.length; i++) {
+			
+			personal[i].setSelected(false);
+		}
 	}
+
 
 	@FXML
 	private void handleHealthSelectButton() {
 
-		weightCheckBox.setSelected(true);
-		heightCheckBox.setSelected(true);
-		fatCheckBox.setSelected(true);
-		BMICheckBox.setSelected(true);
-		dateCheckBox.setSelected(true);
-		distanceCheckBox.setSelected(true);
-		stepsCheckBox.setSelected(true);
-		floorsCheckBox.setSelected(true);
-		activityCaloriesCheckBox.setSelected(true);
-		caloriesBurnedCheckBox.setSelected(true);
-		timeAwakeCheckBox.setSelected(true);
-		timeAsleepCheckBox.setSelected(true);
-		lightlyActiveTimeCheckBox.setSelected(true);
-		fairlyActiveTimeCheckBox.setSelected(true);
-		veryActiveTimeCheckBox.setSelected(true);
-		bedTimeCheckBox.setSelected(true);
-		timesWokenUpCheckBox.setSelected(true);
-		sedentaryTimeCheckBox.setSelected(true);
-
+		for (int i = 0; i < health.length; i++) {
+			
+			health[i].setSelected(true);
+		}
 	}
+
 
 	@FXML
 	private void handleHealthClearButton() {
 
-		weightCheckBox.setSelected(false);
-		heightCheckBox.setSelected(false);
-		fatCheckBox.setSelected(false);
-		BMICheckBox.setSelected(false);
-		dateCheckBox.setSelected(false);
-		distanceCheckBox.setSelected(false);
-		stepsCheckBox.setSelected(false);
-		floorsCheckBox.setSelected(false);
-		activityCaloriesCheckBox.setSelected(false);
-		caloriesBurnedCheckBox.setSelected(false);
-		timeAwakeCheckBox.setSelected(false);
-		timeAsleepCheckBox.setSelected(false);
-		lightlyActiveTimeCheckBox.setSelected(false);
-		fairlyActiveTimeCheckBox.setSelected(false);
-		veryActiveTimeCheckBox.setSelected(false);
-		bedTimeCheckBox.setSelected(false);
-		timesWokenUpCheckBox.setSelected(false);
-		sedentaryTimeCheckBox.setSelected(false);
-
+		for (int i = 0; i < health.length; i++) {
+			
+			health[i].setSelected(false);
+		}
 	}
 
 	@FXML
 	private void handlePreferenceSelectButton() {
 
-		foodCheckBox.setSelected(true);
-		petsCheckBox.setSelected(true);
-
+		for (int i = 0; i < preference.length; i++) {
+			
+			preference[i].setSelected(true);
+		}
 	}
 
 	@FXML
 	private void handlePreferenceClearButton() {
 
-		foodCheckBox.setSelected(false);
-		petsCheckBox.setSelected(false);
-
+		for (int i = 0; i < preference.length; i++) {
+			
+			preference[i].setSelected(false);
+		}
 	}
+
 
 	@FXML
 	private void handleExport(){
@@ -312,6 +295,42 @@ public class ExportFieldsController {
 		}else if(HTMLRadioButton.isSelected())  {
 			XMLParsingUtils.writePatientsToHTML(name + ".html", MainApp.getDatabaseHandler().getPatientList());
 			 MainApp.showAlert("Export HTML done");
+		}
+	}
+	
+	private void loadCheckBoxArrays(){
+		
+		int i = 0;
+		
+		for(Node m : personalPane.getChildrenUnmodifiable()) {
+			
+			if (m instanceof CheckBox) {
+				
+				personal[i] = (CheckBox) m;
+				i++;
+			}
+		}
+		
+		i = 0;
+		
+		for(Node n : healthPane.getChildrenUnmodifiable()) {
+			
+			if (n instanceof CheckBox) {
+				
+				health[i] = (CheckBox) n;
+				i++;
+			}
+		}
+		
+		i = 0;
+		
+		for(Node o : preferencePane.getChildrenUnmodifiable()) {
+			
+			if (o instanceof CheckBox) {
+				
+				preference[i] = (CheckBox) o;
+				i++;
+			}
 		}
 	}
 	

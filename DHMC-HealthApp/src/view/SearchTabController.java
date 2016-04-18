@@ -5,6 +5,8 @@ import java.util.Random;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -35,6 +37,10 @@ public class SearchTabController {
 	private Label nurseLabel = new Label();
 	@FXML
 	private Label phoneLabel = new Label();
+	@FXML
+	private TabPane profileTabPane = new TabPane();
+	@FXML
+	private Tab profileTab = new Tab();
 
 	private String userID;
 
@@ -111,6 +117,14 @@ public class SearchTabController {
 
 	}
 	
+
+	@FXML
+	private void handleClickPatient() {
+		
+		// profileTab.setContent();
+		 profileTabPane.getTabs().add(profileTab);
+		
+	}
 	/**
 	 * TODO make a new view to see the patient's data without editing it
 	 * 
@@ -131,5 +145,6 @@ public class SearchTabController {
 	@FXML
 	public void removePatient() {
 		//Database will be called
+
 	}
 }
