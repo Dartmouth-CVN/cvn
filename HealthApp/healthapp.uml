@@ -62,6 +62,9 @@
       <ownedAttribute xmi:id="_2P6CQAPeEeaoDd8kY5YCqg" name="room" visibility="package">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
+      <ownedAttribute xmi:id="_I8GWcAZiEeaG0-oKBomCxw" name="schedule" visibility="package" type="_Ns7TEAZgEeaG0-oKBomCxw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_N10ecAZiEeaG0-oKBomCxw" value="1"/>
+      </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_HTA98APfEeaoDd8kY5YCqg" name="Administrator">
       <generalization xmi:id="_3e3GkAV8EeaoDd8kY5YCqg" general="_jxU5AAPcEeaoDd8kY5YCqg"/>
@@ -287,6 +290,67 @@
       <ownedAttribute xmi:id="_0WFuQAW9Eea7jvxu3rOGpA" name="type" visibility="package">
         <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#LiteralString"/>
       </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Ns7TEAZgEeaG0-oKBomCxw" name="Schedule">
+      <ownedAttribute xmi:id="_XDm5IAZhEeaG0-oKBomCxw" name="events" visibility="package" type="_a7S8YAZhEeaG0-oKBomCxw" aggregation="composite">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ZGzf8AZhEeaG0-oKBomCxw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ZQLeYAZhEeaG0-oKBomCxw" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_IVnBYAZmEeaEKL1TOcB8MQ" name="scheduleID" visibility="package">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#LiteralInteger"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_IVqrwAZmEeaEKL1TOcB8MQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_IVrS0AZmEeaEKL1TOcB8MQ" value="1"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="_ZP1qsAZiEeaG0-oKBomCxw" name="addEvent">
+        <ownedParameter xmi:id="_aAXvwAZiEeaG0-oKBomCxw" name="event" type="_a7S8YAZhEeaG0-oKBomCxw"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_a7S8YAZhEeaG0-oKBomCxw" name="Event">
+      <ownedAttribute xmi:id="_b6kBAAZhEeaG0-oKBomCxw" name="eventID" visibility="package">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#LiteralInteger"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_fM4tYAZhEeaG0-oKBomCxw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_flmvYAZhEeaG0-oKBomCxw" name="date" visibility="package">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/Ecore.metamodel.uml#EDate"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_iuz8AAZhEeaG0-oKBomCxw" name="location" visibility="package">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#LiteralString"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_t6FhoAZhEeaG0-oKBomCxw" name="attendees" visibility="package" type="_jxU5AAPcEeaoDd8kY5YCqg" aggregation="shared">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xS7FsAZhEeaG0-oKBomCxw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xIbs8AZhEeaG0-oKBomCxw" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_lq5SoAZhEeaG0-oKBomCxw" name="notes" visibility="package">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#LiteralString"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="_z4O7EAZhEeaG0-oKBomCxw" name="addAttendee">
+        <ownedParameter xmi:id="_1H5MIAZhEeaG0-oKBomCxw" name="attendee" type="_jxU5AAPcEeaoDd8kY5YCqg"/>
+      </ownedOperation>
+      <ownedOperation xmi:id="_3kzTcAZhEeaG0-oKBomCxw" name="addNotes">
+        <ownedParameter xmi:id="_4OzSsAZhEeaG0-oKBomCxw" name="notes">
+          <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#LiteralString"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_HPXu4AZiEeaG0-oKBomCxw" memberEnd="_HPXu4QZiEeaG0-oKBomCxw _HPcAUAZiEeaG0-oKBomCxw" navigableOwnedEnd="_HPcAUAZiEeaG0-oKBomCxw">
+      <ownedEnd xmi:id="_HPXu4QZiEeaG0-oKBomCxw" name="events" type="_a7S8YAZhEeaG0-oKBomCxw" aggregation="composite" association="_HPXu4AZiEeaG0-oKBomCxw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_HPbZQAZiEeaG0-oKBomCxw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_HPbZQQZiEeaG0-oKBomCxw" value="1"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="_HPcAUAZiEeaG0-oKBomCxw" name="schedules" type="_Ns7TEAZgEeaG0-oKBomCxw" association="_HPXu4AZiEeaG0-oKBomCxw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_HPcnYAZiEeaG0-oKBomCxw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_HPcnYQZiEeaG0-oKBomCxw" value="*"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_RRVjEAZiEeaG0-oKBomCxw" name="schedulesToAbsUsers" memberEnd="_RRWKIAZiEeaG0-oKBomCxw _RRWxMAZiEeaG0-oKBomCxw" navigableOwnedEnd="_RRWxMAZiEeaG0-oKBomCxw">
+      <ownedEnd xmi:id="_RRWKIAZiEeaG0-oKBomCxw" name="schedules" type="_Ns7TEAZgEeaG0-oKBomCxw" aggregation="shared" association="_RRVjEAZiEeaG0-oKBomCxw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_RRWKIQZiEeaG0-oKBomCxw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_RRWKIgZiEeaG0-oKBomCxw" value="*"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="_RRWxMAZiEeaG0-oKBomCxw" name="absUsers" type="_jxU5AAPcEeaoDd8kY5YCqg" association="_RRVjEAZiEeaG0-oKBomCxw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_RRWxMQZiEeaG0-oKBomCxw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_RRWxMgZiEeaG0-oKBomCxw" value="*"/>
+      </ownedEnd>
     </packagedElement>
   </packagedElement>
   <packagedElement xmi:type="uml:Package" xmi:id="_FNYW8AV7EeaoDd8kY5YCqg" name="controller">
