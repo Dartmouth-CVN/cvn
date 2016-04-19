@@ -68,6 +68,14 @@ public class PatientProfileController {
 	private TableColumn<Pet, String> speciesColumn;
 	@FXML
 	private TableColumn<Pet, Boolean> allergyFriendlyColumn;
+	@FXML
+	private Label nameLabel = new Label();
+	@FXML
+	private Label idLabel = new Label();
+	@FXML
+	private Label phoneLabel = new Label();
+	@FXML
+	private Label emailLabel = new Label();
 
 	// Reference to the main application.
 	private MainApp mainApp;
@@ -79,15 +87,43 @@ public class PatientProfileController {
 	 */
 	@FXML
 	private void initialize(Patient patient) {
+		caregiverNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+		birthdayColumn.setCellValueFactory(cellData -> cellData.getValue().birthdayProperty());
+		relationColumn.setCellValueFactory(cellData -> cellData.getValue().relationProperty());
+		inFamilyColumn.setCellValueFactory(cellData -> cellData.getValue().inFamilyProperty());
+		//assignedStaff needs to be implemented in databaseHandler
+		ObservableList<Caregiver> caregivers = MainApp.getDatabaseHandler().searchCareGivers(patient);
+		careGiversTable.setItems(caregivers);
+		
 		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
 		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
 		positionColumn.setCellValueFactory(cellData -> cellData.getValue().positionProperty());
 		//assignedStaff needs to be implemented in databaseHandler
 		ObservableList<MedicalStaff> personData = MainApp.getDatabaseHandler().searchAssignedStaff(patient);
 		assignedStaffTable.setItems(personData);
+		
+		foodColumn.setCellValueFactory(cellData -> cellData.getValue().foodProperty());
+		caloriesColumn.setCellValueFactory(cellData -> cellData.getValue().caloriesProperty());
+		ratingColumn.setCellValueFactory(cellData -> cellData.getValue().ratingProperty());
+		notesColumn.setCellValueFactory(cellData -> cellData.getValue().notesProperty());
+		//assignedStaff needs to be implemented in databaseHandler
+		ObservableList<Meal> meals = MainApp.getDatabaseHandler().searchMeals(patient);
+		menuTable.setItems(meals);
+		
+		petNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+		speciesColumn.setCellValueFactory(cellData -> cellData.getValue().speciesProperty());
+		allergyFriendlyColumn.setCellValueFactory(cellData -> cellData.getValue().allergyFriendlyProperty());
+		//assignedStaff needs to be implemented in databaseHandler
+		ObservableList<Pet> pets = MainApp.getDatabaseHandler().searchPets(patient);
+		petTable.setItems(pets);
+		
+		addressColumn.setCellValueFactory(cellData -> cellData.getValue().addressProperty());
+		phoneColumn.setCellValueFactory(cellData -> cellData.getValue().phoneProperty());
+		emailColumn.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
+		
 		// set table listener
-		assignedStaffTable.getSelectionModel().selectedItemProperty()
-				.addListener((observable, oldValue, newValue) -> showMedStaffDetails(newValue));
+		careGiversTable.getSelectionModel().selectedItemProperty()
+				.addListener((observable, oldValue, newValue) -> showCareGiversContactInfo(newValue));
 	}
 	
 	/**
@@ -100,18 +136,20 @@ public class PatientProfileController {
 	}
 
 	
-	public MiniPatientProfileController(IDisplayable user) {
+	public PatientProfileController(IDisplayable user) {
 	}
 	
 	/**
 	 * Method that displays med staff mini profile
 	 * @param user
 	 */
-	private void showMedStaffDetails(MedicalStaff staff) {
+	private void showCareGiversContactInfo(Caregiver caregiver) {
 	
 		//databasehandler needs to make getMedicalStaff(MedicalStaff staff) method
-		MedicalStaff ms = MainApp.getDatabaseHandler().getMedicalStaff(staff.getMedID());
-		nameLabel.setText(ms.getFirstName() + " " + ms.getLastName());		
+		Caregiver cg = MainApp.getDatabaseHandler().getCaregiver(caregiver.getCaregiverID());
+		//nameLabel.setText(ms.getFirstName() + " " + ms.getLastName());	
+		Contact contactInfo = cg.getContactInfo();
+		contactInfoTable.setItem
 		
 	}
 }
