@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping">
+
+<hibernate-mapping package="model">
+	<class name="Pet" table="Pet">
+		<id name="petId">
+			<generator class="native" />
+		</id>
+		<property name="name" />
+		<property name="species" />
+		<property name="allergyFriendly" />
+	</class>
+
+	<class name="Patient" table="Patient">
+		<id name="patientId">
+			<generator class="native" />
+		</id>
+		<property name="firstName" />
+		<property name="lastName" />
+		<property name="username"/>
+		<property name="password"/>
+		<property name="birthday"/>
+		<one-to-one name="patientProfile" class="PatientProfile"
+			cascade="save-update"></one-to-one>
+	</class>
+	
+	<class name="Administrator" table="Administrator">
+		<id name="adminId">
+			<generator class="native" />
+		</id>
+		<property name="firstName" />
+		<property name="lastName" />
+		<property name="username"/>
+		<property name="password"/>
+		<property name="birthday"/>
+		<one-to-one name="patientProfile" class="PatientProfile"
+			cascade="save-update"></one-to-one>
+	</class>
+
+	<class name="PatientProfile" table="PatientProfile">
+		<id name="profileId">
+			<generator class="native" />
+		</id>
+		<set name="pets" table="Profile_Pet">
+			<key column="profileId" />
+			<many-to-many column="petId" class="Pet" />
+		</set>
+	</class>
+
+</hibernate-mapping>

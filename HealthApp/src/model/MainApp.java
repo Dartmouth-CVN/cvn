@@ -7,10 +7,10 @@ public class MainApp extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		
+
 	}
 
 	public static void main(String[] args) {
-		launch(args);
+		 launch(args);
 	}
 }
