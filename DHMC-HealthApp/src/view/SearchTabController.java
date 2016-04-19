@@ -71,7 +71,11 @@ public class SearchTabController {
 		profileTable.setItems(personData);
 		// set table listener
 		profileTable.getSelectionModel().selectedItemProperty()
-				.addListener((observable, oldValue, newValue) -> showUserDetails(newValue));
+				.addListener((observable, oldValue, newValue) -> { 
+					
+					handleClickPatient();
+					
+				});
 	}
 
 	private void showUserDetails(IDisplayable user) {
@@ -109,8 +113,6 @@ public class SearchTabController {
 		}
 	}
 
-<<<<<<< HEAD
-=======
 	/**
 	 * Called when the user clicks edit profile button.
 	 */
@@ -127,7 +129,7 @@ public class SearchTabController {
 	private void handleClickPatient() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("../view/miniPatientProfile.fxml"));
+			loader.setLocation(MainApp.class.getResource("../view/MiniPatientProfile.fxml"));
 			AnchorPane miniProfile = (AnchorPane) loader.load();
 
 			MiniPatientProfileController controller = loader.getController();
@@ -138,29 +140,5 @@ public class SearchTabController {
 		} catch (IOException e) {
 			MainApp.printError(e);
 		}	
-		
 	}
-	/**
-	 * TODO make a new view to see the patient's data without editing it
-	 * 
-	 * This function will open a patient to view their information
-	 * 
-	 */
-	@FXML
-	public void viewPatient() {
-		//Will open a new view to look at a given patient
-	}
-	
-	/**
-	 * TODO call the database to remove the patient
-	 * 
-	 * This function will remove a patient from the database
-	 * 
-	 */
-	@FXML
-	public void removePatient() {
-		//Database will be called
-
-	}
->>>>>>> 339ff2adf8febaf5bf175a5c7e5046eb3c90a323
 }

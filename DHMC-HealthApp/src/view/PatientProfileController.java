@@ -1,5 +1,6 @@
 package view;
 
+import java.time.LocalDate;
 import java.util.Random;
 
 import javafx.collections.ObservableList;
@@ -11,12 +12,16 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import model.Caregiver;
+import model.Contact;
 import model.IDisplayable;
 import model.MainApp;
+import model.Meal;
 import model.MedicalStaff;
 import model.Patient;
+import model.Pet;
 
-public class MiniPatientProfileController {
+public class PatientProfileController {
 
 	// Integer will be replaced with Profile model
 	@FXML
@@ -28,24 +33,41 @@ public class MiniPatientProfileController {
 	@FXML
 	private TableColumn<MedicalStaff, String> lastNameColumn;
 	@FXML
-	private Button viewPatientProfileButton = new Button();
+	private TableView<Caregiver> careGiversTable;
 	@FXML
-	private Button viewMedicalStaffProfileButton = new Button();
+	private TableColumn<Caregiver, String> caregiverNameColumn;
 	@FXML
-	private Button editProfileButton = new Button();
+	private TableColumn<Caregiver, LocalDate> birthdayColumn;
 	@FXML
-	private Button removeProfileButton = new Button();
+	private TableColumn<Caregiver, String> relationColumn;
 	@FXML
-	private Label nameLabel = new Label();
+	private TableColumn<Caregiver, Boolean> inFamilyColumn;
 	@FXML
-	private Label idLabel = new Label();
+	private TableView<Contact> contactInfoTable;
 	@FXML
-	private Label phoneLabel = new Label();
+	private TableColumn<Contact, String> addressColumn;
 	@FXML
-	private Label emailLabel = new Label();
-	
-
-	private String userID;
+	private TableColumn<Contact, String> phoneColumn;
+	@FXML
+	private TableColumn<Contact, String> emailColumn;
+	@FXML
+	private TableView<Meal> menuTable;
+	@FXML
+	private TableColumn<Meal, String> foodColumn;
+	@FXML
+	private TableColumn<Meal, Integer> caloriesColumn;
+	@FXML
+	private TableColumn<Meal, Integer> ratingColumn;
+	@FXML
+	private TableColumn<Meal, String> notesColumn;
+	@FXML
+	private TableView<Pet> petTable;
+	@FXML
+	private TableColumn<Pet, String> petNameColumn;
+	@FXML
+	private TableColumn<Pet, String> speciesColumn;
+	@FXML
+	private TableColumn<Pet, Boolean> allergyFriendlyColumn;
 
 	// Reference to the main application.
 	private MainApp mainApp;
@@ -92,51 +114,4 @@ public class MiniPatientProfileController {
 		nameLabel.setText(ms.getFirstName() + " " + ms.getLastName());		
 		
 	}
-	
-
-	/**
-	 * Called when the user clicks edit profile button.
-	 */
-	@FXML
-	private void handleEditProfile() {
-		Patient patient = MainApp.getDatabaseHandler().getPatient(userID);
-		if (patient != null)
-			mainApp.showEditProfile(patient);
-
-	}
-	
-	/**
-	 * TODO make a new view to see the patient's data without editing it
-	 * 
-	 * This function will open a patient to view their information
-	 * 
-	 */
-	@FXML
-	public void viewPatientProfile() {
-		//Will open a new view to look at a given patient
-	}
-	
-	/**
-	 * TODO make a new view to see the patient's data without editing it
-	 * 
-	 * This function will open a patient to view their information
-	 * 
-	 */
-	@FXML
-	public void viewMedicalStaffProfile() {
-		//Will open a new view to look at a given patient
-	}
-	
-	/**
-	 * TODO call the database to remove the patient
-	 * 
-	 * This function will remove a patient from the database
-	 * 
-	 */
-	@FXML
-	public void removePatient() {
-		//Database will be called
-
-	}
-	
 }

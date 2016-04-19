@@ -1,17 +1,19 @@
 package model;
 import java.util.LinkedList;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class MedicalStaff extends User {
-	private String position;
+	
+	private StringProperty position = new SimpleStringProperty();
 	
 	protected LinkedList<Patient> assignedPatients;
 	private int medID;
 	
 	public MedicalStaff(String firstName, String lastName, String position, String userID, int medID) {
 		super(firstName, lastName, userID);
-		this.setPosition(position);
+		this.setPosition(position);;
 		this.setMedID(medID);
 	}
 	
@@ -90,13 +92,17 @@ public class MedicalStaff extends User {
 		return null;
 	}
 
-	public String getPosition() {
+	public StringProperty positionProperty() {
 		return position;
 	}
+	
+    public final String getPosition() {
+        return positionProperty().get();
+    }
 
-	public void setPosition(String position) {
-		this.position = position;
-	}
+    public final void setPosition(String position) {
+        positionProperty().set(position);
+    }
 
 	@Override
 	public void initObservers() {
