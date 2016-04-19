@@ -4,39 +4,53 @@
         "http://www.hibernate.org/dtd/hibernate-mapping">
 
 <hibernate-mapping package="model">
-	<class name="Pet" table="Pet">
-		<id name="petId">
-			<generator class="native" />
-		</id>
-		<property name="name" />
-		<property name="species" />
-		<property name="allergyFriendly" />
-	</class>
 
+	<!-- User tables -->
 	<class name="Patient" table="Patient">
 		<id name="patientId">
 			<generator class="native" />
 		</id>
 		<property name="firstName" />
 		<property name="lastName" />
-		<property name="username"/>
-		<property name="password"/>
-		<property name="birthday"/>
+		<property name="username" />
+		<property name="password" />
+		<property name="birthday" />
 		<one-to-one name="patientProfile" class="PatientProfile"
 			cascade="save-update"></one-to-one>
 	</class>
-	
+
 	<class name="Administrator" table="Administrator">
 		<id name="adminId">
 			<generator class="native" />
 		</id>
 		<property name="firstName" />
 		<property name="lastName" />
-		<property name="username"/>
-		<property name="password"/>
-		<property name="birthday"/>
-		<one-to-one name="patientProfile" class="PatientProfile"
-			cascade="save-update"></one-to-one>
+		<property name="username" />
+		<property name="password" />
+		<property name="birthday" />
+	</class>
+
+	<class name="Caregiver" table="Meal">
+		<id name="caregiverId">
+			<generator class="native" />
+		</id>
+		<property name="firstName" />
+		<property name="lastName" />
+		<property name="username" />
+		<property name="password" />
+		<property name="birthday" />
+		<property name="relation" />
+		<property name="isFamily" />
+	</class>
+
+	<!-- Profile elements -->
+	<class name="Meal" table="Meal">
+		<id name="mealId">
+			<generator class="native" />
+		</id>
+		<property name="rating" />
+		<property name="calories" />
+		<property name="notes" />
 	</class>
 
 	<class name="PatientProfile" table="PatientProfile">
@@ -48,5 +62,25 @@
 			<many-to-many column="petId" class="Pet" />
 		</set>
 	</class>
+	
+	<!-- ContactInfo -->
+	<class name="Contact" table="Contact">
+		<id name="contactId">
+			<generator class="native" />
+		</id>
+		<set name="phoneNumbers" table="Contact_Number">
+			<key column="contactId" />
+			<many-to-many column="elementId" class="ContactElement" />
+		</set>
+		<set name="emails" table="Contact_Email">
+			<key column="contactId" />
+			<many-to-many column="elementId" class="ContactElement" />
+		</set>
+		<set name="addresses" table="Contact_Address">
+			<key column="contactId" />
+			<many-to-many column="elementId" class="ContactElement" />
+		</set>
+	</class>
+
 
 </hibernate-mapping>
