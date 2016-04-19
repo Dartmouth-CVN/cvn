@@ -1,15 +1,18 @@
 package view;
 
+import java.io.IOException;
 import java.util.Random;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import model.IDisplayable;
 import model.MainApp;
 import model.Patient;
@@ -68,7 +71,11 @@ public class SearchTabController {
 		profileTable.setItems(personData);
 		// set table listener
 		profileTable.getSelectionModel().selectedItemProperty()
-				.addListener((observable, oldValue, newValue) -> showUserDetails(newValue));
+				.addListener((observable, oldValue, newValue) -> { 
+					
+					handleClickPatient();
+					
+				});
 	}
 
 	private void showUserDetails(IDisplayable user) {
@@ -120,31 +127,18 @@ public class SearchTabController {
 
 	@FXML
 	private void handleClickPatient() {
-		
-		// profileTab.setContent();
-		 profileTabPane.getTabs().add(profileTab);
-		
-	}
-	/**
-	 * TODO make a new view to see the patient's data without editing it
-	 * 
-	 * This function will open a patient to view their information
-	 * 
-	 */
-	@FXML
-	public void viewPatient() {
-		//Will open a new view to look at a given patient
-	}
-	
-	/**
-	 * TODO call the database to remove the patient
-	 * 
-	 * This function will remove a patient from the database
-	 * 
-	 */
-	@FXML
-	public void removePatient() {
-		//Database will be called
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("../view/MiniPatientProfile.fxml"));
+			AnchorPane miniProfile = (AnchorPane) loader.load();
 
+			MiniPatientProfileController controller = loader.getController();
+			controller.setMain(mainApp);
+			profileTab.setContent(miniProfile);
+			profileTabPane.getTabs().add(profileTab);
+			
+		} catch (IOException e) {
+			MainApp.printError(e);
+		}	
 	}
 }
