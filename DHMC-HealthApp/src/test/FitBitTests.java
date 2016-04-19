@@ -1,13 +1,15 @@
-package controller;
+package test;
 
 import static org.junit.Assert.assertEquals;
 import java.io.File;
 import java.util.LinkedList;
 import org.junit.Test;
+
+import controller.FitBitParsingUtils;
 import model.HealthInfo;
 
 
-public class FitBitTest {
+public class FitBitTests {
 
 	@Test
 	public void test() {
