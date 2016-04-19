@@ -7,6 +7,7 @@ public abstract class AbsUser {
 	String password;
 	String birthday;
 	String room;
+	Schedule schedule;
 
 	public String getFirstName() {
 		return firstName;
@@ -54,6 +55,14 @@ public abstract class AbsUser {
 
 	public void setRoom(String room) {
 		this.room = room;
+	}
+	
+	public void addEvent(Event e) {
+		this.schedule.addEvent(e);
+	}
+	
+	public void removeEvent(Event e) {
+		this.schedule.removeEvent(e);
 	}
 
 }

@@ -429,6 +429,10 @@
                     <styles xmi:type="notation:FontStyle" xmi:id="_aW2ykQZhEeaG0-oKBomCxw" fontName=".SF NS Text" fontHeight="13"/>
                     <layoutConstraint xmi:type="notation:Location" xmi:id="_aW2ykgZhEeaG0-oKBomCxw"/>
                   </children>
+                  <children xmi:type="notation:Node" xmi:id="_IZuFUAZmEeaEKL1TOcB8MQ" type="3010" element="_IWYdcAZmEeaEKL1TOcB8MQ">
+                    <styles xmi:type="notation:FontStyle" xmi:id="_IZuFUQZmEeaEKL1TOcB8MQ" fontName="@Arial Unicode MS" fontHeight="13"/>
+                    <layoutConstraint xmi:type="notation:Location" xmi:id="_IZuFUgZmEeaEKL1TOcB8MQ"/>
+                  </children>
                   <children xmi:type="notation:Node" xmi:id="_boI-0AZiEeaG0-oKBomCxw" type="3010" element="_bmZ5cAZiEeaG0-oKBomCxw">
                     <styles xmi:type="notation:FontStyle" xmi:id="_boI-0QZiEeaG0-oKBomCxw" fontName=".SF NS Text" fontHeight="13"/>
                     <layoutConstraint xmi:type="notation:Location" xmi:id="_boI-0gZiEeaG0-oKBomCxw"/>
@@ -437,7 +441,7 @@
                   <styles xmi:type="notation:FilteringStyle" xmi:id="_NyGuAQZgEeaG0-oKBomCxw"/>
                 </children>
                 <styles xmi:type="notation:ShapeStyle" xmi:id="_Nx89AQZgEeaG0-oKBomCxw" fontName=".SF NS Text" bold="true"/>
-                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Nx89AgZgEeaG0-oKBomCxw" x="1183" y="77" width="219" height="174"/>
+                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Nx89AgZgEeaG0-oKBomCxw" x="1183" y="77" width="282" height="187"/>
               </children>
               <children xmi:type="notation:Node" xmi:id="_a-WQYAZhEeaG0-oKBomCxw" type="3009" element="_a7UKgAZhEeaG0-oKBomCxw">
                 <children xmi:type="notation:Node" xmi:id="_a-XegAZhEeaG0-oKBomCxw" type="5004"/>
@@ -474,7 +478,7 @@
                   <styles xmi:type="notation:FilteringStyle" xmi:id="_a-XegwZhEeaG0-oKBomCxw"/>
                 </children>
                 <styles xmi:type="notation:ShapeStyle" xmi:id="_a-WQYQZhEeaG0-oKBomCxw" fontName=".SF NS Text" fontHeight="13"/>
-                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_a-WQYgZhEeaG0-oKBomCxw" x="1372" y="345" width="310" height="236"/>
+                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_a-WQYgZhEeaG0-oKBomCxw" x="1552" y="291" width="310" height="236"/>
               </children>
               <styles xmi:type="notation:SortingStyle" xmi:id="_UuPFcQVqEeaoDd8kY5YCqg"/>
               <styles xmi:type="notation:FilteringStyle" xmi:id="_UuPFcgVqEeaoDd8kY5YCqg"/>
@@ -1045,19 +1049,19 @@
           </edges>
           <edges xmi:type="notation:Edge" xmi:id="_HSkz4AZiEeaG0-oKBomCxw" type="4001" element="_HP9kwAZiEeaG0-oKBomCxw" source="_a-WQYAZhEeaG0-oKBomCxw" target="_Nx89AAZgEeaG0-oKBomCxw">
             <children xmi:type="notation:Node" xmi:id="_HSmCAAZiEeaG0-oKBomCxw" type="6001">
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_HSmCAQZiEeaG0-oKBomCxw" x="8" y="11"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_HSmCAQZiEeaG0-oKBomCxw" x="4" y="11"/>
             </children>
             <children xmi:type="notation:Node" xmi:id="_HSnQIAZiEeaG0-oKBomCxw" type="6002">
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_HSnQIQZiEeaG0-oKBomCxw" x="30" y="-8"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_HSnQIQZiEeaG0-oKBomCxw" x="38" y="-6"/>
             </children>
             <children xmi:type="notation:Node" xmi:id="_HSoeQAZiEeaG0-oKBomCxw" type="6003">
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_HSoeQQZiEeaG0-oKBomCxw" x="20" y="-11"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_HSoeQQZiEeaG0-oKBomCxw" x="26" y="-10"/>
             </children>
             <styles xmi:type="notation:ConnectorStyle" xmi:id="_HSkz4QZiEeaG0-oKBomCxw"/>
             <styles xmi:type="notation:FontStyle" xmi:id="_HSkz4gZiEeaG0-oKBomCxw" fontName=".SF NS Text" fontHeight="8"/>
-            <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_HSkz4wZiEeaG0-oKBomCxw" points="[-190, -160, 271, 268]$[-288, -256, 173, 172]"/>
+            <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_HSkz4wZiEeaG0-oKBomCxw" points="[-308, -138, 333, 236]$[-460, -206, 181, 168]"/>
             <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_HSpFUAZiEeaG0-oKBomCxw" id="(1.0,0.6837606837606838)"/>
-            <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_HSpFUQZiEeaG0-oKBomCxw" id="(0.16589861751152074,0.0)"/>
+            <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_HSpFUQZiEeaG0-oKBomCxw" id="(0.12857142857142856,0.0)"/>
           </edges>
           <edges xmi:type="notation:Edge" xmi:id="_RTuIsAZiEeaG0-oKBomCxw" type="4001" element="_RRukoAZiEeaG0-oKBomCxw" source="_Nx89AAZgEeaG0-oKBomCxw" target="_ZNp3EAVqEeaoDd8kY5YCqg">
             <children xmi:type="notation:Node" xmi:id="_RTuvwAZiEeaG0-oKBomCxw" type="6001">
@@ -1072,7 +1076,7 @@
             <styles xmi:type="notation:ConnectorStyle" xmi:id="_RTuIsQZiEeaG0-oKBomCxw"/>
             <styles xmi:type="notation:FontStyle" xmi:id="_RTuIsgZiEeaG0-oKBomCxw" fontName=".SF NS Text" fontHeight="8"/>
             <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_RTuIswZiEeaG0-oKBomCxw" points="[0, 0, 242, 27]$[-242, -27, 0, 0]"/>
-            <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_RTvW0AZiEeaG0-oKBomCxw" id="(0.0,0.6569767441860465)"/>
+            <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_RTvW0AZiEeaG0-oKBomCxw" id="(0.0,0.6108108108108108)"/>
             <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_RTvW0QZiEeaG0-oKBomCxw" id="(1.0,0.5025906735751295)"/>
           </edges>
         </data>
@@ -1870,6 +1874,17 @@
             <target xmi:type="uml:Property" href="healthapp.uml#_XDm5IAZhEeaG0-oKBomCxw"/>
             <semanticElements xmi:type="uml:Property" href="healthapp.uml#_XDm5IAZhEeaG0-oKBomCxw"/>
             <ownedStyle xmi:type="diagram:Square" xmi:id="_aTYAwAZhEeaG0-oKBomCxw" labelSize="13" labelAlignment="LEFT">
+              <customFeatures>labelSize</customFeatures>
+              <customFeatures>labelColor</customFeatures>
+              <description xmi:type="style:SquareDescription" href="platform:/plugin/org.obeonetwork.dsl.uml2.design/description/uml2.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Class%20Diagram']/@defaultLayer/@containerMappings[name='CD_ReusedMappingForFeatures']/@subNodeMappings[name='CD_Property']/@style"/>
+            </ownedStyle>
+            <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.obeonetwork.dsl.uml2.design/description/uml2.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Class%20Diagram']/@defaultLayer/@containerMappings[name='CD_ReusedMappingForFeatures']/@subNodeMappings[name='CD_Property']"/>
+          </ownedElements>
+          <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_IWYdcAZmEeaEKL1TOcB8MQ" name="scheduleID : LiteralInteger [1]">
+            <target xmi:type="uml:Property" href="healthapp.uml#_IVnBYAZmEeaEKL1TOcB8MQ"/>
+            <semanticElements xmi:type="uml:Property" href="healthapp.uml#_IVnBYAZmEeaEKL1TOcB8MQ"/>
+            <ownedStyle xmi:type="diagram:Square" xmi:id="_IWaSoAZmEeaEKL1TOcB8MQ" labelSize="13" labelAlignment="LEFT">
+              <customFeatures>labelFormat</customFeatures>
               <customFeatures>labelSize</customFeatures>
               <customFeatures>labelColor</customFeatures>
               <description xmi:type="style:SquareDescription" href="platform:/plugin/org.obeonetwork.dsl.uml2.design/description/uml2.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Class%20Diagram']/@defaultLayer/@containerMappings[name='CD_ReusedMappingForFeatures']/@subNodeMappings[name='CD_Property']/@style"/>

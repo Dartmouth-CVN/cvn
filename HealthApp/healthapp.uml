@@ -296,6 +296,11 @@
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ZGzf8AZhEeaG0-oKBomCxw"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ZQLeYAZhEeaG0-oKBomCxw" value="*"/>
       </ownedAttribute>
+      <ownedAttribute xmi:id="_IVnBYAZmEeaEKL1TOcB8MQ" name="scheduleID" visibility="package">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#LiteralInteger"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_IVqrwAZmEeaEKL1TOcB8MQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_IVrS0AZmEeaEKL1TOcB8MQ" value="1"/>
+      </ownedAttribute>
       <ownedOperation xmi:id="_ZP1qsAZiEeaG0-oKBomCxw" name="addEvent">
         <ownedParameter xmi:id="_aAXvwAZiEeaG0-oKBomCxw" name="event" type="_a7S8YAZhEeaG0-oKBomCxw"/>
       </ownedOperation>
