@@ -149,7 +149,6 @@ public class PatientProfileController {
 		Caregiver cg = MainApp.getDatabaseHandler().getCaregiver(caregiver.getCaregiverID());
 		//nameLabel.setText(ms.getFirstName() + " " + ms.getLastName());	
 		Contact contactInfo = cg.getContactInfo();
-		contactInfoTable.setItem
 		
 	}
 }

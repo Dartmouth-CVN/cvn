@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import model.Caregiver;
 import model.Patient;
 
 public class DatabaseHandler {
@@ -33,6 +34,11 @@ public class DatabaseHandler {
 
 	public static DatabaseHandler getUniqueInstance() {
 		// TODO Determine how to handle calls for the unique instance of the database
+		return null;
+	}
+
+	public Caregiver getCaregiver(int caregiverID) {
+		// TODO Return caregiver
 		return null;
 	}
 

@@ -13,13 +13,10 @@ import javafx.scene.layout.AnchorPane;
 import model.MainApp;
 import model.Patient;
 
-public class AdminDashController {
+public class AdminDashController extends MedicalStaffDashController {
 
 	@FXML
 	private AnchorPane adminDash;
-
-	// Reference to the main application.
-	private MainApp mainApp;
 
 	private AnchorPane editPatient;
 	private FXMLLoader editPatientLoader;
@@ -28,37 +25,8 @@ public class AdminDashController {
 	 * The constructor. The constructor is called before the initialize()
 	 * method.
 	 */
-	public AdminDashController() {
-	}
-
-	/**
-	 * Initializes the controller class. This method is automatically called
-	 * after the fxml file has been loaded.
-	 */
-	@FXML
-	private void initialize() {
-
-		tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
-			@Override
-			public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
-				if (t1 == addPatientTab)
-					loadAddPatientTab();
-			}
-		});
-
-		loadExportTab();
-	}
-
-	/**
-	 * Is called by the main application to give a reference back to itself.
-	 * 
-	 * @param mainApp
-	 */
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
-
-		// get the list of profiles from another class
-		// personTable.setItems(mainApp.getPersonData());
+	public AdminDashController(MainApp mainApp) {
+		super(mainApp);
 	}
 
 	/**
