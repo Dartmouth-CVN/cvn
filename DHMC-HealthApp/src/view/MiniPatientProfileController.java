@@ -61,7 +61,7 @@ public class MiniPatientProfileController {
 		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
 		positionColumn.setCellValueFactory(cellData -> cellData.getValue().positionProperty());
 		//assignedStaff needs to be implemented in databaseHandler
-		ObservableList<MedicalStaff> personData = MainApp.getDatabaseHandler().searchAssignedStaff(patient);
+		ObservableList<MedicalStaff> personData = MainApp.getDatabaseHandler().searchPatientAssignedStaff(patient);
 		assignedStaffTable.setItems(personData);
 		// set table listener
 		assignedStaffTable.getSelectionModel().selectedItemProperty()
@@ -88,7 +88,7 @@ public class MiniPatientProfileController {
 	private void showMedStaffDetails(MedicalStaff staff) {
 	
 		//databasehandler needs to make getMedicalStaff(MedicalStaff staff) method
-		MedicalStaff ms = MainApp.getDatabaseHandler().getMedicalStaff(staff.getMedID());
+		MedicalStaff ms = MainApp.getDatabaseHandler().getMedicalStaff(staff.getUserID());
 		nameLabel.setText(ms.getFirstName() + " " + ms.getLastName());		
 		
 	}
