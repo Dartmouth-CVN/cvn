@@ -74,68 +74,10 @@ public class AdminDashController extends MedicalStaffDashController {
 
 	}
 
-	/**
-	 * Loads and sets the contents of the search tab.
-	 */
-	private void loadSearchTab() {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("../view/GlobalSearch.fxml"));
-			AnchorPane globalSearch = (AnchorPane) loader.load();
-
-			SearchTabController controller = loader.getController();
-			controller.setMain(mainApp);
-			searchTab.setContent(globalSearch);
-		} catch (IOException e) {
-			MainApp.printError(e);
-		}
-	}
-
-	/**
-	 * Loads and sets the contents of the export tab.
-	 */
-	private void loadExportTab() {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("../view/ExportFields.fxml"));
-			AnchorPane export = (AnchorPane) loader.load();
-
-			ExportFieldsController controller = loader.getController();
-			controller.setMain(mainApp);
-			exportTab.setContent(export);
-		} catch (IOException e) {
-			MainApp.printError(e);
-		}
-	}
-
-	/**
-	 * Loads and sets content of the add patient tab.
-	 */
-	@FXML
-	private void loadAddPatientTab() {
-		getAddPatientTab();
-	}
-
-	public void getAddPatientTab() {
-		addPatientTab.setContent(getEditPatientTab(new Patient()));
-		tabPane.getSelectionModel().select(addPatientTab);
-	}
 	
 	public void showEditPatientTab(Patient p) {
 		editPatientTab.setContent(getEditPatientTab(p));
 		tabPane.getSelectionModel().select(editPatientTab);
-	}
-
-	private FXMLLoader getEditPatientLoader() {
-		editPatientLoader = null;
-		editPatientLoader = new FXMLLoader();
-		editPatientLoader.setLocation(MainApp.class.getResource("../view/EditPatient.fxml"));
-		try {
-			editPatient = (AnchorPane) editPatientLoader.load();
-		} catch (IOException e) {
-			MainApp.printError(e);
-		}
-		return editPatientLoader;
 	}
 
 	public AnchorPane getEditPatientTab(Patient p) {
@@ -153,23 +95,6 @@ public class AdminDashController extends MedicalStaffDashController {
 		controller.setMainApp(mainApp);
 		controller.setPatient(patient);
 		controller.loadFields();
-	}
-
-	/**
-	 * Clicking search image opens the search tab.
-	 */
-	@FXML
-	private void handleSearchImage() {
-		loadSearchTab();
-		tabPane.getSelectionModel().select(searchTab);
-	}
-
-	/**
-	 * Clicking schedule image opens the schedule tab.
-	 */
-	@FXML
-	private void handleScheduleImage() {
-		tabPane.getSelectionModel().select(scheduleTab);
 	}
 
 }

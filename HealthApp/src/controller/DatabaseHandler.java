@@ -5,7 +5,9 @@ import java.util.LinkedList;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import javafx.collections.ObservableList;
 import model.Caregiver;
+import model.MedicalStaff;
 import model.Patient;
 
 public class DatabaseHandler {
@@ -39,6 +41,16 @@ public class DatabaseHandler {
 
 	public Caregiver getCaregiver(int caregiverID) {
 		// TODO Return caregiver
+		return null;
+	}
+
+	public ObservableList<Caregiver> searchPatientCaregiver(Patient patient) {
+		// TODO Search caregivers
+		return null;
+	}
+
+	public ObservableList<MedicalStaff> searchPatientAssignedStaff(Patient patient) {
+		// TODO Search assigned staff
 		return null;
 	}
 

@@ -154,10 +154,10 @@ public class ExportController extends AbsController {
 		}
 		String name = "Exported" + LocalTime.now(); 
 		if (CSVRadioButton.isSelected()) {
-			 CSVParsingUtils.CSVExport(name + ".csv", MainApp.getDatabaseHandler().getPatientList(), fields);
+			 SVParsingController.exportPatients(name + ".csv", MainApp.getDatabaseHandler().getPatientList(), fields);
 			 MainApp.showAlert("Export CSV done");
 		} else if(TSVRadioButton.isSelected())  {
-			 CSVParsingUtils.TSVExport(name + ".tsv", MainApp.getDatabaseHandler().getPatientList(), fields);
+			 SVParsingController.exportPatients(name + ".tsv", MainApp.getDatabaseHandler().getPatientList(), fields);
 			 MainApp.showAlert("Export TSV done");
 		}else if(XMLRadioButton.isSelected())  {
 			XMLParsingUtils.writePatientsToXML(name + ".xml", MainApp.getDatabaseHandler().getPatientList());
