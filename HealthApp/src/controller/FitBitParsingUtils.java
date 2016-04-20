@@ -16,6 +16,51 @@ public class FitBitParsingUtils extends GeneralParsingUtils {
 	}
 
 	/**
+	 * Splits a line of values delimited by a given delimiter, treating quoted
+	 * sections as a whole, removing commas if remCommas is true
+	 * 
+	 * @param s
+	 *            the line to split
+	 * @param delimiter
+	 *            the delimiter with with to split it
+	 * @param remCommas
+	 *            if internal commas should be removed
+	 * @return an array of String containing all the individual values
+	 */
+	public static String[] splitSepValuesLine(String s, String delimiter, boolean remCommas) {
+		LinkedList<String> output = new LinkedList<String>();
+		String curVal = "";
+		boolean inQuotes = false;
+		for (int i = 0; i < s.length(); i++) {
+			char curChar = s.charAt(i);
+			if (curChar == '\"')
+				inQuotes = !inQuotes;
+			else if (curChar == delimiter.charAt(0) && !inQuotes) {
+				String toAdd = curVal.trim();
+				if (remCommas)
+					toAdd=removeCommas(toAdd);
+				output.add(toAdd);
+				curVal = "";
+			} else {
+				curVal += curChar;
+			}
+		}
+		if (curVal.length() > 0) {
+			String toAdd = curVal.trim();
+			if (remCommas)
+				toAdd=removeCommas(toAdd);
+			output.add(toAdd);
+		}
+		String[] outputArr = new String[output.size()];
+		output.toArray(outputArr);
+		return outputArr;
+	}
+	
+	public static String[] splitSepValuesLineAndRemoveCommasFromVal(String s, String delimiter) {
+		return splitSepValuesLine(s, delimiter, true);
+	}
+	
+	/**
 	 * 
 	 * @param f:
 	 *            a CSV file containing fitbit data
@@ -58,7 +103,7 @@ public class FitBitParsingUtils extends GeneralParsingUtils {
 			} else if (state.equals("No State")) {
 				continue;
 			}
-			String[] info = CSVParsingUtils.splitSepValuesLineAndRemoveCommasFromVal(line, ",");
+			String[] info = splitSepValuesLineAndRemoveCommasFromVal(line, ",");
 
 			switch (state) {
 			case "Body":
@@ -124,7 +169,7 @@ public class FitBitParsingUtils extends GeneralParsingUtils {
 		}
 		for (Patient p : pts) {
 			toWrite.println(p.getFirstName() + " " + p.getLastName());
-			for (HealthInfo h : p.getHealthInfo()) {
+			for (HealthInfo h : p.getHealthProfile().getHealthInfo()) {
 				String toPrint = h.getDate() + "," + h.getHeight() + "," + h.getWeight() + "," + h.getBmi() + ","
 						+ h.getFat() + "," + h.getCaloriesBurned() + "," + h.getSteps() + "," + h.getDistance() + ","
 						+ h.getFloors() + "," + h.getMinSedentary() + "," + h.getMinLightlyActive() + ","

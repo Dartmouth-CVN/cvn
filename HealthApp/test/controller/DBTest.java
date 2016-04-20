@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.junit.Test;
 
 import model.Patient;
+import utils.DatabaseHandler;
 
 public class DBTest {
 	Patient patient = new Patient("Ebenezer", "Ampiah", "ekampiah", "admin", "01/07/1993");

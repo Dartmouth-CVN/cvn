@@ -10,21 +10,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import model.MainApp;
 
-public class PatientDashController {
-	@SuppressWarnings("unused")
-	private MainApp mainApp;
+public class PatientDashController extends AbsDashController {
 	@FXML
 	TabPane tabPane;
 	@FXML
 	BorderPane layout;
 
-	public PatientDashController() {
-	}
-
-	@FXML
-	private void initialize() {
-		tabPane.getSelectionModel().selectedIndexProperty()
-				.addListener((observable, oldValue, newValue) -> handleTabSwitch(newValue));
+	public PatientDashController(MainApp mainApp) {
+		super(mainApp);
 	}
 
 	public void handleTabSwitch(Number newValue) {
@@ -49,10 +42,6 @@ public class PatientDashController {
 
 	public void showCalendar(Scene calendar) {
 		// primaryStage.setScene(calendar);
-	}
-
-	public void setMainApp(MainApp mainApp) {
-		this.mainApp = mainApp;
 	}
 
 }
