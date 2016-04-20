@@ -1,7 +1,11 @@
 package controller;
 
+import java.util.LinkedList;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
+import model.Patient;
 
 public class DatabaseHandler {
 	private static final SessionFactory sessionFactory = buildSessionFactory();
@@ -21,5 +25,15 @@ public class DatabaseHandler {
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
+
+	public LinkedList<Patient> getPatientList() {
+		// TODO Return patient list from new database
+		return null;
+	}
+
+	public static DatabaseHandler getUniqueInstance() {
+		// TODO Determine how to handle calls for the unique instance of the database
+		return null;
+	}
 
 }
