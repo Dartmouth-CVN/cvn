@@ -1,16 +1,12 @@
 package model;
-
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.StringProperty;
-
 public class Meal {
-	private StringProperty food;
-	private IntegerProperty calories;
-	private IntegerProperty rating;
-	private StringProperty notes;
 	private int mealID;
+	private String food;
+	private int calories;
+	private int rating;
+	private String notes;
 	
-	public Meal(StringProperty food, IntegerProperty calories, IntegerProperty rating, StringProperty notes){
+	public Meal(String food, int calories, int rating, String notes){
 		this.food = food;
 		this.calories = calories;
 		this.rating = rating;
@@ -24,61 +20,46 @@ public class Meal {
 		this.notes = "";
 	}
 
-	public int getMealID(){
-		return this.mealID;
+	public int getMealID() {
+		return mealID;
 	}
-	
-	public void setMealID(int id){
-		this.mealID = id;
+
+	public void setMealID(int mealID) {
+		this.mealID = mealID;
 	}
-	
-	public StringProperty foodProperty() {
+
+	public String getFood() {
 		return food;
 	}
-	
-    public final String getFood() {
-        return foodProperty().get();
-    }
 
-    public final void setFood(String food) {
-        foodProperty().set(food);
-    }
-    
-	public IntegerProperty caloriesProperty() {
+	public void setFood(String food) {
+		this.food = food;
+	}
+
+	public int getCalories() {
 		return calories;
 	}
-	
-    public final int getCalories() {
-        return caloriesProperty().get();
-    }
 
-    public final void setCalories(int calories) {
-        caloriesProperty().set(calories);
-    }
-    
-    public IntegerProperty ratingProperty() {
-    	
-    	return rating;
-    }
-	
-    public final int getRating() {
-        return ratingProperty().get();
-    }
+	public void setCalories(int calories) {
+		this.calories = calories;
+	}
 
-    public final void setRating(int rating) {
-        ratingProperty().set(rating);
-    }
-    
-	public StringProperty notesProperty() {
+	public int getRating() {
+		return rating;
+	}
+
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+
+	public String getNotes() {
 		return notes;
 	}
-	
-    public final String getNotes() {
-        return notesProperty().get();
-    }
 
-    public final void setNotes(String notes) {
-        notesProperty().set(notes);
-    }
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+	
+	
 }
 

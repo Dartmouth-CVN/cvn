@@ -1,56 +1,60 @@
 package model;
 
-import java.util.LinkedList;
+import java.util.Set;
 
 public class Patient extends AbsUser {
 	int patientId;
 	PatientProfile patientProfile;
 	HealthProfile healthProfile;
-	protected LinkedList<MedicalStaff> assignedStaff;
+	Set<MedicalStaff> assignedStaff;
 	
-	public Patient(){
-		patientProfile = new PatientProfile();
-		healthProfile = new HealthProfile();
-	}
-	
-	public Patient(String firstName, String lastName, String username, String password, String birthday){
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.username = username;
-		this.password = password;
-		this.birthday = birthday;
-	}
-	
-	public Patient(int patientId, String firstName, String lastName, String username, String password, String birthday){
-		this(firstName, lastName, username, password, birthday);
+	public Patient(int userId, String firstName, String lastName, String username, String password, String birthday,
+			String room, Contact contactInfo, Schedule schedule, int patientId) {
+		super(userId, firstName, lastName, username, password, birthday, room, contactInfo, schedule);
 		this.patientId = patientId;
 	}
 	
-	public int getPatientId(){
+	public Patient(int userId, String firstName, String lastName, String username, String password, String birthday,
+			String room, Contact contactInfo, Schedule schedule, int patientId, PatientProfile patientProfile, 
+			HealthProfile healthProfile, Set<MedicalStaff> assignedStaff) {
+		super(userId, firstName, lastName, username, password, birthday, room, contactInfo, schedule);
+		this.patientId = patientId;
+		this.patientProfile = patientProfile;
+		this.healthProfile = healthProfile;
+		this.assignedStaff = assignedStaff;
+	}
+
+	public int getPatientId() {
 		return patientId;
 	}
-	
-	private void setPatientId(int patientId){
+
+	public void setPatientId(int patientId) {
 		this.patientId = patientId;
 	}
-	
+
+	public PatientProfile getPatientProfile() {
+		return patientProfile;
+	}
+
 	public void setPatientProfile(PatientProfile patientProfile) {
 		this.patientProfile = patientProfile;
 	}
 
-	public PatientProfile getPatientProfile(){
-		if(patientProfile == null)
-			return new PatientProfile();
-		return patientProfile;
+	public HealthProfile getHealthProfile() {
+		return healthProfile;
 	}
-	
+
 	public void setHealthProfile(HealthProfile healthProfile) {
 		this.healthProfile = healthProfile;
 	}
 
-	public HealthProfile getHealthProfile(){
-		if(healthProfile == null)
-			return new HealthProfile();
-		return healthProfile;
+	public Set<MedicalStaff> getAssignedStaff() {
+		return assignedStaff;
 	}
+
+	public void setAssignedStaff(Set<MedicalStaff> assignedStaff) {
+		this.assignedStaff = assignedStaff;
+	}
+	
+	
 }
