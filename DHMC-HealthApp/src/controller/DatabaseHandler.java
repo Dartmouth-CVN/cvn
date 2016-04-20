@@ -607,7 +607,36 @@ public class DatabaseHandler {
 		}
 		return patientList;
 	}
+	/**
+	 * Search for list of patients assigned to medical staff member
+	 * @param medstaff object
+	 * @return
+	 */
+	public ObservableList<Patient> searchMedStaffAssignedPatient(MedicalStaff staff) {
+		ObservableList<Patient> patientList = FXCollections.observableArrayList();
+		try {
+			if (connect()) {
+				ps = connection.prepareStatement("SELECT a.firstname, a.lastname, a.user_id "
+						+ "FROM user_account a " 
+						+ "JOIN patient p ON a.user_id = p.user_id "
+						+ "JOIN staff_assignment s ON p.patient_id = s.patient_id "
+						+ "WHERE s.med_id = ? ");
+						
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
+							rs.getString("user_id"), 0);
+					patientList.add(patient);
+				}
 
+				connection.close();
+			}
+		} catch (SQLException e) {
+			MainApp.printError(e);
+		}
+		return patientList;
+	}
+	
 	/**
 	 * returns observable list of MedicalStaff objects given a patient
 	 * @param p patient object
