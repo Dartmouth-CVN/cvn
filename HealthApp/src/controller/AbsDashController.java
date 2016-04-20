@@ -80,6 +80,23 @@ public abstract class AbsDashController extends AbsController {
 		}
 		return editPatientLoader;
 	}
+	
+	/**
+	 * Loads and sets the contents of the export tab.
+	 */
+	protected void loadExportTab() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("../view/ExportFields.fxml"));
+			AnchorPane export = (AnchorPane) loader.load();
+
+			ExportController controller = loader.getController();
+			controller.setMainApp(mainApp);
+			exportTab.setContent(export);
+		} catch (IOException e) {
+			MainApp.printError(e);
+		}
+	}
 
 	public AnchorPane getEditPatientTab(Patient p) {
 		try {
