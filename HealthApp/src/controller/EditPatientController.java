@@ -73,8 +73,8 @@ public class EditPatientController {
 		fc.setTitle("Select FitBit CSV to import");
 		curCSV = fc.showOpenDialog(null);
 		if (curCSV != null && curCSV.exists()) {
-			info = controller.FitBitParsingUtils.fitBitImport(curCSV);
-			p.addHealthInfoList(info);
+			info = utils.FitBitParsingUtils.fitBitImport(curCSV);
+			p.getHealthProfile().addHealthInfoList(info);
 			MainApp.showAlert("FitBit import successful!");
 		}
 	}

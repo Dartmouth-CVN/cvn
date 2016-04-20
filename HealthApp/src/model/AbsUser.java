@@ -1,18 +1,20 @@
 package model;
 
+import java.time.LocalDate;
+
 public abstract class AbsUser {
 	int userId;
 	String firstName;
 	String lastName;
 	String username;
 	String password;
-	String birthday;
+	LocalDate birthday;
 	String room;
 	Contact contactInfo;
 	Schedule schedule;
 	
 	
-	public AbsUser(int userId, String firstName, String lastName, String username, String password, String birthday,
+	public AbsUser(int userId, String firstName, String lastName, String username, String password, LocalDate birthday,
 			String room, Contact contactInfo, Schedule schedule) {
 		this.userId = userId;
 		this.firstName = firstName;
@@ -55,10 +57,10 @@ public abstract class AbsUser {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getBirthday() {
+	public LocalDate getBirthday() {
 		return birthday;
 	}
-	public void setBirthday(String birthday) {
+	public void setBirthday(LocalDate birthday) {
 		this.birthday = birthday;
 	}
 	public String getRoom() {

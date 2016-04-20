@@ -1,8 +1,2 @@
-/view/
-/controller/
 /model/
-<<<<<<< HEAD
-/view/
-/utils/
-=======
->>>>>>> f1300dac460799477c413d0cd1535a6dd4ee8adc
+/controller/
