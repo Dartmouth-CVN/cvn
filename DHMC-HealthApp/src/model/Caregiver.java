@@ -2,74 +2,35 @@ package model;
 
 import java.time.LocalDate;
 
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
 
 public class Caregiver {
-	private String name;
-	private LocalDate birthday;
-	private String relation;
+	private StringProperty name;
+	private StringProperty birthday;
+	private StringProperty relation;
 	private Contact contactInfo;
-	private boolean isFamily;
+	private BooleanProperty inFamily;
 	private int caregiverID;
 	
-	private StringProperty nameProperty;
-	private StringProperty relationProperty;
-	
-	public Caregiver (String name, LocalDate birthday, String relation, Contact contactInfo, boolean isFamily){
+	public Caregiver (StringProperty name, StringProperty birthday, StringProperty relation, Contact contactInfo, BooleanProperty isFamily){
 		this.name = name;
 		this.birthday = birthday;
 		this.relation = relation;
 		this.contactInfo = contactInfo;
-		this.isFamily = isFamily;
-		nameProperty = new SimpleStringProperty(name);
-		relationProperty = new SimpleStringProperty(relation);	
-	}
-	
-	public StringProperty getNameProperty(){
-		return nameProperty;
-	}
-	
-	public StringProperty getRelationProperty(){
-		return relationProperty;
+		this.inFamily = isFamily;	
 	}
 	
 	public Caregiver() {
-		this.name = "New Caregiver";
-		this.birthday = LocalDate.now();
-		this.relation = "";
+		this.name.set("");
+		this.birthday.set(LocalDate.now().toString());
+		this.relation.set("");
 		this.contactInfo = new Contact();
-		this.isFamily = true;
+		this.inFamily.set(true);
 	}
 	
-	public String getRelation() {
-		return relation;
-	}
-	public void setRelation(String relation) {
-		this.relation = relation;
-	}
 	public Contact getContactInfo() {
 		return contactInfo;
-	}
-	public LocalDate getBirthday() {
-		return birthday;
-	}
-	public void setBirthday(LocalDate birthday) {
-		this.birthday = birthday;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public boolean getIsFamily() {
-		return isFamily;
-	}
-
-	public void setIsFamily(boolean familymember) {
-		this.isFamily = familymember;
 	}
 
 	public int getCaregiverID() {
@@ -79,7 +40,54 @@ public class Caregiver {
 	public void setCaregiverID(int caregiverID) {
 		this.caregiverID = caregiverID;
 	}
+
+	public StringProperty nameProperty() {
+		return name;
+	}
 	
+    public final String getName() {
+        return nameProperty().get();
+    }
+
+    public final void setName(String name) {
+        nameProperty().set(name);
+    }
+    
+	public StringProperty birthdayProperty() {
+		return birthday;
+	}
+	
+    public final String getBirthday() {
+        return birthdayProperty().get();
+    }
+
+    public final void setBirthday(String birthday) {
+        birthdayProperty().set(birthday);
+    }
+    
+	public StringProperty relationProperty() {
+		return relation;
+	}
+	
+    public final String getRelation() {
+        return relationProperty().get();
+    }
+
+    public final void setRelation(String relation) {
+        relationProperty().set(relation);
+    }
+	
+	public BooleanProperty inFamilyProperty() {
+		return inFamily;
+	}
+	
+    public final boolean getInFamily() {
+        return inFamilyProperty().get();
+    }
+
+    public final void setInFamily(boolean inFamily) {
+        inFamilyProperty().set(inFamily);
+    }
 
 }
 
