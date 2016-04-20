@@ -86,7 +86,7 @@ public class MainApp extends Application {
 	}
 	
 	public void showAddPatient(){
-		dashController.getAddPatientTab();
+//		dashController.getAddPatientTab();
 	}
 	
 	public void changeScreenSize(Scene s){

@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 public class Patient extends AbsUser {
@@ -8,13 +9,13 @@ public class Patient extends AbsUser {
 	HealthProfile healthProfile;
 	Set<MedicalStaff> assignedStaff;
 	
-	public Patient(int userId, String firstName, String lastName, String username, String password, String birthday,
+	public Patient(int userId, String firstName, String lastName, String username, String password, LocalDate birthday,
 			String room, Contact contactInfo, Schedule schedule, int patientId) {
 		super(userId, firstName, lastName, username, password, birthday, room, contactInfo, schedule);
 		this.patientId = patientId;
 	}
 	
-	public Patient(int userId, String firstName, String lastName, String username, String password, String birthday,
+	public Patient(int userId, String firstName, String lastName, String username, String password, LocalDate birthday,
 			String room, Contact contactInfo, Schedule schedule, int patientId, PatientProfile patientProfile, 
 			HealthProfile healthProfile, Set<MedicalStaff> assignedStaff) {
 		super(userId, firstName, lastName, username, password, birthday, room, contactInfo, schedule);
