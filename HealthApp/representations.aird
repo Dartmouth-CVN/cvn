@@ -13,6 +13,8 @@
   <semanticResources>http://www.eclipse.org/emf/2002/Ecore</semanticResources>
   <semanticResources>pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml</semanticResources>
   <semanticResources>pathmap://UML_LIBRARIES/XMLPrimitiveTypes.library.uml</semanticResources>
+  <semanticResources>src/view/baseTheme.css</semanticResources>
+  <semanticResources>src/view/cvnStyle.css</semanticResources>
   <ownedViews xmi:type="viewpoint:DRepresentationContainer" xmi:id="_I0NyUAPcEeaoDd8kY5YCqg">
     <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.obeonetwork.dsl.uml2.design/description/uml2.odesign#//@ownedViewpoints[name='Reused']"/>
   </ownedViews>
