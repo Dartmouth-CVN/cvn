@@ -64,7 +64,7 @@ public abstract class SVParsingController implements ParsingController {
 	 * @param toInclude
 	 *            which fields to export
 	 */
-	public void exportPatients(String filename, boolean[] toInclude) {
+	public void exportPatients(String filename, LinkedList<Patient> patients, boolean[] toInclude) {
 		PrintWriter toFile;
 		try {
 			toFile = new PrintWriter(filename, "UTF-8");
@@ -72,8 +72,7 @@ public abstract class SVParsingController implements ParsingController {
 			MainApp.printError(e);
 			return;
 		}
-		LinkedList<Patient> pts = DatabaseHandler.getUniqueInstance().getPatientList();
-		for (Patient patient : pts) {
+		for (Patient patient : patients) {
 			toFile.println(patientToString(patient, toInclude));
 		}
 
