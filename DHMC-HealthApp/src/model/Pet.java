@@ -1,12 +1,15 @@
 package model;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.StringProperty;
+
 public class Pet {
-	private String name;
-	private String species;
-	private boolean allergyFriendly;
+	private StringProperty name;
+	private StringProperty species;
+	private BooleanProperty allergyFriendly;
 	private int petID;
 	
-	public Pet(String name, String species, boolean allergyFriendly) {
+	public Pet(String name, StringProperty species, BooleanProperty allergyFriendly) {
 		this.setName(name);
 		this.species = species;
 		this.allergyFriendly = allergyFriendly;
@@ -18,36 +21,6 @@ public class Pet {
 		this.allergyFriendly = false;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getSpecies() {
-		return this.species;
-	}
-
-
-	public boolean isAllergyFriendly() {
-		return this.allergyFriendly;
-	}
-
-	public void setSpecies(String species) {
-		this.species = species;
-	}
-
-	
-	public boolean getAllergyFriendly() {
-		return this.allergyFriendly;
-	}
-
-	public void setAllergyFriendly(boolean allergyFriendly) {
-		this.allergyFriendly = allergyFriendly;
-	}
-
 	public void setPetID(int id){
 		this.petID = id;
 	}
@@ -55,4 +28,40 @@ public class Pet {
 	public int getPetID(){
 		return this.petID;
 	}
+	
+	public StringProperty nameProperty() {
+		return name;
+	}
+	
+    public final String getName() {
+        return nameProperty().get();
+    }
+
+    public final void setName(String name) {
+        nameProperty().set(name);
+    }
+    
+	public StringProperty speciesProperty() {
+		return species;
+	}
+	
+    public final String getSpecies() {
+        return speciesProperty().get();
+    }
+
+    public final void setSpecies(String species) {
+        speciesProperty().set(species);
+    }
+    
+	public BooleanProperty allergyFriendlyProperty() {
+		return allergyFriendly;
+	}
+	
+    public final boolean getAllergyFriendly() {
+        return allergyFriendlyProperty().get();
+    }
+
+    public final void setAllergyFriendly(boolean allergyFriendly) {
+        allergyFriendlyProperty().set(allergyFriendly);
+    }
 }
