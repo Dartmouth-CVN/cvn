@@ -3,7 +3,6 @@ package model;
 import java.io.IOException;
 
 import controller.AdminDashController;
-import controller.DatabaseHandler;
 import controller.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +13,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import utils.DatabaseHandler;
 
 public class MainApp extends Application {
 

@@ -160,10 +160,10 @@ public class ExportController extends AbsController {
 			 SVParsingController.exportPatients(name + ".tsv", MainApp.getDatabaseHandler().getPatientList(), fields);
 			 MainApp.showAlert("Export TSV done");
 		}else if(XMLRadioButton.isSelected())  {
-			XMLParsingUtils.writePatientsToXML(name + ".xml", MainApp.getDatabaseHandler().getPatientList());
+			XMLParsingController.exportPatients(name + ".xml", MainApp.getDatabaseHandler().getPatientList());
 			 MainApp.showAlert("Export XML done");
 		}else if(HTMLRadioButton.isSelected())  {
-			XMLParsingUtils.writePatientsToHTML(name + ".html", MainApp.getDatabaseHandler().getPatientList());
+			XMLParsingController.exportsPatients(name + ".html", MainApp.getDatabaseHandler().getPatientList());
 			 MainApp.showAlert("Export HTML done");
 		}
 	}

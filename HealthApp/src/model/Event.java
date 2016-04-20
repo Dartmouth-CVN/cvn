@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 public class Event {
 	
-	int eventID;
+	int eventId;
 	private LocalDateTime date;
 	private String location;
 	private LinkedList<AbsUser> attendees;
@@ -19,8 +19,6 @@ public class Event {
 		this.notes = notes;
 	}
 	
-	
-	//The setters
 	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
@@ -29,26 +27,10 @@ public class Event {
 		this.location = location;
 	}
 	
-	public void addAttendees(AbsUser user) {
-		if(!this.attendees.contains(user)) {
-			this.attendees.add(user);
-			user.addEvent(this);
-		}
-	}
-	
-	public void removeAttendees(AbsUser user) {
-		if(this.attendees.contains(user)) {
-			this.attendees.remove(user);
-			user.removeEvent(this);
-		}
-		
-	}
-	
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
 	
-	//The getters
 	public String getDate() {
 		return this.date.toString();
 	}
