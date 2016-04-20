@@ -11,6 +11,11 @@ import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -608,8 +613,8 @@ public class DatabaseHandler {
 	 * @param p patient object
 	 * @return observable list of IDisplayable medstaff
 	 */
-	public ObservableList<IDisplayable> searchPatientAssignedStaff(Patient p) {
-		ObservableList<IDisplayable> medStaffList = FXCollections.observableArrayList();
+	public ObservableList<MedicalStaff> searchPatientAssignedStaff(Patient p) {
+		ObservableList<MedicalStaff> medStaffList = FXCollections.observableArrayList();
 		try {
 			if (connect()) {
 				ps = connection.prepareStatement("SELECT * FROM staff_assignment RIGHT JOIN medical_staff ON staff_assignment.med_id = medical_staff.med_id"
@@ -671,9 +676,9 @@ public class DatabaseHandler {
 				ps.setInt(1, p.getPatientID());
 				rs = ps.executeQuery();
 				while (rs.next()) {
-//					Caregiver caregiver = new Caregiver(rs.getString("name"), rs.getDate("birthday"), rs.getString("relation"), 
-//							rs.getObject("contact_info"), rs.getBoolean("isFamily?"));
-//					caregiverList.add(caregiver);
+					Caregiver caregiver = new Caregiver(rs.getString("name"), asLocalDate(rs.getDate("birthday")), rs.getString("relation"), 
+							(Contact)rs.getObject("contact_info"), rs.getBoolean("isFamily?"));
+					caregiverList.add(caregiver);
 				}
 
 				connection.close();
@@ -1304,6 +1309,24 @@ public class DatabaseHandler {
 		default:
 			return null;
 		}
+	}
+	/**
+	 * converts local date to date
+	 * @param localDate
+	 * @return converted date
+	 */
+	public static Date asDate(LocalDate localDate) {
+		return Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+	}
+	/**
+	 * converts date to local date
+	 * @param date
+	 * @return converted local date
+	 */
+	public static LocalDate asLocalDate(Date date) {
+		Instant instant = Instant.ofEpochMilli(date.getTime());
+		return LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
+				.toLocalDate();
 	}
 
 }

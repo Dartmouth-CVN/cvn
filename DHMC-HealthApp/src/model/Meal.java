@@ -1,79 +1,84 @@
 package model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
+
 public class Meal {
-	private String name;
-	private int calories;
-	private boolean like;
-	private boolean dislike;
-	private String notes;
+	private StringProperty food;
+	private IntegerProperty calories;
+	private IntegerProperty rating;
+	private StringProperty notes;
 	private int mealID;
 	
-	public Meal(String name, int calories, boolean like, boolean dislike, String notes){
-		this.name = name;
+	public Meal(StringProperty food, IntegerProperty calories, IntegerProperty rating, StringProperty notes){
+		this.food = food;
 		this.calories = calories;
-		this.like = like;
-		this.dislike = dislike;
+		this.rating = rating;
 		this.notes = notes;
 	}
 	
 	public Meal() {
-		this.name = "New Meal";
+		this.food = "New Meal";
 		this.calories = 0;
-		this.like = false;
-		this.dislike = false;
+		this.rating = 0;
 		this.notes = "";
-	}
-
-	public boolean didLike(){
-		return this.like;
-	}
-
-	public int getCalories(){
-		return this.calories;
 	}
 
 	public int getMealID(){
 		return this.mealID;
 	}
-
-	public String getName(){
-		return this.name;
-	}
-
-	public String getSpecialNotes(){
-		return this.notes;
-	}
-
-	public boolean didDislike() {
-		return dislike;
-	}
-
-	public void setCalories(int calories){
-		this.calories = calories;
-	}
-
-	public void setDislike(boolean dislike) {
-		this.dislike = dislike;
-	}
-
-	public void setDisliked(boolean disliked) {
-		this.dislike = disliked;
-	}
-	
-	public void setLike(boolean like){
-		this.like = like;
-	}
 	
 	public void setMealID(int id){
 		this.mealID = id;
 	}
-
-	public void setName(String name){
-		this.name = name;
+	
+	public StringProperty foodProperty() {
+		return food;
 	}
+	
+    public final String getFood() {
+        return foodProperty().get();
+    }
 
-	public void setSpecialNotes(String specialnotes){
-		this.notes = specialnotes;
+    public final void setFood(String food) {
+        foodProperty().set(food);
+    }
+    
+	public IntegerProperty caloriesProperty() {
+		return calories;
 	}
+	
+    public final int getCalories() {
+        return caloriesProperty().get();
+    }
+
+    public final void setCalories(int calories) {
+        caloriesProperty().set(calories);
+    }
+    
+    public IntegerProperty ratingProperty() {
+    	
+    	return rating;
+    }
+	
+    public final int getRating() {
+        return ratingProperty().get();
+    }
+
+    public final void setRating(int rating) {
+        ratingProperty().set(rating);
+    }
+    
+	public StringProperty notesProperty() {
+		return notes;
+	}
+	
+    public final String getNotes() {
+        return notesProperty().get();
+    }
+
+    public final void setNotes(String notes) {
+        notesProperty().set(notes);
+    }
 }
 
