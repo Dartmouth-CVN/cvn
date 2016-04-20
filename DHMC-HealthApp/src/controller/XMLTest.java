@@ -10,10 +10,10 @@ public class XMLTest {
 		LinkedList<Patient> pts = CSVParsingUtils.CSVImport("TestingCSV.csv");
 		
 		boolean[] test =null;// {false,false,false,false};
-		System.out.println(XMLParsingUtils.writePatientsToXML(null, pts, test));
+		System.out.println(XMLParsingUtils.writePatientsToXML("patients.xml", pts, test));
 		//CSVParsingUtils.CSVExport("exported420.csv", pts, test);
 		
-		System.out.println(XMLParsingUtils.writePatientsToHTML("patients.html", pts));
+		//System.out.println(XMLParsingUtils.writePatientsToHTML("patients.html", pts));
 
 	}
 
