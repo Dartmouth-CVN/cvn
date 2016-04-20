@@ -500,6 +500,14 @@
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
       <interfaceRealization xmi:id="_1aE1YAZuEeadifsOwU4hHw" client="_1zzZcAZtEeadifsOwU4hHw" supplier="__u2tUAZtEeadifsOwU4hHw" contract="__u2tUAZtEeadifsOwU4hHw"/>
+      <ownedOperation xmi:id="_FgxBkAZuEeadifsOwU4hHw" name="splitIntoLines">
+        <ownedParameter xmi:id="_HdBS4AZuEeadifsOwU4hHw" name="fileContents">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="_QAbeYAZuEeadifsOwU4hHw" name="lines" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedParameter>
+      </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Interface" xmi:id="__u2tUAZtEeadifsOwU4hHw" name="ParsingTemplate">
       <ownedOperation xmi:id="_BpRLkAZuEeadifsOwU4hHw" name="getFile">
@@ -510,17 +518,15 @@
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         </ownedParameter>
       </ownedOperation>
-      <ownedOperation xmi:id="_FgxBkAZuEeadifsOwU4hHw" name="splitIntoLines">
-        <ownedParameter xmi:id="_HdBS4AZuEeadifsOwU4hHw" name="fileContents">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        </ownedParameter>
-        <ownedParameter xmi:id="_QAbeYAZuEeadifsOwU4hHw" name="lines" direction="return">
+      <ownedOperation xmi:id="_UldIwAZuEeadifsOwU4hHw" name="parse">
+        <ownedParameter xmi:id="_VZzW0AZuEeadifsOwU4hHw" name="filename">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         </ownedParameter>
       </ownedOperation>
-      <ownedOperation xmi:id="_UldIwAZuEeadifsOwU4hHw" name="parseLine">
-        <ownedParameter xmi:id="_VZzW0AZuEeadifsOwU4hHw" name="line">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      <ownedOperation xmi:id="_8siMwAcmEeafSvBDqUykRg" name="makePatient">
+        <ownedParameter xmi:id="_-7_G4AcmEeafSvBDqUykRg" type="_IcXoQATHEeaoDd8kY5YCqg" direction="return"/>
+        <ownedParameter xmi:id="_RcqMwAcnEeafSvBDqUykRg" name="patients">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EByteArray"/>
         </ownedParameter>
       </ownedOperation>
     </packagedElement>

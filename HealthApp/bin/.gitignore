@@ -1,3 +1,5 @@
 /controller/
+/hibernate.cfg.xml
+/mapping.hbm.xml
 /model/
 /view/
