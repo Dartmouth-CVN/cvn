@@ -2,6 +2,7 @@ package utils;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -10,6 +11,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import javafx.collections.ObservableList;
+import model.Caregiver;
+import model.MedicalStaff;
 import model.Patient;
 
 public class DatabaseHandler {
@@ -65,4 +69,29 @@ public class DatabaseHandler {
     	}
     	return patientSet;
     }
+    
+	public LinkedList<Patient> getPatientList() {
+		// TODO Return patient list from new database
+		return null;
+	}
+
+	public static DatabaseHandler getUniqueInstance() {
+		// TODO Determine how to handle calls for the unique instance of the database
+		return null;
+	}
+
+	public Caregiver getCaregiver(int caregiverID) {
+		// TODO Return caregiver
+		return null;
+	}
+
+	public ObservableList<Caregiver> searchPatientCaregiver(Patient patient) {
+		// TODO Search caregivers
+		return null;
+	}
+
+	public ObservableList<MedicalStaff> searchPatientAssignedStaff(Patient patient) {
+		// TODO Search assigned staff
+		return null;
+	}
 }
