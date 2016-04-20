@@ -502,6 +502,64 @@ public class DatabaseHandler {
 		return null;
 	}
 
+	/**
+	 * Finds MedicalStaff from database given userID.
+	 * 
+	 * @param userID
+	 * @return MedicalStaff Object
+	 */
+	public MedicalStaff getMedicalStaff(String userID) {
+		success = false;
+		try {
+			if (connect()) {
+				ps = connection.prepareStatement(" SELECT * FROM medical_staff WHERE user_id = ?");
+				ps.setString(1, userID);
+				rs = ps.executeQuery();
+				if (rs.next()) {
+					//Blob blob = rs.getBlob("contact_info");
+					//baip = new ByteArrayInputStream(blob.getBytes(1L, (int) blob.length()));
+					//ois = new ObjectInputStream(baip);
+					MedicalStaff medicalStaff = new MedicalStaff(rs.getString("firstname"), rs.getString("lastname"),
+							rs.getString("position"), rs.getString("user_id"), rs.getInt("med_id"));
+					connection.close();
+					return medicalStaff;
+				}
+			}
+		} catch (SQLException e) {
+			MainApp.printError(e);
+		}
+		return null;
+	}
+	
+	/**
+	 * Finds Caregiver from database given userID.
+	 * 
+	 * @param userID
+	 * @return Caregiver Object
+	 */
+	public Caregiver getCaregiver(String userID) {
+		success = false;
+		try {
+			if (connect()) {
+				ps = connection.prepareStatement(" SELECT * FROM caregiver WHERE user_id = ?");
+				ps.setString(1, userID);
+				rs = ps.executeQuery();
+				if (rs.next()) {
+					Blob blob = rs.getBlob("contact_info");
+					baip = new ByteArrayInputStream(blob.getBytes(1L, (int) blob.length()));
+					ois = new ObjectInputStream(baip);
+//					Caregiver caregiver = new Caregiver(rs.getString("name"), rs.getDate("birthday"), rs.getString("relation"), 
+//							(Contact) ois.readObject(), rs.getBoolean("isFamily?"));
+					connection.close();
+					//return caregiver;
+				}
+			}
+		} catch (SQLException | IOException  e) {
+			MainApp.printError(e);
+		}
+		return null;
+	}
+	
 	public ObservableList<IDisplayable> searchPatient(String name) {
 		ObservableList<IDisplayable> patientList = FXCollections.observableArrayList();
 		try {
@@ -545,6 +603,113 @@ public class DatabaseHandler {
 		return patientList;
 	}
 
+	/**
+	 * returns observable list of MedicalStaff objects given a patient
+	 * @param p patient object
+	 * @return observable list of IDisplayable medstaff
+	 */
+	public ObservableList<IDisplayable> searchPatientAssignedStaff(Patient p) {
+		ObservableList<IDisplayable> medStaffList = FXCollections.observableArrayList();
+		try {
+			if (connect()) {
+				ps = connection.prepareStatement("SELECT * FROM staff_assignment RIGHT JOIN medical_staff ON staff_assignment.med_id = medical_staff.med_id"
+						+ " WHERE patient_id = ?");
+				ps.setInt(1, p.getPatientID());
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					MedicalStaff medicalStaff = new MedicalStaff(rs.getString("firstname"), rs.getString("lastname"),
+							rs.getString("position"), rs.getString("user_id"), rs.getInt("med_id"));
+					medStaffList.add(medicalStaff);
+				}
+
+				connection.close();
+			}
+		} catch (SQLException e) {
+			MainApp.printError(e);
+		}
+		return medStaffList;
+	}
+
+	/**
+	 * returns observable list of meal objects given a patient
+	 * @param p patient object
+	 * @return observable list of meal
+	 */
+	public ObservableList<Meal> searchPatientMeal(Patient p) {
+		ObservableList<Meal> mealList = FXCollections.observableArrayList();
+		try {
+			if (connect()) {
+				ps = connection.prepareStatement("SELECT * FROM meal"
+						+ " WHERE patient_id = ?");
+				ps.setInt(1, p.getPatientID());
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					Meal meal = new Meal(rs.getString("name"), rs.getInt("calories"),
+							rs.getBoolean("like"), rs.getBoolean("dislike"), rs.getString("notes"));
+					mealList.add(meal);
+				}
+
+				connection.close();
+			}
+		} catch (SQLException e) {
+			MainApp.printError(e);
+		}
+		return mealList;
+	}	
+
+	/**
+	 * returns observable list of caregiver objects given a patient
+	 * @param p patient object
+	 * @return observable list of caregiver
+	 */
+	public ObservableList<Caregiver> searchPatientCaregiver(Patient p) {
+		ObservableList<Caregiver> caregiverList = FXCollections.observableArrayList();
+		try {
+			if (connect()) {
+				ps = connection.prepareStatement("SELECT * FROM caregiver"
+						+ " WHERE patient_id = ?");
+				ps.setInt(1, p.getPatientID());
+				rs = ps.executeQuery();
+				while (rs.next()) {
+//					Caregiver caregiver = new Caregiver(rs.getString("name"), rs.getDate("birthday"), rs.getString("relation"), 
+//							rs.getObject("contact_info"), rs.getBoolean("isFamily?"));
+//					caregiverList.add(caregiver);
+				}
+
+				connection.close();
+			}
+		} catch (SQLException e) {
+			MainApp.printError(e);
+		}
+		return caregiverList;
+	}
+
+	/**
+	 * returns observable list of pet objects given a patient
+	 * @param patient object
+	 * @return observable list of pets
+	 */
+	public ObservableList<Pet> searchPatientPet(Patient p) {
+		ObservableList<Pet> petList = FXCollections.observableArrayList();
+		try {
+			if (connect()) {
+				ps = connection.prepareStatement("SELECT * FROM pet"
+						+ " WHERE patient_id = ?");
+				ps.setInt(1, p.getPatientID());
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					Pet pet = new Pet(rs.getString("name"), rs.getString("species"), rs.getBoolean("allergy_friendly"));
+					petList.add(pet);
+				}
+
+				connection.close();
+			}
+		} catch (SQLException e) {
+			MainApp.printError(e);
+		}
+		return petList;
+	}
+	
 	public LinkedList<Patient> getPatientList() {
 		LinkedList<Patient> patientList = new LinkedList<Patient>();
 		try {
