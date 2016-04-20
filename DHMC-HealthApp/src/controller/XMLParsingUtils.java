@@ -129,9 +129,9 @@ public class XMLParsingUtils extends GeneralParsingUtils {
 					+ XMLLine("h3", stringIfTrue(p.getUserID() + " : ", shouldEx[0]))
 					// String.valueOf(p.getPatientID()))
 					+ XMLLine("h3", "Contact Info:")
-					+ stringIfTrue(XMLList(null, null, p.getContactInfo().getEmail()), shouldEx[8]) + "<br>"
-					+ stringIfTrue(XMLList(null, null, p.getContactInfo().getAddress()), shouldEx[6]) + "<br>"
-					+ stringIfTrue(XMLList(null, null, p.getContactInfo().getPhone()), shouldEx[7]) + "<br>" + "<hr>\n"
+					+ stringIfTrue(XMLList(null, null, p.getContactInfo().getEmail()), shouldEx[8]) + " "
+					+ stringIfTrue(XMLList(null, null, p.getContactInfo().getAddress()), shouldEx[6]) + " "
+					+ stringIfTrue(XMLList(null, null, p.getContactInfo().getPhone()), shouldEx[7]) + " " + "<hr>\n"
 					+ XMLLine("h3", "Assigned Personnel:")
 					+ stringIfTrue(XMLList(null, null, XMLParseMedStaff(p.getAssignedStaff())), shouldEx[4]) + "<hr>\n"
 					+ XMLLine("h3", "Caregivers:")

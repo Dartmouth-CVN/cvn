@@ -37,7 +37,7 @@ public class PatientProfileController {
 	@FXML
 	private TableColumn<Caregiver, String> caregiverNameColumn;
 	@FXML
-	private TableColumn<Caregiver, LocalDate> birthdayColumn;
+	private TableColumn<Caregiver, String> birthdayColumn;
 	@FXML
 	private TableColumn<Caregiver, String> relationColumn;
 	@FXML
@@ -55,9 +55,9 @@ public class PatientProfileController {
 	@FXML
 	private TableColumn<Meal, String> foodColumn;
 	@FXML
-	private TableColumn<Meal, Integer> caloriesColumn;
+	private TableColumn<Meal, Number> caloriesColumn;
 	@FXML
-	private TableColumn<Meal, Integer> ratingColumn;
+	private TableColumn<Meal, Number> ratingColumn;
 	@FXML
 	private TableColumn<Meal, String> notesColumn;
 	@FXML
@@ -92,29 +92,29 @@ public class PatientProfileController {
 		relationColumn.setCellValueFactory(cellData -> cellData.getValue().relationProperty());
 		inFamilyColumn.setCellValueFactory(cellData -> cellData.getValue().inFamilyProperty());
 		//assignedStaff needs to be implemented in databaseHandler
-		ObservableList<Caregiver> caregivers = MainApp.getDatabaseHandler().searchCareGivers(patient);
+		ObservableList<Caregiver> caregivers = MainApp.getDatabaseHandler().searchPatientCaregiver(patient);
 		careGiversTable.setItems(caregivers);
 		
 		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
 		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
 		positionColumn.setCellValueFactory(cellData -> cellData.getValue().positionProperty());
 		//assignedStaff needs to be implemented in databaseHandler
-		ObservableList<MedicalStaff> personData = MainApp.getDatabaseHandler().searchAssignedStaff(patient);
+		ObservableList<MedicalStaff> personData = MainApp.getDatabaseHandler().searchPatientAssignedStaff(patient);
 		assignedStaffTable.setItems(personData);
 		
 		foodColumn.setCellValueFactory(cellData -> cellData.getValue().foodProperty());
 		caloriesColumn.setCellValueFactory(cellData -> cellData.getValue().caloriesProperty());
-		ratingColumn.setCellValueFactory(cellData -> cellData.getValue().ratingProperty());
+		ratingColumn.setCellValueFactory(cellData -> cellData.getValue().getRating());
 		notesColumn.setCellValueFactory(cellData -> cellData.getValue().notesProperty());
 		//assignedStaff needs to be implemented in databaseHandler
-		ObservableList<Meal> meals = MainApp.getDatabaseHandler().searchMeals(patient);
+		ObservableList<Meal> meals = MainApp.getDatabaseHandler().searchPatientMeal(patient);
 		menuTable.setItems(meals);
 		
 		petNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 		speciesColumn.setCellValueFactory(cellData -> cellData.getValue().speciesProperty());
 		allergyFriendlyColumn.setCellValueFactory(cellData -> cellData.getValue().allergyFriendlyProperty());
 		//assignedStaff needs to be implemented in databaseHandler
-		ObservableList<Pet> pets = MainApp.getDatabaseHandler().searchPets(patient);
+		ObservableList<Pet> pets = MainApp.getDatabaseHandler().searchPatientPet(patient);
 		petTable.setItems(pets);
 		
 		addressColumn.setCellValueFactory(cellData -> cellData.getValue().addressProperty());
