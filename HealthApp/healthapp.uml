@@ -572,6 +572,24 @@
       <ownedOperation xmi:id="_rYEqEAcgEea-dqBMt-F8RQ" name="getMedicalStaff">
         <ownedParameter xmi:id="_sj4V4AcgEea-dqBMt-F8RQ" name="medicalStaff" type="_i4O7sATKEeaoDd8kY5YCqg" direction="return"/>
       </ownedOperation>
+      <ownedOperation xmi:id="_wwbPAAdFEeaBU8zdejNbJg" name="insertPatient">
+        <ownedParameter xmi:id="_yG7u8AdFEeaBU8zdejNbJg" name="patient" type="_IcXoQATHEeaoDd8kY5YCqg"/>
+        <ownedParameter xmi:id="_08EJAAdFEeaBU8zdejNbJg" name="success" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_-Ih4kAdFEeaBU8zdejNbJg" name="insertMedicalStaff">
+        <ownedParameter xmi:id="_HhwRwAdGEeaBU8zdejNbJg" name="medicalStaff" type="_i4O7sATKEeaoDd8kY5YCqg"/>
+        <ownedParameter xmi:id="_MT-qoAdGEeaBU8zdejNbJg" name="success" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_aEgbQAdGEeaBU8zdejNbJg" name="insertAdmin">
+        <ownedParameter xmi:id="_a0jYIAdGEeaBU8zdejNbJg" name="admin" type="_HTA98APfEeaoDd8kY5YCqg"/>
+        <ownedParameter xmi:id="_cIfsQAdGEeaBU8zdejNbJg" name="success" direction="return">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+        </ownedParameter>
+      </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_EnORAAabEeadifsOwU4hHw" name="RandomGenerator">
       <ownedOperation xmi:id="_F8jFMAabEeadifsOwU4hHw" name="getFirstName">
