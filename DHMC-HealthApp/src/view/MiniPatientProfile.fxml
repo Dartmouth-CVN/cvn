@@ -36,7 +36,7 @@
       </GridPane>
       <Button fx:id="editProfileButton" layoutX="246.0" layoutY="181.0" mnemonicParsing="false" onAction="#handleEditProfile" onMouseClicked="#handleEditProfile" prefHeight="25.0" prefWidth="92.0" text="Edit Profile" />
       <Button fx:id="removeProfileButton" layoutX="375.0" layoutY="181.0" mnemonicParsing="false" onAction="#removePatient" text="Remove Patient" />
-      <Button fx:id="viewPatientProfileButton" layoutX="108.0" layoutY="181.0" mnemonicParsing="false" onAction="#viewPatient" prefHeight="25.0" prefWidth="92.0" text="View Profile" />
+      <Button fx:id="viewPatientProfileButton" layoutX="108.0" layoutY="181.0" mnemonicParsing="false" onAction="#viewPatientProfile" prefHeight="25.0" prefWidth="92.0" text="View Profile" />
       <GridPane layoutX="25.0" layoutY="235.0" prefHeight="233.0" prefWidth="512.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="514.0" minWidth="0.0" prefWidth="318.0" />
