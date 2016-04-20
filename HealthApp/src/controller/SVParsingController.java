@@ -41,14 +41,14 @@ public abstract class SVParsingController implements ParsingController {
 	}
 
 	/**
-	 * importPatients takes in the name of a separated values file and uses
+	 * importData takes in the name of a separated values file and uses
 	 * those fields to construct a LinkedList of Patients
 	 * 
 	 * @param filename
 	 *            the name of the separated values file
 	 * @return a LinkedList of the imported Patients
 	 */
-	public LinkedList<Patient> importPatients(String filename) {
+	public LinkedList<Patient> importData(String filename) {
 		LinkedList<Patient> output = new LinkedList<Patient>();
 		String[] lines = getFile(filename);
 		for (String patient : lines)
@@ -64,7 +64,7 @@ public abstract class SVParsingController implements ParsingController {
 	 * @param toInclude
 	 *            which fields to export
 	 */
-	public void exportPatients(String filename, LinkedList<Patient> patients, boolean[] toInclude) {
+	public void exportData(String filename, LinkedList<Patient> patients, boolean[] toInclude) {
 		PrintWriter toFile;
 		try {
 			toFile = new PrintWriter(filename, "UTF-8");
