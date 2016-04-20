@@ -6,6 +6,26 @@
 <hibernate-mapping package="model">
 
 	<!-- User tables -->
+	<class name="AbsUser" table="User">
+		<id name="userId">
+			<generator class="native" />
+		</id>
+		<discriminator column="USER-TYPE" type="string" />
+		<property name="firstName" />
+		<property name="lastName" />
+		<property name="username" />
+		<property name="password" />
+		<property name="birthday" />
+		<property name="room" />
+		<one-to-one name="contactInfo" class="Contact" cascade="save-update"></one-to-one>
+		<one-to-one name="schedule" class="Schedule" cascade="save-update"></one-to-one>
+
+<!-- subclasses -->
+		<subclass name="CreditCardPayment" discriminator-value="CREDIT">
+			<property name="creditCardType" column="CCTYPE" />
+			...
+		</subclass>
+	</class>
 	<class name="Patient" table="Patient">
 		<id name="patientId">
 			<generator class="native" />
@@ -15,8 +35,9 @@
 		<property name="username" />
 		<property name="password" />
 		<property name="birthday" />
-		<one-to-one name="patientProfile" class="PatientProfile"
-			cascade="save-update"></one-to-one>
+		<property name="room" />
+		<one-to-one name="contactInfo" class="Contact" cascade="save-update"></one-to-one>
+		<one-to-one name="schedule" class="Schedule" cascade="save-update"></one-to-one>
 	</class>
 
 	<class name="Administrator" table="Administrator">
@@ -28,9 +49,53 @@
 		<property name="username" />
 		<property name="password" />
 		<property name="birthday" />
+		<property name="room" />
+		<one-to-one name="contactInfo" class="Contact" cascade="save-update"></one-to-one>
+		<one-to-one name="schedule" class="Schedule" cascade="save-update"></one-to-one>
 	</class>
 
-	<class name="Caregiver" table="Meal">
+	<!-- end User tables -->
+
+	<!-- Profile elements -->
+	<class name="PatientProfile" table="PatientProfile">
+		<id name="profileId">
+			<generator class="native" />
+		</id>
+		<set name="pets" table="Profile_Pet">
+			<key column="profileId" />
+			<many-to-many column="petId" class="Pet" />
+		</set>
+		<set name="caregivers" table="Profile_Caregivers">
+			<key column="profileId" />
+			<many-to-many column="caregiverId" class="Caregivers" />
+		</set>
+		<set name="assignedStaff" table="Profile_MedicalStaff">
+			<key column="profileId" />
+			<many-to-many column="medId" class="MedicalStaff" />
+		</set>
+		<one-to-one name="healthProfile" class="HealthProfile"
+			cascade="save-update"></one-to-one>
+	</class>
+
+	<class name="Pet" table="Pet">
+		<id name="petId">
+			<generator class="native" />
+		</id>
+		<property name="name" />
+		<property name="species" />
+		<property name="allergyFriendly" />
+	</class>
+
+	<class name="Meal" table="Meal">
+		<id name="mealId">
+			<generator class="native" />
+		</id>
+		<property name="rating" />
+		<property name="calories" />
+		<property name="notes" />
+	</class>
+
+	<class name="Caregiver" table="Caregiver">
 		<id name="caregiverId">
 			<generator class="native" />
 		</id>
@@ -41,28 +106,55 @@
 		<property name="birthday" />
 		<property name="relation" />
 		<property name="isFamily" />
+		<property name="room" />
+		<one-to-one name="contactInfo" class="Contact" cascade="save-update"></one-to-one>
+		<one-to-one name="schedule" class="Schedule" cascade="save-update"></one-to-one>
 	</class>
 
-	<!-- Profile elements -->
-	<class name="Meal" table="Meal">
-		<id name="mealId">
+	<class name="MedicalStaff" table="MedicalStaff">
+		<id name="medId">
 			<generator class="native" />
 		</id>
-		<property name="rating" />
-		<property name="calories" />
-		<property name="notes" />
+		<property name="firstName" />
+		<property name="lastName" />
+		<property name="username" />
+		<property name="password" />
+		<property name="birthday" />
+		<property name="room" />
+		<one-to-one name="contactInfo" class="Contact" cascade="save-update"></one-to-one>
+		<one-to-one name="schedule" class="Schedule" cascade="save-update"></one-to-one>
 	</class>
 
-	<class name="PatientProfile" table="PatientProfile">
-		<id name="profileId">
+	<class name="HealthProfile" table="HealthProfile">
+		<id name="healthProfileId">
 			<generator class="native" />
 		</id>
-		<set name="pets" table="Profile_Pet">
-			<key column="profileId" />
-			<many-to-many column="petId" class="Pet" />
+		<set name="healthInfo" table="HealthProfile_HealthInfo">
+			<key column="healthProfileId" />
+			<many-to-many column="healthInfoId" class="HealthInfo" />
 		</set>
 	</class>
-	
+
+	<class name="HealthInfo" table="HealthInfo">
+		<id name="healthInfoId">
+			<generator class="native" />
+		</id>
+		<property name="date" type="timestamp" />
+		<set name="healthAttribues" table="HealthInfo_HealthAttribute">
+			<key column="healthInfoId" />
+			<many-to-many column="healthAttributeId" class="HealthAttribute" />
+		</set>
+	</class>
+
+	<class name="HealthAttribute" table="HealthAttribute">
+		<id name="healthAttributeId">
+			<generator class="native" />
+		</id>
+		<property name="name" />
+		<property name="stringValue" />
+	</class>
+	<!-- end Profile elements -->
+
 	<!-- ContactInfo -->
 	<class name="Contact" table="Contact">
 		<id name="contactId">
@@ -82,5 +174,24 @@
 		</set>
 	</class>
 
+	<!-- Schedule -->
+	<class name="Schedule" table="Schedule">
+		<id name="scheduleId">
+			<generator class="native" />
+		</id>
+		<set name="events" table="Schedule_Event">
+			<key column="scheduleId" />
+			<many-to-many column="eventId" class="Event" />
+		</set>
+	</class>
 
+	<class name="Event" table="Event">
+		<id name="eventId">
+			<generator class="native" />
+		</id>
+		<property name="date" type="timestamp" />
+		<property name="location" />
+		<property name="notes" />
+	</class>
+	<!-- end Schedule -->
 </hibernate-mapping>
