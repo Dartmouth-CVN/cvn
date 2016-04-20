@@ -66,6 +66,9 @@
       <ownedAttribute xmi:id="_2P6CQAPeEeaoDd8kY5YCqg" name="room" visibility="package">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
+      <ownedAttribute xmi:id="_oJrUEAcjEea-dqBMt-F8RQ" name="picture" visibility="package">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
       <ownedAttribute xmi:id="_I8GWcAZiEeaG0-oKBomCxw" name="schedule" visibility="package" type="_Ns7TEAZgEeaG0-oKBomCxw">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_N10ecAZiEeaG0-oKBomCxw" value="1"/>
       </ownedAttribute>
@@ -399,21 +402,14 @@
       <ownedAttribute xmi:id="_IXZmcAV8EeaoDd8kY5YCqg" name="passwordField"/>
       <ownedOperation xmi:id="_JvO8EAV8EeaoDd8kY5YCqg" name="handleLogin" visibility="private"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_NZyiQAV8EeaoDd8kY5YCqg" name="AdminDashController">
-      <generalization xmi:id="_hxGuwAV-EeaoDd8kY5YCqg" general="_mNoEwAV7EeaoDd8kY5YCqg"/>
-      <ownedAttribute xmi:id="_cEql0AV9EeaoDd8kY5YCqg" name="tabPane" visibility="private"/>
-      <ownedAttribute xmi:id="_g5Q9QAV9EeaoDd8kY5YCqg" name="searchTab" visibility="private"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_NZyiQAV8EeaoDd8kY5YCqg" name="MedicalStaffDashController">
+      <generalization xmi:id="_zzaz0AciEea-dqBMt-F8RQ" general="_dW2gIAciEea-dqBMt-F8RQ"/>
       <ownedAttribute xmi:id="_kT0YkAV9EeaoDd8kY5YCqg" name="addPatientTab" visibility="private"/>
-      <ownedAttribute xmi:id="_l4CkYAV9EeaoDd8kY5YCqg" name="editPatientTab" visibility="private"/>
-      <ownedAttribute xmi:id="_kO3-cAWOEeawysB-jcHcxw" name="scheduleTab" visibility="private"/>
       <ownedAttribute xmi:id="_iFLWwAV9EeaoDd8kY5YCqg" name="exportTab" visibility="private"/>
-      <ownedAttribute xmi:id="_-1x0UAV9EeaoDd8kY5YCqg" name="adminDash" visibility="private">
+      <ownedAttribute xmi:id="_-1x0UAV9EeaoDd8kY5YCqg" name="medicalStaffDash" visibility="private">
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CqCJEAV-EeaoDd8kY5YCqg" value="1"/>
       </ownedAttribute>
-      <ownedOperation xmi:id="_yEqc0AV-EeaoDd8kY5YCqg" name="showSearchTab"/>
-      <ownedOperation xmi:id="_z07gkAV-EeaoDd8kY5YCqg" name="showEditPatientTab"/>
       <ownedOperation xmi:id="_1PpyIAV-EeaoDd8kY5YCqg" name="showAddPatientTab"/>
-      <ownedOperation xmi:id="_FtCXUAWPEeawysB-jcHcxw" name="showScheduleTab" visibility="public"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_tsKLgAV-EeaoDd8kY5YCqg" name="AbsPatientController" isAbstract="true">
       <generalization xmi:id="_iOSRoAWMEeawysB-jcHcxw" general="_mNoEwAV7EeaoDd8kY5YCqg"/>
@@ -439,9 +435,10 @@
       <ownedAttribute xmi:id="_ASzDkAWMEeawysB-jcHcxw" name="mealTable" visibility="private"/>
       <ownedAttribute xmi:id="_ChtLIAWMEeawysB-jcHcxw" name="mealName" visibility="private"/>
       <ownedAttribute xmi:id="_DccVEAWMEeawysB-jcHcxw" name="calories" visibility="private"/>
+      <ownedAttribute xmi:id="_4eWxkAclEea-dqBMt-F8RQ" name="mealRating" visibility="private">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_TtL6YAcmEea-dqBMt-F8RQ" value="1"/>
+      </ownedAttribute>
       <ownedAttribute xmi:id="_EZt1oAWMEeawysB-jcHcxw" name="notes" visibility="private"/>
-      <ownedAttribute xmi:id="_Feg6gAWMEeawysB-jcHcxw" name="likeMeal?" visibility="private"/>
-      <ownedAttribute xmi:id="_HFWVcAWMEeawysB-jcHcxw" name="dislikeMeal?" visibility="private"/>
       <ownedAttribute xmi:id="_Jor04AWMEeawysB-jcHcxw" name="neutralMeal" visibility="private"/>
       <ownedOperation xmi:id="_gF0lwAWLEeawysB-jcHcxw" name="handleAddFamily" visibility="private"/>
       <ownedOperation xmi:id="_id6egAWLEeawysB-jcHcxw" name="handleAddPhoneNumber" visibility="private"/>
@@ -486,6 +483,26 @@
       <ownedAttribute xmi:id="_PBCJkAcAEeadifsOwU4hHw" name="profileTable" visibility="private"/>
       <ownedAttribute xmi:id="_QiJ-EAcAEeadifsOwU4hHw" name="searchField" visibility="private"/>
       <ownedOperation xmi:id="_zkopYAcAEeadifsOwU4hHw" name="handleSearch" visibility="private"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_dW2gIAciEea-dqBMt-F8RQ" name="AbsDashController">
+      <generalization xmi:id="_w5KpMAciEea-dqBMt-F8RQ" general="_mNoEwAV7EeaoDd8kY5YCqg"/>
+      <ownedAttribute xmi:id="_jhQM4AciEea-dqBMt-F8RQ" name="tabPane" visibility="private"/>
+      <ownedAttribute xmi:id="_nFiL8AciEea-dqBMt-F8RQ" name="searchTab" visibility="private"/>
+      <ownedAttribute xmi:id="_osVxsAciEea-dqBMt-F8RQ" name="scheduleTab" visibility="private"/>
+      <ownedAttribute xmi:id="_QPKbsAcjEea-dqBMt-F8RQ" name="editPatientTab" visibility="private"/>
+      <ownedOperation xmi:id="_SVgdIAcjEea-dqBMt-F8RQ" name="showSearchTab"/>
+      <ownedOperation xmi:id="_YclwIAcjEea-dqBMt-F8RQ" name="showEditPatient"/>
+      <ownedOperation xmi:id="_cD8RUAcjEea-dqBMt-F8RQ" name="showScheduleTab"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_n6OtYAckEea-dqBMt-F8RQ" name="PatientDashController">
+      <generalization xmi:id="_z3MOoAckEea-dqBMt-F8RQ" general="_dW2gIAciEea-dqBMt-F8RQ"/>
+      <ownedAttribute xmi:id="_ns4_gAclEea-dqBMt-F8RQ" name="patientDash" visibility="private"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_9zopoAckEea-dqBMt-F8RQ" name="AdminDashController">
+      <generalization xmi:id="_R-0JgAclEea-dqBMt-F8RQ" general="_NZyiQAV8EeaoDd8kY5YCqg"/>
+      <ownedAttribute xmi:id="_S83GIAclEea-dqBMt-F8RQ" name="exportTab" visibility="private"/>
+      <ownedAttribute xmi:id="_iJ4C4AclEea-dqBMt-F8RQ" name="adminDash" visibility="private"/>
+      <ownedOperation xmi:id="_d205UAclEea-dqBMt-F8RQ" name="showExportTab"/>
     </packagedElement>
   </packagedElement>
   <packagedElement xmi:type="uml:Package" xmi:id="__gonIAaZEeadifsOwU4hHw" name="utils">
@@ -589,7 +606,6 @@
     <packagedElement xmi:type="uml:Interface" xmi:id="_9QHJ0Ab4EeadifsOwU4hHw" name="StatsView"/>
     <packagedElement xmi:type="uml:Interface" xmi:id="_9hLrsAb4EeadifsOwU4hHw" name="RootLayout"/>
     <packagedElement xmi:type="uml:Interface" xmi:id="_93BY0Ab4EeadifsOwU4hHw" name="PreferencesView"/>
-    <packagedElement xmi:type="uml:Class" xmi:id="_h-6iIAb7EeadifsOwU4hHw" name="RootLayout"/>
     <packagedElement xmi:type="uml:Class" xmi:id="_mEAvQAb7EeadifsOwU4hHw" name="AdminDash">
       <ownedAttribute xmi:id="_nJxdcAb7EeadifsOwU4hHw" name="adminDashController" visibility="package" type="_NZyiQAV8EeaoDd8kY5YCqg"/>
     </packagedElement>
@@ -608,5 +624,7 @@
     <packagedElement xmi:type="uml:Class" xmi:id="_rs8w4Ab_EeadifsOwU4hHw" name="ExportView">
       <ownedAttribute xmi:id="_svOtQAb_EeadifsOwU4hHw" name="exportController" type="_0O3iMAWMEeawysB-jcHcxw"/>
     </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_3YYykAcmEea-dqBMt-F8RQ" name="MiniPatientProfileView"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_N47AQAcnEea-dqBMt-F8RQ" name="EditPatientView"/>
   </packagedElement>
 </uml:Model>

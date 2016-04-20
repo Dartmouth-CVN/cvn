@@ -6,8 +6,8 @@
 <hibernate-mapping package="model">
 
 	<!-- User tables -->
-	<class name="AbsUser" table="User">
-		<id name="userId">
+	<class name="AbsUser" table="USER">
+		<id name="userId" column="USER_ID">
 			<generator class="native" />
 		</id>
 		<discriminator column="USER-TYPE" type="string" />
@@ -20,38 +20,43 @@
 		<one-to-one name="contactInfo" class="Contact" cascade="save-update"></one-to-one>
 		<one-to-one name="schedule" class="Schedule" cascade="save-update"></one-to-one>
 
-<!-- subclasses -->
-		<subclass name="CreditCardPayment" discriminator-value="CREDIT">
-			<property name="creditCardType" column="CCTYPE" />
-			...
+		<!-- subclasses -->
+		<subclass name="Patient" discriminator-value="PATIENT">
+			<join table="PATIENT">
+				<key column="USER_ID" />
+				<id name="patientId">
+					<generator class="native" />
+				</id>
+			</join>
 		</subclass>
-	</class>
-	<class name="Patient" table="Patient">
-		<id name="patientId">
-			<generator class="native" />
-		</id>
-		<property name="firstName" />
-		<property name="lastName" />
-		<property name="username" />
-		<property name="password" />
-		<property name="birthday" />
-		<property name="room" />
-		<one-to-one name="contactInfo" class="Contact" cascade="save-update"></one-to-one>
-		<one-to-one name="schedule" class="Schedule" cascade="save-update"></one-to-one>
-	</class>
-
-	<class name="Administrator" table="Administrator">
-		<id name="adminId">
-			<generator class="native" />
-		</id>
-		<property name="firstName" />
-		<property name="lastName" />
-		<property name="username" />
-		<property name="password" />
-		<property name="birthday" />
-		<property name="room" />
-		<one-to-one name="contactInfo" class="Contact" cascade="save-update"></one-to-one>
-		<one-to-one name="schedule" class="Schedule" cascade="save-update"></one-to-one>
+		<subclass name="Administrator" discriminator-value="ADMIN">
+			<join table="PATIENT">
+				<key column="USER_ID" />
+				<id name="adminId">
+					<generator class="native" />
+				</id>
+			</join>
+		</subclass>
+	</joined-subclass>
+		<subclass name="Caregiver" discriminator-value="CAREGIVER">
+			<join table="CAREGIVER">
+				<key column="USER_ID" />
+				<id name="caregiverId">
+					<generator class="native" />
+				</id>
+				<property name="relation" />
+				<property name="isFamily" />
+			</join>
+		</subclass>
+		<subclass name="MedicalStaff" discriminator-value="MEDICALSTAFF">
+			<join table="MEDICAL_STAFF">
+				<key column="USER_ID" />
+				<id name="medId">
+					<generator class="native" />
+				</id>
+			</join>
+		</subclass>
+		<!-- end subclasses -->
 	</class>
 
 	<!-- end User tables -->
@@ -93,36 +98,6 @@
 		<property name="rating" />
 		<property name="calories" />
 		<property name="notes" />
-	</class>
-
-	<class name="Caregiver" table="Caregiver">
-		<id name="caregiverId">
-			<generator class="native" />
-		</id>
-		<property name="firstName" />
-		<property name="lastName" />
-		<property name="username" />
-		<property name="password" />
-		<property name="birthday" />
-		<property name="relation" />
-		<property name="isFamily" />
-		<property name="room" />
-		<one-to-one name="contactInfo" class="Contact" cascade="save-update"></one-to-one>
-		<one-to-one name="schedule" class="Schedule" cascade="save-update"></one-to-one>
-	</class>
-
-	<class name="MedicalStaff" table="MedicalStaff">
-		<id name="medId">
-			<generator class="native" />
-		</id>
-		<property name="firstName" />
-		<property name="lastName" />
-		<property name="username" />
-		<property name="password" />
-		<property name="birthday" />
-		<property name="room" />
-		<one-to-one name="contactInfo" class="Contact" cascade="save-update"></one-to-one>
-		<one-to-one name="schedule" class="Schedule" cascade="save-update"></one-to-one>
 	</class>
 
 	<class name="HealthProfile" table="HealthProfile">
