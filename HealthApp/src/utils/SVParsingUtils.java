@@ -1,4 +1,4 @@
-package controller;
+package utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,7 +13,7 @@ import model.MedicalStaff;
 import model.Patient;
 import model.Pet;
 
-public abstract class SVParsingController implements ParsingController {
+public abstract class SVParsingUtils implements ParsingUtils {
 	abstract String getDelimiter();
 
 	/**

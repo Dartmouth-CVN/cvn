@@ -1,4 +1,4 @@
-package controller;
+package utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,7 +9,7 @@ import model.HealthInfo;
 import model.MainApp;
 import model.Patient;
 
-public class FitBitParsingUtils extends GeneralParsingUtils {
+public class FitBitParsingUtils {
 
 	public static LinkedList<HealthInfo> fitBitImport(String str) {
 		return fitBitImport(new File(str));
@@ -181,4 +181,31 @@ public class FitBitParsingUtils extends GeneralParsingUtils {
 		}
 		toWrite.close();
 	}
+	
+	public static String removeCommas(String s) {
+        String retVal = "";
+        for (int i = 0; i < s.length(); i++) {
+              if (s.charAt(i) != ',') {
+                    retVal += s.charAt(i);
+              }
+        }
+        return retVal;
+  }
+ 
+  /**
+  * This function will check to see if a given string contains any nonwhitespace or noncomma characters
+  *
+   *
+   * @param s: the string to check
+  * @return a boolean that will be true if any valid characters are detected
+  */
+  static boolean hasData(String s) {
+        int counter = 0;
+        for(int i = 0; i < s.length(); i++) {
+              if(Character.isWhitespace(s.charAt(i)) || s.charAt(i) == ',') {
+                    counter++;
+              }
+        }
+        return counter != s.length();
+  }
 }

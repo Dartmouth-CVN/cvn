@@ -1,4 +1,4 @@
-package controller;
+package utils;
 
 public class CSVParsingController extends SVParsingController{
 
