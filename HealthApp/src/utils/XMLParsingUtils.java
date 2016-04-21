@@ -13,8 +13,7 @@ import model.Patient;
 
 public class XMLParsingUtils implements ParsingUtils {
 
-	@Override
-	public Set<Patient> importData(String filename) {
+	public static Set<Patient> importData(String filename) {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setValidating(true);
 		factory.setIgnoringElementContentWhitespace(true);
@@ -31,20 +30,17 @@ public class XMLParsingUtils implements ParsingUtils {
 		return null;
 	}
 
-	@Override
-	public void exportData(String filename, LinkedList<Patient> patients, boolean[] toInclude) {
+	public static void exportData(String filename, LinkedList<Patient> patients, boolean[] toInclude) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
-	public Patient makePatient(String pt) {
+	public static Patient makePatient(String pt) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public String patientToString(Patient p, boolean[] toInclude) {
+	public static String patientToString(Patient p, boolean[] toInclude) {
 		// TODO Auto-generated method stub
 		return null;
 	}

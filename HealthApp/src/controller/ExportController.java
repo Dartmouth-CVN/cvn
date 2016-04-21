@@ -9,7 +9,9 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TitledPane;
 import model.MainApp;
+import utils.CSVParsingUtils;
 import utils.SVParsingUtils;
+import utils.TSVParsingUtils;
 import utils.XMLParsingUtils;
 
 public class ExportController extends AbsController {
@@ -28,14 +30,13 @@ public class ExportController extends AbsController {
 	private TitledPane healthPane = new TitledPane();
 	@FXML
 	private TitledPane preferencePane = new TitledPane();
-	
+
 	CheckBox[] personal = new CheckBox[6];
 	CheckBox[] health = new CheckBox[18];
 	CheckBox[] preference = new CheckBox[2];
-	
-	
+
 	// Reference to the main application.
-	
+
 	private ArrayList<Boolean> fieldCheck;
 
 	/**
@@ -62,8 +63,8 @@ public class ExportController extends AbsController {
 	public void handlePersonalExport() {
 
 		boolean[] fields = new boolean[12];
-		
-		for(boolean bool : fields )
+
+		for (boolean bool : fields)
 			fieldCheck.add(bool);
 	}
 
@@ -73,7 +74,7 @@ public class ExportController extends AbsController {
 	public void handleHealthExport() {
 		boolean[] fields = new boolean[20];
 
-		for(boolean bool : fields )
+		for (boolean bool : fields)
 			fieldCheck.add(bool);
 	}
 
@@ -83,7 +84,7 @@ public class ExportController extends AbsController {
 	 */
 	public void handlePreferenceExport() {
 
-		//boolean[] fields = new boolean[12];
+		// boolean[] fields = new boolean[12];
 
 	}
 
@@ -91,7 +92,7 @@ public class ExportController extends AbsController {
 	private void handlePersonalSelectButton() {
 
 		for (int i = 0; i < personal.length; i++) {
-			
+
 			personal[i].setSelected(true);
 		}
 	}
@@ -100,27 +101,25 @@ public class ExportController extends AbsController {
 	private void handlePersonalClearButton() {
 
 		for (int i = 0; i < personal.length; i++) {
-			
+
 			personal[i].setSelected(false);
 		}
 	}
-
 
 	@FXML
 	private void handleHealthSelectButton() {
 
 		for (int i = 0; i < health.length; i++) {
-			
+
 			health[i].setSelected(true);
 		}
 	}
-
 
 	@FXML
 	private void handleHealthClearButton() {
 
 		for (int i = 0; i < health.length; i++) {
-			
+
 			health[i].setSelected(false);
 		}
 	}
@@ -129,7 +128,7 @@ public class ExportController extends AbsController {
 	private void handlePreferenceSelectButton() {
 
 		for (int i = 0; i < preference.length; i++) {
-			
+
 			preference[i].setSelected(true);
 		}
 	}
@@ -138,72 +137,71 @@ public class ExportController extends AbsController {
 	private void handlePreferenceClearButton() {
 
 		for (int i = 0; i < preference.length; i++) {
-			
+
 			preference[i].setSelected(false);
 		}
 	}
 
-
 	@FXML
-	private void handleExport(){
+	private void handleExport() {
 		handlePersonalExport();
 		handleHealthExport();
 		handlePreferenceExport();
-		
+
 		boolean[] fields = new boolean[fieldCheck.size()];
-		for(int i = 0; i < fields.length; i++){
+		for (int i = 0; i < fields.length; i++) {
 			fields[i] = fieldCheck.get(i);
 		}
-		String name = "Exported" + LocalTime.now(); 
+		String name = "Exported" + LocalTime.now();
 		if (CSVRadioButton.isSelected()) {
-			 SVParsingUtils.exportData(name + ".csv", MainApp.getDatabaseHandler().getPatientList(), fields);
-			 MainApp.showAlert("Export CSV done");
-		} else if(TSVRadioButton.isSelected())  {
-			 SVParsingUtils.exportData(name + ".tsv", MainApp.getDatabaseHandler().getPatientList(), fields);
-			 MainApp.showAlert("Export TSV done");
-		}else if(XMLRadioButton.isSelected())  {
-			XMLParsingUtils.exportData(name + ".xml", MainApp.getDatabaseHandler().getPatientList());
-			 MainApp.showAlert("Export XML done");
-		}else if(HTMLRadioButton.isSelected())  {
-			XMLParsingUtils.exportsData(name + ".html", MainApp.getDatabaseHandler().getPatientList());
-			 MainApp.showAlert("Export HTML done");
+			CSVParsingUtils.exportData(name + ".csv", MainApp.getDatabaseHandler().getPatientList(), fields);
+			MainApp.showAlert("Export CSV done");
+		} else if (TSVRadioButton.isSelected()) {
+			TSVParsingUtils.exportData(name + ".tsv", MainApp.getDatabaseHandler().getPatientList(), fields);
+			MainApp.showAlert("Export TSV done");
+		} else if (XMLRadioButton.isSelected()) {
+			XMLParsingUtils.exportData(name + ".xml", MainApp.getDatabaseHandler().getPatientList(), null);
+			MainApp.showAlert("Export XML done");
+		} else if (HTMLRadioButton.isSelected()) {
+			XMLParsingUtils.exportData(name + ".html", MainApp.getDatabaseHandler().getPatientList(), null);
+			MainApp.showAlert("Export HTML done");
 		}
 	}
-	
-	private void loadCheckBoxArrays(){
-		
+
+	private void loadCheckBoxArrays() {
+
 		int i = 0;
-		
-		for(Node m : personalPane.getChildrenUnmodifiable()) {
-			
+
+		for (Node m : personalPane.getChildrenUnmodifiable()) {
+
 			if (m instanceof CheckBox) {
-				
+
 				personal[i] = (CheckBox) m;
 				i++;
 			}
 		}
-		
+
 		i = 0;
-		
-		for(Node n : healthPane.getChildrenUnmodifiable()) {
-			
+
+		for (Node n : healthPane.getChildrenUnmodifiable()) {
+
 			if (n instanceof CheckBox) {
-				
+
 				health[i] = (CheckBox) n;
 				i++;
 			}
 		}
-		
+
 		i = 0;
-		
-		for(Node o : preferencePane.getChildrenUnmodifiable()) {
-			
+
+		for (Node o : preferencePane.getChildrenUnmodifiable()) {
+
 			if (o instanceof CheckBox) {
-				
+
 				preference[i] = (CheckBox) o;
 				i++;
 			}
 		}
 	}
-	
+
 }
