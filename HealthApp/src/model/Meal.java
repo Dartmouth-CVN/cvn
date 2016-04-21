@@ -4,13 +4,13 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 
 public class Meal {
+	private StringProperty food;
+	private IntegerProperty calories;
+	private IntegerProperty rating;
+	private StringProperty notes;
 	private int mealID;
-	private String food;
-	private int calories;
-	private int rating;
-	private String notes;
 	
-	public Meal(String food, int calories, int rating, String notes){
+	public Meal(StringProperty food, IntegerProperty calories, IntegerProperty rating, StringProperty notes){
 		this.food = food;
 		this.calories = calories;
 		this.rating = rating;
@@ -18,72 +18,67 @@ public class Meal {
 	}
 	
 	public Meal() {
-		this.food = "New Meal";
-		this.calories = 0;
-		this.rating = 0;
-		this.notes = "";
+		this.food.set("");
+		this.calories.set(0);
+		this.rating.set(0);
+		this.notes.set("");
 	}
 
-	public int getMealID() {
-		return mealID;
+	public int getMealID(){
+		return this.mealID;
 	}
-
-	public void setMealID(int mealID) {
-		this.mealID = mealID;
+	
+	public void setMealID(int id){
+		this.mealID = id;
 	}
-
-	public String getFood() {
+	
+	public StringProperty foodProperty() {
 		return food;
 	}
+	
+    public final String getFood() {
+        return foodProperty().get();
+    }
 
-	public void setFood(String food) {
-		this.food = food;
-	}
-
-	public int getCalories() {
+    public final void setFood(String food) {
+        foodProperty().set(food);
+    }
+    
+	public IntegerProperty caloriesProperty() {
 		return calories;
 	}
+	
+    public final int getCalories() {
+        return caloriesProperty().get();
+    }
 
-	public void setCalories(int calories) {
-		this.calories = calories;
-	}
+    public final void setCalories(int calories) {
+        caloriesProperty().set(calories);
+    }
+    
+    public IntegerProperty ratingProperty() {
+    	
+    	return rating;
+    }
+	
+    public final int getRating() {
+        return ratingProperty().get();
+    }
 
-	public int getRating() {
-		return rating;
-	}
-
-	public void setRating(int rating) {
-		this.rating = rating;
-	}
-
-	public String getNotes() {
+    public final void setRating(int rating) {
+        ratingProperty().set(rating);
+    }
+    
+	public StringProperty notesProperty() {
 		return notes;
 	}
-
-	public void setNotes(String notes) {
-		this.notes = notes;
-	}
-
-	public StringProperty getFoodProperty() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public IntegerProperty getCaloriesProperty() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
-	public IntegerProperty getRatingProperty() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public final String getNotes() {
+        return notesProperty().get();
+    }
 
-	public StringProperty getNotesProperty() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
+    public final void setNotes(String notes) {
+        notesProperty().set(notes);
+    }
 }
 

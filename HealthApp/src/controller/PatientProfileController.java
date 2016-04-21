@@ -1,20 +1,12 @@
-package controller;
-
-import java.time.LocalDate;
-import java.util.Random;
+package view;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import model.Caregiver;
 import model.Contact;
-import model.IDisplayable;
 import model.MainApp;
 import model.Meal;
 import model.MedicalStaff;
@@ -100,10 +92,12 @@ public class PatientProfileController extends AbsController {
 		ObservableList<MedicalStaff> personData = MainApp.getDatabaseHandler().searchPatientAssignedStaff(patient);
 		assignedStaffTable.setItems(personData);
 		
-		foodColumn.setCellValueFactory(cellData -> cellData.getValue().getFoodProperty());
-		caloriesColumn.setCellValueFactory(cellData -> cellData.getValue().getCaloriesProperty());
-		ratingColumn.setCellValueFactory(cellData -> cellData.getValue().getRatingProperty());
-		notesColumn.setCellValueFactory(cellData -> cellData.getValue().getNotesProperty());
+
+		foodColumn.setCellValueFactory(cellData -> cellData.getValue().foodProperty());
+		caloriesColumn.setCellValueFactory(cellData -> cellData.getValue().caloriesProperty());
+		ratingColumn.setCellValueFactory(cellData -> cellData.getValue().ratingProperty());
+		notesColumn.setCellValueFactory(cellData -> cellData.getValue().notesProperty());
+
 		//assignedStaff needs to be implemented in databaseHandler
 		ObservableList<Meal> meals = MainApp.getDatabaseHandler().searchPatientMeal(patient);
 		menuTable.setItems(meals);
@@ -123,11 +117,16 @@ public class PatientProfileController extends AbsController {
 		careGiversTable.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> showCareGiversContactInfo(newValue));
 	}
+<<<<<<< HEAD
+	
+	public PatientProfileController(IDisplayable user) {
+=======
 
 
 	
 	public PatientProfileController(MainApp mainApp) {
 		super(mainApp);
+>>>>>>> 1de48320ffd708d6b0d64c7a1f996ddf33d84287
 	}
 	
 	/**
