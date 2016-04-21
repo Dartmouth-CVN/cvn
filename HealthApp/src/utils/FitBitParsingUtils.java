@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -86,7 +87,8 @@ public class FitBitParsingUtils {
 			e1.printStackTrace();
 			return null;
 		}
-
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("mm/dd/yyyy");
 		String state = "No State";
 		List<String> titles = new ArrayList<String>();
 		while (fileReader.hasNextLine()) {
@@ -119,10 +121,10 @@ public class FitBitParsingUtils {
 				hi = new HealthInfo();
 				System.out.println("Importing Body Info");
 
-				hi.setDate(LocalDate.parse(info[0]));
-
-				for (int i = 1; i < info.length; i++) {
-					hi.setAttribute(new HealthAttribute<Double>(titles.get(i), Double.parseDouble(info[i])));
+				hi.setDate(LocalDate.parse(info[0], formatter));
+				
+				for (int i = 1; i < info.length-5; i++) {
+					hi.addAttribute(new HealthAttribute<Double>(titles.get(i), Double.parseDouble(info[i])));
 				}
 				output.add(hi);
 				break;
@@ -130,10 +132,10 @@ public class FitBitParsingUtils {
 			case "Activities":
 				hi = new HealthInfo();
 				System.out.println("Importing Activity Info");
-				hi.setDate(LocalDate.parse(info[0]));
+				hi.setDate(LocalDate.parse(info[0], formatter));
 
 				for (int i = 1; i < info.length; i++) {
-					hi.setAttribute(new HealthAttribute<Double>(titles.get(i), Double.parseDouble(info[i])));
+					hi.addAttribute(new HealthAttribute<Double>(titles.get(i), Double.parseDouble(info[i])));
 				}
 				output.add(hi);
 				break;
@@ -141,10 +143,10 @@ public class FitBitParsingUtils {
 			case "Sleep":
 				hi = new HealthInfo();
 				System.out.println("Importing Sleep Info");
-				hi.setDate(LocalDate.parse(info[0]));
+				hi.setDate(LocalDate.parse(info[0], formatter));
 
 				for (int i = 1; i < info.length; i++) {
-					hi.setAttribute(new HealthAttribute<Double>(titles.get(i), Double.parseDouble(info[i])));
+					hi.addAttribute(new HealthAttribute<Double>(titles.get(i), Double.parseDouble(info[i])));
 				}
 				output.add(hi);
 				break;
