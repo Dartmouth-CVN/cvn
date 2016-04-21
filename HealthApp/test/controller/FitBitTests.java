@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.Set;
 
 import javax.swing.JFileChooser;
