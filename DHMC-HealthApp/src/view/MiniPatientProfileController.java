@@ -64,8 +64,8 @@ public class MiniPatientProfileController {
 	 */
 	@FXML
 	private void initialize(Patient patient) {
-		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
-		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
+		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
+		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
 		positionColumn.setCellValueFactory(cellData -> cellData.getValue().positionProperty());
 		//assignedStaff needs to be implemented in databaseHandler
 		ObservableList<MedicalStaff> personData = MainApp.getDatabaseHandler().searchPatientAssignedStaff(patient);

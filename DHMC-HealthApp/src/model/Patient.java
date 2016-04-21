@@ -125,21 +125,6 @@ public class Patient extends User {
 		this.patientID = patientID;
 	}
 
-	@Override
-	public StringProperty getFirstNameProperty() {
-		return firstNameProperty;
-	}
-
-	@Override
-	public StringProperty getLastNameProperty() {
-		return lastNameProperty;
-	}
-
-	@Override
-	public StringProperty getUserIDProperty() {
-		return userIDProperty;
-	}
-
 	public LinkedList<HealthInfo> getHealthInfo() {
 		return healthInfo;
 	}

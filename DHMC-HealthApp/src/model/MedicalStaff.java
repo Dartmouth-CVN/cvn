@@ -6,14 +6,14 @@ import javafx.beans.property.StringProperty;
 
 public class MedicalStaff extends User {
 	
-	private StringProperty position = new SimpleStringProperty();
+	private StringProperty position;
 	
 	protected LinkedList<Patient> assignedPatients;
 	private int medID;
 	
 	public MedicalStaff(String firstName, String lastName, String position, String userID, int medID) {
 		super(firstName, lastName, userID);
-		this.setPosition(position);;
+		this.position = new SimpleStringProperty(position);
 		this.setMedID(medID);
 	}
 	
@@ -72,24 +72,6 @@ public class MedicalStaff extends User {
 
 	public void setMedID(int medID) {
 		this.medID = medID;
-	}
-
-	@Override
-	public StringProperty getFirstNameProperty() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public StringProperty getLastNameProperty() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public StringProperty getUserIDProperty() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public StringProperty positionProperty() {

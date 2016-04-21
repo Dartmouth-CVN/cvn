@@ -43,8 +43,8 @@ public class MedicalStaffController {
 	private void initialize(MedicalStaff staff) {
 		
 		
-		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
-		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
+		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
+		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
 
 		ObservableList<Patient> patientData = MainApp.getDatabaseHandler().searchMedStaffAssignedPatient(staff);
 		assignedPatientTable.setItems(patientData);

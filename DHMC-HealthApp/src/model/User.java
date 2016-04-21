@@ -2,57 +2,76 @@ package model;
 
 import java.time.LocalDate;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public abstract class User implements IDisplayable{
-	private String firstName;
-	private String lastName;
-	private String userID;
+	private StringProperty firstName;
+	private StringProperty lastName;
+	private StringProperty userID;
 	private Contact contactInfo;
 	private LocalDate birthday;
 	// private Schedule schedule;
 	// private Location room;
 	//role is either "Patient", "MedicalStaff", "Administrator"
 	public User(String firstName, String lastName, String id) {
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.firstName = new SimpleStringProperty(firstName);
+		this.lastName = new SimpleStringProperty(lastName);
 		this.contactInfo = new Contact(id);
 		this.setBirthday(LocalDate.now());
 		//this.schedule = new Schedule(id);
 		// this.room = null;
-		this.userID =id;
+		this.userID = new SimpleStringProperty(id);
 	}
 	
 	public User(String firstName, String lastName, String id, Contact contactInfo) {
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.firstName = new SimpleStringProperty(firstName);
+		this.lastName = new SimpleStringProperty(lastName);
 		this.contactInfo = contactInfo;
 		this.setBirthday(LocalDate.now());
 		//this.schedule = new Schedule(id);
 		// this.room = null;
-		this.userID =id;
+		this.userID = new SimpleStringProperty(id);
 	}
 	
-	public String getFirstName() {
-		return this.firstName;
+	public StringProperty firstNameProperty() {
+		return firstName;
 	}
 	
-	public String getLastName() {
-		return this.lastName;
+    public final String getFirstName() {
+        return firstNameProperty().get();
+    }
+
+    public final void setFirstName(String firstName) {
+        firstNameProperty().set(firstName);
+    }
+	
+	public StringProperty lastNameProperty() {
+		return lastName;
 	}
 	
-	public String getUserID() {
-		return this.userID;
+    public final String getLastName() {
+        return lastNameProperty().get();
+    }
+
+    public final void setLastName(String lastName) {
+        lastNameProperty().set(lastName);
+    }
+    
+	public StringProperty userIDProperty() {
+		return userID;
 	}
+	
+    public final String getUserID() {
+        return userIDProperty().get();
+    }
+
+    public final void setUserID(String userID) {
+        userIDProperty().set(userID);
+    }
 	
 	public Contact getContactInfo() {
 		return this.contactInfo;
-	}
-	
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
 	}
 	
 	public LocalDate getBirthday() {
@@ -61,10 +80,6 @@ public abstract class User implements IDisplayable{
 
 	public void setBirthday(LocalDate birthday) {
 		this.birthday = birthday;
-	}
-
-	public void setUseriID(String userid) {
-		this.userID = userid;
 	}
 	
 //	public Location getRoom() {

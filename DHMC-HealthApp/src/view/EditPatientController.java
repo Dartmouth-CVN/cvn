@@ -191,8 +191,8 @@ public class EditPatientController {
 		patientEmail.setCellValueFactory(cellData -> cellData.getValue().getStringProperty());
 		familyPhone.setCellValueFactory(cellData -> cellData.getValue().getStringProperty());
 		familyEmail.setCellValueFactory(cellData -> cellData.getValue().getStringProperty());
-		familyNames.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
-		familyRels.setCellValueFactory(cellData -> cellData.getValue().getRelationProperty());
+		familyNames.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+		familyRels.setCellValueFactory(cellData -> cellData.getValue().relationProperty());
 
 		patientPhone.setOnEditCommit(new EventHandler<CellEditEvent<DisplayString, String>>() {
 			@Override

@@ -63,9 +63,9 @@ public class SearchTabController {
 	 */
 	@FXML
 	private void initialize() {
-		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
-		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
-		idColumn.setCellValueFactory(cellData -> cellData.getValue().getUserIDProperty());
+		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
+		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
+		idColumn.setCellValueFactory(cellData -> cellData.getValue().userIDProperty());
 
 		ObservableList<IDisplayable> personData = MainApp.getDatabaseHandler().searchPatient();
 		profileTable.setItems(personData);
