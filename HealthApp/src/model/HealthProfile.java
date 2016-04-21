@@ -5,6 +5,8 @@ import java.util.LinkedList;
 public class HealthProfile {
 
 	private LinkedList<HealthInfo> healthInfo;
+	private LinkedList<String> allergies;
+	private LinkedList<String> dietaryRestrictions;
 	
 	public HealthProfile() {
 		this.healthInfo = new LinkedList<HealthInfo>();
@@ -31,5 +33,21 @@ public class HealthProfile {
 			}
 			healthInfo.add(info.get(i));
 		}
+	}
+
+	public LinkedList<String> getAllergies() {
+		return allergies;
+	}
+
+	public void setAllergies(LinkedList<String> allergies) {
+		this.allergies = allergies;
+	}
+
+	public LinkedList<String> getDietaryRestrictions() {
+		return dietaryRestrictions;
+	}
+
+	public void setDietaryRestrictions(LinkedList<String> dietaryRestrictions) {
+		this.dietaryRestrictions = dietaryRestrictions;
 	}
 }

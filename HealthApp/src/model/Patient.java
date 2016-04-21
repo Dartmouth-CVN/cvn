@@ -7,6 +7,7 @@ public class Patient extends AbsUser {
 	int patientId;
 	PatientProfile patientProfile;
 	HealthProfile healthProfile;
+	Set<Caregiver> caregivers;
 	Set<MedicalStaff> assignedStaff;
 	
 	public Patient(int userId, String firstName, String lastName, String username, String password, LocalDate birthday,
@@ -17,12 +18,13 @@ public class Patient extends AbsUser {
 	
 	public Patient(int userId, String firstName, String lastName, String username, String password, LocalDate birthday,
 			String room, Contact contactInfo, Schedule schedule, int patientId, PatientProfile patientProfile, 
-			HealthProfile healthProfile, Set<MedicalStaff> assignedStaff) {
+			HealthProfile healthProfile, Set<MedicalStaff> assignedStaff, Set<Caregiver> caregivers) {
 		super(userId, firstName, lastName, username, password, birthday, room, contactInfo, schedule);
 		this.patientId = patientId;
 		this.patientProfile = patientProfile;
 		this.healthProfile = healthProfile;
 		this.assignedStaff = assignedStaff;
+		this.caregivers = caregivers;
 	}
 
 	public int getPatientId() {
@@ -57,5 +59,11 @@ public class Patient extends AbsUser {
 		this.assignedStaff = assignedStaff;
 	}
 	
+	public Set<Caregiver> getCaregivers() {
+		return caregivers;
+	}
 	
+	public void setCaregivers(Set<Caregiver> caregivers) {
+		this.caregivers = caregivers;
+	}
 }
