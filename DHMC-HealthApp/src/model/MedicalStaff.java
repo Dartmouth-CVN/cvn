@@ -91,4 +91,10 @@ public class MedicalStaff extends User {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public StringProperty userIDProperty() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

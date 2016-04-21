@@ -230,12 +230,12 @@ public class CSVParsingUtils extends GeneralParsingUtils{
 		// output.addMedication(new Medication(med));
 
 		String address = pt[6];
-		output.getContactInfo().addAddress(address);
+		output.getContactInfo().setAddress(address);
 		String[] phoneNumbers = pt[7].split(",");
 		for (String number : phoneNumbers)
-			output.getContactInfo().addPhone(number);
+			output.getContactInfo().setPhone(number);
 		String email = pt[8];
-		output.getContactInfo().addEmail(email);
+		output.getContactInfo().setEmail(email);
 		String[] pets = pt[9].split(",");
 		for (String pet : pets)
 			output.getPreferences().addPet(new Pet(pet, null, false));
@@ -313,7 +313,7 @@ public class CSVParsingUtils extends GeneralParsingUtils{
 		output += delimiter;
 		if (shouldEx[6]) {
 			output += "\"";
-			LinkedList<String> addresses = pt.getContactInfo().getAddress();
+			LinkedList<String> addresses = pt.getContactInfo().getAddressList();
 			if (addresses.size() > 0) {
 				for (int i = 0; i < addresses.size() - 1; i++)
 					output += addresses.get(i) + ",";
@@ -324,7 +324,7 @@ public class CSVParsingUtils extends GeneralParsingUtils{
 		output += delimiter;
 		if (shouldEx[7]) {
 			output += "\"";
-			LinkedList<String> phonenumbers = pt.getContactInfo().getPhone();
+			LinkedList<String> phonenumbers = pt.getContactInfo().getPhoneList();
 			if (phonenumbers.size() > 0) {
 				for (int i = 0; i < phonenumbers.size() - 1; i++)
 					output += phonenumbers.get(i) + ",";
@@ -335,7 +335,7 @@ public class CSVParsingUtils extends GeneralParsingUtils{
 		output += delimiter;
 		if (shouldEx[8]) {
 			output += "\"";
-			LinkedList<String> emails = pt.getContactInfo().getEmail();
+			LinkedList<String> emails = pt.getContactInfo().getEmailList();
 			if (emails.size() > 0) {
 				for (int i = 0; i < emails.size() - 1; i++)
 					output += emails.get(i) + ",";

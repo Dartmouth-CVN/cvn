@@ -218,10 +218,10 @@ public class EditPatientController {
 		patientBirthday.setValue(p.getBirthday());
 		patientAddress.setText(p.getContactInfo().getPrimaryAddress());
 
-		for (String phoneNum : p.getContactInfo().getPhone())
+		for (String phoneNum : p.getContactInfo().getPhoneList())
 			patientPhones.add(new DisplayString(phoneNum));
 
-		for (String email : p.getContactInfo().getEmail())
+		for (String email : p.getContactInfo().getEmailList())
 			patientEmails.add(new DisplayString(email));
 
 		// for(Caregiver family : p.)
@@ -382,11 +382,11 @@ public class EditPatientController {
 		p.getContactInfo().makePrimaryAddress(patientAddress.getText());
 
 		for (DisplayString phoneNumber : patientPhones) {
-			p.getContactInfo().addPhone(phoneNumber.getString());
+			p.getContactInfo().setPhone(phoneNumber.getString());
 			array.add(phoneNumber.getString());
 		}
 		
-		for (String phone : p.getContactInfo().getPhone()) {
+		for (String phone : p.getContactInfo().getPhoneList()) {
 			if (!array.contains(phone)) {
 				p.getContactInfo().removePhone(phone);
 			}
@@ -395,11 +395,11 @@ public class EditPatientController {
 		array = new ArrayList<String>();
 
 		for (DisplayString email : patientEmails) {
-			p.getContactInfo().addEmail(email.getString());
+			p.getContactInfo().setEmail(email.getString());
 			array.add(email.getString());
 		}
 		
-		for (String email : p.getContactInfo().getEmail()) {
+		for (String email : p.getContactInfo().getEmailList()) {
 			if (!array.contains(email)) {
 				p.getContactInfo().removePhone(email);
 			}
