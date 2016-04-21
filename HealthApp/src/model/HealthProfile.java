@@ -64,8 +64,10 @@ public class HealthProfile {
 	
 	public String toString() {
 		String retString = "Health Profile.";
-		healthInfo.forEach((k, v)-> retString += ("\n" + v.toString()));
-		return "";
+		for(LocalDate date : healthInfo.keySet()) {
+			retString += ("\n" + healthInfo.get(date).toString());
+		}
+		return retString;
 	}
 	
 }
