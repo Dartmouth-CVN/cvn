@@ -79,10 +79,11 @@ public class PatientProfileController extends AbsController {
 	 */
 	@FXML
 	private void initialize() {
-		caregiverNameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
-		birthdayColumn.setCellValueFactory(cellData -> cellData.getValue().getBirthdayProperty());
-		relationColumn.setCellValueFactory(cellData -> cellData.getValue().getRelationProperty());
-		inFamilyColumn.setCellValueFactory(cellData -> cellData.getValue().getInFamilyProperty());
+		// TODO: Find new way to process information
+//		caregiverNameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
+//		birthdayColumn.setCellValueFactory(cellData -> cellData.getValue().getBirthdayProperty());
+//		relationColumn.setCellValueFactory(cellData -> cellData.getValue().getRelationProperty());
+//		inFamilyColumn.setCellValueFactory(cellData -> cellData.getValue().getInFamilyProperty());
 		//assignedStaff needs to be implemented in databaseHandler
 		ObservableList<Caregiver> caregivers = MainApp.getDatabaseHandler().searchPatientCaregiver(patient);
 		careGiversTable.setItems(caregivers);
