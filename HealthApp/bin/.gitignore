@@ -1,6 +1,3 @@
-/hibernate.cfg.xml
-/mapping.hbm.xml
 /model/
-/view/
-/controller/
 /utils/
+/controller/

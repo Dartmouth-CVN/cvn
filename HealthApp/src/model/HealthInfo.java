@@ -6,12 +6,10 @@ public class HealthInfo {
 	LocalDate date;
 	HealthAttribute<?> attribute;
 	
-	
 	public HealthInfo () {
 	}
 
 	public HealthInfo(LocalDate date, HealthAttribute<?> attribute) {
-		super();
 		this.date = date;
 		this.attribute = attribute;
 	}

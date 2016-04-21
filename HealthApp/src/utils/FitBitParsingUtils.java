@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -87,7 +88,7 @@ public class FitBitParsingUtils {
 		}
 
 		String state = "No State";
-		ArrayList<String> titles = new ArrayList<String>();
+		List<String> titles = new ArrayList<String>();
 		while (fileReader.hasNextLine()) {
 			String line = fileReader.nextLine();
 
@@ -97,15 +98,15 @@ public class FitBitParsingUtils {
 			String firstItem = line.split(",")[0];
 			if (firstItem.equals("Body")) {
 				state = "Body";
-				titles = (ArrayList<String>) Arrays.asList(fileReader.nextLine().split(","));
+				titles = Arrays.asList(fileReader.nextLine().split(","));
 				line = fileReader.nextLine();
 			} else if (firstItem.equals("Activities")) {
 				state = "Activities";
-				titles = (ArrayList<String>) Arrays.asList(fileReader.nextLine().split(","));
+				titles = Arrays.asList(fileReader.nextLine().split(","));
 				line = fileReader.nextLine();
 			} else if (firstItem.equals("Sleep")) {
 				state = "Sleep";
-				titles = (ArrayList<String>) Arrays.asList(fileReader.nextLine().split(","));
+				titles = Arrays.asList(fileReader.nextLine().split(","));
 				line = fileReader.nextLine();
 			} else if (state.equals("No State")) {
 				continue;
@@ -179,14 +180,8 @@ public class FitBitParsingUtils {
 		for (Patient p : pts) {
 			
 			toWrite.println(p.getFirstName() + " " + p.getLastName());
-			for (HealthInfo h : p.getHealthProfile().getHealthInfo()) {
-				
-				String toPrint = h.getDate() + "," + h.getHeight() + "," + h.getWeight() + "," + h.getBmi() + ","
-						+ h.getFat() + "," + h.getCaloriesBurned() + "," + h.getSteps() + "," + h.getDistance() + ","
-						+ h.getFloors() + "," + h.getMinSedentary() + "," + h.getMinLightlyActive() + ","
-						+ h.getMinFairlyActive() + "," + h.getMinVeryActive() + "," + h.getActivityCalories() + ","
-						+ h.getMinAsleep() + "," + h.getMinAwake() + "," + h.getNumAwakenings() + ","
-						+ h.getTimeInBed();
+			for (HealthInfo h : p.getHealthProfile().getHealthInfo().values()) {
+				String toPrint = h.toString();
 				toWrite.println(toPrint);
 			}
 		}

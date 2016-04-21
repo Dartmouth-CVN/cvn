@@ -1,23 +1,25 @@
 package model;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.time.LocalDate;
 
 public class HealthProfile {
 
 	int healthProfileId;
-	Set<HealthInfo> healthInfo;
+	HashMap<LocalDate, HealthInfo> healthInfo;
 	Set<String> allergies;
 	Set<String> dietaryRestrictions;
 
 	public HealthProfile() {
-		this.healthInfo = new HashSet<HealthInfo>();
+		this.healthInfo = new HashMap<LocalDate, HealthInfo>();
 		this.allergies = new HashSet<String>();
 		this.dietaryRestrictions = new HashSet<String>();
 	}
 	
 	public void addNewHealthInfo(HealthInfo info){
-		healthInfo.add(info);
+		healthInfo.put(info.getDate(), info);
 	}
 
 	public int getHealthProfileId() {
@@ -28,20 +30,20 @@ public class HealthProfile {
 		this.healthProfileId = healthProfileId;
 	}
 
-	public Set<HealthInfo> getHealthInfo() {
+	public HashMap<LocalDate, HealthInfo> getHealthInfo() {
 		return healthInfo;
 	}
 
-	public void setHealthInfo(Set<HealthInfo> healthInfo) {
+	public void setHealthInfo(HashMap<LocalDate, HealthInfo> healthInfo) {
 		this.healthInfo = healthInfo;
 	}
 
 	public void addHealthInfo(HealthInfo newInfo) {
-		this.healthInfo.add(newInfo);
+		this.healthInfo.put(newInfo.getDate(), newInfo);
 	}
 
-	public void addHealthInfoList(Set<HealthInfo> info) {
-		healthInfo.addAll(info);
+	public void addHealthInfoList(HashMap<LocalDate, HealthInfo> info) {
+		healthInfo.putAll(info);
 	}
 
 	public Set<String> getAllergies() {
