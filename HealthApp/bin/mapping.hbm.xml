@@ -102,7 +102,7 @@
 			<generator class="native" />
 		</id>
 		<property name="date" type="timestamp" />
-		<set name="healthAttributes" table="HealthInfo_HealthAttribute">
+		<set name="attributes" table="HealthInfo_HealthAttribute">
 			<key column="healthInfoId" />
 			<many-to-many column="healthAttributeId" class="HealthAttribute" />
 		</set>

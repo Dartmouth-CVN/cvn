@@ -122,7 +122,7 @@ public class FitBitParsingUtils {
 				hi.setDate(LocalDate.parse(info[0]));
 
 				for (int i = 1; i < info.length; i++) {
-					hi.setAttribute(new HealthAttribute<Double>(titles.get(i), Double.parseDouble(info[i])));
+					hi.addAttribute(new HealthAttribute<Double>(titles.get(i), Double.parseDouble(info[i])));
 				}
 				output.add(hi);
 				break;
@@ -133,7 +133,7 @@ public class FitBitParsingUtils {
 				hi.setDate(LocalDate.parse(info[0]));
 
 				for (int i = 1; i < info.length; i++) {
-					hi.setAttribute(new HealthAttribute<Double>(titles.get(i), Double.parseDouble(info[i])));
+					hi.addAttribute(new HealthAttribute<Double>(titles.get(i), Double.parseDouble(info[i])));
 				}
 				output.add(hi);
 				break;
@@ -144,7 +144,7 @@ public class FitBitParsingUtils {
 				hi.setDate(LocalDate.parse(info[0]));
 
 				for (int i = 1; i < info.length; i++) {
-					hi.setAttribute(new HealthAttribute<Double>(titles.get(i), Double.parseDouble(info[i])));
+					hi.addAttribute(new HealthAttribute<Double>(titles.get(i), Double.parseDouble(info[i])));
 				}
 				output.add(hi);
 				break;
