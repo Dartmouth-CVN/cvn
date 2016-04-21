@@ -1,36 +1,32 @@
 package model;
 
-import java.io.Serializable;
 import java.util.LinkedList;
 
-import javafx.beans.property.StringProperty;
+public class Contact {
+	 int contactId;
+	 LinkedList<String> phone;
+	 LinkedList<String> email;
+	 LinkedList<String> address;
 
-public class Contact implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2789588534495622114L;
-	private String id;
-	private LinkedList<String> phone;
-	private LinkedList<String> email;
-	private LinkedList<String> address;
-
-	public Contact(String id) {
-		this.id = id;
+	public Contact(int id) {
+		this.contactId = id;
 		this.phone = new LinkedList<String>();
 		this.email = new LinkedList<String>();
 		this.address = new LinkedList<String>();
 	}
 
 	public Contact() {
-		this.id = "Unassigned";
 		this.phone = new LinkedList<String>();
 		this.email = new LinkedList<String>();
 		this.address = new LinkedList<String>();
 	}
-
-	public String getID() {
-		return this.id;
+	
+	public int getContactId(){
+		return contactId;
+	}
+	
+	public void setContactId(int id){
+		contactId = id;
 	}
 
 	public LinkedList<String> getPhone() {
@@ -125,20 +121,4 @@ public class Contact implements Serializable {
 		this.removeAddress(address);
 		this.address.addFirst(address);
 	}
-
-	public StringProperty getAddressProperty() {
-		// TODO getAddressProperty
-		return null;
-	}
-
-	public StringProperty getPhoneProperty() {
-		// TODO getPhoneProperty
-		return null;
-	}
-
-	public StringProperty getEmailProperty() {
-		// TODO getEmailProperty
-		return null;
-	}
-
 }

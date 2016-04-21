@@ -27,7 +27,7 @@
 			</join>
 		</subclass>
 		<subclass name="Administrator" discriminator-value="ADMIN">
-			<join table="ADMINhibernate">
+			<join table="ADMIN">
 				<key column="USER_ID" />
 			</join>
 		</subclass>
@@ -59,7 +59,7 @@
 		</set>
 		<set name="caregivers" table="Profile_Caregivers">
 			<key column="profileId" />
-			<many-to-many column="caregiverId" class="Caregivers" />
+			<many-to-many column="caregiverId" class="Caregiver" />
 		</set>
 		<set name="assignedStaff" table="Profile_MedicalStaff">
 			<key column="profileId" />
@@ -87,7 +87,7 @@
 		<property name="notes" />
 	</class>
 
-	<class n<class name="HealthProfile" table="HealthProfile">
+	<class name="HealthProfile" table="HealthProfile">
 		<id name="healthProfileId">
 			<generator class="native" />
 		</id>
@@ -102,7 +102,7 @@
 			<generator class="native" />
 		</id>
 		<property name="date" type="timestamp" />
-		<set name="healthAttribues" table="HealthInfo_HealthAttribute">
+		<set name="healthAttributes" table="HealthInfo_HealthAttribute">
 			<key column="healthInfoId" />
 			<many-to-many column="healthAttributeId" class="HealthAttribute" />
 		</set>
@@ -115,7 +115,7 @@
 		<property name="name" />
 		<property name="stringValue" />
 	</class>
-	
+
 	<!-- ContactInfo -->
 	<class name="Contact" table="Contact">
 		<id name="contactId">
@@ -134,7 +134,15 @@
 			<many-to-many column="elementId" class="ContactElement" />
 		</set>
 	</class>
-	
+
+	<class name="ContactElement" table="ContactElement">
+		<id name="elementId">
+			<generator class="native" />
+		</id>
+		<property name="value" />
+		<property name="type" />
+	</class>
+
 	<!-- Schedule -->
 	<class name="Schedule" table="Schedule">
 		<id name="scheduleId">
@@ -155,5 +163,5 @@
 		<property name="notes" />
 	</class>
 	<!-- end Schedule -->
-	
+
 </hibernate-mapping>
