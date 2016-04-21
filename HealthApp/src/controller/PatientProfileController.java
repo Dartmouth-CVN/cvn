@@ -79,7 +79,7 @@ public class PatientProfileController extends AbsController {
 	 */
 	@FXML
 	private void initialize() {
-		// TODO: Find new way to process information
+		// TODO: Manage Caregiver data
 //		caregiverNameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
 //		birthdayColumn.setCellValueFactory(cellData -> cellData.getValue().getBirthdayProperty());
 //		relationColumn.setCellValueFactory(cellData -> cellData.getValue().getRelationProperty());
@@ -105,16 +105,19 @@ public class PatientProfileController extends AbsController {
 		ObservableList<Meal> meals = MainApp.getDatabaseHandler().searchPatientMeal(patient);
 		menuTable.setItems(meals);
 		
-		petNameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
-		speciesColumn.setCellValueFactory(cellData -> cellData.getValue().getSpeciesProperty());
-		allergyFriendlyColumn.setCellValueFactory(cellData -> cellData.getValue().getAllergyFriendlyProperty());
+		// TODO: Manage Pet data
+//		petNameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
+//		speciesColumn.setCellValueFactory(cellData -> cellData.getValue().getSpeciesProperty());
+//		allergyFriendlyColumn.setCellValueFactory(cellData -> cellData.getValue().getAllergyFriendlyProperty());
 		//assignedStaff needs to be implemented in databaseHandler
 		ObservableList<Pet> pets = MainApp.getDatabaseHandler().searchPatientPet(patient);
 		petTable.setItems(pets);
 		
-		addressColumn.setCellValueFactory(cellData -> cellData.getValue().getAddressProperty());
-		phoneColumn.setCellValueFactory(cellData -> cellData.getValue().getPhoneProperty());
-		emailColumn.setCellValueFactory(cellData -> cellData.getValue().getEmailProperty());
+		// TODO: Find new way to manage this data without migrating everything to StringProperty
+		
+//		addressColumn.setCellValueFactory(cellData -> cellData.getValue().getAddressProperty());
+//		phoneColumn.setCellValueFactory(cellData -> cellData.getValue().getPhoneProperty());
+//		emailColumn.setCellValueFactory(cellData -> cellData.getValue().getEmailProperty());
 		
 		// set table listener
 		careGiversTable.getSelectionModel().selectedItemProperty()
