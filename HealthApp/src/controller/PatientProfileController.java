@@ -1,4 +1,4 @@
-package controller;
+package view;
 
 import java.time.LocalDate;
 import java.util.Random;
@@ -104,7 +104,7 @@ public class PatientProfileController {
 		
 		foodColumn.setCellValueFactory(cellData -> cellData.getValue().foodProperty());
 		caloriesColumn.setCellValueFactory(cellData -> cellData.getValue().caloriesProperty());
-		ratingColumn.setCellValueFactory(cellData -> cellData.getValue().getRating());
+		ratingColumn.setCellValueFactory(cellData -> cellData.getValue().ratingProperty());
 		notesColumn.setCellValueFactory(cellData -> cellData.getValue().notesProperty());
 		//assignedStaff needs to be implemented in databaseHandler
 		ObservableList<Meal> meals = MainApp.getDatabaseHandler().searchPatientMeal(patient);
@@ -125,16 +125,6 @@ public class PatientProfileController {
 		careGiversTable.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> showCareGiversContactInfo(newValue));
 	}
-	
-	/**
-	 * Is called by the main application to give a reference back to itself.
-	 * 
-	 * @param mainApp
-	 */
-	public void setMain(MainApp mainApp) {
-		this.mainApp = mainApp;
-	}
-
 	
 	public PatientProfileController(IDisplayable user) {
 	}
