@@ -14,6 +14,8 @@ import model.Patient;
 import model.Pet;
 
 public class PatientProfileController extends AbsController {
+	
+	private Patient patient;
 
 	// Integer will be replaced with Profile model
 	@FXML
@@ -76,7 +78,7 @@ public class PatientProfileController extends AbsController {
 	 * after the fxml file has been loaded.
 	 */
 	@FXML
-	private void initialize(Patient patient) {
+	private void initialize() {
 		caregiverNameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
 		birthdayColumn.setCellValueFactory(cellData -> cellData.getValue().getBirthdayProperty());
 		relationColumn.setCellValueFactory(cellData -> cellData.getValue().getRelationProperty());
@@ -118,8 +120,9 @@ public class PatientProfileController extends AbsController {
 				.addListener((observable, oldValue, newValue) -> showCareGiversContactInfo(newValue));
 	}
 
-	public PatientProfileController(MainApp mainApp) {
+	public PatientProfileController(MainApp mainApp, Patient patient) {
 		super(mainApp);
+		this.patient = patient;
 	}
 	
 	/**
@@ -132,7 +135,7 @@ public class PatientProfileController extends AbsController {
 		Caregiver cg = MainApp.getDatabaseHandler().getCaregiver(caregiver.getCaregiverID());
 		//nameLabel.setText(ms.getFirstName() + " " + ms.getLastName());	
 		Contact contactInfo = cg.getContactInfo();
-		// Show the info?
+		// TODO: Show caregiver contact info
 		
 	}
 }

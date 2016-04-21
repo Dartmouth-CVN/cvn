@@ -79,6 +79,7 @@ public class SearchTabController {
 				});
 	}
 
+	// TODO: Use showUserDetails
 	private void showUserDetails(IDisplayable user) {
 		Patient p;
 		try {
@@ -91,7 +92,7 @@ public class SearchTabController {
 			phoneLabel.setText(p.getContactInfo().getPrimaryPhone());
 			userID = p.getUserID();
 		} catch (ObjectNotFoundException e) {
-			// TODO Auto-generated catch block
+			// TODO showUserDetails catch block
 			e.printStackTrace();
 		}
 	}
@@ -131,7 +132,7 @@ public class SearchTabController {
 			if (patient != null)
 				mainApp.showEditProfile(patient);
 		} catch (ObjectNotFoundException e) {
-			// TODO Auto-generated catch block
+			// TODO handleEditProfile catch block
 			e.printStackTrace();
 		}
 

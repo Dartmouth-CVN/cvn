@@ -48,7 +48,8 @@ public class DatabaseHandler {
     	startSession();
     	Query q = session.createQuery("FROM PATIENT patient WHERE patient.username = :username");
     	q.setString("username", username);
-    	List<Patient> list = q.list();
+    	@SuppressWarnings("unchecked")
+		List<Patient> list = q.list();
     	
     	if(list.isEmpty())
     		throw new ObjectNotFoundException("Patient");
@@ -59,7 +60,8 @@ public class DatabaseHandler {
     public Set<Patient> getPatients() throws ObjectNotFoundException{
     	startSession();
     	Query q = session.createQuery("FROM PATIENT patient WHERE patient.username = :username");
-    	List<Patient> list = q.list();
+    	@SuppressWarnings("unchecked")
+		List<Patient> list = q.list();
     	Set<Patient> patientSet = new HashSet<Patient>();
     	
     	if(list.isEmpty())
