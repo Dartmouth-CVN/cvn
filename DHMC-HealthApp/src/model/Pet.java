@@ -16,9 +16,9 @@ public class Pet {
 	}
 	
 	public Pet() {
-		this.name = "New Pet";
-		this.species = "";
-		this.allergyFriendly = false;
+		this.name.set("New Pet");
+		this.species.set("");
+		this.allergyFriendly.set(false);
 	}
 
 	public void setPetID(int id){

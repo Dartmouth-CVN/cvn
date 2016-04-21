@@ -16,7 +16,10 @@ import model.Patient;
 import model.Pet;
 
 public abstract class SVParsingUtils implements ParsingUtils {
-	abstract String getDelimiter();
+	static String getDelimiter() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	/**
 	 * getFile takes in the name of a file and returns its lines as an array of
@@ -26,7 +29,7 @@ public abstract class SVParsingUtils implements ParsingUtils {
 	 *            the name of the file to import
 	 * @return the lines of the file as an array of Strings
 	 */
-	public String[] getFile(String filename) {
+	public static String[] getFile(String filename) {
 		Scanner fileReader;
 		try {
 			fileReader = new Scanner(new File(filename));
@@ -50,7 +53,7 @@ public abstract class SVParsingUtils implements ParsingUtils {
 	 *            the name of the separated values file
 	 * @return a LinkedList of the imported Patients
 	 */
-	public Set<Patient> importData(String filename) {
+	public static Set<Patient> importData(String filename) {
 		Set<Patient> output = new LinkedHashSet<Patient>();
 		String[] lines = getFile(filename);
 		for (String patient : lines)
@@ -66,7 +69,7 @@ public abstract class SVParsingUtils implements ParsingUtils {
 	 * @param toInclude
 	 *            which fields to export
 	 */
-	public void exportData(String filename, LinkedList<Patient> patients, boolean[] toInclude) {
+	public static void exportData(String filename, LinkedList<Patient> patients, boolean[] toInclude) {
 		PrintWriter toFile;
 		try {
 			toFile = new PrintWriter(filename, "UTF-8");
@@ -88,7 +91,7 @@ public abstract class SVParsingUtils implements ParsingUtils {
 	 *            the values of the patient
 	 * @return the new Patient
 	 */
-	public Patient makePatient(String pt) {
+	public static Patient makePatient(String pt) {
 		String[] fields = splitLine(pt);
 		if (fields.length != 12)
 			return null;
@@ -129,7 +132,7 @@ public abstract class SVParsingUtils implements ParsingUtils {
 	 *            the line to split
 	 * @return the array of values
 	 */
-	private String[] splitLine(String toSplit) {
+	private static String[] splitLine(String toSplit) {
 		LinkedList<String> output = new LinkedList<String>();
 		String curVal = "";
 		boolean inQuotes = false;
@@ -164,7 +167,7 @@ public abstract class SVParsingUtils implements ParsingUtils {
 	 *            which fields to export
 	 * @return the Patient as a String of Separated Values
 	 */
-	public String patientToString(Patient p, boolean[] toInclude) {
+	public static String patientToString(Patient p, boolean[] toInclude) {
 		// Padding the array
 		if (toInclude == null)
 			toInclude = new boolean[0];
