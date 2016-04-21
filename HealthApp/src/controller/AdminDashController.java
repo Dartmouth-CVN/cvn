@@ -2,13 +2,8 @@ package controller;
 
 import java.io.IOException;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import model.MainApp;
 import model.Patient;

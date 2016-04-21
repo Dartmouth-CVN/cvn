@@ -1,6 +1,6 @@
 package utils;
 
-public class CSVParsingController extends SVParsingController{
+public class CSVParsingUtils extends SVParsingUtils{
 
 	@Override
 	String getDelimiter() {

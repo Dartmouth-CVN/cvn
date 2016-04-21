@@ -9,6 +9,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TitledPane;
 import model.MainApp;
+import utils.SVParsingUtils;
+import utils.XMLParsingUtils;
 
 public class ExportController extends AbsController {
 
@@ -154,16 +156,16 @@ public class ExportController extends AbsController {
 		}
 		String name = "Exported" + LocalTime.now(); 
 		if (CSVRadioButton.isSelected()) {
-			 SVParsingController.exportPatients(name + ".csv", MainApp.getDatabaseHandler().getPatientList(), fields);
+			 SVParsingUtils.exportData(name + ".csv", MainApp.getDatabaseHandler().getPatientList(), fields);
 			 MainApp.showAlert("Export CSV done");
 		} else if(TSVRadioButton.isSelected())  {
-			 SVParsingController.exportPatients(name + ".tsv", MainApp.getDatabaseHandler().getPatientList(), fields);
+			 SVParsingUtils.exportData(name + ".tsv", MainApp.getDatabaseHandler().getPatientList(), fields);
 			 MainApp.showAlert("Export TSV done");
 		}else if(XMLRadioButton.isSelected())  {
-			XMLParsingController.exportPatients(name + ".xml", MainApp.getDatabaseHandler().getPatientList());
+			XMLParsingUtils.exportData(name + ".xml", MainApp.getDatabaseHandler().getPatientList());
 			 MainApp.showAlert("Export XML done");
 		}else if(HTMLRadioButton.isSelected())  {
-			XMLParsingController.exportsPatients(name + ".html", MainApp.getDatabaseHandler().getPatientList());
+			XMLParsingUtils.exportsData(name + ".html", MainApp.getDatabaseHandler().getPatientList());
 			 MainApp.showAlert("Export HTML done");
 		}
 	}

@@ -1,19 +1,16 @@
-package controller;
+package utils;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.LinkedList;
-import java.util.Scanner;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
 
-import model.MainApp;
 import model.Patient;
 
-public class XMLParsingController implements ParsingController {
+public class XMLParsingUtils implements ParsingUtils {
 
 	@Override
 	public LinkedList<Patient> importData(String filename) {

@@ -133,7 +133,7 @@ public abstract class SVParsingUtils implements ParsingUtils {
 			char curChar = toSplit.charAt(i);
 			if (curChar == '\"')
 				inQuotes = !inQuotes;
-			else if (curChar == getDelimiter.charAt(0) && !inQuotes) {
+			else if (curChar == getDelimiter().charAt(0) && !inQuotes) {
 				String toAdd = curVal.trim();
 				output.add(toAdd);
 				curVal = "";
@@ -197,7 +197,7 @@ public abstract class SVParsingUtils implements ParsingUtils {
 													// quotes
 			fields[i] = (toInclude[i]) ? ("\"" + fieldsFromPatient[i] + "\"") : "";
 
-		return String.join(getDelimiter, fields);
+		return String.join(getDelimiter(), fields);
 	}
 
 }

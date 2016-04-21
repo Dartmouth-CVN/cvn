@@ -16,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import model.IDisplayable;
 import model.MainApp;
 import model.Patient;
+import utils.ObjectNotFoundException;
 
 public class SearchTabController {
 
@@ -118,9 +119,15 @@ public class SearchTabController {
 	 */
 	@FXML
 	private void handleEditProfile() {
-		Patient patient = MainApp.getDatabaseHandler().getPatient(userID);
-		if (patient != null)
-			mainApp.showEditProfile(patient);
+		Patient patient;
+		try {
+			patient = MainApp.getDatabaseHandler().getPatient(userID);
+			if (patient != null)
+				mainApp.showEditProfile(patient);
+		} catch (ObjectNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 	
