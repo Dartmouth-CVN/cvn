@@ -140,7 +140,7 @@ public class SearchTabController {
 			AnchorPane miniProfile = (AnchorPane) loader.load();
 
 			MiniPatientProfileController controller = loader.getController();
-			controller.setMain(mainApp);
+			controller.setMainApp(mainApp);
 			profileTab.setContent(miniProfile);
 			profileTabPane.getTabs().add(profileTab);
 			

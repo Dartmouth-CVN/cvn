@@ -34,6 +34,7 @@ public class ExportController extends AbsController {
 	CheckBox[] preference = new CheckBox[2];
 	
 	
+	
 	// Reference to the main application.
 	
 	private ArrayList<Boolean> fieldCheck;
@@ -165,7 +166,7 @@ public class ExportController extends AbsController {
 			XMLParsingUtils.exportData(name + ".xml", MainApp.getDatabaseHandler().getPatientList());
 			 MainApp.showAlert("Export XML done");
 		}else if(HTMLRadioButton.isSelected())  {
-			XMLParsingUtils.exportsData(name + ".html", MainApp.getDatabaseHandler().getPatientList());
+			XMLParsingUtils.exportData(name + ".html", MainApp.getDatabaseHandler().getPatientList());
 			 MainApp.showAlert("Export HTML done");
 		}
 	}
