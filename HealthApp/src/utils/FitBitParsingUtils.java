@@ -3,15 +3,24 @@ package utils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.Set;
+
+import model.HealthAttribute;
 import model.HealthInfo;
 import model.MainApp;
 import model.Patient;
 
 public class FitBitParsingUtils {
 
-	public static LinkedList<HealthInfo> fitBitImport(String str) {
+	Set<HealthInfo> healthInfo;
+
+	public static Set<HealthInfo> fitBitImport(String str) {
 		return fitBitImport(new File(str));
 	}
 
@@ -38,7 +47,7 @@ public class FitBitParsingUtils {
 			else if (curChar == delimiter.charAt(0) && !inQuotes) {
 				String toAdd = curVal.trim();
 				if (remCommas)
-					toAdd=removeCommas(toAdd);
+					toAdd = removeCommas(toAdd);
 				output.add(toAdd);
 				curVal = "";
 			} else {
@@ -48,26 +57,26 @@ public class FitBitParsingUtils {
 		if (curVal.length() > 0) {
 			String toAdd = curVal.trim();
 			if (remCommas)
-				toAdd=removeCommas(toAdd);
+				toAdd = removeCommas(toAdd);
 			output.add(toAdd);
 		}
 		String[] outputArr = new String[output.size()];
 		output.toArray(outputArr);
 		return outputArr;
 	}
-	
+
 	public static String[] splitSepValuesLineAndRemoveCommasFromVal(String s, String delimiter) {
 		return splitSepValuesLine(s, delimiter, true);
 	}
-	
+
 	/**
 	 * 
 	 * @param f:
 	 *            a CSV file containing fitbit data
 	 * @return a LinkedList of HealthInfo that contains all of the FitBit data
 	 */
-	public static LinkedList<HealthInfo> fitBitImport(File f) {
-		LinkedList<HealthInfo> output = new LinkedList<HealthInfo>();
+	public static Set<HealthInfo> fitBitImport(File f) {
+		Set<HealthInfo> output = new HashSet<HealthInfo>();
 		Scanner fileReader;
 		try {
 			fileReader = new Scanner(f);
@@ -77,8 +86,8 @@ public class FitBitParsingUtils {
 			return null;
 		}
 
-		int i = 0;
 		String state = "No State";
+		ArrayList<String> titles = new ArrayList<String>();
 		while (fileReader.hasNextLine()) {
 			String line = fileReader.nextLine();
 
@@ -88,55 +97,55 @@ public class FitBitParsingUtils {
 			String firstItem = line.split(",")[0];
 			if (firstItem.equals("Body")) {
 				state = "Body";
+				titles = (ArrayList<String>) Arrays.asList(fileReader.nextLine().split(","));
 				line = fileReader.nextLine();
-				continue;
 			} else if (firstItem.equals("Activities")) {
 				state = "Activities";
+				titles = (ArrayList<String>) Arrays.asList(fileReader.nextLine().split(","));
 				line = fileReader.nextLine();
-				i = 0;
-				continue;
 			} else if (firstItem.equals("Sleep")) {
 				state = "Sleep";
+				titles = (ArrayList<String>) Arrays.asList(fileReader.nextLine().split(","));
 				line = fileReader.nextLine();
-				i = 0;
-				continue;
 			} else if (state.equals("No State")) {
 				continue;
 			}
 			String[] info = splitSepValuesLineAndRemoveCommasFromVal(line, ",");
 
+			HealthInfo hi;
 			switch (state) {
 			case "Body":
-				HealthInfo hi = new HealthInfo();
+				hi = new HealthInfo();
 				System.out.println("Importing Body Info");
-				hi.setDate(info[0]);
-				hi.setWeight(Double.parseDouble(info[1]));
-				hi.setBmi(Double.parseDouble(info[2]));
-				hi.setFat(Double.parseDouble(info[3]));
+
+				hi.setDate(LocalDate.parse(info[0]));
+
+				for (int i = 1; i < info.length; i++) {
+					hi.setAttribute(new HealthAttribute<Double>(titles.get(i), Double.parseDouble(info[i])));
+				}
 				output.add(hi);
 				break;
 
 			case "Activities":
+				hi = new HealthInfo();
 				System.out.println("Importing Activity Info");
-				output.get(i).setCaloriesBurned(Double.parseDouble(info[1].replace(",", "")));
-				output.get(i).setSteps(Double.parseDouble(info[2].replace(",", "")));
-				output.get(i).setDistance(Double.parseDouble(info[3]));
-				output.get(i).setFloors(Double.parseDouble(info[4]));
-				output.get(i).setMinSedentary(Double.parseDouble(info[5]));
-				output.get(i).setMinLightlyActive(Double.parseDouble(info[6]));
-				output.get(i).setMinFairlyActive(Double.parseDouble(info[7]));
-				output.get(i).setMinVeryActive(Double.parseDouble(info[8]));
-				output.get(i).setActivityCalories(Double.parseDouble(info[9].replace(",", "")));
-				i++;
+				hi.setDate(LocalDate.parse(info[0]));
+
+				for (int i = 1; i < info.length; i++) {
+					hi.setAttribute(new HealthAttribute<Double>(titles.get(i), Double.parseDouble(info[i])));
+				}
+				output.add(hi);
 				break;
 
 			case "Sleep":
+				hi = new HealthInfo();
 				System.out.println("Importing Sleep Info");
-				output.get(i).setMinAsleep(Double.parseDouble(info[1]));
-				output.get(i).setMinAwake(Double.parseDouble(info[2]));
-				output.get(i).setNumAwakenings(Double.parseDouble(info[3]));
-				output.get(i).setTimeInBed(Double.parseDouble(info[4]));
-				i++;
+				hi.setDate(LocalDate.parse(info[0]));
+
+				for (int i = 1; i < info.length; i++) {
+					hi.setAttribute(new HealthAttribute<Double>(titles.get(i), Double.parseDouble(info[i])));
+				}
+				output.add(hi);
 				break;
 			}
 		}
@@ -168,8 +177,10 @@ public class FitBitParsingUtils {
 			return;
 		}
 		for (Patient p : pts) {
+			
 			toWrite.println(p.getFirstName() + " " + p.getLastName());
 			for (HealthInfo h : p.getHealthProfile().getHealthInfo()) {
+				
 				String toPrint = h.getDate() + "," + h.getHeight() + "," + h.getWeight() + "," + h.getBmi() + ","
 						+ h.getFat() + "," + h.getCaloriesBurned() + "," + h.getSteps() + "," + h.getDistance() + ","
 						+ h.getFloors() + "," + h.getMinSedentary() + "," + h.getMinLightlyActive() + ","
@@ -181,31 +192,33 @@ public class FitBitParsingUtils {
 		}
 		toWrite.close();
 	}
-	
+
 	public static String removeCommas(String s) {
-        String retVal = "";
-        for (int i = 0; i < s.length(); i++) {
-              if (s.charAt(i) != ',') {
-                    retVal += s.charAt(i);
-              }
-        }
-        return retVal;
-  }
- 
-  /**
-  * This function will check to see if a given string contains any nonwhitespace or noncomma characters
-  *
-   *
-   * @param s: the string to check
-  * @return a boolean that will be true if any valid characters are detected
-  */
-  static boolean hasData(String s) {
-        int counter = 0;
-        for(int i = 0; i < s.length(); i++) {
-              if(Character.isWhitespace(s.charAt(i)) || s.charAt(i) == ',') {
-                    counter++;
-              }
-        }
-        return counter != s.length();
-  }
+		String retVal = "";
+		for (int i = 0; i < s.length(); i++) {
+			if (s.charAt(i) != ',') {
+				retVal += s.charAt(i);
+			}
+		}
+		return retVal;
+	}
+
+	/**
+	 * This function will check to see if a given string contains any
+	 * nonwhitespace or noncomma characters
+	 *
+	 *
+	 * @param s:
+	 *            the string to check
+	 * @return a boolean that will be true if any valid characters are detected
+	 */
+	static boolean hasData(String s) {
+		int counter = 0;
+		for (int i = 0; i < s.length(); i++) {
+			if (Character.isWhitespace(s.charAt(i)) || s.charAt(i) == ',') {
+				counter++;
+			}
+		}
+		return counter != s.length();
+	}
 }

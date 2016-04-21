@@ -1,112 +1,39 @@
 package model;
-import java.util.LinkedList;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import java.time.LocalDate;
+import java.util.Set;
 
-public class MedicalStaff extends User {
-	
-	private StringProperty position = new SimpleStringProperty();
-	
-	protected LinkedList<Patient> assignedPatients;
-	private int medID;
-	
-	public MedicalStaff(String firstName, String lastName, String position, String userID, int medID) {
-		super(firstName, lastName, userID);
-		this.setPosition(position);;
-		this.setMedID(medID);
+public class MedicalStaff extends AbsUser {
+
+	Set<Patient> assignedPatients;
+	int medId;
+
+	public MedicalStaff(int userId, String firstName, String lastName, String username, String password,
+			LocalDate birthday, String room, Contact contactInfo, Schedule schedule) {
+		super(userId, firstName, lastName, username, password, birthday, room, contactInfo, schedule);
 	}
 	
-	public MedicalStaff(String userID) {
-		super("Enter First Name", "Enter Last Name", userID);
-		this.setMedID(0);
-	}
-	
-	public int addPatient (Patient patient) {
-		if(this.assignedPatients.contains(patient)){
-			System.out.println("The patient already exists");
-			return 0;
-		} else {
-			this.assignedPatients.add(patient);
-			return 1; //Will be changed to return 1 upon successfully updating the database
-		}
-	}
-	
-	public int removePatient (Patient patient) {
-		if(this.assignedPatients.contains(patient)){
-			this.assignedPatients.remove(patient);
-			return 1; //Will be changed to return 1 upon successfully updating the database
-		} else {
-			System.out.println("The patient requested doesn't seem to exist");
-			return 0;
-		}
-	}
-	
-	public int editPatient (Patient patient) {
-		if(this.assignedPatients.contains(patient)) {
-			//edit the patient
-			return 1;
-		} else {
-			System.out.println("The patient requested doesn't seem to exist");
-			return 0;
-		}
-	}
-	
-	public int exportPatient (Patient patient) {
-		if(this.assignedPatients.contains(patient)) {
-			//export the patient
-			return 1;
-		} else {
-			System.out.println("The patient requested doesn't seem to exist");
-			return 0;
-		}
-	}
-	
-	public int prescribe(Patient patient, Medication medication) {
-		return 0;
+	public MedicalStaff(int userId, String firstName, String lastName, String username, String password,
+			LocalDate birthday, String room, Contact contactInfo, Schedule schedule, int medId, Set<Patient> assignedPatients) {
+		super(userId, firstName, lastName, username, password, birthday, room, contactInfo, schedule);
+		this.medId = medId;
+		this.assignedPatients = assignedPatients;
 	}
 
-	public int getMedID() {
-		return medID;
+	public Set<Patient> getAssignedPatients() {
+		return assignedPatients;
 	}
 
-	public void setMedID(int medID) {
-		this.medID = medID;
+	public void setAssignedPatients(Set<Patient> assignedPatients) {
+		this.assignedPatients = assignedPatients;
 	}
 
-	@Override
-	public StringProperty getFirstNameProperty() {
-		// TODO getFirstNameProperty
-		return null;
+	public int getMedId() {
+		return medId;
 	}
 
-	@Override
-	public StringProperty getLastNameProperty() {
-		// TODO getLastNameProperty
-		return null;
+	public void setMedId(int medId) {
+		this.medId = medId;
 	}
 
-	@Override
-	public StringProperty getUserIDProperty() {
-		// TODO getUserIDProperty
-		return null;
-	}
-
-	public StringProperty positionProperty() {
-		return position;
-	}
-	
-    public final String getPosition() {
-        return positionProperty().get();
-    }
-
-    public final void setPosition(String position) {
-        positionProperty().set(position);
-    }
-
-	@Override
-	public void initObservers() {
-		// TODO initObservers
-		
-	}
 }

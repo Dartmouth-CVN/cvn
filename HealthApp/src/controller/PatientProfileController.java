@@ -85,9 +85,9 @@ public class PatientProfileController extends AbsController {
 		ObservableList<Caregiver> caregivers = MainApp.getDatabaseHandler().searchPatientCaregiver(patient);
 		careGiversTable.setItems(caregivers);
 		
-		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
-		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
-		positionColumn.setCellValueFactory(cellData -> cellData.getValue().positionProperty());
+//		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
+//		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
+//		positionColumn.setCellValueFactory(cellData -> cellData.getValue().positionProperty());
 		//assignedStaff needs to be implemented in databaseHandler
 		ObservableList<MedicalStaff> personData = MainApp.getDatabaseHandler().searchPatientAssignedStaff(patient);
 		assignedStaffTable.setItems(personData);
