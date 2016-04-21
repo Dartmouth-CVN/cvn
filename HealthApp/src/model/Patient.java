@@ -26,6 +26,10 @@ public class Patient extends AbsUser {
 		this.assignedStaff = assignedStaff;
 		this.caregivers = caregivers;
 	}
+	
+	public Patient(String firstName, String lastName){
+		super(0, firstName, lastName, "", "", null,"", new Contact(), new Schedule());
+	}
 
 	public int getPatientId() {
 		return patientId;
