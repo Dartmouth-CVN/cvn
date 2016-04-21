@@ -23,6 +23,12 @@ public class ExportFieldsController {
 	@FXML
 	private RadioButton XMLRadioButton = new RadioButton();
 	@FXML
+	private RadioButton CSVImportButton = new RadioButton();
+	@FXML
+	private RadioButton TSVImportButton = new RadioButton();
+	@FXML
+	private RadioButton XMLImportButton = new RadioButton();
+	@FXML
 	private RadioButton HTMLRadioButton = new RadioButton();
 	@FXML
 	private CheckBox firstNameCheckBox = new CheckBox();
@@ -107,6 +113,7 @@ public class ExportFieldsController {
 	
 	
 	// Reference to the main application.
+	@SuppressWarnings("unused")
 	private MainApp mainApp;
 	
 	private ArrayList<Boolean> fieldCheck;
