@@ -2,6 +2,7 @@ package model;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import java.time.LocalDate;
 
@@ -63,9 +64,20 @@ public class HealthProfile {
 	}
 	
 	public String toString() {
-		String retString = "Health Profile.";
+		Iterator<String> allergiesIter = allergies.iterator();
+		Iterator<String> dietaryRestrictionsIter = dietaryRestrictions.iterator();
+		String retString = "Health Profile.\n\nFitBit Data";
+		
 		for(LocalDate date : healthInfo.keySet()) {
 			retString += ("\n" + healthInfo.get(date).toString());
+		}
+		retString += ("\nAllergies:");
+		while (allergiesIter.hasNext()) {
+		    retString +=("\n" + allergiesIter.next());
+		}
+		retString += ("\nDietary Restrictions:");
+		while (dietaryRestrictionsIter.hasNext()) {
+		    retString +=("\n" + dietaryRestrictionsIter.next());
 		}
 		return retString;
 	}
