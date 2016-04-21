@@ -705,7 +705,7 @@ public class DatabaseHandler {
 				ps.setInt(1, p.getPatientID());
 				rs = ps.executeQuery();
 				while (rs.next()) {
-					Caregiver caregiver = new Caregiver(rs.getString("name"), asLocalDate(rs.getDate("birthday")), rs.getString("relation"), 
+					Caregiver caregiver = new Caregiver(rs.getString("name"), asLocalDate(rs.getDate("birthday")).toString(), rs.getString("relation"), 
 							(Contact)rs.getObject("contact_info"), rs.getBoolean("isFamily?"));
 					caregiverList.add(caregiver);
 				}
