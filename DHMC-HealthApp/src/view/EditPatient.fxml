@@ -19,7 +19,7 @@
    <children>
       <AnchorPane layoutX="-3.0" layoutY="3.0" prefHeight="700.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button layoutX="542.0" layoutY="656.0" mnemonicParsing="false" onAction="#save" prefHeight="30.0" prefWidth="90.0" text="Save" />
+            <Button layoutX="684.0" layoutY="657.0" mnemonicParsing="false" onAction="#save" prefHeight="30.0" prefWidth="90.0" text="Save" />
             <Accordion prefHeight="771.0" prefWidth="1235.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <panes>
                   <TitledPane animated="false" prefWidth="1210.0" text="General Information">
@@ -61,7 +61,6 @@
                                     <Image url="@../../resources/images/blank-profile-picture.png" />
                                  </image>
                               </ImageView>
-                              <Button layoutX="314.0" layoutY="409.0" mnemonicParsing="false" onAction="#importFitBitCSV" text="Import FitBit Data" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -164,6 +163,8 @@
                   </TitledPane>
                </panes>
             </Accordion>
+            <Button layoutX="389.0" layoutY="657.0" mnemonicParsing="false" onAction="#importFitBitCSV" prefHeight="30.0" prefWidth="126.0" text="Import FitBit Data" />
+            <Button layoutX="537.0" layoutY="657.0" mnemonicParsing="false" onAction="#exportFitBitCSV" prefHeight="30.0" prefWidth="126.0" text="Export FitBit Data" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="537.0" AnchorPane.rightAnchor="537.0" AnchorPane.topAnchor="657.0" />
          </children>
       </AnchorPane>
    </children>

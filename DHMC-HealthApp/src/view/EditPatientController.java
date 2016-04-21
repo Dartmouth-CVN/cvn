@@ -78,6 +78,15 @@ public class EditPatientController {
 			MainApp.showAlert("FitBit import successful!");
 		}
 	}
+	
+	@FXML
+	public void exportFitBitCSV() {
+		curCSV = new File(p.getFirstName()+p.getLastName()+"-fitbitexport.csv");
+		if (curCSV != null && curCSV.exists()) {
+			controller.FitBitParsingUtils.fitbitExport(curCSV, p);
+			MainApp.showAlert("FitBit export successful!");
+		}
+	}
 
 	// Functions and attributes to communicate with EditPatient.fxml
 
