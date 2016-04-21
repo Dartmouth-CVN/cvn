@@ -4,14 +4,23 @@ import java.util.LinkedList;
 
 public class HealthProfile {
 
-	private LinkedList<HealthInfo> healthInfo;
-	private LinkedList<String> allergies;
-	private LinkedList<String> dietaryRestrictions;
-	
+	int healthProfileId;
+	LinkedList<HealthInfo> healthInfo;
+	LinkedList<String> allergies;
+	LinkedList<String> dietaryRestrictions;
+
 	public HealthProfile() {
 		this.healthInfo = new LinkedList<HealthInfo>();
 	}
 	
+	public int getHealthProfileId(){
+		return healthProfileId;
+	}
+	
+	public void setHealthProfileId(int healthProfileId){
+		this.healthProfileId = healthProfileId;
+	}
+
 	public LinkedList<HealthInfo> getHealthInfo() {
 		return healthInfo;
 	}
@@ -19,15 +28,15 @@ public class HealthProfile {
 	public void setHealthInfo(LinkedList<HealthInfo> healthInfo) {
 		this.healthInfo = healthInfo;
 	}
-	
+
 	public void addHealthInfo(HealthInfo newInfo) {
 		this.healthInfo.add(newInfo);
 	}
-	
+
 	public void addHealthInfoList(LinkedList<HealthInfo> info) {
-		for(int i = 0; i < info.size(); i++) {
-			for(int j = 0; j< healthInfo.size(); j++) {
-				if(info.get(i).equals(healthInfo.get(j))) {
+		for (int i = 0; i < info.size(); i++) {
+			for (int j = 0; j < healthInfo.size(); j++) {
+				if (info.get(i).equals(healthInfo.get(j))) {
 					info.remove(i);
 				}
 			}

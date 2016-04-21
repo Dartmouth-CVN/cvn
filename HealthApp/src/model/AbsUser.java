@@ -13,7 +13,6 @@ public abstract class AbsUser {
 	Contact contactInfo;
 	Schedule schedule;
 	
-	
 	public AbsUser(int userId, String firstName, String lastName, String username, String password, LocalDate birthday,
 			String room, Contact contactInfo, Schedule schedule) {
 		this.userId = userId;

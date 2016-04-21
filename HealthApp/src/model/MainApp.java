@@ -26,7 +26,7 @@ public class MainApp extends Application {
 		dbHandler = DatabaseHandler.getUniqueInstance();
 
 		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("DHMC - Health App v1.0");
+		this.primaryStage.setTitle("DHMC - Health App v2.0");
 
 		showLogin();
 	}

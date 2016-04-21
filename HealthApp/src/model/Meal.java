@@ -1,84 +1,58 @@
 package model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.StringProperty;
-
 public class Meal {
-	private StringProperty food;
-	private IntegerProperty calories;
-	private IntegerProperty rating;
-	private StringProperty notes;
-	private int mealID;
+	private int mealId;
+	private String food;
+	private int calories;
+	private int rating;
+	private String notes;
 	
-	public Meal(StringProperty food, IntegerProperty calories, IntegerProperty rating, StringProperty notes){
+
+	public Meal(){
+		food = "";
+		notes = "";
+	}
+	
+	public Meal(int mealId, String food, int calories, int rating, String notes) {
+		super();
+		this.mealId = mealId;
 		this.food = food;
 		this.calories = calories;
 		this.rating = rating;
 		this.notes = notes;
 	}
 	
-	public Meal() {
-		this.food.set("");
-		this.calories.set(0);
-		this.rating.set(0);
-		this.notes.set("");
+	public int getMealId() {
+		return mealId;
 	}
-
-	public int getMealID(){
-		return this.mealID;
+	public void setMealId(int mealId) {
+		this.mealId = mealId;
 	}
-	
-	public void setMealID(int id){
-		this.mealID = id;
-	}
-	
-	public StringProperty foodProperty() {
+	public String getFood() {
 		return food;
 	}
-	
-    public final String getFood() {
-        return foodProperty().get();
-    }
-
-    public final void setFood(String food) {
-        foodProperty().set(food);
-    }
-    
-	public IntegerProperty caloriesProperty() {
+	public void setFood(String food) {
+		this.food = food;
+	}
+	public int getCalories() {
 		return calories;
 	}
-	
-    public final int getCalories() {
-        return caloriesProperty().get();
-    }
-
-    public final void setCalories(int calories) {
-        caloriesProperty().set(calories);
-    }
-    
-    public IntegerProperty ratingProperty() {
-    	
-    	return rating;
-    }
-	
-    public final int getRating() {
-        return ratingProperty().get();
-    }
-
-    public final void setRating(int rating) {
-        ratingProperty().set(rating);
-    }
-    
-	public StringProperty notesProperty() {
+	public void setCalories(int calories) {
+		this.calories = calories;
+	}
+	public int getRating() {
+		return rating;
+	}
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+	public String getNotes() {
 		return notes;
 	}
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
 	
-    public final String getNotes() {
-        return notesProperty().get();
-    }
-
-    public final void setNotes(String notes) {
-        notesProperty().set(notes);
-    }
+	
 }
 

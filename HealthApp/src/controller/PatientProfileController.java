@@ -93,10 +93,10 @@ public class PatientProfileController extends AbsController {
 		assignedStaffTable.setItems(personData);
 		
 
-		foodColumn.setCellValueFactory(cellData -> cellData.getValue().foodProperty());
-		caloriesColumn.setCellValueFactory(cellData -> cellData.getValue().caloriesProperty());
-		ratingColumn.setCellValueFactory(cellData -> cellData.getValue().ratingProperty());
-		notesColumn.setCellValueFactory(cellData -> cellData.getValue().notesProperty());
+//		foodColumn.setCellValueFactory(cellData -> cellData.getValue().foodProperty());
+//		caloriesColumn.setCellValueFactory(cellData -> cellData.getValue().caloriesProperty());
+//		ratingColumn.setCellValueFactory(cellData -> cellData.getValue().ratingProperty());
+//		notesColumn.setCellValueFactory(cellData -> cellData.getValue().notesProperty());
 
 		//assignedStaff needs to be implemented in databaseHandler
 		ObservableList<Meal> meals = MainApp.getDatabaseHandler().searchPatientMeal(patient);
