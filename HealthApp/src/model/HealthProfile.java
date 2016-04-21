@@ -62,5 +62,10 @@ public class HealthProfile {
 		this.dietaryRestrictions = dietaryRestrictions;
 	}
 	
+	public String toString() {
+		String retString = "Health Profile.";
+		healthInfo.forEach((k, v)-> retString += ("\n" + v.toString()));
+		return "";
+	}
 	
 }
