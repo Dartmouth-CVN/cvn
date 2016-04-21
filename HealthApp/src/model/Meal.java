@@ -1,4 +1,8 @@
 package model;
+
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
+
 public class Meal {
 	private int mealID;
 	private String food;
@@ -58,6 +62,26 @@ public class Meal {
 
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+
+	public StringProperty getFoodProperty() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public IntegerProperty getCaloriesProperty() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public IntegerProperty getRatingProperty() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public StringProperty getNotesProperty() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

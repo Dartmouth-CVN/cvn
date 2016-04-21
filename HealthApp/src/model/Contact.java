@@ -3,6 +3,8 @@ package model;
 import java.io.Serializable;
 import java.util.LinkedList;
 
+import javafx.beans.property.StringProperty;
+
 public class Contact implements Serializable {
 	/**
 	 * 
@@ -122,6 +124,21 @@ public class Contact implements Serializable {
 	public void makePrimaryAddress(String address) {
 		this.removeAddress(address);
 		this.address.addFirst(address);
+	}
+
+	public StringProperty getAddressProperty() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public StringProperty getPhoneProperty() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public StringProperty getEmailProperty() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
