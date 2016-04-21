@@ -80,14 +80,20 @@ public class SearchTabController {
 	}
 
 	private void showUserDetails(IDisplayable user) {
-		Patient p = MainApp.getDatabaseHandler().getPatient(user.getUserID());
-		nameLabel.setText(p.getFirstName() + " " + p.getLastName());
-		Random rand = new Random();
-		doctorLabel.setText("Doctor " + (rand.nextInt(10) + 1));
-		roomLabel.setText("Room " + (rand.nextInt(10) + 1));
-		nurseLabel.setText("Nurse " + (rand.nextInt(10) + 1));
-		phoneLabel.setText(p.getContactInfo().getPrimaryPhone());
-		userID = p.getUserID();
+		Patient p;
+		try {
+			p = MainApp.getDatabaseHandler().getPatient(user.getUserID());
+			nameLabel.setText(p.getFirstName() + " " + p.getLastName());
+			Random rand = new Random();
+			doctorLabel.setText("Doctor " + (rand.nextInt(10) + 1));
+			roomLabel.setText("Room " + (rand.nextInt(10) + 1));
+			nurseLabel.setText("Nurse " + (rand.nextInt(10) + 1));
+			phoneLabel.setText(p.getContactInfo().getPrimaryPhone());
+			userID = p.getUserID();
+		} catch (ObjectNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**

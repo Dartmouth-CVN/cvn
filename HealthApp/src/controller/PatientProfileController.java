@@ -1,4 +1,4 @@
-package view;
+package controller;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -117,16 +117,9 @@ public class PatientProfileController extends AbsController {
 		careGiversTable.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> showCareGiversContactInfo(newValue));
 	}
-<<<<<<< HEAD
-	
-	public PatientProfileController(IDisplayable user) {
-=======
 
-
-	
 	public PatientProfileController(MainApp mainApp) {
 		super(mainApp);
->>>>>>> 1de48320ffd708d6b0d64c7a1f996ddf33d84287
 	}
 	
 	/**
