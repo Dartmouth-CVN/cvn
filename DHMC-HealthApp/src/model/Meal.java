@@ -18,10 +18,10 @@ public class Meal {
 	}
 	
 	public Meal() {
-		this.food = "New Meal";
-		this.calories = 0;
-		this.rating = 0;
-		this.notes = "";
+		this.food.set("");
+		this.calories.set(0);
+		this.rating.set(0);
+		this.notes.set("");
 	}
 
 	public int getMealID(){
