@@ -10,7 +10,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TitledPane;
 import model.MainApp;
 import utils.CSVParsingUtils;
-import utils.SVParsingUtils;
 import utils.TSVParsingUtils;
 import utils.XMLParsingUtils;
 
