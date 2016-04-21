@@ -1,0 +1,69 @@
+Dartmouth Hitchcock CSS Colors
+
+
+Green
+HTML code: 	#005A58
+RGB code: 	R: 0 G: 90 B: 88
+HSV: 	178.67° 100% 35.29%
+
+Use:
+Background, Text
+
+Pair:
+White
+
+White
+HTML code: 	#FFFFFF
+RGB code: 	R: 255 G: 255 B: 255
+HSV: 	0° 0% 100%
+
+Use:
+Background, Text
+
+Pair:
+Green, Blue
+
+Orange
+HTML code: 	#C55132
+RGB code: 	R: 197 G: 81 B: 50
+HSV: 	12.65° 74.62% 77.25%
+
+Use:
+Highlights
+
+Pair:
+Dark Gray
+
+
+Blue
+HTML code: 	#1A3B61
+RGB code: 	R: 26 G: 59 B: 97
+HSV: 	212.11° 73.2% 38.04%
+
+Use:
+Buttons, Text
+
+Pair:
+White
+
+Dark Gray
+HTML code: 	#353535
+RGB code: 	R: 53 G: 53 B: 53
+HSV: 	0° 0% 20.78%
+
+Use:
+Menu Bars
+
+Pair:
+Orange
+
+Light Gray
+HTML code: 	#B1B1B1
+RGB code: 	R: 177 G: 177 B: 177
+HSV: 	0° 0% 69.41%
+
+Use:
+Text
+
+Pair:
+White

@@ -44,6 +44,8 @@ public class MiniPatientProfileController extends AbsController {
 	private Label phoneLabel = new Label();
 	@FXML
 	private Label emailLabel = new Label();
+	@FXML
+	private Label assignedStaffLabel = new Label();
 	
 
 	private String userID;
@@ -64,6 +66,7 @@ public class MiniPatientProfileController extends AbsController {
 		// set table listener
 		assignedStaffTable.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> showMedStaffDetails(newValue));
+		assignedStaffLabel.setId("assignedStaff");
 	}
 	
 	public MiniPatientProfileController(MainApp mainApp) {
