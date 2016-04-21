@@ -23,6 +23,7 @@ public class PatientProfile {
 		return profileId;
 	}
 	
+	@SuppressWarnings("unused")
 	private void setProfileId(int profileId){
 		this.profileId = profileId;
 	}

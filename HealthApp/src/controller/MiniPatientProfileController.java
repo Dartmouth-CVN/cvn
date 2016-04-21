@@ -18,6 +18,8 @@ import model.Patient;
 import utils.ObjectNotFoundException;
 
 public class MiniPatientProfileController extends AbsController {
+	
+	private Patient patient;
 
 	// Integer will be replaced with Profile model
 	@FXML
@@ -56,10 +58,10 @@ public class MiniPatientProfileController extends AbsController {
 	 * after the fxml file has been loaded.
 	 */
 	@FXML
-	private void initialize(Patient patient) {
-		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
-		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
-		positionColumn.setCellValueFactory(cellData -> cellData.getValue().positionProperty());
+	private void initialize() {
+//		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
+//		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
+//		positionColumn.setCellValueFactory(cellData -> cellData.getValue().positionProperty());
 		//assignedStaff needs to be implemented in databaseHandler
 		ObservableList<MedicalStaff> personData = MainApp.getDatabaseHandler().searchPatientAssignedStaff(patient);
 		assignedStaffTable.setItems(personData);
@@ -69,8 +71,9 @@ public class MiniPatientProfileController extends AbsController {
 		assignedStaffLabel.setId("assignedStaff");
 	}
 	
-	public MiniPatientProfileController(MainApp mainApp) {
+	public MiniPatientProfileController(MainApp mainApp, Patient patient) {
 		super(mainApp);
+		this.patient = patient;
 	}
 	
 	/**
@@ -97,13 +100,13 @@ public class MiniPatientProfileController extends AbsController {
 			if (patient != null)
 				mainApp.showEditProfile(patient);
 		} catch (ObjectNotFoundException e) {
-			// TODO Auto-generated catch block
+			// TODO handleEditProfile catch block
 			e.printStackTrace();
 		}
 	}
 	
 	/**
-	 * TODO make a new view to see the patient's data without editing it
+	 *
 	 * 
 	 * This function will open a patient to view their information
 	 * 
@@ -130,7 +133,7 @@ public class MiniPatientProfileController extends AbsController {
 	}
 	
 	/**
-	 * TODO make a new view to see the patient's data without editing it
+	 *
 	 * 
 	 * This function will open a patient to view their information
 	 * 
@@ -141,7 +144,7 @@ public class MiniPatientProfileController extends AbsController {
 	}
 	
 	/**
-	 * TODO call the database to remove the patient
+	 * TODO removePatient
 	 * 
 	 * This function will remove a patient from the database
 	 * 
