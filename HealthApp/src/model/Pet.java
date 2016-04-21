@@ -26,6 +26,7 @@ public class Pet {
 		return petId;
 	}
 	
+	@SuppressWarnings("unused")
 	private void setPetId(int id){
 		this.petId = id;
 	}

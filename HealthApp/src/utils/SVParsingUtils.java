@@ -11,7 +11,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import model.MainApp;
-import model.MedicalStaff;
 import model.Patient;
 import model.Pet;
 
@@ -98,7 +97,7 @@ public abstract class SVParsingUtils implements ParsingUtils {
 		Patient output = new Patient(fields[1], fields[2]);
 		String[] staff = fields[4].split(",");
 		for (String member : staff)
-			output.getAssignedStaff().add(new MedicalStaff(member));
+			output.getAssignedStaff().add(MainApp.getDatabaseHandler().getMedicalStaff(member));
 
 		@SuppressWarnings("unused") // Medication currently disabled
 		String[] meds = fields[5].split(",");
