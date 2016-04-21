@@ -35,8 +35,6 @@ public class ExportController extends AbsController {
 	CheckBox[] health = new CheckBox[18];
 	CheckBox[] preference = new CheckBox[2];
 
-	// Reference to the main application.
-
 	private ArrayList<Boolean> fieldCheck;
 
 	/**

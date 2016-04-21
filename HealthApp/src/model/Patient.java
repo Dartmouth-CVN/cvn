@@ -70,4 +70,9 @@ public class Patient extends AbsUser {
 	public void setCaregivers(Set<Caregiver> caregivers) {
 		this.caregivers = caregivers;
 	}
+
+	public String getUserID() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -8,10 +8,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Control;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
@@ -20,7 +16,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import model.Caregiver;
 import model.DisplayString;
@@ -398,9 +393,9 @@ public class EditPatientController {
 		
 		p.getContactInfo().makePrimaryAddress(patientAddress.getText());
 
-		if ( (p.getNewPatient() && p.save()) || (!p.getNewPatient() && p.update())) {
-			MainApp.showAlert("Update successful!");
-		}
+//		if ( (p.getNewPatient() && save()) || (!p.getNewPatient() && update())) {
+//			MainApp.showAlert("Update successful!");
+//		}
 	}
 	
 }
