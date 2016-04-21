@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 public class Schedule {
 	
-	int scheduleID;
+	int scheduleId;
 	private LinkedList<Event> events;
 	
 	public Schedule () {
@@ -13,6 +13,14 @@ public class Schedule {
 	
 	public Schedule (LinkedList<Event> events) {
 		this.events = events;
+	}
+	
+	public int getScheduleId(){
+		return scheduleId;
+	}
+	
+	public void setScheduleId(int scheduleId){
+		this.scheduleId = scheduleId;
 	}
 	
 	//The setters

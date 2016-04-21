@@ -3,6 +3,7 @@ package model;
 import java.time.LocalDate;
 
 public class HealthInfo {
+	int healthInfoId;
 	LocalDate date;
 	HealthAttribute<?> attribute;
 	
@@ -12,6 +13,14 @@ public class HealthInfo {
 	public HealthInfo(LocalDate date, HealthAttribute<?> attribute) {
 		this.date = date;
 		this.attribute = attribute;
+	}
+	
+	public int getHealthInfoId() {
+		return healthInfoId;
+	}
+
+	public void setHealthInfoId(int healthInfoId) {
+		this.healthInfoId = healthInfoId;
 	}
 
 	public LocalDate getDate() {
