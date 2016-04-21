@@ -16,7 +16,6 @@ import model.Pet;
 
 public abstract class SVParsingUtils implements ParsingUtils {
 	static String getDelimiter() {
-		// TODO getDelimiter
 		return null;
 	}
 
@@ -68,7 +67,7 @@ public abstract class SVParsingUtils implements ParsingUtils {
 	 * @param toInclude
 	 *            which fields to export
 	 */
-	public static void exportData(String filename, LinkedList<Patient> patients, boolean[] toInclude) {
+	public static void exportData(String filename, Set<Patient> patients, boolean[] toInclude) {
 		PrintWriter toFile;
 		try {
 			toFile = new PrintWriter(filename, "UTF-8");
@@ -92,32 +91,32 @@ public abstract class SVParsingUtils implements ParsingUtils {
 	 */
 	public static Patient makePatient(String pt) {
 		String[] fields = splitLine(pt);
-		if (fields.length != 12)
+		if (fields.length != 11)
 			return null;
-		Patient output = new Patient(fields[1], fields[2]);
-		String[] staff = fields[4].split(",");
+		Patient output = new Patient(fields[0], fields[1]);
+		String[] staff = fields[3].split(",");
 		for (String member : staff)
 			output.getAssignedStaff().add(MainApp.getDatabaseHandler().getMedicalStaff(member));
 
 		@SuppressWarnings("unused") // Medication currently disabled
-		String[] meds = fields[5].split(",");
+		String[] meds = fields[4].split(",");
 		// for (String med : meds)
 		// output.addMedication(new Medication(med));
 
-		String address = fields[6];
+		String address = fields[5];
 		output.getContactInfo().addAddress(address);
-		String[] phoneNumbers = fields[7].split(",");
+		String[] phoneNumbers = fields[6].split(",");
 		for (String number : phoneNumbers)
 			output.getContactInfo().addPhone(number);
-		String email = fields[8];
+		String email = fields[7];
 		output.getContactInfo().addEmail(email);
-		String[] pets = fields[9].split(",");
+		String[] pets = fields[8].split(",");
 		for (String pet : pets)
 			output.getPatientProfile().addPet(new Pet(pet, null, false));
-		String[] allergies = fields[10].split(",");
+		String[] allergies = fields[9].split(",");
 		for (String allergy : allergies)
 			output.getHealthProfile().getAllergies().add(allergy);
-		String[] dietaryNeeds = fields[11].split(",");
+		String[] dietaryNeeds = fields[10].split(",");
 		for (String diet : dietaryNeeds)
 			output.getHealthProfile().getDietaryRestrictions().add(diet);
 		return output;
@@ -180,13 +179,17 @@ public abstract class SVParsingUtils implements ParsingUtils {
 		}
 
 		// The below array mirrors the format of toInclude[], for example, if
-		// toInclude[3] is false, caregivers will not be included.
-		String[] fields = {"firstname", "lastname", "caregivers", "assignedstaff", "medication", "address",
-				"phone", "email", "pets", "allergies", "dietrestrictions" };
+		// toInclude[3] is false, assignedstaff will not be included.
+		String[] fields = { "firstname", "lastname", "caregivers", "assignedstaff", "medication", "address", "phone",
+				"email", "pets", "allergies", "dietrestrictions" };
 
-		String[] fieldsFromPatient = {p.getFirstName(), p.getLastName(),
+		String[] fieldsFromPatient = {
+				p.getFirstName(), p
+						.getLastName(),
 				String.join(",",
-						p.getCaregivers().stream().map(caregiver -> caregiver.getFirstName()+" "+caregiver.getLastName()).collect(Collectors.toList())),
+						p.getCaregivers().stream()
+								.map(caregiver -> caregiver.getFirstName() + " " + caregiver.getLastName())
+								.collect(Collectors.toList())),
 				String.join(",",
 						p.getAssignedStaff().stream().map(staff -> staff.getFirstName() + " " + staff.getLastName())
 								.collect(Collectors.toList())),
