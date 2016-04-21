@@ -113,7 +113,7 @@ public class PatientProfileController extends AbsController {
 		ObservableList<Pet> pets = MainApp.getDatabaseHandler().searchPatientPet(patient);
 		petTable.setItems(pets);
 		
-		// TODO: Find new way to manage this data without migrating everything to StringProperty
+		// TODO: Manage Contact Data
 		
 //		addressColumn.setCellValueFactory(cellData -> cellData.getValue().getAddressProperty());
 //		phoneColumn.setCellValueFactory(cellData -> cellData.getValue().getPhoneProperty());
@@ -139,7 +139,7 @@ public class PatientProfileController extends AbsController {
 		Caregiver cg = MainApp.getDatabaseHandler().getCaregiver(caregiver.getCaregiverID());
 		//nameLabel.setText(ms.getFirstName() + " " + ms.getLastName());	
 		Contact contactInfo = cg.getContactInfo();
-		// TODO: Show caregiver contact info
+		// TODO: Display caregiver contact info
 		
 	}
 }
