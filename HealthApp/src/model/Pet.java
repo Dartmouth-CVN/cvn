@@ -55,17 +55,17 @@ public class Pet {
 	}
 
 	public StringProperty getNameProperty() {
-		// TODO Auto-generated method stub
+		// TODO getNameProperty
 		return null;
 	}
 
 	public StringProperty getSpeciesProperty() {
-		// TODO Auto-generated method stub
+		// TODO getSpeciesProperty
 		return null;
 	}
 
 	public BooleanProperty getAllergyFriendlyProperty() {
-		// TODO Auto-generated method stub
+		// TODO getAllergyFriendlyProperty
 		return null;
 	}
 	

@@ -127,17 +127,17 @@ public class Contact implements Serializable {
 	}
 
 	public StringProperty getAddressProperty() {
-		// TODO Auto-generated method stub
+		// TODO getAddressProperty
 		return null;
 	}
 
 	public StringProperty getPhoneProperty() {
-		// TODO Auto-generated method stub
+		// TODO getPhoneProperty
 		return null;
 	}
 
 	public StringProperty getEmailProperty() {
-		// TODO Auto-generated method stub
+		// TODO getEmailProperty
 		return null;
 	}
 

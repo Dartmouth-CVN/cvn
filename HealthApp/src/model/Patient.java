@@ -72,7 +72,7 @@ public class Patient extends AbsUser {
 	}
 
 	public String getUserID() {
-		// TODO Auto-generated method stub
+		// TODO getUserID
 		return null;
 	}
 }

@@ -49,27 +49,27 @@ public class Caregiver extends AbsUser {
 	}
 
 	public StringProperty getNameProperty() {
-		// TODO Auto-generated method stub
+		// TODO getNameProperty
 		return null;
 	}
 
 	public StringProperty getBirthdayProperty() {
-		// TODO Auto-generated method stub
+		// TODO getBirthdayProperty
 		return null;
 	}
 
 	public StringProperty getRelationProperty() {
-		// TODO Auto-generated method stub
+		// TODO getRelationProperty
 		return null;
 	}
 
 	public BooleanProperty getInFamilyProperty() {
-		// TODO Auto-generated method stub
+		// TODO getInFamilyProperty
 		return null;
 	}
 
 	public int getCaregiverID() {
-		// TODO Auto-generated method stub
+		// TODO getCaregiverID
 		return 0;
 	}
 }

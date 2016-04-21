@@ -74,52 +74,52 @@ public class DatabaseHandler {
     }
     
 	public LinkedList<Patient> getPatientList() {
-		// TODO Return patient list from new database
+		// 
 		return null;
 	}
 
 	public static DatabaseHandler getUniqueInstance() {
-		// TODO Determine how to handle calls for the unique instance of the database
+		// TODO getUniqueInstance
 		return null;
 	}
 
 	public Caregiver getCaregiver(int caregiverID) {
-		// TODO Return caregiver
+		// TODO getCaregiver
 		return null;
 	}
 
 	public ObservableList<Caregiver> searchPatientCaregiver(Patient patient) {
-		// TODO Search caregivers
+		// TODO searchPatientCaregiver
 		return null;
 	}
 
 	public ObservableList<MedicalStaff> searchPatientAssignedStaff(Patient patient) {
-		// TODO Search assigned staff
+		// TODO searchPatientAssignedStaff
 		return null;
 	}
 
 	public ObservableList<Meal> searchPatientMeal(Patient patient) {
-		// TODO Auto-generated method stub
+		// TODO searchPatientMeal
 		return null;
 	}
 
 	public ObservableList<Pet> searchPatientPet(Patient patient) {
-		// TODO Auto-generated method stub
+		// TODO searchPatientPet
 		return null;
 	}
 
 	public MedicalStaff getMedicalStaff(String userID) {
-		// TODO Auto-generated method stub
+		// TODO getMedicalStaff
 		return null;
 	}
 
 	public ObservableList<IDisplayable> searchPatient(String name) {
-		// TODO Auto-generated method stub
+		// TODO searchPatient
 		return null;
 	}
 
 	public ObservableList<IDisplayable> searchPatient() {
-		// TODO Auto-generated method stub
+		// TODO searchPatient (no params, so return all patients)
 		return null;
 	}
 }

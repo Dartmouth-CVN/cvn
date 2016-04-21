@@ -76,19 +76,19 @@ public class MedicalStaff extends User {
 
 	@Override
 	public StringProperty getFirstNameProperty() {
-		// TODO Auto-generated method stub
+		// TODO getFirstNameProperty
 		return null;
 	}
 
 	@Override
 	public StringProperty getLastNameProperty() {
-		// TODO Auto-generated method stub
+		// TODO getLastNameProperty
 		return null;
 	}
 
 	@Override
 	public StringProperty getUserIDProperty() {
-		// TODO Auto-generated method stub
+		// TODO getUserIDProperty
 		return null;
 	}
 
@@ -106,7 +106,7 @@ public class MedicalStaff extends User {
 
 	@Override
 	public void initObservers() {
-		// TODO Auto-generated method stub
+		// TODO initObservers
 		
 	}
 }

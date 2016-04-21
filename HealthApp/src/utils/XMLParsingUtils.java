@@ -31,17 +31,17 @@ public class XMLParsingUtils implements ParsingUtils {
 	}
 
 	public static void exportData(String filename, LinkedList<Patient> patients, boolean[] toInclude) {
-		// TODO Auto-generated method stub
+		// TODO exportData
 
 	}
 
 	public static Patient makePatient(String pt) {
-		// TODO Auto-generated method stub
+		// TODO makePatient
 		return null;
 	}
 
 	public static String patientToString(Patient p, boolean[] toInclude) {
-		// TODO Auto-generated method stub
+		// TODO patientToString
 		return null;
 	}
 
