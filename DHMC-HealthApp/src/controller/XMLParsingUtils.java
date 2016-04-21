@@ -49,12 +49,12 @@ public class XMLParsingUtils extends GeneralParsingUtils {
 					// c.getName()).collect(Collectors.toCollection(LinkedList::new))),
 					// shouldEx[5])
 					+ XMLLine("contact-info",
-							stringIfTrue(XMLList("address-list", "address", p.getContactInfo().getAddress()),
+							stringIfTrue(XMLList("address-list", "address", p.getContactInfo().getAddressList()),
 									shouldEx[6])
 									+ stringIfTrue(
-											XMLList("phone-number-list", "phone-number", p.getContactInfo().getPhone()),
+											XMLList("phone-number-list", "phone-number", p.getContactInfo().getPhoneList()),
 											shouldEx[7])
-									+ stringIfTrue(XMLList("email-list", "email", p.getContactInfo().getEmail()),
+									+ stringIfTrue(XMLList("email-list", "email", p.getContactInfo().getEmailList()),
 											shouldEx[8]))
 					+ stringIfTrue(XMLList("pets-list", "pet",
 							p.getPreferences().getPets().stream().map(c -> c.getName())
@@ -129,9 +129,9 @@ public class XMLParsingUtils extends GeneralParsingUtils {
 					+ XMLLine("h3", stringIfTrue(p.getUserID() + " : ", shouldEx[0]))
 					// String.valueOf(p.getPatientID()))
 					+ XMLLine("h3", "Contact Info:")
-					+ stringIfTrue(XMLList(null, null, p.getContactInfo().getEmail()), shouldEx[8]) + " "
-					+ stringIfTrue(XMLList(null, null, p.getContactInfo().getAddress()), shouldEx[6]) + " "
-					+ stringIfTrue(XMLList(null, null, p.getContactInfo().getPhone()), shouldEx[7]) + " " + "<hr>\n"
+					+ stringIfTrue(XMLList(null, null, p.getContactInfo().getEmailList()), shouldEx[8]) + " "
+					+ stringIfTrue(XMLList(null, null, p.getContactInfo().getAddressList()), shouldEx[6]) + " "
+					+ stringIfTrue(XMLList(null, null, p.getContactInfo().getPhoneList()), shouldEx[7]) + " " + "<hr>\n"
 					+ XMLLine("h3", "Assigned Personnel:")
 					+ stringIfTrue(XMLList(null, null, XMLParseMedStaff(p.getAssignedStaff())), shouldEx[4]) + "<hr>\n"
 					+ XMLLine("h3", "Caregivers:")
