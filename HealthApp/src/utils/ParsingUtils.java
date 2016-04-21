@@ -1,6 +1,5 @@
 package utils;
 
-import java.util.LinkedList;
 import java.util.Set;
 
 import model.Patient;
@@ -9,7 +8,7 @@ public interface ParsingUtils {
 	public static Set<Patient> importData(String filename) {
 		return null;
 	}
-	public static void exportData(String filename, LinkedList<Patient> patients, boolean[] toInclude) {
+	public static void exportData(String filename, Set<Patient> patients, boolean[] toInclude) {
 	}
 	public static Patient makePatient(String pt) {
 		return null;
