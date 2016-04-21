@@ -26,6 +26,9 @@ public class AdminDashController {
 
 	@FXML
 	private Tab exportTab = new Tab();
+	
+	@FXML
+	private Tab importTab = new Tab();
 
 	@FXML
 	private Tab addPatientTab = new Tab();
@@ -69,6 +72,7 @@ public class AdminDashController {
 		});
 
 		loadExportTab();
+		loadImportTab();
 	}
 
 	/**
@@ -162,6 +166,23 @@ public class AdminDashController {
 		}
 	}
 
+	/**
+	 * Loads and sets the contents of the export tab.
+	 */
+	private void loadImportTab() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource("../view/ImportFields.fxml"));
+			AnchorPane importPane = (AnchorPane) loader.load();
+
+			ImportFieldsController controller = loader.getController();
+			controller.setMain(mainApp);
+			importTab.setContent(importPane);
+		} catch (IOException e) {
+			MainApp.printError(e);
+		}
+	}
+	
 	/**
 	 * Loads and sets content of the add patient tab.
 	 */

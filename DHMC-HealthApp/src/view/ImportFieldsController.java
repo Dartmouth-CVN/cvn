@@ -11,7 +11,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import model.MainApp;
 
-public class ExportFieldsController {
+public class ImportFieldsController {
 
 	@FXML
 	private RadioButton CSVRadioButton = new RadioButton();
@@ -91,17 +91,18 @@ public class ExportFieldsController {
 	private Button healthExportButton = new Button();
 	@FXML
 	private Button preferenceExportButton = new Button();
-	
-	private ArrayList<Boolean> fieldCheck;
-	
+
+//	// Reference to the main application.
 	@SuppressWarnings("unused")
 	private MainApp mainApp;
+	
+	private ArrayList<Boolean> fieldCheck;
 
 	/**
 	 * The constructor. The constructor is called before the initialize()
 	 * method.
 	 */
-	public ExportFieldsController() {
+	public ImportFieldsController() {
 	}
 
 	/**
