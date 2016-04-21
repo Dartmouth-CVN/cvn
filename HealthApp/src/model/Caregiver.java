@@ -2,6 +2,9 @@ package model;
 
 import java.time.LocalDate;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.StringProperty;
+
 public class Caregiver extends AbsUser {
 	private String relation;
 	private boolean isFamily;
@@ -43,6 +46,31 @@ public class Caregiver extends AbsUser {
 
 	public void setCaregiverId(int caregiverId) {
 		this.caregiverId = caregiverId;
+	}
+
+	public StringProperty getNameProperty() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public StringProperty getBirthdayProperty() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public StringProperty getRelationProperty() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public BooleanProperty getInFamilyProperty() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public int getCaregiverID() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
 

@@ -2,6 +2,7 @@ package utils;
 
 import java.io.File;
 import java.util.LinkedList;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -13,7 +14,7 @@ import model.Patient;
 public class XMLParsingUtils implements ParsingUtils {
 
 	@Override
-	public LinkedList<Patient> importData(String filename) {
+	public Set<Patient> importData(String filename) {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setValidating(true);
 		factory.setIgnoringElementContentWhitespace(true);

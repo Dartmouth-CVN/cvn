@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import model.MainApp;
@@ -41,15 +43,15 @@ public abstract class SVParsingUtils implements ParsingUtils {
 	}
 
 	/**
-	 * importData takes in the name of a separated values file and uses
-	 * those fields to construct a LinkedList of Patients
+	 * importData takes in the name of a separated values file and uses those
+	 * fields to construct a LinkedList of Patients
 	 * 
 	 * @param filename
 	 *            the name of the separated values file
 	 * @return a LinkedList of the imported Patients
 	 */
-	public LinkedList<Patient> importData(String filename) {
-		LinkedList<Patient> output = new LinkedList<Patient>();
+	public Set<Patient> importData(String filename) {
+		Set<Patient> output = new LinkedHashSet<Patient>();
 		String[] lines = getFile(filename);
 		for (String patient : lines)
 			output.add(makePatient(patient));
@@ -88,10 +90,12 @@ public abstract class SVParsingUtils implements ParsingUtils {
 	 */
 	public Patient makePatient(String pt) {
 		String[] fields = splitLine(pt);
-		Patient output = new Patient(fields[1], fields[2], "", 0);
+		if (fields.length != 12)
+			return null;
+		Patient output = new Patient(fields[1], fields[2]);
 		String[] staff = fields[4].split(",");
 		for (String member : staff)
-			output.addMedicalStaff(new MedicalStaff(member));
+			output.getAssignedStaff().add(new MedicalStaff(member));
 
 		@SuppressWarnings("unused") // Medication currently disabled
 		String[] meds = fields[5].split(",");
@@ -107,13 +111,13 @@ public abstract class SVParsingUtils implements ParsingUtils {
 		output.getContactInfo().addEmail(email);
 		String[] pets = fields[9].split(",");
 		for (String pet : pets)
-			output.getPreferences().addPet(new Pet(pet, null, false));
+			output.getPatientProfile().addPet(new Pet(pet, null, false));
 		String[] allergies = fields[10].split(",");
 		for (String allergy : allergies)
-			output.getPreferences().addAllergy(allergy);
+			output.getHealthProfile().getAllergies().add(allergy);
 		String[] dietaryNeeds = fields[11].split(",");
 		for (String diet : dietaryNeeds)
-			output.getPreferences().addDietaryRestrictions(diet);
+			output.getHealthProfile().getDietaryRestrictions().add(diet);
 		return output;
 	}
 
@@ -153,16 +157,19 @@ public abstract class SVParsingUtils implements ParsingUtils {
 
 	/**
 	 * Given a Patient, converts it into a line of Separated Values
-	 * @param p the Patient to convert
-	 * @param toInclude which fields to export
+	 * 
+	 * @param p
+	 *            the Patient to convert
+	 * @param toInclude
+	 *            which fields to export
 	 * @return the Patient as a String of Separated Values
 	 */
 	public String patientToString(Patient p, boolean[] toInclude) {
 		// Padding the array
 		if (toInclude == null)
 			toInclude = new boolean[0];
-		if (toInclude.length < 12) {
-			boolean[] newArr = new boolean[12];
+		if (toInclude.length < 11) {
+			boolean[] newArr = new boolean[11];
 			for (int i = 0; i < toInclude.length; i++)
 				newArr[i] = toInclude[i];
 			for (int i = toInclude.length; i < newArr.length; i++)
@@ -172,13 +179,12 @@ public abstract class SVParsingUtils implements ParsingUtils {
 
 		// The below array mirrors the format of toInclude[], for example, if
 		// toInclude[3] is false, caregivers will not be included.
-		String[] fields = { "userid", "firstname", "lastname", "caregivers", "assignedstaff", "medication", "address",
+		String[] fields = {"firstname", "lastname", "caregivers", "assignedstaff", "medication", "address",
 				"phone", "email", "pets", "allergies", "dietrestrictions" };
 
-		String[] fieldsFromPatient = { p.getUserID(), p.getFirstName(), p.getLastName(),
+		String[] fieldsFromPatient = {p.getFirstName(), p.getLastName(),
 				String.join(",",
-						p.getPreferences().getCaregiver().stream().map(caregiver -> caregiver.getName())
-								.collect(Collectors.toList())),
+						p.getCaregivers().stream().map(caregiver -> caregiver.getFirstName()+" "+caregiver.getLastName()).collect(Collectors.toList())),
 				String.join(",",
 						p.getAssignedStaff().stream().map(staff -> staff.getFirstName() + " " + staff.getLastName())
 								.collect(Collectors.toList())),
@@ -188,9 +194,10 @@ public abstract class SVParsingUtils implements ParsingUtils {
 				"", String.join(",", p.getContactInfo().getAddress()), String.join(",", p.getContactInfo().getPhone()),
 				String.join(",", p.getContactInfo().getEmail()),
 				String.join(",",
-						p.getPreferences().getPets().stream().map(pet -> pet.getName()).collect(Collectors.toList())),
-				String.join(",", p.getPreferences().getAllergies()),
-				String.join(",", p.getPreferences().getDietaryRestrictions()) };
+						p.getPatientProfile().getPets().stream().map(pet -> pet.getName())
+								.collect(Collectors.toList())),
+				String.join(",", p.getHealthProfile().getAllergies()),
+				String.join(",", p.getHealthProfile().getDietaryRestrictions()) };
 
 		for (int i = 0; i < toInclude.length; i++) // Deleting unused fields and
 													// wrapping all fields with

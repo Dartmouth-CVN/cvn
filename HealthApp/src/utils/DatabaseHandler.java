@@ -13,8 +13,10 @@ import org.hibernate.cfg.Configuration;
 
 import javafx.collections.ObservableList;
 import model.Caregiver;
+import model.Meal;
 import model.MedicalStaff;
 import model.Patient;
+import model.Pet;
 
 public class DatabaseHandler {
 	private static final SessionFactory sessionFactory = buildSessionFactory();
@@ -92,6 +94,16 @@ public class DatabaseHandler {
 
 	public ObservableList<MedicalStaff> searchPatientAssignedStaff(Patient patient) {
 		// TODO Search assigned staff
+		return null;
+	}
+
+	public ObservableList<Meal> searchPatientMeal(Patient patient) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ObservableList<Pet> searchPatientPet(Patient patient) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }
