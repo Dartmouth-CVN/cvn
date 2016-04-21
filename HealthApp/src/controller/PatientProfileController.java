@@ -21,7 +21,7 @@ import model.MedicalStaff;
 import model.Patient;
 import model.Pet;
 
-public class PatientProfileController {
+public class PatientProfileController extends AbsController {
 
 	// Integer will be replaced with Profile model
 	@FXML
@@ -77,8 +77,6 @@ public class PatientProfileController {
 	@FXML
 	private Label emailLabel = new Label();
 
-	// Reference to the main application.
-	private MainApp mainApp;
 	
 	
 	/**
@@ -87,10 +85,10 @@ public class PatientProfileController {
 	 */
 	@FXML
 	private void initialize(Patient patient) {
-		caregiverNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-		birthdayColumn.setCellValueFactory(cellData -> cellData.getValue().birthdayProperty());
-		relationColumn.setCellValueFactory(cellData -> cellData.getValue().relationProperty());
-		inFamilyColumn.setCellValueFactory(cellData -> cellData.getValue().inFamilyProperty());
+		caregiverNameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
+		birthdayColumn.setCellValueFactory(cellData -> cellData.getValue().getBirthdayProperty());
+		relationColumn.setCellValueFactory(cellData -> cellData.getValue().getRelationProperty());
+		inFamilyColumn.setCellValueFactory(cellData -> cellData.getValue().getInFamilyProperty());
 		//assignedStaff needs to be implemented in databaseHandler
 		ObservableList<Caregiver> caregivers = MainApp.getDatabaseHandler().searchPatientCaregiver(patient);
 		careGiversTable.setItems(caregivers);
@@ -102,41 +100,34 @@ public class PatientProfileController {
 		ObservableList<MedicalStaff> personData = MainApp.getDatabaseHandler().searchPatientAssignedStaff(patient);
 		assignedStaffTable.setItems(personData);
 		
-		foodColumn.setCellValueFactory(cellData -> cellData.getValue().foodProperty());
-		caloriesColumn.setCellValueFactory(cellData -> cellData.getValue().caloriesProperty());
-		ratingColumn.setCellValueFactory(cellData -> cellData.getValue().getRating());
-		notesColumn.setCellValueFactory(cellData -> cellData.getValue().notesProperty());
+		foodColumn.setCellValueFactory(cellData -> cellData.getValue().getFoodProperty());
+		caloriesColumn.setCellValueFactory(cellData -> cellData.getValue().getCaloriesProperty());
+		ratingColumn.setCellValueFactory(cellData -> cellData.getValue().getRatingProperty());
+		notesColumn.setCellValueFactory(cellData -> cellData.getValue().getNotesProperty());
 		//assignedStaff needs to be implemented in databaseHandler
 		ObservableList<Meal> meals = MainApp.getDatabaseHandler().searchPatientMeal(patient);
 		menuTable.setItems(meals);
 		
-		petNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-		speciesColumn.setCellValueFactory(cellData -> cellData.getValue().speciesProperty());
-		allergyFriendlyColumn.setCellValueFactory(cellData -> cellData.getValue().allergyFriendlyProperty());
+		petNameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
+		speciesColumn.setCellValueFactory(cellData -> cellData.getValue().getSpeciesProperty());
+		allergyFriendlyColumn.setCellValueFactory(cellData -> cellData.getValue().getAllergyFriendlyProperty());
 		//assignedStaff needs to be implemented in databaseHandler
 		ObservableList<Pet> pets = MainApp.getDatabaseHandler().searchPatientPet(patient);
 		petTable.setItems(pets);
 		
-		addressColumn.setCellValueFactory(cellData -> cellData.getValue().addressProperty());
-		phoneColumn.setCellValueFactory(cellData -> cellData.getValue().phoneProperty());
-		emailColumn.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
+		addressColumn.setCellValueFactory(cellData -> cellData.getValue().getAddressProperty());
+		phoneColumn.setCellValueFactory(cellData -> cellData.getValue().getPhoneProperty());
+		emailColumn.setCellValueFactory(cellData -> cellData.getValue().getEmailProperty());
 		
 		// set table listener
 		careGiversTable.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> showCareGiversContactInfo(newValue));
 	}
-	
-	/**
-	 * Is called by the main application to give a reference back to itself.
-	 * 
-	 * @param mainApp
-	 */
-	public void setMain(MainApp mainApp) {
-		this.mainApp = mainApp;
-	}
+
 
 	
-	public PatientProfileController(IDisplayable user) {
+	public PatientProfileController(MainApp mainApp) {
+		super(mainApp);
 	}
 	
 	/**
@@ -149,6 +140,7 @@ public class PatientProfileController {
 		Caregiver cg = MainApp.getDatabaseHandler().getCaregiver(caregiver.getCaregiverID());
 		//nameLabel.setText(ms.getFirstName() + " " + ms.getLastName());	
 		Contact contactInfo = cg.getContactInfo();
+		// Show the info?
 		
 	}
 }

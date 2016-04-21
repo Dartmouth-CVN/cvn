@@ -41,15 +41,15 @@ public class EditPatientController {
 
 	public EditPatientController(Patient p) {
 		this.p = p;
-		Pane parent = exportfields;
-		for(Node n : parent.getChildren()){
-			if(n instanceof Accordion){
-				//create array
-			}
-			if(n instanceof CheckBox){
-				
-			}
-		}
+//		Pane parent = exportfields;
+//		for(Node n : parent.getChildren()){
+//			if(n instanceof Accordion){
+//				//create array
+//			}
+//			if(n instanceof CheckBox){
+//				
+//			}
+//		}
 	}
 
 	public EditPatientController() {

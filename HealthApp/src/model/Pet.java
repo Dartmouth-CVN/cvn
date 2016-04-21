@@ -1,5 +1,8 @@
 package model;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.StringProperty;
+
 public class Pet {
 	int petId;
 	String name;
@@ -49,6 +52,21 @@ public class Pet {
 
 	public void setAllergyFriendly(boolean allergyFriendly) {
 		this.allergyFriendly = allergyFriendly;
+	}
+
+	public StringProperty getNameProperty() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public StringProperty getSpeciesProperty() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public BooleanProperty getAllergyFriendlyProperty() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
