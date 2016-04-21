@@ -180,7 +180,7 @@ public class FitBitParsingUtils {
 		for (Patient p : pts) {
 			
 			toWrite.println(p.getFirstName() + " " + p.getLastName());
-			for (HealthInfo h : p.getHealthProfile().getHealthInfo()) {
+			for (HealthInfo h : p.getHealthProfile().getHealthInfo().values()) {
 				String toPrint = h.toString();
 				toWrite.println(toPrint);
 			}
