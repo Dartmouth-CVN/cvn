@@ -13,6 +13,7 @@ import org.hibernate.cfg.Configuration;
 
 import javafx.collections.ObservableList;
 import model.Caregiver;
+import model.IDisplayable;
 import model.Meal;
 import model.MedicalStaff;
 import model.Patient;
@@ -103,6 +104,21 @@ public class DatabaseHandler {
 	}
 
 	public ObservableList<Pet> searchPatientPet(Patient patient) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public MedicalStaff getMedicalStaff(String userID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ObservableList<IDisplayable> searchPatient(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ObservableList<IDisplayable> searchPatient() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -10,7 +10,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TitledPane;
 import model.MainApp;
 import utils.CSVParsingUtils;
-import utils.SVParsingUtils;
 import utils.TSVParsingUtils;
 import utils.XMLParsingUtils;
 
@@ -34,8 +33,6 @@ public class ExportController extends AbsController {
 	CheckBox[] personal = new CheckBox[6];
 	CheckBox[] health = new CheckBox[18];
 	CheckBox[] preference = new CheckBox[2];
-
-	// Reference to the main application.
 
 	private ArrayList<Boolean> fieldCheck;
 
