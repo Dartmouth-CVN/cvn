@@ -43,7 +43,7 @@ public class Contact implements Serializable {
 	}
 
 	public final String getPrimaryPhone() {
-		return phone.get(0);
+		return phone.isEmpty()? "" : phone.get(0);
 	}
 
 	public final void removePhone(String iphone) {
@@ -73,7 +73,7 @@ public class Contact implements Serializable {
 	}
 
 	public final String getPrimaryEmail() {
-		return email.get(0);
+		return email.isEmpty()? "" : email.get(0);
 	}
 
 	public final void removeEmail(String iemail) {
@@ -94,7 +94,8 @@ public class Contact implements Serializable {
 	}
 
 	public final String getPrimaryAddress() {
-		return addressProperty().get(0);
+		
+		return address.isEmpty()? "" : address.get(0);
 	}
 
 	public final void removeAddress(String ad) {

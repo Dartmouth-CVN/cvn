@@ -97,7 +97,7 @@ public class DatabaseHandler {
 
 	public void populateDatabase() {
 		// addUsers(200);
-		populateDatabase(1);
+		populateDatabase(300);
 
 		// insertDummyPatient();
 		// addAdministrators();
@@ -512,6 +512,19 @@ public class DatabaseHandler {
 			rs = metaData.getTables(null, "APP", "SCHEDULE", null);
 			if (!rs.next())
 				createScheduleTable();
+			
+
+			rs = metaData.getTables(null, "APP", "PET", null);
+			if (!rs.next())
+				createPetTable();
+
+			rs = metaData.getTables(null, "APP", "MEAL", null);
+			if (!rs.next())
+				createMealTable();
+
+			rs = metaData.getTables(null, "APP", "CAREGIVER", null);
+			if (!rs.next())
+				createCaregiverTable();
 
 			rs = metaData.getTables(null, "APP", "EVENT", null);
 			if (!rs.next())
