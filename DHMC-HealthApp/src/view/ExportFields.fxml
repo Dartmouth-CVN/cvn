@@ -201,7 +201,7 @@
                                     <RadioButton fx:id="XMLImportButton" mnemonicParsing="false" text="XML" toggleGroup="$ImportFileType" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                                  </children>
                               </GridPane>
-                              <Button layoutX="465.0" layoutY="116.0" mnemonicParsing="false" onAction="#handleExport" text="Import" />
+                              <Button layoutX="465.0" layoutY="116.0" mnemonicParsing="false" onAction="#handleImport" text="Import" />
                            </children>
                         </AnchorPane>
                      </content>

@@ -17,26 +17,18 @@ public class AdminDashController {
 
 	@FXML
 	private TabPane tabPane;
-
-	@FXML
-	private Tab scheduleTab = new Tab();
-
 	@FXML
 	private Tab searchTab = new Tab();
-
 	@FXML
 	private Tab exportTab = new Tab();
-
 	@FXML
 	private Tab addPatientTab = new Tab();
 	@FXML
 	private Tab editPatientTab = new Tab();
 	@FXML
 	private ImageView scheduleImage = new ImageView();
-
 	@FXML
 	private ImageView searchImage = new ImageView();
-
 	@FXML
 	private AnchorPane adminDash;
 
@@ -69,6 +61,7 @@ public class AdminDashController {
 		});
 
 		loadExportTab();
+		loadSearchTab();
 	}
 
 	/**
