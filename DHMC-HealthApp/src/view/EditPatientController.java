@@ -41,15 +41,15 @@ public class EditPatientController {
 
 	public EditPatientController(Patient p) {
 		this.p = p;
-		Pane parent = exportfields;
-		for(Node n : parent.getChildren()){
-			if(n instanceof Accordion){
-				//create array
-			}
-			if(n instanceof CheckBox){
-				
-			}
-		}
+//		Pane parent = exportfields;
+//		for(Node n : parent.getChildren()){
+//			if(n instanceof Accordion){
+//				//create array
+//			}
+//			if(n instanceof CheckBox){
+//				
+//			}
+//		}
 	}
 
 	public EditPatientController() {
@@ -379,7 +379,7 @@ public class EditPatientController {
 		ArrayList<String> array = new ArrayList<String>();
 		saveNames();
 		p.setBirthday(patientBirthday.getValue());
-		p.getContactInfo().makePrimaryAddress(patientAddress.getText());
+		p.getContactInfo().setAddress(patientAddress.getText());
 
 		for (DisplayString phoneNumber : patientPhones) {
 			p.getContactInfo().setPhone(phoneNumber.getString());
@@ -405,7 +405,7 @@ public class EditPatientController {
 			}
 		}
 		
-		p.getContactInfo().makePrimaryAddress(patientAddress.getText());
+		p.getContactInfo().setAddress(patientAddress.getText());
 
 		if ( (p.getNewPatient() && p.save()) || (!p.getNewPatient() && p.update())) {
 			MainApp.showAlert("Update successful!");
