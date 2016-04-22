@@ -37,6 +37,15 @@ public class Patient extends User {
 		initObservers();
 	}
 	
+	public Patient(String firstName, String lastName, String userID, Contact contactInfo) {
+		super(firstName, lastName, userID, contactInfo);
+		this.assignedStaff = new LinkedList<MedicalStaff>();
+		this.preferences = new PatientProfile();
+		this.healthInfo = new LinkedList<HealthInfo>();
+		// this.medication = new LinkedList<Medication>();
+		initObservers();
+	}
+	
 	public Patient() {
 		super("First Name", "Last Name", "", new Contact());
 		this.assignedStaff = new LinkedList<MedicalStaff>();
