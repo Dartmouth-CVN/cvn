@@ -6,68 +6,53 @@
 <hibernate-mapping package="model">
 
 	<!-- User tables -->
-	<class name="AbsUser" table="USER">
+	<class name="AbsUser" table="AbsUser">
 		<id name="userId" column="USER_ID">
-			<generator class="native" />
+			<generator class="sequence" />
 		</id>
-		<discriminator column="USER-TYPE" type="string" />
 		<property name="firstName" />
 		<property name="lastName" />
 		<property name="username" />
 		<property name="password" />
-		<property name="birthday" />
+		<property name="birthday" type="timestamp" />
 		<property name="room" />
-		<one-to-one name="contactInfo" class="Contact" cascade="save-update"></one-to-one>
-		<one-to-one name="schedule" class="Schedule" cascade="save-update"></one-to-one>
+		<one-to-one name="contactInfo" class="Contact" cascade="save-update, delete" ></one-to-one>
+		<!-- <one-to-one name="schedule" class="Schedule" cascade="save-update"></one-to-one> -->
 
 		<!-- subclasses -->
-		<subclass name="Patient" discriminator-value="PATIENT">
-			<join table="PATIENT">
-				<key column="USER_ID" />
-			</join>
-		</subclass>
-		<subclass name="Administrator" discriminator-value="ADMIN">
-			<join table="ADMIN">
-				<key column="USER_ID" />
-			</join>
-		</subclass>
-		<subclass name="Caregiver" discriminator-value="CAREGIVER">
-			<join table="CAREGIVER">
-				<key column="USER_ID" />
-				<property name="relation" />
-				<property name="isFamily" />
-			</join>
-		</subclass>
-		<subclass name="MedicalStaff" discriminator-value="MEDICALSTAFF">
-			<join table="MEDICAL_STAFF">
-				<key column="USER_ID" />
-			</join>
-		</subclass>
+		<union-subclass name="Patient" table="Patient">
+			<list name="pets" table="Profile_Pet" cascade="save-update, delete" >
+				<key column="petId" />
+				<list-index column="patientPetIdx" />
+				<one-to-many class="Pet" />
+			</list>
+			<list name="caregivers" table="Profile_Caregivers" cascade="save-update, delete" >
+				<key column="caregiverId" />
+				<list-index column="patientCareIdx" />
+				<one-to-many class="Caregiver" />
+			</list>
+			<list name="assignedStaff" table="Profile_MedicalStaff" cascade="save-update, delete" >
+				<key column="medId" />
+				<list-index column="patientMedIdx" />
+				<one-to-many class="MedicalStaff" />
+			</list>
+			<one-to-one name="healthProfile" class="HealthProfile"
+				cascade="save-update, delete" ></one-to-one>
+		</union-subclass>
+		<union-subclass name="Administrator" table="Admin">
+		</union-subclass>
+		<union-subclass name="Caregiver" table="Caregiver">
+			<property name="relation" />
+			<property name="isFamily" />
+		</union-subclass>
+		<union-subclass name="MedicalStaff" table="MedicalStaff">
+		</union-subclass>
 		<!-- end subclasses -->
 	</class>
 
 	<!-- end User tables -->
 
 	<!-- Profile elements -->
-	<class name="PatientProfile" table="PatientProfile">
-		<id name="profileId">
-			<generator class="native" />
-		</id>
-		<set name="pets" table="Profile_Pet">
-			<key column="profileId" />
-			<many-to-many column="petId" class="Pet" />
-		</set>
-		<set name="caregivers" table="Profile_Caregivers">
-			<key column="profileId" />
-			<many-to-many column="caregiverId" class="Caregiver" />
-		</set>
-		<set name="assignedStaff" table="Profile_MedicalStaff">
-			<key column="profileId" />
-			<many-to-many column="medId" class="MedicalStaff" />
-		</set>
-		<one-to-one name="healthProfile" class="HealthProfile"
-			cascade="save-update"></one-to-one>
-	</class>
 
 	<class name="Pet" table="Pet">
 		<id name="petId">
@@ -82,6 +67,7 @@
 		<id name="mealId">
 			<generator class="native" />
 		</id>
+		<property name="food" />
 		<property name="rating" />
 		<property name="calories" />
 		<property name="notes" />
@@ -91,21 +77,22 @@
 		<id name="healthProfileId">
 			<generator class="native" />
 		</id>
-		<set name="healthInfo" table="HealthProfile_HealthInfo">
-			<key column="healthProfileId" />
-			<many-to-many column="healthInfoId" class="HealthInfo" />
-		</set>
+		<list name="healthInfo" table="HealthInfo">
+			<key column="healthInfoId" />
+			<list-index column="healthAttributeIdx" />
+			<one-to-many class="HealthInfo" />
+		</list>
 	</class>
 
 	<class name="HealthInfo" table="HealthInfo">
 		<id name="healthInfoId">
 			<generator class="native" />
 		</id>
-		<property name="date" type="timestamp" />
-		<set name="attributes" table="HealthInfo_HealthAttribute">
-			<key column="healthInfoId" />
-			<many-to-many column="healthAttributeId" class="HealthAttribute" />
-		</set>
+		<list name="attributes" table="HealthInfo_HealthAttribute">
+			<key column="healthAttributeId" />
+			<list-index column="healthAttributeIdx" />
+			<one-to-many class="HealthAttribute" />
+		</list>
 	</class>
 
 	<class name="HealthAttribute" table="HealthAttribute">
@@ -121,21 +108,24 @@
 		<id name="contactId">
 			<generator class="native" />
 		</id>
-		<set name="phoneNumbers" table="Contact_Number">
+		<list name="phoneNumbers" table="Contact_Number" cascade="save-update, delete" >
 			<key column="contactId" />
-			<many-to-many column="elementId" class="ContactElement" />
-		</set>
-		<set name="emails" table="Contact_Email">
+			<list-index column="contactPhoneIdx" />
+			<one-to-many class="ContactElement" />
+		</list>
+		<list name="emails" table="Contact_Email" cascade="save-update, delete" >
 			<key column="contactId" />
-			<many-to-many column="elementId" class="ContactElement" />
-		</set>
-		<set name="addresses" table="Contact_Address">
+			<list-index column="contactEmailIdx" />
+			<one-to-many class="ContactElement" />
+		</list>
+		<list name="addresses" table="Contact_Address" cascade="save-update, delete" >
 			<key column="contactId" />
-			<many-to-many column="elementId" class="ContactElement" />
-		</set>
+			<list-index column="contactAddressIdx" />
+			<one-to-many class="ContactElement" />
+		</list>
 	</class>
 
-	<class name="ContactElement" table="ContactElement">
+	<class name="ContactElement" table="ContactElement" >
 		<id name="elementId">
 			<generator class="native" />
 		</id>
@@ -143,25 +133,11 @@
 		<property name="type" />
 	</class>
 
-	<!-- Schedule -->
-	<class name="Schedule" table="Schedule">
-		<id name="scheduleId">
-			<generator class="native" />
-		</id>
-		<set name="events" table="Schedule_Event">
-			<key column="scheduleId" />
-			<many-to-many column="eventId" class="Event" />
-		</set>
-	</class>
-
-	<class name="Event" table="Event">
-		<id name="eventId">
-			<generator class="native" />
-		</id>
-		<property name="date" type="timestamp" />
-		<property name="location" />
-		<property name="notes" />
-	</class>
-	<!-- end Schedule -->
+	<!-- Schedule <class name="Schedule" table="Schedule"> <id name="scheduleId"> 
+		<generator class="native" /> </id> <list name="events" table="Schedule_Event"> 
+		<key column="scheduleId" /> <many-to-many column="eventId" class="Event" 
+		/> </list> </class> <class name="Event" table="Event"> <id name="eventId"> 
+		<generator class="native" /> </id> <property name="date" type="timestamp" 
+		/> <property name="location" /> <property name="notes" /> </class> end Schedule -->
 
 </hibernate-mapping>

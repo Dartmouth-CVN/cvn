@@ -1,4 +1,4 @@
-package controller;
+package view;
 
 import java.io.IOException;
 
@@ -20,8 +20,13 @@ public class AdminDashController extends MedicalStaffDashController {
 	 * The constructor. The constructor is called before the initialize()
 	 * method.
 	 */
-	public AdminDashController(MainApp mainApp) {
-		super(mainApp);
+	public AdminDashController() {
+	}
+	
+	@Override
+	public FXMLLoader getLoader(){
+		loader.setLocation(MainApp.class.getResource("../view/AdminDash.fxml"));
+		return loader;
 	}
 
 	/**
@@ -87,7 +92,7 @@ public class AdminDashController extends MedicalStaffDashController {
 	public void loadEditPatient(Patient patient) throws IOException {
 		editPatientLoader = getEditPatientLoader();
 		EditPatientController controller = editPatientLoader.getController();
-		controller.setMainApp(mainApp);
+//		controller.setMainApp();
 		controller.setPatient(patient);
 		controller.loadFields();
 	}

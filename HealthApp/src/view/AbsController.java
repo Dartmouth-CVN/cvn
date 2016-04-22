@@ -1,4 +1,4 @@
-package controller;
+package view;
 
 import javafx.fxml.FXMLLoader;
 import model.MainApp;
@@ -6,10 +6,9 @@ import model.MainApp;
 public abstract class AbsController {
 	
 	MainApp mainApp;
-	FXMLLoader loader;
+	protected FXMLLoader loader;
 
-	public AbsController(MainApp mainApp) {
-		this.mainApp = mainApp;
+	public AbsController() {
 		this.loader = new FXMLLoader();
 	}
 

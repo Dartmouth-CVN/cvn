@@ -1,4 +1,4 @@
-package controller;
+package view;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -206,10 +206,10 @@ public class EditPatientController {
 		patientBirthday.setValue(p.getBirthday());
 		patientAddress.setText(p.getContactInfo().getPrimaryAddress());
 
-		for (String phoneNum : p.getContactInfo().getPhone())
+		for (String phoneNum : p.getContactInfo().getPhoneNumbers())
 			patientPhones.add(new DisplayString(phoneNum));
 
-		for (String email : p.getContactInfo().getEmail())
+		for (String email : p.getContactInfo().getEmails())
 			patientEmails.add(new DisplayString(email));
 
 		// for(Caregiver family : p.)
@@ -374,7 +374,7 @@ public class EditPatientController {
 			array.add(phoneNumber.getString());
 		}
 		
-		for (String phone : p.getContactInfo().getPhone()) {
+		for (String phone : p.getContactInfo().getPhoneNumbers()) {
 			if (!array.contains(phone)) {
 				p.getContactInfo().removePhone(phone);
 			}
@@ -387,7 +387,7 @@ public class EditPatientController {
 			array.add(email.getString());
 		}
 		
-		for (String email : p.getContactInfo().getEmail()) {
+		for (String email : p.getContactInfo().getEmails()) {
 			if (!array.contains(email)) {
 				p.getContactInfo().removePhone(email);
 			}

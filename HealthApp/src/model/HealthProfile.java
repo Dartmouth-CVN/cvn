@@ -1,25 +1,23 @@
 package model;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-import java.time.LocalDate;
+import java.util.LinkedList;
+import java.util.List;
 
 public class HealthProfile {
 
 	int healthProfileId;
-	HashMap<LocalDate, HealthInfo> healthInfo;
-	Set<String> allergies;
-	Set<String> dietaryRestrictions;
+	List<HealthInfo> healthInfo;
+	List<String> allergies;
+	List<String> dietaryRestrictions;
 
 	public HealthProfile() {
-		this.healthInfo = new HashMap<LocalDate, HealthInfo>();
-		this.allergies = new HashSet<String>();
-		this.dietaryRestrictions = new HashSet<String>();
+		this.healthInfo = new LinkedList<HealthInfo>();
+		this.allergies = new LinkedList<String>();
+		this.dietaryRestrictions = new LinkedList<String>();
 	}
 	
 	public void addNewHealthInfo(HealthInfo info){
-		healthInfo.put(info.getDate(), info);
+		healthInfo.add(info);
 	}
 
 	public int getHealthProfileId() {
@@ -30,41 +28,37 @@ public class HealthProfile {
 		this.healthProfileId = healthProfileId;
 	}
 
-	public HashMap<LocalDate, HealthInfo> getHealthInfo() {
+	public List<HealthInfo> getHealthInfo() {
 		return healthInfo;
 	}
 
-	public void setHealthInfo(HashMap<LocalDate, HealthInfo> healthInfo) {
+	public void setHealthInfo(List<HealthInfo> healthInfo) {
 		this.healthInfo = healthInfo;
 	}
 
-	public void addHealthInfo(HealthInfo newInfo) {
-		this.healthInfo.put(newInfo.getDate(), newInfo);
+	public void addHealthInfoList(List<HealthInfo> info) {
+		healthInfo.addAll(info);
 	}
 
-	public void addHealthInfoList(HashMap<LocalDate, HealthInfo> info) {
-		healthInfo.putAll(info);
-	}
-
-	public Set<String> getAllergies() {
+	public List<String> getAllergies() {
 		return allergies;
 	}
 
-	public void setAllergies(Set<String> allergies) {
+	public void setAllergies(List<String> allergies) {
 		this.allergies = allergies;
 	}
 
-	public Set<String> getDietaryRestrictions() {
+	public List<String> getDietaryRestrictions() {
 		return dietaryRestrictions;
 	}
 
-	public void setDietaryRestrictions(Set<String> dietaryRestrictions) {
+	public void setDietaryRestrictions(List<String> dietaryRestrictions) {
 		this.dietaryRestrictions = dietaryRestrictions;
 	}
 	
 	public String toString() {
-		String retString = "Health Profile.";
-		healthInfo.forEach((k, v)-> retString += ("\n" + v.toString()));
+//		String retString = "Health Profile.";
+//		healthInfo.forEach((k, v)-> retString += ("\n" + v.toString()));
 		return "";
 	}
 	

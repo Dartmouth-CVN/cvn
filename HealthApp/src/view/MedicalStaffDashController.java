@@ -1,11 +1,10 @@
-package controller;
+package view;
 
 import model.MainApp;
 
 public class MedicalStaffDashController extends AbsDashController {
 
-	public MedicalStaffDashController(MainApp mainApp) {
-		super(mainApp);
+	public MedicalStaffDashController() {
 	}
 
 }

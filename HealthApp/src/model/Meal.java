@@ -1,11 +1,11 @@
 package model;
 
 public class Meal {
-	private int mealId;
-	private String food;
-	private int calories;
-	private int rating;
-	private String notes;
+	 int mealId;
+	 String food;
+	 int calories;
+	 int rating;
+	 String notes;
 	
 
 	public Meal(){

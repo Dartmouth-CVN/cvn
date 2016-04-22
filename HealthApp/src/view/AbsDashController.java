@@ -1,4 +1,4 @@
-package controller;
+package view;
 
 import java.io.IOException;
 
@@ -13,8 +13,7 @@ import model.Patient;
 
 public abstract class AbsDashController extends AbsController {
 
-	public AbsDashController(MainApp mainApp) {
-		super(mainApp);
+	public AbsDashController() {
 	}
 	
 	@FXML

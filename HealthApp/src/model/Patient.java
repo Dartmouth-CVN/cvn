@@ -1,34 +1,55 @@
 package model;
 
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Patient extends AbsUser {
 	int patientId;
-	PatientProfile patientProfile;
 	HealthProfile healthProfile;
-	Set<Caregiver> caregivers;
-	Set<MedicalStaff> assignedStaff;
+	List<Pet> pets;
+	List<Meal> meals;
+	List<Caregiver> caregivers;
+	List<MedicalStaff> assignedStaff;
 	
-	public Patient(int userId, String firstName, String lastName, String username, String password, LocalDate birthday,
-			String room, Contact contactInfo, Schedule schedule, int patientId) {
-		super(userId, firstName, lastName, username, password, birthday, room, contactInfo, schedule);
-		this.patientId = patientId;
+	public Patient(){
+		
+	}
+
+	public Patient(int userId, String firstName, String lastName, String username, String password, Date birthday,
+			String room, Contact contactInfo) {
+		super(userId, firstName, lastName, username, password, birthday, room, contactInfo);
+		healthProfile = new HealthProfile();
+		pets = new LinkedList<Pet>();
+		meals = new LinkedList<Meal>();
+		caregivers = new LinkedList<Caregiver>();
+		assignedStaff = new LinkedList<MedicalStaff>();
 	}
 	
-	public Patient(int userId, String firstName, String lastName, String username, String password, LocalDate birthday,
-			String room, Contact contactInfo, Schedule schedule, int patientId, PatientProfile patientProfile, 
-			HealthProfile healthProfile, Set<MedicalStaff> assignedStaff, Set<Caregiver> caregivers) {
-		super(userId, firstName, lastName, username, password, birthday, room, contactInfo, schedule);
+	public Patient(int userId, String firstName, String lastName, String username, String password, Date birthday,
+			String room, Contact contactInfo, int patientId) {
+		super(userId, firstName, lastName, username, password, birthday, room, contactInfo);
 		this.patientId = patientId;
-		this.patientProfile = patientProfile;
+		healthProfile = new HealthProfile();
+		pets = new LinkedList<Pet>();
+		meals = new LinkedList<Meal>();
+		caregivers = new LinkedList<Caregiver>();
+		assignedStaff = new LinkedList<MedicalStaff>();
+	}
+	
+	public Patient(int userId, String firstName, String lastName, String username, String password, Date birthday,
+			String room, Contact contactInfo, int patientId, HealthProfile healthProfile,
+			List<MedicalStaff> assignedStaff, List<Caregiver> caregivers) {
+		super(userId, firstName, lastName, username, password, birthday, room, contactInfo);
+		this.patientId = patientId;
 		this.healthProfile = healthProfile;
 		this.assignedStaff = assignedStaff;
 		this.caregivers = caregivers;
 	}
 	
 	public Patient(String firstName, String lastName){
-		super(0, firstName, lastName, "", "", null,"", new Contact(), new Schedule());
+		super(0, firstName, lastName, "", "", null,"", new Contact());
 	}
 
 	public int getPatientId() {
@@ -39,14 +60,6 @@ public class Patient extends AbsUser {
 		this.patientId = patientId;
 	}
 
-	public PatientProfile getPatientProfile() {
-		return patientProfile;
-	}
-
-	public void setPatientProfile(PatientProfile patientProfile) {
-		this.patientProfile = patientProfile;
-	}
-
 	public HealthProfile getHealthProfile() {
 		return healthProfile;
 	}
@@ -55,24 +68,35 @@ public class Patient extends AbsUser {
 		this.healthProfile = healthProfile;
 	}
 
-	public Set<MedicalStaff> getAssignedStaff() {
+	public List<MedicalStaff> getAssignedStaff() {
 		return assignedStaff;
 	}
 
-	public void setAssignedStaff(Set<MedicalStaff> assignedStaff) {
+	public void setAssignedStaff(List<MedicalStaff> assignedStaff) {
 		this.assignedStaff = assignedStaff;
 	}
 	
-	public Set<Caregiver> getCaregivers() {
+	public List<Caregiver> getCaregivers() {
 		return caregivers;
 	}
 	
-	public void setCaregivers(Set<Caregiver> caregivers) {
+	public void setCaregivers(List<Caregiver> caregivers) {
 		this.caregivers = caregivers;
 	}
 
-	public String getUserID() {
-		// TODO getUserID
-		return null;
+	public List<Pet> getPets() {
+		return pets;
+	}
+
+	public void setPets(List<Pet> pets) {
+		this.pets = pets;
+	}
+
+	public List<Meal> getMeals() {
+		return meals;
+	}
+
+	public void setMeals(List<Meal> meals) {
+		this.meals = meals;
 	}
 }

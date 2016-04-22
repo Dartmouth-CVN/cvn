@@ -1,4 +1,4 @@
-package controller;
+package view;
 
 import java.io.IOException;
 import java.util.Random;
@@ -18,7 +18,7 @@ import model.MainApp;
 import model.Patient;
 import utils.ObjectNotFoundException;
 
-public class SearchTabController {
+public class SearchTabController extends AbsController {
 
 	// Integer will be replaced with Profile model
 	@FXML
@@ -31,16 +31,6 @@ public class SearchTabController {
 	private TableColumn<IDisplayable, String> lastNameColumn;
 	@FXML
 	private TextField searchField;
-	@FXML
-	private Label roomLabel = new Label();
-	@FXML
-	private Label nameLabel = new Label();
-	@FXML
-	private Label doctorLabel = new Label();
-	@FXML
-	private Label nurseLabel = new Label();
-	@FXML
-	private Label phoneLabel = new Label();
 	@FXML
 	private TabPane profileTabPane = new TabPane();
 	@FXML
@@ -57,6 +47,12 @@ public class SearchTabController {
 	 */
 	public SearchTabController() {
 	}
+	
+	@FXML
+	public FXMLLoader getLoader(){
+		loader.setLocation(MainApp.class.getResource("../view/SearchView.fxml"));
+		return loader;
+	}
 
 	/**
 	 * Initializes the controller class. This method is automatically called
@@ -64,37 +60,7 @@ public class SearchTabController {
 	 */
 	@FXML
 	private void initialize() {
-		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
-		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
-		idColumn.setCellValueFactory(cellData -> cellData.getValue().getUserIDProperty());
-
-		ObservableList<IDisplayable> personData = MainApp.getDatabaseHandler().searchPatient();
-		profileTable.setItems(personData);
-		// set table listener
-		profileTable.getSelectionModel().selectedItemProperty()
-				.addListener((observable, oldValue, newValue) -> { 
-					
-					handleClickPatient();
-					
-				});
-	}
-
-	// TODO: Use showUserDetails
-	private void showUserDetails(IDisplayable user) {
-		Patient p;
-		try {
-			p = MainApp.getDatabaseHandler().getPatient(user.getUserID());
-			nameLabel.setText(p.getFirstName() + " " + p.getLastName());
-			Random rand = new Random();
-			doctorLabel.setText("Doctor " + (rand.nextInt(10) + 1));
-			roomLabel.setText("Room " + (rand.nextInt(10) + 1));
-			nurseLabel.setText("Nurse " + (rand.nextInt(10) + 1));
-			phoneLabel.setText(p.getContactInfo().getPrimaryPhone());
-			userID = p.getUserID();
-		} catch (ObjectNotFoundException e) {
-			// TODO showUserDetails catch block
-			e.printStackTrace();
-		}
+		
 	}
 
 	/**
@@ -111,14 +77,7 @@ public class SearchTabController {
 	 */
 	@FXML
 	private void handleFindPatient() {
-		String name = searchField.getText();
-		if (!name.equals("")) {
-			ObservableList<IDisplayable> personData = MainApp.getDatabaseHandler().searchPatient(name);
-			profileTable.setItems(personData);
-		} else {
-			ObservableList<IDisplayable> personData = MainApp.getDatabaseHandler().searchPatient();
-			profileTable.setItems(personData);
-		}
+		
 	}
 
 	/**
@@ -128,7 +87,7 @@ public class SearchTabController {
 	private void handleEditProfile() {
 		Patient patient;
 		try {
-			patient = MainApp.getDatabaseHandler().getPatient(userID);
+			patient = MainApp.getDBHandler().getPatient(userID);
 			if (patient != null)
 				mainApp.showEditProfile(patient);
 		} catch (ObjectNotFoundException e) {

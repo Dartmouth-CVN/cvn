@@ -1,18 +1,23 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 public class Administrator extends AbsUser {
-	private int adminId;
+	int adminId;
 	
-	public Administrator(int userId, String firstName, String lastName, String username, String password,
-			LocalDate birthday, String room, Contact contactInfo, Schedule schedule) {
-		super(userId, firstName, lastName, username, password, birthday, room, contactInfo, schedule);
+	public Administrator(){
+		
 	}
 	
 	public Administrator(int userId, String firstName, String lastName, String username, String password,
-			LocalDate birthday, String room, Contact contactInfo, Schedule schedule, int adminId) {
-		super(userId, firstName, lastName, username, password, birthday, room, contactInfo, schedule);
+			Date birthday, String room, Contact contactInfo, Schedule schedule) {
+		super(userId, firstName, lastName, username, password, birthday, room, contactInfo);
+	}
+	
+	public Administrator(int userId, String firstName, String lastName, String username, String password,
+			Date birthday, String room, Contact contactInfo, Schedule schedule, int adminId) {
+		super(userId, firstName, lastName, username, password, birthday, room, contactInfo);
 		this.adminId = adminId;
 	}
 

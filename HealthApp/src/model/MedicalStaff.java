@@ -1,30 +1,31 @@
 package model;
 
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.Date;
+import java.util.List;
 
 public class MedicalStaff extends AbsUser {
 
-	Set<Patient> assignedPatients;
+	List<Patient> assignedPatients;
 	int medId;
 
 	public MedicalStaff(int userId, String firstName, String lastName, String username, String password,
-			LocalDate birthday, String room, Contact contactInfo, Schedule schedule) {
-		super(userId, firstName, lastName, username, password, birthday, room, contactInfo, schedule);
+			Date birthday, String room, Contact contactInfo, Schedule schedule) {
+		super(userId, firstName, lastName, username, password, birthday, room, contactInfo);
 	}
 	
 	public MedicalStaff(int userId, String firstName, String lastName, String username, String password,
-			LocalDate birthday, String room, Contact contactInfo, Schedule schedule, int medId, Set<Patient> assignedPatients) {
-		super(userId, firstName, lastName, username, password, birthday, room, contactInfo, schedule);
+			Date birthday, String room, Contact contactInfo, Schedule schedule, int medId, List<Patient> assignedPatients) {
+		super(userId, firstName, lastName, username, password, birthday, room, contactInfo);
 		this.medId = medId;
 		this.assignedPatients = assignedPatients;
 	}
 
-	public Set<Patient> getAssignedPatients() {
+	public List<Patient> getAssignedPatients() {
 		return assignedPatients;
 	}
 
-	public void setAssignedPatients(Set<Patient> assignedPatients) {
+	public void setAssignedPatients(List<Patient> assignedPatients) {
 		this.assignedPatients = assignedPatients;
 	}
 

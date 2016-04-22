@@ -43,6 +43,9 @@ public class HealthAttribute<V> {
 	public void setStringValue() {
 		stringValue = String.valueOf(value);
 	}
-	
+
+	public void setStringValue(String stringValue) {
+		this.stringValue = stringValue;
+	}
 	
 }
