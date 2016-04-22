@@ -97,7 +97,7 @@ public class DatabaseHandler {
 
 	public void populateDatabase() {
 		// addUsers(200);
-		populateDatabase(300);
+//		populateDatabase(300);
 
 		// insertDummyPatient();
 		// addAdministrators();
