@@ -1,6 +1,7 @@
 package utils;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Set;
@@ -13,7 +14,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import model.ContactElement;
 import model.MainApp;
+import model.MedicalStaff;
 import model.Patient;
 import model.Pet;
 
@@ -79,6 +82,28 @@ public class XMLParsingUtils implements ParsingUtils {
 
 	}
 
+
+	public static LinkedList<Patient> importData(File inputFile) {
+		try {
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(inputFile);
+			doc.getDocumentElement().normalize();
+
+			LinkedList<Patient> output = new LinkedList<Patient>();
+
+			NodeList patientList = doc.getElementsByTagName("patient");
+
+			for (int i = 0; i < patientList.getLength(); i++) {
+				output.add(makePatient(patientList.item(i)));
+			}
+			return output;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public static Patient makePatient(Node pt) {
 		System.out.println("\nCurrent Element :" + pt.getNodeName());
 		Element patient = (Element) pt;
@@ -86,38 +111,98 @@ public class XMLParsingUtils implements ParsingUtils {
 		String[] fields = { "firstname", "lastname", "caregivers", "assignedstaff", "medication", "address", "phone",
 				"email", "pets", "allergies", "dietrestrictions" };
 
+		// The code block below sets the value of fields
+
 		fields[0] = patient.getElementsByTagName("firstname").item(0).getTextContent();
 		fields[1] = patient.getElementsByTagName("lastname").item(0).getTextContent();
-		fields[2] = patient.getElementsByTagName("caregivers-list").item(0).getTextContent();
 
-		// The code block below sets the value of fields	
-		System.out.println("Student roll no : " + patient.getAttribute("rollno"));
-		System.out.println("First Name : " + patient.getElementsByTagName("firstname").item(0).getTextContent());
-		System.out.println("Last Name : " + patient.getElementsByTagName("lastname").item(0).getTextContent());
-		System.out.println("Nick Name : " + patient.getElementsByTagName("pets-list").item(0).getTextContent());
-		System.out.println("Marks : " + patient.getElementsByTagName("pets-list").item(0).getTextContent());
+		NodeList caregivers = ((Element) patient.getElementsByTagName("caregivers-list").item(0))
+				.getElementsByTagName("caregiver");
+		LinkedList<String> caregiversStr = new LinkedList<String>();
+		for (int i = 0; i < caregivers.getLength(); i++)
+			caregiversStr.add(caregivers.item(i).getTextContent());
+		fields[2] = String.join(",", caregiversStr);
 
-		// The code block below assigns the values of fields[] to the patient
+		NodeList stafflist = ((Element) patient.getElementsByTagName("staff-list").item(0))
+				.getElementsByTagName("staff");
+		LinkedList<String> staffStr = new LinkedList<String>();
+		for (int i = 0; i < stafflist.getLength(); i++)
+			staffStr.add(stafflist.item(i).getTextContent());
+		fields[3] = String.join(",", staffStr);
+		/*
+		 * NodeList medications =
+		 * ((Element)patient.getElementsByTagName("medications-list").item(0 )).
+		 * getElementsByTagName("medication"); LinkedList<String> medicationsStr
+		 * = new LinkedList<String>(); for(int
+		 * i=0;i<medications.getLength();i++)
+		 * medicationsStr.add(medications.item(i).getTextContent()); fields[4] =
+		 * String.join(",", medicationsStr);
+		 */
+		NodeList addresses = ((Element) patient.getElementsByTagName("address-list").item(0))
+				.getElementsByTagName("address");
+		LinkedList<String> addressStr = new LinkedList<String>();
+		for (int i = 0; i < addresses.getLength(); i++)
+			addressStr.add(addresses.item(i).getTextContent());
+		fields[5] = String.join(",", addressStr);
+
+		NodeList phonenumbers = ((Element) patient.getElementsByTagName("phone-number-list").item(0))
+				.getElementsByTagName("phone-number");
+		LinkedList<String> phonenumberStr = new LinkedList<String>();
+		for (int i = 0; i < phonenumbers.getLength(); i++)
+			phonenumberStr.add(phonenumbers.item(i).getTextContent());
+		fields[6] = String.join(",", phonenumberStr);
+
+		NodeList emaillist = ((Element) patient.getElementsByTagName("email-list").item(0))
+				.getElementsByTagName("email");
+		LinkedList<String> emailStr = new LinkedList<String>();
+		for (int i = 0; i < emaillist.getLength(); i++)
+			emailStr.add(emaillist.item(i).getTextContent());
+		fields[7] = String.join(",", emailStr);
+
+		NodeList petslist = ((Element) patient.getElementsByTagName("pets-list").item(0)).getElementsByTagName("pet");
+		LinkedList<String> petsStr = new LinkedList<String>();
+		for (int i = 0; i < petslist.getLength(); i++)
+			petsStr.add(petslist.item(i).getTextContent());
+		fields[8] = String.join(",", petsStr);
+
+		NodeList allergylist = ((Element) patient.getElementsByTagName("allergies-list").item(0))
+				.getElementsByTagName("allergy");
+		LinkedList<String> allergyStr = new LinkedList<String>();
+		for (int i = 0; i < allergylist.getLength(); i++)
+			allergyStr.add(allergylist.item(i).getTextContent());
+		fields[9] = String.join(",", allergyStr);
+
+		NodeList dietlist = ((Element) patient.getElementsByTagName("diets-list").item(0)).getElementsByTagName("diet");
+		LinkedList<String> dietStr = new LinkedList<String>();
+		for (int i = 0; i < dietlist.getLength(); i++)
+			dietStr.add(dietlist.item(i).getTextContent());
+		fields[10] = String.join(",", dietStr);
+
+		// The code block below assigns the values of fields[] to the
+		// patient
 		Patient output = new Patient(fields[0], fields[1]);
 		String[] staff = fields[3].split(",");
 		for (String member : staff)
-			output.getAssignedStaff().add(MainApp.getDatabaseHandler().getMedicalStaff(member));
-
+			output.getAssignedStaff().add(new MedicalStaff(0, member, member, member, member, null, member, null));
+		//TODO: get actual medical staff here again
+		
 		@SuppressWarnings("unused") // Medication currently disabled
 		String[] meds = fields[4].split(",");
 		// for (String med : meds)
 		// output.addMedication(new Medication(med));
 
-		String address = fields[5];
-		output.getContactInfo().addAddress(address);
-		String[] phoneNumbers = fields[6].split(",");
-		for (String number : phoneNumbers)
-			output.getContactInfo().addPhone(number);
-		String email = fields[7];
-		output.getContactInfo().addEmail(email);
+		String[] addressArray = fields[5].split(",");
+		for(String address : addressArray)
+			output.getContactInfo().addAddress(new ContactElement("address", address));
+		String[] phonenumArray = fields[6].split(",");
+		for(String phone : phonenumArray)
+			output.getContactInfo().addPhone(new ContactElement("phone",phone));
+		String[] emails = fields[7].split(",");
+		for(String email : emails)
+			output.getContactInfo().addEmail(new ContactElement("email",email));
 		String[] pets = fields[8].split(",");
 		for (String pet : pets)
-			output.getPatientProfile().addPet(new Pet(pet, null, false));
+			output.getPets().add(new Pet(pet, null, false));
 		String[] allergies = fields[9].split(",");
 		for (String allergy : allergies)
 			output.getHealthProfile().getAllergies().add(allergy);
