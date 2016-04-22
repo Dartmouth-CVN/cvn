@@ -7,7 +7,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import model.Caregiver;
 import model.Contact;
+import model.Meal;
+import model.Pet;
 
 
 public class RandomGenerator {
@@ -34,7 +37,16 @@ public class RandomGenerator {
 			"nupedu@ta.edu", "juh@antof.com", "mewso@necuwnuk.io", "fuivif@daunen.gov", "hohzavi@paw.edu",
 			"motjeni@muvu.io", "setosuf@oti.org", "lad@kupez.gov", "uggako@filse.net", "pivop@wewjur.com" };
 
+	static String[] petTypes = {"Dog", "Cat", "Fish"};
 
+	static String[] petNames = {"Bob", "Max", "Lucy", "Buddy", "Rocky"};
+
+	static String[] foodNames = {"Pizza", "Mac & Cheese", "Wings", "Jollof"};
+	
+	static String[] relation = {"Mother", "Father", "Son", "Daughter", "Cousin", "Uncle", "Aunt"};
+	
+	static Boolean[] bool = { true, false};
+	
 	static Random randomNumber = getRandomNumber();
 
 	public static Random getRandomNumber() {
@@ -82,16 +94,19 @@ public class RandomGenerator {
 		return "Room " + (randomNumber.nextInt(20) + 1);
 	}
 
+	public static String getRandomRelation(){
+		return relation[randomNumber.nextInt(relation.length)];
+	}
+	
+	public static Boolean getRandomBoolean(){
+		return bool[randomNumber.nextInt(bool.length)];
+	}
+	
 	public static Contact getRandomContactInfo() {
 		String[] types = { "personal", "work", "home" };
 		LinkedList<String> phoneNumbers = new LinkedList<String>();
 		LinkedList<String> emails = new LinkedList<String>();
 		LinkedList<String> addresses = new LinkedList<String>();
-
-	
-//		List<Contact> phoneNumbers = new LinkedList<Contact>();
-//		List<Contact> emails = new LinkedList<Contact>();
-//		List<Contact> addresses = new LinkedList<Contact>();
 		
 		// add phone numbers
 		for (String type : types) {
@@ -114,5 +129,28 @@ public class RandomGenerator {
 		return contact;
 
 	}
+	
+	public static Pet getRandomPet(){
+		return new Pet(petNames[randomNumber.nextInt(petNames.length)], 
+				petTypes[randomNumber.nextInt(petTypes.length)], 
+				randomNumber.nextInt(10) < 5 ? true : false );
+	}
+
+	public static Meal getRandomMeal(){
+		return new Meal(foodNames[randomNumber.nextInt(foodNames.length)],
+				randomNumber.nextInt(10) + 1, randomNumber.nextInt(200), "" );
+	}
+	
+	public static Caregiver getRandomCaregiver(){
+        String firstname = getRandomFirstName();
+        String lastname = getRandomLastName();
+        String relation = getRandomRelation();
+        String username = createUsername(firstname, lastname);
+        Date birthday = getRandomBirthday();
+        Boolean isFamily = getRandomBoolean();
+        String room = getRandomRoom();
+        Contact contactInfo = getRandomContactInfo();
+        return new Caregiver( firstname, birthday.toString(), relation, contactInfo, isFamily);
+    }
 
 }

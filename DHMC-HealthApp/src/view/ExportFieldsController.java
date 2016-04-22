@@ -290,7 +290,6 @@ public class ExportFieldsController {
 		for (int i = 0; i < fields.length; i++) {
 			fields[i] = fieldCheck.get(i);
 		}
-		fields = null;
 		String name = "Exported";
 		if (CSVRadioButton.isSelected()) {
 			CSVParsingUtils.CSVExport(name + ".csv", MainApp.getDatabaseHandler().getPatientList(), fields);
@@ -339,10 +338,9 @@ public class ExportFieldsController {
 	}
 
 	public void importXML() {
-		//FileChooser fc = new FileChooser();
-		//fc.setTitle("Select XML to import");
-		//File curXML = fc.showOpenDialog(null);
-		File curXML = new File("patients.xml");
+		FileChooser fc = new FileChooser();
+		fc.setTitle("Select XML to import");
+		File curXML = fc.showOpenDialog(null);
 		if (curXML != null && curXML.exists()) {
 			LinkedList<Patient> pts = controller.XMLParsingUtils.importData(curXML);
 			for(Patient p : pts)
