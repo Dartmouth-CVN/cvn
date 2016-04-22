@@ -203,9 +203,8 @@ public class XMLParsingUtils extends GeneralParsingUtils {
 		return writePatientsToHTML(filename, pts, null);
 	}
 
-	public static LinkedList<Patient> importData(String filename) {
+	public static LinkedList<Patient> importData(File inputFile) {
 		try {
-			File inputFile = new File("patients.xml");
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(inputFile);
