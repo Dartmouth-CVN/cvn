@@ -70,12 +70,12 @@ public class SVParsingController implements ParsingController {
 		// output.addMedication(new Medication(med));
 
 		String address = fields[6];
-		output.getContactInfo().setAddress(address);
+		output.getContactInfo().addAddress(address);
 		String[] phoneNumbers = fields[7].split(",");
 		for (String number : phoneNumbers)
-			output.getContactInfo().setPhone(number);
+			output.getContactInfo().addPhone(number);
 		String email = fields[8];
-		output.getContactInfo().setEmail(email);
+		output.getContactInfo().addEmail(email);
 		String[] pets = fields[9].split(",");
 		for (String pet : pets)
 			output.getPreferences().addPet(new Pet(pet, null, false));

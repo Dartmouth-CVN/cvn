@@ -131,6 +131,9 @@ public class SearchTabController {
 			MiniPatientProfileController controller = loader.getController();
 			controller.setMain(mainApp);
 			Patient patient = MainApp.getDatabaseHandler().getPatient(userID);
+
+			System.out.println(patient.getContactInfo().getPrimaryPhone());
+			
 			Tab profileTab = new Tab(patient.getLastName());
 			profileTab.setContent(miniProfile);
 			controller.setPatient(patient);

@@ -326,11 +326,11 @@ public class EditPatientController {
 		saveNames();
 		p.setBirthday(patientBirthday.getValue());
 
-		p.getContactInfo().setAddress(patientAddress.getText());
+		p.getContactInfo().addAddress(patientAddress.getText());
 
 
 		for (DisplayString phoneNumber : patientPhones) {
-			p.getContactInfo().setPhone(phoneNumber.getString());
+			p.getContactInfo().addPhone(phoneNumber.getString());
 			array.add(phoneNumber.getString());
 		}
 		
@@ -343,7 +343,7 @@ public class EditPatientController {
 		array = new ArrayList<String>();
 
 		for (DisplayString email : patientEmails) {
-			p.getContactInfo().setEmail(email.getString());
+			p.getContactInfo().addEmail(email.getString());
 			array.add(email.getString());
 		}
 		
@@ -354,7 +354,7 @@ public class EditPatientController {
 		}
 
 		
-		p.getContactInfo().setAddress(patientAddress.getText());
+		p.getContactInfo().addAddress(patientAddress.getText());
 
 
 		if ( (p.getNewPatient() && p.save()) || (!p.getNewPatient() && p.update())) {

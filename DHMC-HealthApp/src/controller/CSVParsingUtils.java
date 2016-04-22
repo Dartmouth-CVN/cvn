@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 import model.MainApp;
@@ -230,12 +231,12 @@ public class CSVParsingUtils extends GeneralParsingUtils{
 		// output.addMedication(new Medication(med));
 
 		String address = pt[6];
-		output.getContactInfo().setAddress(address);
+		output.getContactInfo().addAddress(address);
 		String[] phoneNumbers = pt[7].split(",");
 		for (String number : phoneNumbers)
-			output.getContactInfo().setPhone(number);
+			output.getContactInfo().addPhone(number);
 		String email = pt[8];
-		output.getContactInfo().setEmail(email);
+		output.getContactInfo().addEmail(email);
 		String[] pets = pt[9].split(",");
 		for (String pet : pets)
 			output.getPreferences().addPet(new Pet(pet, null, false));
@@ -313,7 +314,7 @@ public class CSVParsingUtils extends GeneralParsingUtils{
 		output += delimiter;
 		if (shouldEx[6]) {
 			output += "\"";
-			LinkedList<String> addresses = pt.getContactInfo().getAddressList();
+			List<String> addresses = pt.getContactInfo().getAddressList();
 			if (addresses.size() > 0) {
 				for (int i = 0; i < addresses.size() - 1; i++)
 					output += addresses.get(i) + ",";
@@ -324,7 +325,7 @@ public class CSVParsingUtils extends GeneralParsingUtils{
 		output += delimiter;
 		if (shouldEx[7]) {
 			output += "\"";
-			LinkedList<String> phonenumbers = pt.getContactInfo().getPhoneList();
+			List<String> phonenumbers = pt.getContactInfo().getPhoneList();
 			if (phonenumbers.size() > 0) {
 				for (int i = 0; i < phonenumbers.size() - 1; i++)
 					output += phonenumbers.get(i) + ",";
@@ -335,7 +336,7 @@ public class CSVParsingUtils extends GeneralParsingUtils{
 		output += delimiter;
 		if (shouldEx[8]) {
 			output += "\"";
-			LinkedList<String> emails = pt.getContactInfo().getEmailList();
+			List<String> emails = pt.getContactInfo().getEmailList();
 			if (emails.size() > 0) {
 				for (int i = 0; i < emails.size() - 1; i++)
 					output += emails.get(i) + ",";

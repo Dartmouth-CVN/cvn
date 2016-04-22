@@ -3,8 +3,10 @@ package controller;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -153,10 +155,10 @@ public class DatabaseHandler {
 			Contact contact = new Contact(userID);
 
 			for (String n : numbers) {
-				contact.setPhone(n);
+				contact.addPhone(n);
 			}
 			for (String e : emails) {
-				contact.setEmail(e);
+				contact.addEmail(e);
 			}
 			contact.addAddressList(numbers);
 			contact.addEmailList(emails);
@@ -262,7 +264,7 @@ public class DatabaseHandler {
 
 			connection = ds.getConnection();
 			if (connection != null) {
-//				System.out.println("Connected to database");
+				// System.out.println("Connected to database");
 				metaData = connection.getMetaData();
 				connected = true;
 			}
@@ -599,12 +601,16 @@ public class DatabaseHandler {
 				ps.setString(1, userID);
 				rs = ps.executeQuery();
 				if (rs.next()) {
-					Blob aBlob = rs.getBlob("contact_info");
-					byte[] byteArray = aBlob.getBytes(1, (int) aBlob.length());
-					baip = new ByteArrayInputStream(byteArray);
-					ois = new ObjectInputStream(baip);
+
+					// Blob blob = rs.getBlob("contact_info");
+					InputStream stream = rs.getBinaryStream("contact_info");
+					System.out.println(Contact.class);
+					ObjectInputStream ois = new ObjectInputStream(stream);
+					Contact contact = (Contact) ois.readObject();
+					
+					System.out.println(contact.getPhoneList());
 					Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
-							rs.getString("user_id"), (Contact) ois.readObject());
+							rs.getString("user_id"), contact);
 					connection.close();
 					System.out.println(patient.getContactInfo().getPrimaryEmail());
 					return patient;
@@ -981,26 +987,39 @@ public class DatabaseHandler {
 		}
 		return patientCaregivers;
 	}
-
-	public ByteArrayInputStream objectToBlob(Contact o) {
-		ByteArrayInputStream bais = null;
-		try {
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			ObjectOutputStream oos = new ObjectOutputStream(baos);
-			oos.writeObject(o);
-			byte[] byteArray = baos.toByteArray();
-			bais = new ByteArrayInputStream(byteArray);
-		} catch (IOException e) {
-			// MainApp.printError(e);
-			e.printStackTrace();
-		}
-		return bais;
+	
+	public static byte[] serialize(Object obj) throws IOException {
+	    ByteArrayOutputStream out = new ByteArrayOutputStream();
+	    ObjectOutputStream os = new ObjectOutputStream(out);
+	    os.writeObject(obj);
+	    return out.toByteArray();
+	}
+	public static Object deserialize(byte[] data) throws IOException, ClassNotFoundException {
+	    ByteArrayInputStream in = new ByteArrayInputStream(data);
+	    ObjectInputStream is = new ObjectInputStream(in);
+	    return is.readObject();
+	}
+	
+	public void myCode(){
+//		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+//		ObjectOutputStream oos = new ObjectOutputStream(buffer);
+//		oos.writeObject(contactInfo);
+//		oos.close();
+//		byte[] byteArray = buffer.toByteArray();
+//		for(byte b : byteArray)
+//			System.out.print( (char) b);
+//		System.out.println();
+//		ByteArrayInputStream bais = new ByteArrayInputStream(byteArray);
+//		ObjectInputStream ois = new ObjectInputStream(bais);
 	}
 
 	public boolean insertUser(String userID, String firstName, String lastName, Contact contactInfo) {
 		success = false;
 		try {
 			if (connect()) {
+				byte[] objectBytes = serialize(contactInfo);
+				Contact desel  = (Contact) deserialize(objectBytes);
+				System.out.println("Contact info: " + desel.getPhoneList());
 				ps = connection
 						.prepareStatement("INSERT INTO user_account (user_id, firstname, lastname, contact_info) "
 								+ "VALUES(?, ?, ?, ?)");
@@ -1008,12 +1027,11 @@ public class DatabaseHandler {
 				ps.setString(1, userID);
 				ps.setString(2, firstName);
 				ps.setString(3, lastName);
-				ByteArrayInputStream bais = objectToBlob(contactInfo);
-				ps.setBinaryStream(4, bais);
+				ps.setBinaryStream(4, new ByteArrayInputStream(objectBytes), objectBytes.length);
 				ps.executeUpdate();
 				success = true;
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | IOException | ClassNotFoundException e) {
 			MainApp.printError(e);
 		}
 		return success;
@@ -1347,19 +1365,25 @@ public class DatabaseHandler {
 		success = false;
 		try {
 			if (connect()) {
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				ObjectOutputStream oos = new ObjectOutputStream(baos);
+				oos.writeObject(contactInfo);
+				byte[] byteArray = baos.toByteArray();
+				ByteArrayInputStream bais = new ByteArrayInputStream(byteArray);
+
 				ps = connection.prepareStatement(
 						"UPDATE user_account SET firstname = ?, " + "lastname = ?, contact_info = ? WHERE user_id = ?");
 
 				ps.setString(1, firstName);
 				ps.setString(2, lastName);
-				ps.setBinaryStream(3, objectToBlob(contactInfo));
+				ps.setBinaryStream(3, bais, byteArray.length);
 				ps.setString(4, userID);
 
 				ps.executeUpdate();
 				ps.close();
 				success = true;
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | IOException e) {
 			System.out.println(e.getMessage());
 		}
 		return success;

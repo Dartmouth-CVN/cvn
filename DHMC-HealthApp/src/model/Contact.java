@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.List;
 
 import javafx.beans.property.SimpleStringProperty;
 
@@ -9,177 +10,96 @@ public class Contact implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -2789588534495622114L;
+	private static final long serialVersionUID = -7223896053950926127L;
 	private String id;
-	private LinkedList<SerializableStringProperty> phone;
-	private LinkedList<SerializableStringProperty> email;
-	private LinkedList<SerializableStringProperty> address;
+	private List<String> phone;
+	private List<String> email;
+	private List<String> address;
 
 	public Contact(String id) {
 		this.id = id;
-		this.phone = new LinkedList<SerializableStringProperty>();
-		this.email = new LinkedList<SerializableStringProperty>();
-		this.address = new LinkedList<SerializableStringProperty>();
+		this.phone = new LinkedList<String>();
+		this.email = new LinkedList<String>();
+		this.address = new LinkedList<String>();
 	}
 
 	public Contact() {
 		this.id = "Unassigned";
-		this.phone = new LinkedList<SerializableStringProperty>();
-		this.email = new LinkedList<SerializableStringProperty>();
-		this.address = new LinkedList<SerializableStringProperty>();
+		this.phone = new LinkedList<String>();
+		this.email = new LinkedList<String>();
+		this.address = new LinkedList<String>();
 	}
 
 	public String getID() {
 		return this.id;
 	}
 
-	public LinkedList<SerializableStringProperty> phoneProperty() {
+	public final List<String> getPhoneList() {
 		return phone;
 	}
 
-	public final LinkedList<String> getPhoneList() {
-
-		LinkedList<String> phoneList = new LinkedList<String>();
-
-		for (int i = 0; i < emailProperty().size(); i++) {
-
-			phoneList.add(emailProperty().get(i).get());
-
-		}
-
-		return phoneList;
-	}
-
 	public void addPhoneList(LinkedList<String> phoneList) {
-
-		for (String num : phoneList) {
-
-			phoneProperty().add(new SerializableStringProperty(num));
-		}
-
+		phone.addAll(phoneList);
 	}
 
 	public final String getPrimaryPhone() {
-
-		return phoneProperty().get(0).get();
+		return phone.get(0);
 	}
 
-	public final void setPhone(String phone) {
-
-		SerializableStringProperty simplePhone = new SerializableStringProperty(phone);
-
-		phoneProperty().add(simplePhone);
+	public final void removePhone(String iphone) {
+		if (phone.contains(iphone))
+			phone.remove(iphone);
+	}
+	
+	public void addPhone(String p){
+		phone.add(p);
 	}
 
-	public final void removePhone(String phone) {
-
-		SerializableStringProperty simplePhone = new SerializableStringProperty(phone);
-
-		for (int i = 0; i < phoneProperty().size(); i++) {
-
-			if (phoneProperty().get(i).get() == simplePhone.get()) {
-
-				phoneProperty().remove(i);
-			}
-		}
+	public void addEmail(String e){
+		email.add(e);
 	}
+	
 
-	public LinkedList<SerializableStringProperty> emailProperty() {
+	public void addAddress(String ad){
+		address.add(ad);
+	}
+	
+	public final List<String> getEmailList() {
 		return email;
 	}
 
-	public final LinkedList<String> getEmailList() {
-
-		LinkedList<String> emailList = new LinkedList<String>();
-
-		for (int i = 0; i < emailProperty().size(); i++) {
-
-			emailList.add(emailProperty().get(i).get());
-
-		}
-
-		return emailList;
-	}
-
 	public void addEmailList(LinkedList<String> emailList) {
-
-		for (String num : emailList) {
-
-			emailProperty().add(new SerializableStringProperty(num));
-		}
-
+		email.addAll(emailList);
 	}
 
 	public final String getPrimaryEmail() {
-
-		return emailProperty().get(0).get();
+		return email.get(0);
 	}
 
-	public final void setEmail(String email) {
-
-		SerializableStringProperty simpleEmail = new SerializableStringProperty(email);
-
-		phoneProperty().add(simpleEmail);
+	public final void removeEmail(String iemail) {
+		if (email.contains(iemail))
+			email.remove(iemail);
 	}
 
-	public final void removeEmail(String email) {
-
-		SerializableStringProperty simpleEmail = new SerializableStringProperty(email);
-
-		for (int i = 0; i < emailProperty().size(); i++) {
-
-			if (emailProperty().get(i).get() == simpleEmail.get()) {
-
-				emailProperty().remove(i);
-			}
-		}
-	}
-
-	public LinkedList<SerializableStringProperty> addressProperty() {
+	public List<String> addressProperty() {
 		return address;
 	}
 
-	public final LinkedList<String> getAddressList() {
-
-		LinkedList<String> addressList = new LinkedList<String>();
-
-		for (int i = 0; i < emailProperty().size(); i++) {
-
-			addressList.add(emailProperty().get(i).get());
-
-		}
-
-		return addressList;
+	public final List<String> getAddressList() {
+		return address;
 	}
 
 	public void addAddressList(LinkedList<String> addressList) {
-
-		for (String num : addressList) {
-
-			addressProperty().add(new SerializableStringProperty(num));
-		}
-
+		address.addAll(addressList);
 	}
 
 	public final String getPrimaryAddress() {
-
-		return addressProperty().get(0).get();
+		return addressProperty().get(0);
 	}
 
-	public final void setAddress(String address) {
-
-		SerializableStringProperty simpleAddress = new SerializableStringProperty(address);
-
-		phoneProperty().add(simpleAddress);
-	}
-
-	public final void removeAddress(String address) {
-		SerializableStringProperty simpleAddress = new SerializableStringProperty(address);
-		for (int i = 0; i < addressProperty().size(); i++) {
-			if (addressProperty().get(i).get() == simpleAddress.get()) {
-				addressProperty().remove(i);
-			}
-		}
+	public final void removeAddress(String ad) {
+		if (address.contains(ad))
+			address.remove(ad);
 	}
 
 }
