@@ -32,6 +32,7 @@ import model.MainApp;
 import model.Meal;
 import model.MedicalStaff;
 import model.Patient;
+import model.PatientProfile;
 import model.Pet;
 
 public class DatabaseHandler {
@@ -108,14 +109,21 @@ public class DatabaseHandler {
 				emails.add(getRandomEmail());
 
 			Contact contact = new Contact(userID);
+
+			for(String n:numbers){
+				contact.setPhone(n);
+			}
+			for(String e:emails){
+				contact.setEmail(e);
+			}
 			contact.addAddressList(numbers);
 			contact.addEmailList(emails);
-
 			insertUser(userID, firstname, lastname, contact);
 			insertLogin(userID, "admin" + number, "pass" + number);
 			insertPatient(userID);
 		}
 	}
+
 
 	public String getRandomFirstName() {
 		return firstNames[randomNumber.nextInt(firstNames.length)];
@@ -160,7 +168,39 @@ public class DatabaseHandler {
 			MainApp.printError(e);
 		}
 	}
-
+//insertUser(String userID, String firstName, String lastName, Contact contactInfo)
+	public void insertDummyPatient(){
+		//set up objects
+		Contact info = new Contact();
+		PatientProfile preferences = new PatientProfile();
+		
+		LinkedList<Pet> petList = new LinkedList<Pet>();
+		Pet pet1 = new Pet("billy","dog",true);
+		petList.add(pet1);
+		
+		LinkedList<Meal> mealList = new LinkedList<Meal>();
+		Meal meal1 = new Meal("pizza", 22, 4, "yum");
+		mealList.add(meal1);
+		
+		LinkedList<Caregiver> caregiverList = new LinkedList<Caregiver>();
+		Caregiver careg1 = new Caregiver("Fred", "4-19", "cousin", info, true);
+		caregiverList.add(careg1);
+		
+		preferences.setCaregiver(caregiverList);
+		preferences.setMenu(mealList);
+		preferences.setPet(petList);
+		
+		insertDummyUser();
+		insertPatient("Bob", "Barker", "111", info);
+		Patient dummy = getPatient("111");
+		
+		
+		dummy.setPreferences(preferences);
+		
+		updatePatient(dummy);
+		
+	}
+	
 	public boolean connect() {
 		boolean connected = false;
 		try {
@@ -572,7 +612,6 @@ public class DatabaseHandler {
 				ps = connection.prepareStatement("SELECT * FROM patient Natural Join user_account"
 						+ " WHERE firstname LIKE ?");
 				ps.setString(1, name);
-//				ps.setString(2, name);
 				rs = ps.executeQuery();
 				while (rs.next()) {
 					Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
@@ -870,6 +909,22 @@ public class DatabaseHandler {
 		}
 		return success;
 	}
+	public boolean insertPatient(String first, String last, String userID, Contact info){
+		success = false;
+		try {
+			
+			if (insertUser(userID, first, last, info) && connect()) {
+				ps = connection.prepareStatement("INSERT INTO patient (user_id) VALUES (?)");
+				ps.setString(1,userID);
+				ps.executeUpdate();
+				ps.close();
+				success = true;
+			}
+		} catch (SQLException e) {
+			MainApp.printError(e);
+		}
+		return success;
+	}
 	/**
 	 * Insert single Patient into user_account and patient table
 	 * @param p
@@ -997,6 +1052,45 @@ public class DatabaseHandler {
 		return success;
 	}
 	/**
+	 * insert assigned staff relationship into staff_assignment
+	 * @param staff
+	 * @param p
+	 * @return
+	 */
+	public boolean insertAssignedStaff(MedicalStaff staff, Patient p){
+		success = false;
+		try {
+			connect();
+			
+				ps = connection.prepareStatement("INSERT INTO staff_assignment (med_id, patient_id) VALUES (?,?)");
+
+				ps.setInt(1, staff.getMedID());
+				ps.setInt(2, p.getPatientID());
+
+				ps.executeUpdate();
+				ps.close();
+				success = true;
+			
+		} catch (SQLException e) {
+			MainApp.printError(e);
+		}
+		return success;
+	}
+	/**
+	 * Insert multiple medical staff members as assigned staff of patient
+	 * @param patients
+	 * @return
+	 */
+	public boolean insertAssignedMedicalStaffMembers(LinkedList<MedicalStaff> staffList, Patient p) {
+		success = true;
+		for (MedicalStaff staff : staffList) {
+			if (!insertAssignedStaff(staff,p))
+				success = false;
+		}
+		return success;
+	}
+	
+	/**
 	 * Insert single Admin ito user_account and admin table
 	 * @param admin
 	 * @return
@@ -1041,6 +1135,19 @@ public class DatabaseHandler {
 			}
 		} catch (SQLException e) {
 			MainApp.printError(e);
+		}
+		return success;
+	}
+	/**
+	 * Insert multiple meals
+	 * @param patients
+	 * @return
+	 */
+	public boolean insertMeals(LinkedList<Meal> meals, Patient p) {
+		success = true;
+		for (Meal m : meals) {
+			if (!insertMeal(m,p))
+				success = false;
 		}
 		return success;
 	}

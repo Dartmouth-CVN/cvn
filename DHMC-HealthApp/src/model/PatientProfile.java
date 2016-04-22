@@ -59,13 +59,6 @@ public class PatientProfile {
 		menu.remove(removedmeal);
 	}
 		
-//	public void setHealthProfile(HealthProfile profile) {
-//		healthProfile = profile;
-//	}
-	
-//	public void setAlarm(boolean alarm) {
-//		wantsAlarm = alarm;
-//	}
 	
 	public LinkedList<Caregiver> getCaregiver() {
 		return caregivers;
@@ -85,14 +78,10 @@ public class PatientProfile {
 	
 	public void setMenu(LinkedList<Meal> menu) {			//to be implemented with Meal class --JD
 		this.menu = menu;
-	}			
+	}	
 	
+	public void setPet(LinkedList<Pet> petlist){
+		this.pets = petlist;
+	}
 	
-//	public HealthProfile getHealthProfile() {
-//		return healthProfile;
-//	}
-//	
-//	public boolean yesAlarm() {
-//		return wantsAlarm;
-//	}
 }
