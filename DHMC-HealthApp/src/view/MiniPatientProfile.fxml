@@ -28,7 +28,7 @@
             <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label fx:id="nameLabel" text="Name" />
+            <Label fx:id="patientNameLabel" text="Name" />
             <Label fx:id="phoneLabel" text="Phone" GridPane.rowIndex="1" />
             <Label fx:id="idLabel" text="ID" GridPane.columnIndex="1" />
             <Label fx:id="emailLabel" text="Email" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -60,8 +60,8 @@
                   <Image url="@../../resources/images/blank-profile-picture.png" />
                </image>
             </ImageView>
-            <Button fx:id="viewMedicalStaffProfileButton" mnemonicParsing="false" onAction="#viewPatient" prefHeight="25.0" prefWidth="92.0" text="View Profile" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-            <Label fx:id="doctorLabel2" text="Name" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+            <Button fx:id="viewMedicalStaffProfileButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="92.0" text="View Profile" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+            <Label fx:id="medicalStaffNameLabel" text="Name" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
          </children>
       </GridPane>
    </children>

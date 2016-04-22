@@ -156,8 +156,8 @@ public class ViewPatientController {
 
 		patientPhone.setCellValueFactory(cellData -> cellData.getValue().getStringProperty());
 		patientEmail.setCellValueFactory(cellData -> cellData.getValue().getStringProperty());
-		familyPhone.setCellValueFactory(cellData -> cellData.getValue().getContactInfo().getPhone());
-		familyEmail.setCellValueFactory(cellData -> cellData.getValue().getContactInfo().getEmail());
+		familyPhone.setCellValueFactory(cellData -> cellData.getValue().getContactInfo().getPhoneList());
+		familyEmail.setCellValueFactory(cellData -> cellData.getValue().getContactInfo().getEmailList());
 		familyNames.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 		familyRels.setCellValueFactory(cellData -> cellData.getValue().relationProperty());
 

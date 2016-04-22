@@ -1,10 +1,7 @@
 package controller;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
-
-import model.Patient;
 
 public class XMLTest {
 
