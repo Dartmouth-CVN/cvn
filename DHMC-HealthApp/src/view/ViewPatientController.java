@@ -2,6 +2,7 @@ package view;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 
 import javafx.collections.FXCollections;
@@ -33,6 +34,9 @@ import model.MainApp;
 import model.Meal;
 import model.Patient;
 import model.Pet;
+
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class ViewPatientController {
 
@@ -108,7 +112,7 @@ public class ViewPatientController {
 	TableColumn<Meal, String> mealNotesCol;
 	//
 	@FXML
-	LineChart bmi;
+	LineChart<Number, Number> bmi;
 
 	ObservableList<DisplayString> patientPhones;
 	ObservableList<DisplayString> patientEmails;
@@ -119,8 +123,6 @@ public class ViewPatientController {
 	ObservableList<DisplayString> familyPhones;
 	ObservableList<Caregiver> famNames;
 	ObservableList<Caregiver> famRels;
-	
-	ObservableList<XYChart.Series<Double,Integer>> bmivsdate;
 
 	@FXML
 	private void initialize() {
@@ -133,8 +135,14 @@ public class ViewPatientController {
 		familyPhones = FXCollections.observableArrayList();
 		familyEmails = FXCollections.observableArrayList();
 
-
-		bmi.setData(bmivsdate);
+		XYChart.Series series = new XYChart.Series();
+		LinkedList<Long> daysSinceStart = new LinkedList<Long>();
+		for (HealthInfo h : p.getHealthInfo())
+			daysSinceStart.add(ChronoUnit.DAYS.between(LocalDate.of(2000, 12, 25), LocalDate.parse(h.getDate())));
+		Collections.sort(daysSinceStart);
+		for (HealthInfo h : p.getHealthInfo())
+			series.getData().add(daysSinceStart.removeFirst().intValue(), h.getBmi());
+		bmi.getData().add(series);
 		
 		patientPhoneTable.setItems(patientPhones);
 		patientEmailTable.setItems(patientEmails);
