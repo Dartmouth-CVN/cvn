@@ -340,6 +340,16 @@ public class ExportFieldsController {
 		}
 	}
 	
+	public void importXML() {
+		FileChooser fc = new FileChooser();
+		fc.setTitle("Select XML to import");
+		File curXML = fc.showOpenDialog(null);
+		if (curXML != null && curXML.exists()) {
+			LinkedList<Patient> pts = controller.XMLParsingUtils.importData(curXML);
+			MainApp.getDatabaseHandler().insertPatients(pts);
+		}
+	}
+	
 	private void loadCheckBoxArrays(){
 		
 		int i = 0;
