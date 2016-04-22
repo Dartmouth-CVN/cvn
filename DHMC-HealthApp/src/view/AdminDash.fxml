@@ -81,7 +81,7 @@
                                                 <Image url="@../../resources/images/Search_icon_font_awesome.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fx:id="scheduleImage" fitHeight="115.0" fitWidth="127.0" onMouseClicked="#handleScheduleImage" pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER">
+                                          <ImageView fx:id="scheduleImage" fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER">
                                              <image>
                                                 <Image url="@../../resources/images/Calendar_icon_font_awesome.svg_.png" />
                                              </image>
