@@ -1,10 +1,10 @@
 ----------------------------------------------------------------
-Fri Apr 22 09:38:11 EDT 2016:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): instance a816c00e-0154-3e31-2eed-000006e8b178 
-on database directory /Users/mrampiah/Documents/workspace/git/cvn/HealthApp/resources/database/HealthAppDB with class loader sun.misc.Launcher$AppClassLoader@1b6d3586 
+Fri Apr 22 11:58:13 EDT 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): instance a816c00e-0154-3eb1-63e1-000006e70718 
+on database directory /Users/mrampiah/Documents/workspace/git/cvn/HealthApp/resources/database/HealthAppDB with class loader sun.misc.Launcher$AppClassLoader@4554617c 
 Loaded from file:/Users/mrampiah/Documents/workspace/git/cvn/HealthApp/resources/jars/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_65-b17
+java.runtime.version=1.8.0_77-b03
 user.dir=/Users/mrampiah/Documents/workspace/git/cvn/HealthApp
 os.name=Mac OS X
 os.arch=x86_64
