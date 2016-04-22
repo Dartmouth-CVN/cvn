@@ -86,7 +86,35 @@ public class PatientProfileController {
 	 * after the fxml file has been loaded.
 	 */
 	@FXML
-	private void initialize(Patient patient) {
+	private void initialize() {
+		
+		//addressColumn.setCellValueFactory(cellData -> cellData.getValue().addressProperty());
+		//phoneColumn.setCellValueFactory(cellData -> cellData.getValue().phoneProperty());
+		//emailColumn.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
+		
+		// set table listener
+		//careGiversTable.getSelectionModel().selectedItemProperty()
+				//.addListener((observable, oldValue, newValue) -> showCareGiversContactInfo(newValue));
+	}
+	
+	/**
+	 * Is called by the main application to give a reference back to itself.
+	 * 
+	 * @param mainApp
+	 */
+	public void setMain(MainApp mainApp) {
+		this.mainApp = mainApp;
+	}
+
+	
+	public PatientProfileController() {
+	}
+	
+	public void setPatient(Patient patient) {
+		
+		nameLabel.setText(patient.getFirstName() + " " + patient.getLastName());
+		idLabel.setText(patient.getUserID());
+		
 		caregiverNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 		birthdayColumn.setCellValueFactory(cellData -> cellData.getValue().birthdayProperty());
 		relationColumn.setCellValueFactory(cellData -> cellData.getValue().relationProperty());
@@ -117,26 +145,6 @@ public class PatientProfileController {
 		ObservableList<Pet> pets = MainApp.getDatabaseHandler().searchPatientPet(patient);
 		petTable.setItems(pets);
 		
-		addressColumn.setCellValueFactory(cellData -> cellData.getValue().addressProperty());
-		phoneColumn.setCellValueFactory(cellData -> cellData.getValue().phoneProperty());
-		emailColumn.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
-		
-		// set table listener
-		careGiversTable.getSelectionModel().selectedItemProperty()
-				.addListener((observable, oldValue, newValue) -> showCareGiversContactInfo(newValue));
-	}
-	
-	/**
-	 * Is called by the main application to give a reference back to itself.
-	 * 
-	 * @param mainApp
-	 */
-	public void setMain(MainApp mainApp) {
-		this.mainApp = mainApp;
-	}
-
-	
-	public PatientProfileController(IDisplayable user) {
 	}
 	
 	/**
@@ -146,10 +154,10 @@ public class PatientProfileController {
 	private void showCareGiversContactInfo(Caregiver caregiver) {
 	
 		//databasehandler needs to make getMedicalStaff(MedicalStaff staff) method
-		Caregiver cg = MainApp.getDatabaseHandler().getCaregiver(caregiver.getCaregiverID());
+		//Caregiver cg = MainApp.getDatabaseHandler().getCaregiver(caregiver.getCaregiverID());
 		//nameLabel.setText(ms.getFirstName() + " " + ms.getLastName());	
-		Contact contactInfo = cg.getContactInfo();
-		contactInfoTable.setItem
+		//Contact contactInfo = cg.getContactInfo();
+		//contactInfoTable.setItem
 		
 	}
 }

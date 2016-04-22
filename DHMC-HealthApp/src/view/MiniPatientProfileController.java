@@ -128,16 +128,19 @@ public class MiniPatientProfileController {
 	 * This function will open a patient to view their information
 	 * 
 	 */
+
 	@FXML
 	public void viewPatientProfile() {
 		//Will open a new view to look at a given patient
 		
-	        Parent root;
 	        try {
-	            root = FXMLLoader.load(getClass().getClassLoader().getResource("../view/PatientProfile.fxml"));
+	            Parent root = FXMLLoader.load(MainApp.class.getResource("../view/PatientProfile.fxml"));
 	            Stage stage = new Stage();
-	            stage.setTitle("My New Stage Title");
-	            stage.setScene(new Scene(root, 450, 450));
+	            stage.setTitle("Patient Profile");
+	            stage.setScene(new Scene(root, 600, 400));
+	            //PatientProfileController controller = root.getController();
+				//controller.setMain(mainApp);
+	            //controller.setPatient(patient);
 	            stage.show();
 
 	            //hide this current window (if this is whant you want

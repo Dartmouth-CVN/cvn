@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.PatientProfileController">
    <children>
-      <Pane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Pane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <ScrollPane prefHeight="400.0" prefWidth="600.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="960.0" prefWidth="584.0">
@@ -39,28 +39,28 @@
                     </rowConstraints>
                      <children>
                         <Label text="Assigned Staff" GridPane.rowIndex="1" />
-                        <TableView prefHeight="179.0" prefWidth="570.0" GridPane.rowIndex="2">
+                        <TableView fx:id="assignedStaffTable" prefHeight="179.0" prefWidth="570.0" GridPane.rowIndex="2">
                           <columns>
-                            <TableColumn prefWidth="208.0" text="First Name" />
-                            <TableColumn minWidth="4.0" prefWidth="241.0" text="Last Name" />
-                              <TableColumn prefWidth="132.0" text="Position" />
+                            <TableColumn fx:id="firstNameColumn" prefWidth="208.0" text="First Name" />
+                            <TableColumn fx:id="lastNameColumn" minWidth="4.0" prefWidth="241.0" text="Last Name" />
+                              <TableColumn fx:id="positionColumn" prefWidth="132.0" text="Position" />
                           </columns>
                         </TableView>
                         <Label text="Care Givers" GridPane.rowIndex="3" />
-                        <TableView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
+                        <TableView fx:id="careGiversTable" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
                           <columns>
-                            <TableColumn prefWidth="151.0" text="Name" />
-                            <TableColumn prefWidth="129.0" text="Birthday" />
-                              <TableColumn prefWidth="127.0" text="Relation" />
-                              <TableColumn prefWidth="174.0" text="In Family?" />
+                            <TableColumn fx:id="caregiverNameColumn" prefWidth="151.0" text="Name" />
+                            <TableColumn fx:id="birthdayColumn" prefWidth="129.0" text="Birthday" />
+                              <TableColumn fx:id="relationColumn" prefWidth="127.0" text="Relation" />
+                              <TableColumn fx:id="inFamilyColumn" prefWidth="174.0" text="In Family?" />
                           </columns>
                         </TableView>
                         <Label text="Care Giver's Contact Info" GridPane.rowIndex="5" />
-                        <TableView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="6">
+                        <TableView fx:id="contactInfoTable" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="6">
                           <columns>
-                            <TableColumn prefWidth="205.0" text="Address" />
-                            <TableColumn prefWidth="139.0" text="Phone Number" />
-                              <TableColumn prefWidth="237.0" text="Email" />
+                            <TableColumn fx:id="addressColumn" prefWidth="205.0" text="Address" />
+                            <TableColumn fx:id="phoneColumn" prefWidth="139.0" text="Phone Number" />
+                              <TableColumn fx:id="emailColumn" prefWidth="237.0" text="Email" />
                           </columns>
                         </TableView>
                         <ImageView fitHeight="132.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true">
@@ -81,27 +81,27 @@
                               <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <Label fx:id="doctorLabel" text="Name" GridPane.halignment="LEFT" />
-                              <Label fx:id="nurseLabel" text="Phone" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
-                              <Label fx:id="phoneLabel11" text="ID" GridPane.columnIndex="1" GridPane.halignment="LEFT" />
-                              <Label fx:id="phoneLabel111" text="Email" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+                              <Label fx:id="nameLabel" text="Name" GridPane.halignment="LEFT" />
+                              <Label fx:id="phoneLabel" text="Phone" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+                              <Label fx:id="idLabel" text="ID" GridPane.columnIndex="1" GridPane.halignment="LEFT" />
+                              <Label fx:id="emailLabel" text="Email" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
                         <Label text="Menu" GridPane.rowIndex="7" GridPane.valignment="BOTTOM" />
-                        <TableView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="8">
+                        <TableView fx:id="menuTable" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="8">
                           <columns>
-                            <TableColumn prefWidth="154.0" text="Food" />
-                            <TableColumn prefWidth="54.0" text="Calories" />
-                              <TableColumn prefWidth="50.0" text="Rating" />
-                              <TableColumn prefWidth="323.0" text="Notes" />
+                            <TableColumn fx:id="foodColumn" prefWidth="154.0" text="Food" />
+                            <TableColumn fx:id="caloriesColumn" prefWidth="54.0" text="Calories" />
+                              <TableColumn fx:id="ratingColumn" prefWidth="50.0" text="Rating" />
+                              <TableColumn fx:id="notesColumn" prefWidth="323.0" text="Notes" />
                           </columns>
                         </TableView>
                         <Label text="Pets" GridPane.rowIndex="9" />
-                        <TableView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="10">
+                        <TableView fx:id="petTable" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="10">
                           <columns>
-                            <TableColumn prefWidth="246.0" text="Name" />
-                            <TableColumn prefWidth="224.0" text="Species" />
-                              <TableColumn prefWidth="111.0" text="Allergy Friendly?" />
+                            <TableColumn fx:id="petNameColumn" prefWidth="246.0" text="Name" />
+                            <TableColumn fx:id="speciesColumn" prefWidth="224.0" text="Species" />
+                              <TableColumn fx:id="allergyFriendlyColumn" prefWidth="111.0" text="Allergy Friendly?" />
                           </columns>
                         </TableView>
                      </children>
