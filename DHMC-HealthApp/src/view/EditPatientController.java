@@ -39,8 +39,7 @@ public class EditPatientController {
 	private File curCSV;
 	private LinkedList<HealthInfo> info;
 
-<<<<<<< HEAD
-=======
+
 	public EditPatientController(Patient p) {
 		this.p = p;
 //		Pane parent = exportfields;
@@ -54,7 +53,7 @@ public class EditPatientController {
 //		}
 	}
 
->>>>>>> 9ad341692c0d0ccfae228f6536976e7353bc21b5
+
 	public EditPatientController() {
 	}
 
@@ -326,10 +325,9 @@ public class EditPatientController {
 		ArrayList<String> array = new ArrayList<String>();
 		saveNames();
 		p.setBirthday(patientBirthday.getValue());
-<<<<<<< HEAD
-=======
+
 		p.getContactInfo().setAddress(patientAddress.getText());
->>>>>>> 9ad341692c0d0ccfae228f6536976e7353bc21b5
+
 
 		for (DisplayString phoneNumber : patientPhones) {
 			p.getContactInfo().setPhone(phoneNumber.getString());
@@ -354,11 +352,10 @@ public class EditPatientController {
 				p.getContactInfo().removePhone(email);
 			}
 		}
-<<<<<<< HEAD
-=======
+
 		
 		p.getContactInfo().setAddress(patientAddress.getText());
->>>>>>> 9ad341692c0d0ccfae228f6536976e7353bc21b5
+
 
 		if ( (p.getNewPatient() && p.save()) || (!p.getNewPatient() && p.update())) {
 			MainApp.showAlert("Update successful!");
