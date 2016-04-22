@@ -168,7 +168,7 @@ public class DatabaseHandler {
 			MainApp.printError(e);
 		}
 	}
-//insertUser(String userID, String firstName, String lastName, Contact contactInfo)
+
 	public void insertDummyPatient(){
 		//set up objects
 		Contact info = new Contact();
@@ -610,8 +610,9 @@ public class DatabaseHandler {
 		try {
 			if (connect()) {
 				ps = connection.prepareStatement("SELECT * FROM patient Natural Join user_account"
-						+ " WHERE firstname LIKE ?");
+						+ " WHERE UPPER(firstname) LIKE UPPER(?) OR UPPER(lastname) LIKE UPPER(?)");
 				ps.setString(1, name);
+				ps.setString(2, name);
 				rs = ps.executeQuery();
 				while (rs.next()) {
 					Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
