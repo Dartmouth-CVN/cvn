@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Arrays;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -212,9 +210,8 @@ public class XMLParsingUtils extends GeneralParsingUtils {
 
 			LinkedList<Patient> output = new LinkedList<Patient>();
 
-			System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
 			NodeList patientList = doc.getElementsByTagName("patient");
-			System.out.println("----------------------------" + doc.getDocumentElement().getTextContent());
+
 			for (int i = 0; i < patientList.getLength(); i++) {
 				output.add(makePatient(patientList.item(i)));
 			}
@@ -232,6 +229,7 @@ public class XMLParsingUtils extends GeneralParsingUtils {
 		String[] fields = { "firstname", "lastname", "caregivers", "assignedstaff", "medication", "address", "phone",
 				"email", "pets", "allergies", "dietrestrictions" };
 
+		String userID = patient.getElementsByTagName("userID").item(0).getTextContent();
 		// The code block below sets the value of fields
 
 		fields[0] = patient.getElementsByTagName("firstname").item(0).getTextContent();
@@ -252,7 +250,7 @@ public class XMLParsingUtils extends GeneralParsingUtils {
 		fields[3] = String.join(",", staffStr);
 		/*
 		 * NodeList medications =
-		 * ((Element)patient.getElementsByTagName("medications-list").item(0)).
+		 * ((Element)patient.getElementsByTagName("medications-list").item(0 )).
 		 * getElementsByTagName("medication"); LinkedList<String> medicationsStr
 		 * = new LinkedList<String>(); for(int
 		 * i=0;i<medications.getLength();i++)
@@ -299,8 +297,8 @@ public class XMLParsingUtils extends GeneralParsingUtils {
 			dietStr.add(dietlist.item(i).getTextContent());
 		fields[10] = String.join(",", dietStr);
 
-
-		// The code block below assigns the values of fields[] to the patient
+		// The code block below assigns the values of fields[] to the
+		// patient
 		Patient output = new Patient(fields[0], fields[1], null, 0);
 		String[] staff = fields[3].split(",");
 		for (String member : staff)
@@ -326,6 +324,7 @@ public class XMLParsingUtils extends GeneralParsingUtils {
 		for (String diet : dietaryNeeds)
 			output.getPreferences().getDietaryRestrictions().add(diet);
 
+		output.setUserID(userID);
 		return output;
 	}
 
