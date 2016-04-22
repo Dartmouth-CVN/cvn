@@ -104,17 +104,17 @@
 			<generator class="native" />
 		</id>
 		<list name="phoneNumbers" table="Contact_Number" cascade="save-update, delete" >
-			<key column="contactId" />
+			<key column="elementId" />
 			<list-index column="phoneElementId" />
 			<one-to-many class="ContactElement" />
 		</list>
 		<list name="emails" table="Contact_Email" cascade="save-update, delete" >
-			<key column="contactId" />
+			<key column="elementId" />
 			<list-index column="emailElementId" />
 			<one-to-many class="ContactElement" />
 		</list>
 		<list name="addresses" table="Contact_Address" cascade="save-update, delete" >
-			<key column="contactId" />
+			<key column="elementId" />
 			<list-index column="addressElementId" />
 			<one-to-many class="ContactElement" />
 		</list>

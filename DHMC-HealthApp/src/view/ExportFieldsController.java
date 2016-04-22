@@ -229,55 +229,83 @@ public class ExportFieldsController {
 	@FXML
 	private void handlePersonalSelectButton() {
 
-		for (int i = 0; i < personal.length; i++) {
-
-			personal[i].setSelected(true);
-		}
+		firstNameCheckBox.setSelected(true);
+		lastNameCheckBox.setSelected(true);
+		userNameCheckBox.setSelected(true);
+		addressCheckBox.setSelected(true);
+		phoneNumberCheckBox.setSelected(true);
+		emailAddressCheckBox.setSelected(true);
 	}
 
 	@FXML
 	private void handlePersonalClearButton() {
 
-		for (int i = 0; i < personal.length; i++) {
-
-			personal[i].setSelected(false);
-		}
+		firstNameCheckBox.setSelected(false);
+		lastNameCheckBox.setSelected(false);
+		userNameCheckBox.setSelected(false);
+		addressCheckBox.setSelected(false);
+		phoneNumberCheckBox.setSelected(false);
+		emailAddressCheckBox.setSelected(false);
 	}
 
 	@FXML
 	private void handleHealthSelectButton() {
 
-		for (int i = 0; i < health.length; i++) {
-
-			health[i].setSelected(true);
-		}
+		weightCheckBox.setSelected(true);
+		heightCheckBox.setSelected(true);
+		fatCheckBox.setSelected(true);
+		BMICheckBox.setSelected(true);
+		dateCheckBox.setSelected(true);
+		distanceCheckBox.setSelected(true);
+		stepsCheckBox.setSelected(true);
+		floorsCheckBox.setSelected(true);
+		activityCaloriesCheckBox.setSelected(true);
+		caloriesBurnedCheckBox.setSelected(true);
+		timeAwakeCheckBox.setSelected(true);
+		timeAsleepCheckBox.setSelected(true);
+		lightlyActiveTimeCheckBox.setSelected(true);
+		fairlyActiveTimeCheckBox.setSelected(true);
+		veryActiveTimeCheckBox.setSelected(true);
+		sedentaryTimeCheckBox.setSelected(true);
+		timesWokenUpCheckBox.setSelected(true);
+		bedTimeCheckBox.setSelected(true);
 	}
 
 	@FXML
 	private void handleHealthClearButton() {
 
-		for (int i = 0; i < health.length; i++) {
-
-			health[i].setSelected(false);
-		}
+		weightCheckBox.setSelected(false);
+		heightCheckBox.setSelected(false);
+		fatCheckBox.setSelected(false);
+		BMICheckBox.setSelected(false);
+		dateCheckBox.setSelected(false);
+		distanceCheckBox.setSelected(false);
+		stepsCheckBox.setSelected(false);
+		floorsCheckBox.setSelected(false);
+		activityCaloriesCheckBox.setSelected(false);
+		caloriesBurnedCheckBox.setSelected(false);
+		timeAwakeCheckBox.setSelected(false);
+		timeAsleepCheckBox.setSelected(false);
+		lightlyActiveTimeCheckBox.setSelected(false);
+		fairlyActiveTimeCheckBox.setSelected(false);
+		veryActiveTimeCheckBox.setSelected(false);
+		sedentaryTimeCheckBox.setSelected(false);
+		timesWokenUpCheckBox.setSelected(false);
+		bedTimeCheckBox.setSelected(false);
 	}
 
 	@FXML
 	private void handlePreferenceSelectButton() {
 
-		for (int i = 0; i < preference.length; i++) {
-
-			preference[i].setSelected(true);
-		}
+		foodCheckBox.setSelected(true);
+		petsCheckBox.setSelected(true);
 	}
 
 	@FXML
 	private void handlePreferenceClearButton() {
 
-		for (int i = 0; i < preference.length; i++) {
-
-			preference[i].setSelected(false);
-		}
+		foodCheckBox.setSelected(false);
+		petsCheckBox.setSelected(false);
 	}
 
 	@FXML

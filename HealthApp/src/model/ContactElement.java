@@ -2,13 +2,14 @@ package model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class ContactElement {
 	@Id
-    @GeneratedValue
-	int elementId;
+    @GeneratedValue(strategy = GenerationType.TABLE)
+	int elementId = 0;
 	String value;
 	String type;
 	
@@ -45,7 +46,4 @@ public class ContactElement {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
-	
-
 }
