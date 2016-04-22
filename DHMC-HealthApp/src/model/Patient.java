@@ -66,6 +66,10 @@ public class Patient extends User {
 		return this.assignedStaff;
 	}
 	
+	public void setAssignedStaff(LinkedList<MedicalStaff> staff){
+		this.assignedStaff = staff;
+	}
+	
 	public void addMedicalStaff(MedicalStaff staff) {
 		if (this.assignedStaff.indexOf(staff) < 0) {
 			this.assignedStaff.add(staff);
