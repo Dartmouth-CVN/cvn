@@ -48,6 +48,7 @@ public class DatabaseHandler {
 		startSession();
 		
 		for(ContactElement e : p.getContactInfo().getPhoneNumbers()){
+			System.out.println("Phone number: " + e.getValue());
 			System.out.println("before: " + e.getElementId());
 			session.save(e);
 			System.out.println("after: " + e.getElementId());

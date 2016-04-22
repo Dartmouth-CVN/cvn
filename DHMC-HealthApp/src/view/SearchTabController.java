@@ -71,7 +71,7 @@ public class SearchTabController {
 		profileTable.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> { 
 					
-					handleClickPatient((Patient)newValue);
+					handleClickPatient();
 					
 				});
 	}
@@ -119,19 +119,18 @@ public class SearchTabController {
 		Patient patient = MainApp.getDatabaseHandler().getPatient(userID);
 		if (patient != null)
 			mainApp.showEditProfile(patient);
-
 	}
 	
-
-	
-	private void handleClickPatient(Patient patient) {
+	private void handleClickPatient() {
 		try {
+			userID = profileTable.getSelectionModel().getSelectedItem().getUserID();
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/MiniPatientProfile.fxml"));
 			AnchorPane miniProfile = (AnchorPane) loader.load();
 
 			MiniPatientProfileController controller = loader.getController();
 			controller.setMain(mainApp);
+			Patient patient = MainApp.getDatabaseHandler().getPatient(userID);
 			Tab profileTab = new Tab(patient.getLastName());
 			profileTab.setContent(miniProfile);
 			controller.setPatient(patient);

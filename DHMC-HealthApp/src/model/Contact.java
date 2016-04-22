@@ -11,29 +11,29 @@ public class Contact implements Serializable {
 	 */
 	private static final long serialVersionUID = -2789588534495622114L;
 	private String id;
-	private LinkedList<SimpleStringProperty> phone;
-	private LinkedList<SimpleStringProperty> email;
-	private LinkedList<SimpleStringProperty> address;
+	private LinkedList<SerializableStringProperty> phone;
+	private LinkedList<SerializableStringProperty> email;
+	private LinkedList<SerializableStringProperty> address;
 
 	public Contact(String id) {
 		this.id = id;
-		this.phone = new LinkedList<SimpleStringProperty>();
-		this.email = new LinkedList<SimpleStringProperty>();
-		this.address = new LinkedList<SimpleStringProperty>();
+		this.phone = new LinkedList<SerializableStringProperty>();
+		this.email = new LinkedList<SerializableStringProperty>();
+		this.address = new LinkedList<SerializableStringProperty>();
 	}
 
 	public Contact() {
 		this.id = "Unassigned";
-		this.phone = new LinkedList<SimpleStringProperty>();
-		this.email = new LinkedList<SimpleStringProperty>();
-		this.address = new LinkedList<SimpleStringProperty>();
+		this.phone = new LinkedList<SerializableStringProperty>();
+		this.email = new LinkedList<SerializableStringProperty>();
+		this.address = new LinkedList<SerializableStringProperty>();
 	}
 
 	public String getID() {
 		return this.id;
 	}
 
-	public LinkedList<SimpleStringProperty> phoneProperty() {
+	public LinkedList<SerializableStringProperty> phoneProperty() {
 		return phone;
 	}
 
@@ -54,7 +54,7 @@ public class Contact implements Serializable {
 
 		for (String num : phoneList) {
 
-			phoneProperty().add(new SimpleStringProperty(num));
+			phoneProperty().add(new SerializableStringProperty(num));
 		}
 
 	}
@@ -66,14 +66,14 @@ public class Contact implements Serializable {
 
 	public final void setPhone(String phone) {
 
-		SimpleStringProperty simplePhone = new SimpleStringProperty(phone);
+		SerializableStringProperty simplePhone = new SerializableStringProperty(phone);
 
 		phoneProperty().add(simplePhone);
 	}
 
 	public final void removePhone(String phone) {
 
-		SimpleStringProperty simplePhone = new SimpleStringProperty(phone);
+		SerializableStringProperty simplePhone = new SerializableStringProperty(phone);
 
 		for (int i = 0; i < phoneProperty().size(); i++) {
 
@@ -84,7 +84,7 @@ public class Contact implements Serializable {
 		}
 	}
 
-	public LinkedList<SimpleStringProperty> emailProperty() {
+	public LinkedList<SerializableStringProperty> emailProperty() {
 		return email;
 	}
 
@@ -105,7 +105,7 @@ public class Contact implements Serializable {
 
 		for (String num : emailList) {
 
-			emailProperty().add(new SimpleStringProperty(num));
+			emailProperty().add(new SerializableStringProperty(num));
 		}
 
 	}
@@ -117,14 +117,14 @@ public class Contact implements Serializable {
 
 	public final void setEmail(String email) {
 
-		SimpleStringProperty simpleEmail = new SimpleStringProperty(email);
+		SerializableStringProperty simpleEmail = new SerializableStringProperty(email);
 
 		phoneProperty().add(simpleEmail);
 	}
 
 	public final void removeEmail(String email) {
 
-		SimpleStringProperty simpleEmail = new SimpleStringProperty(email);
+		SerializableStringProperty simpleEmail = new SerializableStringProperty(email);
 
 		for (int i = 0; i < emailProperty().size(); i++) {
 
@@ -135,7 +135,7 @@ public class Contact implements Serializable {
 		}
 	}
 
-	public LinkedList<SimpleStringProperty> addressProperty() {
+	public LinkedList<SerializableStringProperty> addressProperty() {
 		return address;
 	}
 
@@ -156,7 +156,7 @@ public class Contact implements Serializable {
 
 		for (String num : addressList) {
 
-			addressProperty().add(new SimpleStringProperty(num));
+			addressProperty().add(new SerializableStringProperty(num));
 		}
 
 	}
@@ -168,13 +168,13 @@ public class Contact implements Serializable {
 
 	public final void setAddress(String address) {
 
-		SimpleStringProperty simpleAddress = new SimpleStringProperty(address);
+		SerializableStringProperty simpleAddress = new SerializableStringProperty(address);
 
 		phoneProperty().add(simpleAddress);
 	}
 
 	public final void removeAddress(String address) {
-		SimpleStringProperty simpleAddress = new SimpleStringProperty(address);
+		SerializableStringProperty simpleAddress = new SerializableStringProperty(address);
 		for (int i = 0; i < addressProperty().size(); i++) {
 			if (addressProperty().get(i).get() == simpleAddress.get()) {
 				addressProperty().remove(i);

@@ -71,9 +71,12 @@ public class DatabaseHandler {
 
 	private DatabaseHandler() {
 		randomNumber = new Random(100);
-		connect();
-		createTables();
-		populateDatabase();
+		if (connect()) {
+			createTables();
+			populateDatabase();
+		} else {
+			System.out.println("Couldn't connect");
+		}
 	}
 
 	/**
@@ -91,23 +94,23 @@ public class DatabaseHandler {
 	}
 
 	public void populateDatabase() {
-		//addUsers(200);
+		// addUsers(200);
 		populateDatabase(1);
-		
-		//insertDummyPatient();
+
+		// insertDummyPatient();
 		// addAdministrators();
 		// addPatients();
 		// addMedicalStaff();
 	}
 
 	public void populateDatabase(int number) {
-		for(int i = 0 ; i < number; i++){
+		for (int i = 0; i < number; i++) {
 			Patient p = getRandomPatient();
 			insertPatient(p);
 		}
 	}
-	
-	public Patient getRandomPatient(){
+
+	public Patient getRandomPatient() {
 		RandomGenerator randGen = new RandomGenerator();
 		String firstname = RandomGenerator.getRandomFirstName();
 		String lastname = RandomGenerator.getRandomLastName();
@@ -115,28 +118,26 @@ public class DatabaseHandler {
 		Date birthday = RandomGenerator.getRandomBirthday();
 		String room = RandomGenerator.getRandomRoom();
 		Contact contactInfo = RandomGenerator.getRandomContactInfo();
-		
+
 		LinkedList<Pet> petList = new LinkedList<Pet>();
 		Pet pet1 = randGen.getRandomPet();
 		petList.add(pet1);
-		
+
 		LinkedList<Meal> mealList = new LinkedList<Meal>();
 		Meal meal1 = randGen.getRandomMeal();
 		mealList.add(meal1);
-		
+
 		LinkedList<Caregiver> caregiverList = new LinkedList<Caregiver>();
 		Caregiver careg1 = randGen.getRandomCaregiver();
 		caregiverList.add(careg1);
-		
+
 		LinkedList<MedicalStaff> staffList = new LinkedList<MedicalStaff>();
 		MedicalStaff staff = new MedicalStaff("testID");
 		staffList.add(staff);
-		
+
 		return new Patient(firstname, lastname, generateUserID(firstname, lastname, "Patient"), contactInfo);
 	}
-	
-	
-	
+
 	public void addUsers(int number) {
 		while (number-- > 0) {
 			String firstname = getRandomFirstName();
@@ -151,10 +152,10 @@ public class DatabaseHandler {
 
 			Contact contact = new Contact(userID);
 
-			for(String n:numbers){
+			for (String n : numbers) {
 				contact.setPhone(n);
 			}
-			for(String e:emails){
+			for (String e : emails) {
 				contact.setEmail(e);
 			}
 			contact.addAddressList(numbers);
@@ -167,7 +168,6 @@ public class DatabaseHandler {
 		insertUser("445", "Test", "Test", contact);
 		insertPatient("445");
 	}
-
 
 	public String getRandomFirstName() {
 		return firstNames[randomNumber.nextInt(firstNames.length)];
@@ -212,46 +212,46 @@ public class DatabaseHandler {
 			MainApp.printError(e);
 		}
 	}
-	public void insertDummyPatient2(){
-		
+
+	public void insertDummyPatient2() {
+
 	}
-	public void insertDummyPatient(){
-		//set up objects
+
+	public void insertDummyPatient() {
+		// set up objects
 		Contact info = new Contact();
 		PatientProfile preferences = new PatientProfile();
-		
+
 		LinkedList<Pet> petList = new LinkedList<Pet>();
-		Pet pet1 = new Pet("billy","dog",true);
+		Pet pet1 = new Pet("billy", "dog", true);
 		petList.add(pet1);
-		
+
 		LinkedList<Meal> mealList = new LinkedList<Meal>();
 		Meal meal1 = new Meal("pizza", 22, 4, "yum");
 		mealList.add(meal1);
-		
+
 		LinkedList<Caregiver> caregiverList = new LinkedList<Caregiver>();
 		Caregiver careg1 = new Caregiver("Fred", "4-19", "cousin", info, true);
 		caregiverList.add(careg1);
-		
+
 		LinkedList<MedicalStaff> staffList = new LinkedList<MedicalStaff>();
 		MedicalStaff staff = new MedicalStaff("testID");
 		staffList.add(staff);
-		
+
 		preferences.setCaregiver(caregiverList);
 		preferences.setMenu(mealList);
 		preferences.setPet(petList);
-		
-		
+
 		insertDummyUser();
 		insertPatient("Bob", "Barker", "111", info);
 		Patient dummy = getPatient("111");
-		
-		
+
 		dummy.setPreferences(preferences);
 		dummy.addMedicalStaff(staff);
 		updatePatient(dummy);
-		
+
 	}
-	
+
 	public boolean connect() {
 		boolean connected = false;
 		try {
@@ -259,6 +259,7 @@ public class DatabaseHandler {
 			EmbeddedDataSource ds = new EmbeddedDataSource();
 			ds.setDatabaseName("HealthApp");
 			ds.setCreateDatabase("create");
+
 			connection = ds.getConnection();
 			if (connection != null) {
 //				System.out.println("Connected to database");
@@ -568,20 +569,21 @@ public class DatabaseHandler {
 	private ByteArrayInputStream baip;
 	private ObjectInputStream ois;
 
-	public Patient getFilledPatient(String userID){
+	public Patient getFilledPatient(String userID) {
 		Patient p = getPatient(userID);
-		
+
 		PatientProfile profile = new PatientProfile();
 		profile.setCaregiver(getCaregivers(userID));
 		profile.setMenu(getMeals(userID));
 		profile.setPet(getPets(userID));
-		
+
 		p.setPreferences(profile);
 		p.setHealthInfo(getHealthInfo(userID));
 		p.setAssignedStaff(searchPatientAssignedStaffList(userID));
-		
+
 		return p;
 	}
+
 	/**
 	 * Finds patient from database given userID.
 	 * 
@@ -592,16 +594,17 @@ public class DatabaseHandler {
 		success = false;
 		try {
 			if (connect()) {
-				
+
 				ps = connection.prepareStatement(" SELECT * FROM user_account WHERE user_id = ?");
 				ps.setString(1, userID);
 				rs = ps.executeQuery();
 				if (rs.next()) {
-					Blob blob = rs.getBlob("contact_info");
-					baip = new ByteArrayInputStream(blob.getBytes(1L, (int) blob.length()));
+					Blob aBlob = rs.getBlob("contact_info");
+					byte[] byteArray = aBlob.getBytes(1, (int) aBlob.length());
+					baip = new ByteArrayInputStream(byteArray);
 					ois = new ObjectInputStream(baip);
 					Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
-							rs.getString("user_id"), 0, (Contact) ois.readObject());
+							rs.getString("user_id"), (Contact) ois.readObject());
 					connection.close();
 					System.out.println(patient.getContactInfo().getPrimaryEmail());
 					return patient;
@@ -641,7 +644,7 @@ public class DatabaseHandler {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Finds Caregiver from database given userID.
 	 * 
@@ -659,8 +662,8 @@ public class DatabaseHandler {
 					Blob blob = rs.getBlob("contact_info");
 					baip = new ByteArrayInputStream(blob.getBytes(1L, (int) blob.length()));
 					ois = new ObjectInputStream(baip);
-					Caregiver caregiver = new Caregiver(rs.getString("name"), rs.getDate("birthday").toString(), rs.getString("relation"), 
-							(Contact) ois.readObject(), rs.getBoolean("inFamily"));
+					Caregiver caregiver = new Caregiver(rs.getString("name"), rs.getDate("birthday").toString(),
+							rs.getString("relation"), (Contact) ois.readObject(), rs.getBoolean("inFamily"));
 					connection.close();
 					return caregiver;
 				}
@@ -670,7 +673,7 @@ public class DatabaseHandler {
 		}
 		return null;
 	}
-	
+
 	public ObservableList<IDisplayable> searchPatient(String name) {
 		ObservableList<IDisplayable> patientList = FXCollections.observableArrayList();
 		try {
@@ -701,35 +704,39 @@ public class DatabaseHandler {
 				ps = connection.prepareStatement("SELECT * FROM user_account");
 				rs = ps.executeQuery();
 				while (rs.next()) {
-					Blob blob = rs.getBlob("contact_info");
-					baip = new ByteArrayInputStream(blob.getBytes(1L, (int) blob.length()));
+					Blob aBlob = rs.getBlob("contact_info");
+					byte[] byteArray = aBlob.getBytes(1, (int) aBlob.length());
+					baip = new ByteArrayInputStream(byteArray);
 					ois = new ObjectInputStream(baip);
-					Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"), rs.getString("user_id"),(Contact) ois.readObject());
+					Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
+							rs.getString("user_id"), (Contact) ois.readObject());
 					patientList.add(patient);
 				}
 
 				connection.close();
 			}
-		} catch (SQLException | IOException | ClassNotFoundException e) {
-			MainApp.printError(e);
+		} catch (SQLException | NullPointerException | IOException | ClassNotFoundException e) {
+			// MainApp.printError(e);
+			e.printStackTrace();
 		}
 		return patientList;
 	}
+
 	/**
 	 * Search for list of patients assigned to medical staff member
-	 * @param medstaff object
+	 * 
+	 * @param medstaff
+	 *            object
 	 * @return
 	 */
 	public ObservableList<Patient> searchMedStaffAssignedPatient(MedicalStaff staff) {
 		ObservableList<Patient> patientList = FXCollections.observableArrayList();
 		try {
 			if (connect()) {
-				ps = connection.prepareStatement("SELECT a.firstname, a.lastname, a.user_id "
-						+ "FROM user_account a " 
+				ps = connection.prepareStatement("SELECT a.firstname, a.lastname, a.user_id " + "FROM user_account a "
 						+ "JOIN patient p ON a.user_id = p.user_id "
-						+ "JOIN staff_assignment s ON p.patient_id = s.patient_id "
-						+ "WHERE s.med_id = ? ");
-						
+						+ "JOIN staff_assignment s ON p.patient_id = s.patient_id " + "WHERE s.med_id = ? ");
+
 				rs = ps.executeQuery();
 				while (rs.next()) {
 					Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
@@ -744,19 +751,22 @@ public class DatabaseHandler {
 		}
 		return patientList;
 	}
-	
+
 	/**
 	 * returns observable list of MedicalStaff objects given a patient
-	 * @param p patient object
+	 * 
+	 * @param p
+	 *            patient object
 	 * @return observable list of IDisplayable medstaff
 	 */
 	public ObservableList<MedicalStaff> searchPatientAssignedStaff(String userID) {
 		ObservableList<MedicalStaff> medStaffList = FXCollections.observableArrayList();
 		try {
 			if (connect()) {
-				ps = connection.prepareStatement("SELECT * FROM staff_assignment RIGHT JOIN medical_staff ON staff_assignment.med_id = medical_staff.med_id"
-						+ "JOIN patient ON staff_assignment.patient_id = patient.patient_id"
-						+ " WHERE patient.user_id = ?");
+				ps = connection.prepareStatement(
+						"SELECT * FROM staff_assignment RIGHT JOIN medical_staff ON staff_assignment.med_id = medical_staff.med_id"
+								+ "JOIN patient ON staff_assignment.patient_id = patient.patient_id"
+								+ " WHERE patient.user_id = ?");
 				ps.setString(1, userID);
 				rs = ps.executeQuery();
 				while (rs.next()) {
@@ -775,20 +785,21 @@ public class DatabaseHandler {
 
 	/**
 	 * returns observable list of meal objects given a patient
-	 * @param p patient object
+	 * 
+	 * @param p
+	 *            patient object
 	 * @return observable list of meal
 	 */
 	public ObservableList<Meal> searchPatientMeal(Patient p) {
 		ObservableList<Meal> mealList = FXCollections.observableArrayList();
 		try {
 			if (connect()) {
-				ps = connection.prepareStatement("SELECT * FROM meal"
-						+ " WHERE patient_id = ?");
+				ps = connection.prepareStatement("SELECT * FROM meal" + " WHERE patient_id = ?");
 				ps.setInt(1, p.getPatientID());
 				rs = ps.executeQuery();
 				while (rs.next()) {
-					Meal meal = new Meal(rs.getString("name"), rs.getInt("calories"),
-							rs.getInt("rating"), rs.getString("notes"));
+					Meal meal = new Meal(rs.getString("name"), rs.getInt("calories"), rs.getInt("rating"),
+							rs.getString("notes"));
 					mealList.add(meal);
 				}
 
@@ -798,24 +809,26 @@ public class DatabaseHandler {
 			MainApp.printError(e);
 		}
 		return mealList;
-	}	
+	}
 
 	/**
 	 * returns observable list of caregiver objects given a patient
-	 * @param p patient object
+	 * 
+	 * @param p
+	 *            patient object
 	 * @return observable list of caregiver
 	 */
 	public ObservableList<Caregiver> searchPatientCaregiver(Patient p) {
 		ObservableList<Caregiver> caregiverList = FXCollections.observableArrayList();
 		try {
 			if (connect()) {
-				ps = connection.prepareStatement("SELECT * FROM caregiver"
-						+ " WHERE patient_id = ?");
+				ps = connection.prepareStatement("SELECT * FROM caregiver" + " WHERE patient_id = ?");
 				ps.setInt(1, p.getPatientID());
 				rs = ps.executeQuery();
 				while (rs.next()) {
-					Caregiver caregiver = new Caregiver(rs.getString("name"), asLocalDate(rs.getDate("birthday")).toString(), rs.getString("relation"), 
-							(Contact)rs.getObject("contact_info"), rs.getBoolean("inFamily"));
+					Caregiver caregiver = new Caregiver(rs.getString("name"),
+							asLocalDate(rs.getDate("birthday")).toString(), rs.getString("relation"),
+							(Contact) rs.getObject("contact_info"), rs.getBoolean("inFamily"));
 					caregiverList.add(caregiver);
 				}
 
@@ -829,15 +842,16 @@ public class DatabaseHandler {
 
 	/**
 	 * returns observable list of pet objects given a patient
-	 * @param patient object
+	 * 
+	 * @param patient
+	 *            object
 	 * @return observable list of pets
 	 */
 	public ObservableList<Pet> searchPatientPet(Patient p) {
 		ObservableList<Pet> petList = FXCollections.observableArrayList();
 		try {
 			if (connect()) {
-				ps = connection.prepareStatement("SELECT * FROM pet"
-						+ " WHERE patient_id = ?");
+				ps = connection.prepareStatement("SELECT * FROM pet" + " WHERE patient_id = ?");
 				ps.setInt(1, p.getPatientID());
 				rs = ps.executeQuery();
 				while (rs.next()) {
@@ -852,14 +866,15 @@ public class DatabaseHandler {
 		}
 		return petList;
 	}
-	
+
 	public LinkedList<MedicalStaff> searchPatientAssignedStaffList(String userID) {
 		LinkedList<MedicalStaff> medStaffList = new LinkedList<MedicalStaff>();
 		try {
 			if (connect()) {
-				ps = connection.prepareStatement("SELECT * FROM staff_assignment RIGHT JOIN medical_staff ON staff_assignment.med_id = medical_staff.med_id"
-						+ "JOIN patient ON staff_assignment.patient_id = patient.patient_id"
-						+ " WHERE patient.user_id = ?");
+				ps = connection.prepareStatement(
+						"SELECT * FROM staff_assignment RIGHT JOIN medical_staff ON staff_assignment.med_id = medical_staff.med_id"
+								+ "JOIN patient ON staff_assignment.patient_id = patient.patient_id"
+								+ " WHERE patient.user_id = ?");
 				ps.setString(1, userID);
 				rs = ps.executeQuery();
 				while (rs.next()) {
@@ -875,7 +890,7 @@ public class DatabaseHandler {
 		}
 		return medStaffList;
 	}
-	
+
 	public LinkedList<Patient> getPatientList() {
 		LinkedList<Patient> patientList = new LinkedList<Patient>();
 		try {
@@ -940,7 +955,8 @@ public class DatabaseHandler {
 			ps.setString(1, userId);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				Meal meal = new Meal(rs.getString("name"), rs.getInt("calories"), rs.getInt("rating"), rs.getString("notes"));
+				Meal meal = new Meal(rs.getString("name"), rs.getInt("calories"), rs.getInt("rating"),
+						rs.getString("notes"));
 				patientMeals.add(meal);
 			}
 			connection.close();
@@ -948,34 +964,35 @@ public class DatabaseHandler {
 		}
 		return patientMeals;
 	}
-	
-	public LinkedList<Caregiver> getCaregivers(String userID){
+
+	public LinkedList<Caregiver> getCaregivers(String userID) {
 		LinkedList<Caregiver> patientCaregivers = new LinkedList<Caregiver>();
 		try {
 			ps = connection.prepareStatement("SELECT * FROM caregiver WHERE user_id = ?;");
 			ps.setString(1, userID);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				Caregiver care = new Caregiver(rs.getString("name"), asLocalDate(rs.getDate("birthday")).toString(), rs.getString("relation"), 
-						(Contact)rs.getObject("contact_info"), rs.getBoolean("inFamily"));
+				Caregiver care = new Caregiver(rs.getString("name"), asLocalDate(rs.getDate("birthday")).toString(),
+						rs.getString("relation"), (Contact) rs.getObject("contact_info"), rs.getBoolean("inFamily"));
 				patientCaregivers.add(care);
 			}
 			connection.close();
 		} catch (SQLException e) {
 		}
-		return patientCaregivers;	
+		return patientCaregivers;
 	}
 
-	public ByteArrayInputStream objectToBlob(Object o) {
+	public ByteArrayInputStream objectToBlob(Contact o) {
 		ByteArrayInputStream bais = null;
 		try {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			ObjectOutputStream oos = new ObjectOutputStream(baos);
-			oos.writeObject((Contact) o);
+			oos.writeObject(o);
 			byte[] byteArray = baos.toByteArray();
 			bais = new ByteArrayInputStream(byteArray);
 		} catch (IOException e) {
-			MainApp.printError(e);
+			// MainApp.printError(e);
+			e.printStackTrace();
 		}
 		return bais;
 	}
@@ -991,7 +1008,8 @@ public class DatabaseHandler {
 				ps.setString(1, userID);
 				ps.setString(2, firstName);
 				ps.setString(3, lastName);
-				ps.setBinaryStream(4, objectToBlob(contactInfo));
+				ByteArrayInputStream bais = objectToBlob(contactInfo);
+				ps.setBinaryStream(4, bais);
 				ps.executeUpdate();
 				success = true;
 			}
@@ -1019,13 +1037,14 @@ public class DatabaseHandler {
 		}
 		return success;
 	}
-	public boolean insertPatient(String first, String last, String userID, Contact info){
+
+	public boolean insertPatient(String first, String last, String userID, Contact info) {
 		success = false;
 		try {
-			
+
 			if (insertUser(userID, first, last, info) && connect()) {
 				ps = connection.prepareStatement("INSERT INTO patient (user_id) VALUES (?)");
-				ps.setString(1,userID);
+				ps.setString(1, userID);
 				ps.executeUpdate();
 				ps.close();
 				success = true;
@@ -1035,18 +1054,19 @@ public class DatabaseHandler {
 		}
 		return success;
 	}
+
 	/**
 	 * Insert single Patient into user_account and patient table
+	 * 
 	 * @param p
 	 * @return
 	 */
 	public boolean insertPatient(Patient p) {
 		success = false;
 		try {
-			if(p.getUserID().equals(""))
+			if (p.getUserID().equals(""))
 				p.setUserID(generateUserID(p.getFirstName(), p.getLastName(), "Patient"));
-			System.out.println(p.getUserID());
-			
+
 			if (insertUser(p.getUserID(), p.getFirstName(), p.getLastName(), p.getContactInfo()) && connect()) {
 				ps = connection.prepareStatement("INSERT INTO patient (user_id) VALUES (?)");
 				ps.setString(1, p.getUserID());
@@ -1059,8 +1079,10 @@ public class DatabaseHandler {
 		}
 		return success;
 	}
+
 	/**
 	 * Insert userID into patient table
+	 * 
 	 * @param userID
 	 * @return
 	 */
@@ -1080,8 +1102,10 @@ public class DatabaseHandler {
 		}
 		return success;
 	}
+
 	/**
 	 * Insert multiple patients
+	 * 
 	 * @param patients
 	 * @return
 	 */
@@ -1093,8 +1117,7 @@ public class DatabaseHandler {
 		}
 		return success;
 	}
-	
-	
+
 	/**
 	 * Insert into caregiver table fields from caregiver object based on patient
 	 * id
@@ -1116,7 +1139,7 @@ public class DatabaseHandler {
 		} catch (SQLException e) {
 		}
 	}
-	
+
 	public boolean insertPet(Pet pet, Patient patient) {
 		success = false;
 		try {
@@ -1137,8 +1160,10 @@ public class DatabaseHandler {
 		}
 		return success;
 	}
+
 	/**
 	 * Insert single medicalstaff into user_account and medstaff table
+	 * 
 	 * @param staff
 	 * @return
 	 */
@@ -1161,47 +1186,52 @@ public class DatabaseHandler {
 		}
 		return success;
 	}
+
 	/**
 	 * insert assigned staff relationship into staff_assignment
+	 * 
 	 * @param staff
 	 * @param p
 	 * @return
 	 */
-	public boolean insertAssignedStaff(MedicalStaff staff, Patient p){
+	public boolean insertAssignedStaff(MedicalStaff staff, Patient p) {
 		success = false;
 		try {
 			connect();
-			
-				ps = connection.prepareStatement("INSERT INTO staff_assignment (med_id, patient_id) VALUES (?,?)");
 
-				ps.setInt(1, staff.getMedID());
-				ps.setInt(2, p.getPatientID());
+			ps = connection.prepareStatement("INSERT INTO staff_assignment (med_id, patient_id) VALUES (?,?)");
 
-				ps.executeUpdate();
-				ps.close();
-				success = true;
-			
+			ps.setInt(1, staff.getMedID());
+			ps.setInt(2, p.getPatientID());
+
+			ps.executeUpdate();
+			ps.close();
+			success = true;
+
 		} catch (SQLException e) {
 			MainApp.printError(e);
 		}
 		return success;
 	}
+
 	/**
 	 * Insert multiple medical staff members as assigned staff of patient
+	 * 
 	 * @param patients
 	 * @return
 	 */
 	public boolean insertAssignedMedicalStaffMembers(LinkedList<MedicalStaff> staffList, Patient p) {
 		success = true;
 		for (MedicalStaff staff : staffList) {
-			if (!insertAssignedStaff(staff,p))
+			if (!insertAssignedStaff(staff, p))
 				success = false;
 		}
 		return success;
 	}
-	
+
 	/**
 	 * Insert single Admin ito user_account and admin table
+	 * 
 	 * @param admin
 	 * @return
 	 */
@@ -1224,8 +1254,10 @@ public class DatabaseHandler {
 
 	/**
 	 * Insert single Meal into Meal table with patient userID
-	 * @param meal object patient object
-	 *            
+	 * 
+	 * @param meal
+	 *            object patient object
+	 * 
 	 */
 	public boolean insertMeal(Meal meal, Patient p) {
 		success = false;
@@ -1248,19 +1280,22 @@ public class DatabaseHandler {
 		}
 		return success;
 	}
+
 	/**
 	 * Insert multiple meals
+	 * 
 	 * @param patients
 	 * @return
 	 */
 	public boolean insertMeals(LinkedList<Meal> meals, Patient p) {
 		success = true;
 		for (Meal m : meals) {
-			if (!insertMeal(m,p))
+			if (!insertMeal(m, p))
 				success = false;
 		}
 		return success;
 	}
+
 	/**
 	 * Insert into HealthInfo table healthinfo fields by new object
 	 * 
@@ -1298,8 +1333,10 @@ public class DatabaseHandler {
 		} catch (SQLException e) {
 		}
 	}
+
 	/**
 	 * Update single user located based on user_id in tables
+	 * 
 	 * @param userID
 	 * @param firstName
 	 * @param lastName
@@ -1327,10 +1364,12 @@ public class DatabaseHandler {
 		}
 		return success;
 	}
+
 	/**
 	 * Updates sinlge patient found in Patient table based on patient ID
+	 * 
 	 * @param patient
-	 * @return 
+	 * @return
 	 */
 	public boolean updatePatient(Patient patient) {
 		success = false;
@@ -1339,8 +1378,10 @@ public class DatabaseHandler {
 		}
 		return success;
 	}
+
 	/**
-	 * Update single MedicalStaff in user_account table and MedicalStaff table 
+	 * Update single MedicalStaff in user_account table and MedicalStaff table
+	 * 
 	 * @param staff
 	 * @return
 	 */
@@ -1364,8 +1405,11 @@ public class DatabaseHandler {
 
 	/**
 	 * Update single Pet int pet table, based on patient id
-	 * @param pet object
-	 * @param patient object
+	 * 
+	 * @param pet
+	 *            object
+	 * @param patient
+	 *            object
 	 */
 	public boolean updatePet(Pet pet, Patient p) {
 		success = false;
@@ -1401,8 +1445,8 @@ public class DatabaseHandler {
 
 		try {
 			connect();
-			ps = connection.prepareStatement("UPDATE meal SET name = ?, calories = ?, rating = ?, notes = ? "
-					+ "WHERE patient_id = ?");
+			ps = connection.prepareStatement(
+					"UPDATE meal SET name = ?, calories = ?, rating = ?, notes = ? " + "WHERE patient_id = ?");
 			ps.setString(1, meal.getFood());
 			ps.setInt(2, meal.getCalories());
 			ps.setInt(3, meal.getRating());
@@ -1418,8 +1462,6 @@ public class DatabaseHandler {
 	public void updateMeals(LinkedList<Meal> meals, Patient p) {
 
 	}
-
-	
 
 	/**
 	 * Updates fields of given caregiver in table with new fields from caregiver
@@ -1449,7 +1491,8 @@ public class DatabaseHandler {
 	}
 
 	/**
-	 * Update single HealthInfo Object in 
+	 * Update single HealthInfo Object in
+	 * 
 	 * @param info
 	 * @param p
 	 */
@@ -1488,8 +1531,6 @@ public class DatabaseHandler {
 		}
 	}
 
-	
-	
 	public void dropTables() {
 		try {
 			connect();
@@ -1569,23 +1610,24 @@ public class DatabaseHandler {
 			return null;
 		}
 	}
-	
+
 	public String getLoginPass(String username) {
 		try {
 			connect();
 			ps = connection.prepareStatement("Select * FROM login WHERE username = ?");
 			ps.setString(1, username);
 			rs = ps.executeQuery();
-			if (rs.next()){
+			if (rs.next()) {
 				System.out.println(rs.getString("password"));
 				return rs.getString("password");
 			}
-		
+
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
-		} return null;
-	}	
-	
+		}
+		return null;
+	}
+
 	public void updateDummyLogin(String username, String pass) {
 		try {
 			connect();
@@ -1595,30 +1637,31 @@ public class DatabaseHandler {
 			ps.executeUpdate();
 			System.out.println("finish update");
 
-		
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
-		} return;
-	}	
-	
-	
+		}
+		return;
+	}
+
 	/**
 	 * converts local date to date
+	 * 
 	 * @param localDate
 	 * @return converted date
 	 */
 	public static Date asDate(LocalDate localDate) {
 		return Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
 	}
+
 	/**
 	 * converts date to local date
+	 * 
 	 * @param date
 	 * @return converted local date
 	 */
 	public static LocalDate asLocalDate(Date date) {
 		Instant instant = Instant.ofEpochMilli(date.getTime());
-		return LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
-				.toLocalDate();
+		return LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
 	}
 
 }
