@@ -5,14 +5,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import model.Caregiver;
-import model.Contact;
 import model.IDisplayable;
 import model.MainApp;
-import model.Meal;
 import model.MedicalStaff;
 import model.Patient;
-import model.Pet;
 
 public class MedicalStaffController {
 

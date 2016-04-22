@@ -11,7 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TitledPane;
-import javafx.scene.layout.Pane;
 import model.MainApp;
 
 public class ExportFieldsController {

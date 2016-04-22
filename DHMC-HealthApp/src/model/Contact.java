@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.LinkedList;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 public class Contact implements Serializable {
 	/**
