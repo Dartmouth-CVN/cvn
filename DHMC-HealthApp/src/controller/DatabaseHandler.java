@@ -34,6 +34,7 @@ import model.MedicalStaff;
 import model.Patient;
 import model.PatientProfile;
 import model.Pet;
+import controller.RandomGenerator;
 
 public class DatabaseHandler {
 
@@ -90,8 +91,8 @@ public class DatabaseHandler {
 	}
 
 	public void populateDatabase() {
-		addUsers(200);
-		
+		//addUsers(200);
+		populateDatabase(1);
 		
 		//insertDummyPatient();
 		// addAdministrators();
@@ -99,6 +100,23 @@ public class DatabaseHandler {
 		// addMedicalStaff();
 	}
 
+	public void populateDatabase(int number) {
+		for(int i = 0 ; i < number; i++){
+			Patient p = getRandomPatient();
+			insertPatient(p);
+		}
+	}
+	
+	public Patient getRandomPatient(){
+		String firstname = RandomGenerator.getRandomFirstName();
+		String lastname = RandomGenerator.getRandomLastName();
+		String username = RandomGenerator.createUsername(firstname, lastname);
+		Date birthday = RandomGenerator.getRandomBirthday();
+		String room = RandomGenerator.getRandomRoom();
+		Contact contactInfo = RandomGenerator.getRandomContactInfo();
+		return new Patient(firstname, lastname, generateUserID(firstname, lastname, "Patient"), contactInfo);
+	}
+	
 	public void addUsers(int number) {
 		while (number-- > 0) {
 			String firstname = getRandomFirstName();
