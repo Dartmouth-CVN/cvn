@@ -109,11 +109,6 @@ public class DatabaseHandler {
 				emails.add(getRandomEmail());
 
 			Contact contact = new Contact(userID);
-			for(String n:numbers){
-				contact.setPhone(n);
-			}
-			for(String e:emails){
-				contact.setEmail(e);
 			}
 
 			insertUser(userID, firstname, lastname, contact);

@@ -43,7 +43,9 @@ public class MiniPatientProfileController {
 	@FXML
 	private Button removeProfileButton = new Button();
 	@FXML
-	private Label nameLabel = new Label();
+	private Label patientNameLabel = new Label();
+	@FXML
+	private Label medicalStaffNameLabel = new Label();
 	@FXML
 	private Label idLabel = new Label();
 	@FXML
@@ -63,16 +65,24 @@ public class MiniPatientProfileController {
 	 * after the fxml file has been loaded.
 	 */
 	@FXML
-	private void initialize(Patient patient) {
+	private void initialize() {
+		// set table listener
+		assignedStaffTable.getSelectionModel().selectedItemProperty()
+				.addListener((observable, oldValue, newValue) -> showMedStaffDetails(newValue));
+	}
+	
+	public void setPatient(Patient patient) {
+		
+		patientNameLabel.setText(patient.getFirstName() + " " + patient.getLastName());
+		idLabel.setText(patient.getUserID());
+		
 		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
 		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
 		positionColumn.setCellValueFactory(cellData -> cellData.getValue().positionProperty());
 		//assignedStaff needs to be implemented in databaseHandler
-		ObservableList<MedicalStaff> personData = MainApp.getDatabaseHandler().searchPatientAssignedStaff(patient);
-		assignedStaffTable.setItems(personData);
-		// set table listener
-		assignedStaffTable.getSelectionModel().selectedItemProperty()
-				.addListener((observable, oldValue, newValue) -> showMedStaffDetails(newValue));
+		ObservableList<MedicalStaff> assignedStaff = MainApp.getDatabaseHandler().searchPatientAssignedStaff(patient);
+		assignedStaffTable.setItems(assignedStaff);
+		
 	}
 	
 	/**
@@ -85,7 +95,7 @@ public class MiniPatientProfileController {
 	}
 
 	
-	public MiniPatientProfileController(IDisplayable user) {
+	public MiniPatientProfileController() {
 	}
 	
 	/**
@@ -96,7 +106,7 @@ public class MiniPatientProfileController {
 	
 		//databasehandler needs to make getMedicalStaff(MedicalStaff staff) method
 		MedicalStaff ms = MainApp.getDatabaseHandler().getMedicalStaff(staff.getUserID());
-		nameLabel.setText(ms.getFirstName() + " " + ms.getLastName());		
+		medicalStaffNameLabel.setText(ms.getFirstName() + " " + ms.getLastName());		
 		
 	}
 	
