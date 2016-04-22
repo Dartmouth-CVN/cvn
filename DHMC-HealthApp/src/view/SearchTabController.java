@@ -42,8 +42,6 @@ public class SearchTabController {
 	private Label phoneLabel = new Label();
 	@FXML
 	private TabPane profileTabPane = new TabPane();
-	@FXML
-	private Tab profileTab = new Tab();
 
 	private String userID;
 
@@ -73,7 +71,7 @@ public class SearchTabController {
 		profileTable.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> { 
 					
-					handleClickPatient();
+					handleClickPatient((Patient)newValue);
 					
 				});
 	}
@@ -125,8 +123,8 @@ public class SearchTabController {
 	}
 	
 
-	@FXML
-	private void handleClickPatient() {
+	
+	private void handleClickPatient(Patient patient) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainApp.class.getResource("../view/MiniPatientProfile.fxml"));
@@ -134,11 +132,13 @@ public class SearchTabController {
 
 			MiniPatientProfileController controller = loader.getController();
 			controller.setMain(mainApp);
+			Tab profileTab = new Tab(patient.getLastName());
 			profileTab.setContent(miniProfile);
+			controller.setPatient(patient);
 			profileTabPane.getTabs().add(profileTab);
 			
 		} catch (IOException e) {
-			MainApp.printError(e);
+			e.printStackTrace();
 		}	
 	}
 }

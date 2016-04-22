@@ -51,6 +51,15 @@ public class Contact implements Serializable {
         return phoneList;
     }
     
+    public void addPhoneList(LinkedList<String> phoneList) {
+    	
+    	for(String num : phoneList) {
+    		
+    		phoneProperty().add(new SimpleStringProperty(num));
+    	}
+
+    }
+    
     public final String getPrimaryPhone() {
     	
         return phoneProperty().get(0).get();
@@ -93,6 +102,15 @@ public class Contact implements Serializable {
         return emailList;
     }
     
+    public void addEmailList(LinkedList<String> emailList) {
+    	
+    	for(String num : emailList) {
+    		
+    		emailProperty().add(new SimpleStringProperty(num));
+    	}
+
+    }
+    
     public final String getPrimaryEmail() {
     	
         return emailProperty().get(0).get();
@@ -133,6 +151,15 @@ public class Contact implements Serializable {
     	}
     	
         return addressList;
+    }
+    
+    public void addAddressList(LinkedList<String> addressList) {
+    	
+    	for(String num : addressList) {
+    		
+    		addressProperty().add(new SimpleStringProperty(num));
+    	}
+
     }
     
     public final String getPrimaryAddress() {

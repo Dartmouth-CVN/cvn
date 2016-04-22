@@ -108,8 +108,8 @@ public class DatabaseHandler {
 				emails.add(getRandomEmail());
 
 			Contact contact = new Contact(userID);
-			contact.setPhone(numbers);
-			contact.setEmail(emails);
+			contact.addAddressList(numbers);
+			contact.addEmailList(emails);
 
 			insertUser(userID, firstname, lastname, contact);
 			insertLogin(userID, "admin" + number, "pass" + number);
