@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -12,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.CheckBox;
@@ -32,6 +35,7 @@ import model.DisplayString;
 import model.HealthInfo;
 import model.MainApp;
 import model.Meal;
+import model.MedicalStaff;
 import model.Patient;
 import model.Pet;
 
@@ -42,14 +46,9 @@ public class ViewPatientController {
 
 	// General functions and attributes to interact with main application
 
-	private Patient p;
 	MainApp mainApp;
 	private File curCSV;
 	private LinkedList<HealthInfo> info;
-
-	public ViewPatientController(Patient p) {
-		this.p = p;
-	}
 
 	public ViewPatientController() {
 	};
@@ -105,9 +104,7 @@ public class ViewPatientController {
 	@FXML
 	TableColumn<Meal, Integer> mealCals;
 	@FXML
-	TableColumn<Meal, Boolean> mealLiked;
-	@FXML
-	TableColumn<Meal, Boolean> mealDisliked;
+	TableColumn<Meal, Integer> mealRatings;
 	@FXML
 	TableColumn<Meal, String> mealNotesCol;
 	//
@@ -135,32 +132,70 @@ public class ViewPatientController {
 		familyPhones = FXCollections.observableArrayList();
 		familyEmails = FXCollections.observableArrayList();
 
-		XYChart.Series series = new XYChart.Series();
+
+		
+//		patientPhoneTable.setItems(patientPhones);
+//		patientEmailTable.setItems(patientEmails);
+//		patientAddressTable.setItems(patientAddresses);
+//		familyTable.setItems(familyMembers);
+//
+//		patientPhone.setCellFactory(TextFieldTableCell.forTableColumn());
+//		patientEmail.setCellFactory(TextFieldTableCell.forTableColumn());
+//		familyPhone.setCellFactory(TextFieldTableCell.forTableColumn());
+//		familyEmail.setCellFactory(TextFieldTableCell.forTableColumn());
+//
+//		patientPhone.setCellValueFactory(cellData -> cellData.getValue().getStringProperty());
+//		patientEmail.setCellValueFactory(cellData -> cellData.getValue().getStringProperty());
+//		//familyPhone.setCellValueFactory(cellData -> cellData.getValue().getContactInfo().getPrimaryPhone());
+//		//familyEmail.setCellValueFactory(cellData -> cellData.getValue().getContactInfo().getPrimaryEmail());
+//		familyNames.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+//		familyRels.setCellValueFactory(cellData -> cellData.getValue().relationProperty());
+
+	}
+	
+	public void setPatient(Patient patient) {
+		
+		firstName.setText(patient.getFirstName() + " " + patient.getLastName());
+		lastName.setText(patient.getUserID());
+		
+		XYChart.Series<Long, Double> series = new Series<Long, Double>();
 		LinkedList<Long> daysSinceStart = new LinkedList<Long>();
-		for (HealthInfo h : p.getHealthInfo())
+		for (HealthInfo h : patient.getHealthInfo())
 			daysSinceStart.add(ChronoUnit.DAYS.between(LocalDate.of(2000, 12, 25), LocalDate.parse(h.getDate())));
 		Collections.sort(daysSinceStart);
-		for (HealthInfo h : p.getHealthInfo())
-			series.getData().add(daysSinceStart.removeFirst().intValue(), h.getBmi());
-		bmi.getData().add(series);
+		for (HealthInfo h : patient.getHealthInfo())
+			//series.getData().add(daysSinceStart.removeFirst().intValue(), h.getBmi());
+			series.getData().add(new Data<Long,Double>(daysSinceStart.removeFirst().longValue(), h.getBmi()));
+		//bmi.getData().add(series);
 		
-		patientPhoneTable.setItems(patientPhones);
-		patientEmailTable.setItems(patientEmails);
-		patientAddressTable.setItems(patientAddresses);
-		familyTable.setItems(familyMembers);
-
-		patientPhone.setCellFactory(TextFieldTableCell.forTableColumn());
-		patientEmail.setCellFactory(TextFieldTableCell.forTableColumn());
-		familyPhone.setCellFactory(TextFieldTableCell.forTableColumn());
-		familyEmail.setCellFactory(TextFieldTableCell.forTableColumn());
-
-		patientPhone.setCellValueFactory(cellData -> cellData.getValue().getStringProperty());
-		patientEmail.setCellValueFactory(cellData -> cellData.getValue().getStringProperty());
-		familyPhone.setCellValueFactory(cellData -> cellData.getValue().getContactInfo().getPhoneList());
-		familyEmail.setCellValueFactory(cellData -> cellData.getValue().getContactInfo().getEmailList());
 		familyNames.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+		familyPhone.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContactInfo().getPrimaryPhone()));
 		familyRels.setCellValueFactory(cellData -> cellData.getValue().relationProperty());
+		familyEmail.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContactInfo().getPrimaryEmail()));
+		//assignedStaff needs to be implemented in databaseHandler
+		ObservableList<Caregiver> caregivers = MainApp.getDatabaseHandler().searchPatientCaregiver(patient);
+		familyTable.setItems(caregivers);
+		
+		mealNames.setCellValueFactory(cellData -> cellData.getValue().foodProperty());
+		mealCals.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().caloriesProperty().get()).asObject());
+		mealRatings.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().ratingProperty().get()).asObject());
+		mealNotesCol.setCellValueFactory(cellData -> cellData.getValue().notesProperty());
+		//assignedStaff needs to be implemented in databaseHandler
+		ObservableList<Meal> meals = MainApp.getDatabaseHandler().searchPatientMeal(patient);
+		mealTable.setItems(meals);
+		
+		petNames.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+		petSpecies.setCellValueFactory(cellData -> cellData.getValue().speciesProperty());
+		petAllergyFriendly.setCellValueFactory(cellData -> cellData.getValue().allergyFriendlyProperty());
+		//assignedStaff needs to be implemented in databaseHandler
+		ObservableList<Pet> pets = MainApp.getDatabaseHandler().searchPatientPet(patient);
+		petTable.setItems(pets);
+		
+	}
 
+	public void setMain(MainApp mainApp) {
+		this.mainApp = mainApp;
+		
 	}
 
 }

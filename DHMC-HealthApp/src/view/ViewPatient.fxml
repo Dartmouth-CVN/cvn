@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<ScrollPane hbarPolicy="NEVER" prefHeight="700.0" prefWidth="1214.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ViewPatientController">
+<ScrollPane hbarPolicy="NEVER" prefHeight="700.0" prefWidth="1214.0" stylesheets="@cvnStyle.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ViewPatientController">
    <content>
       <VBox>
          <children>
@@ -45,7 +45,7 @@
                         <Image url="@../../resources/images/blank-profile-picture.png" />
                      </image>
                   </ImageView>
-                  <LineChart layoutX="68.0" layoutY="222.0">
+                  <LineChart fx:id="bmi" layoutX="68.0" layoutY="222.0">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>
@@ -53,22 +53,22 @@
                       <NumberAxis side="LEFT" />
                     </yAxis>
                   </LineChart>
-                  <Text fx:id="firstName" layoutX="346.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" wrappingWidth="226.13671875">
+                  <Text fx:id="firstName" fill="#005a58" layoutX="346.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" wrappingWidth="226.13671875">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Text>
-                  <Text fx:id="lastName" layoutX="346.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" wrappingWidth="226.13671875">
+                  <Text fx:id="lastName" fill="#005a58" layoutX="346.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" wrappingWidth="226.13671875">
                      <font>
                         <Font size="36.0" />
                      </font>
                   </Text>
-                  <Text fx:id="birthday" layoutX="346.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date of Birth" wrappingWidth="226.13671875">
+                  <Text fx:id="birthday" fill="#005a58" layoutX="346.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date of Birth" wrappingWidth="226.13671875">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Text>
-                  <Text layoutX="245.0" layoutY="633.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BMI Over Time" wrappingWidth="182.46875">
+                  <Text fill="#005956" layoutX="245.0" layoutY="633.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BMI Over Time" wrappingWidth="182.46875">
                      <font>
                         <Font size="27.0" />
                      </font>
@@ -77,27 +77,27 @@
             </AnchorPane>
             <AnchorPane prefHeight="596.0" prefWidth="1208.0">
                <children>
-                  <TableView fx:id="familyTable" layoutX="104.0" layoutY="53.0" prefHeight="283.0" prefWidth="905.0">
+                  <TableView fx:id="familyTable" layoutX="104.0" layoutY="53.0" prefHeight="283.0" prefWidth="953.0">
                      <columns>
                         <TableColumn fx:id="familyNames" prefWidth="306.2144241333008" text="Name" />
                         <TableColumn fx:id="familyRels" prefWidth="182.78558349609375" text="Relationship" />
                       <TableColumn fx:id="familyPhone" prefWidth="208.0" text="Phone Numbers" />
-                        <TableColumn fx:id="familyEmail" prefWidth="208.0" text="Emails" />
+                        <TableColumn fx:id="familyEmail" prefWidth="254.0" text="Emails" />
                      </columns>
                   </TableView>
-                  <TableView fx:id="petTable" layoutX="104.0" layoutY="401.0" prefHeight="169.0" prefWidth="489.0">
+                  <TableView fx:id="petTable" layoutX="104.0" layoutY="401.0" prefHeight="169.0" prefWidth="953.0">
                      <columns>
-                        <TableColumn prefWidth="162.23026275634766" text="Name" />
-                        <TableColumn prefWidth="134.49307250976562" text="Species" />
-                        <TableColumn prefWidth="196.5069580078125" text="Allergy Friendly" />
+                        <TableColumn fx:id="petNames" prefWidth="162.23026275634766" text="Name" />
+                        <TableColumn fx:id="petSpecies" prefWidth="293.0" text="Species" />
+                        <TableColumn fx:id="petAllergyFriendly" prefWidth="496.0" text="Allergy Friendly" />
                      </columns>
                   </TableView>
-                  <Text layoutX="104.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pets" wrappingWidth="208.13671875">
+                  <Text fill="#005a58" layoutX="104.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pets" wrappingWidth="208.13671875">
                      <font>
                         <Font name="DejaVu Sans Bold" size="36.0" />
                      </font>
                   </Text>
-                  <Text layoutX="104.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Family Members" wrappingWidth="383.13671875">
+                  <Text fill="#005a58" layoutX="104.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Family Members" wrappingWidth="383.13671875">
                      <font>
                         <Font name="DejaVu Sans Bold" size="36.0" />
                      </font>
@@ -109,13 +109,12 @@
                   <TableView fx:id="mealTable" layoutX="101.0" layoutY="59.0" prefHeight="478.0" prefWidth="957.0">
                      <columns>
                         <TableColumn fx:id="mealNames" prefWidth="236.5583324432373" text="Name" />
-                        <TableColumn fx:id="mealCals" prefWidth="98.441650390625" text="Calories" />
-                        <TableColumn fx:id="mealLiked" prefWidth="77.34683227539062" text="Like" />
-                        <TableColumn fx:id="mealDisliked" prefWidth="64.09185791015625" text="Dislike" />
-                        <TableColumn fx:id="mealNotesCol" prefWidth="477.0" text="Notes" />
+                        <TableColumn fx:id="mealCals" prefWidth="129.0" text="Calories" />
+                        <TableColumn fx:id="mealRatings" prefWidth="86.0" text="Rating" />
+                        <TableColumn fx:id="mealNotesCol" prefWidth="504.0" text="Notes" />
                      </columns>
                   </TableView>
-                  <Text layoutX="101.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Meals List" wrappingWidth="208.13671875">
+                  <Text fill="#005a58" layoutX="101.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Meals List" wrappingWidth="208.13671875">
                      <font>
                         <Font name="DejaVu Sans Bold" size="36.0" />
                      </font>

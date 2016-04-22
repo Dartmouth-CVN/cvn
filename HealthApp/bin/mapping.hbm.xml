@@ -88,6 +88,22 @@
 		<id name="healthInfoId">
 			<generator class="native" />
 		</id>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+		<list name="attributes" table="HealthInfo_HealthAttribute">
+			<key column="healthAttributeId" />
+			<list-index column="healthAttributeIdx" />
+			<one-to-many class="HealthAttribute" />
+		</list>
+=======
+		<property name="date" type="timestamp" />
+		<set name="healthAttributes" table="HealthInfo_HealthAttribute">
+			<key column="healthInfoId" />
+			<many-to-many column="healthAttributeId" class="HealthAttribute" />
+		</set>
+>>>>>>> dd52c074d6cb8cef20ca3017c800e659407b5dd8
+>>>>>>> 9ad341692c0d0ccfae228f6536976e7353bc21b5
 	</class>
 
 	<class name="HealthAttribute" table="HealthAttribute">
