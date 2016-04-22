@@ -109,13 +109,21 @@ public class DatabaseHandler {
 				emails.add(getRandomEmail());
 
 			Contact contact = new Contact(userID);
-			}
 
+			for(String n:numbers){
+				contact.setPhone(n);
+			}
+			for(String e:emails){
+				contact.setEmail(e);
+			}
+			contact.addAddressList(numbers);
+			contact.addEmailList(emails);
 			insertUser(userID, firstname, lastname, contact);
 			insertLogin(userID, "admin" + number, "pass" + number);
 			insertPatient(userID);
 		}
 	}
+
 
 	public String getRandomFirstName() {
 		return firstNames[randomNumber.nextInt(firstNames.length)];
