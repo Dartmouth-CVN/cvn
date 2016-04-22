@@ -63,7 +63,11 @@ public abstract class User implements IDisplayable{
 	}
 	
     public final String getUserID() {
+    	try{
         return userIDProperty().get();
+    	}catch(Exception e){
+    		return "";
+    	}
     }
 
     public final void setUserID(String userID) {
