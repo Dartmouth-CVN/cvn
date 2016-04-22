@@ -316,7 +316,7 @@ public class ExportFieldsController {
 		} else if (TSVImportButton.isSelected()) {
 			importTSV();
 		} else if (XMLImportButton.isSelected()) {
-			//TODO: importXML();
+			importXML();
 		}
 	}
 	
