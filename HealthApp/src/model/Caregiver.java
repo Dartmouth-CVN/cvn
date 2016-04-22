@@ -12,12 +12,12 @@ public class Caregiver extends AbsUser {
 		
 	}
 	public Caregiver(int userId, String firstName, String lastName, String username, String password,
-			Date birthday, String room, Contact contactInfo, Schedule schedule) {
+			Date birthday, String room, Contact contactInfo) {
 		super(userId, firstName, lastName, username, password, birthday, room, contactInfo);
 	}
 
 	public Caregiver(int userId, String firstName, String lastName, String username, String password,
-			Date birthday, String room, Contact contactInfo, Schedule schedule, String relation, boolean isFamily,
+			Date birthday, String room, Contact contactInfo, String relation, boolean isFamily,
 			int caregiverId) {
 		super(userId, firstName, lastName, username, password, birthday, room, contactInfo);
 		this.relation = relation;

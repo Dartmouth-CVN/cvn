@@ -2,8 +2,12 @@ package view;
 
 import java.io.IOException;
 
+import javax.swing.event.ChangeListener;
+
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
@@ -15,7 +19,7 @@ public abstract class AbsDashController extends AbsController {
 
 	public AbsDashController() {
 	}
-	
+
 	@FXML
 	protected TabPane tabPane;
 
@@ -30,40 +34,43 @@ public abstract class AbsDashController extends AbsController {
 
 	@FXML
 	protected Tab editPatientTab = new Tab();
-	
+
 	@FXML
 	protected ImageView scheduleImage = new ImageView();
 
 	@FXML
 	protected ImageView searchImage = new ImageView();
-	
+
 	@FXML
 	protected AnchorPane editPatient;
-	
+
 	protected FXMLLoader editPatientLoader;
-	
+
 	@FXML
 	protected void initialize() {
-		
+		tabPane.getSelectionModel().selectedItemProperty().addListener((ov, oldTab, newTab) -> {
+	        if(newTab.equals(searchTab)){
+	        	loadSearchTab();
+	        }
+	    });
 	}
-	
-	/**
-	 * Loads and sets the contents of the search tab.
-	 */
-	protected void loadSearchTab() {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("../view/GlobalSearch.fxml"));
-			AnchorPane globalSearch = (AnchorPane) loader.load();
 
-			SearchTabController controller = loader.getController();
-			controller.setMain(mainApp);
-			searchTab.setContent(globalSearch);
+	public void loadSearchTab() {
+		SearchController controller = new SearchController();
+
+		try {
+			AnchorPane searchView = (AnchorPane) controller.getLoader().load();
+
+			FXMLLoader loader = controller.getLoader();
+			controller = loader.getController();
+			controller.setMainApp(this.mainApp);
+			searchTab.setContent(searchView);
+			tabPane.getSelectionModel().select(searchTab);
 		} catch (IOException e) {
 			MainApp.printError(e);
 		}
 	}
-	
+
 	public void showEditPatientTab(Patient p) {
 		editPatientTab.setContent(getEditPatientTab(p));
 		tabPane.getSelectionModel().select(editPatientTab);
@@ -79,7 +86,7 @@ public abstract class AbsDashController extends AbsController {
 		}
 		return editPatientLoader;
 	}
-	
+
 	/**
 	 * Loads and sets the contents of the export tab.
 	 */

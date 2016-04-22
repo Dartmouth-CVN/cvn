@@ -88,19 +88,6 @@
 		<id name="healthInfoId">
 			<generator class="native" />
 		</id>
-<<<<<<< HEAD
-		<list name="attributes" table="HealthInfo_HealthAttribute">
-			<key column="healthAttributeId" />
-			<list-index column="healthAttributeIdx" />
-			<one-to-many class="HealthAttribute" />
-		</list>
-=======
-		<property name="date" type="timestamp" />
-		<set name="healthAttributes" table="HealthInfo_HealthAttribute">
-			<key column="healthInfoId" />
-			<many-to-many column="healthAttributeId" class="HealthAttribute" />
-		</set>
->>>>>>> dd52c074d6cb8cef20ca3017c800e659407b5dd8
 	</class>
 
 	<class name="HealthAttribute" table="HealthAttribute">
@@ -118,17 +105,17 @@
 		</id>
 		<list name="phoneNumbers" table="Contact_Number" cascade="save-update, delete" >
 			<key column="contactId" />
-			<list-index column="contactPhoneIdx" />
+			<list-index column="phoneElementId" />
 			<one-to-many class="ContactElement" />
 		</list>
 		<list name="emails" table="Contact_Email" cascade="save-update, delete" >
 			<key column="contactId" />
-			<list-index column="contactEmailIdx" />
+			<list-index column="emailElementId" />
 			<one-to-many class="ContactElement" />
 		</list>
 		<list name="addresses" table="Contact_Address" cascade="save-update, delete" >
 			<key column="contactId" />
-			<list-index column="contactAddressIdx" />
+			<list-index column="addressElementId" />
 			<one-to-many class="ContactElement" />
 		</list>
 	</class>

@@ -1,19 +1,28 @@
 package model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class ContactElement {
+	@Id
+    @GeneratedValue
 	int elementId;
 	String value;
 	String type;
 	
+	public ContactElement(){
+		
+	}
+	
 	public ContactElement(int elementId, String value, String type) {
-		super();
 		this.elementId = elementId;
 		this.value = value;
 		this.type = type;
 	}
 	
 	public ContactElement(String value, String type) {
-		elementId = 0;
 		this.value = value;
 		this.type = type;
 	}

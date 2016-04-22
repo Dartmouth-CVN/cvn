@@ -9,13 +9,17 @@ public class Meal {
 	
 
 	public Meal(){
-		food = "";
-		notes = "";
 	}
 	
 	public Meal(int mealId, String food, int calories, int rating, String notes) {
-		super();
 		this.mealId = mealId;
+		this.food = food;
+		this.calories = calories;
+		this.rating = rating;
+		this.notes = notes;
+	}
+	
+	public Meal(String food, int calories, int rating, String notes) {
 		this.food = food;
 		this.calories = calories;
 		this.rating = rating;

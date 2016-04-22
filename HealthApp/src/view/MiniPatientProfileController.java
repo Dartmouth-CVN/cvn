@@ -2,7 +2,6 @@ package view;
 
 import java.io.IOException;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -50,8 +49,7 @@ public class MiniPatientProfileController extends AbsController {
 	private Label assignedStaffLabel = new Label();
 	
 
-	private String userID;
-	
+	private int userId;
 	
 	/**
 	 * Initializes the controller class. This method is automatically called
@@ -59,33 +57,40 @@ public class MiniPatientProfileController extends AbsController {
 	 */
 	@FXML
 	private void initialize() {
-//		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
-//		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
-//		positionColumn.setCellValueFactory(cellData -> cellData.getValue().positionProperty());
-		//assignedStaff needs to be implemented in databaseHandler
-		ObservableList<MedicalStaff> personData = MainApp.getDatabaseHandler().searchPatientAssignedStaff(patient);
-		assignedStaffTable.setItems(personData);
-		// set table listener
-		assignedStaffTable.getSelectionModel().selectedItemProperty()
-				.addListener((observable, oldValue, newValue) -> showMedStaffDetails(newValue));
-		assignedStaffLabel.setId("assignedStaff");
 	}
 	
-	public MiniPatientProfileController(MainApp mainApp, Patient patient) {
-		super(mainApp);
-		this.patient = patient;
+	@Override
+	public FXMLLoader getLoader(){
+		loader.setLocation(MainApp.class.getResource("../view/MiniPatientProfileView.fxml"));
+		return loader;
+	}
+	
+	public MiniPatientProfileController() {
 	}
 	
 	/**
 	 * Method that displays med staff mini profile
 	 * @param user
 	 */
-	private void showMedStaffDetails(MedicalStaff staff) {
+	private void showMedStaffDetails(MedicalStaff staff) {	
+	}
 	
-		//databasehandler needs to make getMedicalStaff(MedicalStaff staff) method
-		MedicalStaff ms = MainApp.getDatabaseHandler().getMedicalStaff(staff.getUserId());
-		nameLabel.setText(ms.getFirstName() + " " + ms.getLastName());		
-		
+	public void setPatient(Patient patient){
+		this.patient = patient;
+		loadPatientDetails();
+	}
+	
+	public void loadPatientDetails(){
+		nameLabel.setText(patient.getFirstName() + " " + patient.getLastName());
+		idLabel.setText(String.valueOf(patient.getUserId()));
+
+//		System.out.println(patient.getContactInfo().getPhoneNumbers().get(0));
+//		try {
+//			phoneLabel.setText(patient.getContactInfo().getPrimaryPhone().getValue());
+//			emailLabel.setText(patient.getContactInfo().getPrimaryEmail().getValue());
+//		} catch (ObjectNotFoundException e) {
+//			MainApp.printError(e);
+//		}
 	}
 	
 
@@ -94,15 +99,6 @@ public class MiniPatientProfileController extends AbsController {
 	 */
 	@FXML
 	private void handleEditProfile() {
-		Patient patient;
-		try {
-			patient = MainApp.getDatabaseHandler().getPatient(userID);
-			if (patient != null)
-				mainApp.showEditProfile(patient);
-		} catch (ObjectNotFoundException e) {
-			// TODO handleEditProfile catch block
-			e.printStackTrace();
-		}
 	}
 	
 	/**

@@ -1,24 +1,23 @@
 package model;
 
 import java.io.IOException;
+import java.util.List;
 
 import view.AdminDashController;
 import view.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import utils.DatabaseHandler;
+import utils.ObjectNotFoundException;
 
 public class MainApp extends Application {
 
 	private Stage primaryStage;
-	private AdminDashController dashController;
 	static DatabaseHandler dbHandler;
 	
 	
@@ -26,25 +25,31 @@ public class MainApp extends Application {
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("DHMC - Health App v2.0");
-		dbHandler = new DatabaseHandler();
-
+		getDBHandler().populateDatabase(10);
+		
+		List<Patient> patients;
+		try {
+			patients = getDBHandler().getPatients();
+			System.out.println(patients.get(0).getUsername() + " " + patients.get(0).getPassword());
+		} catch (ObjectNotFoundException e) {
+			MainApp.printError(e);
+		}
 		showLogin();
 	}
 
 	public static DatabaseHandler getDBHandler() {
-		return dbHandler;
+		  if(dbHandler == null)
+			  dbHandler = new DatabaseHandler();
+		  return dbHandler;
 	}
 
 	public static void main(String[] args) {
 		launch(args);
 	}
 
-	public void setStageDimensions(Scene s) {
-		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-		primaryStage.setX((screenBounds.getWidth() - s.getWidth()) / 2);
-		primaryStage.setY((screenBounds.getHeight() - s.getHeight()) / 2);
-		primaryStage.setResizable(true);
-		// primaryStage.setFullScreen(true);
+	public void setStageDimensions() {
+		primaryStage.setHeight(800);
+		primaryStage.setWidth(1200);
 	}
 
 	public void showLogin() {
@@ -56,6 +61,7 @@ public class MainApp extends Application {
 
 			controller = loader.getController();
 			controller.setMainApp(this);
+			
 			primaryStage.setScene(new Scene(login));
 			primaryStage.show();
 		} catch (IOException e) {
@@ -66,6 +72,7 @@ public class MainApp extends Application {
 	public void showAdminDash() {
 		System.out.println("Login success, loading Admin Dash...");
 		AdminDashController controller = new AdminDashController();
+		setStageDimensions();
 		
 		try {
 			AnchorPane adminDash = (AnchorPane) controller.getLoader().load();
@@ -79,17 +86,6 @@ public class MainApp extends Application {
 		} catch (IOException e) {
 			printError(e);
 		}
-	}
-
-	public void showEditProfile(Patient patient) {
-		dashController.showEditPatientTab(patient);
-	}
-
-	public void showAddPatient() {
-		// dashController.getAddPatientTab();
-	}
-
-	public void changeScreenSize(Scene s) {
 	}
 
 	public static void printError(Exception e) {

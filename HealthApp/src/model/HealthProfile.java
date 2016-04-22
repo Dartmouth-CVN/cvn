@@ -1,5 +1,7 @@
 package model;
 
+import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -57,22 +59,7 @@ public class HealthProfile {
 	}
 	
 	public String toString() {
-		Iterator<String> allergiesIter = allergies.iterator();
-		Iterator<String> dietaryRestrictionsIter = dietaryRestrictions.iterator();
-		String retString = "Health Profile.\n\nFitBit Data";
-		
-		for(LocalDate date : healthInfo.keySet()) {
-			retString += ("\n" + healthInfo.get(date).toString());
-		}
-		retString += ("\nAllergies:");
-		while (allergiesIter.hasNext()) {
-		    retString +=("\n" + allergiesIter.next());
-		}
-		retString += ("\nDietary Restrictions:");
-		while (dietaryRestrictionsIter.hasNext()) {
-		    retString +=("\n" + dietaryRestrictionsIter.next());
-		}
-		return retString;
+		return "";
 	}
 	
 }

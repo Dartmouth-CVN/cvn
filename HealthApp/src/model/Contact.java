@@ -53,15 +53,18 @@ public class Contact {
 		return this.addresses;
 	}
 
-	public ContactElement getPrimaryPhone() {
-		return ((LinkedList<ContactElement>) this.phoneNumbers).getFirst();
+	public ContactElement getPrimaryPhone() throws ObjectNotFoundException{
+		if (!this.phoneNumbers.isEmpty())
+			return this.phoneNumbers.get(0);
+	else
+		throw new ObjectNotFoundException("Phone number ");
 	}
 
 	public ContactElement getPrimaryEmail() throws ObjectNotFoundException {
-		if (!this.addresses.isEmpty())
-			return ((LinkedList<ContactElement>) this.addresses).getFirst();
+		if (!this.emails.isEmpty())
+			return this.emails.get(0);
 		else
-			throw new ObjectNotFoundException("Phone number ");
+			throw new ObjectNotFoundException("Email ");
 	}
 
 	public void setPhoneNumbers(List<ContactElement> phone) {
@@ -78,7 +81,7 @@ public class Contact {
 
 	public ContactElement getPrimaryAddress() throws ObjectNotFoundException {
 		if (!this.addresses.isEmpty())
-			return ((LinkedList<ContactElement>) this.addresses).getFirst();
+			return this.addresses.get(0);
 		else
 			throw new ObjectNotFoundException("Address ");
 	}

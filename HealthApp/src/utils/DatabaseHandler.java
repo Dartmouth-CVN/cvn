@@ -1,16 +1,13 @@
 package utils;
 
-import java.util.Date;
 import java.util.List;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import model.Contact;
-import model.MainApp;
+import model.ContactElement;
 import model.Patient;
 
 public class DatabaseHandler {
@@ -18,7 +15,6 @@ public class DatabaseHandler {
 	private static Session session;
 	
 	public DatabaseHandler(){
-		populateDatabase(5);
 	}
 
 	private static SessionFactory buildSessionFactory() {
@@ -43,34 +39,30 @@ public class DatabaseHandler {
 
 	public void populateDatabase(int number) {
 		for(int i = 0 ; i < number; i++){
-			Patient p = getRandomPatient();
+			Patient p = RandomGenerator.getRandomPatient();
 			insertPatient(p);
 		}
-	}
-	
-	public Patient getRandomPatient(){
-		String firstname = RandomGenerator.getRandomFirstName();
-		String lastname = RandomGenerator.getRandomLastName();
-		String username = RandomGenerator.createUsername(firstname, lastname);
-		Date birthday = RandomGenerator.getRandomBirthday();
-		String room = RandomGenerator.getRandomRoom();
-		Contact contactInfo = RandomGenerator.getRandomContactInfo();
-		return new Patient(1, firstname, lastname, username, lastname,
-				birthday, room, contactInfo);
 	}
 
 	public boolean insertPatient(Patient p) {
 		startSession();
+		
+		for(ContactElement e : p.getContactInfo().getPhoneNumbers()){
+			System.out.println("before: " + e.getElementId());
+			session.save(e);
+			System.out.println("after: " + e.getElementId());
+		}
+
+		for(ContactElement e : p.getContactInfo().getEmails())
+			session.save(e);
+
+		for(ContactElement e : p.getContactInfo().getAddresses())
+			session.save(e);
+		
 		session.save(p);
 
 		session.getTransaction().commit();
 		return true;
-//		try {
-//			return true;
-//		} catch (HibernateException e) {
-//			MainApp.printError(e);
-//			return false;
-//		}
 	}
 
 	public Patient getPatient(String username) throws ObjectNotFoundException {
@@ -81,6 +73,17 @@ public class DatabaseHandler {
 
 		if (p == null)
 			throw new ObjectNotFoundException("Patient");
+		else
+			return p;
+	}
+	
+	public Patient getPatient(int userId) throws ObjectNotFoundException {
+		startSession();
+		
+		Patient p = (Patient) session.load(Patient.class, userId);
+
+		if (p == null)
+			throw new ObjectNotFoundException("Patient with userId " + userId);
 		else
 			return p;
 	}

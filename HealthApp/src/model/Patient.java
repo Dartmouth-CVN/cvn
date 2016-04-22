@@ -1,6 +1,5 @@
 package model;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -83,7 +82,6 @@ public class Patient extends AbsUser {
 	public void setCaregivers(List<Caregiver> caregivers) {
 		this.caregivers = caregivers;
 	}
-<<<<<<< HEAD
 
 	public List<Pet> getPets() {
 		return pets;
@@ -100,6 +98,4 @@ public class Patient extends AbsUser {
 	public void setMeals(List<Meal> meals) {
 		this.meals = meals;
 	}
-=======
->>>>>>> dd52c074d6cb8cef20ca3017c800e659407b5dd8
 }

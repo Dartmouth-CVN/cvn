@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import model.MainApp;
 import model.Patient;
@@ -30,30 +31,6 @@ public class AdminDashController extends MedicalStaffDashController {
 	}
 
 	/**
-	 * Fills all text fields to show details about the person. If the specified
-	 * person is null, all text fields are cleared.
-	 * 
-	 * @param person
-	 *            the person or null
-	 */
-	// private void showProfileDetails(Profile profile) {
-	// fills the profile space in the admin dash
-	/*
-	 * if (profile != null) { // Fill the labels with info from the person
-	 * object. firstNameLabel.setText(person.getFirstName());
-	 * lastNameLabel.setText(person.getLastName());
-	 * streetLabel.setText(person.getStreet());
-	 * postalCodeLabel.setText(Integer.toString(person.getPostalCode()));
-	 * cityLabel.setText(person.getCity());
-	 * birthdayLabel.setText(DateUtil.format(person.getBirthday()));
-	 * 
-	 * } else { // Profile is null, remove all the text.
-	 * firstNameLabel.setText(""); lastNameLabel.setText("");
-	 * streetLabel.setText(""); postalCodeLabel.setText("");
-	 * cityLabel.setText(""); birthdayLabel.setText(""); } }
-	 */
-
-	/**
 	 * Loads and sets content of the schedule tab.
 	 */
 	@FXML
@@ -71,9 +48,7 @@ public class AdminDashController extends MedicalStaffDashController {
 		} catch (IOException e) {
 			MainApp.printError(e);
 		}
-
 	}
-
 	
 	public void showEditPatientTab(Patient p) {
 		editPatientTab.setContent(getEditPatientTab(p));

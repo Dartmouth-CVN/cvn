@@ -88,11 +88,6 @@
 		<id name="healthInfoId">
 			<generator class="native" />
 		</id>
-		<list name="attributes" table="HealthInfo_HealthAttribute">
-			<key column="healthAttributeId" />
-			<list-index column="healthAttributeIdx" />
-			<one-to-many class="HealthAttribute" />
-		</list>
 	</class>
 
 	<class name="HealthAttribute" table="HealthAttribute">
@@ -110,17 +105,17 @@
 		</id>
 		<list name="phoneNumbers" table="Contact_Number" cascade="save-update, delete" >
 			<key column="contactId" />
-			<list-index column="contactPhoneIdx" />
+			<list-index column="phoneElementId" />
 			<one-to-many class="ContactElement" />
 		</list>
 		<list name="emails" table="Contact_Email" cascade="save-update, delete" >
 			<key column="contactId" />
-			<list-index column="contactEmailIdx" />
+			<list-index column="emailElementId" />
 			<one-to-many class="ContactElement" />
 		</list>
 		<list name="addresses" table="Contact_Address" cascade="save-update, delete" >
 			<key column="contactId" />
-			<list-index column="contactAddressIdx" />
+			<list-index column="addressElementId" />
 			<one-to-many class="ContactElement" />
 		</list>
 	</class>

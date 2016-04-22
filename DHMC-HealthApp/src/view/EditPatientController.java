@@ -39,21 +39,8 @@ public class EditPatientController {
 	private File curCSV;
 	private LinkedList<HealthInfo> info;
 
-	public EditPatientController(Patient p) {
-		this.p = p;
-		Pane parent = exportfields;
-		for(Node n : parent.getChildren()){
-			if(n instanceof Accordion){
-				//create array
-			}
-			if(n instanceof CheckBox){
-				
-			}
-		}
-	}
-
 	public EditPatientController() {
-	};
+	}
 
 	public void setMainApp(MainApp app) {
 		this.mainApp = app;
@@ -147,17 +134,12 @@ public class EditPatientController {
 	@FXML
 	TableColumn<Meal, Integer> mealCals;
 	@FXML
-	TableColumn<Meal, Boolean> mealLiked;
-	@FXML
-	TableColumn<Meal, Boolean> mealDisliked;
+	TableColumn<Meal, Integer> rating;
 	@FXML
 	TableColumn<Meal, String> mealNotesCol;
 	@FXML
-	RadioButton mealLikeButton;
-	@FXML
-	RadioButton mealDislikeButton;
-	@FXML
-	RadioButton mealNeutralButton;
+	TextField mealRating;
+	
 
 	ObservableList<DisplayString> patientPhones;
 	ObservableList<DisplayString> patientEmails;
@@ -167,11 +149,16 @@ public class EditPatientController {
 	ObservableList<DisplayString> familyPhones;
 	ObservableList<Caregiver> famNames;
 	ObservableList<Caregiver> famRels;
+	
+	ObservableList<Pet> pets;
+	ObservableList<Meal> meals;
 
 	@FXML
 	private void initialize() {
 		patientPhones = FXCollections.observableArrayList();
 		patientEmails = FXCollections.observableArrayList();
+		familyMembers = FXCollections.observableArrayList();
+		pets = FXCollections.observableArrayList();
 		familyMembers = FXCollections.observableArrayList();
 		famNames = FXCollections.observableArrayList();
 		famRels = FXCollections.observableArrayList();
@@ -181,6 +168,8 @@ public class EditPatientController {
 		patientPhoneTable.setItems(patientPhones);
 		patientEmailTable.setItems(patientEmails);
 		familyTable.setItems(familyMembers);
+		petTable.setItems(pets);
+		mealTable.setItems(meals);
 
 		patientPhone.setCellFactory(TextFieldTableCell.forTableColumn());
 		patientEmail.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -223,47 +212,7 @@ public class EditPatientController {
 
 		for (String email : p.getContactInfo().getEmailList())
 			patientEmails.add(new DisplayString(email));
-
-		// for(Caregiver family : p.)
-
-		// familyNames.setCellValueFactory(cellData
-		// ->cellData.getValue().getStringProperty());
-		// familyRels.setCellValueFactory(new PropertyValueFactory<Caregiver,
-		// String>("relation"));
-		// familyTable.setItems(FXCollections.observableArrayList(p.getPreferences().getCaregiver()));
-		//
-		// familyTable.getSelectionModel().selectedItemProperty().addListener(new
-		// ChangeListener<Caregiver>() {
-		//
-		// petNames.setCellValueFactory(new PropertyValueFactory<Pet,
-		// String>("name"));
-		// petSpecies.setCellValueFactory(new PropertyValueFactory<Pet,
-		// String>("species"));
-		// petAllergyFriendly.setCellValueFactory(new PropertyValueFactory<Pet,
-		// Boolean>("allergyFriendly"));
-		// petTable.setItems(FXCollections.observableArrayList(p.getPreferences().getPets()));
-		//
-		// mealNames.setCellValueFactory(new PropertyValueFactory<Meal,
-		// String>("name"));
-		// mealCals.setCellValueFactory(new PropertyValueFactory<Meal,
-		// Integer>("calories"));
-		// mealLiked.setCellValueFactory(new PropertyValueFactory<Meal,
-		// Boolean>("like"));
-		// mealDisliked.setCellValueFactory(new PropertyValueFactory<Meal,
-		// Boolean>("dislike"));
-		// mealNotesCol.setCellValueFactory(new PropertyValueFactory<Meal,
-		// String>("notes"));
-		// mealTable.setItems(FXCollections.observableArrayList(p.getPreferences().getMenu()));
-		//
-		// mealTable.getSelectionModel().selectedItemProperty().addListener(new
-		// ChangeListener<Meal>() {
-		//
-		// @Override
-		// public void changed(ObservableValue<? extends Meal> observable, Meal
-		// oldValue, Meal newValue) {
-		// switchMeal(oldValue, newValue);
-		// }
-		// });
+		
 	}
 
 	@FXML
@@ -348,24 +297,6 @@ public class EditPatientController {
 	}
 
 	@FXML
-	private void likeMeal() {
-		mealDislikeButton.setSelected(false);
-		mealNeutralButton.setSelected(false);
-	}
-
-	@FXML
-	private void dislikeMeal() {
-		mealLikeButton.setSelected(false);
-		mealNeutralButton.setSelected(false);
-	}
-
-	@FXML
-	private void unlikeMeal() {
-		mealDislikeButton.setSelected(false);
-		mealLikeButton.setSelected(false);
-	}
-
-	@FXML
 	private void save() {
 		saveInfo();
 	}
@@ -379,7 +310,6 @@ public class EditPatientController {
 		ArrayList<String> array = new ArrayList<String>();
 		saveNames();
 		p.setBirthday(patientBirthday.getValue());
-		p.getContactInfo().makePrimaryAddress(patientAddress.getText());
 
 		for (DisplayString phoneNumber : patientPhones) {
 			p.getContactInfo().setPhone(phoneNumber.getString());
@@ -404,8 +334,6 @@ public class EditPatientController {
 				p.getContactInfo().removePhone(email);
 			}
 		}
-		
-		p.getContactInfo().makePrimaryAddress(patientAddress.getText());
 
 		if ( (p.getNewPatient() && p.save()) || (!p.getNewPatient() && p.update())) {
 			MainApp.showAlert("Update successful!");

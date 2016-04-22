@@ -5,7 +5,6 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
@@ -135,20 +134,17 @@
                               <TableView fx:id="mealTable" layoutX="35.0" layoutY="55.0" prefHeight="478.0" prefWidth="694.0">
                                  <columns>
                                     <TableColumn prefWidth="236.5583324432373" text="Name" />
-                                    <TableColumn prefWidth="98.441650390625" text="Calories" />
-                                    <TableColumn prefWidth="77.34683227539062" text="Like" />
-                                    <TableColumn prefWidth="64.09185791015625" text="Dislike" />
-                                    <TableColumn prefWidth="219.94558715820312" text="Notes" />
+                                    <TableColumn prefWidth="108.0" text="Calories" />
+                                    <TableColumn fx:id="rating" prefWidth="105.0" text="Rating" />
+                                    <TableColumn prefWidth="243.0" text="Notes" />
                                  </columns>
                               </TableView>
                               <AnchorPane layoutX="779.0" layoutY="54.0" prefHeight="462.0" prefWidth="414.0">
                                  <children>
-                                    <TextField fx:id="mealName" layoutX="39.0" layoutY="55.0" prefHeight="35.0" prefWidth="297.0" promptText="Name" />
-                                    <TextField fx:id="mealCal" layoutX="39.0" layoutY="113.0" prefHeight="24.0" prefWidth="167.0" promptText="Calories" />
-                                    <RadioButton fx:id="mealLikeButton" layoutX="48.0" layoutY="152.0" mnemonicParsing="false" onAction="#likeMeal" text="Like" />
-                                    <RadioButton fx:id="mealDislikeButton" layoutX="165.0" layoutY="152.0" mnemonicParsing="false" onAction="#dislikeMeal" text="Dislike" />
+                                    <TextField fx:id="mealName" layoutX="39.0" layoutY="55.0" prefHeight="35.0" prefWidth="328.0" promptText="Name" />
+                                    <TextField fx:id="mealCal" layoutX="39.0" layoutY="113.0" prefHeight="27.0" prefWidth="132.0" promptText="Calories" />
                                     <TextArea fx:id="mealNotes" layoutX="41.0" layoutY="181.0" prefHeight="190.0" prefWidth="331.0" promptText="Special notes..." />
-                                    <RadioButton fx:id="mealNeutralButton" layoutX="294.0" layoutY="153.0" mnemonicParsing="false" onAction="#unlikeMeal" selected="true" text="Neutral" />
+                                    <TextField fx:id="mealRating" layoutX="203.0" layoutY="113.0" prefHeight="27.0" prefWidth="154.0" promptText="meal rating" />
                                  </children>
                               </AnchorPane>
                               <ButtonBar layoutX="258.0" layoutY="533.0" prefHeight="40.0" prefWidth="200.0">

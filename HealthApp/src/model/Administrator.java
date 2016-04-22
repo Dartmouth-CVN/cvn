@@ -11,12 +11,12 @@ public class Administrator extends AbsUser {
 	}
 	
 	public Administrator(int userId, String firstName, String lastName, String username, String password,
-			Date birthday, String room, Contact contactInfo, Schedule schedule) {
+			Date birthday, String room, Contact contactInfo) {
 		super(userId, firstName, lastName, username, password, birthday, room, contactInfo);
 	}
 	
 	public Administrator(int userId, String firstName, String lastName, String username, String password,
-			Date birthday, String room, Contact contactInfo, Schedule schedule, int adminId) {
+			Date birthday, String room, Contact contactInfo, int adminId) {
 		super(userId, firstName, lastName, username, password, birthday, room, contactInfo);
 		this.adminId = adminId;
 	}

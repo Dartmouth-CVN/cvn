@@ -10,12 +10,12 @@ public class MedicalStaff extends AbsUser {
 	int medId;
 
 	public MedicalStaff(int userId, String firstName, String lastName, String username, String password,
-			Date birthday, String room, Contact contactInfo, Schedule schedule) {
+			Date birthday, String room, Contact contactInfo) {
 		super(userId, firstName, lastName, username, password, birthday, room, contactInfo);
 	}
 	
 	public MedicalStaff(int userId, String firstName, String lastName, String username, String password,
-			Date birthday, String room, Contact contactInfo, Schedule schedule, int medId, List<Patient> assignedPatients) {
+			Date birthday, String room, Contact contactInfo,int medId, List<Patient> assignedPatients) {
 		super(userId, firstName, lastName, username, password, birthday, room, contactInfo);
 		this.medId = medId;
 		this.assignedPatients = assignedPatients;
