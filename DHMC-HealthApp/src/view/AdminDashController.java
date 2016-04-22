@@ -103,23 +103,23 @@ public class AdminDashController {
 	/**
 	 * Loads and sets content of the schedule tab.
 	 */
-	@FXML
-	private void loadScheduleTab() {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("../view/MySchedule.fxml"));
-			AnchorPane mySchedule = (AnchorPane) loader.load();
-
-			scheduleTab.setContent(mySchedule);
-
-			MyScheduleController controller = loader.getController();
-			controller.setMainApp(mainApp);
-
-		} catch (IOException e) {
-			MainApp.printError(e);
-		}
-
-	}
+//	@FXML
+//	private void loadScheduleTab() {
+//		try {
+//			FXMLLoader loader = new FXMLLoader();
+//			loader.setLocation(MainApp.class.getResource("../view/MySchedule.fxml"));
+//			AnchorPane mySchedule = (AnchorPane) loader.load();
+//
+//			scheduleTab.setContent(mySchedule);
+//
+//			MyScheduleController controller = loader.getController();
+//			controller.setMainApp(mainApp);
+//
+//		} catch (IOException e) {
+//			MainApp.printError(e);
+//		}
+//
+//	}
 
 	/**
 	 * Loads and sets the contents of the search tab.
@@ -214,9 +214,9 @@ public class AdminDashController {
 	/**
 	 * Clicking schedule image opens the schedule tab.
 	 */
-	@FXML
-	private void handleScheduleImage() {
-		tabPane.getSelectionModel().select(scheduleTab);
-	}
+//	@FXML
+//	private void handleScheduleImage() {
+//		tabPane.getSelectionModel().select(scheduleTab);
+//	}
 
 }

@@ -411,5 +411,11 @@ public class EditPatientController {
 			MainApp.showAlert("Update successful!");
 		}
 	}
+
+	public void setMain(MainApp mainApp) {
+		
+		this.mainApp = mainApp;
+		
+	}
 	
 }
