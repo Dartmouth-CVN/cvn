@@ -9,8 +9,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.MainApp;
 import model.MedicalStaff;
@@ -46,6 +48,8 @@ public class MiniPatientProfileController {
 	@FXML
 	private Label emailLabel = new Label();
 	
+	private Patient patient;
+	
 
 	private String userID;
 
@@ -65,6 +69,7 @@ public class MiniPatientProfileController {
 	}
 	
 	public void setPatient(Patient patient) {
+		this.patient = patient;
 		
 		patientNameLabel.setText(patient.getFirstName() + " " + patient.getLastName());
 		idLabel.setText(patient.getUserID());
@@ -127,13 +132,21 @@ public class MiniPatientProfileController {
 		//Will open a new view to look at a given patient
 		
 	        try {
-	            Parent root = FXMLLoader.load(MainApp.class.getResource("../view/PatientProfile.fxml"));
+	           // Parent root = FXMLLoader.load(MainApp.class.getResource("../view/ViewPatient.fxml"));
+	            
+	            FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(MainApp.class.getResource("../view/ViewPatient.fxml"));
+				ScrollPane viewPatient = (ScrollPane) loader.load();
+
+				ViewPatientController controller = loader.getController();
+				controller.setMain(mainApp);
+				
 	            Stage stage = new Stage();
 	            stage.setTitle("Patient Profile");
-	            stage.setScene(new Scene(root, 600, 400));
-	            //PatientProfileController controller = root.getController();
-				//controller.setMain(mainApp);
-	            //controller.setPatient(patient);
+	            stage.setScene(new Scene(viewPatient, 1214, 700));
+	            
+	            controller.setPatient(patient);
+	            
 	            stage.show();
 
 	            //hide this current window (if this is whant you want

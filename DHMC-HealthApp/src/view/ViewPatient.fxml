@@ -45,7 +45,7 @@
                         <Image url="@../../resources/images/blank-profile-picture.png" />
                      </image>
                   </ImageView>
-                  <LineChart layoutX="68.0" layoutY="222.0">
+                  <LineChart fx:id="bmi" layoutX="68.0" layoutY="222.0">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>
@@ -87,9 +87,9 @@
                   </TableView>
                   <TableView fx:id="petTable" layoutX="104.0" layoutY="401.0" prefHeight="169.0" prefWidth="489.0">
                      <columns>
-                        <TableColumn prefWidth="162.23026275634766" text="Name" />
-                        <TableColumn prefWidth="134.49307250976562" text="Species" />
-                        <TableColumn prefWidth="196.5069580078125" text="Allergy Friendly" />
+                        <TableColumn fx:id="petNames" prefWidth="162.23026275634766" text="Name" />
+                        <TableColumn fx:id="petSpecies" prefWidth="134.49307250976562" text="Species" />
+                        <TableColumn fx:id="petAllergyFriendly" prefWidth="196.5069580078125" text="Allergy Friendly" />
                      </columns>
                   </TableView>
                   <Text layoutX="104.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pets" wrappingWidth="208.13671875">
@@ -110,8 +110,7 @@
                      <columns>
                         <TableColumn fx:id="mealNames" prefWidth="236.5583324432373" text="Name" />
                         <TableColumn fx:id="mealCals" prefWidth="98.441650390625" text="Calories" />
-                        <TableColumn fx:id="mealLiked" prefWidth="77.34683227539062" text="Like" />
-                        <TableColumn fx:id="mealDisliked" prefWidth="64.09185791015625" text="Dislike" />
+                        <TableColumn fx:id="mealRatings" prefWidth="64.09185791015625" text="Rating" />
                         <TableColumn fx:id="mealNotesCol" prefWidth="477.0" text="Notes" />
                      </columns>
                   </TableView>
