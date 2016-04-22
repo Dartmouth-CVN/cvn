@@ -10,6 +10,7 @@ import java.util.Random;
 import model.Caregiver;
 import model.Contact;
 import model.Meal;
+import model.MedicalStaff;
 import model.Pet;
 
 
@@ -152,5 +153,18 @@ public class RandomGenerator {
         Contact contactInfo = getRandomContactInfo();
         return new Caregiver( firstname, birthday.toString(), relation, contactInfo, isFamily);
     }
+	
+//	public static MedicalStaff getRandomMedicalStaff(){
+//        String firstname = getRandomFirstName();
+//        String lastname = getRandomLastName();
+//        String relation = getRandomRelation();
+//        String username = createUsername(firstname, lastname);
+//        Date birthday = getRandomBirthday();
+//        Boolean isFamily = getRandomBoolean();
+//        String room = getRandomRoom();
+//        Contact contactInfo = getRandomContactInfo();
+//        return new MedicalStaff( firstname, lastname, "nurse", userID);
+//    }
+
 
 }

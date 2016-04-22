@@ -73,12 +73,14 @@ public class MiniPatientProfileController {
 		
 		patientNameLabel.setText(patient.getFirstName() + " " + patient.getLastName());
 		idLabel.setText(patient.getUserID());
+		phoneLabel.setText(patient.getContactInfo().getPrimaryPhone());
+		emailLabel.setText(patient.getContactInfo().getPrimaryEmail());
 		
 		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
 		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
 		positionColumn.setCellValueFactory(cellData -> cellData.getValue().positionProperty());
 		//assignedStaff needs to be implemented in databaseHandler
-		ObservableList<MedicalStaff> assignedStaff = MainApp.getDatabaseHandler().searchPatientAssignedStaff(patient);
+		ObservableList<MedicalStaff> assignedStaff = MainApp.getDatabaseHandler().searchPatientAssignedStaff(patient.getUserID());
 		assignedStaffTable.setItems(assignedStaff);
 		
 	}
