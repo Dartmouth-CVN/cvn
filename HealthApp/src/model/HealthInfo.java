@@ -1,18 +1,18 @@
 package model;
 
 import java.time.LocalDate;
-import java.util.LinkedList;
+import java.util.List;
 
 public class HealthInfo {
 	int healthInfoId;
 	LocalDate date;
-	LinkedList<HealthAttribute<?>> attributes;
+	List<HealthAttribute<?>> attributes;
 	
 	public HealthInfo () {
 		this.attributes = new LinkedList<HealthAttribute<?>>();
 	}
 
-	public HealthInfo(LocalDate date, LinkedList<HealthAttribute<?>> attributes) {
+	public HealthInfo(LocalDate date, List<HealthAttribute<?>> attributes) {
 		this.date = date;
 		this.attributes = attributes;
 	}
@@ -33,11 +33,11 @@ public class HealthInfo {
 		this.date = date;
 	}
 
-	public LinkedList<HealthAttribute<?>> getAttributes() {
+	public List<HealthAttribute<?>> getAttributes() {
 		return attributes;
 	}
 
-	public void setAttributes(LinkedList<HealthAttribute<?>> attributes) {
+	public void setAttributes(List<HealthAttribute<?>> attributes) {
 		this.attributes = attributes;
 	}
 	

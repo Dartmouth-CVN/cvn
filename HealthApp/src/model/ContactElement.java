@@ -11,6 +11,13 @@ public class ContactElement {
 		this.value = value;
 		this.type = type;
 	}
+	
+	public ContactElement(String value, String type) {
+		elementId = 0;
+		this.value = value;
+		this.type = type;
+	}
+	
 	public int getElementId() {
 		return elementId;
 	}

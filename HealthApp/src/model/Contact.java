@@ -1,26 +1,38 @@
 package model;
 
 import java.util.LinkedList;
+import java.util.List;
+
+import utils.ObjectNotFoundException;
 
 public class Contact {
 	 int contactId;
-	 LinkedList<String> phone;
-	 LinkedList<String> email;
-	 LinkedList<String> address;
+	 List<ContactElement> phoneNumbers;
+	 List<ContactElement> emails;
+	 List<ContactElement> addresses;
 
 	public Contact(int id) {
 		this.contactId = id;
-		this.phone = new LinkedList<String>();
-		this.email = new LinkedList<String>();
-		this.address = new LinkedList<String>();
+		this.phoneNumbers = new LinkedList<ContactElement>();
+		this.emails = new LinkedList<ContactElement>();
+		this.addresses = new LinkedList<ContactElement>();
 	}
 
 	public Contact() {
-		this.phone = new LinkedList<String>();
-		this.email = new LinkedList<String>();
-		this.address = new LinkedList<String>();
+		this.phoneNumbers = new LinkedList<ContactElement>();
+		this.emails = new LinkedList<ContactElement>();
+		this.addresses = new LinkedList<ContactElement>();
 	}
 	
+	
+	public Contact(List<ContactElement> phoneNumbers, List<ContactElement> emails,
+			List<ContactElement> addresses) {
+		contactId = 0;
+		this.phoneNumbers = phoneNumbers;
+		this.emails = emails;
+		this.addresses = addresses;
+	}
+
 	public int getContactId(){
 		return contactId;
 	}
@@ -29,96 +41,96 @@ public class Contact {
 		contactId = id;
 	}
 
-	public LinkedList<String> getPhone() {
-		return this.phone;
+	public List<ContactElement> getPhoneNumbers() {
+		return this.phoneNumbers;
 	}
 
-	public LinkedList<String> getEmail() {
-		return this.email;
+	public List<ContactElement> getEmails() {
+		return this.emails;
 	}
 
-	public LinkedList<String> getAddress() {
-		return this.address;
+	public List<ContactElement> getAddresses() {
+		return this.addresses;
 	}
 
-	public String getPrimaryPhone() {
-		return this.phone.getFirst();
+	public ContactElement getPrimaryPhone() {
+		return ((LinkedList<ContactElement>) this.phoneNumbers).getFirst();
 	}
 
-	public String getPrimaryEmail() {
-		if (!this.address.isEmpty())
-			return this.address.getFirst();
+	public ContactElement getPrimaryEmail() throws ObjectNotFoundException {
+		if (!this.addresses.isEmpty())
+			return ((LinkedList<ContactElement>) this.addresses).getFirst();
 		else
-			return "";
+			throw new ObjectNotFoundException("Phone number ");
 	}
 
-	public void setPhone(LinkedList<String> phone) {
-		this.phone = phone;
+	public void setPhoneNumbers(List<ContactElement> phone) {
+		this.phoneNumbers = phone;
 	}
 
-	public void setEmail(LinkedList<String> email) {
-		this.email = email;
+	public void setEmails(List<ContactElement> email) {
+		this.emails = email;
 	}
 
-	public void setAddress(LinkedList<String> address) {
-		this.address = address;
+	public void setAddresses(List<ContactElement> address) {
+		this.addresses = address;
 	}
 
-	public String getPrimaryAddress() {
-		if (!this.address.isEmpty())
-			return this.address.getFirst();
+	public ContactElement getPrimaryAddress() throws ObjectNotFoundException {
+		if (!this.addresses.isEmpty())
+			return ((LinkedList<ContactElement>) this.addresses).getFirst();
 		else
-			return "";
+			throw new ObjectNotFoundException("Address ");
 	}
 
-	public void addPhone(String phone) {
-		if (this.phone.indexOf(phone) < 0) {
-			this.phone.add(phone);
+	public void addPhone(ContactElement phone) {
+		if (this.phoneNumbers.indexOf(phone) < 0) {
+			this.phoneNumbers.add(phone);
 		}
 	}
 
-	public void addEmail(String email) {
-		if (this.email.indexOf(email) < 0) {
-			this.email.add(email);
+	public void addEmail(ContactElement email) {
+		if (this.emails.indexOf(email) < 0) {
+			this.emails.add(email);
 		}
 	}
 
-	public void addAddress(String address) {
-		if (this.address.indexOf(address) < 0) {
-			this.address.add(address);
+	public void addAddress(ContactElement address) {
+		if (this.addresses.indexOf(address) < 0) {
+			this.addresses.add(address);
 		}
 	}
 
-	public void removePhone(String phone) {
-		if (this.phone.indexOf(phone) >= 0) {
-			this.phone.remove(phone);
+	public void removePhone(ContactElement phone) {
+		if (this.phoneNumbers.indexOf(phone) >= 0) {
+			this.phoneNumbers.remove(phone);
 		}
 	}
 
-	public void removeEmail(String email) {
-		if (this.email.indexOf(email) >= 0) {
-			this.email.remove(email);
+	public void removeEmail(ContactElement email) {
+		if (this.emails.indexOf(email) >= 0) {
+			this.emails.remove(email);
 		}
 	}
 
-	public void removeAddress(String address) {
-		if (this.address.indexOf(address) >= 0) {
-			this.address.remove(address);
+	public void removeAddress(ContactElement address) {
+		if (this.addresses.indexOf(address) >= 0) {
+			this.addresses.remove(address);
 		}
 	}
 
-	public void makePrimaryPhone(String phone) {
+	public void makePrimaryPhone(ContactElement phone) {
 		this.removePhone(phone);
-		this.phone.addFirst(phone);
+		((LinkedList<ContactElement>) this.phoneNumbers).addFirst(phone);
 	}
 
-	public void makePrimaryEmail(String email) {
+	public void makePrimaryEmail(ContactElement email) {
 		this.removeEmail(email);
-		this.email.addFirst(email);
+		((LinkedList<ContactElement>) this.emails).addFirst(email);
 	}
 
-	public void makePrimaryAddress(String address) {
+	public void makePrimaryAddress(ContactElement address) {
 		this.removeAddress(address);
-		this.address.addFirst(address);
+		((LinkedList<ContactElement>) this.addresses).addFirst(address);
 	}
 }

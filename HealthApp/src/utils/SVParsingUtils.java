@@ -196,8 +196,8 @@ public abstract class SVParsingUtils implements ParsingUtils {
 				// String.join(",", p.getMedication().stream().map(med ->
 				// med.getName())
 				// .collect(Collectors.toList()))
-				"", String.join(",", p.getContactInfo().getAddress()), String.join(",", p.getContactInfo().getPhone()),
-				String.join(",", p.getContactInfo().getEmail()),
+				"", String.join(",", p.getContactInfo().getAddresses()), String.join(",", p.getContactInfo().getPhoneNumbers()),
+				String.join(",", p.getContactInfo().getEmails()),
 				String.join(",",
 						p.getPatientProfile().getPets().stream().map(pet -> pet.getName())
 								.collect(Collectors.toList())),

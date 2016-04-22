@@ -1,24 +1,25 @@
 package model;
 
 import java.time.LocalDate;
-
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.StringProperty;
+import java.util.Date;
 
 public class Caregiver extends AbsUser {
 	String relation;
 	boolean isFamily;
 	int caregiverId;
 
+	public Caregiver(){
+		
+	}
 	public Caregiver(int userId, String firstName, String lastName, String username, String password,
-			LocalDate birthday, String room, Contact contactInfo, Schedule schedule) {
-		super(userId, firstName, lastName, username, password, birthday, room, contactInfo, schedule);
+			Date birthday, String room, Contact contactInfo, Schedule schedule) {
+		super(userId, firstName, lastName, username, password, birthday, room, contactInfo);
 	}
 
 	public Caregiver(int userId, String firstName, String lastName, String username, String password,
-			LocalDate birthday, String room, Contact contactInfo, Schedule schedule, String relation, boolean isFamily,
+			Date birthday, String room, Contact contactInfo, Schedule schedule, String relation, boolean isFamily,
 			int caregiverId) {
-		super(userId, firstName, lastName, username, password, birthday, room, contactInfo, schedule);
+		super(userId, firstName, lastName, username, password, birthday, room, contactInfo);
 		this.relation = relation;
 		this.isFamily = isFamily;
 		this.caregiverId = caregiverId;

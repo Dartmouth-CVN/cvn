@@ -1,6 +1,6 @@
 package model;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public abstract class AbsUser {
 	int userId;
@@ -8,14 +8,17 @@ public abstract class AbsUser {
 	String lastName;
 	String username;
 	String password;
-	LocalDate birthday;
+	Date birthday;
 	String room;
 	Contact contactInfo;
-	Schedule schedule;
+//	Schedule schedule;
 	
+	public AbsUser(){
+		
+	}
 	
-	public AbsUser(int userId, String firstName, String lastName, String username, String password, LocalDate birthday,
-			String room, Contact contactInfo, Schedule schedule) {
+	public AbsUser(int userId, String firstName, String lastName, String username, String password, Date birthday,
+			String room, Contact contactInfo) {
 		this.userId = userId;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -24,7 +27,6 @@ public abstract class AbsUser {
 		this.birthday = birthday;
 		this.room = room;
 		this.contactInfo = contactInfo;
-		this.schedule = schedule;
 	}
 	
 	public int getUserId() {
@@ -57,10 +59,10 @@ public abstract class AbsUser {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public LocalDate getBirthday() {
+	public Date getBirthday() {
 		return birthday;
 	}
-	public void setBirthday(LocalDate birthday) {
+	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 	public String getRoom() {
@@ -75,11 +77,11 @@ public abstract class AbsUser {
 	public void setContactInfo(Contact contactInfo) {
 		this.contactInfo = contactInfo;
 	}
-	public Schedule getSchedule() {
-		return schedule;
-	}
-	public void setSchedule(Schedule schedule) {
-		this.schedule = schedule;
-	}
+	// public Schedule getSchedule() {
+	// return schedule;
+	// }
+	// public void setSchedule(Schedule schedule) {
+	// this.schedule = schedule;
+	// }
 	
 }
