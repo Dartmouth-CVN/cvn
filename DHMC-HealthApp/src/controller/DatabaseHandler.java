@@ -701,7 +701,7 @@ public class DatabaseHandler {
 				ps = connection.prepareStatement("SELECT * FROM user_account");
 				rs = ps.executeQuery();
 				while (rs.next()) {
-					Patient patient = getFilledPatient(rs.getString("user_id"));
+					Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"), rs.getString("user_id"),(Contact) rs.getObject("contact_info"));
 					patientList.add(patient);
 				}
 

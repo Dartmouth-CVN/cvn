@@ -134,7 +134,7 @@ public class AdminDashController {
 			controller.setMain(mainApp);
 			searchTab.setContent(globalSearch);
 		} catch (IOException e) {
-			MainApp.printError(e);
+			e.printStackTrace();
 		}
 	}
 
