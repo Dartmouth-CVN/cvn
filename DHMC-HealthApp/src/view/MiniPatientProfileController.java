@@ -116,7 +116,7 @@ public class MiniPatientProfileController {
 	 */
 	@FXML
 	private void handleEditProfile() {
-		Patient patient = MainApp.getDatabaseHandler().getPatient(userID);
+		
 		if (patient != null)
 			mainApp.showEditProfile(patient);
 
