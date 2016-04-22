@@ -318,6 +318,7 @@ public class ExportFieldsController {
 		for (int i = 0; i < fields.length; i++) {
 			fields[i] = fieldCheck.get(i);
 		}
+		fields = null;
 		String name = "Exported";
 		if (CSVRadioButton.isSelected()) {
 			CSVParsingUtils.CSVExport(name + ".csv", MainApp.getDatabaseHandler().getPatientList(), fields);
