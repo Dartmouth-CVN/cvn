@@ -91,6 +91,9 @@ public class DatabaseHandler {
 
 	public void populateDatabase() {
 		addUsers(200);
+		
+		
+		//insertDummyPatient();
 		// addAdministrators();
 		// addPatients();
 		// addMedicalStaff();
@@ -122,6 +125,9 @@ public class DatabaseHandler {
 			insertLogin(userID, "admin" + number, "pass" + number);
 			insertPatient(userID);
 		}
+		Contact contact = new Contact("445");
+		insertUser("445", "Test", "Test", contact);
+		insertPatient("445");
 	}
 
 
@@ -168,7 +174,9 @@ public class DatabaseHandler {
 			MainApp.printError(e);
 		}
 	}
-
+	public void insertDummyPatient2(){
+		
+	}
 	public void insertDummyPatient(){
 		//set up objects
 		Contact info = new Contact();
@@ -186,9 +194,14 @@ public class DatabaseHandler {
 		Caregiver careg1 = new Caregiver("Fred", "4-19", "cousin", info, true);
 		caregiverList.add(careg1);
 		
+		LinkedList<MedicalStaff> staffList = new LinkedList<MedicalStaff>();
+		MedicalStaff staff = new MedicalStaff("testID");
+		staffList.add(staff);
+		
 		preferences.setCaregiver(caregiverList);
 		preferences.setMenu(mealList);
 		preferences.setPet(petList);
+		
 		
 		insertDummyUser();
 		insertPatient("Bob", "Barker", "111", info);
@@ -196,7 +209,7 @@ public class DatabaseHandler {
 		
 		
 		dummy.setPreferences(preferences);
-		
+		dummy.addMedicalStaff(staff);
 		updatePatient(dummy);
 		
 	}
@@ -561,16 +574,16 @@ public class DatabaseHandler {
 				ps.setString(1, userID);
 				rs = ps.executeQuery();
 				if (rs.next()) {
-					//Blob blob = rs.getBlob("contact_info");
-					//baip = new ByteArrayInputStream(blob.getBytes(1L, (int) blob.length()));
-					//ois = new ObjectInputStream(baip);
+					Blob blob = rs.getBlob("contact_info");
+					baip = new ByteArrayInputStream(blob.getBytes(1L, (int) blob.length()));
+					ois = new ObjectInputStream(baip);
 					MedicalStaff medicalStaff = new MedicalStaff(rs.getString("firstname"), rs.getString("lastname"),
 							rs.getString("position"), rs.getString("user_id"), rs.getInt("med_id"));
 					connection.close();
 					return medicalStaff;
 				}
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | IOException e) {
 			MainApp.printError(e);
 		}
 		return null;
@@ -593,13 +606,13 @@ public class DatabaseHandler {
 					Blob blob = rs.getBlob("contact_info");
 					baip = new ByteArrayInputStream(blob.getBytes(1L, (int) blob.length()));
 					ois = new ObjectInputStream(baip);
-//					Caregiver caregiver = new Caregiver(rs.getString("name"), rs.getDate("birthday"), rs.getString("relation"), 
-//							(Contact) ois.readObject(), rs.getBoolean("inFamily"));
+					Caregiver caregiver = new Caregiver(rs.getString("name"), rs.getDate("birthday").toString(), rs.getString("relation"), 
+							(Contact) ois.readObject(), rs.getBoolean("inFamily"));
 					connection.close();
 					//return caregiver;
 				}
 			}
-		} catch (SQLException | IOException  e) {
+		} catch (SQLException | IOException | ClassNotFoundException e) {
 			MainApp.printError(e);
 		}
 		return null;
@@ -610,9 +623,9 @@ public class DatabaseHandler {
 		try {
 			if (connect()) {
 				ps = connection.prepareStatement("SELECT * FROM patient Natural Join user_account"
-						+ " WHERE UPPER(firstname) LIKE UPPER(?) OR UPPER(lastname) LIKE UPPER(?)");
-				ps.setString(1, name);
-				ps.setString(2, name);
+						+ " WHERE firstname LIKE UPPER(?) OR lastname LIKE UPPER(?)");
+				ps.setString(1, "%" + name + "%");
+				ps.setString(2, "%" + name + "%");
 				rs = ps.executeQuery();
 				while (rs.next()) {
 					Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
