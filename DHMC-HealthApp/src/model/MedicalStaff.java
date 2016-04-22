@@ -17,6 +17,12 @@ public class MedicalStaff extends User {
 		this.setMedID(medID);
 	}
 	
+	public MedicalStaff(String firstName, String lastName, String position, String userID) {
+		super(firstName, lastName, userID);
+		this.position = new SimpleStringProperty(position);
+		
+	}
+	
 	public MedicalStaff(String userID) {
 		super("Enter First Name", "Enter Last Name", userID);
 		this.setMedID(0);

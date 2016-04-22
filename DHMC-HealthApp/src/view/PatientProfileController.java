@@ -119,7 +119,7 @@ public class PatientProfileController {
 		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
 		positionColumn.setCellValueFactory(cellData -> cellData.getValue().positionProperty());
 		//assignedStaff needs to be implemented in databaseHandler
-		ObservableList<MedicalStaff> personData = MainApp.getDatabaseHandler().searchPatientAssignedStaff(patient);
+		ObservableList<MedicalStaff> personData = MainApp.getDatabaseHandler().searchPatientAssignedStaff(patient.getUserID());
 		assignedStaffTable.setItems(personData);
 		
 		foodColumn.setCellValueFactory(cellData -> cellData.getValue().foodProperty());

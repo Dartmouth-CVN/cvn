@@ -108,14 +108,34 @@ public class DatabaseHandler {
 	}
 	
 	public Patient getRandomPatient(){
+		RandomGenerator randGen = new RandomGenerator();
 		String firstname = RandomGenerator.getRandomFirstName();
 		String lastname = RandomGenerator.getRandomLastName();
 		String username = RandomGenerator.createUsername(firstname, lastname);
 		Date birthday = RandomGenerator.getRandomBirthday();
 		String room = RandomGenerator.getRandomRoom();
 		Contact contactInfo = RandomGenerator.getRandomContactInfo();
+		
+		LinkedList<Pet> petList = new LinkedList<Pet>();
+		Pet pet1 = randGen.getRandomPet();
+		petList.add(pet1);
+		
+		LinkedList<Meal> mealList = new LinkedList<Meal>();
+		Meal meal1 = randGen.getRandomMeal();
+		mealList.add(meal1);
+		
+		LinkedList<Caregiver> caregiverList = new LinkedList<Caregiver>();
+		Caregiver careg1 = randGen.getRandomCaregiver();
+		caregiverList.add(careg1);
+		
+		LinkedList<MedicalStaff> staffList = new LinkedList<MedicalStaff>();
+		MedicalStaff staff = new MedicalStaff("testID");
+		staffList.add(staff);
+		
 		return new Patient(firstname, lastname, generateUserID(firstname, lastname, "Patient"), contactInfo);
 	}
+	
+	
 	
 	public void addUsers(int number) {
 		while (number-- > 0) {
@@ -681,8 +701,7 @@ public class DatabaseHandler {
 				ps = connection.prepareStatement("SELECT * FROM user_account");
 				rs = ps.executeQuery();
 				while (rs.next()) {
-					Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
-							rs.getString("user_id"), 0);
+					Patient patient = getFilledPatient(rs.getString("user_id"));
 					patientList.add(patient);
 				}
 
