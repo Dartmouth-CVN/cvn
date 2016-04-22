@@ -106,14 +106,8 @@ public class FitBitParsingUtils extends GeneralParsingUtils {
 	 * @param pts
 	 *            the patients to write
 	 */
-	public static void fitbitExport(LinkedList<Patient> pts) {
-		String filename = "fitbitExported";
-		int i = 1;
-		File exFile = new File("fitbitExported");
-		while (exFile.exists()) {
-			exFile = new File(filename + i);
-			i++;
-		}
+	public static void fitbitExport(File exFile, Patient p) {
+
 
 		PrintWriter toWrite;
 		try {
@@ -122,18 +116,17 @@ public class FitBitParsingUtils extends GeneralParsingUtils {
 			MainApp.printError(e);
 			return;
 		}
-		for (Patient p : pts) {
-			toWrite.println(p.getFirstName() + " " + p.getLastName());
-			for (HealthInfo h : p.getHealthInfo()) {
-				String toPrint = h.getDate() + "," + h.getHeight() + "," + h.getWeight() + "," + h.getBmi() + ","
-						+ h.getFat() + "," + h.getCaloriesBurned() + "," + h.getSteps() + "," + h.getDistance() + ","
-						+ h.getFloors() + "," + h.getMinSedentary() + "," + h.getMinLightlyActive() + ","
-						+ h.getMinFairlyActive() + "," + h.getMinVeryActive() + "," + h.getActivityCalories() + ","
-						+ h.getMinAsleep() + "," + h.getMinAwake() + "," + h.getNumAwakenings() + ","
-						+ h.getTimeInBed();
-				toWrite.println(toPrint);
-			}
+
+		toWrite.println(p.getFirstName() + " " + p.getLastName());
+		for (HealthInfo h : p.getHealthInfo()) {
+			String toPrint = h.getDate() + "," + h.getHeight() + "," + h.getWeight() + "," + h.getBmi() + ","
+					+ h.getFat() + "," + h.getCaloriesBurned() + "," + h.getSteps() + "," + h.getDistance() + ","
+					+ h.getFloors() + "," + h.getMinSedentary() + "," + h.getMinLightlyActive() + ","
+					+ h.getMinFairlyActive() + "," + h.getMinVeryActive() + "," + h.getActivityCalories() + ","
+					+ h.getMinAsleep() + "," + h.getMinAwake() + "," + h.getNumAwakenings() + "," + h.getTimeInBed();
+			toWrite.println(toPrint);
 		}
+
 		toWrite.close();
 	}
 }

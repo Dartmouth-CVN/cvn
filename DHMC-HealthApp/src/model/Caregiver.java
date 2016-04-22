@@ -3,6 +3,8 @@ package model;
 import java.time.LocalDate;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Caregiver {
@@ -13,12 +15,12 @@ public class Caregiver {
 	private BooleanProperty inFamily;
 	private int caregiverID;
 	
-	public Caregiver (StringProperty name, StringProperty birthday, StringProperty relation, Contact contactInfo, BooleanProperty isFamily){
-		this.name = name;
-		this.birthday = birthday;
-		this.relation = relation;
+	public Caregiver (String name, String birthday, String relation, Contact contactInfo, boolean isFamily){
+		this.name = new SimpleStringProperty(name);
+		this.birthday = new SimpleStringProperty(name);
+		this.relation = new SimpleStringProperty(relation);
 		this.contactInfo = contactInfo;
-		this.inFamily = isFamily;	
+		this.inFamily = new SimpleBooleanProperty(isFamily);	
 	}
 	
 	public Caregiver() {

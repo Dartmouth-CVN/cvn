@@ -71,19 +71,19 @@ public class Administrator extends User {
 	}
 
 	@Override
-	public StringProperty getFirstNameProperty() {
+	public StringProperty firstNameProperty() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public StringProperty getLastNameProperty() {
+	public StringProperty lastNameProperty() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public StringProperty getUserIDProperty() {
+	public StringProperty userIDProperty() {
 		// TODO Auto-generated method stub
 		return null;
 	}

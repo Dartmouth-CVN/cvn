@@ -1,6 +1,8 @@
 package model;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Meal {
@@ -10,11 +12,11 @@ public class Meal {
 	private StringProperty notes;
 	private int mealID;
 	
-	public Meal(StringProperty food, IntegerProperty calories, IntegerProperty rating, StringProperty notes){
-		this.food = food;
-		this.calories = calories;
-		this.rating = rating;
-		this.notes = notes;
+	public Meal(String food, Integer calories, Integer rating, String notes){
+		this.food = new SimpleStringProperty(food);
+		this.calories = new SimpleIntegerProperty(calories);
+		this.rating = new SimpleIntegerProperty(rating);
+		this.notes = new SimpleStringProperty(notes);
 	}
 	
 	public Meal() {

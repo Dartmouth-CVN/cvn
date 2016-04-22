@@ -10,11 +10,11 @@ public interface IDisplayable {
 
 	public String getLastName();
 
-	public StringProperty getFirstNameProperty();
+	public StringProperty firstNameProperty();
 
-	public StringProperty getLastNameProperty() ;
-
-	public StringProperty getUserIDProperty();
+	public StringProperty lastNameProperty();
+	
+	public StringProperty userIDProperty();
 	
 	public void initObservers();
 

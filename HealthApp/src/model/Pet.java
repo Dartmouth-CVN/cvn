@@ -54,22 +54,4 @@ public class Pet {
 	public void setAllergyFriendly(boolean allergyFriendly) {
 		this.allergyFriendly = allergyFriendly;
 	}
-
-	public StringProperty getNameProperty() {
-		// TODO getNameProperty
-		return null;
-	}
-
-	public StringProperty getSpeciesProperty() {
-		// TODO getSpeciesProperty
-		return null;
-	}
-
-	public BooleanProperty getAllergyFriendlyProperty() {
-		// TODO getAllergyFriendlyProperty
-		return null;
-	}
-	
-	
-
 }

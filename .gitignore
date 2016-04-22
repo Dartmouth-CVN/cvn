@@ -1,3 +1,5 @@
 *.dat
 /DHMC-HealthApp/HealthAppDB/
 /DHMC-HealthApp/bin/
+/HealthApp/bin/
+*.class

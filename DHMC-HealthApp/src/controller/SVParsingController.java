@@ -70,12 +70,12 @@ public class SVParsingController implements ParsingController {
 		// output.addMedication(new Medication(med));
 
 		String address = fields[6];
-		output.getContactInfo().addAddress(address);
+		output.getContactInfo().setAddress(address);
 		String[] phoneNumbers = fields[7].split(",");
 		for (String number : phoneNumbers)
-			output.getContactInfo().addPhone(number);
+			output.getContactInfo().setPhone(number);
 		String email = fields[8];
-		output.getContactInfo().addEmail(email);
+		output.getContactInfo().setEmail(email);
 		String[] pets = fields[9].split(",");
 		for (String pet : pets)
 			output.getPreferences().addPet(new Pet(pet, null, false));
@@ -143,8 +143,8 @@ public class SVParsingController implements ParsingController {
 				// String.join(",", p.getMedication().stream().map(med ->
 				// med.getName())
 				// .collect(Collectors.toList()))
-				"", String.join(",", p.getContactInfo().getAddress()), String.join(",", p.getContactInfo().getPhone()),
-				String.join(",", p.getContactInfo().getEmail()),
+				"", String.join(",", p.getContactInfo().getAddressList()), String.join(",", p.getContactInfo().getPhoneList()),
+				String.join(",", p.getContactInfo().getEmailList()),
 				String.join(",",
 						p.getPreferences().getPets().stream().map(pet -> pet.getName()).collect(Collectors.toList())),
 				String.join(",", p.getPreferences().getAllergies()),

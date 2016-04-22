@@ -3,125 +3,187 @@ package model;
 import java.io.Serializable;
 import java.util.LinkedList;
 
+import javafx.beans.property.SimpleStringProperty;
+
 public class Contact implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2789588534495622114L;
 	private String id;
-	private LinkedList<String> phone;
-	private LinkedList<String> email;
-	private LinkedList<String> address;
+	private LinkedList<SimpleStringProperty> phone;
+	private LinkedList<SimpleStringProperty> email;
+	private LinkedList<SimpleStringProperty> address;
 
 	public Contact(String id) {
 		this.id = id;
-		this.phone = new LinkedList<String>();
-		this.email = new LinkedList<String>();
-		this.address = new LinkedList<String>();
+		this.phone = new LinkedList<SimpleStringProperty>();
+		this.email = new LinkedList<SimpleStringProperty>();
+		this.address = new LinkedList<SimpleStringProperty>();
 	}
 
 	public Contact() {
 		this.id = "Unassigned";
-		this.phone = new LinkedList<String>();
-		this.email = new LinkedList<String>();
-		this.address = new LinkedList<String>();
+		this.phone = new LinkedList<SimpleStringProperty>();
+		this.email = new LinkedList<SimpleStringProperty>();
+		this.address = new LinkedList<SimpleStringProperty>();
 	}
 
 	public String getID() {
 		return this.id;
 	}
-
-	public LinkedList<String> getPhone() {
-		return this.phone;
+	
+	public LinkedList<SimpleStringProperty> phoneProperty() {
+		return phone;
 	}
+	
+    public final LinkedList<String> getPhoneList() {
+    	
+    	LinkedList<String> phoneList = new LinkedList<String>();
+    	
+    	for (int i = 0; i < emailProperty().size(); i++) {
+    		
+    		phoneList.add(emailProperty().get(i).get());
+    		
+    	}
+    	
+        return phoneList;
+    }
+    
+    public void addPhoneList(LinkedList<String> phoneList) {
+    	
+    	for(String num : phoneList) {
+    		
+    		phoneProperty().add(new SimpleStringProperty(num));
+    	}
 
-	public LinkedList<String> getEmail() {
-		return this.email;
-	}
+    }
+    
+    public final String getPrimaryPhone() {
+    	
+        return phoneProperty().get(0).get();
+    }
 
-	public LinkedList<String> getAddress() {
-		return this.address;
+    public final void setPhone(String phone) {
+    	
+    	SimpleStringProperty simplePhone = new SimpleStringProperty(phone);
+    	
+        phoneProperty().add(simplePhone);
+    }
+    
+    public final void removePhone(String phone) {
+    	
+    	SimpleStringProperty simplePhone = new SimpleStringProperty(phone);
+    	
+    	for (int i = 0; i < phoneProperty().size(); i++) {
+    		
+    		if (phoneProperty().get(i).get() == simplePhone.get()) {
+    			
+    			phoneProperty().remove(i);
+    		}
+    	}
+    }
+    
+	public LinkedList<SimpleStringProperty> emailProperty() {
+		return email;
 	}
+	
+    public final LinkedList<String> getEmailList() {
+    	
+    	LinkedList<String> emailList = new LinkedList<String>();
+    	
+    	for (int i = 0; i < emailProperty().size(); i++) {
+    		
+    		emailList.add(emailProperty().get(i).get());
+    		
+    	}
+    	
+        return emailList;
+    }
+    
+    public void addEmailList(LinkedList<String> emailList) {
+    	
+    	for(String num : emailList) {
+    		
+    		emailProperty().add(new SimpleStringProperty(num));
+    	}
 
-	public String getPrimaryPhone() {
-		return this.phone.getFirst();
-	}
+    }
+    
+    public final String getPrimaryEmail() {
+    	
+        return emailProperty().get(0).get();
+    }
 
-	public String getPrimaryEmail() {
-		if (!this.address.isEmpty())
-			return this.address.getFirst();
-		else
-			return "";
+    public final void setEmail(String email) {
+    	
+    	SimpleStringProperty simpleEmail = new SimpleStringProperty(email);
+    	
+        phoneProperty().add(simpleEmail);
+    }
+    
+    public final void removeEmail(String email) {
+    	
+    	SimpleStringProperty simpleEmail = new SimpleStringProperty(email);
+    	
+    	for (int i = 0; i < emailProperty().size(); i++) {
+    		
+    		if (emailProperty().get(i).get() == simpleEmail.get()) {
+    			
+    			emailProperty().remove(i);
+    		}
+    	}
+    }
+    
+	public LinkedList<SimpleStringProperty> addressProperty() {
+		return address;
 	}
+	
+    public final LinkedList<String> getAddressList() {
+    	
+    	LinkedList<String> addressList = new LinkedList<String>();
+    	
+    	for (int i = 0; i < emailProperty().size(); i++) {
+    		
+    		addressList.add(emailProperty().get(i).get());
+    		
+    	}
+    	
+        return addressList;
+    }
+    
+    public void addAddressList(LinkedList<String> addressList) {
+    	
+    	for(String num : addressList) {
+    		
+    		addressProperty().add(new SimpleStringProperty(num));
+    	}
 
-	public void setPhone(LinkedList<String> phone) {
-		this.phone = phone;
-	}
+    }
+    
+    public final String getPrimaryAddress() {
+    	
+        return addressProperty().get(0).get();
+    }
 
-	public void setEmail(LinkedList<String> email) {
-		this.email = email;
-	}
-
-	public void setAddress(LinkedList<String> address) {
-		this.address = address;
-	}
-
-	public String getPrimaryAddress() {
-		if (!this.address.isEmpty())
-			return this.address.getFirst();
-		else
-			return "";
-	}
-
-	public void addPhone(String phone) {
-		if (this.phone.indexOf(phone) < 0) {
-			this.phone.add(phone);
-		}
-	}
-
-	public void addEmail(String email) {
-		if (this.email.indexOf(email) < 0) {
-			this.email.add(email);
-		}
-	}
-
-	public void addAddress(String address) {
-		if (this.address.indexOf(address) < 0) {
-			this.address.add(address);
-		}
-	}
-
-	public void removePhone(String phone) {
-		if (this.phone.indexOf(phone) >= 0) {
-			this.phone.remove(phone);
-		}
-	}
-
-	public void removeEmail(String email) {
-		if (this.email.indexOf(email) >= 0) {
-			this.email.remove(email);
-		}
-	}
-
-	public void removeAddress(String address) {
-		if (this.address.indexOf(address) >= 0) {
-			this.address.remove(address);
-		}
-	}
-
-	public void makePrimaryPhone(String phone) {
-		this.removePhone(phone);
-		this.phone.addFirst(phone);
-	}
-
-	public void makePrimaryEmail(String email) {
-		this.removeEmail(email);
-		this.email.addFirst(email);
-	}
-
-	public void makePrimaryAddress(String address) {
-		this.removeAddress(address);
-		this.address.addFirst(address);
-	}
+    public final void setAddress(String address) {
+    	
+    	SimpleStringProperty simpleAddress = new SimpleStringProperty(address);
+    	
+        phoneProperty().add(simpleAddress);
+    }
+    
+    public final void removeAddress(String address) {
+    	
+    	SimpleStringProperty simpleAddress = new SimpleStringProperty(address);
+    	
+    	for (int i = 0; i < addressProperty().size(); i++) {
+    		
+    		if (addressProperty().get(i).get() == simpleAddress.get()) {
+    			
+    			addressProperty().remove(i);
+    		}
+    	}
+    }
 
 }

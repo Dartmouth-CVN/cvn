@@ -5,14 +5,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import model.Caregiver;
-import model.Contact;
 import model.IDisplayable;
 import model.MainApp;
-import model.Meal;
 import model.MedicalStaff;
 import model.Patient;
-import model.Pet;
 
 public class MedicalStaffController {
 
@@ -43,8 +39,8 @@ public class MedicalStaffController {
 	private void initialize(MedicalStaff staff) {
 		
 		
-		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
-		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
+		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
+		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
 
 		ObservableList<Patient> patientData = MainApp.getDatabaseHandler().searchMedStaffAssignedPatient(staff);
 		assignedPatientTable.setItems(patientData);

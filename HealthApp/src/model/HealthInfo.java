@@ -9,6 +9,7 @@ public class HealthInfo {
 	List<HealthAttribute<?>> attributes;
 	
 	public HealthInfo () {
+		this.attributes = new LinkedList<HealthAttribute<?>>();
 	}
 
 	public HealthInfo(LocalDate date, List<HealthAttribute<?>> attributes) {

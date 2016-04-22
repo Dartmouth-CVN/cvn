@@ -32,6 +32,7 @@ import model.MainApp;
 import model.Meal;
 import model.MedicalStaff;
 import model.Patient;
+import model.PatientProfile;
 import model.Pet;
 
 public class DatabaseHandler {
@@ -108,14 +109,21 @@ public class DatabaseHandler {
 				emails.add(getRandomEmail());
 
 			Contact contact = new Contact(userID);
-			contact.setPhone(numbers);
-			contact.setEmail(emails);
 
+			for(String n:numbers){
+				contact.setPhone(n);
+			}
+			for(String e:emails){
+				contact.setEmail(e);
+			}
+			contact.addAddressList(numbers);
+			contact.addEmailList(emails);
 			insertUser(userID, firstname, lastname, contact);
 			insertLogin(userID, "admin" + number, "pass" + number);
 			insertPatient(userID);
 		}
 	}
+
 
 	public String getRandomFirstName() {
 		return firstNames[randomNumber.nextInt(firstNames.length)];
@@ -161,6 +169,38 @@ public class DatabaseHandler {
 		}
 	}
 
+	public void insertDummyPatient(){
+		//set up objects
+		Contact info = new Contact();
+		PatientProfile preferences = new PatientProfile();
+		
+		LinkedList<Pet> petList = new LinkedList<Pet>();
+		Pet pet1 = new Pet("billy","dog",true);
+		petList.add(pet1);
+		
+		LinkedList<Meal> mealList = new LinkedList<Meal>();
+		Meal meal1 = new Meal("pizza", 22, 4, "yum");
+		mealList.add(meal1);
+		
+		LinkedList<Caregiver> caregiverList = new LinkedList<Caregiver>();
+		Caregiver careg1 = new Caregiver("Fred", "4-19", "cousin", info, true);
+		caregiverList.add(careg1);
+		
+		preferences.setCaregiver(caregiverList);
+		preferences.setMenu(mealList);
+		preferences.setPet(petList);
+		
+		insertDummyUser();
+		insertPatient("Bob", "Barker", "111", info);
+		Patient dummy = getPatient("111");
+		
+		
+		dummy.setPreferences(preferences);
+		
+		updatePatient(dummy);
+		
+	}
+	
 	public boolean connect() {
 		boolean connected = false;
 		try {
@@ -319,7 +359,7 @@ public class DatabaseHandler {
 		try {
 			ps = connection.prepareStatement("CREATE TABLE meal("
 					+ "meal_id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-					+ "name VARCHAR(20), calories INT, like BOOLEAN, dislike BOOLEAN, notes LONG VARCHAR"
+					+ "name VARCHAR(20), calories INT, rating INT, notes LONG VARCHAR"
 					+ " patient_id INT, PRIMARY KEY(patient_id), "
 					+ "FOREIGN KEY(patient_id) REFERENCES patient(patient_id))");
 			ps.execute();
@@ -335,7 +375,7 @@ public class DatabaseHandler {
 		try {
 			ps = connection.prepareStatement("CREATE TABLE caregiver("
 					+ "caregiver_id INT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
-					+ "patient_id INT, name VARCHAR(20), birthday DATE, isFamily? BOOLEAN, relation VARCHAR(10), contact_info BLOB (10M) "
+					+ "patient_id INT, name VARCHAR(20), birthday DATE, inFamily BOOLEAN, relation VARCHAR(10), contact_info BLOB (10M) "
 					+ "FOREIGN KEY(patient_id) REFERENCES patient(patient_id)," + "Primary Key(caregiver_id) )");
 			ps.execute();
 			success = true;
@@ -554,7 +594,7 @@ public class DatabaseHandler {
 					baip = new ByteArrayInputStream(blob.getBytes(1L, (int) blob.length()));
 					ois = new ObjectInputStream(baip);
 //					Caregiver caregiver = new Caregiver(rs.getString("name"), rs.getDate("birthday"), rs.getString("relation"), 
-//							(Contact) ois.readObject(), rs.getBoolean("isFamily?"));
+//							(Contact) ois.readObject(), rs.getBoolean("inFamily"));
 					connection.close();
 					//return caregiver;
 				}
@@ -570,9 +610,9 @@ public class DatabaseHandler {
 		try {
 			if (connect()) {
 				ps = connection.prepareStatement("SELECT * FROM patient Natural Join user_account"
-						+ " WHERE firstname LIKE ?");
+						+ " WHERE UPPER(firstname) LIKE UPPER(?) OR UPPER(lastname) LIKE UPPER(?)");
 				ps.setString(1, name);
-//				ps.setString(2, name);
+				ps.setString(2, name);
 				rs = ps.executeQuery();
 				while (rs.next()) {
 					Patient patient = new Patient(rs.getString("firstname"), rs.getString("lastname"),
@@ -679,7 +719,7 @@ public class DatabaseHandler {
 				rs = ps.executeQuery();
 				while (rs.next()) {
 					Meal meal = new Meal(rs.getString("name"), rs.getInt("calories"),
-							rs.getBoolean("like"), rs.getBoolean("dislike"), rs.getString("notes"));
+							rs.getInt("rating"), rs.getString("notes"));
 					mealList.add(meal);
 				}
 
@@ -705,8 +745,8 @@ public class DatabaseHandler {
 				ps.setInt(1, p.getPatientID());
 				rs = ps.executeQuery();
 				while (rs.next()) {
-					Caregiver caregiver = new Caregiver(rs.getString("name"), asLocalDate(rs.getDate("birthday")), rs.getString("relation"), 
-							(Contact)rs.getObject("contact_info"), rs.getBoolean("isFamily?"));
+					Caregiver caregiver = new Caregiver(rs.getString("name"), asLocalDate(rs.getDate("birthday")).toString(), rs.getString("relation"), 
+							(Contact)rs.getObject("contact_info"), rs.getBoolean("inFamily"));
 					caregiverList.add(caregiver);
 				}
 
@@ -808,8 +848,7 @@ public class DatabaseHandler {
 			ps.setInt(1, patient.getPatientID());
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				Meal meal = new Meal(rs.getString("name"), rs.getInt("calories"), rs.getBoolean("like"),
-						rs.getBoolean("dislike"), rs.getString("notes"));
+				Meal meal = new Meal(rs.getString("name"), rs.getInt("calories"), rs.getInt("rating"), rs.getString("notes"));
 				patientMeals.add(meal);
 			}
 			connection.close();
@@ -871,12 +910,32 @@ public class DatabaseHandler {
 		}
 		return success;
 	}
-
+	public boolean insertPatient(String first, String last, String userID, Contact info){
+		success = false;
+		try {
+			
+			if (insertUser(userID, first, last, info) && connect()) {
+				ps = connection.prepareStatement("INSERT INTO patient (user_id) VALUES (?)");
+				ps.setString(1,userID);
+				ps.executeUpdate();
+				ps.close();
+				success = true;
+			}
+		} catch (SQLException e) {
+			MainApp.printError(e);
+		}
+		return success;
+	}
+	/**
+	 * Insert single Patient into user_account and patient table
+	 * @param p
+	 * @return
+	 */
 	public boolean insertPatient(Patient p) {
 		success = false;
 		try {
 			if(p.getUserID().equals(""))
-				p.setUseriID(generateUserID(p.getFirstName(), p.getLastName(), "Patient"));
+				p.setUserID(generateUserID(p.getFirstName(), p.getLastName(), "Patient"));
 			System.out.println(p.getUserID());
 			
 			if (insertUser(p.getUserID(), p.getFirstName(), p.getLastName(), p.getContactInfo()) && connect()) {
@@ -891,7 +950,11 @@ public class DatabaseHandler {
 		}
 		return success;
 	}
-
+	/**
+	 * Insert userID into patient table
+	 * @param userID
+	 * @return
+	 */
 	public boolean insertPatient(String userID) {
 		success = false;
 		try {
@@ -908,7 +971,43 @@ public class DatabaseHandler {
 		}
 		return success;
 	}
+	/**
+	 * Insert multiple patients
+	 * @param patients
+	 * @return
+	 */
+	public boolean insertPatients(LinkedList<Patient> patients) {
+		success = true;
+		for (Patient p : patients) {
+			if (!insertPatient(p))
+				success = false;
+		}
+		return success;
+	}
+	
+	
+	/**
+	 * Insert into caregiver table fields from caregiver object based on patient
+	 * id
+	 * 
+	 * @param caregiver
+	 * @param p
+	 */
+	public void insertCaregiver(Caregiver caregiver, Patient p) {
+		try {
+			ps = connection.prepareStatement(
+					"INSERT INTO caregiver (name, inFamily, relation, patient_id) VALUES(?, ?, ?, ?)");
 
+			ps.setString(1, caregiver.getName());
+			ps.setBoolean(2, caregiver.getInFamily());
+			ps.setString(3, caregiver.getRelation());
+			ps.setInt(4, p.getPatientID());
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+		}
+	}
+	
 	public boolean insertPet(Pet pet, Patient patient) {
 		success = false;
 		try {
@@ -929,16 +1028,11 @@ public class DatabaseHandler {
 		}
 		return success;
 	}
-
-	public boolean insertPatients(LinkedList<Patient> patients) {
-		success = true;
-		for (Patient p : patients) {
-			if (!insertPatient(p))
-				success = false;
-		}
-		return success;
-	}
-
+	/**
+	 * Insert single medicalstaff into user_account and medstaff table
+	 * @param staff
+	 * @return
+	 */
 	public boolean insertMedicalStaff(MedicalStaff staff) {
 		success = false;
 		try {
@@ -958,7 +1052,50 @@ public class DatabaseHandler {
 		}
 		return success;
 	}
+	/**
+	 * insert assigned staff relationship into staff_assignment
+	 * @param staff
+	 * @param p
+	 * @return
+	 */
+	public boolean insertAssignedStaff(MedicalStaff staff, Patient p){
+		success = false;
+		try {
+			connect();
+			
+				ps = connection.prepareStatement("INSERT INTO staff_assignment (med_id, patient_id) VALUES (?,?)");
 
+				ps.setInt(1, staff.getMedID());
+				ps.setInt(2, p.getPatientID());
+
+				ps.executeUpdate();
+				ps.close();
+				success = true;
+			
+		} catch (SQLException e) {
+			MainApp.printError(e);
+		}
+		return success;
+	}
+	/**
+	 * Insert multiple medical staff members as assigned staff of patient
+	 * @param patients
+	 * @return
+	 */
+	public boolean insertAssignedMedicalStaffMembers(LinkedList<MedicalStaff> staffList, Patient p) {
+		success = true;
+		for (MedicalStaff staff : staffList) {
+			if (!insertAssignedStaff(staff,p))
+				success = false;
+		}
+		return success;
+	}
+	
+	/**
+	 * Insert single Admin ito user_account and admin table
+	 * @param admin
+	 * @return
+	 */
 	public boolean insertAdmin(Administrator admin) {
 		success = false;
 		try {
@@ -977,22 +1114,22 @@ public class DatabaseHandler {
 	}
 
 	/**
-	 * @param p
-	 *            patient object
+	 * Insert single Meal into Meal table with patient userID
+	 * @param meal object patient object
+	 *            
 	 */
 	public boolean insertMeal(Meal meal, Patient p) {
 		success = false;
 		try {
 			if (connect()) {
 				ps = connection.prepareStatement(
-						"INSERT INTO meal (name, calories, like, dislike, notes, patient_id) VALUES(?, ?, ?, ?, ?, ?)");
+						"INSERT INTO meal (name, calories, raing, notes, patient_id) VALUES(?, ?, ?, ?, ?)");
 
-				ps.setString(1, meal.getName());
+				ps.setString(1, meal.getFood());
 				ps.setInt(2, meal.getCalories());
-				ps.setBoolean(3, meal.didLike());
-				ps.setBoolean(4, meal.didDislike());
-				ps.setString(5, meal.getSpecialNotes());
-				ps.setInt(6, p.getPatientID());
+				ps.setInt(3, meal.getRating());
+				ps.setString(4, meal.getNotes());
+				ps.setInt(5, p.getPatientID());
 				ps.executeUpdate();
 				ps.close();
 				success = true;
@@ -1002,160 +1139,19 @@ public class DatabaseHandler {
 		}
 		return success;
 	}
-
-	public boolean updateUser(String userID, String firstName, String lastName, Contact contactInfo) {
-		success = false;
-		try {
-			if (connect()) {
-				ps = connection.prepareStatement(
-						"UPDATE user_account SET firstname = ?, " + "lastname = ?, contact_info = ? WHERE user_id = ?");
-
-				ps.setString(1, firstName);
-				ps.setString(2, lastName);
-				ps.setBinaryStream(3, objectToBlob(contactInfo));
-				ps.setString(4, userID);
-
-				ps.executeUpdate();
-				ps.close();
-				success = true;
-			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+	/**
+	 * Insert multiple meals
+	 * @param patients
+	 * @return
+	 */
+	public boolean insertMeals(LinkedList<Meal> meals, Patient p) {
+		success = true;
+		for (Meal m : meals) {
+			if (!insertMeal(m,p))
+				success = false;
 		}
 		return success;
 	}
-
-	public boolean updatePatient(Patient patient) {
-		success = false;
-		if (updateUser(patient.getUserID(), patient.getFirstName(), patient.getLastName(), patient.getContactInfo())) {
-			success = true;
-		}
-		return success;
-	}
-
-	public boolean updateMedicalStaff(MedicalStaff staff) {
-		success = false;
-		try {
-			if (connect()) {
-				ps = connection.prepareStatement("UPDATE medical_staff SET position = ? WHERE med_id = ?");
-				ps.setString(1, staff.getPosition());
-				ps.setInt(2, staff.getMedID());
-				ps.executeUpdate();
-				ps.close();
-				success = true;
-			}
-		} catch (SQLException e) {
-			MainApp.printError(e);
-		}
-		return success;
-	}
-
-	/**
-	 * 
-	 * @param p
-	 */
-	public boolean updatePet(Pet pet, Patient p) {
-		success = false;
-		try {
-			if (connect()) {
-				ps = connection.prepareStatement(
-						"UPDATE pet SET species = ?, name = ?, allergy_friendly = ? WHERE patient_id = ?");
-				ps.setString(1, pet.getSpecies());
-				ps.setString(2, pet.getName());
-				ps.setBoolean(3, pet.getAllergyFriendly());
-				ps.setInt(4, p.getPatientID());
-				ps.executeUpdate();
-				success = true;
-			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		return success;
-	}
-
-	public boolean updatePets(LinkedList<Pet> pets, Patient p) {
-		return true;
-	}
-
-	/**
-	 * Finds meal based on patient id and updates fields with fields from meal
-	 * object
-	 * 
-	 * @param meal
-	 * @param p
-	 */
-	public void updateMeal(Meal meal, Patient p) {
-
-		try {
-			connect();
-			ps = connection.prepareStatement("UPDATE meal SET name = ?, calories = ?, like = ?, dislike = ?, notes = ? "
-					+ "WHERE patient_id = ?");
-			ps.setString(1, meal.getName());
-			ps.setInt(2, meal.getCalories());
-			ps.setBoolean(3, meal.didLike());
-			ps.setBoolean(4, meal.didDislike());
-			ps.setString(5, meal.getSpecialNotes());
-			ps.setInt(6, p.getPatientID());
-
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-	}
-
-	public void updateMeals(LinkedList<Meal> meals, Patient p) {
-
-	}
-
-	/**
-	 * Insert into caregiver table fields from caregiver object based on patient
-	 * id
-	 * 
-	 * @param caregiver
-	 * @param p
-	 */
-	public void insertCaregiver(Caregiver caregiver, Patient p) {
-		try {
-			ps = connection.prepareStatement(
-					"INSERT INTO caregiver (name, isFamily?, relation, patient_id) VALUES(?, ?, ?, ?)");
-
-			ps.setString(1, caregiver.getName());
-			ps.setBoolean(2, caregiver.getIsFamily());
-			ps.setString(3, caregiver.getRelation());
-			ps.setInt(4, p.getPatientID());
-			ps.executeUpdate();
-			ps.close();
-		} catch (SQLException e) {
-		}
-	}
-
-	/**
-	 * Updates fields of given caregiver in table with new fields from caregiver
-	 * input.
-	 * 
-	 * @param caregiver
-	 */
-	public void updateCaregiver(Caregiver caregiver) {
-
-		try {
-			connect();
-			ps = connection.prepareStatement(
-					"UPDATE caregiver SET name = ?, isFamily? = ?, relation = ? " + "WHERE caregiver_id = ?");
-			ps.setString(1, caregiver.getName());
-			ps.setBoolean(2, caregiver.getIsFamily());
-			ps.setString(3, caregiver.getRelation());
-			ps.setInt(4, caregiver.getCaregiverID());
-
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-	}
-
-	public void updateCaregivers(LinkedList<Caregiver> caregivers, Patient p) {
-
-	}
-
 	/**
 	 * Insert into HealthInfo table healthinfo fields by new object
 	 * 
@@ -1193,6 +1189,161 @@ public class DatabaseHandler {
 		} catch (SQLException e) {
 		}
 	}
+	/**
+	 * Update single user located based on user_id in tables
+	 * @param userID
+	 * @param firstName
+	 * @param lastName
+	 * @param contactInfo
+	 * @return
+	 */
+	public boolean updateUser(String userID, String firstName, String lastName, Contact contactInfo) {
+		success = false;
+		try {
+			if (connect()) {
+				ps = connection.prepareStatement(
+						"UPDATE user_account SET firstname = ?, " + "lastname = ?, contact_info = ? WHERE user_id = ?");
+
+				ps.setString(1, firstName);
+				ps.setString(2, lastName);
+				ps.setBinaryStream(3, objectToBlob(contactInfo));
+				ps.setString(4, userID);
+
+				ps.executeUpdate();
+				ps.close();
+				success = true;
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return success;
+	}
+	/**
+	 * Updates sinlge patient found in Patient table based on patient ID
+	 * @param patient
+	 * @return 
+	 */
+	public boolean updatePatient(Patient patient) {
+		success = false;
+		if (updateUser(patient.getUserID(), patient.getFirstName(), patient.getLastName(), patient.getContactInfo())) {
+			success = true;
+		}
+		return success;
+	}
+	/**
+	 * Update single MedicalStaff in user_account table and MedicalStaff table 
+	 * @param staff
+	 * @return
+	 */
+	public boolean updateMedicalStaff(MedicalStaff staff) {
+		success = false;
+		try {
+			updateUser(staff.getUserID(), staff.getFirstName(), staff.getLastName(), staff.getContactInfo());
+			if (connect()) {
+				ps = connection.prepareStatement("UPDATE medical_staff SET position = ? WHERE med_id = ?");
+				ps.setString(1, staff.getPosition());
+				ps.setInt(2, staff.getMedID());
+				ps.executeUpdate();
+				ps.close();
+				success = true;
+			}
+		} catch (SQLException e) {
+			MainApp.printError(e);
+		}
+		return success;
+	}
+
+	/**
+	 * Update single Pet int pet table, based on patient id
+	 * @param pet object
+	 * @param patient object
+	 */
+	public boolean updatePet(Pet pet, Patient p) {
+		success = false;
+		try {
+			if (connect()) {
+				ps = connection.prepareStatement(
+						"UPDATE pet SET species = ?, name = ?, allergy_friendly = ? WHERE patient_id = ?");
+				ps.setString(1, pet.getSpecies());
+				ps.setString(2, pet.getName());
+				ps.setBoolean(3, pet.getAllergyFriendly());
+				ps.setInt(4, p.getPatientID());
+				ps.executeUpdate();
+				success = true;
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return success;
+	}
+
+	public boolean updatePets(LinkedList<Pet> pets, Patient p) {
+		return true;
+	}
+
+	/**
+	 * Finds meal based on patient id and updates fields with fields from meal
+	 * object
+	 * 
+	 * @param meal
+	 * @param p
+	 */
+	public void updateMeal(Meal meal, Patient p) {
+
+		try {
+			connect();
+			ps = connection.prepareStatement("UPDATE meal SET name = ?, calories = ?, rating = ?, notes = ? "
+					+ "WHERE patient_id = ?");
+			ps.setString(1, meal.getFood());
+			ps.setInt(2, meal.getCalories());
+			ps.setInt(3, meal.getRating());
+			ps.setString(4, meal.getNotes());
+			ps.setInt(5, p.getPatientID());
+
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void updateMeals(LinkedList<Meal> meals, Patient p) {
+
+	}
+
+	
+
+	/**
+	 * Updates fields of given caregiver in table with new fields from caregiver
+	 * input.
+	 * 
+	 * @param caregiver
+	 */
+	public void updateCaregiver(Caregiver caregiver) {
+
+		try {
+			connect();
+			ps = connection.prepareStatement(
+					"UPDATE caregiver SET name = ?, inFamily = ?, relation = ? " + "WHERE caregiver_id = ?");
+			ps.setString(1, caregiver.getName());
+			ps.setBoolean(2, caregiver.getInFamily());
+			ps.setString(3, caregiver.getRelation());
+			ps.setInt(4, caregiver.getCaregiverID());
+
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void updateCaregivers(LinkedList<Caregiver> caregivers, Patient p) {
+
+	}
+
+	/**
+	 * Update single HealthInfo Object in 
+	 * @param info
+	 * @param p
+	 */
 
 	public void updateHealthInfo(HealthInfo info, Patient p) {
 
@@ -1228,36 +1379,6 @@ public class DatabaseHandler {
 		}
 	}
 
-	public String getLoginPass(String username) {
-		try {
-			connect();
-			ps = connection.prepareStatement("Select * FROM login WHERE username = ?");
-			ps.setString(1, username);
-			rs = ps.executeQuery();
-			if (rs.next()){
-				System.out.println(rs.getString("password"));
-				return rs.getString("password");
-			}
-		
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		} return null;
-	}	
-	
-	public void updateDummyLogin(String username, String pass) {
-		try {
-			connect();
-			ps = connection.prepareStatement("UPDATE login SET password = ? WHERE username = ?");
-			ps.setString(1, pass);
-			ps.setString(2, username);
-			ps.executeUpdate();
-			System.out.println("finish update");
-
-		
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		} return;
-	}	
 	
 	
 	public void dropTables() {
@@ -1339,6 +1460,39 @@ public class DatabaseHandler {
 			return null;
 		}
 	}
+	
+	public String getLoginPass(String username) {
+		try {
+			connect();
+			ps = connection.prepareStatement("Select * FROM login WHERE username = ?");
+			ps.setString(1, username);
+			rs = ps.executeQuery();
+			if (rs.next()){
+				System.out.println(rs.getString("password"));
+				return rs.getString("password");
+			}
+		
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} return null;
+	}	
+	
+	public void updateDummyLogin(String username, String pass) {
+		try {
+			connect();
+			ps = connection.prepareStatement("UPDATE login SET password = ? WHERE username = ?");
+			ps.setString(1, pass);
+			ps.setString(2, username);
+			ps.executeUpdate();
+			System.out.println("finish update");
+
+		
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} return;
+	}	
+	
+	
 	/**
 	 * converts local date to date
 	 * @param localDate

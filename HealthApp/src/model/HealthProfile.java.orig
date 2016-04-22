@@ -1,7 +1,15 @@
 package model;
 
+<<<<<<< HEAD
 import java.util.LinkedList;
 import java.util.List;
+=======
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+import java.time.LocalDate;
+>>>>>>> dd52c074d6cb8cef20ca3017c800e659407b5dd8
 
 public class HealthProfile {
 
@@ -57,6 +65,11 @@ public class HealthProfile {
 	}
 	
 	public String toString() {
+<<<<<<< HEAD
+//		String retString = "Health Profile.";
+//		healthInfo.forEach((k, v)-> retString += ("\n" + v.toString()));
+		return "";
+=======
 		Iterator<String> allergiesIter = allergies.iterator();
 		Iterator<String> dietaryRestrictionsIter = dietaryRestrictions.iterator();
 		String retString = "Health Profile.\n\nFitBit Data";
@@ -73,6 +86,7 @@ public class HealthProfile {
 		    retString +=("\n" + dietaryRestrictionsIter.next());
 		}
 		return retString;
+>>>>>>> dd52c074d6cb8cef20ca3017c800e659407b5dd8
 	}
 	
 }

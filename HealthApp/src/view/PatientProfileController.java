@@ -79,10 +79,11 @@ public class PatientProfileController extends AbsController {
 	 */
 	@FXML
 	private void initialize() {
-		caregiverNameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
-		birthdayColumn.setCellValueFactory(cellData -> cellData.getValue().getBirthdayProperty());
-		relationColumn.setCellValueFactory(cellData -> cellData.getValue().getRelationProperty());
-		inFamilyColumn.setCellValueFactory(cellData -> cellData.getValue().getInFamilyProperty());
+		// TODO: Manage Caregiver data
+//		caregiverNameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
+//		birthdayColumn.setCellValueFactory(cellData -> cellData.getValue().getBirthdayProperty());
+//		relationColumn.setCellValueFactory(cellData -> cellData.getValue().getRelationProperty());
+//		inFamilyColumn.setCellValueFactory(cellData -> cellData.getValue().getInFamilyProperty());
 		//assignedStaff needs to be implemented in databaseHandler
 		ObservableList<Caregiver> caregivers = MainApp.getDatabaseHandler().searchPatientCaregiver(patient);
 		careGiversTable.setItems(caregivers);
@@ -104,16 +105,19 @@ public class PatientProfileController extends AbsController {
 		ObservableList<Meal> meals = MainApp.getDatabaseHandler().searchPatientMeal(patient);
 		menuTable.setItems(meals);
 		
-		petNameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
-		speciesColumn.setCellValueFactory(cellData -> cellData.getValue().getSpeciesProperty());
-		allergyFriendlyColumn.setCellValueFactory(cellData -> cellData.getValue().getAllergyFriendlyProperty());
+		// TODO: Manage Pet data
+//		petNameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
+//		speciesColumn.setCellValueFactory(cellData -> cellData.getValue().getSpeciesProperty());
+//		allergyFriendlyColumn.setCellValueFactory(cellData -> cellData.getValue().getAllergyFriendlyProperty());
 		//assignedStaff needs to be implemented in databaseHandler
 		ObservableList<Pet> pets = MainApp.getDatabaseHandler().searchPatientPet(patient);
 		petTable.setItems(pets);
 		
-		addressColumn.setCellValueFactory(cellData -> cellData.getValue().getAddressProperty());
-		phoneColumn.setCellValueFactory(cellData -> cellData.getValue().getPhoneProperty());
-		emailColumn.setCellValueFactory(cellData -> cellData.getValue().getEmailProperty());
+		// TODO: Manage Contact Data
+		
+//		addressColumn.setCellValueFactory(cellData -> cellData.getValue().getAddressProperty());
+//		phoneColumn.setCellValueFactory(cellData -> cellData.getValue().getPhoneProperty());
+//		emailColumn.setCellValueFactory(cellData -> cellData.getValue().getEmailProperty());
 		
 		// set table listener
 		careGiversTable.getSelectionModel().selectedItemProperty()
@@ -135,7 +139,7 @@ public class PatientProfileController extends AbsController {
 		Caregiver cg = MainApp.getDatabaseHandler().getCaregiver(caregiver.getCaregiverID());
 		//nameLabel.setText(ms.getFirstName() + " " + ms.getLastName());	
 		Contact contactInfo = cg.getContactInfo();
-		// TODO: Show caregiver contact info
+		// TODO: Display caregiver contact info
 		
 	}
 }

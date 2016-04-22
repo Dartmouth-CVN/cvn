@@ -1,6 +1,8 @@
 package model;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Pet {
@@ -9,10 +11,10 @@ public class Pet {
 	private BooleanProperty allergyFriendly;
 	private int petID;
 	
-	public Pet(String name, StringProperty species, BooleanProperty allergyFriendly) {
-		this.setName(name);
-		this.species = species;
-		this.allergyFriendly = allergyFriendly;
+	public Pet(String name, String species, boolean allergyFriendly) {
+		this.name = new SimpleStringProperty(name);
+		this.species = new SimpleStringProperty(species);
+		this.allergyFriendly = new SimpleBooleanProperty(allergyFriendly);
 	}
 	
 	public Pet() {

@@ -1,7 +1,9 @@
 package view;
 
+import java.io.File;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import controller.CSVParsingUtils;
 import controller.XMLParsingUtils;
@@ -11,8 +13,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TitledPane;
-import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import model.MainApp;
+import model.Patient;
 
 public class ExportFieldsController {
 
@@ -22,6 +25,12 @@ public class ExportFieldsController {
 	private RadioButton TSVRadioButton = new RadioButton();
 	@FXML
 	private RadioButton XMLRadioButton = new RadioButton();
+	@FXML
+	private RadioButton CSVImportButton = new RadioButton();
+	@FXML
+	private RadioButton TSVImportButton = new RadioButton();
+	@FXML
+	private RadioButton XMLImportButton = new RadioButton();
 	@FXML
 	private RadioButton HTMLRadioButton = new RadioButton();
 	@FXML
@@ -107,6 +116,7 @@ public class ExportFieldsController {
 	
 	
 	// Reference to the main application.
+	@SuppressWarnings("unused")
 	private MainApp mainApp;
 	
 	private ArrayList<Boolean> fieldCheck;
@@ -296,6 +306,47 @@ public class ExportFieldsController {
 		}else if(HTMLRadioButton.isSelected())  {
 			XMLParsingUtils.writePatientsToHTML(name + ".html", MainApp.getDatabaseHandler().getPatientList());
 			 MainApp.showAlert("Export HTML done");
+		}
+	}
+	
+	@FXML
+	private void handleImport() {
+		if (CSVImportButton.isSelected()) {
+			importCSV();
+		} else if (TSVImportButton.isSelected()) {
+			importTSV();
+		} else if (XMLImportButton.isSelected()) {
+			importXML();
+		}
+	}
+	
+	public void importCSV() {
+		FileChooser fc = new FileChooser();
+		fc.setTitle("Select CSV to import");
+		File curCSV = fc.showOpenDialog(null);
+		if (curCSV != null && curCSV.exists()) {
+			LinkedList<Patient> pts = controller.CSVParsingUtils.CSVImport(curCSV);
+			MainApp.getDatabaseHandler().insertPatients(pts);
+		}
+	}
+
+	public void importTSV() {
+		FileChooser fc = new FileChooser();
+		fc.setTitle("Select TSV to import");
+		File curTSV = fc.showOpenDialog(null);
+		if (curTSV != null && curTSV.exists()) {
+			LinkedList<Patient> pts = controller.CSVParsingUtils.TSVImport(curTSV);
+			MainApp.getDatabaseHandler().insertPatients(pts);
+		}
+	}
+	
+	public void importXML() {
+		FileChooser fc = new FileChooser();
+		fc.setTitle("Select XML to import");
+		File curXML = fc.showOpenDialog(null);
+		if (curXML != null && curXML.exists()) {
+			LinkedList<Patient> pts = controller.XMLParsingUtils.importData(curXML);
+			MainApp.getDatabaseHandler().insertPatients(pts);
 		}
 	}
 	

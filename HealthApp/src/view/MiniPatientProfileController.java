@@ -83,7 +83,7 @@ public class MiniPatientProfileController extends AbsController {
 	private void showMedStaffDetails(MedicalStaff staff) {
 	
 		//databasehandler needs to make getMedicalStaff(MedicalStaff staff) method
-		MedicalStaff ms = MainApp.getDatabaseHandler().getMedicalStaff(staff.getUserID());
+		MedicalStaff ms = MainApp.getDatabaseHandler().getMedicalStaff(staff.getUserId());
 		nameLabel.setText(ms.getFirstName() + " " + ms.getLastName());		
 		
 	}
