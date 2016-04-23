@@ -299,7 +299,7 @@ public class CSVParsingUtils extends GeneralParsingUtils{
 		output += delimiter;
 		if (shouldEx[4]) {
 			output += "\"";
-			LinkedList<MedicalStaff> ms = pt.getAssignedStaff();
+			LinkedList<MedicalStaff> ms = (LinkedList<MedicalStaff>) pt.getAssignedStaff();
 			if (ms.size() > 0) {
 				for (int i = 0; i < ms.size() - 1; i++)
 					output += ms.get(i).getUserID() + ",";
@@ -347,7 +347,7 @@ public class CSVParsingUtils extends GeneralParsingUtils{
 		output += delimiter;
 		if (shouldEx[9]) {
 			output += "\"";
-			LinkedList<Pet> pets = pt.getPreferences().getPets();
+			LinkedList<Pet> pets = (LinkedList<Pet>) pt.getPreferences().getPets();
 			if (pets.size() > 0) {
 				for (int i = 0; i < pets.size() - 1; i++)
 					output += pets.get(i).getSpecies() + ",";
@@ -358,7 +358,7 @@ public class CSVParsingUtils extends GeneralParsingUtils{
 		output += delimiter;
 		if (shouldEx[10]) {
 			output += "\"";
-			LinkedList<String> allergies = pt.getPreferences().getAllergies();
+			LinkedList<String> allergies = (LinkedList<String>) pt.getPreferences().getAllergies();
 			if (allergies.size() > 0) {
 				for (int i = 0; i < allergies.size() - 1; i++)
 					output += allergies.get(i) + ",";
@@ -369,7 +369,7 @@ public class CSVParsingUtils extends GeneralParsingUtils{
 		output += delimiter;
 		if (shouldEx[11]) {
 			output += "\"";
-			LinkedList<String> diets = pt.getPreferences().getDietaryRestrictions();
+			LinkedList<String> diets = (LinkedList<String>) pt.getPreferences().getDietaryRestrictions();
 			if (diets.size() > 0) {
 				for (int i = 0; i < diets.size() - 1; i++)
 					output += diets.get(i) + ",";

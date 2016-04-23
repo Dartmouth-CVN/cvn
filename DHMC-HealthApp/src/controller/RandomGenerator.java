@@ -2,13 +2,12 @@ package controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
 
 import model.Caregiver;
 import model.Contact;
+import model.MainApp;
 import model.Meal;
 import model.MedicalStaff;
 import model.Pet;
@@ -83,12 +82,12 @@ public class RandomGenerator {
 				+ firstNames[randomNumber.nextInt(firstNames.length)].toLowerCase().charAt(0);
 	}
 
-	public static Date getRandomBirthday() {
+	public static LocalDate getRandomBirthday() {
 		String input = String.format("%4d-%02d-%02d", (randomNumber.nextInt(80) + 1930), randomNumber.nextInt(12) + 1,
 				randomNumber.nextInt(27) + 1);
 		DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
-		return new Date((randomNumber.nextInt(80) + 1930), randomNumber.nextInt(12) + 1,  randomNumber.nextInt(27) + 1);
-//		return Date.parse(input, formatter);
+//		return new Date((randomNumber.nextInt(80) + 1930), randomNumber.nextInt(12) + 1,  randomNumber.nextInt(27) + 1);
+		return LocalDate.parse(input, formatter);
 	}
 
 	public static String getRandomRoom() {
@@ -139,7 +138,7 @@ public class RandomGenerator {
 
 	public static Meal getRandomMeal(){
 		return new Meal(foodNames[randomNumber.nextInt(foodNames.length)],
-				randomNumber.nextInt(10) + 1, randomNumber.nextInt(200), "" );
+				randomNumber.nextInt(10) + 1, randomNumber.nextInt(10), "" );
 	}
 	
 	public static Caregiver getRandomCaregiver(){
@@ -147,24 +146,26 @@ public class RandomGenerator {
         String lastname = getRandomLastName();
         String relation = getRandomRelation();
         String username = createUsername(firstname, lastname);
-        Date birthday = getRandomBirthday();
+        LocalDate birthday = getRandomBirthday();
         Boolean isFamily = getRandomBoolean();
         String room = getRandomRoom();
         Contact contactInfo = getRandomContactInfo();
         return new Caregiver( firstname, birthday.toString(), relation, contactInfo, isFamily);
     }
 	
-//	public static MedicalStaff getRandomMedicalStaff(){
-//        String firstname = getRandomFirstName();
-//        String lastname = getRandomLastName();
-//        String relation = getRandomRelation();
-//        String username = createUsername(firstname, lastname);
-//        Date birthday = getRandomBirthday();
-//        Boolean isFamily = getRandomBoolean();
-//        String room = getRandomRoom();
-//        Contact contactInfo = getRandomContactInfo();
-//        return new MedicalStaff( firstname, lastname, "nurse", userID);
-//    }
+	public static MedicalStaff getRandomMedicalStaff(){
+        String firstname = getRandomFirstName();
+        String lastname = getRandomLastName();
+        String userId = MainApp.getDatabaseHandler().generateUserID(firstname, lastname, "Medical Staff");
+        
+        MedicalStaff med = new MedicalStaff(firstname, lastname, "nurse", userId, (int)getRandomID());
+        med.setUserID(userId);
+        return med;
+	}
+	
+	public static long getRandomID(){
+		return System.currentTimeMillis();
+	}
 
 
 }

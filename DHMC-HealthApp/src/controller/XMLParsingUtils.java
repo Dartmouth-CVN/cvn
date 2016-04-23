@@ -51,7 +51,7 @@ public class XMLParsingUtils extends GeneralParsingUtils {
 							shouldEx[1])
 					+ stringIfTrue(XMLLine("lastname", p.getLastName()), shouldEx[2])
 					+ stringIfTrue(XMLList("caregivers-list", "caregiver",
-							p.getPreferences().getCaregiver().stream().map(c -> c.getName())
+							p.getPreferences().getCaregivers().stream().map(c -> c.getName())
 									.collect(Collectors.toCollection(LinkedList::new))),
 							shouldEx[3])
 					+ stringIfTrue(XMLList("staff-list", "staff", XMLParseMedStaff(p.getAssignedStaff())), shouldEx[4])
@@ -156,7 +156,7 @@ public class XMLParsingUtils extends GeneralParsingUtils {
 							shouldEx[4])
 					+ "<hr>\n" + XMLLine("h3", "Caregivers:")
 					+ stringIfTrue(XMLList(null, null,
-							p.getPreferences().getCaregiver().stream().map(c -> c.getName())
+							p.getPreferences().getCaregivers().stream().map(c -> c.getName())
 									.collect(Collectors.toCollection(LinkedList::new))),
 							shouldEx[5])
 					+ "<hr class=\"end\">\n";

@@ -16,6 +16,7 @@ import model.Pet;
 public class SVParsingController implements ParsingController {
 	private String delimiter;
 
+	@Override
 	public String[] getFile(String filename) {
 		Scanner fileReader;
 		try {
@@ -32,6 +33,7 @@ public class SVParsingController implements ParsingController {
 		return null;
 	}
 
+	@Override
 	public LinkedList<Patient> importPatients(String filename) {
 		LinkedList<Patient> output = new LinkedList<Patient>();
 		String[] lines = getFile(filename);
@@ -57,6 +59,7 @@ public class SVParsingController implements ParsingController {
 		toFile.close();
 	}
 
+	@Override
 	public Patient makePatient(String pt) {
 		String[] fields = splitLine(pt);
 		Patient output = new Patient(fields[1], fields[2], "", 0);
@@ -135,7 +138,7 @@ public class SVParsingController implements ParsingController {
 
 		String[] fieldsFromPatient = { p.getUserID(), p.getFirstName(), p.getLastName(),
 				String.join(",",
-						p.getPreferences().getCaregiver().stream().map(caregiver -> caregiver.getName())
+						p.getPreferences().getCaregivers().stream().map(caregiver -> caregiver.getName())
 								.collect(Collectors.toList())),
 				String.join(",",
 						p.getAssignedStaff().stream().map(staff -> staff.getFirstName() + " " + staff.getLastName())

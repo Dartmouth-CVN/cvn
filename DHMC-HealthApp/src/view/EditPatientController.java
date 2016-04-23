@@ -8,19 +8,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Control;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import model.Caregiver;
 import model.DisplayString;
@@ -147,13 +141,14 @@ public class EditPatientController {
 	@FXML
 	TableColumn<Meal, String> mealNames;
 	@FXML
-	TableColumn<Meal, Integer> mealCals;
+	TableColumn<Meal, Number> mealCals;
 	@FXML
-	TableColumn<Meal, Integer> rating;
+	TableColumn<Meal, Number> rating;
 	@FXML
 	TableColumn<Meal, String> mealNotesCol;
 	@FXML
 	TextField mealRating;
+	
 	
 
 	ObservableList<DisplayString> patientPhones;
@@ -170,11 +165,14 @@ public class EditPatientController {
 
 	@FXML
 	private void initialize() {
+	}
+
+	public void loadFields() {
 		patientPhones = FXCollections.observableArrayList();
 		patientEmails = FXCollections.observableArrayList();
 		familyMembers = FXCollections.observableArrayList();
 		pets = FXCollections.observableArrayList();
-		familyMembers = FXCollections.observableArrayList();
+		meals = FXCollections.observableArrayList();
 		famNames = FXCollections.observableArrayList();
 		famRels = FXCollections.observableArrayList();
 		familyPhones = FXCollections.observableArrayList();
@@ -197,6 +195,10 @@ public class EditPatientController {
 		familyEmail.setCellValueFactory(cellData -> cellData.getValue().getStringProperty());
 		familyNames.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 		familyRels.setCellValueFactory(cellData -> cellData.getValue().relationProperty());
+		mealNames.setCellValueFactory(cellData -> cellData.getValue().foodProperty());
+		mealCals.setCellValueFactory(cellData -> cellData.getValue().caloriesProperty());
+		rating.setCellValueFactory(cellData -> cellData.getValue().ratingProperty());
+		mealNotesCol.setCellValueFactory(cellData -> cellData.getValue().notesProperty());
 
 		patientPhone.setOnEditCommit(new EventHandler<CellEditEvent<DisplayString, String>>() {
 			@Override
@@ -213,10 +215,7 @@ public class EditPatientController {
 				patientEmails.set(emailIndex, new DisplayString(t.getNewValue()) );
 			}
 		});
-
-	}
-
-	public void loadFields() {
+		
 		firstName.setText(p.getFirstName());
 		lastName.setText(p.getLastName());
 		patientBirthday.setValue(p.getBirthday());
@@ -228,6 +227,14 @@ public class EditPatientController {
 		for (String email : p.getContactInfo().getEmailList())
 			patientEmails.add(new DisplayString(email));
 		
+		for(Meal m : p.getPreferences().getMenu())
+			meals.add(m);
+		
+		for(Caregiver c : p.getPreferences().getCaregivers())
+			familyMembers.add(c);
+		
+		for(Pet pet : p.getPreferences().getPets())
+			pets.add(pet);
 	}
 
 	@FXML
@@ -299,7 +306,12 @@ public class EditPatientController {
 
 	@FXML
 	private void addMeal() {
-		mealTable.getItems().add(new Meal());
+		meals.add(new Meal(mealName.getText(), 
+				Integer.parseInt(mealCal.getText()), Integer.parseInt(mealRating.getText()), mealNotes.getText()));
+		mealName.setText("");
+		mealCal.setText("");
+		mealRating.setText("");
+		mealNotes.setText("");
 	}
 
 	@FXML
@@ -352,8 +364,11 @@ public class EditPatientController {
 				p.getContactInfo().removePhone(email);
 			}
 		}
-
 		
+		for(Meal m : meals){
+			p.getPreferences().addMeal(m);
+		}
+	
 		p.getContactInfo().addAddress(patientAddress.getText());
 
 

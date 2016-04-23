@@ -34,11 +34,13 @@ public abstract class User implements IDisplayable{
 		this.userID = new SimpleStringProperty(id);
 	}
 	
+	@Override
 	public StringProperty firstNameProperty() {
 		return firstName;
 	}
 	
-    public final String getFirstName() {
+    @Override
+	public final String getFirstName() {
         return firstNameProperty().get();
     }
 
@@ -46,11 +48,13 @@ public abstract class User implements IDisplayable{
         firstNameProperty().set(firstName);
     }
 	
+	@Override
 	public StringProperty lastNameProperty() {
 		return lastName;
 	}
 	
-    public final String getLastName() {
+    @Override
+	public final String getLastName() {
         return lastNameProperty().get();
     }
 
@@ -58,20 +62,19 @@ public abstract class User implements IDisplayable{
         lastNameProperty().set(lastName);
     }
     
+	@Override
 	public StringProperty userIDProperty() {
+		
 		return userID;
 	}
 	
-    public final String getUserID() {
-    	try{
-        return userIDProperty().get();
-    	}catch(Exception e){
-    		return "";
-    	}
+    @Override
+	public final String getUserID() {
+        return this.userID.get();
     }
 
     public final void setUserID(String userID) {
-        userIDProperty().set(userID);
+        this.userID = new SimpleStringProperty(userID);
     }
 	
 	public Contact getContactInfo() {

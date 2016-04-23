@@ -1,11 +1,8 @@
 package view;
 
 import java.io.File;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
-
 import controller.CSVParsingUtils;
 import controller.XMLParsingUtils;
 import javafx.fxml.FXML;

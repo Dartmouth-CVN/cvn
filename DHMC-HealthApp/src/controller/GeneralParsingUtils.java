@@ -4,12 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 import model.MainApp;
 import model.MedicalStaff;
 import model.Medication;
-import model.Patient;
 
 @SuppressWarnings("unused")
 public abstract class GeneralParsingUtils {
@@ -201,7 +201,7 @@ public abstract class GeneralParsingUtils {
 	 *            the LinkedList to provide
 	 * @return the String in XML format
 	 */
-	protected static String[] XMLParseMedStaff(LinkedList<MedicalStaff> staffMembers) {
+	protected static String[] XMLParseMedStaff(List<MedicalStaff> staffMembers) {
 		String[] output = new String[staffMembers.size()];
 		for (int i = 0; i < output.length; i++)
 			output[i] = staffMembers.get(i).getUserID();

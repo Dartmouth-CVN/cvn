@@ -1,13 +1,14 @@
 package model;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class PatientProfile {
-	private LinkedList<Caregiver> caregivers;
-	private LinkedList<Pet> pets;
-    private LinkedList<Meal> menu; //to be implemented with Meal class --JD
-    private LinkedList<String> allergies; //moved to healthInfo?
-    private LinkedList<String> dietaryRestrictions; //might be better as part of menu? maybe a "restricted" boolean
+	private List<Caregiver> caregivers;
+	private List<Pet> pets;
+    private List<Meal> menu; //to be implemented with Meal class --JD
+    private List<String> allergies; //moved to healthInfo?
+    private List<String> dietaryRestrictions; //might be better as part of menu? maybe a "restricted" boolean
 	
 	public PatientProfile() {
 		this.caregivers = new LinkedList<Caregiver>();
@@ -23,7 +24,7 @@ public class PatientProfile {
 	public void removeAllergy(String allergy){
 		allergies.remove(allergy);
 	}
-	public LinkedList<String> getAllergies(){
+	public List<String> getAllergies(){
 		return allergies;
 	}
 	public void addDietaryRestrictions(String newDietaryRestrictions){
@@ -32,7 +33,7 @@ public class PatientProfile {
 	public void removeDietaryRestrictions(String restrictions){
 		dietaryRestrictions.remove(restrictions);
 	}
-	public LinkedList<String> getDietaryRestrictions(){
+	public List<String> getDietaryRestrictions(){
 		return dietaryRestrictions;
 	}
 	public void addCaregiver(Caregiver newCaregiver) {
@@ -60,27 +61,27 @@ public class PatientProfile {
 	}
 		
 	
-	public LinkedList<Caregiver> getCaregiver() {
+	public List<Caregiver> getCaregivers() {
 		return caregivers;
 	}
 	
-	public LinkedList<Pet> getPets() {
+	public List<Pet> getPets() {
 		return pets;
 	}
 	
-	public LinkedList<Meal> getMenu() {			//to be implemented with Meal class --JD
+	public List<Meal> getMenu() {			//to be implemented with Meal class --JD
 		return menu;
 	}	 
 
-	public void setCaregiver(LinkedList<Caregiver> newCaregiver) {
+	public void setCaregiver(List<Caregiver> newCaregiver) {
 		this.caregivers = newCaregiver;
 	}
 	
-	public void setMenu(LinkedList<Meal> menu) {			//to be implemented with Meal class --JD
-		this.menu = menu;
+	public void setMenu(List<Meal> list) {			//to be implemented with Meal class --JD
+		this.menu = list;
 	}	
 	
-	public void setPet(LinkedList<Pet> petlist){
+	public void setPet(List<Pet> petlist){
 		this.pets = petlist;
 	}
 	

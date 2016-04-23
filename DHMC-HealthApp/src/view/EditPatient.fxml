@@ -112,9 +112,9 @@
                               </AnchorPane>
                               <TableView fx:id="petTable" layoutX="67.0" layoutY="367.0" prefHeight="169.0" prefWidth="489.0">
                                  <columns>
-                                    <TableColumn prefWidth="162.23026275634766" text="Name" />
-                                    <TableColumn prefWidth="134.49307250976562" text="Species" />
-                                    <TableColumn prefWidth="196.5069580078125" text="Allergy Friendly" />
+                                    <TableColumn fx:id="petNames" prefWidth="162.23026275634766" text="Name" />
+                                    <TableColumn fx:id="petSpecies" prefWidth="134.49307250976562" text="Species" />
+                                    <TableColumn fx:id="petAllergyFriendly" prefWidth="196.5069580078125" text="Allergy Friendly" />
                                  </columns>
                               </TableView>
                               <ButtonBar layoutX="168.0" layoutY="531.0" prefHeight="40.0" prefWidth="200.0">
@@ -133,10 +133,10 @@
                            <children>
                               <TableView fx:id="mealTable" layoutX="35.0" layoutY="55.0" prefHeight="478.0" prefWidth="694.0">
                                  <columns>
-                                    <TableColumn prefWidth="236.5583324432373" text="Name" />
-                                    <TableColumn prefWidth="108.0" text="Calories" />
+                                    <TableColumn fx:id="mealNames" prefWidth="236.5583324432373" text="Name" />
+                                    <TableColumn fx:id="mealCals" prefWidth="108.0" text="Calories" />
                                     <TableColumn fx:id="rating" prefWidth="105.0" text="Rating" />
-                                    <TableColumn prefWidth="243.0" text="Notes" />
+                                    <TableColumn fx:id="mealNotesCol" prefWidth="243.0" text="Notes" />
                                  </columns>
                               </TableView>
                               <AnchorPane layoutX="779.0" layoutY="54.0" prefHeight="462.0" prefWidth="414.0">
@@ -145,14 +145,11 @@
                                     <TextField fx:id="mealCal" layoutX="39.0" layoutY="113.0" prefHeight="27.0" prefWidth="132.0" promptText="Calories" />
                                     <TextArea fx:id="mealNotes" layoutX="41.0" layoutY="181.0" prefHeight="190.0" prefWidth="331.0" promptText="Special notes..." />
                                     <TextField fx:id="mealRating" layoutX="203.0" layoutY="113.0" prefHeight="27.0" prefWidth="154.0" promptText="meal rating" />
+                                    <Button layoutX="41.0" layoutY="14.0" mnemonicParsing="false" onAction="#addMeal" prefHeight="27.0" prefWidth="35.0" text="+" />
                                  </children>
                               </AnchorPane>
-                              <ButtonBar layoutX="258.0" layoutY="533.0" prefHeight="40.0" prefWidth="200.0">
-                                 <buttons>
-                                    <Button mnemonicParsing="false" onAction="#addMeal" text="+" />
-                                    <Button mnemonicParsing="false" onAction="#removeMeal" text="-" />
-                                 </buttons>
-                              </ButtonBar>
+                              <ButtonBar layoutX="258.0" layoutY="533.0" prefHeight="40.0" prefWidth="200.0" />
+                              <Button layoutX="35.0" layoutY="540.0" mnemonicParsing="false" onAction="#removeMeal" prefHeight="27.0" prefWidth="39.0" text="-" />
                            </children>
                         </AnchorPane>
                      </content>

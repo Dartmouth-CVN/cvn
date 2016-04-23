@@ -5,14 +5,12 @@ import java.io.IOException;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.MainApp;
 import model.MedicalStaff;
@@ -116,10 +114,8 @@ public class MiniPatientProfileController {
 	 */
 	@FXML
 	private void handleEditProfile() {
-		
 		if (patient != null)
 			mainApp.showEditProfile(patient);
-
 	}
 	
 	/**

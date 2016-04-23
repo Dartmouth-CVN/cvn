@@ -55,14 +55,15 @@ public class AdminDashController {
 		tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
 			@Override
 			public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
-				System.out.println("changed");
 				if (t1 == addPatientTab)
 					loadAddPatientTab();
+				else if (t1 == exportTab)
+					loadExportTab();
+				else if (t1 == searchTab)
+					loadSearchTab();
 			}
 		});
 
-		loadExportTab();
-		loadSearchTab();
 	}
 
 	/**
@@ -104,23 +105,23 @@ public class AdminDashController {
 	/**
 	 * Loads and sets content of the schedule tab.
 	 */
-//	@FXML
-//	private void loadScheduleTab() {
-//		try {
-//			FXMLLoader loader = new FXMLLoader();
-//			loader.setLocation(MainApp.class.getResource("../view/MySchedule.fxml"));
-//			AnchorPane mySchedule = (AnchorPane) loader.load();
-//
-//			scheduleTab.setContent(mySchedule);
-//
-//			MyScheduleController controller = loader.getController();
-//			controller.setMainApp(mainApp);
-//
-//		} catch (IOException e) {
-//			MainApp.printError(e);
-//		}
-//
-//	}
+	// @FXML
+	// private void loadScheduleTab() {
+	// try {
+	// FXMLLoader loader = new FXMLLoader();
+	// loader.setLocation(MainApp.class.getResource("../view/MySchedule.fxml"));
+	// AnchorPane mySchedule = (AnchorPane) loader.load();
+	//
+	// scheduleTab.setContent(mySchedule);
+	//
+	// MyScheduleController controller = loader.getController();
+	// controller.setMainApp(mainApp);
+	//
+	// } catch (IOException e) {
+	// MainApp.printError(e);
+	// }
+	//
+	// }
 
 	/**
 	 * Loads and sets the contents of the search tab.
@@ -168,7 +169,7 @@ public class AdminDashController {
 		addPatientTab.setContent(getEditPatientTab(new Patient()));
 		tabPane.getSelectionModel().select(addPatientTab);
 	}
-	
+
 	public void showEditPatientTab(Patient p) {
 		editPatientTab.setContent(getEditPatientTab(p));
 		tabPane.getSelectionModel().select(editPatientTab);
@@ -215,9 +216,9 @@ public class AdminDashController {
 	/**
 	 * Clicking schedule image opens the schedule tab.
 	 */
-//	@FXML
-//	private void handleScheduleImage() {
-//		tabPane.getSelectionModel().select(scheduleTab);
-//	}
+	// @FXML
+	// private void handleScheduleImage() {
+	// tabPane.getSelectionModel().select(scheduleTab);
+	// }
 
 }

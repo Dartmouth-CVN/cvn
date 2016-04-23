@@ -1,13 +1,14 @@
 package model;
 import java.util.LinkedList;
+import java.util.List;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Patient extends User {
 	// private LinkedList<Caregiver> caregivers;
-	protected LinkedList<MedicalStaff> assignedStaff;
-	private LinkedList<HealthInfo> healthInfo;
+	protected List<MedicalStaff> assignedStaff;
+	private List<HealthInfo> healthInfo;
 	private PatientProfile preferences;
 	// private LinkedList<Medication> medication;
 	private int patientID;
@@ -56,17 +57,18 @@ public class Patient extends User {
 		initObservers();
 	}
 	
+	@Override
 	public void initObservers(){
 		firstNameProperty = new SimpleStringProperty(getFirstName());
 		lastNameProperty = new SimpleStringProperty(getLastName());
 		userIDProperty = new SimpleStringProperty(getUserID());
 	}
 	
-	public LinkedList<MedicalStaff> getAssignedStaff() {
+	public List<MedicalStaff> getAssignedStaff() {
 		return this.assignedStaff;
 	}
 	
-	public void setAssignedStaff(LinkedList<MedicalStaff> staff){
+	public void setAssignedStaff(List<MedicalStaff> staff){
 		this.assignedStaff = staff;
 	}
 	
@@ -138,11 +140,11 @@ public class Patient extends User {
 		this.patientID = patientID;
 	}
 
-	public LinkedList<HealthInfo> getHealthInfo() {
+	public List<HealthInfo> getHealthInfo() {
 		return healthInfo;
 	}
 
-	public void setHealthInfo(LinkedList<HealthInfo> healthInfo) {
+	public void setHealthInfo(List<HealthInfo> healthInfo) {
 		this.healthInfo = healthInfo;
 	}
 	
@@ -150,7 +152,7 @@ public class Patient extends User {
 		this.healthInfo.add(newInfo);
 	}
 	
-	public void addHealthInfoList(LinkedList<HealthInfo> info) {
+	public void addHealthInfoList(List<HealthInfo> info) {
 		for(int i = 0; i < info.size(); i++) {
 			for(int j = 0; j< healthInfo.size(); j++) {
 				if(info.get(i).equals(healthInfo.get(j))) {
@@ -166,6 +168,7 @@ public class Patient extends User {
 	}
 	
 	public boolean save(){
-		return MainApp.getDatabaseHandler().insertPatient(this);
+		System.out.println("saving new patient");
+		return MainApp.getDatabaseHandler().insertPatientAlgorithm(this);
 	}
 }

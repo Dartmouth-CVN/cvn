@@ -28,6 +28,7 @@ public class MainApp extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		dbHandler = DatabaseHandler.getUniqueInstance();
+		dbHandler.initDB();
 
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("DHMC - Health App v1.0");
@@ -41,7 +42,9 @@ public class MainApp extends Application {
 	
 	public static DatabaseHandler getDatabaseHandler() {
 		if(dbHandler == null)
-			return DatabaseHandler.getUniqueInstance();
+			dbHandler = DatabaseHandler.getUniqueInstance();
+		
+		
 		return dbHandler;
 	}
 
@@ -121,6 +124,7 @@ public class MainApp extends Application {
 
 	public static void printError(Exception e) {
 		System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
+		e.printStackTrace();
 	}
 	
 	public static void showAlert(String message){

@@ -17,10 +17,20 @@ public class MedicalStaff extends User {
 		this.setMedID(medID);
 	}
 	
+	public MedicalStaff(String firstName, String lastName, String userID, int medID) {
+		super(firstName, lastName, userID);
+		this.position = new SimpleStringProperty("Doctor");
+		this.setMedID(medID);
+	}
+	
 	public MedicalStaff(String firstName, String lastName, String position, String userID) {
 		super(firstName, lastName, userID);
 		this.position = new SimpleStringProperty(position);
-		
+	}
+	
+	public MedicalStaff(String firstName, String lastName, String userID) {
+		super(firstName, lastName, userID);
+		this.position = new SimpleStringProperty("Doctor");
 	}
 	
 	public MedicalStaff(String userID) {
