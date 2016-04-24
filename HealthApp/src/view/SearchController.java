@@ -24,7 +24,7 @@ public class SearchController extends AbsController {
 	@FXML
 	private TableView<UserTableDisplay> profileTable;
 	@FXML
-	private TableColumn<UserTableDisplay, Number> idColumn;
+	private TableColumn<UserTableDisplay, String> idColumn;
 	@FXML
 	private TableColumn<UserTableDisplay, String> firstNameColumn;
 	@FXML
@@ -36,7 +36,7 @@ public class SearchController extends AbsController {
 	@FXML
 	private Tab profileTab = new Tab();
 
-	private int userId;
+	private String userId;
 
 	// Reference to the main application.
 	private MainApp mainApp;

@@ -16,8 +16,8 @@ public class PatientDashController extends AbsDashController {
 	@FXML
 	BorderPane layout;
 
-	public PatientDashController(MainApp mainApp) {
-		super(mainApp);
+	public PatientDashController() {
+		super();
 	}
 
 	public void handleTabSwitch(Number newValue) {

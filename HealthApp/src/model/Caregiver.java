@@ -1,36 +1,24 @@
 package model;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
 
-public class Caregiver extends AbsUser {
-	String relation;
+public class Caregiver extends AbsRelation {
 	boolean isFamily;
-	int caregiverId;
+
+	BooleanProperty isFamilyProperty;
 
 	public Caregiver(){
 		
 	}
-	public Caregiver(int userId, String firstName, String lastName, String username, String password,
-			Date birthday, String room, Contact contactInfo) {
-		super(userId, firstName, lastName, username, password, birthday, room, contactInfo);
-	}
-
-	public Caregiver(int userId, String firstName, String lastName, String username, String password,
-			Date birthday, String room, Contact contactInfo, String relation, boolean isFamily,
-			int caregiverId) {
-		super(userId, firstName, lastName, username, password, birthday, room, contactInfo);
-		this.relation = relation;
-		this.isFamily = isFamily;
-		this.caregiverId = caregiverId;
-	}
-
-	public String getRelation() {
-		return relation;
-	}
-
-	public void setRelation(String relation) {
-		this.relation = relation;
+	public Caregiver(String userId, String firstName, String lastName, String username, String password,
+					 Date birthday, String room, Contact contactInfo, String relation, boolean isFamily) {
+		super(userId, firstName, lastName, username, password, birthday, room, contactInfo, relation);
+		setIsFamily(isFamily);
 	}
 
 	public boolean getIsFamily() {
@@ -39,13 +27,15 @@ public class Caregiver extends AbsUser {
 
 	public void setIsFamily(boolean isFamily) {
 		this.isFamily = isFamily;
+		setIsFamilyProperty(isFamily);
 	}
 
-	public int getCaregiverId() {
-		return caregiverId;
+	public void setIsFamilyProperty(boolean isFamily){
+		isFamilyProperty = new SimpleBooleanProperty(isFamily);
 	}
 
-	public void setCaregiverId(int caregiverId) {
-		this.caregiverId = caregiverId;
+	public BooleanProperty getIsFamilyProperty() {
+		return isFamilyProperty;
 	}
+
 }

@@ -1,44 +1,46 @@
 package model;
 
-import java.time.LocalDate;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 public class HealthProfile {
-
-	int healthProfileId;
-	List<HealthInfo> healthInfo;
+	long healthProfileId;
+	List<HealthAttribute<?>> healthInfo;
 	List<String> allergies;
 	List<String> dietaryRestrictions;
 
 	public HealthProfile() {
-		this.healthInfo = new LinkedList<HealthInfo>();
-		this.allergies = new LinkedList<String>();
-		this.dietaryRestrictions = new LinkedList<String>();
+		this( 0, new LinkedList<HealthAttribute<?>>(), new LinkedList<String>(), new LinkedList<String>());
+	}
+
+	public HealthProfile(long id, List<HealthAttribute<?>> healthInfo, List<String> allergies, List<String> dietaryRestrictions) {
+		this.healthProfileId = id;
+		this.healthInfo = healthInfo;
+		this.allergies = allergies;
+		this.dietaryRestrictions = dietaryRestrictions;
 	}
 	
-	public void addNewHealthInfo(HealthInfo info){
+	public void addNewHealthInfo(HealthAttribute<?> info){
 		healthInfo.add(info);
 	}
 
-	public int getHealthProfileId() {
+	public long getHealthProfileId() {
 		return healthProfileId;
 	}
 
-	public void setHealthProfileId(int healthProfileId) {
+	public void setHealthProfileId(long healthProfileId) {
 		this.healthProfileId = healthProfileId;
 	}
 
-	public List<HealthInfo> getHealthInfo() {
+	public List<HealthAttribute<?>> getHealthInfo() {
 		return healthInfo;
 	}
 
-	public void setHealthInfo(List<HealthInfo> healthInfo) {
+	public void setHealthInfo(List<HealthAttribute<?>> healthInfo) {
 		this.healthInfo = healthInfo;
 	}
 
-	public void addHealthInfoList(List<HealthInfo> info) {
+	public void addHealthInfoList(List<HealthAttribute<?>> info) {
 		healthInfo.addAll(info);
 	}
 
@@ -60,6 +62,11 @@ public class HealthProfile {
 	
 	public String toString() {
 		return "";
+	}
+
+	@Override
+	public int hashCode(){
+		return healthInfo.hashCode() * allergies.hashCode() * dietaryRestrictions.hashCode();
 	}
 	
 }

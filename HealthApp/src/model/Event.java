@@ -1,12 +1,15 @@
 package model;
 
+import org.hibernate.annotations.IndexColumn;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Event {
 
-	int eventId;
+	long eventId;
 	 LocalDateTime date;
 	 String location;
 	 List<AbsUser> attendees;
@@ -19,11 +22,14 @@ public class Event {
 		this.notes = notes;
 	}
 
-	public int getEventId() {
+	public Event(LocalDateTime date, String location, String notes) {
+		this(date, location, new LinkedList<AbsUser>(), notes);
+	}
+	public long getEventId() {
 		return eventId;
 	}
 
-	public void setEventId(int eventId) {
+	public void setEventId(long eventId) {
 		this.eventId = eventId;
 	}
 
@@ -57,5 +63,19 @@ public class Event {
 
 	public String getNotes() {
 		return this.notes;
+	}
+
+	public void addAttendee(AbsUser user){
+		attendees.add(user);
+	}
+
+	public void removeAttendee(AbsUser user){
+		if(attendees.contains(user))
+			attendees.remove(user);
+	}
+
+	@Override
+	public int hashCode(){
+		return location.hashCode() * notes.hashCode();
 	}
 }

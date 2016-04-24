@@ -1,14 +1,13 @@
 package utils;
 
+import java.util.LinkedList;
 import java.util.List;
 
+import model.*;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
-import model.ContactElement;
-import model.Patient;
 
 public class DatabaseHandler {
 	private static final SessionFactory sessionFactory = buildSessionFactory();
@@ -41,28 +40,61 @@ public class DatabaseHandler {
 		for(int i = 0 ; i < number; i++){
 			Patient p = RandomGenerator.getRandomPatient();
 			insertPatient(p);
+//			p = fillPatient(p);
+//			updatePatient(p);
 		}
+	}
+
+	public Patient fillPatient(Patient patient){
+		int rand = RandomGenerator.getRandomNumber().nextInt(10);
+		List<Pet> pets = new LinkedList<Pet>();
+		for(int i = 0; i < rand; i++)
+			pets.add(RandomGenerator.getRandomPet());
+
+
+		List<Meal> meals = new LinkedList<Meal>();
+		rand = RandomGenerator.getRandomNumber().nextInt(10);
+		for(int i = 0; i < rand; i++)
+			meals.add(RandomGenerator.getRandomMeal());
+
+		List<AbsRelation> caregivers = new LinkedList<AbsRelation>();
+		rand = RandomGenerator.getRandomNumber().nextInt(10);
+		for(int i = 0; i < rand; i++)
+			caregivers.add(RandomGenerator.getRandomCaregiver());
+
+		List<MedicalStaff> medStaff = new LinkedList<MedicalStaff>();
+		rand = RandomGenerator.getRandomNumber().nextInt(10);
+		for(int i = 0; i < rand; i++)
+			medStaff.add(RandomGenerator.getRandomMedicalStaff());
+
+		System.out.println("Pets size: " + pets.size());
+		patient.setPets(pets);
+		patient.setMeals(meals);
+		patient.setRelations(caregivers);
+		patient.setAssignedStaff(medStaff);
+
+		return patient;
 	}
 
 	public boolean insertPatient(Patient p) {
 		startSession();
-		
-		for(ContactElement e : p.getContactInfo().getPhoneNumbers()){
-			System.out.println("Phone number: " + e.getValue());
-			System.out.println("before: " + e.getElementId());
-			session.save(e);
-			System.out.println("after: " + e.getElementId());
-		}
-
-		for(ContactElement e : p.getContactInfo().getEmails())
-			session.save(e);
-
-		for(ContactElement e : p.getContactInfo().getAddresses())
-			session.save(e);
-		
 		session.save(p);
-
+//		saveContact(p.getContactInfo());
+//		savePets(p.getPets());
+//		saveMeals(p.getMeals());
+//		saveAssignedStaff(p.getAssignedStaff());
 		session.getTransaction().commit();
+		return true;
+	}
+
+	public void saveContact(Contact c){
+
+	}
+
+	public boolean updatePatient(Patient p){
+		startSession();
+		Patient update = (Patient) session.merge(p);
+		session.saveOrUpdate(p);
 		return true;
 	}
 
@@ -90,15 +122,7 @@ public class DatabaseHandler {
 	}
 
 	public List<Patient> getPatients() throws ObjectNotFoundException {
-		startSession();
-		@SuppressWarnings("unchecked")
-		List<Patient> list = session.createCriteria(Patient.class).list();
-
-		if (list.isEmpty())
-			throw new ObjectNotFoundException("Patients");
-		else {
-			return list;
-		}
+return new LinkedList<Patient>();
 	}
 
 	public List<Patient> getPatientList() {

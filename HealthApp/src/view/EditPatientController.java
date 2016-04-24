@@ -69,9 +69,9 @@ public class EditPatientController {
 		fc.setTitle("Select FitBit CSV to import");
 		curCSV = fc.showOpenDialog(null);
 		if (curCSV != null && curCSV.exists()) {
-			info = utils.FitBitParsingUtils.fitBitImport(curCSV);
-			p.getHealthProfile().addHealthInfoList(info);
-			MainApp.showAlert("FitBit import successful!");
+//			info = utils.FitBitParsingUtils.fitBitImport(curCSV);
+//			p.getHealthProfile().addHealthInfoList(info);
+//			MainApp.showAlert("FitBit import successful!");
 		}
 	}
 
@@ -179,8 +179,8 @@ public class EditPatientController {
 		patientEmail.setCellValueFactory(cellData -> cellData.getValue().getStringProperty());
 		familyPhone.setCellValueFactory(cellData -> cellData.getValue().getStringProperty());
 		familyEmail.setCellValueFactory(cellData -> cellData.getValue().getStringProperty());
-		familyNames.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
-		familyRels.setCellValueFactory(cellData -> cellData.getValue().getRelationProperty());
+//		familyNames.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
+//		familyRels.setCellValueFactory(cellData -> cellData.getValue().getRelationProperty());
 
 		patientPhone.setOnEditCommit(new EventHandler<CellEditEvent<DisplayString, String>>() {
 			@Override
@@ -202,15 +202,15 @@ public class EditPatientController {
 
 	public void loadFields() {
 		firstName.setText(p.getFirstName());
-		lastName.setText(p.getLastName());
-		patientBirthday.setValue(p.getBirthday());
-		patientAddress.setText(p.getContactInfo().getPrimaryAddress());
-
-		for (String phoneNum : p.getContactInfo().getPhoneNumbers())
-			patientPhones.add(new DisplayString(phoneNum));
-
-		for (String email : p.getContactInfo().getEmails())
-			patientEmails.add(new DisplayString(email));
+//		lastName.setText(p.getLastName());
+//		patientBirthday.setValue(p.getBirthday());
+//		patientAddress.setText(p.getContactInfo().getPrimaryAddress());
+//
+//		for (String phoneNum : p.getContactInfo().getPhoneNumbers())
+//			patientPhones.add(new DisplayString(phoneNum));
+//
+//		for (String email : p.getContactInfo().getEmails())
+//			patientEmails.add(new DisplayString(email));
 
 		// for(Caregiver family : p.)
 
@@ -364,36 +364,36 @@ public class EditPatientController {
 	}
 	
 	public void saveInfo() {
-		ArrayList<String> array = new ArrayList<String>();
-		saveNames();
-		p.setBirthday(patientBirthday.getValue());
-		p.getContactInfo().makePrimaryAddress(patientAddress.getText());
-
-		for (DisplayString phoneNumber : patientPhones) {
-			p.getContactInfo().addPhone(phoneNumber.getString());
-			array.add(phoneNumber.getString());
-		}
-		
-		for (String phone : p.getContactInfo().getPhoneNumbers()) {
-			if (!array.contains(phone)) {
-				p.getContactInfo().removePhone(phone);
-			}
-		}
-		
-		array = new ArrayList<String>();
-
-		for (DisplayString email : patientEmails) {
-			p.getContactInfo().addEmail(email.getString());
-			array.add(email.getString());
-		}
-		
-		for (String email : p.getContactInfo().getEmails()) {
-			if (!array.contains(email)) {
-				p.getContactInfo().removePhone(email);
-			}
-		}
-		
-		p.getContactInfo().makePrimaryAddress(patientAddress.getText());
+//		ArrayList<String> array = new ArrayList<String>();
+//		saveNames();
+//		p.setBirthday(patientBirthday.getValue());
+//		p.getContactInfo().makePrimaryAddress(patientAddress.getText());
+//
+//		for (DisplayString phoneNumber : patientPhones) {
+//			p.getContactInfo().addPhone(phoneNumber.getString());
+//			array.add(phoneNumber.getString());
+//		}
+//
+//		for (String phone : p.getContactInfo().getPhoneNumbers()) {
+//			if (!array.contains(phone)) {
+//				p.getContactInfo().removePhone(phone);
+//			}
+//		}
+//
+//		array = new ArrayList<String>();
+//
+//		for (DisplayString email : patientEmails) {
+//			p.getContactInfo().addEmail(email.getString());
+//			array.add(email.getString());
+//		}
+//
+//		for (String email : p.getContactInfo().getEmails()) {
+//			if (!array.contains(email)) {
+//				p.getContactInfo().removePhone(email);
+//			}
+//		}
+//
+//		p.getContactInfo().makePrimaryAddress(patientAddress.getText());
 
 //		if ( (p.getNewPatient() && save()) || (!p.getNewPatient() && update())) {
 //			MainApp.showAlert("Update successful!");

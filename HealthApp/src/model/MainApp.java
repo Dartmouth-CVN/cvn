@@ -27,13 +27,7 @@ public class MainApp extends Application {
 		this.primaryStage.setTitle("DHMC - Health App v2.0");
 		getDBHandler().populateDatabase(10);
 		
-		List<Patient> patients;
-		try {
-			patients = getDBHandler().getPatients();
-			System.out.println(patients.get(0).getUsername() + " " + patients.get(0).getPassword());
-		} catch (ObjectNotFoundException e) {
-			MainApp.printError(e);
-		}
+//		List<Patient> patients;
 		showLogin();
 	}
 

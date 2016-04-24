@@ -1,11 +1,17 @@
 package model;
 
+import utils.RandomGenerator;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class HealthInfo {
-	int healthInfoId;
+	long healthInfoId;
+
 	LocalDate date;
 	List<HealthAttribute<?>> attributes;
 	
@@ -18,11 +24,11 @@ public class HealthInfo {
 		this.attributes = attributes;
 	}
 	
-	public int getHealthInfoId() {
+	public long getHealthInfoId() {
 		return healthInfoId;
 	}
 
-	public void setHealthInfoId(int healthInfoId) {
+	public void setHealthInfoId(long healthInfoId) {
 		this.healthInfoId = healthInfoId;
 	}
 
@@ -45,12 +51,18 @@ public class HealthInfo {
 	public void addAttribute(HealthAttribute<?> att) {
 		attributes.add(att);
 	}
-	
+
+	@Override
 	public String toString() {
 		String retString = "Date: " + date.toString();
 		for(int i=0; i<attributes.size(); i++) {
 			retString += ("\n" + attributes.get(i).getName() + ": " + attributes.get(i).getStringValue());
 		}
 		return retString;
+	}
+
+	@Override
+	public int hashCode(){
+		return  (int ) (RandomGenerator.getRandomNumber().nextLong() * attributes.hashCode());
 	}
 }

@@ -3,11 +3,11 @@ package model;
 import java.time.LocalDate;
 
 public class Medication {
-	private String name;
-	private String dosage;
-	private String directions;
-	private int refills;
-	private LocalDate nextRefillDate;
+	 String name;
+	 String dosage;
+	 String directions;
+	 int refills;
+	 LocalDate nextRefillDate;
 
 	public Medication(String name, String dosage, String directions, int refills, LocalDate nextRefillDate) {
 		this.name = name;

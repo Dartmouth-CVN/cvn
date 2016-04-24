@@ -7,17 +7,17 @@ import javafx.beans.property.StringProperty;
 
 public class UserTableDisplay {
 
-	IntegerProperty userId;
+	StringProperty userId;
 	StringProperty firstName;
 	StringProperty lastName;
 
-	public UserTableDisplay(int userId, String firstName, String lastName) {
-		this.userId = new SimpleIntegerProperty(userId);
+	public UserTableDisplay(String userId, String firstName, String lastName) {
+		this.userId = new SimpleStringProperty(userId);
 		this.firstName = new SimpleStringProperty(firstName);
 		this.lastName = new SimpleStringProperty(lastName);
 	}
 
-	public int getUserId() {
+	public String getUserId() {
 		return userId.get();
 	}
 
@@ -37,7 +37,7 @@ public class UserTableDisplay {
 		return lastName;
 	}
 
-	public IntegerProperty getUserIdProperty() {
+	public StringProperty getUserIdProperty() {
 		return userId;
 	}
 }

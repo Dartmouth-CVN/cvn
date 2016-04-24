@@ -1,56 +1,57 @@
 package model;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import utils.ObjectNotFoundException;
 
+
 public class Contact {
-	 int contactId;
+	 long contactId;
 	 List<ContactElement> phoneNumbers;
 	 List<ContactElement> emails;
 	 List<ContactElement> addresses;
 
-	public Contact(int id) {
-		this.contactId = id;
-		this.phoneNumbers = new LinkedList<ContactElement>();
-		this.emails = new LinkedList<ContactElement>();
-		this.addresses = new LinkedList<ContactElement>();
+	AbsUser userKey;
+
+	public Contact(){
 	}
 
-	public Contact() {
-		this.phoneNumbers = new LinkedList<ContactElement>();
-		this.emails = new LinkedList<ContactElement>();
-		this.addresses = new LinkedList<ContactElement>();
+	public Contact(long id) {
+		this(id, new LinkedList<ContactElement>(), new LinkedList<ContactElement>(), new LinkedList<ContactElement>());
+		setContactId(id);
 	}
-	
 	
 	public Contact(List<ContactElement> phoneNumbers, List<ContactElement> emails,
 			List<ContactElement> addresses) {
-		contactId = 0;
+		this(0, phoneNumbers, emails, addresses);
+	}
+
+	public Contact(long id, List<ContactElement> phoneNumbers, List<ContactElement> emails,
+				   List<ContactElement> addresses) {
+		contactId = id;
 		this.phoneNumbers = phoneNumbers;
 		this.emails = emails;
 		this.addresses = addresses;
 	}
 
-	public int getContactId(){
+	public long getContactId(){
 		return contactId;
 	}
 	
-	public void setContactId(int id){
+	public void setContactId(long id){
 		contactId = id;
 	}
 
 	public List<ContactElement> getPhoneNumbers() {
-		return this.phoneNumbers;
+		return this.phoneNumbers == null? new LinkedList<ContactElement>() : phoneNumbers;
 	}
 
 	public List<ContactElement> getEmails() {
-		return this.emails;
+		return this.emails == null? new LinkedList<ContactElement>() : emails;
 	}
 
 	public List<ContactElement> getAddresses() {
-		return this.addresses;
+		return this.addresses == null? new LinkedList<ContactElement>() : addresses;
 	}
 
 	public ContactElement getPrimaryPhone() throws ObjectNotFoundException{
@@ -135,5 +136,27 @@ public class Contact {
 	public void makePrimaryAddress(ContactElement address) {
 		this.removeAddress(address);
 		((LinkedList<ContactElement>) this.addresses).addFirst(address);
+	}
+
+
+	public AbsUser getUserKey(){
+		return userKey;
+	}
+
+	public void setUserKey(AbsUser u){
+		userKey = u;
+	}
+
+	public List<ContactElement> getAllContactElements(){
+		List<ContactElement> elements = new LinkedList<ContactElement>();
+		elements.addAll(phoneNumbers);
+		elements.addAll(emails);
+		elements.addAll(addresses);
+		return elements;
+	}
+
+	@Override
+	public int hashCode(){
+		return phoneNumbers.hashCode() * emails.hashCode() * addresses.hashCode();
 	}
 }

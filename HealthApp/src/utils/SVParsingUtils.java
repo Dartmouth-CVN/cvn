@@ -22,7 +22,7 @@ public abstract class SVParsingUtils implements ParsingUtils {
 	/**
 	 * getFile takes in the name of a file and returns its lines as an array of
 	 * Strings
-	 * 
+	 *
 	 * @param filename
 	 *            the name of the file to import
 	 * @return the lines of the file as an array of Strings
@@ -46,7 +46,7 @@ public abstract class SVParsingUtils implements ParsingUtils {
 	/**
 	 * importData takes in the name of a separated values file and uses those
 	 * fields to construct a LinkedList of Patients
-	 * 
+	 *
 	 * @param filename
 	 *            the name of the separated values file
 	 * @return a LinkedList of the imported Patients
@@ -61,7 +61,7 @@ public abstract class SVParsingUtils implements ParsingUtils {
 
 	/**
 	 * Outputs all patients from the database to the specified file
-	 * 
+	 *
 	 * @param filename
 	 *            the file to write to
 	 * @param toInclude
@@ -84,7 +84,7 @@ public abstract class SVParsingUtils implements ParsingUtils {
 
 	/**
 	 * Converts a line of Separated Values into a patient
-	 * 
+	 *
 	 * @param pt
 	 *            the values of the patient
 	 * @return the new Patient
@@ -95,37 +95,36 @@ public abstract class SVParsingUtils implements ParsingUtils {
 			return null;
 		Patient output = new Patient(fields[0], fields[1]);
 		String[] staff = fields[3].split(",");
-		for (String member : staff)
-			output.getAssignedStaff().add(MainApp.getDatabaseHandler().getMedicalStaff(member));
+		for (String member : staff);
+//			output.getAssignedStaff().add(MainApp.getDBHandler().getMedicalStaff(member));
 
-		@SuppressWarnings("unused") // Medication currently disabled
-		String[] meds = fields[4].split(",");
+//		String[] meds = fields[4].split(",");
 		// for (String med : meds)
 		// output.addMedication(new Medication(med));
 
-		String address = fields[5];
-		output.getContactInfo().addAddress(address);
-		String[] phoneNumbers = fields[6].split(",");
-		for (String number : phoneNumbers)
-			output.getContactInfo().addPhone(number);
-		String email = fields[7];
-		output.getContactInfo().addEmail(email);
-		String[] pets = fields[8].split(",");
-		for (String pet : pets)
-			output.getPatientProfile().addPet(new Pet(pet, null, false));
-		String[] allergies = fields[9].split(",");
-		for (String allergy : allergies)
-			output.getHealthProfile().getAllergies().add(allergy);
-		String[] dietaryNeeds = fields[10].split(",");
-		for (String diet : dietaryNeeds)
-			output.getHealthProfile().getDietaryRestrictions().add(diet);
+//		String address = fields[5];
+//		output.getContactInfo().addAddress(address);
+//		String[] phoneNumbers = fields[6].split(",");
+//		for (String number : phoneNumbers)
+//			output.getContactInfo().addPhone(number);
+//		String email = fields[7];
+//		output.getContactInfo().addEmail(email);
+//		String[] pets = fields[8].split(",");
+//		for (String pet : pets)
+//			output.getPatientProfile().addPet(new Pet(pet, null, false));
+//		String[] allergies = fields[9].split(",");
+//		for (String allergy : allergies)
+//			output.getHealthProfile().getAllergies().add(allergy);
+//		String[] dietaryNeeds = fields[10].split(",");
+//		for (String diet : dietaryNeeds)
+//			output.getHealthProfile().getDietaryRestrictions().add(diet);
 		return output;
 	}
 
 	/**
 	 * splitLine takes a line of Separated Values and returns it as an array of
 	 * Strings
-	 * 
+	 *
 	 * @param toSplit
 	 *            the line to split
 	 * @return the array of values
@@ -158,7 +157,7 @@ public abstract class SVParsingUtils implements ParsingUtils {
 
 	/**
 	 * Given a Patient, converts it into a line of Separated Values
-	 * 
+	 *
 	 * @param p
 	 *            the Patient to convert
 	 * @param toInclude
@@ -183,31 +182,31 @@ public abstract class SVParsingUtils implements ParsingUtils {
 		String[] fields = { "firstname", "lastname", "caregivers", "assignedstaff", "medication", "address", "phone",
 				"email", "pets", "allergies", "dietrestrictions" };
 
-		String[] fieldsFromPatient = {
-				p.getFirstName(), p
-						.getLastName(),
-				String.join(",",
-						p.getCaregivers().stream()
-								.map(caregiver -> caregiver.getFirstName() + " " + caregiver.getLastName())
-								.collect(Collectors.toList())),
-				String.join(",",
-						p.getAssignedStaff().stream().map(staff -> staff.getFirstName() + " " + staff.getLastName())
-								.collect(Collectors.toList())),
-				// String.join(",", p.getMedication().stream().map(med ->
-				// med.getName())
-				// .collect(Collectors.toList()))
-				"", String.join(",", p.getContactInfo().getAddresses()), String.join(",", p.getContactInfo().getPhoneNumbers()),
-				String.join(",", p.getContactInfo().getEmails()),
-				String.join(",",
-						p.getPatientProfile().getPets().stream().map(pet -> pet.getName())
-								.collect(Collectors.toList())),
-				String.join(",", p.getHealthProfile().getAllergies()),
-				String.join(",", p.getHealthProfile().getDietaryRestrictions()) };
-
-		for (int i = 0; i < toInclude.length; i++) // Deleting unused fields and
-													// wrapping all fields with
-													// quotes
-			fields[i] = (toInclude[i]) ? ("\"" + fieldsFromPatient[i] + "\"") : "";
+//		String[] fieldsFromPatient = {
+//				p.getFirstName(), p
+//						.getLastName(),
+//				String.join(",",
+//						p.getRelations().stream()
+//								.map(caregiver -> caregiver.getFirstName() + " " + caregiver.getLastName())
+//								.collect(Collectors.toList())),
+//				String.join(",",
+//						p.getAssignedStaff().stream().map(staff -> staff.getFirstName() + " " + staff.getLastName())
+//								.collect(Collectors.toList())),
+//				// String.join(",", p.getMedication().stream().map(med ->
+//				// med.getName())
+//				// .collect(Collectors.toList()))
+//				"", String.join(",", p.getContactInfo().getAddresses()), String.join(",", p.getContactInfo().getPhoneNumbers()),
+//				String.join(",", p.getContactInfo().getEmails()),
+//				String.join(",",
+//						p.getPatientProfile().getPets().stream().map(pet -> pet.getName())
+//								.collect(Collectors.toList())),
+//				String.join(",", p.getHealthProfile().getAllergies()),
+//				String.join(",", p.getHealthProfile().getDietaryRestrictions()) };
+//
+//		for (int i = 0; i < toInclude.length; i++) // Deleting unused fields and
+//													// wrapping all fields with
+//													// quotes
+//			fields[i] = (toInclude[i]) ? ("\"" + fieldsFromPatient[i] + "\"") : "";
 
 		return String.join(getDelimiter(), fields);
 	}

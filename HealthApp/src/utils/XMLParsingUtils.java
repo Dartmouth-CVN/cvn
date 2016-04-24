@@ -183,7 +183,7 @@ public class XMLParsingUtils implements ParsingUtils {
 		Patient output = new Patient(fields[0], fields[1]);
 		String[] staff = fields[3].split(",");
 		for (String member : staff)
-			output.getAssignedStaff().add(new MedicalStaff(0, member, member, member, member, null, member, null));
+			output.getAssignedStaff().add(new MedicalStaff("", member, member, member, member, null, member, null));
 		//TODO: get actual medical staff here again
 		
 		@SuppressWarnings("unused") // Medication currently disabled

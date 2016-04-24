@@ -40,8 +40,8 @@ public class ExportController extends AbsController {
 	 * The constructor. The constructor is called before the initialize()
 	 * method.
 	 */
-	public ExportController(MainApp mainApp) {
-		super(mainApp);
+	public ExportController() {
+		super();
 	}
 
 	/**
@@ -150,19 +150,19 @@ public class ExportController extends AbsController {
 			fields[i] = fieldCheck.get(i);
 		}
 		String name = "Exported" + LocalTime.now();
-		if (CSVRadioButton.isSelected()) {
-			CSVParsingUtils.exportData(name + ".csv", MainApp.getDatabaseHandler().getPatientList(), fields);
-			MainApp.showAlert("Export CSV done");
-		} else if (TSVRadioButton.isSelected()) {
-			TSVParsingUtils.exportData(name + ".tsv", MainApp.getDatabaseHandler().getPatientList(), fields);
-			MainApp.showAlert("Export TSV done");
-		} else if (XMLRadioButton.isSelected()) {
-			XMLParsingUtils.exportData(name + ".xml", MainApp.getDatabaseHandler().getPatientList(), null);
-			MainApp.showAlert("Export XML done");
-		} else if (HTMLRadioButton.isSelected()) {
-			XMLParsingUtils.exportData(name + ".html", MainApp.getDatabaseHandler().getPatientList(), null);
-			MainApp.showAlert("Export HTML done");
-		}
+//		if (CSVRadioButton.isSelected()) {
+//			CSVParsingUtils.exportData(name + ".csv", MainApp.getDatabaseHandler().getPatientList(), fields);
+//			MainApp.showAlert("Export CSV done");
+//		} else if (TSVRadioButton.isSelected()) {
+//			TSVParsingUtils.exportData(name + ".tsv", MainApp.getDatabaseHandler().getPatientList(), fields);
+//			MainApp.showAlert("Export TSV done");
+//		} else if (XMLRadioButton.isSelected()) {
+//			XMLParsingUtils.exportData(name + ".xml", MainApp.getDatabaseHandler().getPatientList(), null);
+//			MainApp.showAlert("Export XML done");
+//		} else if (HTMLRadioButton.isSelected()) {
+//			XMLParsingUtils.exportData(name + ".html", MainApp.getDatabaseHandler().getPatientList(), null);
+//			MainApp.showAlert("Export HTML done");
+//		}
 	}
 
 	private void loadCheckBoxArrays() {

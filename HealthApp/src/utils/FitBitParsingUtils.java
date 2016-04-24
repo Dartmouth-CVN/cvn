@@ -124,7 +124,8 @@ public class FitBitParsingUtils {
 				hi.setDate(LocalDate.parse(info[0], formatter));
 				
 				for (int i = 1; i < info.length-5; i++) {
-					hi.addAttribute(new HealthAttribute<Double>(titles.get(i), Double.parseDouble(info[i])));
+					hi.addAttribute(new HealthAttribute<Double>(RandomGenerator.getRandomBirthday(),
+							titles.get(i), Double.parseDouble(info[i])));
 				}
 				output.add(hi);
 				break;
@@ -135,7 +136,8 @@ public class FitBitParsingUtils {
 				hi.setDate(LocalDate.parse(info[0], formatter));
 
 				for (int i = 1; i < info.length; i++) {
-					hi.addAttribute(new HealthAttribute<Double>(titles.get(i), Double.parseDouble(info[i])));
+					hi.addAttribute(new HealthAttribute<Double>(RandomGenerator.getRandomBirthday(),
+							titles.get(i), Double.parseDouble(info[i])));
 				}
 				output.add(hi);
 				break;
@@ -146,7 +148,8 @@ public class FitBitParsingUtils {
 				hi.setDate(LocalDate.parse(info[0], formatter));
 
 				for (int i = 1; i < info.length; i++) {
-					hi.addAttribute(new HealthAttribute<Double>(titles.get(i), Double.parseDouble(info[i])));
+					hi.addAttribute(new HealthAttribute<Double>(RandomGenerator.getRandomBirthday(),
+							titles.get(i), Double.parseDouble(info[i])));
 				}
 				output.add(hi);
 				break;
@@ -182,10 +185,10 @@ public class FitBitParsingUtils {
 		for (Patient p : pts) {
 			
 			toWrite.println(p.getFirstName() + " " + p.getLastName());
-			for (HealthInfo h : p.getHealthProfile().getHealthInfo().values()) {
-				String toPrint = h.toString();
-				toWrite.println(toPrint);
-			}
+//			for (HealthInfo h : p.getHealthProfile().getHealthInfo().values()) {
+//				String toPrint = h.toString();
+//				toWrite.println(toPrint);
+//			}
 		}
 		toWrite.close();
 	}

@@ -1,23 +1,28 @@
 package model;
 
+import org.hibernate.annotations.IndexColumn;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
-
 public class MedicalStaff extends AbsUser {
-
 	List<Patient> assignedPatients;
-	int medId;
 
-	public MedicalStaff(int userId, String firstName, String lastName, String username, String password,
-			Date birthday, String room, Contact contactInfo) {
-		super(userId, firstName, lastName, username, password, birthday, room, contactInfo);
+
+	public MedicalStaff(){
+
+	}
+
+	public MedicalStaff(String userId, String firstName, String lastName, String username, String password,
+						Date birthday, String room, Contact contactInfo) {
+		this(userId, firstName, lastName, username, password, birthday, room, contactInfo, new LinkedList<Patient>());
 	}
 	
-	public MedicalStaff(int userId, String firstName, String lastName, String username, String password,
-			Date birthday, String room, Contact contactInfo,int medId, List<Patient> assignedPatients) {
+	public MedicalStaff(String userId, String firstName, String lastName, String username, String password,
+						Date birthday, String room, Contact contactInfo,List<Patient> assignedPatients) {
 		super(userId, firstName, lastName, username, password, birthday, room, contactInfo);
-		this.medId = medId;
 		this.assignedPatients = assignedPatients;
 	}
 
@@ -29,12 +34,12 @@ public class MedicalStaff extends AbsUser {
 		this.assignedPatients = assignedPatients;
 	}
 
-	public int getMedId() {
-		return medId;
+	public String getRole(){
+		return "Medical Staff";
 	}
 
-	public void setMedId(int medId) {
-		this.medId = medId;
+	public void addPatient(Patient p){
+		assignedPatients.add(p);
 	}
 
 }

@@ -1,62 +1,44 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+
 public class Patient extends AbsUser {
-	int patientId;
-	HealthProfile healthProfile;
+
 	List<Pet> pets;
 	List<Meal> meals;
-	List<Caregiver> caregivers;
+	List<AbsRelation> relations;
 	List<MedicalStaff> assignedStaff;
+	HealthProfile healthProfile;
+
+	MedicalStaff medStaffKey;
 	
 	public Patient(){
 		
 	}
-
-	public Patient(int userId, String firstName, String lastName, String username, String password, Date birthday,
+	
+	public Patient(String userId, String firstName, String lastName, String username, String password, Date birthday,
 			String room, Contact contactInfo) {
-		super(userId, firstName, lastName, username, password, birthday, room, contactInfo);
-		healthProfile = new HealthProfile();
-		pets = new LinkedList<Pet>();
-		meals = new LinkedList<Meal>();
-		caregivers = new LinkedList<Caregiver>();
-		assignedStaff = new LinkedList<MedicalStaff>();
+		this(userId, firstName, lastName, username, password, birthday, room, contactInfo, new LinkedList<Pet>(),
+				new LinkedList<Meal>(), new LinkedList<AbsRelation>(),  new LinkedList<MedicalStaff>(), new HealthProfile());
 	}
 	
-	public Patient(int userId, String firstName, String lastName, String username, String password, Date birthday,
-			String room, Contact contactInfo, int patientId) {
+	public Patient(String userId, String firstName, String lastName, String username, String password, Date birthday,
+			String room, Contact contactInfo, List<Pet> pets, List<Meal> meals, List<AbsRelation> relations,
+				   List<MedicalStaff> assignedStaff, HealthProfile healthProfile) {
 		super(userId, firstName, lastName, username, password, birthday, room, contactInfo);
-		this.patientId = patientId;
-		healthProfile = new HealthProfile();
-		pets = new LinkedList<Pet>();
-		meals = new LinkedList<Meal>();
-		caregivers = new LinkedList<Caregiver>();
-		assignedStaff = new LinkedList<MedicalStaff>();
-	}
-	
-	public Patient(int userId, String firstName, String lastName, String username, String password, Date birthday,
-			String room, Contact contactInfo, int patientId, HealthProfile healthProfile,
-			List<MedicalStaff> assignedStaff, List<Caregiver> caregivers) {
-		super(userId, firstName, lastName, username, password, birthday, room, contactInfo);
-		this.patientId = patientId;
-		this.healthProfile = healthProfile;
+		this.pets = pets;
+		this.meals = meals;
+		this.relations = relations;
 		this.assignedStaff = assignedStaff;
-		this.caregivers = caregivers;
+		this.healthProfile = healthProfile;
 	}
 	
 	public Patient(String firstName, String lastName){
-		super(0, firstName, lastName, "", "", null,"", new Contact());
-	}
-
-	public int getPatientId() {
-		return patientId;
-	}
-
-	public void setPatientId(int patientId) {
-		this.patientId = patientId;
+		super("", firstName, lastName, "", "", null,"", new Contact());
 	}
 
 	public HealthProfile getHealthProfile() {
@@ -72,15 +54,27 @@ public class Patient extends AbsUser {
 	}
 
 	public void setAssignedStaff(List<MedicalStaff> assignedStaff) {
-		this.assignedStaff = assignedStaff;
+		for(MedicalStaff m : assignedStaff)
+			addAssignedStaff(m);
+	}
+
+	public void addAssignedStaff(MedicalStaff m){
+		this.assignedStaff.add(m);
+		m.addPatient(this);
 	}
 	
-	public List<Caregiver> getCaregivers() {
-		return caregivers;
+	public List<AbsRelation> getRelations() {
+		return relations;
 	}
-	
-	public void setCaregivers(List<Caregiver> caregivers) {
-		this.caregivers = caregivers;
+
+	public void setRelations(List<AbsRelation> relations) {
+		for(AbsRelation rel : relations)
+			addRelation(rel);
+	}
+
+	public void addRelation(AbsRelation relation){
+		this.relations.add(relation);
+		relation.setPatientKey(this);
 	}
 
 	public List<Pet> getPets() {
@@ -88,7 +82,13 @@ public class Patient extends AbsUser {
 	}
 
 	public void setPets(List<Pet> pets) {
-		this.pets = pets;
+		for(Pet p: pets)
+			addPet(p);
+	}
+
+	public void addPet(Pet p){
+		this.pets.add(p);
+		p.setPatientKey(this);
 	}
 
 	public List<Meal> getMeals() {
@@ -96,6 +96,12 @@ public class Patient extends AbsUser {
 	}
 
 	public void setMeals(List<Meal> meals) {
-		this.meals = meals;
+		for(Meal m : meals)
+			addMeal(m);
+	}
+
+	public void addMeal(Meal m){
+		this.meals.add(m);
+		m.setPatientKey(this);
 	}
 }
