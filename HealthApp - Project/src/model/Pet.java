@@ -1,12 +1,5 @@
 package model;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.StringProperty;
-
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 public class Pet implements Serializable{
@@ -15,6 +8,7 @@ public class Pet implements Serializable{
 	String species;
 	boolean allergyFriendly;
 	String userId;
+	private static final long serialVersionUID = 5L;
 	
 	public Pet(){
 		this(0, "Enter name", "Enter species", true, "");

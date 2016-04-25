@@ -1,9 +1,6 @@
 package model;
 
-import java.io.File;
 import java.io.IOException;
-
-import javafx.scene.image.Image;
 import utils.DBHandler;
 import view.AbsDashController;
 import view.AdminDashController;

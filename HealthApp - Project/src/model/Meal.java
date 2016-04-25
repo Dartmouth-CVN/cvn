@@ -1,8 +1,5 @@
 package model;
 
-import javafx.beans.property.*;
-
-import javax.persistence.*;
 import java.io.Serializable;
 
 public class Meal implements Serializable {
@@ -11,6 +8,7 @@ public class Meal implements Serializable {
 	int calories;
 	int rating;
 	String notes;
+	private static final long serialVersionUID = 4L;
 
 
 	public Meal(){

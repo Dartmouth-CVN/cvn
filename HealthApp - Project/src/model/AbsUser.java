@@ -15,6 +15,8 @@ public abstract class AbsUser implements Serializable {
 
 	Contact contactInfo;
 //	Schedule schedule;
+private static final long serialVersionUID = 1L;
+
 	public AbsUser(){
 		
 	}

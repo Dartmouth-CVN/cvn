@@ -67,6 +67,7 @@ public class SearchController extends AbsController {
 		profileTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			userId = newValue.getUserIdProperty().get();
 		});
+		handleFindPatient();
 	}
 
 	/**

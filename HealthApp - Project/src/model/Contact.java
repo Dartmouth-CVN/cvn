@@ -12,7 +12,7 @@ public class Contact implements Serializable{
 	 List<ContactElement> emails;
 	 List<ContactElement> addresses;
 
-	AbsUser userKey;
+	private static final long serialVersionUID = 2L;
 
 	public Contact(){
 	}

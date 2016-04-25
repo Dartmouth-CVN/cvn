@@ -1,10 +1,7 @@
 package model;
 
-import javafx.beans.property.*;
 import utils.RandomGenerator;
-
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Date;
 
 public class HealthAttribute<V> implements Serializable{

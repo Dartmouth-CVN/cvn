@@ -8,6 +8,7 @@ public class ContactElement implements Serializable {
 	long elementId;
 	String value;
 	String type;
+	private static final long serialVersionUID = 3L;
 
 	public ContactElement(){
 		this(0, "Enter contact info...", "Personal");
