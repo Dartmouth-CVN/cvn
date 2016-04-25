@@ -7,11 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import model.MainApp;
 import model.Patient;
@@ -68,15 +64,17 @@ public class SearchController extends AbsController {
 			userId = newValue.getUserIdProperty().get();
 		});
 		handleFindPatient();
-	}
+		profileTable.setRowFactory( tv -> {
+			TableRow<PatientWrapper> row = new TableRow<>();
+			row.setOnMouseClicked(event -> {
+				if (event.getClickCount() == 2 && (! row.isEmpty()) )
+					showNewMiniPatientProfile();
+				else if(event.getClickCount() == 2 && (! row.isEmpty()) )
+					showMiniPatientProfile();
 
-	/**
-	 * Is called by the main application to give a reference back to itself.
-	 * 
-	 * @param mainApp
-	 */
-	public void setMain(MainApp mainApp) {
-		this.mainApp = mainApp;
+			});
+			return row ;
+		});
 	}
 
 	/**
@@ -116,7 +114,36 @@ public class SearchController extends AbsController {
 		showMiniPatientProfile();
 	}
 
+
 	public void showMiniPatientProfile() {
+		MiniPatientProfileController controller = new MiniPatientProfileController();
+
+		try {
+			AnchorPane miniProfile = (AnchorPane) controller.getLoader().load();
+			Patient patient = DBHandler.getUniqueInstance().getPatientById(userId);
+
+			if(profileTabPane.getTabs().isEmpty()){
+				Tab profileTab = new Tab(patient.getLastName());
+				profileTab.setContent(miniProfile);
+				profileTabPane.getTabs().add(profileTab);
+			}else{
+				Tab profileTab = profileTabPane.getTabs().get(0);
+				profileTab.setText(patient.getLastName());
+				profileTab.setContent(miniProfile);
+			}
+
+
+
+			FXMLLoader loader = controller.getLoader();
+			controller = loader.getController();
+			controller.setMainApp(this.mainApp);
+			controller.setPatient(patient);
+		} catch (IOException e) {
+			MainApp.printError(e);
+		}
+	}
+
+	public void showNewMiniPatientProfile() {
 		MiniPatientProfileController controller = new MiniPatientProfileController();
 
 		try {

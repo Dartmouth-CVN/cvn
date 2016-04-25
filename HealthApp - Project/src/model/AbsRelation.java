@@ -11,17 +11,17 @@ public class AbsRelation extends AbsUser{
 
     public AbsRelation(){}
 
-    public AbsRelation (java.lang.String userId, java.lang.String firstName, java.lang.String lastName, java.lang.String username, java.lang.String password,
-                        Date birthday, java.lang.String room, String picture, Contact contactInfo, java.lang.String relationship){
+    public AbsRelation (String userId, String firstName, String lastName, String username, String password,
+                        Date birthday, String room, String picture, Contact contactInfo, String relationship){
         super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo);
         setRelationship(relationship);
     }
 
-    public void setRelationship(java.lang.String relationship){
+    public void setRelationship(String relationship){
         this.relationship = relationship;
     }
 
-    public java.lang.String getRelationship(){
+    public String getRelationship(){
         return relationship;
     }
 }

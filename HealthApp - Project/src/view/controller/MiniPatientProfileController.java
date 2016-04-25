@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.MainApp;
@@ -84,7 +85,7 @@ public class MiniPatientProfileController extends AbsController {
 	}
 	
 	public void loadPatientDetails(){
-//		profilePic.setImage(patient.getPicture());
+		profilePic.setImage(new Image("file:" +patient.getPicture()));
 		nameLabel.setText(patient.getFirstName() + " " + patient.getLastName());
 		idLabel.setText(String.valueOf(patient.getUserId()));
 
