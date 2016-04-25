@@ -8,8 +8,8 @@ public class Caregiver extends AbsRelation {
 	public Caregiver(){
 		
 	}
-	public Caregiver(java.lang.String userId, java.lang.String firstName, java.lang.String lastName, java.lang.String username, java.lang.String password,
-					 Date birthday, java.lang.String room, String picture, Contact contactInfo, java.lang.String relation, boolean isFamily) {
+	public Caregiver(String userId, String firstName, String lastName, String username, String password,
+					 Date birthday, String room, String picture, Contact contactInfo, String relation, boolean isFamily) {
 		super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo, relation);
 		setIsFamily(isFamily);
 	}

@@ -7,7 +7,6 @@ import java.util.Date;
  */
 public class AbsRelation extends AbsUser{
     String relationship;
-    String userId;
 
     public AbsRelation(){}
 
