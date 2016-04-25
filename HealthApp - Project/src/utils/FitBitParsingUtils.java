@@ -22,7 +22,7 @@ public class FitBitParsingUtils {
 
 	Set<HealthInfo> healthInfo;
 
-	public static Set<HealthInfo> fitBitImport(String str) {
+	public static List<HealthAttribute<?>> fitBitImport(String str) {
 		return fitBitImport(new File(str));
 	}
 
@@ -77,8 +77,8 @@ public class FitBitParsingUtils {
 	 *            a CSV file containing fitbit data
 	 * @return a LinkedList of HealthInfo that contains all of the FitBit data
 	 */
-	public static Set<HealthInfo> fitBitImport(File f) {
-		Set<HealthInfo> output = new HashSet<HealthInfo>();
+	public static List<HealthAttribute<?>> fitBitImport(File f) {
+		List<HealthAttribute<?>> healthInfo = new LinkedList<>();
 		Scanner fileReader;
 		try {
 			fileReader = new Scanner(f);
@@ -115,49 +115,64 @@ public class FitBitParsingUtils {
 			}
 			String[] info = splitSepValuesLineAndRemoveCommasFromVal(line, ",");
 
-			HealthInfo hi;
+			HealthAttribute<?> hi;
 			switch (state) {
 			case "Body":
-				hi = new HealthInfo();
 				System.out.println("Importing Body Info");
-
-				hi.setDate(LocalDate.parse(info[0], formatter));
 				
 				for (int i = 1; i < info.length-5; i++) {
-					hi.addAttribute(new HealthAttribute<Double>(RandomGenerator.getRandomBirthday(),
-							titles.get(i), Double.parseDouble(info[i])));
+					if(RandomGenerator.isInteger(info[i])) {
+						hi = new HealthAttribute<Integer>(RandomGenerator.getRandomId(),
+								LocalDate.parse(info[0], formatter), titles.get(i), Integer.parseInt(info[i]));
+					}else if(RandomGenerator.isDouble(info[i])){
+						hi = new HealthAttribute<Double>(RandomGenerator.getRandomId(),
+								LocalDate.parse(info[0], formatter), titles.get(i), Double.parseDouble(info[i]));
+					}else{
+						hi = new HealthAttribute<String>(RandomGenerator.getRandomId(),
+								LocalDate.parse(info[0], formatter), titles.get(i), info[i]);
+					}
+					healthInfo.add(hi);
 				}
-				output.add(hi);
 				break;
 
 			case "Activities":
-				hi = new HealthInfo();
 				System.out.println("Importing Activity Info");
-				hi.setDate(LocalDate.parse(info[0], formatter));
-
-				for (int i = 1; i < info.length; i++) {
-					hi.addAttribute(new HealthAttribute<Double>(RandomGenerator.getRandomBirthday(),
-							titles.get(i), Double.parseDouble(info[i])));
+				for (int i = 1; i < info.length-5; i++) {
+				if(RandomGenerator.isInteger(info[i])) {
+					hi = new HealthAttribute<Integer>(RandomGenerator.getRandomId(),
+							LocalDate.parse(info[0], formatter), titles.get(i), Integer.parseInt(info[i]));
+				}else if(RandomGenerator.isDouble(info[i])){
+					hi = new HealthAttribute<Double>(RandomGenerator.getRandomId(),
+							LocalDate.parse(info[0], formatter), titles.get(i), Double.parseDouble(info[i]));
+				}else{
+					hi = new HealthAttribute<String>(RandomGenerator.getRandomId(),
+							LocalDate.parse(info[0], formatter), titles.get(i), info[i]);
 				}
-				output.add(hi);
+					healthInfo.add(hi);
+			}
 				break;
 
 			case "Sleep":
-				hi = new HealthInfo();
 				System.out.println("Importing Sleep Info");
-				hi.setDate(LocalDate.parse(info[0], formatter));
-
-				for (int i = 1; i < info.length; i++) {
-					hi.addAttribute(new HealthAttribute<Double>(RandomGenerator.getRandomBirthday(),
-							titles.get(i), Double.parseDouble(info[i])));
+				for (int i = 1; i < info.length-5; i++) {
+				if(RandomGenerator.isInteger(info[i])) {
+					hi = new HealthAttribute<Integer>(RandomGenerator.getRandomId(),
+							LocalDate.parse(info[0], formatter), titles.get(i), Integer.parseInt(info[i]));
+				}else if(RandomGenerator.isDouble(info[i])){
+					hi = new HealthAttribute<Double>(RandomGenerator.getRandomId(),
+							LocalDate.parse(info[0], formatter), titles.get(i), Double.parseDouble(info[i]));
+				}else{
+					hi = new HealthAttribute<String>(RandomGenerator.getRandomId(),
+							LocalDate.parse(info[0], formatter), titles.get(i), info[i]);
 				}
-				output.add(hi);
+					healthInfo.add(hi);
+			}
 				break;
 			}
 		}
 		fileReader.close();
 		System.out.println("FitBit Import Complete!");
-		return output;
+		return healthInfo;
 	}
 
 	/**
@@ -166,7 +181,7 @@ public class FitBitParsingUtils {
 	 * @param pts
 	 *            the patients to write
 	 */
-	public static void fitbitExport(LinkedList<Patient> pts) {
+	public static void fitbitExport(List<Patient> pts) {
 		String filename = "fitbitExported";
 		int i = 1;
 		File exFile = new File("fitbitExported");

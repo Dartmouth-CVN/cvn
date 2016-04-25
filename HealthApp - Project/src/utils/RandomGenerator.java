@@ -261,4 +261,25 @@ public class RandomGenerator {
 		return o.hashCode();
 	}
 
+	public static boolean isInteger(String input){
+		boolean parsable = true;
+		try{
+			Integer.parseInt(input);
+		}catch(NumberFormatException e){
+			parsable = false;
+		}
+		return parsable;
+	}
+
+	public static boolean isDouble(String input){
+		boolean parsable = true;
+		try{
+			Double.parseDouble(input);
+		}catch(NumberFormatException e){
+			parsable = false;
+		}
+		return parsable;
+	}
+
+
 }
