@@ -2,9 +2,9 @@ package model;
 
 import java.io.IOException;
 import utils.DBHandler;
-import view.AbsDashController;
-import view.AdminDashController;
-import view.LoginController;
+import view.controller.AbsDashController;
+import view.controller.AdminDashController;
+import view.controller.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,9 +12,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import javax.swing.*;
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 
 public class MainApp extends Application {
 

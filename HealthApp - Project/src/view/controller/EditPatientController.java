@@ -1,7 +1,6 @@
-package view;
+package view.controller;
 
 import java.io.File;
-import java.util.Date;
 import java.util.LinkedList;
 
 import javafx.collections.FXCollections;

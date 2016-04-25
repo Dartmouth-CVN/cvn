@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane fx:id="adminDash" styleClass="root" stylesheets="@cvnStyle.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AdminDashController">
+<AnchorPane fx:id="adminDash" styleClass="root" stylesheets="@cvnStyle.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.AdminDashController">
    <children>
       <TabPane fx:id="tabPane" prefHeight="600.0" prefWidth="600.0" styleClass="root" stylesheets="@baseTheme.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -52,7 +52,7 @@
                                     <Label alignment="CENTER" prefHeight="31.0" prefWidth="129.0" text="Dummy Administrator" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                                     <ImageView fitHeight="85.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../resources/images/blank-profile-picture.png" />
+                                          <Image url="@view/images/blank-profile-picture.png" />
                                        </image>
                                     </ImageView>
                                  </children>
@@ -80,12 +80,12 @@
                                           <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                                           <ImageView fx:id="searchImage" fitHeight="115.0" fitWidth="127.0" onMouseClicked="#handleSearchImage" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                                              <image>
-                                                <Image url="@../../resources/images/Search_icon_font_awesome.png" />
+                                                <Image url="@view/images/Search_icon_font_awesome.png" />
                                              </image>
                                           </ImageView>
                                           <ImageView fx:id="scheduleImage" fitHeight="115.0" fitWidth="127.0" onMouseClicked="#handleScheduleImage" pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER">
                                              <image>
-                                                <Image url="@../../resources/images/Calendar_icon_font_awesome.svg_.png" />
+                                                <Image url="@view/images/Calendar_icon_font_awesome.svg_.png" />
                                              </image>
                                           </ImageView>
                                        </children>

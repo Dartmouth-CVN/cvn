@@ -58,7 +58,7 @@
                               <DatePicker fx:id="patientBirthday" layoutX="92.0" layoutY="298.0" promptText="Birthday" />
                               <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="105.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../resources/images/blank-profile-picture.png" />
+                                    <Image url="@../../src/view/view/images/blank-profile-picture.png" />
                                  </image>
                               </ImageView>
                               <Button layoutX="314.0" layoutY="409.0" mnemonicParsing="false" onAction="#importFitBitCSV" text="Import FitBit Data" />

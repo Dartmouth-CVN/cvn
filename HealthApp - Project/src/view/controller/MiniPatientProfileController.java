@@ -1,7 +1,5 @@
-package view;
+package view.controller;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import javafx.fxml.FXML;
@@ -12,16 +10,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import model.Administrator;
 import model.MainApp;
 import model.MedicalStaff;
 import model.Patient;
 import utils.ObjectNotFoundException;
-
-import javax.imageio.ImageIO;
 
 public class MiniPatientProfileController extends AbsController {
 	

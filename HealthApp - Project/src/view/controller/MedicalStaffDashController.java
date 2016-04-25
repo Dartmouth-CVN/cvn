@@ -1,6 +1,4 @@
-package view;
-
-import model.MainApp;
+package view.controller;
 
 public class MedicalStaffDashController extends AbsDashController {
 

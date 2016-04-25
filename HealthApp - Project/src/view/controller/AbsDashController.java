@@ -1,13 +1,9 @@
-package view;
+package view.controller;
 
 import java.io.IOException;
 
-import javax.swing.event.ChangeListener;
-
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;

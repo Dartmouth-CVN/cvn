@@ -1,18 +1,15 @@
-package view;
+package view.controller;
 
 import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import model.Administrator;
 import model.ContactElement;
 import model.MainApp;
-import model.Patient;
 import utils.ObjectNotFoundException;
 
 public class AdminDashController extends MedicalStaffDashController {
