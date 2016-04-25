@@ -71,7 +71,7 @@ public class RandomGenerator {
 		return "100 Institute Rd\nWorcester MA, 01609\n";
 	}
 
-	public static java.lang.String createUsername(java.lang.String firstname, java.lang.String lastname) {
+	public static java.lang.String createUsername(String firstname, String lastname) {
 
 		java.lang.String username = "";
 		int i = 0;
@@ -81,17 +81,10 @@ public class RandomGenerator {
 		return username;
 	}
 
-	private static boolean isUniqueUsername(java.lang.String username) {
+	private static boolean isUniqueUsername(String username) {
 		Patient p;
-//		try {
-//			p = MainApp.getDBHandler().getPatientByUsername(username);
-//			return p == null;
-//		} catch (ObjectNotFoundException e) {
-//			MainApp.printError(e);
-//			return false;
-//		}
-
-		return true;
+		p = DBHandler.getUniqueInstance().getPatientByUsername(username);
+		return p == null;
 	}
 
 	public static java.lang.String getRandomUsername() {
@@ -124,11 +117,11 @@ public class RandomGenerator {
 	}
 
 	public static Patient getRandomPatient() {
-		java.lang.String firstname = getRandomFirstName();
-		java.lang.String lastname = getRandomLastName();
-		java.lang.String username = createUsername(firstname, lastname);
+		String firstname = getRandomFirstName();
+		String lastname = getRandomLastName();
+		String username = createUsername(firstname, lastname);
 		Date birthday = getRandomBirthday();
-		java.lang.String room = getRandomRoom();
+		String room = getRandomRoom();
 		Contact contactInfo = getRandomContactInfo();
 		return new Patient(getRandomUserId(new Patient()), firstname, lastname, username, lastname, birthday,
 				room, getRandomPicture(),  contactInfo);

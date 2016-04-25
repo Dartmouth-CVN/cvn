@@ -459,7 +459,7 @@ public class DBHandler {
         } catch (SQLException | IOException | ClassNotFoundException e) {
             MainApp.printError(e);
         }
-        return new Patient();
+        return null;
     }
 
     public Patient getPatientById(java.lang.String userId){
