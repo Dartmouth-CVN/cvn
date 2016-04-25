@@ -1,15 +1,13 @@
 package model;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import utils.DBHandler;
-import view.controller.AbsDashController;
-import view.controller.AdminDashController;
-import view.controller.LoginController;
+import view.AbsDashController;
+import view.AdminDashController;
+import view.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

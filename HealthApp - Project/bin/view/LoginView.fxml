@@ -7,14 +7,14 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" stylesheets="@cvnStyle.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" stylesheets="@cvnStyle.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LoginController">
    <children>
       <TextField fx:id="username" layoutX="105.0" layoutY="113.0" prefHeight="28.0" prefWidth="215.0" promptText="Username" />
       <PasswordField fx:id="password" layoutX="106.0" layoutY="184.0" onAction="#handleLogin" prefHeight="28.0" prefWidth="215.0" promptText="Password" />
       <Button layoutX="169.0" layoutY="232.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="44.0" prefWidth="83.0" text="Login" />
       <ImageView fitHeight="71.0" fitWidth="290.0" layoutX="68.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../src/view/view/images/dh-logo.png" />
+            <Image url="@../../src/view/images/dh-logo.png" />
          </image>
       </ImageView>
    </children>

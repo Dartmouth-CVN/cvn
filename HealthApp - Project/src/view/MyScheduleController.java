@@ -1,4 +1,4 @@
-package view.controller;
+package view;
 
 
 

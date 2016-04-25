@@ -1,4 +1,4 @@
-package view.controller;
+package view;
 
 public class MedicalStaffDashController extends AbsDashController {
 

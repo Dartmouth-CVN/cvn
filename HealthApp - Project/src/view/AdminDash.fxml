@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane fx:id="adminDash" prefHeight="660.0" prefWidth="900.0" styleClass="root" stylesheets="@cvnStyle.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.controller.AdminDashController">
+<AnchorPane fx:id="adminDash" prefHeight="660.0" prefWidth="900.0" styleClass="root" stylesheets="@cvnStyle.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AdminDashController">
    <children>
       <TabPane fx:id="tabPane" prefHeight="600.0" prefWidth="729.0" styleClass="root" stylesheets="@baseTheme.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -33,8 +33,8 @@
                                 </rowConstraints>
                                  <children>
                                     <Label prefHeight="31.0" prefWidth="146.0" text="Administrator" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" />
-                                    <Label fx:id="email" prefHeight="31.0" prefWidth="182.0" text="dummy@admins.com" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
-                                    <Label fx:id="number" prefHeight="31.0" prefWidth="133.0" text=" (719) - 224 - 1938" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                                    <Label fx:id="email" prefHeight="31.0" prefWidth="245.0" text="dummy@admins.com" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                                    <Label fx:id="number" prefHeight="31.0" prefWidth="240.0" text=" (719) - 224 - 1938" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
                                     <Label fx:id="room" prefHeight="31.0" prefWidth="92.0" text="SL 305" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
                                  </children>
                               </GridPane>
@@ -48,7 +48,7 @@
                                 </rowConstraints>
                                  <children>
                                     <Label fx:id="name" alignment="CENTER" prefHeight="26.0" prefWidth="183.0" text="Dummy Administrator" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                                    <ImageView fitHeight="85.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="profilePic" fitHeight="85.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@images/blank-profile-picture.png" />
                                        </image>

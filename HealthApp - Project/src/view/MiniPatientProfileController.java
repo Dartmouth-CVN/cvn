@@ -1,4 +1,4 @@
-package view.controller;
+package view;
 
 import java.io.IOException;
 
@@ -85,7 +85,7 @@ public class MiniPatientProfileController extends AbsController {
 	}
 	
 	public void loadPatientDetails(){
-		profilePic.setImage(new Image("file:" +patient.getPicture()));
+		profilePic.setImage(new Image("file:" + patient.getPicture()));
 		nameLabel.setText(patient.getFirstName() + " " + patient.getLastName());
 		idLabel.setText(String.valueOf(patient.getUserId()));
 

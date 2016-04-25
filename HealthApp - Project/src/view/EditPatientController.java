@@ -1,4 +1,4 @@
-package view.controller;
+package view;
 
 import java.io.File;
 import java.util.LinkedList;
@@ -15,6 +15,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import model.*;
 import utils.ObjectNotFoundException;
@@ -64,6 +66,8 @@ public class EditPatientController extends AbsController{
 	TextField firstName;
 	@FXML 
 	TextField lastName;
+	@FXML
+	ImageView profilePic;
 	@FXML
 	TextArea patientAddress;
 	@FXML
@@ -196,7 +200,7 @@ public class EditPatientController extends AbsController{
 	}
 
 	public void loadFields() {
-
+		profilePic.setImage(new Image("file:" + patient.getPicture()));
 		firstName.setText(patient.getFirstName());
 		lastName.setText(patient.getLastName());
 //			patientBirthday.setValue(patient.getBirthday().getTime());
@@ -297,7 +301,7 @@ public class EditPatientController extends AbsController{
 	public void saveInfo() {
 		patient.setFirstName(firstName.getText());
 		patient.setLastName(lastName.getText());
-//		patient.setBirthday(new Date(patientBirthday.getValue().toString()));
+		patient.setBirthday(patient.getBirthday());
 
 		LinkedList<Meal> patientMeals = new LinkedList<Meal>();
 		LinkedList<Pet> patientPets = new LinkedList<Pet>();
