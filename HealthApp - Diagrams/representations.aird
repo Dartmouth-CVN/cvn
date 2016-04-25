@@ -497,7 +497,7 @@
               <styles xmi:type="notation:FilteringStyle" xmi:id="_UuPFcgVqEeaoDd8kY5YCqg"/>
             </children>
             <styles xmi:type="notation:ShapeStyle" xmi:id="_UuNQQQVqEeaoDd8kY5YCqg" fontName=".SF NS Text" fontHeight="14"/>
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_UuNQQgVqEeaoDd8kY5YCqg" x="-207" y="-207" width="2037" height="1047"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_UuNQQgVqEeaoDd8kY5YCqg" x="-216" y="-207" width="2037" height="1047"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_FO1vgAV7EeaoDd8kY5YCqg" type="2002" element="_FNZlEAV7EeaoDd8kY5YCqg">
             <children xmi:type="notation:Node" xmi:id="_FO29oAV7EeaoDd8kY5YCqg" type="5006"/>
