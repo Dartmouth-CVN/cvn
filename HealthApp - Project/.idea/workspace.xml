@@ -6,36 +6,8 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="46dd0bdb-7338-4ef9-b5d0-eed68794d545" name="Default" comment="minor fixes">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/resources/images/Calendar_icon_font_awesome.svg_.png" afterPath="$PROJECT_DIR$/src/view/images/Calendar_icon_font_awesome.svg_.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/resources/images/Search_icon_font_awesome.png" afterPath="$PROJECT_DIR$/src/view/images/Search_icon_font_awesome.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/resources/images/blank-profile-picture.png" afterPath="$PROJECT_DIR$/src/view/images/blank-profile-picture.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/resources/images/dh-logo.png" afterPath="$PROJECT_DIR$/src/view/images/dh-logo.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/view/AbsController.java" afterPath="$PROJECT_DIR$/src/view/controller/AbsController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/view/AbsDashController.java" afterPath="$PROJECT_DIR$/src/view/controller/AbsDashController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/view/AdminDashController.java" afterPath="$PROJECT_DIR$/src/view/controller/AdminDashController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/view/EditPatientController.java" afterPath="$PROJECT_DIR$/src/view/controller/EditPatientController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/view/ExportController.java" afterPath="$PROJECT_DIR$/src/view/controller/ExportController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/view/LoginController.java" afterPath="$PROJECT_DIR$/src/view/controller/LoginController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/view/MedicalStaffDashController.java" afterPath="$PROJECT_DIR$/src/view/controller/MedicalStaffDashController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/view/MiniPatientProfileController.java" afterPath="$PROJECT_DIR$/src/view/controller/MiniPatientProfileController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/view/MyScheduleController.java" afterPath="$PROJECT_DIR$/src/view/controller/MyScheduleController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/view/PatientDashController.java" afterPath="$PROJECT_DIR$/src/view/controller/PatientDashController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/view/PatientProfileController.java" afterPath="$PROJECT_DIR$/src/view/controller/PatientProfileController.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/view/SearchController.java" afterPath="$PROJECT_DIR$/src/view/controller/SearchController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HealthApp/db.lck" afterPath="$PROJECT_DIR$/HealthApp/db.lck" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HealthApp/log/log.ctrl" afterPath="$PROJECT_DIR$/HealthApp/log/log.ctrl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HealthApp/log/logmirror.ctrl" afterPath="$PROJECT_DIR$/HealthApp/log/logmirror.ctrl" />
+    <list default="true" id="46dd0bdb-7338-4ef9-b5d0-eed68794d545" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/view/AdminDash.fxml" afterPath="$PROJECT_DIR$/bin/view/AdminDash.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/view/EditPatientView.fxml" afterPath="$PROJECT_DIR$/bin/view/EditPatientView.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/view/LoginView.fxml" afterPath="$PROJECT_DIR$/bin/view/LoginView.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/view/MiniPatientProfileView.fxml" afterPath="$PROJECT_DIR$/bin/view/MiniPatientProfileView.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/view/PatientDash.fxml" afterPath="$PROJECT_DIR$/bin/view/PatientDash.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/view/PatientProfileView.fxml" afterPath="$PROJECT_DIR$/bin/view/PatientProfileView.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/view/ScheduleView.fxml" afterPath="$PROJECT_DIR$/bin/view/ScheduleView.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/view/SearchView.fxml" afterPath="$PROJECT_DIR$/bin/view/SearchView.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/derby.log" afterPath="$PROJECT_DIR$/derby.log" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/HealthApp - Project/view/AdminDash.fxml" afterPath="$PROJECT_DIR$/out/production/HealthApp - Project/view/AdminDash.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/HealthApp - Project/view/EditPatientView.fxml" afterPath="$PROJECT_DIR$/out/production/HealthApp - Project/view/EditPatientView.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/HealthApp - Project/view/LoginView.fxml" afterPath="$PROJECT_DIR$/out/production/HealthApp - Project/view/LoginView.fxml" />
@@ -44,15 +16,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/HealthApp - Project/view/PatientProfileView.fxml" afterPath="$PROJECT_DIR$/out/production/HealthApp - Project/view/PatientProfileView.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/HealthApp - Project/view/ScheduleView.fxml" afterPath="$PROJECT_DIR$/out/production/HealthApp - Project/view/ScheduleView.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/HealthApp - Project/view/SearchView.fxml" afterPath="$PROJECT_DIR$/out/production/HealthApp - Project/view/SearchView.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/MainApp.java" afterPath="$PROJECT_DIR$/src/model/MainApp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/AdminDash.fxml" afterPath="$PROJECT_DIR$/src/view/AdminDash.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/EditPatientView.fxml" afterPath="$PROJECT_DIR$/src/view/EditPatientView.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/LoginView.fxml" afterPath="$PROJECT_DIR$/src/view/LoginView.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/MiniPatientProfileView.fxml" afterPath="$PROJECT_DIR$/src/view/MiniPatientProfileView.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/PatientDash.fxml" afterPath="$PROJECT_DIR$/src/view/PatientDash.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/PatientProfileView.fxml" afterPath="$PROJECT_DIR$/src/view/PatientProfileView.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/ScheduleView.fxml" afterPath="$PROJECT_DIR$/src/view/ScheduleView.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/SearchView.fxml" afterPath="$PROJECT_DIR$/src/view/SearchView.fxml" />
     </list>
     <ignored path="HealthApp - Project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -468,7 +431,14 @@
       <option name="project" value="LOCAL" />
       <updated>1461587146386</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="fixed issue with images not displaying">
+      <created>1461589506447</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1461589506447</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -502,7 +472,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fixed bug with username generation" />
     <MESSAGE value="minor fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="minor fixes" />
+    <MESSAGE value="fixed issue with images not displaying" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed issue with images not displaying" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
