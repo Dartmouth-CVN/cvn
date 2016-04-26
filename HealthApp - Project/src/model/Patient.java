@@ -32,8 +32,8 @@ public class Patient extends AbsUser {
                 user.getBirthday(), user.getRoom(), user.getPicture(), user.getContactInfo(), pets, meals, relations, assignedStaff, healthProfile);
     }
 
-    public Patient(java.lang.String userId, java.lang.String firstName, java.lang.String lastName, java.lang.String username, java.lang.String password, Date birthday,
-                   java.lang.String room, String picture, Contact contactInfo, List<Pet> pets, List<Meal> meals, List<AbsRelation> relations,
+    public Patient(String userId, String firstName, String lastName, String username, String password, Date birthday,
+                   String room, String picture, Contact contactInfo, List<Pet> pets, List<Meal> meals, List<AbsRelation> relations,
                    List<MedicalStaff> assignedStaff, HealthProfile healthProfile) {
         super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo);
         this.pets = pets;
@@ -116,5 +116,25 @@ public class Patient extends AbsUser {
 
     public boolean updatePatient() {
         return DBHandler.getUniqueInstance().updatePatient(this);
+    }
+
+    @Override
+    public AbsUser fromXMLString() {
+        return null;
+    }
+
+    @Override
+    public AbsUser fromCSVString() {
+        return null;
+    }
+
+    @Override
+    public AbsUser fromTSVString() {
+        return null;
+    }
+
+    @Override
+    public AbsUser fromSVString(String delimiter) {
+        return null;
     }
 }

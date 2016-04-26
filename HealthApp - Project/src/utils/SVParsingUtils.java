@@ -4,10 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import model.MainApp;
@@ -27,20 +24,24 @@ public abstract class SVParsingUtils implements ParsingUtils {
 	 *            the name of the file to import
 	 * @return the lines of the file as an array of Strings
 	 */
-	public static String[] getFile(String filename) {
-		Scanner fileReader;
+	@Override
+	public static File getFile(String filename) {
+		return new File(filename);
+	}
+
+	@Override
+	public static List<String> getFileContents(File file){
+		List<String> lines = null;
 		try {
-			fileReader = new Scanner(new File(filename));
-		} catch (FileNotFoundException e1) { // If the file doesn't exist, abort
-			System.out.println("File not Found");
-			MainApp.printError(e1);
-			return null;
+			Scanner fileReader = new Scanner(file);
+			lines = new LinkedList<String>();
+			while (fileReader.hasNextLine())
+				lines.add(fileReader.nextLine());
+			fileReader.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
-		LinkedList<String> lines = new LinkedList<String>();
-		while (fileReader.hasNextLine())
-			lines.add(fileReader.nextLine());
-		fileReader.close();
-		return null;
+		return lines;
 	}
 
 	/**
@@ -51,11 +52,12 @@ public abstract class SVParsingUtils implements ParsingUtils {
 	 *            the name of the separated values file
 	 * @return a LinkedList of the imported Patients
 	 */
-	public static Set<Patient> importData(String filename) {
-		Set<Patient> output = new LinkedHashSet<Patient>();
-		String[] lines = getFile(filename);
+	public static List<Patient> importData(String filename) {
+		List<String> lines = getFileContents(getFile(filename));
+		List<Patient> output = new LinkedList<Patient>();
+		Patient placeholder = new Patient();
 		for (String patient : lines)
-			output.add(makePatient(patient));
+			output.add((Patient)placeholder.fromSVString(getDelimiter()));
 		return output;
 	}
 

@@ -107,7 +107,7 @@ public abstract class AbsUser implements IParsable{
 
     @Override
     public int hashCode() {
-        return firstName.hashCode() + lastName.hashCode() + username.hashCode();
+        return firstName.hashCode() * lastName.hashCode() * username.hashCode();
     }
 
     public String toXMLString(){
