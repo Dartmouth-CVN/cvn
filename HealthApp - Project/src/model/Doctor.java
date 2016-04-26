@@ -7,7 +7,7 @@ import java.util.Date;
  */
 public class Doctor extends MedicalStaff {
 
-    public Doctor(){
+    public Doctor() {
 
     }
 
@@ -17,7 +17,7 @@ public class Doctor extends MedicalStaff {
     }
 
     @Override
-    public java.lang.String getRole(){
+    public java.lang.String getRole() {
         return "Doctor";
     }
 }

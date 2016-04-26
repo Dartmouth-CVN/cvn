@@ -15,7 +15,7 @@ public class MealWrapper {
     StringProperty notesProperty;
     Meal meal;
 
-    public MealWrapper(Meal meal){
+    public MealWrapper(Meal meal) {
         this.meal = meal;
         setCaloriesProperty(meal.getCalories());
         setFoodProperty(meal.getFood());
@@ -55,7 +55,7 @@ public class MealWrapper {
         notesProperty = new SimpleStringProperty(notes);
     }
 
-    public Meal toMeal(){
+    public Meal toMeal() {
         return this.meal;
     }
 }

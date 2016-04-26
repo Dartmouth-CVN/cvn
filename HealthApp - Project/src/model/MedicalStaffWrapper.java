@@ -9,18 +9,18 @@ import java.util.List;
 public class MedicalStaffWrapper {
     List<PatientWrapper> patientWrapperList;
 
-    public MedicalStaffWrapper(MedicalStaff m){
-//        setPatientWrapperList(m.getAssignedPatients());
+    public MedicalStaffWrapper(MedicalStaff m) {
+        setPatientWrapperList(m.getAssignedPatients());
     }
 
-    public void setPatientWrapperList(List<Patient> patientList){
-        patientWrapperList = new LinkedList<PatientWrapper>();
-        for(Patient p : patientList)
-            patientWrapperList.add(new PatientWrapper(p));
-    }
-
-    public List<PatientWrapper> getPatientWrapperList(){
+    public List<PatientWrapper> getPatientWrapperList() {
         return patientWrapperList;
+    }
+
+    public void setPatientWrapperList(List<Patient> patientList) {
+        patientWrapperList = new LinkedList<PatientWrapper>();
+        for (Patient p : patientList)
+            patientWrapperList.add(new PatientWrapper(p));
     }
 
 }

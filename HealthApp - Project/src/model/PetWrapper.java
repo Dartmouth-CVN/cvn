@@ -10,12 +10,12 @@ import javafx.beans.property.StringProperty;
  */
 public class PetWrapper {
 
-     StringProperty nameProperty;
-     StringProperty speciesProperty;
-     BooleanProperty allergyFriendlyProperty;
+    StringProperty nameProperty;
+    StringProperty speciesProperty;
+    BooleanProperty allergyFriendlyProperty;
     Pet pet;
 
-    public PetWrapper(Pet p){
+    public PetWrapper(Pet p) {
         this.pet = p;
         setNameProperty(p.getName());
         setAllergyFriendlyProperty(p.allergyFriendly);
@@ -46,7 +46,7 @@ public class PetWrapper {
         allergyFriendlyProperty = new SimpleBooleanProperty(allergyFriendly);
     }
 
-    public Pet toPet(){
+    public Pet toPet() {
         return this.pet;
     }
 }

@@ -1,5 +1,7 @@
 package model;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -10,32 +12,52 @@ public class AbsRelationWrapper extends AbsUserWrapper {
 
     StringProperty relationshipProperty;
     StringProperty nameProperty;
+    BooleanProperty isFamilyProperty;
+    BooleanProperty isCaregiverProperty;
 
     AbsRelation relation;
 
-    public AbsRelationWrapper(AbsRelation relation){
+    public AbsRelationWrapper(AbsRelation relation) {
         this.relation = relation;
         setRelationshipProperty(relation.getRelationship());
         setNameProperty(relation.getFirstName(), relation.getLastName());
     }
 
-    public StringProperty getNameProperty(){
+    public StringProperty getNameProperty() {
         return nameProperty;
     }
 
-    public void setNameProperty(String firstName, String lastName){
+    public void setNameProperty(String firstName, String lastName) {
         nameProperty = new SimpleStringProperty(firstName + " " + lastName);
     }
 
-    public StringProperty getRelationshipProperty(){
+    public StringProperty getRelationshipProperty() {
         return relationshipProperty;
     }
 
-    public void setRelationshipProperty(String relationship){
+    public void setRelationshipProperty(String relationship) {
         relationshipProperty = new SimpleStringProperty(relationship);
     }
 
-    public AbsRelation toAbsRelation(){
+    public BooleanProperty getIsFamilyProperty() {
+        return isFamilyProperty;
+    }
+
+    public void setIsFamilyProperty(boolean isFamily) {
+        isFamilyProperty = new SimpleBooleanProperty(isFamily);
+    }
+
+
+    public BooleanProperty getIsCaregiverProperty() {
+        return isCaregiverProperty;
+    }
+
+    public void setIsCaregiverProperty(boolean isCaregiver) {
+        isCaregiverProperty = new SimpleBooleanProperty(isCaregiver);
+    }
+
+    public AbsRelation toAbsRelation() {
         return relation;
     }
-    }
+
+}

@@ -13,36 +13,34 @@ public class ContactElementWrapper {
     StringProperty valueProperty;
     StringProperty typeProperty;
 
-    public ContactElementWrapper(ContactElement element){
+    public ContactElementWrapper(ContactElement element) {
         setElementIdProperty(element.getElementId());
         setValueProperty(element.getValue());
         setTypeProperty(element.getType());
     }
 
-
-
-    public void setElementIdProperty(long elementId){
-        elementIdProperty = new SimpleLongProperty((elementId));
-    }
-
-    public LongProperty getElementIdProperty(){
+    public LongProperty getElementIdProperty() {
         return elementIdProperty;
     }
 
-    public void setValueProperty(String value){
-        valueProperty = new SimpleStringProperty(value);
+    public void setElementIdProperty(long elementId) {
+        elementIdProperty = new SimpleLongProperty((elementId));
     }
 
-    public StringProperty getValueProperty(){
+    public StringProperty getValueProperty() {
         return valueProperty;
     }
 
-    public void setTypeProperty(String type){
-        typeProperty = new SimpleStringProperty(type);
+    public void setValueProperty(String value) {
+        valueProperty = new SimpleStringProperty(value);
     }
 
-    public StringProperty getTypeProperty(){
+    public StringProperty getTypeProperty() {
         return typeProperty;
+    }
+
+    public void setTypeProperty(String type) {
+        typeProperty = new SimpleStringProperty(type);
     }
 
 

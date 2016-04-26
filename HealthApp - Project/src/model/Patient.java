@@ -9,112 +9,112 @@ import java.util.List;
 
 public class Patient extends AbsUser {
 
-	List<Pet> pets;
-	List<Meal> meals;
-	List<AbsRelation> relations;
-	List<MedicalStaff> assignedStaff;
-	HealthProfile healthProfile;
+    List<Pet> pets;
+    List<Meal> meals;
+    List<AbsRelation> relations;
+    List<MedicalStaff> assignedStaff;
+    HealthProfile healthProfile;
 
-	public Patient(){
-		this ("enter id", "enter first name", "enter last name", "enter username", "enter password", new Date(), "enter room",
-				"enter picture", new Contact());
-	}
-	
-	public Patient(String userId, String firstName, String lastName, String username, String password, Date birthday,
-				   String room, String picture, Contact contactInfo) {
-		this(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo, new LinkedList<Pet>(),
-				new LinkedList<Meal>(), new LinkedList<AbsRelation>(),  new LinkedList<MedicalStaff>(), new HealthProfile());
-	}
+    public Patient() {
+        this("enter id", "enter first name", "enter last name", "enter username", "enter password", new Date(), "enter room",
+                "enter picture", new Contact());
+    }
 
-	public Patient(AbsUser user, List<Pet> pets, List<Meal> meals, List<AbsRelation> relations,
-				   List<MedicalStaff> assignedStaff, HealthProfile healthProfile){
-		this(user.getUserId(), user.getFirstName(), user.getLastName(), user.getUsername(), user.getPassword(),
-				user.getBirthday(), user.getRoom(), user.getPicture(),  user.getContactInfo(), pets, meals, relations, assignedStaff, healthProfile);
-	}
+    public Patient(String userId, String firstName, String lastName, String username, String password, Date birthday,
+                   String room, String picture, Contact contactInfo) {
+        this(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo, new LinkedList<Pet>(),
+                new LinkedList<Meal>(), new LinkedList<AbsRelation>(), new LinkedList<MedicalStaff>(), new HealthProfile());
+    }
 
-	public Patient(java.lang.String userId, java.lang.String firstName, java.lang.String lastName, java.lang.String username, java.lang.String password, Date birthday,
-				   java.lang.String room, String picture, Contact contactInfo, List<Pet> pets, List<Meal> meals, List<AbsRelation> relations,
-				   List<MedicalStaff> assignedStaff, HealthProfile healthProfile) {
-		super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo);
-		this.pets = pets;
-		this.meals = meals;
-		this.relations = relations;
-		this.assignedStaff = assignedStaff;
-		this.healthProfile = healthProfile;
-	}
+    public Patient(AbsUser user, List<Pet> pets, List<Meal> meals, List<AbsRelation> relations,
+                   List<MedicalStaff> assignedStaff, HealthProfile healthProfile) {
+        this(user.getUserId(), user.getFirstName(), user.getLastName(), user.getUsername(), user.getPassword(),
+                user.getBirthday(), user.getRoom(), user.getPicture(), user.getContactInfo(), pets, meals, relations, assignedStaff, healthProfile);
+    }
 
-	public HealthProfile getHealthProfile() {
-		return healthProfile;
-	}
+    public Patient(java.lang.String userId, java.lang.String firstName, java.lang.String lastName, java.lang.String username, java.lang.String password, Date birthday,
+                   java.lang.String room, String picture, Contact contactInfo, List<Pet> pets, List<Meal> meals, List<AbsRelation> relations,
+                   List<MedicalStaff> assignedStaff, HealthProfile healthProfile) {
+        super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo);
+        this.pets = pets;
+        this.meals = meals;
+        this.relations = relations;
+        this.assignedStaff = assignedStaff;
+        this.healthProfile = healthProfile;
+    }
 
-	public void setHealthProfile(HealthProfile healthProfile) {
-		this.healthProfile = healthProfile;
-	}
+    public HealthProfile getHealthProfile() {
+        return healthProfile;
+    }
 
-	public List<MedicalStaff> getAssignedStaff() {
-		return assignedStaff;
-	}
+    public void setHealthProfile(HealthProfile healthProfile) {
+        this.healthProfile = healthProfile;
+    }
 
-	public void setAssignedStaff(List<MedicalStaff> assignedStaff) {
-		for(MedicalStaff m : assignedStaff)
-			addAssignedStaff(m);
-	}
+    public List<MedicalStaff> getAssignedStaff() {
+        return assignedStaff;
+    }
 
-	public void addAssignedStaff(MedicalStaff m){
-		this.assignedStaff.add(m);
-		m.addPatient(this);
-	}
-	
-	public List<AbsRelation> getRelations() {
-		return relations;
-	}
+    public void setAssignedStaff(List<MedicalStaff> assignedStaff) {
+        for (MedicalStaff m : assignedStaff)
+            addAssignedStaff(m);
+    }
 
-	public void setRelations(List<AbsRelation> relations) {
-		for(AbsRelation rel : relations)
-			addRelation(rel);
-	}
+    public void addAssignedStaff(MedicalStaff m) {
+        this.assignedStaff.add(m);
+        m.addPatient(this);
+    }
 
-	public void addRelation(AbsRelation relation){
-		this.relations.add(relation);
-		relation.setUserId(userId);
-	}
+    public List<AbsRelation> getRelations() {
+        return relations;
+    }
 
-	public List<Pet> getPets() {
-		return pets;
-	}
+    public void setRelations(List<AbsRelation> relations) {
+        for (AbsRelation rel : relations)
+            addRelation(rel);
+    }
 
-	public void setPets(List<Pet> pets) {
-		for(Pet p: pets)
-			addPet(p);
-	}
+    public void addRelation(AbsRelation relation) {
+        this.relations.add(relation);
+        relation.setUserId(userId);
+    }
 
-	public void addPet(Pet p){
-		this.pets.add(p);
-		p.setUserId(userId);
-	}
+    public List<Pet> getPets() {
+        return pets;
+    }
 
-	public List<Meal> getMeals() {
-		return meals;
-	}
+    public void setPets(List<Pet> pets) {
+        for (Pet p : pets)
+            addPet(p);
+    }
 
-	public void setMeals(List<Meal> meals) {
-		for(Meal m : meals)
-			addMeal(m);
-	}
+    public void addPet(Pet p) {
+        this.pets.add(p);
+        p.setUserId(userId);
+    }
 
-	public void addMeal(Meal m){
-		this.meals.add(m);
-	}
+    public List<Meal> getMeals() {
+        return meals;
+    }
 
-	public boolean getIsNewPatient(){
-		return userId.equals("enter id") && username.equals("enter username");
-	}
+    public void setMeals(List<Meal> meals) {
+        for (Meal m : meals)
+            addMeal(m);
+    }
 
-	public boolean savePatient(){
-		return DBHandler.getUniqueInstance().insertPatient(this);
-	}
+    public void addMeal(Meal m) {
+        this.meals.add(m);
+    }
 
-	public boolean updatePatient(){
-		return DBHandler.getUniqueInstance().updatePatient(this);
-	}
+    public boolean getIsNewPatient() {
+        return userId.equals("enter id") && username.equals("enter username");
+    }
+
+    public boolean savePatient() {
+        return DBHandler.getUniqueInstance().insertPatient(this);
+    }
+
+    public boolean updatePatient() {
+        return DBHandler.getUniqueInstance().updatePatient(this);
+    }
 }

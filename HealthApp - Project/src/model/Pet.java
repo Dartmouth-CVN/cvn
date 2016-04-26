@@ -1,69 +1,66 @@
 package model;
 
-import java.io.Serializable;
+public class Pet{
+    long petId;
+    String name;
+    String species;
+    boolean allergyFriendly;
+    String userId;
 
-public class Pet implements Serializable{
-	long petId;
-	String name;
-	String species;
-	boolean allergyFriendly;
-	String userId;
-	private static final long serialVersionUID = 5L;
-	
-	public Pet(){
-		this(0, "Enter name", "Enter species", true, "");
-	}
-	
-	public Pet(String name, String species, boolean allergyFriendly, String userId){
-		this(0, name, species, allergyFriendly, userId);
-	}
+    public Pet() {
+        this(0, "Enter name", "Enter species", true, "");
+    }
 
-	public Pet(long id, String name, String species, boolean allergyFriendly, String userId){
-		this.petId = id;
-		this.name = name;
-		this.species = species;
-		this.allergyFriendly = allergyFriendly;
-		this.userId = userId;
-	}
-	
-	public long getPetId(){
-		return petId;
-	}
-	
-	@SuppressWarnings("unused")
-	private void setPetId(long id){
-		this.petId = id;
-	}
+    public Pet(String name, String species, boolean allergyFriendly, String userId) {
+        this(0, name, species, allergyFriendly, userId);
+    }
 
-	public String getName() {
-		return name;
-	}
+    public Pet(long id, String name, String species, boolean allergyFriendly, String userId) {
+        this.petId = id;
+        this.name = name;
+        this.species = species;
+        this.allergyFriendly = allergyFriendly;
+        this.userId = userId;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public long getPetId() {
+        return petId;
+    }
 
-	public String getSpecies() {
-		return species;
-	}
+    @SuppressWarnings("unused")
+    private void setPetId(long id) {
+        this.petId = id;
+    }
 
-	public void setSpecies(String species) {
-		this.species = species;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public boolean isAllergyFriendly() {
-		return allergyFriendly;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setAllergyFriendly(boolean allergyFriendly) {
-		this.allergyFriendly = allergyFriendly;
-	}
+    public String getSpecies() {
+        return species;
+    }
 
-	public String getUserId(){
-		return userId;
-	}
+    public void setSpecies(String species) {
+        this.species = species;
+    }
 
-	public void setUserId(String id){
-		userId = id;
-	}
+    public boolean isAllergyFriendly() {
+        return allergyFriendly;
+    }
+
+    public void setAllergyFriendly(boolean allergyFriendly) {
+        this.allergyFriendly = allergyFriendly;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String id) {
+        userId = id;
+    }
 }
