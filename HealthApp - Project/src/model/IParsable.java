@@ -7,7 +7,7 @@ public interface IParsable {
 
     public String toXMLString();
 
-    public String toSVString();
+    public String toSVString(String delimiter);
 
     public String toCSVString();
 
@@ -21,6 +21,6 @@ public interface IParsable {
 
     public AbsUser fromTSVString();
 
-    public AbsUser fromSVString();
+    public AbsUser fromSVString(String delimiter);
 
 }

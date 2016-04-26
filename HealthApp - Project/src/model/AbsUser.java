@@ -1,6 +1,8 @@
 package model;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.LinkedList;
 
 public abstract class AbsUser implements IParsable{
     //	Schedule schedule;
@@ -106,5 +108,43 @@ public abstract class AbsUser implements IParsable{
     @Override
     public int hashCode() {
         return firstName.hashCode() + lastName.hashCode() + username.hashCode();
+    }
+
+    public String toXMLString(){
+        return null;
+    }
+
+    public String toSVString(String delimiter){
+        String[] fields = {firstName,lastName,username,birthday.toString(),picture}; //to be followed by the addresses, phone numbers, and emails.
+
+        LinkedList<String> addresses = new LinkedList<String>();
+        for(ContactElement c : contactInfo.getAddresses())
+            addresses.add(c.getValue());
+
+        LinkedList<String> phonenumbers = new LinkedList<String>();
+        for(ContactElement c : contactInfo.getPhoneNumbers())
+           phonenumbers.add(c.getValue());
+
+        LinkedList<String> emails = new LinkedList<String>();
+        for(ContactElement c : contactInfo.getEmails())
+            emails.add(c.getValue());
+
+        String firsthalf = String.join(delimiter, fields)+delimiter;
+        String secondhalf = "\""+String.join("," ,addresses)+"\"";
+        secondhalf = ",\""+String.join("," ,phonenumbers)+"\"";
+        secondhalf = ",\""+String.join("," ,emails)+"\"";
+        return firsthalf+secondhalf;
+    };
+
+    public String toCSVString(){
+        return toSVString(",");
+    }
+
+    public String toTSVString(){
+        return toSVString(",");
+    }
+
+    public String toHTMLString(){
+        return null;
     }
 }
