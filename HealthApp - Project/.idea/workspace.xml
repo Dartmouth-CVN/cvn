@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/src/utils/FitBitParsingUtils.java" line="119" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="ee70ff0e-076a-4edc-941d-8d0ae613cf2a" name="Default" comment="">
+<<<<<<< HEAD
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HealthApp/db.lck" afterPath="$PROJECT_DIR$/HealthApp/db.lck" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HealthApp/log/log.ctrl" afterPath="$PROJECT_DIR$/HealthApp/log/log.ctrl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HealthApp/log/logmirror.ctrl" afterPath="$PROJECT_DIR$/HealthApp/log/logmirror.ctrl" />
@@ -21,13 +25,26 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/Nurse.java" afterPath="$PROJECT_DIR$/src/model/Nurse.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/Patient.java" afterPath="$PROJECT_DIR$/src/model/Patient.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/Pet.java" afterPath="$PROJECT_DIR$/src/model/Pet.java" />
+=======
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/utils/TestMainExport.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/HealthApp/db.lck" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HealthApp/log/log.ctrl" afterPath="$PROJECT_DIR$/HealthApp/log/log.ctrl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HealthApp/log/logmirror.ctrl" afterPath="$PROJECT_DIR$/HealthApp/log/logmirror.ctrl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/derby.log" afterPath="$PROJECT_DIR$/derby.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/Patient.java" afterPath="$PROJECT_DIR$/src/model/Patient.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/PatientExportWrapper.java" afterPath="$PROJECT_DIR$/src/model/PatientExportWrapper.java" />
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/DBHandler.java" afterPath="$PROJECT_DIR$/src/utils/DBHandler.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/FitBitParsingUtils.java" afterPath="$PROJECT_DIR$/src/utils/FitBitParsingUtils.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/RandomGenerator.java" afterPath="$PROJECT_DIR$/src/utils/RandomGenerator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/XMLParsingUtils.java" afterPath="$PROJECT_DIR$/src/utils/XMLParsingUtils.java" />
+<<<<<<< HEAD
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/LoginController.java" afterPath="$PROJECT_DIR$/src/view/LoginController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/MainApp.java" afterPath="$PROJECT_DIR$/src/view/MainApp.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/SearchController.java" afterPath="$PROJECT_DIR$/src/view/SearchController.java" />
+=======
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/controller/FitBitTests.java" afterPath="$PROJECT_DIR$/test/controller/FitBitTests.java" />
     </list>
     <ignored path="HealthApp - Project.iws" />
@@ -50,6 +67,7 @@
     <favorites_list name="HealthApp - Project" />
   </component>
   <component name="FileEditorManager">
+<<<<<<< HEAD
     <leaf>
       <file leaf-file-name="LoginController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/view/LoginController.java">
@@ -66,6 +84,14 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="214">
               <caret line="591" column="24" selection-start-line="591" selection-start-column="24" selection-end-line="591" selection-end-column="24" />
+=======
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="DBHandler.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/utils/DBHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="640" column="20" selection-start-line="640" selection-start-column="20" selection-end-line="640" selection-end-column="20" />
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
               <folding>
                 <element signature="docComment;class#DBHandler#0" expanded="false" />
                 <element signature="method#initDB#0;class#DBHandler#0" expanded="false" />
@@ -90,8 +116,6 @@
                 <element signature="method#insertRelation#0;class#DBHandler#0" expanded="false" />
                 <element signature="method#insertContact#0;class#DBHandler#0" expanded="false" />
                 <element signature="method#insertPet#0;class#DBHandler#0" expanded="false" />
-                <element signature="method#insertMeal#0;class#DBHandler#0" expanded="false" />
-                <element signature="method#insertEats#0;class#DBHandler#0" expanded="false" />
                 <element signature="method#insertRelated#0;class#DBHandler#0" expanded="false" />
                 <element signature="method#insertStaffAssignment#0;class#DBHandler#0" expanded="false" />
                 <element signature="method#insertHealthInfo#0;class#DBHandler#0" expanded="false" />
@@ -104,8 +128,11 @@
                 <element signature="method#getPatientMedicalStaff#0;class#DBHandler#0" expanded="false" />
                 <element signature="method#getRelationByUsername#0;class#DBHandler#0" expanded="false" />
                 <element signature="method#getRelationById#0;class#DBHandler#0" expanded="false" />
+<<<<<<< HEAD
                 <element signature="method#getAbsRelation#0;class#DBHandler#0" expanded="false" />
                 <element signature="method#getPatientRelations#0;class#DBHandler#0" expanded="false" />
+=======
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
                 <element signature="method#getPatient#0;class#DBHandler#0" expanded="false" />
                 <element signature="method#getAllPatients#0;class#DBHandler#0" expanded="false" />
                 <element signature="method#getContactInfo#0;class#DBHandler#0" expanded="false" />
@@ -122,6 +149,7 @@
                 <element signature="method#localDateToTimestamp#0;class#DBHandler#0" expanded="false" />
                 <element signature="method#serialize#0;class#DBHandler#0" expanded="false" />
                 <element signature="method#deserialize#0;class#DBHandler#0" expanded="false" />
+<<<<<<< HEAD
                 <marker date="1461798132000" expanded="false" signature="2591:3102" placeholder="CREATE TABLE... user_account" />
                 <marker date="1461798132000" expanded="false" signature="3431:3788" placeholder="CREATE TABLE... contact" />
                 <marker date="1461798132000" expanded="false" signature="4110:4334" placeholder="CREATE TABLE... pet" />
@@ -163,11 +191,39 @@
                 <marker date="1461798132000" expanded="false" signature="36143:36215" placeholder="SELECT (heal... health_info" />
                 <marker date="1461798132000" expanded="false" signature="38980:39025" placeholder="SELECT * FRO... user_account" />
                 <marker date="1461798132000" expanded="false" signature="38980:39026" placeholder="SELECT first... user_account" />
+=======
+                <marker date="1461797765103" expanded="true" signature="2445:2859" placeholder="CREATE TABLE... user" />
+                <marker date="1461797765103" expanded="true" signature="3188:3453" placeholder="CREATE TABLE... contact" />
+                <marker date="1461797765103" expanded="true" signature="3814:4061" placeholder="CREATE TABLE... pet" />
+                <marker date="1461797765103" expanded="true" signature="4390:4532" placeholder="CREATE TABLE... meal" />
+                <marker date="1461797765103" expanded="true" signature="4894:5112" placeholder="CREATE TABLE... eats" />
+                <marker date="1461797765103" expanded="true" signature="5475:5669" placeholder="CREATE TABLE... event" />
+                <marker date="1461797765103" expanded="true" signature="6003:6249" placeholder="CREATE TABLE... health_info" />
+                <marker date="1461797765103" expanded="true" signature="6588:6832" placeholder="CREATE TABLE... staff_assignment" />
+                <marker date="1461797765103" expanded="true" signature="7163:7408" placeholder="CREATE TABLE... related" />
+                <marker date="1461797765103" expanded="true" signature="11507:11624" placeholder="INSERT INTO pet... " />
+                <marker date="1461797765103" expanded="true" signature="12339:12436" placeholder="INSERT INTO meal... " />
+                <marker date="1461797765103" expanded="true" signature="13116:13204" placeholder="INSERT INTO eats... " />
+                <marker date="1461797765103" expanded="true" signature="13836:13926" placeholder="INSERT INTO related... " />
+                <marker date="1461797765103" expanded="true" signature="14519:14633" placeholder="INSERT INTO health_info... " />
+                <marker date="1461797765103" expanded="true" signature="15388:15425" placeholder="SELECT * FRO... user" />
+                <marker date="1461797765103" expanded="true" signature="16234:16289" placeholder="SELECT * FRO... user" />
+                <marker date="1461797765103" expanded="true" signature="17231:17285" placeholder="SELECT * FRO... user" />
+                <marker date="1461797765103" expanded="true" signature="18220:18377" placeholder="SELECT user_... user" />
+                <marker date="1461797765103" expanded="true" signature="18801:18957" placeholder="SELECT user_... user" />
+                <marker date="1461797765103" expanded="true" signature="19482:19639" placeholder="SELECT user_... user" />
+                <marker date="1461797765103" expanded="true" signature="20533:20689" placeholder="SELECT user_... user" />
+                <marker date="1461797765103" expanded="true" signature="21619:21775" placeholder="SELECT user_... user" />
+                <marker date="1461797765103" expanded="true" signature="22212:22350" placeholder="SELECT user_... user" />
+                <marker date="1461797765103" expanded="true" signature="24729:24767" placeholder="SELECT * FRO... user" />
+                <marker date="1461797765103" expanded="true" signature="25424:25463" placeholder="SELECT * FRO... contact" />
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
               </folding>
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="Contact.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/model/Contact.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -191,17 +247,95 @@
                 <element signature="method#makePrimaryAddress#0;class#Contact#0" expanded="false" />
                 <element signature="method#getAllContactElements#0;class#Contact#0" expanded="false" />
                 <element signature="method#getElementById#0;class#Contact#0" expanded="false" />
+=======
+      <file leaf-file-name="TestMainExport.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/utils/TestMainExport.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="16" column="79" selection-start-line="16" selection-start-column="79" selection-end-line="16" selection-end-column="79" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#692#701#0" expanded="true" />
+                <element signature="e#883#884#0" expanded="true" />
+                <element signature="e#925#926#0" expanded="true" />
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
               </folding>
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="AdminDashController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/view/AdminDashController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="163">
               <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+=======
+      <file leaf-file-name="Patient.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/model/Patient.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="287">
+              <caret line="106" column="21" selection-start-line="106" selection-start-column="21" selection-end-line="106" selection-end-column="21" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FitBitParsingUtils.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/utils/FitBitParsingUtils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="142">
+              <caret line="137" column="38" selection-start-line="137" selection-start-column="38" selection-end-line="137" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FitBitTests.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test/controller/FitBitTests.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="24" column="51" selection-start-line="24" selection-start-column="51" selection-end-line="24" selection-end-column="51" />
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CSVParsingUtils.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/utils/CSVParsingUtils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="14" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
+              <folding>
+                <element signature="e#209#210#0" expanded="true" />
+                <element signature="e#235#236#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PatientExportWrapper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/model/PatientExportWrapper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="385">
+              <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+              <folding>
+                <element signature="method#splitSVLine#0;class#PatientExportWrapper#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Pet.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/model/Pet.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="540">
+              <caret line="54" column="5" selection-start-line="54" selection-start-column="5" selection-end-line="54" selection-end-column="5" />
+              <folding>
+                <element signature="e#1119#1120#0" expanded="true" />
+                <element signature="e#1173#1174#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -232,10 +366,10 @@
         <option value="$PROJECT_DIR$/src/model/MedicalStaffWrapper.java" />
         <option value="$PROJECT_DIR$/src/model/Schedule.java" />
         <option value="$PROJECT_DIR$/src/utils/GeneralParsingUtils.java" />
-        <option value="$PROJECT_DIR$/src/utils/ParsingUtils.java" />
         <option value="$PROJECT_DIR$/src/model/CaregiverWrapper.java" />
         <option value="$PROJECT_DIR$/src/model/IParsable.java" />
         <option value="$PROJECT_DIR$/src/model/IExportable.java" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/src/model/PatientExportWrapper.java" />
         <option value="$PROJECT_DIR$/src/view/AbsDashController.java" />
         <option value="$PROJECT_DIR$/src/view/EditPatientController.java" />
@@ -243,6 +377,15 @@
         <option value="$PROJECT_DIR$/src/utils/SVParsingUtils.java" />
         <option value="$PROJECT_DIR$/src/utils/NamedParameterSet.java" />
         <option value="$PROJECT_DIR$/src/utils/NamedParameterStatement.java" />
+=======
+        <option value="$PROJECT_DIR$/src/view/AbsDashController.java" />
+        <option value="$PROJECT_DIR$/src/view/EditPatientController.java" />
+        <option value="$PROJECT_DIR$/src/view/AbsController.java" />
+        <option value="$PROJECT_DIR$/src/model/AbsUserWrapper.java" />
+        <option value="$PROJECT_DIR$/src/utils/NamedParameterSet.java" />
+        <option value="$PROJECT_DIR$/src/utils/NamedParameterStatement.java" />
+        <option value="$PROJECT_DIR$/src/model/Pet.java" />
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
         <option value="$PROJECT_DIR$/src/model/HealthAttribute.java" />
         <option value="$PROJECT_DIR$/src/model/Phone.java" />
         <option value="$PROJECT_DIR$/src/model/ContactElement.java" />
@@ -267,8 +410,24 @@
         <option value="$PROJECT_DIR$/src/model/AbsUserWrapper.java" />
         <option value="$PROJECT_DIR$/src/view/SearchController.java" />
         <option value="$PROJECT_DIR$/src/model/Contact.java" />
+        <option value="$PROJECT_DIR$/src/view/StatsController.java" />
+        <option value="$PROJECT_DIR$/src/utils/ParsingUtils.java" />
+        <option value="$PROJECT_DIR$/src/utils/SVParsingUtils.java" />
+        <option value="$PROJECT_DIR$/src/utils/CSVParsingUtils.java" />
+        <option value="$PROJECT_DIR$/src/utils/TSVParsingUtils.java" />
+        <option value="$PROJECT_DIR$/src/utils/HTMLParsingUtils.java" />
+        <option value="$PROJECT_DIR$/src/utils/RandomGenerator.java" />
+        <option value="$PROJECT_DIR$/src/utils/XMLParsingUtils.java" />
+        <option value="$PROJECT_DIR$/src/model/PatientExportWrapper.java" />
+        <option value="$PROJECT_DIR$/src/utils/TestMainExport.java" />
+        <option value="$PROJECT_DIR$/src/model/Patient.java" />
         <option value="$PROJECT_DIR$/src/utils/DBHandler.java" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/src/view/LoginController.java" />
+=======
+        <option value="$PROJECT_DIR$/src/utils/FitBitParsingUtils.java" />
+        <option value="$PROJECT_DIR$/test/controller/FitBitTests.java" />
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
       </list>
     </option>
   </component>
@@ -278,10 +437,17 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
+<<<<<<< HEAD
     <option name="x" value="33" />
     <option name="y" value="138" />
     <option name="width" value="1438" />
     <option name="height" value="842" />
+=======
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -309,6 +475,7 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -361,23 +528,25 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="/Applications/SceneBuilder.app" />
+    <property name="last_opened_file_path" value="$USER_HOME$/AppData/Local/SceneBuilder/SceneBuilder.exe" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="view" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="utils" />
+    </key>
   </component>
-  <component name="RunManager" selected="Application.MainApp">
+  <component name="RunManager" selected="Application.TestMainExport">
     <configuration default="false" name="MainApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -386,6 +555,26 @@
         </pattern>
       </extension>
       <option name="MAIN_CLASS_NAME" value="view.MainApp" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="HealthApp - Project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="TestMainExport" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="utils.TestMainExport" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -815,12 +1004,14 @@
     <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
       <method />
     </configuration>
-    <list size="1">
+    <list size="2">
       <item index="0" class="java.lang.String" itemvalue="Application.MainApp" />
+      <item index="1" class="java.lang.String" itemvalue="Application.TestMainExport" />
     </list>
     <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Application.MainApp" />
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="Application.TestMainExport" />
+        <item index="1" class="java.lang.String" itemvalue="Application.MainApp" />
       </list>
     </recent_temporary>
   </component>
@@ -840,7 +1031,15 @@
       <workItem from="1461642899217" duration="12434000" />
       <workItem from="1461714613763" duration="2634000" />
       <workItem from="1461722507252" duration="5572000" />
+<<<<<<< HEAD
       <workItem from="1461730039211" duration="37480000" />
+=======
+      <workItem from="1461730039211" duration="22978000" />
+      <workItem from="1461780601044" duration="5190000" />
+      <workItem from="1461780601044" duration="3044000" />
+      <workItem from="1461784880738" duration="634000" />
+      <workItem from="1461786253988" duration="4578000" />
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
     </task>
     <task id="LOCAL-00001" summary="patientexportwrapper template">
       <created>1461724721718</created>
@@ -860,38 +1059,52 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="58120000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="33" y="138" width="1438" height="842" extended-state="0" />
     <editor active="true" />
+=======
+    <option name="totallyTimeSpent" value="51874000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="false" />
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
     <layout>
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32988358" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32988358" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2433936" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24270834" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32988358" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -913,7 +1126,25 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+<<<<<<< HEAD
       <option name="time" value="24" />
+=======
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/utils/DBHandler.java</url>
+          <line>118</line>
+          <properties />
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/model/PatientExportWrapper.java</url>
+          <line>151</line>
+          <properties />
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="17" />
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -922,6 +1153,7 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/utils/ParsingUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -976,11 +1208,12 @@
         </state>
       </provider>
     </entry>
+=======
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
     <entry file="file://$PROJECT_DIR$/src/model/HealthProfile.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="13" column="11" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -988,26 +1221,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_77.jdk/Contents/Home/src.zip!/java/util/Date.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="130" column="13" selection-start-line="130" selection-start-column="13" selection-end-line="130" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_77.jdk/Contents/Home/src.zip!/java/util/Date.java" />
     <entry file="file://$PROJECT_DIR$/src/model/Schedule.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="21" column="34" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
-          <folding>
-            <element signature="e#409#410#0" expanded="false" />
-            <element signature="e#453#454#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1015,7 +1236,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder">
@@ -1034,17 +1254,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_77.jdk/Contents/Home/javafx-src.zip!/javafx/event/EventHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="37" column="17" selection-start-line="37" selection-start-column="17" selection-end-line="37" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_77.jdk/Contents/Home/javafx-src.zip!/javafx/event/EventHandler.java" />
     <entry file="file://$PROJECT_DIR$/src/view/AbsDashController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="40" column="67" selection-start-line="40" selection-start-column="67" selection-end-line="40" selection-end-column="67" />
+<<<<<<< HEAD
           <folding />
         </state>
       </provider>
@@ -1064,14 +1279,28 @@
         </state>
       </provider>
     </entry>
+=======
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_77.jdk/Contents/Home/javafx-src.zip!/javafx/beans/value/ObservableValue.java" />
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_77.jdk/Contents/Home/javafx-src.zip!/javafx/beans/value/ChangeListener.java" />
+    <entry file="file://$PROJECT_DIR$/src/view/MainApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="21" column="30" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
     <entry file="file://$PROJECT_DIR$/src/view/AbsController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/model/PatientExportWrapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
@@ -1083,6 +1312,14 @@
             <element signature="e#2879#2887#0" expanded="true" />
             <element signature="e#3590#3591#0" expanded="true" />
             <element signature="e#3617#3618#0" expanded="true" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/model/AbsUserWrapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="27" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="false" />
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
           </folding>
         </state>
       </provider>
@@ -1127,20 +1364,21 @@
           </nodes>
           <notes />
           <edges />
-          <settings layout="Hierarchic Group" zoom="0.9007018058499495" x="1853.9734754241476" y="1441.0218006630334" />
+          <settings layout="Hierarchic Group" zoom="0.9007018058499495" x="1854.0" y="1441.0" />
           <SelectedNodes />
           <Categories>
             <Category>Fields</Category>
-            <Category>Constructors</Category>
-            <Category>Methods</Category>
-            <Category>Properties</Category>
             <Category>Inner Classes</Category>
+            <Category>Constructors</Category>
+            <Category>Properties</Category>
+            <Category>Methods</Category>
           </Categories>
           <SCOPE>All</SCOPE>
           <VISIBILITY>private</VISIBILITY>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/utils/SVParsingUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="253">
@@ -1224,11 +1462,18 @@
         <state relative-caret-position="60">
           <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
           <folding />
+=======
+    <entry file="file://$PROJECT_DIR$/src/utils/NamedParameterStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/HealthAttribute.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="60">
           <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
           <folding />
@@ -1252,6 +1497,15 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/utils/XMLParsingUtils.java">
+=======
+        <state relative-caret-position="435">
+          <caret line="34" column="36" selection-start-line="34" selection-start-column="36" selection-end-line="34" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_77.jdk/Contents/Home/src.zip!/javax/management/relation/Relation.java" />
+    <entry file="file://$PROJECT_DIR$/src/model/AbsUser.java">
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="404">
           <caret line="195" column="32" selection-start-line="195" selection-start-column="32" selection-end-line="195" selection-end-column="32" />
@@ -1288,12 +1542,17 @@
         <state relative-caret-position="236">
           <caret line="46" column="28" selection-start-line="46" selection-start-column="28" selection-end-line="46" selection-end-column="28" />
           <folding>
+<<<<<<< HEAD
             <element signature="method#centerStage#0;class#MainApp#0" expanded="false" />
             <element signature="method#showAlert#0;class#MainApp#0" expanded="false" />
             <element signature="method#start#0;class#MainApp#0" expanded="false" />
             <element signature="method#setStageDimensions#0;class#MainApp#0" expanded="false" />
             <element signature="method#showLogin#0;class#MainApp#0" expanded="false" />
             <element signature="method#showAdminDash#0;class#MainApp#0" expanded="false" />
+=======
+            <element signature="e#1698#1699#0" expanded="false" />
+            <element signature="e#1731#1732#0" expanded="false" />
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
           </folding>
         </state>
       </provider>
@@ -1308,6 +1567,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/Administrator.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="160">
           <caret line="21" column="14" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
           <folding>
@@ -1317,28 +1577,42 @@
             <element signature="e#1264#1265#0" expanded="true" />
             <element signature="e#1294#1295#0" expanded="true" />
           </folding>
+=======
+        <state relative-caret-position="480">
+          <caret line="44" column="21" selection-start-line="44" selection-start-column="21" selection-end-line="44" selection-end-column="21" />
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/Caregiver.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="225">
           <caret line="22" column="25" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
           <folding>
             <element signature="e#168#169#0" expanded="true" />
             <element signature="e#209#210#0" expanded="true" />
           </folding>
+=======
+        <state relative-caret-position="285">
+          <caret line="20" column="22" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/AbsRelation.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="70">
           <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
           <folding>
             <element signature="e#1714#1715#0" expanded="true" />
             <element signature="e#1747#1748#0" expanded="true" />
           </folding>
+=======
+        <state relative-caret-position="225">
+          <caret line="16" column="26" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
         </state>
       </provider>
     </entry>
@@ -1347,12 +1621,18 @@
         <state relative-caret-position="165">
           <caret line="19" column="34" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
           <folding>
+<<<<<<< HEAD
             <element signature="e#327#328#0" expanded="true" />
             <element signature="e#368#369#0" expanded="true" />
+=======
+            <element signature="e#1930#1931#0" expanded="false" />
+            <element signature="e#1964#1965#0" expanded="false" />
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/model/Doctor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="295">
@@ -1390,11 +1670,18 @@
         <state relative-caret-position="165">
           <caret line="19" column="14" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
           <folding />
+=======
+    <entry file="file://$PROJECT_DIR$/src/model/Family.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="24" column="100" selection-start-line="24" selection-start-column="100" selection-end-line="24" selection-end-column="100" />
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/AbsUserWrapper.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="735">
           <caret line="51" column="66" selection-start-line="51" selection-start-column="66" selection-end-line="51" selection-end-column="66" />
           <folding>
@@ -1406,19 +1693,29 @@
             <element signature="e#1374#1375#0" expanded="true" />
             <element signature="e#1447#1448#0" expanded="true" />
           </folding>
+=======
+        <state relative-caret-position="135">
+          <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/view/SearchController.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="-245">
           <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
           <folding />
+=======
+        <state relative-caret-position="150">
+          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/utils/RandomGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="358">
           <caret line="244" column="13" selection-start-line="244" selection-start-column="13" selection-end-line="244" selection-end-column="13" />
           <folding>
@@ -1433,6 +1730,17 @@
             <element signature="method#isInteger#0;class#RandomGenerator#0" expanded="false" />
             <element signature="method#isDouble#0;class#RandomGenerator#0" expanded="false" />
           </folding>
+=======
+        <state relative-caret-position="135">
+          <caret line="9" column="5" selection-start-line="7" selection-start-column="16" selection-end-line="9" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HealthApp - Project.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
         </state>
       </provider>
     </entry>
@@ -1444,11 +1752,240 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/DBHandler.java">
+    <entry file="file://$PROJECT_DIR$/src/model/ContactElement.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/Caregiver.java">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="214">
           <caret line="591" column="24" selection-start-line="591" selection-start-column="24" selection-end-line="591" selection-end-column="24" />
           <folding>
+=======
+        <state relative-caret-position="102">
+          <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://MODULES/mdl-HealthApp - Project">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>MODULES</ID>
+          <OriginalElement>mdl-HealthApp - Project</OriginalElement>
+          <nodes>
+            <node x="" y="">mdl-HealthApp - Project</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="95.0" y="15.0" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://JAVA/">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement />
+          <nodes>
+            <node x="" y="">com</node>
+            <node x="" y="">controller</node>
+            <node x="" y="">netscape</node>
+            <node x="" y="">junit</node>
+            <node x="" y="">oracle</node>
+            <node x="" y="">org</node>
+            <node x="" y="">antlr</node>
+            <node x="" y="">sun</node>
+            <node x="" y="">META-INF</node>
+            <node x="" y="">jdk</node>
+            <node x="" y="">view</node>
+            <node x="" y="">java</node>
+            <node x="" y="">javax</node>
+            <node x="" y="">utils</node>
+            <node x="" y="">model</node>
+            <node x="" y="">javafx</node>
+            <node x="" y="">javassist</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="215.0" y="240.0" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/StatsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/SearchController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/PatientWrapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="816">
+          <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/TSVParsingUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+          <folding>
+            <element signature="e#164#165#0" expanded="true" />
+            <element signature="e#191#192#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/ParsingUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/SVParsingUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="664">
+          <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+          <folding>
+            <element signature="e#437#438#0" expanded="true" />
+            <element signature="e#460#461#0" expanded="true" />
+            <element signature="docComment;method#getFile#0;class#SVParsingUtils#0" expanded="false" />
+            <element signature="e#949#957#0" expanded="true" />
+            <element signature="docComment;method#importData#0;class#SVParsingUtils#0" expanded="false" />
+            <element signature="method#exportData#0;class#SVParsingUtils#0" expanded="false" />
+            <element signature="method#splitLine#0;class#SVParsingUtils#0" expanded="false" />
+            <element signature="e#2786#2809#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/HTMLParsingUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#355#356#0" expanded="true" />
+            <element signature="e#392#393#0" expanded="true" />
+            <element signature="e#460#461#0" expanded="true" />
+            <element signature="e#487#488#0" expanded="true" />
+            <element signature="e#560#561#0" expanded="true" />
+            <element signature="e#587#588#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/Pet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="54" column="5" selection-start-line="54" selection-start-column="5" selection-end-line="54" selection-end-column="5" />
+          <folding>
+            <element signature="e#1119#1120#0" expanded="true" />
+            <element signature="e#1173#1174#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/RandomGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="227" column="109" selection-start-line="226" selection-start-column="0" selection-end-line="228" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/XMLParsingUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1133">
+          <caret line="206" column="10" selection-start-line="206" selection-start-column="10" selection-end-line="206" selection-end-column="10" />
+          <folding>
+            <element signature="method#importData#0;class#XMLParsingUtils#0" expanded="false" />
+            <element signature="method#main#0;class#XMLParsingUtils#0" expanded="false" />
+            <element signature="method#importData#1;class#XMLParsingUtils#0" expanded="false" />
+            <element signature="e#8292#8353#0" expanded="false" />
+            <element signature="e#8496#8606#0" expanded="false" />
+            <element signature="e#8808#8834#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/PatientExportWrapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="385">
+          <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding>
+            <element signature="method#splitSVLine#0;class#PatientExportWrapper#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/CSVParsingUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="14" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
+          <folding>
+            <element signature="e#209#210#0" expanded="true" />
+            <element signature="e#235#236#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/TestMainExport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="79" selection-start-line="16" selection-start-column="79" selection-end-line="16" selection-end-column="79" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#692#701#0" expanded="true" />
+            <element signature="e#883#884#0" expanded="true" />
+            <element signature="e#925#926#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/Patient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="106" column="21" selection-start-line="106" selection-start-column="21" selection-end-line="106" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/DBHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="640" column="20" selection-start-line="640" selection-start-column="20" selection-end-line="640" selection-end-column="20" />
+          <folding>
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
             <element signature="docComment;class#DBHandler#0" expanded="false" />
             <element signature="method#initDB#0;class#DBHandler#0" expanded="false" />
             <element signature="method#populateDatabase#0;class#DBHandler#0" expanded="false" />
@@ -1472,8 +2009,6 @@
             <element signature="method#insertRelation#0;class#DBHandler#0" expanded="false" />
             <element signature="method#insertContact#0;class#DBHandler#0" expanded="false" />
             <element signature="method#insertPet#0;class#DBHandler#0" expanded="false" />
-            <element signature="method#insertMeal#0;class#DBHandler#0" expanded="false" />
-            <element signature="method#insertEats#0;class#DBHandler#0" expanded="false" />
             <element signature="method#insertRelated#0;class#DBHandler#0" expanded="false" />
             <element signature="method#insertStaffAssignment#0;class#DBHandler#0" expanded="false" />
             <element signature="method#insertHealthInfo#0;class#DBHandler#0" expanded="false" />
@@ -1486,8 +2021,11 @@
             <element signature="method#getPatientMedicalStaff#0;class#DBHandler#0" expanded="false" />
             <element signature="method#getRelationByUsername#0;class#DBHandler#0" expanded="false" />
             <element signature="method#getRelationById#0;class#DBHandler#0" expanded="false" />
+<<<<<<< HEAD
             <element signature="method#getAbsRelation#0;class#DBHandler#0" expanded="false" />
             <element signature="method#getPatientRelations#0;class#DBHandler#0" expanded="false" />
+=======
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
             <element signature="method#getPatient#0;class#DBHandler#0" expanded="false" />
             <element signature="method#getAllPatients#0;class#DBHandler#0" expanded="false" />
             <element signature="method#getContactInfo#0;class#DBHandler#0" expanded="false" />
@@ -1504,6 +2042,7 @@
             <element signature="method#localDateToTimestamp#0;class#DBHandler#0" expanded="false" />
             <element signature="method#serialize#0;class#DBHandler#0" expanded="false" />
             <element signature="method#deserialize#0;class#DBHandler#0" expanded="false" />
+<<<<<<< HEAD
             <marker date="1461798132000" expanded="false" signature="2591:3102" placeholder="CREATE TABLE... user_account" />
             <marker date="1461798132000" expanded="false" signature="3431:3788" placeholder="CREATE TABLE... contact" />
             <marker date="1461798132000" expanded="false" signature="4110:4334" placeholder="CREATE TABLE... pet" />
@@ -1579,7 +2118,50 @@
             <element signature="method#makePrimaryAddress#0;class#Contact#0" expanded="false" />
             <element signature="method#getAllContactElements#0;class#Contact#0" expanded="false" />
             <element signature="method#getElementById#0;class#Contact#0" expanded="false" />
+=======
+            <marker date="1461797765103" expanded="true" signature="2445:2859" placeholder="CREATE TABLE... user" />
+            <marker date="1461797765103" expanded="true" signature="3188:3453" placeholder="CREATE TABLE... contact" />
+            <marker date="1461797765103" expanded="true" signature="3814:4061" placeholder="CREATE TABLE... pet" />
+            <marker date="1461797765103" expanded="true" signature="4390:4532" placeholder="CREATE TABLE... meal" />
+            <marker date="1461797765103" expanded="true" signature="4894:5112" placeholder="CREATE TABLE... eats" />
+            <marker date="1461797765103" expanded="true" signature="5475:5669" placeholder="CREATE TABLE... event" />
+            <marker date="1461797765103" expanded="true" signature="6003:6249" placeholder="CREATE TABLE... health_info" />
+            <marker date="1461797765103" expanded="true" signature="6588:6832" placeholder="CREATE TABLE... staff_assignment" />
+            <marker date="1461797765103" expanded="true" signature="7163:7408" placeholder="CREATE TABLE... related" />
+            <marker date="1461797765103" expanded="true" signature="11507:11624" placeholder="INSERT INTO pet... " />
+            <marker date="1461797765103" expanded="true" signature="12339:12436" placeholder="INSERT INTO meal... " />
+            <marker date="1461797765103" expanded="true" signature="13116:13204" placeholder="INSERT INTO eats... " />
+            <marker date="1461797765103" expanded="true" signature="13836:13926" placeholder="INSERT INTO related... " />
+            <marker date="1461797765103" expanded="true" signature="14519:14633" placeholder="INSERT INTO health_info... " />
+            <marker date="1461797765103" expanded="true" signature="15388:15425" placeholder="SELECT * FRO... user" />
+            <marker date="1461797765103" expanded="true" signature="16234:16289" placeholder="SELECT * FRO... user" />
+            <marker date="1461797765103" expanded="true" signature="17231:17285" placeholder="SELECT * FRO... user" />
+            <marker date="1461797765103" expanded="true" signature="18220:18377" placeholder="SELECT user_... user" />
+            <marker date="1461797765103" expanded="true" signature="18801:18957" placeholder="SELECT user_... user" />
+            <marker date="1461797765103" expanded="true" signature="19482:19639" placeholder="SELECT user_... user" />
+            <marker date="1461797765103" expanded="true" signature="20533:20689" placeholder="SELECT user_... user" />
+            <marker date="1461797765103" expanded="true" signature="21619:21775" placeholder="SELECT user_... user" />
+            <marker date="1461797765103" expanded="true" signature="22212:22350" placeholder="SELECT user_... user" />
+            <marker date="1461797765103" expanded="true" signature="24729:24767" placeholder="SELECT * FRO... user" />
+            <marker date="1461797765103" expanded="true" signature="25424:25463" placeholder="SELECT * FRO... contact" />
+>>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/FitBitParsingUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="142">
+          <caret line="137" column="38" selection-start-line="137" selection-start-column="38" selection-end-line="137" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/controller/FitBitTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="24" column="51" selection-start-line="24" selection-start-column="51" selection-end-line="24" selection-end-column="51" />
+          <folding />
         </state>
       </provider>
     </entry>

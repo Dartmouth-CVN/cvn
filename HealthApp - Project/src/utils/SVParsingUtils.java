@@ -40,10 +40,9 @@ public abstract class SVParsingUtils implements ParsingUtils {
 
 	@Override
 	public List<String> getFileContents(File file){
-		List<String> lines = null;
+		List<String> lines = new LinkedList<String>();;
 		try {
 			Scanner fileReader = new Scanner(file);
-			lines = new LinkedList<String>();
 			while (fileReader.hasNextLine())
 				lines.add(fileReader.nextLine());
 			fileReader.close();
