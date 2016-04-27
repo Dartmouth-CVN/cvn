@@ -1,5 +1,8 @@
 package model;
 
+import sun.awt.image.ImageWatched;
+
+import javax.management.relation.Relation;
 import java.util.LinkedList;
 
 /**
@@ -49,11 +52,11 @@ public class PatientExportWrapper implements IExportable {
         this.patient = p;
     }
 
-    public void setPatient(Patient patient){
+    public void setPatient(Patient patient) {
         this.patient = patient;
     }
 
-    public Patient getPatient(){
+    public Patient getPatient() {
         return patient;
     }
 
@@ -63,32 +66,71 @@ public class PatientExportWrapper implements IExportable {
     }
 
     @Override
-    public String toSVString(String delimiter){
-        String[] fields = {patient.getFirstName(), patient.getLastName(), patient.getUsername(),
-                patient.getBirthday().toString(), patient.getPicture()}; //to be followed by the addresses, phone numbers, and emails.
+    public String toSVString(String delimiter) {
+        String[] stringFields = {patient.getFirstName(), patient.getLastName(), patient.getUsername(),
+                patient.getBirthday().toString(), patient.getPicture(), patient.getRoom()}; //to be followed by the simple String fields: contactInfo, relations, pets, and meals.
+
+        boolean[] toExFields = {firstName, lastName, username, birthday, picture, room}; //which of the above fields to export
+
+        for (int i = 0; i < toExFields.length; i++) //deleting the appropriate fields
+            if (!toExFields[i]) stringFields[i] = "";
 
         LinkedList<String> addresses = new LinkedList<String>();
-        for(ContactElement c : patient.getContactInfo().getAddresses())
-            addresses.add(c.getValue());
-
         LinkedList<String> phonenumbers = new LinkedList<String>();
-        for(ContactElement c : patient.getContactInfo().getPhoneNumbers())
-            phonenumbers.add(c.getValue());
-
         LinkedList<String> emails = new LinkedList<String>();
-        for(ContactElement c : patient.getContactInfo().getEmails())
-            emails.add(c.getValue());
 
-        String firsthalf = String.join(delimiter, fields) + delimiter;
-        String secondhalf = "\"" + String.join("," ,addresses)+"\"";
-        secondhalf = ",\"" + String.join("," ,phonenumbers) + "\"";
-        secondhalf = ",\"" + String.join("," ,emails) + "\"";
-        return firsthalf+secondhalf;
+        LinkedList<String> relationships = new LinkedList<String>();
+        LinkedList<String> petslist = new LinkedList<String>();
+
+        LinkedList<String> mealslist = new LinkedList<String>();
+        String healthplist = "";
+
+
+        if (contactInfo) {
+            for (ContactElement c : patient.getContactInfo().getAddresses())
+                addresses.add(c.getValue());
+            for (ContactElement c : patient.getContactInfo().getPhoneNumbers())
+                phonenumbers.add(c.getValue());
+            for (ContactElement c : patient.getContactInfo().getEmails())
+                emails.add(c.getValue());
+        }
+
+        if (relations) {
+            for (AbsRelation ar : patient.getRelations()) {
+                relationships.add(String.format("%s, %s, %s, %s", ar.getFirstName(), ar.getLastName(), ar.getRelationship(), ar.getBirthday().toString()));
+            }
+        }
+        if (pets) {
+            for (Pet p : patient.getPets()) {
+                petslist.add(String.format("%s, %s", p.getName(), p.getSpecies()));
+            }
+        }
+        if (meals) {
+            for (Meal m : patient.getMeals()) {
+                mealslist.add(String.format("%s, %d, %s", m.getFood(), m.getCalories(), m.getNotes()));
+            }
+        }
+        if (healthProfile) {
+            HealthProfile hp = patient.getHealthProfile();
+            healthplist = String.format("%s; %s", hp.getAllergies(), hp.getDietaryRestrictions());
+        }
+
+        String firsthalf = String.join(delimiter, stringFields) + delimiter;
+
+        String secondhalf = "\"" + String.join(";", addresses) + "\"";
+        secondhalf += ",\"" + String.join(";", phonenumbers) + "\"";
+        secondhalf += ",\"" + String.join(";", emails) + "\"";
+        secondhalf += ",\"" + String.join(";", relationships) + "\"";
+        secondhalf += ",\"" + String.join(";", petslist) + "\"";
+        secondhalf += ",\"" + String.join(";", mealslist) + "\"";
+        secondhalf += ",\"" + healthplist + "\"";
+
+        return firsthalf + secondhalf;
     }
 
     @Override
     public String toCSVString() {
-        return null;
+        return toSVString(",");
     }
 
     @Override
@@ -100,6 +142,7 @@ public class PatientExportWrapper implements IExportable {
     public String toHTMLString() {
         return null;
     }
+
     @Override
     public AbsUser fromXMLString() {
         return null;
