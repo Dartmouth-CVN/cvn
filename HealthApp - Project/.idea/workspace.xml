@@ -3,16 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ee70ff0e-076a-4edc-941d-8d0ae613cf2a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/AbsRelation.java" afterPath="$PROJECT_DIR$/src/model/AbsRelation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/AbsUser.java" afterPath="$PROJECT_DIR$/src/model/AbsUser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/Administrator.java" afterPath="$PROJECT_DIR$/src/model/Administrator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/Caregiver.java" afterPath="$PROJECT_DIR$/src/model/Caregiver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/Doctor.java" afterPath="$PROJECT_DIR$/src/model/Doctor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/Family.java" afterPath="$PROJECT_DIR$/src/model/Family.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/MedicalStaff.java" afterPath="$PROJECT_DIR$/src/model/MedicalStaff.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/Nurse.java" afterPath="$PROJECT_DIR$/src/model/Nurse.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/Patient.java" afterPath="$PROJECT_DIR$/src/model/Patient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/DBHandler.java" afterPath="$PROJECT_DIR$/src/utils/DBHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/EditPatientController.java" afterPath="$PROJECT_DIR$/src/view/EditPatientController.java" />
     </list>
     <ignored path="HealthApp - Project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -68,7 +59,6 @@
         <option value="$PROJECT_DIR$/src/utils/GeneralParsingUtils.java" />
         <option value="$PROJECT_DIR$/src/utils/ParsingUtils.java" />
         <option value="$PROJECT_DIR$/src/utils/SVParsingUtils.java" />
-        <option value="$PROJECT_DIR$/src/view/EditPatientController.java" />
         <option value="$PROJECT_DIR$/src/model/CaregiverWrapper.java" />
         <option value="$PROJECT_DIR$/src/model/IParsable.java" />
         <option value="$PROJECT_DIR$/src/model/IExportable.java" />
@@ -85,6 +75,8 @@
         <option value="$PROJECT_DIR$/src/model/Family.java" />
         <option value="$PROJECT_DIR$/src/model/Nurse.java" />
         <option value="$PROJECT_DIR$/src/model/Patient.java" />
+        <option value="$PROJECT_DIR$/src/view/AbsDashController.java" />
+        <option value="$PROJECT_DIR$/src/view/EditPatientController.java" />
       </list>
     </option>
   </component>
@@ -172,25 +164,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="utils" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HealthApp - Project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HealthApp - Project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
+              <option name="myItemId" value="view" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -665,7 +639,7 @@
       <updated>1461642894095</updated>
       <workItem from="1461642899217" duration="12434000" />
       <workItem from="1461714613763" duration="2634000" />
-      <workItem from="1461722507252" duration="2804000" />
+      <workItem from="1461722507252" duration="5572000" />
     </task>
     <task id="LOCAL-00001" summary="patientexportwrapper template">
       <created>1461724721718</created>
@@ -674,11 +648,18 @@
       <option name="project" value="LOCAL" />
       <updated>1461724721718</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="date -&gt;localdate">
+      <created>1461725661176</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1461725661176</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17872000" />
+    <option name="totallyTimeSpent" value="20640000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="25" y="144" width="1438" height="842" extended-state="0" />
@@ -718,11 +699,12 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="patientexportwrapper template" />
-    <option name="LAST_COMMIT_MESSAGE" value="patientexportwrapper template" />
+    <MESSAGE value="date -&gt;localdate" />
+    <option name="LAST_COMMIT_MESSAGE" value="date -&gt;localdate" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="2" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -731,49 +713,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/utils/SVParsingUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
-          <caret line="59" column="32" selection-start-line="59" selection-start-column="32" selection-end-line="59" selection-end-column="32" />
-          <folding>
-            <element signature="e#426#427#0" expanded="true" />
-            <element signature="e#459#460#0" expanded="true" />
-            <element signature="e#561#562#0" expanded="true" />
-            <element signature="e#594#595#0" expanded="true" />
-            <element signature="docComment;method#importData#0;class#SVParsingUtils#0" expanded="false" />
-            <element signature="docComment;method#exportData#0;class#SVParsingUtils#0" expanded="false" />
-            <element signature="docComment;method#splitLine#0;class#SVParsingUtils#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/PatientExportWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="docComment;class#PatientExportWrapper#0" expanded="false" />
-            <element signature="e#2058#2059#0" expanded="true" />
-            <element signature="e#2088#2089#0" expanded="true" />
-            <element signature="e#2137#2138#0" expanded="true" />
-            <element signature="e#2164#2165#0" expanded="true" />
-            <element signature="e#2515#2523#0" expanded="true" />
-            <element signature="e#2697#2705#0" expanded="true" />
-            <element signature="e#2879#2887#0" expanded="true" />
-            <element signature="e#3590#3591#0" expanded="true" />
-            <element signature="e#3617#3618#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/Patient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="34" column="3" selection-start-line="34" selection-start-column="3" selection-end-line="36" selection-end-column="81" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="uml://JAVA/controller">
       <provider selected="true" editor-type-id="UmlEditorProvider">
         <state>
@@ -961,8 +900,8 @@
         <state relative-caret-position="180">
           <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
           <folding>
-            <element signature="e#240#241#0" expanded="true" />
-            <element signature="e#302#303#0" expanded="true" />
+            <element signature="e#240#241#0" expanded="false" />
+            <element signature="e#302#303#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -997,7 +936,7 @@
         <state relative-caret-position="105">
           <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1007,10 +946,10 @@
         <state relative-caret-position="616">
           <caret line="129" column="5" selection-start-line="129" selection-start-column="5" selection-end-line="129" selection-end-column="5" />
           <folding>
-            <element signature="e#426#427#0" expanded="true" />
-            <element signature="e#459#460#0" expanded="true" />
-            <element signature="e#561#562#0" expanded="true" />
-            <element signature="e#594#595#0" expanded="true" />
+            <element signature="e#426#427#0" expanded="false" />
+            <element signature="e#459#460#0" expanded="false" />
+            <element signature="e#561#562#0" expanded="false" />
+            <element signature="e#594#595#0" expanded="false" />
             <element signature="docComment;method#importData#0;class#SVParsingUtils#0" expanded="false" />
             <element signature="docComment;method#exportData#0;class#SVParsingUtils#0" expanded="false" />
             <element signature="docComment;method#splitLine#0;class#SVParsingUtils#0" expanded="false" />
@@ -1042,14 +981,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="7" column="28" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/EditPatientController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="29" column="40" selection-start-line="29" selection-start-column="40" selection-end-line="29" selection-end-column="40" />
           <folding />
         </state>
       </provider>
@@ -1111,9 +1042,8 @@
         <state relative-caret-position="390">
           <caret line="80" column="37" selection-start-line="80" selection-start-column="37" selection-end-line="80" selection-end-column="37" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2312#2313#0" expanded="true" />
-            <element signature="e#2399#2400#0" expanded="true" />
+            <element signature="e#2312#2313#0" expanded="false" />
+            <element signature="e#2399#2400#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1237,8 +1167,8 @@
         <state relative-caret-position="270">
           <caret line="22" column="25" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
           <folding>
-            <element signature="e#465#466#0" expanded="true" />
-            <element signature="e#529#530#0" expanded="true" />
+            <element signature="e#465#466#0" expanded="false" />
+            <element signature="e#529#530#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1256,7 +1186,7 @@
         <state relative-caret-position="420">
           <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1266,7 +1196,7 @@
         <state relative-caret-position="120">
           <caret line="8" column="33" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1319,7 +1249,7 @@
         <state relative-caret-position="300">
           <caret line="20" column="21" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1353,9 +1283,64 @@
         <state relative-caret-position="225">
           <caret line="21" column="34" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
           <folding>
-            <element signature="e#409#410#0" expanded="true" />
-            <element signature="e#453#454#0" expanded="true" />
+            <element signature="e#409#410#0" expanded="false" />
+            <element signature="e#453#454#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/AdminDash.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/EditPatientController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="945">
+          <caret line="195" column="53" selection-start-line="195" selection-start-column="53" selection-end-line="195" selection-end-column="53" />
+          <folding>
+            <element signature="method#initializePersonalInfo#0;class#EditPatientController#0" expanded="false" />
+            <element signature="method#initializeRelationInfo#0;class#EditPatientController#0" expanded="false" />
+            <element signature="method#initializePetInfo#0;class#EditPatientController#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_77.jdk/Contents/Home/javafx-src.zip!/javafx/event/EventHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="37" column="17" selection-start-line="37" selection-start-column="17" selection-end-line="37" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/AbsDashController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="40" column="67" selection-start-line="40" selection-start-column="67" selection-end-line="40" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_77.jdk/Contents/Home/javafx-src.zip!/javafx/beans/value/ObservableValue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="107" column="30" selection-start-line="107" selection-start-column="30" selection-end-line="107" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_77.jdk/Contents/Home/javafx-src.zip!/javafx/beans/value/ChangeListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="45" column="17" selection-start-line="45" selection-start-column="17" selection-end-line="45" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>

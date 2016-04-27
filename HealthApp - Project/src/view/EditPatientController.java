@@ -1,6 +1,6 @@
 package view;
 
-import java.io.File;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 
 import javafx.collections.FXCollections;
@@ -17,311 +17,300 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
 import model.*;
 import utils.ObjectNotFoundException;
 
-public class EditPatientController extends AbsController{
+public class EditPatientController extends AbsController {
 
-	// General functions and attributes to interact with main application
+    @FXML
+    TextField firstName;
+    @FXML
+    TextField lastName;
+    @FXML
+    ImageView profilePic;
+    @FXML
+    TextArea patientAddress;
+    @FXML
+    TextField relationName;
+    @FXML
+    TextField relationshipField;
+    @FXML
+    TextField mealName;
+    @FXML
+    TextField mealCalories;
+    @FXML
+    TextField mealRating;
+    @FXML
+    TextArea mealNotes;
+    @FXML
+    DatePicker patientBirthday;
+    @FXML
+    DatePicker relationBirthday;
+    @FXML
+    TableView<ContactElementWrapper> patientPhoneTable;
+    @FXML
+    TableView<ContactElementWrapper> patientEmailTable;
+    @FXML
+    TableView<ContactElementWrapper> relationPhoneTable;
+    @FXML
+    TableView<ContactElementWrapper> relationEmailTable;
+    @FXML
+    TableColumn<ContactElementWrapper, String> patientPhoneColumn;
+    @FXML
+    TableColumn<ContactElementWrapper, String> patientEmailColumn;
+    @FXML
+    TableColumn<ContactElementWrapper, String> relationPhoneColumn;
+    @FXML
+    TableColumn<ContactElementWrapper, String> relationEmailColumn;
+    @FXML
+    TableView<AbsRelationWrapper> relationTable;
+    @FXML
+    TableColumn<AbsRelationWrapper, String> relationNameColumn;
+    @FXML
+    TableColumn<AbsRelationWrapper, String> relationRelationshipColumn;
+    @FXML
+    TableView<PetWrapper> petTable;
+    @FXML
+    TableColumn<PetWrapper, String> petNameColumn;
+    @FXML
+    TableColumn<PetWrapper, String> petSpeciesColumn;
+    @FXML
+    TableColumn<PetWrapper, Boolean> petAllergyFriendlyColumn;
+    @FXML
+    TableView<MealWrapper> mealTable;
+    @FXML
+    TableColumn<MealWrapper, String> mealNameColumn;
+    @FXML
+    TableColumn<MealWrapper, Number> mealCaloriesColumn;
+    @FXML
+    TableColumn<MealWrapper, Number> mealRatingColumn;
+    @FXML
+    TableColumn<MealWrapper, String> mealNotesColumn;
 
-	private Patient patient;
-	private File curCSV;
-	private LinkedList<HealthAttribute<?>> info;
+    ObservableList<ContactElementWrapper> patientPhones;
+    ObservableList<ContactElementWrapper> patientEmails;
+    ObservableList<AbsRelationWrapper> relations;
+    ObservableList<ContactElementWrapper> relationEmails;
+    ObservableList<ContactElementWrapper> relationPhones;
+    ObservableList<PetWrapper> pets;
+    ObservableList<MealWrapper> meals;
+    DateTimeFormatter myDateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private Patient patient;
 
-	public EditPatientController() {
-	}
+    public EditPatientController() {
+    }
 
 
-	@FXML
-	public FXMLLoader getLoader() {
-		loader.setLocation(MainApp.class.getResource("../view/EditPatientView.fxml"));
-		return loader;
-	}
+    @FXML
+    public FXMLLoader getLoader() {
+        loader.setLocation(MainApp.class.getResource("../view/EditPatientView.fxml"));
+        return loader;
+    }
 
-	public Patient getPatient() {
-		return this.patient;
-	}
+    public Patient getPatient() {
+        return this.patient;
+    }
 
-	public void setPatient(Patient p) {
-		this.patient = p;
-		loadFields();
-	}
+    public void setPatient(Patient p) {
+        this.patient = p;
+        loadFields();
+    }
 
-	@FXML
-	public void importFitBitCSV() {
-		FileChooser fc = new FileChooser();
-		fc.setTitle("Select FitBit CSV to import");
-		curCSV = fc.showOpenDialog(null);
-		if (curCSV != null && curCSV.exists()) {
-//			info = utils.FitBitParsingUtils.fitBitImport(curCSV);
-//			patient.getHealthProfile().addHealthInfoList(info);
-//			MainApp.showAlert("FitBit import successful!");
-		}
-	}
+    @FXML
+    private void initialize() {
+        initializePersonalInfo();
+        initializeRelationInfo();
+        initializePetInfo();
+        initializeDietaryPreferences();
+    }
 
-	// Functions and attributes to communicate with EditPatient.fxml
+    public void initializePersonalInfo() {
+        patientPhones = FXCollections.observableArrayList();
+        patientEmails = FXCollections.observableArrayList();
+        patientPhoneTable.setItems(patientPhones);
+        patientEmailTable.setItems(patientEmails);
+        patientPhoneColumn.setCellValueFactory(cellData -> cellData.getValue().getValueProperty());
+        patientEmailColumn.setCellValueFactory(cellData -> cellData.getValue().getValueProperty());
+        patientPhoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        patientEmailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        patientPhoneColumn.setOnEditCommit((event) -> {
+            int phoneIndex = patientPhoneTable.getSelectionModel().getSelectedIndex();
+            long id = patientPhones.get(phoneIndex).getElementIdProperty().get();
+            try {
+                patientPhones.set(phoneIndex, new ContactElementWrapper(patient.getContactInfo().getElementById(id)));
+            } catch (ObjectNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
 
-	@FXML
-	TextField firstName;
-	@FXML 
-	TextField lastName;
-	@FXML
-	ImageView profilePic;
-	@FXML
-	TextArea patientAddress;
-	@FXML
-	TextField relationName;
-	@FXML
-	TextField relationshipField;
-	@FXML
-	TextField mealName;
-	@FXML
-	TextField mealCalories;
-	@FXML
-	TextField mealRating;
-	@FXML
-	TextArea mealNotes;
-	@FXML
-	DatePicker patientBirthday;
-	@FXML
-	DatePicker relationBirthday;
-	@FXML
-	TableView<ContactElementWrapper> patientPhoneTable;
-	@FXML
-	TableView<ContactElementWrapper> patientEmailTable;
-	@FXML
-	TableView<ContactElementWrapper> relationPhoneTable;
-	@FXML
-	TableView<ContactElementWrapper> relationEmailTable;
-	@FXML
-	TableColumn<ContactElementWrapper, String> patientPhoneColumn;
-	@FXML
-	TableColumn<ContactElementWrapper, String> patientEmailColumn;
-	@FXML
-	TableColumn<ContactElementWrapper, String> relationPhoneColumn;
-	@FXML
-	TableColumn<ContactElementWrapper, String> relationEmailColumn;
-	@FXML
-	TableView<AbsRelationWrapper> relationTable;
-	@FXML
-	TableColumn<AbsRelationWrapper, String> relationNameColumn;
-	@FXML
-	TableColumn<AbsRelationWrapper, String> relationRelationshipColumn;
-	@FXML
-	TableView<PetWrapper> petTable;
-	@FXML
-	TableColumn<PetWrapper, String> petNameColumn;
-	@FXML
-	TableColumn<PetWrapper, String> petSpeciesColumn;
-	@FXML
-	TableColumn<PetWrapper, Boolean> petAllergyFriendlyColumn;
-	@FXML
-	TableView<MealWrapper> mealTable;
-	@FXML
-	TableColumn<MealWrapper, String> mealNameColumn;
-	@FXML
-	TableColumn<MealWrapper, Number> mealCaloriesColumn;
-	@FXML
-	TableColumn<MealWrapper, Number> mealRatingColumn;
-	@FXML
-	TableColumn<MealWrapper, String> mealNotesColumn;
+        patientEmailColumn.setOnEditCommit((event) -> {
+            try {
+                int emailIndex = patientEmailTable.getSelectionModel().getSelectedIndex();
+                long id = patientEmails.get(emailIndex).getElementIdProperty().get();
+                patientEmails.set(emailIndex, new ContactElementWrapper(patient.getContactInfo().getElementById(id)));
+            } catch (ObjectNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
 
-	ObservableList<ContactElementWrapper> patientPhones;
-	ObservableList<ContactElementWrapper> patientEmails;
+    }
 
-	ObservableList<AbsRelationWrapper> familyMembers;
-	ObservableList<ContactElementWrapper> familyEmails;
-	ObservableList<ContactElementWrapper> familyPhones;
+    public void initializeRelationInfo() {
+        relations = FXCollections.observableArrayList();
+        relationPhones = FXCollections.observableArrayList();
+        relationEmails = FXCollections.observableArrayList();
+        relationTable.setItems(relations);
 
-	ObservableList<PetWrapper> pets;
-	ObservableList<MealWrapper> meals;
+        relationPhoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        relationEmailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        relationNameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
+        relationPhoneColumn.setCellValueFactory(cellData -> cellData.getValue().getValueProperty());
+        relationEmailColumn.setCellValueFactory(cellData -> cellData.getValue().getValueProperty());
+        relationRelationshipColumn.setCellValueFactory(cellData -> cellData.getValue().getRelationshipProperty());
+    }
 
-	@FXML
-	private void initialize() {
-		patientPhones = FXCollections.observableArrayList();
-		patientEmails = FXCollections.observableArrayList();
-		familyMembers = FXCollections.observableArrayList();
-		familyPhones = FXCollections.observableArrayList();
-		familyEmails = FXCollections.observableArrayList();
-		pets = FXCollections.observableArrayList();
-		meals = FXCollections.observableArrayList();
+    public void initializePetInfo() {
+        pets = FXCollections.observableArrayList();
+        petTable.setItems(pets);
+        petNameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
+        petSpeciesColumn.setCellValueFactory(cellData -> cellData.getValue().getSpeciesProperty());
+        petAllergyFriendlyColumn.setCellValueFactory(cellData -> cellData.getValue().getAllergyFriendlyProperty());
 
-		patientPhoneTable.setItems(patientPhones);
-		patientEmailTable.setItems(patientEmails);
-		relationTable.setItems(familyMembers);
-		petTable.setItems(pets);
-		mealTable.setItems(meals);
+    }
 
-		patientPhoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-		patientEmailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-		relationPhoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-		relationEmailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+    public void initializeDietaryPreferences() {
+        meals = FXCollections.observableArrayList();
+        mealTable.setItems(meals);
+        mealNameColumn.setCellValueFactory(cellData -> cellData.getValue().getFoodProperty());
+        mealCaloriesColumn.setCellValueFactory(cellData -> cellData.getValue().getCaloriesProperty());
+        mealRatingColumn.setCellValueFactory(cellData -> cellData.getValue().getRatingProperty());
+        mealNotesColumn.setCellValueFactory(cellData -> cellData.getValue().getNotesProperty());
+    }
 
-		patientPhoneColumn.setCellValueFactory(cellData -> cellData.getValue().getValueProperty());
-		patientEmailColumn.setCellValueFactory(cellData -> cellData.getValue().getValueProperty());
-		relationPhoneColumn.setCellValueFactory(cellData -> cellData.getValue().getValueProperty());
-		relationEmailColumn.setCellValueFactory(cellData -> cellData.getValue().getValueProperty());
-		relationNameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
-		relationRelationshipColumn.setCellValueFactory(cellData -> cellData.getValue().getRelationshipProperty());
-		petNameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
-		petSpeciesColumn.setCellValueFactory(cellData -> cellData.getValue().getSpeciesProperty());
-		petAllergyFriendlyColumn.setCellValueFactory(cellData -> cellData.getValue().getAllergyFriendlyProperty());
-		mealNameColumn.setCellValueFactory(cellData -> cellData.getValue().getFoodProperty());
-		mealCaloriesColumn.setCellValueFactory(cellData -> cellData.getValue().getCaloriesProperty());
-		mealRatingColumn.setCellValueFactory(cellData -> cellData.getValue().getRatingProperty());
-		mealNotesColumn.setCellValueFactory(cellData -> cellData.getValue().getNotesProperty());
+    public void loadFields() {
+        profilePic.setImage(new Image("file:" + patient.getPicture()));
+        firstName.setText(patient.getFirstName());
+        lastName.setText(patient.getLastName());
+        patientBirthday.setValue(patient.getBirthday());
 
-		patientPhoneColumn.setOnEditCommit(new EventHandler<CellEditEvent<ContactElementWrapper, String>>() {
-			@Override
-			public void handle(CellEditEvent<ContactElementWrapper, String> t) {
-				try {
-					int phoneIndex = patientPhoneTable.getSelectionModel().getSelectedIndex();
-					long id = patientPhoneTable.getSelectionModel().getSelectedItem().getElementIdProperty().get();
-					patientPhones.set(phoneIndex, new ContactElementWrapper(patient.getContactInfo().getElementById(id)) );
-				} catch (ObjectNotFoundException e) {
-					e.printStackTrace();
-				}
-			}
-		});
+        for (ContactElement e : patient.getContactInfo().getPhoneNumbers())
+            patientPhones.add(new ContactElementWrapper(e));
 
-		patientEmailColumn.setOnEditCommit(new EventHandler<CellEditEvent<ContactElementWrapper, String>>() {
-			@Override
-			public void handle(CellEditEvent<ContactElementWrapper, String> t) {
-				try {
-					int emailIndex = patientEmailTable.getSelectionModel().getSelectedIndex();
-					long id = patientPhoneTable.getSelectionModel().getSelectedItem().getElementIdProperty().get();
-					patientEmails.set(emailIndex, new ContactElementWrapper(patient.getContactInfo().getElementById(id)) );
-				} catch (ObjectNotFoundException e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+        for (ContactElement e : patient.getContactInfo().getEmails())
+            patientEmails.add(new ContactElementWrapper(e));
 
-	public void loadFields() {
-		profilePic.setImage(new Image("file:" + patient.getPicture()));
-		firstName.setText(patient.getFirstName());
-		lastName.setText(patient.getLastName());
-//			patientBirthday.setValue(patient.getBirthday().getTime());
+        String addresses = "";
+        for (ContactElement e : patient.getContactInfo().getAddresses())
+            addresses += e.getValue() + "\n";
+        patientAddress.setText(addresses);
 
-		for(ContactElement e: patient.getContactInfo().getPhoneNumbers())
-			patientPhones.add(new ContactElementWrapper(e));
+        for (AbsRelation relation : patient.getRelations())
+            relations.add(new AbsRelationWrapper(relation));
 
-		for(ContactElement e: patient.getContactInfo().getEmails())
-			patientEmails.add(new ContactElementWrapper(e));
+        for (Pet p : patient.getPets())
+            pets.add(new PetWrapper(p));
 
-		String addresses = "";
-		for(ContactElement e: patient.getContactInfo().getAddresses())
-			addresses += e.getValue() + "\n";
-		patientAddress.setText(addresses);
+        for (Meal m : patient.getMeals())
+            meals.add(new MealWrapper(m));
+    }
 
-		for(AbsRelation relation : patient.getRelations())
-			familyMembers.add(new AbsRelationWrapper(relation));
+    @FXML
+    private void addPatientPhone() {
+        patientPhones.add(new ContactElementWrapper(new ContactElement()));
+    }
 
-		for (Pet p : patient.getPets())
-			pets.add(new PetWrapper(p));
+    @FXML
+    private void removePatientPhone() {
+        patientPhones.remove(patientPhoneTable.getSelectionModel().getSelectedIndex());
+    }
 
-		for(Meal m: patient.getMeals())
-			meals.add(new MealWrapper(m));
-	}
+    @FXML
+    private void addPatientEmail() {
+        patientEmails.add(new ContactElementWrapper(new ContactElement()));
+    }
 
-	@FXML
-	private void addPatientPhone() {
-		patientPhones.add(new ContactElementWrapper(new ContactElement()));
-	}
+    @FXML
+    private void removePatientEmail() {
+        patientEmails.remove(patientEmailTable.getSelectionModel().getSelectedIndex());
+    }
 
-	@FXML
-	private void removePatientPhone() {
-		patientPhones.remove(patientPhoneTable.getSelectionModel().getSelectedIndex());
-	}
+    @FXML
+    private void addFamilyMemPhone() {
+        relationPhones.add(new ContactElementWrapper(new ContactElement()));
+    }
 
-	@FXML
-	private void addPatientEmail() {
-		patientEmails.add(new ContactElementWrapper(new ContactElement()));
-	}
+    @FXML
+    private void removeFamilyMemPhone() {
+        relationPhones.remove(relationPhoneTable.getSelectionModel().getSelectedIndex());
+    }
 
-	@FXML
-	private void removePatientEmail() {
-		patientEmails.remove(patientEmailTable.getSelectionModel().getSelectedIndex());
-	}
+    @FXML
+    private void addFamilyMemEmail() {
+        relationEmails.add(new ContactElementWrapper(new ContactElement()));
+    }
 
-	@FXML
-	private void addFamilyMemPhone() {
-		familyPhones.add(new ContactElementWrapper(new ContactElement()));
-	}
+    @FXML
+    private void removeFamilyMemEmail() {
+        relationEmails.remove(relationEmailTable.getSelectionModel().getSelectedIndex());
+    }
 
-	@FXML
-	private void removeFamilyMemPhone() {
-		familyPhones.remove(relationPhoneTable.getSelectionModel().getSelectedIndex());
-	}
+    @FXML
+    private void addPet() {
+        petTable.getItems().add(new PetWrapper(new Pet()));
+    }
 
-	@FXML
-	private void addFamilyMemEmail() {
-		familyEmails.add(new ContactElementWrapper(new ContactElement()));
-	}
+    @FXML
+    private void removePet() {
+        int selectionIndex = petTable.getSelectionModel().getSelectedIndex();
 
-	@FXML
-	private void removeFamilyMemEmail() {
-		familyEmails.remove(relationEmailTable.getSelectionModel().getSelectedIndex());
-	}
+        if (selectionIndex >= 0) {
+            petTable.getItems().remove(selectionIndex);
+        }
+    }
 
-	@FXML
-	private void addPet() {
-		petTable.getItems().add(new PetWrapper(new Pet()));
-	}
+    @FXML
+    private void addMeal() {
+        mealTable.getItems().add(new MealWrapper(new Meal()));
+    }
 
-	@FXML
-	private void removePet() {
-		int selectionIndex = petTable.getSelectionModel().getSelectedIndex();
+    @FXML
+    private void removeMeal() {
+        int selectionIndex = mealTable.getSelectionModel().getSelectedIndex();
 
-		if (selectionIndex >= 0) {
-			petTable.getItems().remove(selectionIndex);
-		}
-	}
+        if (selectionIndex >= 0) {
+            mealTable.getItems().remove(selectionIndex);
+        }
+    }
 
-	@FXML
-	private void addMeal() {
-		mealTable.getItems().add(new MealWrapper(new Meal()));
-	}
+    @FXML
+    private void save() {
+        saveInfo();
+    }
 
-	@FXML
-	private void removeMeal() {
-		int selectionIndex = mealTable.getSelectionModel().getSelectedIndex();
+    public void saveInfo() {
+        patient.setFirstName(firstName.getText());
+        patient.setLastName(lastName.getText());
+        patient.setBirthday(patient.getBirthday());
 
-		if (selectionIndex >= 0) {
-			mealTable.getItems().remove(selectionIndex);
-		}
-	}
-	@FXML
-	private void save() {
-		saveInfo();
-	}
-	
-	public void saveInfo() {
-		patient.setFirstName(firstName.getText());
-		patient.setLastName(lastName.getText());
-		patient.setBirthday(patient.getBirthday());
+        LinkedList<Meal> patientMeals = new LinkedList<Meal>();
+        LinkedList<Pet> patientPets = new LinkedList<Pet>();
+        LinkedList<AbsRelation> patientRelations = new LinkedList<AbsRelation>();
 
-		LinkedList<Meal> patientMeals = new LinkedList<Meal>();
-		LinkedList<Pet> patientPets = new LinkedList<Pet>();
-		LinkedList<AbsRelation> patientRelations = new LinkedList<AbsRelation>();
+        for (MealWrapper m : meals)
+            patientMeals.add(m.toMeal());
 
-		for(MealWrapper m : meals)
-			patientMeals.add(m.toMeal());
+        for (PetWrapper p : pets)
+            patientPets.add(p.toPet());
 
-		for(PetWrapper p : pets)
-		patientPets.add(p.toPet());
+        for (AbsRelationWrapper relation : relations)
+            patientRelations.add(relation.toAbsRelation());
 
-		for(AbsRelationWrapper relation : familyMembers)
-		patientRelations.add(relation.toAbsRelation());
+        patient.setMeals(patientMeals);
+        patient.setPets(patientPets);
 
-		patient.setMeals(patientMeals);
-		patient.setPets(patientPets);
-
-		if ( patient.getIsNewPatient() && patient.savePatient() ||
-				!patient.getIsNewPatient() && patient.updatePatient() ) {
-			MainApp.showAlert("Update successful!");
-		}
-	}
+        if (patient.getIsNewPatient() && patient.savePatient() ||
+                !patient.getIsNewPatient() && patient.updatePatient()) {
+            MainApp.showAlert("Update successful!");
+        }
+    }
 }
