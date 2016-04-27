@@ -52,6 +52,10 @@ public class ScheduleController extends AbsController {
 	private void initialize() {
 		myEventList.addAll(user.getSchedule().getEvents());
 		myEvents.setItems(myEventList);
+		myTime.setCellValueFactory(cellData -> cellData.getValue().getDateProperty());
+		myTitle.setCellValueFactory(cellData -> cellData.getValue().getTitleProperty());
+		myLocation.setCellValueFactory(cellData -> cellData.getValue().getLocationProperty());
+		//myNotes.setText(user.getSchedule().);
 	}
 
 	public AbsUser getUser() {
