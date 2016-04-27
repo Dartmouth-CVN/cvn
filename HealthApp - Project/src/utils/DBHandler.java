@@ -44,7 +44,7 @@ public class DBHandler {
         }
 
         Administrator admin = RandomGenerator.getRandomAdmin();
-        System.out.printf("admin username:%s, password:%s", admin.getUsername(), admin.getPassword());
+        System.out.printf("admin username:%s, password:%s\n", admin.getUsername(), admin.getPassword());
         insertAdmin(admin);
     }
 
@@ -436,7 +436,7 @@ public class DBHandler {
         return success;
     }
 
-    public Patient getPatientByUsername(java.lang.String username){
+    public Patient getPatientByUsername(String username){
         try {
             if (connect()) {
 
@@ -464,7 +464,7 @@ public class DBHandler {
         return null;
     }
 
-    public Patient getPatientById(java.lang.String userId){
+    public Patient getPatientById(String userId){
         try {
             if (connect()) {
 
@@ -521,7 +521,7 @@ public class DBHandler {
 
     }
 
-    public AbsUser getAbsUser(java.lang.String username){
+    public AbsUser getAbsUser(String username){
         if(connect()){
             try {
                 ps = connection.prepareStatement("SELECT * FROM user_account WHERE username = ? ");
@@ -543,7 +543,7 @@ public class DBHandler {
         return new Patient();
     }
 
-    public Administrator getAdministrator(java.lang.String username){
+    public Administrator getAdministrator(String username){
         try {
             if (connect()) {
 

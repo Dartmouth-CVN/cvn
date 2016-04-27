@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class Patient extends AbsUser {
+public class Patient extends AbsUser{
 
     List<Pet> pets;
     List<Meal> meals;
@@ -137,4 +137,5 @@ public class Patient extends AbsUser {
     public AbsUser fromSVString(String delimiter) {
         return null;
     }
+
 }

@@ -17,9 +17,6 @@ import model.MainApp;
 import model.Patient;
 
 public class FitBitParsingUtils {
-
-	Set<HealthInfo> healthInfo;
-
 	public static List<HealthAttribute<?>> fitBitImport(String str) {
 		return fitBitImport(new File(str));
 	}

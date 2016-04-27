@@ -12,13 +12,13 @@ public class MedicalStaff extends AbsUser {
 
     }
 
-    public MedicalStaff(java.lang.String userId, java.lang.String firstName, java.lang.String lastName, java.lang.String username, java.lang.String password,
-                        Date birthday, java.lang.String room, String picture, Contact contactInfo) {
+    public MedicalStaff(String userId, String firstName, String lastName, String username, String password,
+                        Date birthday, String room, String picture, Contact contactInfo) {
         this(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo, new LinkedList<Patient>());
     }
 
-    public MedicalStaff(java.lang.String userId, java.lang.String firstName, java.lang.String lastName, java.lang.String username, java.lang.String password,
-                        Date birthday, java.lang.String room, String picture, Contact contactInfo, List<Patient> assignedPatients) {
+    public MedicalStaff(String userId, String firstName, String lastName, String username, String password,
+                        Date birthday, String room, String picture, Contact contactInfo, List<Patient> assignedPatients) {
         super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo);
         this.assignedPatients = assignedPatients;
     }
@@ -31,7 +31,7 @@ public class MedicalStaff extends AbsUser {
         this.assignedPatients = assignedPatients;
     }
 
-    public java.lang.String getRole() {
+    public String getRole() {
         return "Medical Staff";
     }
 
@@ -39,4 +39,23 @@ public class MedicalStaff extends AbsUser {
         assignedPatients.add(p);
     }
 
+    @Override
+    public AbsUser fromXMLString() {
+        return null;
+    }
+
+    @Override
+    public AbsUser fromCSVString() {
+        return null;
+    }
+
+    @Override
+    public AbsUser fromTSVString() {
+        return null;
+    }
+
+    @Override
+    public AbsUser fromSVString(String delimiter) {
+        return null;
+    }
 }

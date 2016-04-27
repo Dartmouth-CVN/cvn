@@ -27,7 +27,7 @@ public class EditPatientController extends AbsController{
 
 	private Patient patient;
 	private File curCSV;
-	private LinkedList<HealthInfo> info;
+	private LinkedList<HealthAttribute<?>> info;
 
 	public EditPatientController() {
 	}

@@ -1,9 +1,11 @@
 package model;
 
+import java.util.LinkedList;
+
 /**
  * Created by mrampiah on 4/26/16.
  */
-public class PatientExportWrapper implements IParsable {
+public class PatientExportWrapper implements IExportable {
     boolean userId, firstName, lastName, username, birthday, room;
     boolean picture, contactInfo, pets, meals, relations;
     boolean assignedStaff, healthProfile;
@@ -61,8 +63,27 @@ public class PatientExportWrapper implements IParsable {
     }
 
     @Override
-    public String toSVString(String delimiter) {
-        return null;
+    public String toSVString(String delimiter){
+        String[] fields = {patient.getFirstName(), patient.getLastName(), patient.getUsername(),
+                patient.getBirthday().toString(), patient.getPicture()}; //to be followed by the addresses, phone numbers, and emails.
+
+        LinkedList<String> addresses = new LinkedList<String>();
+        for(ContactElement c : patient.getContactInfo().getAddresses())
+            addresses.add(c.getValue());
+
+        LinkedList<String> phonenumbers = new LinkedList<String>();
+        for(ContactElement c : patient.getContactInfo().getPhoneNumbers())
+            phonenumbers.add(c.getValue());
+
+        LinkedList<String> emails = new LinkedList<String>();
+        for(ContactElement c : patient.getContactInfo().getEmails())
+            emails.add(c.getValue());
+
+        String firsthalf = String.join(delimiter, fields) + delimiter;
+        String secondhalf = "\"" + String.join("," ,addresses)+"\"";
+        secondhalf = ",\"" + String.join("," ,phonenumbers) + "\"";
+        secondhalf = ",\"" + String.join("," ,emails) + "\"";
+        return firsthalf+secondhalf;
     }
 
     @Override
@@ -79,7 +100,6 @@ public class PatientExportWrapper implements IParsable {
     public String toHTMLString() {
         return null;
     }
-
     @Override
     public AbsUser fromXMLString() {
         return null;

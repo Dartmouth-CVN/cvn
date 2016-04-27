@@ -18,4 +18,24 @@ public class Family extends AbsRelation {
                   Date birthday, java.lang.String room, String picture, Contact contactInfo, java.lang.String relation, boolean isCaregiver) {
         super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo, relation, true, isCaregiver);
     }
+
+    @Override
+    public AbsUser fromXMLString() {
+        return null;
+    }
+
+    @Override
+    public AbsUser fromCSVString() {
+        return null;
+    }
+
+    @Override
+    public AbsUser fromTSVString() {
+        return null;
+    }
+
+    @Override
+    public AbsUser fromSVString(String delimiter) {
+        return null;
+    }
 }

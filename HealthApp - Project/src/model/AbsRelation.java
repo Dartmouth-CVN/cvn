@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by mrampiah on 4/23/16.
  */
-public class AbsRelation extends AbsUser {
+public abstract class AbsRelation extends AbsUser {
     String relationship;
     boolean isFamily;
     boolean isCaregiver;
@@ -17,7 +17,7 @@ public class AbsRelation extends AbsUser {
                        Date birthday, String room, String picture, Contact contactInfo, String relationship,
                        boolean isFamily, boolean isCaregiver) {
         super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo);
-        setRelationship(relationship);
+        this.relationship = relationship;
         this.isFamily = isFamily;
         this.isCaregiver = isCaregiver;
     }

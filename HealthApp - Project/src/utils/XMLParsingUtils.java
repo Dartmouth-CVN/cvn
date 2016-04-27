@@ -1,24 +1,16 @@
 package utils;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.Set;
+import java.util.*;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import model.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import model.ContactElement;
-import model.MainApp;
-import model.MedicalStaff;
-import model.Patient;
-import model.Pet;
 
 public class XMLParsingUtils implements ParsingUtils {
 
@@ -217,4 +209,18 @@ public class XMLParsingUtils implements ParsingUtils {
 		return null;
 	}
 
+	@Override
+	public File getFile(String name) {
+		return null;
+	}
+
+	@Override
+	public List<String> getFileContents(File file) {
+		return null;
+	}
+
+	@Override
+	public AbsUser getUserFromContents(String contents) {
+		return null;
+	}
 }

@@ -5,16 +5,6 @@ package model;
  */
 public interface IParsable {
 
-    public String toXMLString();
-
-    public String toSVString(String delimiter);
-
-    public String toCSVString();
-
-    public String toTSVString();
-
-    public String toHTMLString();
-
     public AbsUser fromXMLString();
 
     public AbsUser fromCSVString();
