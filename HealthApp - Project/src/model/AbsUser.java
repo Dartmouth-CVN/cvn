@@ -7,6 +7,7 @@ import java.util.LinkedList;
 
 public abstract class AbsUser implements IParsable{
     //	Schedule schedule;
+    long userIdValue;
     String userId;
     String firstName;
     String lastName;
@@ -21,14 +22,14 @@ public abstract class AbsUser implements IParsable{
 
     }
 
-    public AbsUser(String userId, String firstName, String lastName, String username, String password, LocalDate birthday,
+    public AbsUser(long userIdValue, String firstName, String lastName, String username, String password, LocalDate birthday,
                    String room, String picture) {
-        this(userId, firstName, lastName, username, password, birthday, room, picture, new Contact());
+        this(userIdValue, firstName, lastName, username, password, birthday, room, picture, new Contact());
     }
 
-    public AbsUser(String userId, String firstName, String lastName, String username, String password, LocalDate birthday,
+    public AbsUser(long userIdValue, String firstName, String lastName, String username, String password, LocalDate birthday,
                    String room, String picture, Contact contactInfo) {
-        setUserId(userId);
+        setUserIdValue(userIdValue);
         setFirstName(firstName);
         setLastName(lastName);
         setUsername(username);
@@ -39,12 +40,12 @@ public abstract class AbsUser implements IParsable{
         setContactInfo(contactInfo);
     }
 
-    public String getUserId() {
-        return userId;
+    public long getUserIdValue() {
+        return userIdValue;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserIdValue(long userIdValue) {
+        this.userIdValue = userIdValue;
     }
 
     public String getFirstName() {
@@ -110,6 +111,8 @@ public abstract class AbsUser implements IParsable{
     public void setContactInfo(Contact contactInfo) {
         this.contactInfo = contactInfo;
     }
+
+    public abstract String getUserId();
 
     @Override
     public int hashCode() {

@@ -12,9 +12,9 @@ public class Nurse extends MedicalStaff {
 
     }
 
-    public Nurse(String userId, String firstName, String lastName, String username, String password,
+    public Nurse(long userIdValue, String firstName, String lastName, String username, String password,
                  LocalDate birthday, String room, String picture, Contact contactInfo) {
-        super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo);
+        super(userIdValue, firstName, lastName, username, password, birthday, room, picture, contactInfo);
     }
 
     public static String getRole(){

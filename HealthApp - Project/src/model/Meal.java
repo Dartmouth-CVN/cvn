@@ -22,6 +22,14 @@ public class Meal{
         setNotes(notes);
     }
 
+
+    public Meal(long mealId, String food, int calories, String notes) {
+        setMealId(mealId);
+        setFood(food);
+        setCalories(calories);
+        setNotes(notes);
+    }
+
     public Meal(String food, int calories, int rating, String notes) {
         this(0, food, calories, rating, notes);
     }

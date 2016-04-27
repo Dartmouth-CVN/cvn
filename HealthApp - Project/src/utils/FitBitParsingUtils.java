@@ -122,7 +122,7 @@ public class FitBitParsingUtils {
 						hi = new HealthAttribute<Double>(RandomGenerator.getRandomId(),
 								LocalDate.parse(info[0], formatter), titles.get(i), Double.parseDouble(info[i]));
 					}else{
-						hi = new HealthAttribute<String>(RandomGenerator.getRandomId(),
+						hi = new HealthAttribute<>(RandomGenerator.getRandomId(),
 								LocalDate.parse(info[0], formatter), titles.get(i), info[i]);
 					}
 					healthInfo.add(hi);
@@ -139,7 +139,7 @@ public class FitBitParsingUtils {
 					hi = new HealthAttribute<Double>(RandomGenerator.getRandomId(),
 							LocalDate.parse(info[0], formatter), titles.get(i), Double.parseDouble(info[i]));
 				}else{
-					hi = new HealthAttribute<String>(RandomGenerator.getRandomId(),
+					hi = new HealthAttribute<>(RandomGenerator.getRandomId(),
 							LocalDate.parse(info[0], formatter), titles.get(i), info[i]);
 				}
 					healthInfo.add(hi);
@@ -156,7 +156,7 @@ public class FitBitParsingUtils {
 					hi = new HealthAttribute<Double>(RandomGenerator.getRandomId(),
 							LocalDate.parse(info[0], formatter), titles.get(i), Double.parseDouble(info[i]));
 				}else{
-					hi = new HealthAttribute<String>(RandomGenerator.getRandomId(),
+					hi = new HealthAttribute<>(RandomGenerator.getRandomId(),
 							LocalDate.parse(info[0], formatter), titles.get(i), info[i]);
 				}
 					healthInfo.add(hi);

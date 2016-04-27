@@ -15,14 +15,19 @@ public class Family extends AbsRelation {
 
     }
 
-    public Family(String userId, String firstName, String lastName, String username, String password,
-                  LocalDate birthday, String room, String picture, Contact contactInfo, String relation, boolean isCaregiver) {
-        super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo, relation, true, isCaregiver);
+    @Override
+    public String getUserId() {
+        return "FA" + userIdValue;
     }
 
-    public Family(String userId, String firstName, String lastName, String username, String password,
+    public Family(long userIdValue, String firstName, String lastName, String username, String password,
+                  LocalDate birthday, String room, String picture, Contact contactInfo, String relation, boolean isCaregiver) {
+        super(userIdValue, firstName, lastName, username, password, birthday, room, picture, contactInfo, relation, true, isCaregiver);
+    }
+
+    public Family(long userIdValue, String firstName, String lastName, String username, String password,
                   LocalDate birthday, String room, String picture, String relation, boolean isCaregiver) {
-        super(userId, firstName, lastName, username, password, birthday, room, picture, new Contact(), relation, true, isCaregiver);
+        super(userIdValue, firstName, lastName, username, password, birthday, room, picture, new Contact(), relation, true, isCaregiver);
     }
 
     @Override

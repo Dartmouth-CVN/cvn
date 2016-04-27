@@ -43,7 +43,8 @@ public class MainApp extends Application {
     }
 
     public static void printError(Exception e) {
-        System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
+//        System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
+        e.printStackTrace();
     }
 
     public static void showAlert(String message) {

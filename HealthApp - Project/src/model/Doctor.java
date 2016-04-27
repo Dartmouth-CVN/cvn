@@ -12,9 +12,14 @@ public class Doctor extends MedicalStaff {
 
     }
 
-    public Doctor(String userId, String firstName, String lastName, String username, String password,
+    public Doctor(long userIdValue, String firstName, String lastName, String username, String password,
                   LocalDate birthday, String room, String picture, Contact contactInfo) {
-        super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo);
+        super(userIdValue, firstName, lastName, username, password, birthday, room, picture, contactInfo);
+    }
+
+    @Override
+    public String getUserId() {
+        return "DO" + userIdValue;
     }
 
     public static String getRole(){

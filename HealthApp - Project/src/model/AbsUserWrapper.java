@@ -1,5 +1,7 @@
 package model;
 
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -11,6 +13,7 @@ import java.time.LocalDate;
 public class AbsUserWrapper {
 
     StringProperty userIdProperty;
+    LongProperty userIdValueProperty;
     StringProperty firstNameProperty;
     StringProperty lastNameProperty;
     StringProperty usernameProperty;
@@ -39,6 +42,14 @@ public class AbsUserWrapper {
 
     public void setUserIdProperty(String userId) {
         userIdProperty = new SimpleStringProperty(userId);
+    }
+
+    public LongProperty getUserIdValueProperty(){
+        return userIdValueProperty;
+    }
+
+    public void setUserIdValueProperty(long userIdValue){
+        userIdValueProperty = new SimpleLongProperty(userIdValue);
     }
 
     public StringProperty getFirstNameProperty() {

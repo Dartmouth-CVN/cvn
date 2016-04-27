@@ -12,19 +12,24 @@ public class MedicalStaff extends AbsUser {
 
     }
 
-    public MedicalStaff(String userId, String firstName, String lastName, String username, String password,
+    public MedicalStaff(long userIdValue, String firstName, String lastName, String username, String password,
                         LocalDate birthday, String room, String picture) {
-        this(userId, firstName, lastName, username, password, birthday, room, picture, new Contact(), new LinkedList<Patient>());
+        this(userIdValue, firstName, lastName, username, password, birthday, room, picture, new Contact(), new LinkedList<Patient>());
     }
 
-    public MedicalStaff(String userId, String firstName, String lastName, String username, String password,
+    public MedicalStaff(long userIdValue, String firstName, String lastName, String username, String password,
                         LocalDate birthday, String room, String picture, Contact contactInfo) {
-        this(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo, new LinkedList<Patient>());
+        this(userIdValue, firstName, lastName, username, password, birthday, room, picture, contactInfo, new LinkedList<Patient>());
     }
 
-    public MedicalStaff(String userId, String firstName, String lastName, String username, String password,
+    @Override
+    public String getUserId() {
+        return "MS" + userIdValue;
+    }
+
+    public MedicalStaff(long userIdValue, String firstName, String lastName, String username, String password,
                         LocalDate birthday, String room, String picture, Contact contactInfo, List<Patient> assignedPatients) {
-        super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo);
+        super(userIdValue, firstName, lastName, username, password, birthday, room, picture, contactInfo);
         this.assignedPatients = assignedPatients;
     }
 

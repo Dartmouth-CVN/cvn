@@ -25,8 +25,7 @@ public class Pet{
         return petId;
     }
 
-    @SuppressWarnings("unused")
-    private void setPetId(long id) {
+    public void setPetId(long id) {
         this.petId = id;
     }
 

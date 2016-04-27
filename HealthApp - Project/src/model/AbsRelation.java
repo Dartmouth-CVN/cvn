@@ -13,19 +13,19 @@ public abstract class AbsRelation extends AbsUser {
     public AbsRelation() {
     }
 
-    public AbsRelation(String userId, String firstName, String lastName, String username, String password,
+    public AbsRelation(long userIdValue, String firstName, String lastName, String username, String password,
                        LocalDate birthday, String room, String picture, Contact contactInfo, String relationship,
                        boolean isFamily, boolean isCaregiver) {
-        super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo);
+        super(userIdValue, firstName, lastName, username, password, birthday, room, picture, contactInfo);
         this.relationship = relationship;
         this.isFamily = isFamily;
         this.isCaregiver = isCaregiver;
     }
 
-    public AbsRelation(String userId, String firstName, String lastName, String username, String password,
+    public AbsRelation(long userIdValue, String firstName, String lastName, String username, String password,
                        LocalDate birthday, String room, String picture, String relationship,
                        boolean isFamily, boolean isCaregiver) {
-        this(userId, firstName, lastName, username, password, birthday, room, picture,
+        this(userIdValue, firstName, lastName, username, password, birthday, room, picture,
                 new Contact(), relationship, isFamily, isCaregiver);
     }
 

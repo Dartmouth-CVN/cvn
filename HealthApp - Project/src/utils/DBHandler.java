@@ -1,14 +1,20 @@
 package utils;
 
 import model.*;
+import org.apache.derby.iapi.sql.*;
+import org.apache.derby.impl.tools.sysinfo.Main;
 import org.apache.derby.jdbc.EmbeddedDataSource;
+import sun.awt.image.ImageWatched;
 import view.MainApp;
 
 import java.io.*;
 import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.jar.Attributes;
 
 /**
  * Created by mrampiah on 4/24/16.
@@ -21,7 +27,6 @@ public class DBHandler {
     private static DatabaseMetaData metaData;
     private boolean success;// monitors if sql interactions result in errors
     private static DBHandler uniqueInstance;
-//    public static final DateTimeZone jodaTzUTC = DateTimeZone.forID("UTC");
 
     private DBHandler() {
         connect();
@@ -40,7 +45,7 @@ public class DBHandler {
         for (int i = 0; i < number; i++) {
             Patient p = RandomGenerator.getRandomPatient();
             p = RandomGenerator.fillPatient(p);
-            insertPatient(p);
+            insertPatientAlgorithm(p);
         }
 
         Administrator admin = RandomGenerator.getRandomAdmin();
@@ -85,8 +90,9 @@ public class DBHandler {
     public boolean createUserTable() {
         success = false;
         try {
-            ps = connection.prepareStatement("CREATE TABLE user("
-                    + "user_id VARCHAR(50), firstname VARCHAR(20), lastname VARCHAR(20)," +
+            ps = connection.prepareStatement("CREATE TABLE user_account("
+                    + "user_id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), f" +
+                    "irstname VARCHAR(20), lastname VARCHAR(20)," +
                     "username VARCHAR(20), password VARCHAR(50), birthday TIMESTAMP, room VARCHAR(10)," +
                     " picture VARCHAR(200), user_type VARCHAR(10), role VARCHAR(10)," +
                     "isFamily BOOLEAN, isCaregiver BOOLEAN, relationship VARCHAR(20), PRIMARY KEY(user_id) )");
@@ -102,13 +108,13 @@ public class DBHandler {
         success = false;
         if (connect()) {
             try {
-                ps = connection.prepareStatement("CREATE TABLE contact( contact_id BIGINT NOT NULL, " +
-                        "user_id VARCHAR(50), value VARCHAR(10), type VARCHAR(10), contact_type VARCHAR(10), " +
-                        "FOREIGN KEY(user_id) REFERENCES user(user_id), PRIMARY KEY (contact_id) )");
+                ps = connection.prepareStatement("CREATE TABLE contact( " +
+                        "contact_id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), " +
+                        "user_id BIGINT, value VARCHAR(10), type VARCHAR(10), contact_type VARCHAR(10), " +
+                        "FOREIGN KEY(user_id) REFERENCES user_account(user_id), PRIMARY KEY (contact_id) )");
                 ps.execute();
                 success = true;
             } catch (SQLException e) {
-//                e.printStackTrace();
                 MainApp.printError(e);
             }
         }
@@ -119,14 +125,14 @@ public class DBHandler {
         success = false;
         try {
             ps = connection.prepareStatement("CREATE TABLE pet("
-                    + "pet_id BIGINT NOT NULL, name VARCHAR(10), species VARCHAR(20), " +
-                    "allergy_friendly BOOLEAN, user_id VARCHAR(50),"
-                    + "FOREIGN KEY(user_id) REFERENCES user(user_id))");
+                    + "pet_id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
+                    " name VARCHAR(10), species VARCHAR(20), allergy_friendly BOOLEAN, user_id BIGINT,"
+                    + "FOREIGN KEY(user_id) REFERENCES user_account(user_id))");
             ps.execute();
             success = true;
         } catch (SQLException e) {
             MainApp.printError(e);
-//             e.printStackTrace();
+//             
         }
         return success;
     }
@@ -135,12 +141,13 @@ public class DBHandler {
         success = false;
         try {
             ps = connection.prepareStatement("CREATE TABLE meal("
-                    + "meal_id BIGINT NOT NULL, name VARCHAR(20), calories INT, notes VARCHAR(200), PRIMARY KEY(meal_id) )");
+                    + "meal_id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
+                    " name VARCHAR(20), calories INT, notes VARCHAR(200), PRIMARY KEY(meal_id) )");
             ps.execute();
             success = true;
         } catch (SQLException e) {
             MainApp.printError(e);
-//             e.printStackTrace();
+//             
         }
         return success;
     }
@@ -149,13 +156,13 @@ public class DBHandler {
         success = false;
         if (connect()) {
             try {
-                ps = connection.prepareStatement("CREATE TABLE eats(user_id VARCHAR(50), meal_id BIGINT, rating int," +
-                        " FOREIGN KEY(user_id) REFERENCES user(user_id), " +
+                ps = connection.prepareStatement("CREATE TABLE eats(user_id BIGINT, meal_id BIGINT, rating int," +
+                        " FOREIGN KEY(user_id) REFERENCES user_account(user_id), " +
                         "FOREIGN KEY(meal_id) REFERENCES meal(meal_id))");
                 ps.execute();
                 success = true;
             } catch (SQLException e) {
-//                e.printStackTrace();
+//                
                 MainApp.printError(e);
             }
         }
@@ -166,13 +173,14 @@ public class DBHandler {
         success = false;
         try {
             ps = connection.prepareStatement("CREATE TABLE event("
-                    + "event_id BIGINT NOT NULL, name VARCHAR(20), date TIMESTAMP , category VARCHAR(20), "
-                    + "notes LONGVARCHAR, PRIMARY KEY(event_id) )");
+                    + "event_id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
+                    " name VARCHAR(20), date TIMESTAMP , category VARCHAR(20), "
+                    + "notes VARCHAR(200), PRIMARY KEY(event_id) )");
             ps.execute();
             success = true;
         } catch (SQLException e) {
             MainApp.printError(e);
-//            e.printStackTrace();
+            
         }
         return success;
     }
@@ -181,13 +189,14 @@ public class DBHandler {
         success = false;
         try {
             ps = connection.prepareStatement("CREATE TABLE health_info("
-                    + "health_id BIGINT NOT NULL, user_id VARCHAR(50), date TIMESTAMP, name VARCHAR(20), value VARCHAR(10),"
-                    + "FOREIGN KEY(user_id) REFERENCES user(user_id), Primary Key(health_id) )");
+                    + "health_id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
+                    " user_id BIGINT, date TIMESTAMP, name VARCHAR(20), value VARCHAR(10),"
+                    + "FOREIGN KEY(user_id) REFERENCES user_account(user_id), Primary Key(health_id) )");
             ps.execute();
             success = true;
         } catch (SQLException e) {
             MainApp.printError(e);
-//            e.printStackTrace();
+            
         }
         return success;
     }
@@ -196,14 +205,14 @@ public class DBHandler {
         success = false;
         try {
             ps = connection.prepareStatement("CREATE TABLE staff_assignment("
-                    + "patient_id VARCHAR(50), med_id VARCHAR(50), " +
-                    "FOREIGN KEY(patient_id) REFERENCES user (user_id),"
-                    + "FOREIGN KEY(med_id) REFERENCES user(user_id))");
+                    + "patient_id BIGINT, med_id BIGINT, " +
+                    "FOREIGN KEY(patient_id) REFERENCES user_account (user_id),"
+                    + "FOREIGN KEY(med_id) REFERENCES user_account(user_id))");
             ps.execute();
             success = true;
         } catch (SQLException e) {
             MainApp.printError(e);
-//            e.printStackTrace();
+            
         }
         return success;
     }
@@ -212,14 +221,14 @@ public class DBHandler {
         success = false;
         try {
             ps = connection.prepareStatement("CREATE TABLE related("
-                    + "patient_id VARCHAR(50), relation_id VARCHAR(50), " +
-                    "FOREIGN KEY(patient_id) REFERENCES user (user_id),"
-                    + "FOREIGN KEY(relation_id) REFERENCES user(user_id))");
+                    + "patient_id BIGINT, relation_id BIGINT, " +
+                    "FOREIGN KEY(patient_id) REFERENCES user_account (user_id),"
+                    + "FOREIGN KEY(relation_id) REFERENCES user_account(user_id))");
             ps.execute();
             success = true;
         } catch (SQLException e) {
             MainApp.printError(e);
-//            e.printStackTrace();
+            
         }
         return success;
     }
@@ -228,7 +237,7 @@ public class DBHandler {
         try {
             connect();
             // check if the tables exist in our schema, create if they dont
-            rs = metaData.getTables(null, "APP", "USER", null);
+            rs = metaData.getTables(null, "APP", "USER_ACCOUNT", null);
             if (!rs.next())
                 createUserTable();
 
@@ -273,17 +282,51 @@ public class DBHandler {
         }
     }
 
-    public boolean insertAbsUser(AbsUser user) {
+    public boolean insertPatientAlgorithm(Patient p){
+        success = true;
+        insertPatient(p);
+        for(Pet pet : p.getPets())
+            insertPet(pet, p.getUserIdValue());
+        for(Meal meal : p.getMeals()) {
+            insertMeal(meal);
+            insertEats(meal, p.getUserIdValue());
+        }
+        for(AbsRelation relation : p.getRelations()){
+            insertRelation(relation);
+            insertRelated(p.getUserIdValue(), relation.getUserIdValue());
+        }
+        for(MedicalStaff medStaff : p.getAssignedStaff()){
+            insertMedicalStaff(medStaff);
+            insertStaffAssignment(p.getUserIdValue(), medStaff.getUserIdValue());
+        }
+        for(HealthAttribute<?> attribute : p.getHealthProfile().getHealthInfo())
+            insertHealthInfo(attribute, p.getUserIdValue());
+
+        return success;
+    }
+
+    public boolean insertPatient(Patient p) {
         success = false;
         try {
             if (connect()) {
-                String query = "INSERT INTO user_account (user_id, firstname, lastname," +
+                ps = connection.prepareStatement("INSERT INTO user_account (firstname, lastname," +
                         "username, password, birthday, room, picture, user_type) "
-                        + "VALUES(:userId, :firstname, :lastname, :username, :password, :birthday, :room, :picture, :userType)";
+                        + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)", new String[]  {"USER_ID"});
 
-                NamedParameterStatement nps = setBasicParameters(new NamedParameterStatement(connection, query), user);
-                nps.executeUpdate();
-                nps.close();
+                int i = 1;
+                ps.setString(i++, p.getFirstName());
+                ps.setString(i++, p.getLastName());
+                ps.setString(i++, p.getUsername());
+                ps.setString(i++, p.getPassword());
+                ps.setTimestamp(i++, localDateToTimestamp(p.getBirthday()));
+                ps.setString(i++, p.getRoom());
+                ps.setString(i++, p.getPicture());
+                ps.setString(i++, p.getUserType());
+                ps.executeUpdate();
+                rs = ps.getGeneratedKeys();
+                rs.next();
+                p.setUserIdValue(rs.getLong(1));
+                ps.close();
                 success = true;
             }
         } catch (SQLException e) {
@@ -292,63 +335,139 @@ public class DBHandler {
         return success;
     }
 
-    public boolean insertPatient(Patient p) {
-        return connect() && insertAbsUser(p);
-    }
-
     public boolean insertMedicalStaff(MedicalStaff med){
-        return connect() && insertAbsUser(med);
+        success = false;
+        try {
+            if (connect()) {
+                ps = connection.prepareStatement("INSERT INTO user_account (firstname, lastname," +
+                        "username, password, birthday, room, picture, user_type) "
+                        + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)", new String[]  {"USER_ID"});
+
+                int i = 1;
+                ps.setString(i++, med.getFirstName());
+                ps.setString(i++, med.getLastName());
+                ps.setString(i++, med.getUsername());
+                ps.setString(i++, med.getPassword());
+                ps.setTimestamp(i++, localDateToTimestamp(med.getBirthday()));
+                ps.setString(i++, med.getRoom());
+                ps.setString(i++, med.getPicture());
+                ps.setString(i++, med.getUserType());
+                ps.executeUpdate();
+                rs = ps.getGeneratedKeys();
+                rs.next();
+                med.setUserIdValue(rs.getLong(1));
+                ps.close();
+                success = true;
+            }
+        } catch (SQLException e) {
+            MainApp.printError(e);
+        }
+        return success;
     }
 
     public boolean insertAdmin(Administrator admin) {
-        return connect() && insertAbsUser(admin);
+        success = false;
+        try {
+            if (connect()) {
+                ps = connection.prepareStatement("INSERT INTO user_account (firstname, lastname," +
+                        "username, password, birthday, room, picture, user_type) "
+                        + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)", new String[]  {"USER_ID"});
+
+                int i = 1;
+                ps.setString(i++, admin.getFirstName());
+                ps.setString(i++, admin.getLastName());
+                ps.setString(i++, admin.getUsername());
+                ps.setString(i++, admin.getPassword());
+                ps.setTimestamp(i++, localDateToTimestamp(admin.getBirthday()));
+                ps.setString(i++, admin.getRoom());
+                ps.setString(i++, admin.getPicture());
+                ps.setString(i++, admin.getUserType());
+                ps.executeUpdate();
+                rs = ps.getGeneratedKeys();
+                rs.next();
+                admin.setUserIdValue(rs.getLong(1));
+                ps.close();
+                success = true;
+            }
+        } catch (SQLException e) {
+            MainApp.printError(e);
+        }
+        return success;
     }
 
     public boolean insertRelation(AbsRelation rel){
-        return connect() && insertAbsUser(rel);
+        success = false;
+        try {
+            if (connect()) {
+                ps = connection.prepareStatement("INSERT INTO user_account (firstname, lastname," +
+                        "username, password, birthday, room, picture, user_type) "
+                        + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)", new String[]  {"USER_ID"});
+
+                int i = 1;
+                ps.setString(i++, rel.getFirstName());
+                ps.setString(i++, rel.getLastName());
+                ps.setString(i++, rel.getUsername());
+                ps.setString(i++, rel.getPassword());
+                ps.setTimestamp(i++, localDateToTimestamp(rel.getBirthday()));
+                ps.setString(i++, rel.getRoom());
+                ps.setString(i++, rel.getPicture());
+                ps.setString(i++, rel.getUserType());
+                ps.executeUpdate();
+                rs = ps.getGeneratedKeys();
+                rs.next();
+                rel.setUserIdValue(rs.getLong(1));
+                ps.close();
+                success = true;
+            }
+        } catch (SQLException e) {
+            MainApp.printError(e);
+        }
+        return success;
     }
 
-    public boolean insertContact(ContactElement c, String userId) {
+    public boolean insertContact(ContactElement c, long userIdValue) {
         success = false;
         if (connect()) {
             try {
-                String query = "INSERT INTO contact (contact_id, user_id, value, type, contact_type) "
-                        + "VALUES(:contactId, :userId, :value :type, :contactType)";
+               ps = connection.prepareStatement("INSERT INTO contact (user_id, value, type, contact_type) "
+                        + "VALUES(?, ?, ?, ?)");
 
-                NamedParameterStatement nps = new NamedParameterStatement(connection, query);
-                nps.setLong("contactId", c.getElementId());
-                nps.setString("userId", userId);
-                nps.setString("value", c.getValue());
-                nps.setString("type", c.getType());
-                nps.setString("contactType", c.getContactType());
-                nps.executeUpdate();
-                nps.close();
+                ps.setLong(1, userIdValue);
+                ps.setString(2, c.getValue());
+                ps.setString(3, c.getType());
+                ps.setString(4, c.getContactType());
+                ps.executeUpdate();
+                rs = ps.getGeneratedKeys();
+                c.setElementId(rs.getLong("contact_id"));
+                ps.close();
                 success = true;
             } catch (SQLException e) {
-//                e.printStackTrace();
+                
                 MainApp.printError(e);
             }
         }
         return success;
     }
 
-    public boolean insertPet(Pet pet, String userId) {
+    public boolean insertPet(Pet pet, long userIdValue) {
         success = false;
         if (connect()) {
             try {
-                ps = connection.prepareStatement("INSERT INTO pet (pet_id, user_id, name, species, allergy_friendly) "
-                        + "VALUES(?, ?, ?, ?, ?)");
+                ps = connection.prepareStatement("INSERT INTO pet (user_id, name, species, allergy_friendly) "
+                        + "VALUES( ?, ?, ?, ?)", new String[]  {"PET_ID"} );
                 int i = 1;
-                ps.setLong(i++, pet.getPetId());
-                ps.setString(i++, userId);
+                ps.setLong(i++, userIdValue);
                 ps.setString(i++, pet.getName());
                 ps.setString(i++, pet.getSpecies());
                 ps.setBoolean(i++, pet.isAllergyFriendly());
                 ps.executeUpdate();
+                rs = ps.getGeneratedKeys();
+                rs.next();
+                pet.setPetId(rs.getLong(1));
                 ps.close();
                 success = true;
             } catch (SQLException e) {
-//                e.printStackTrace();
+                
                 MainApp.printError(e);
             }
         }
@@ -359,92 +478,126 @@ public class DBHandler {
         success = false;
         if (connect()) {
             try {
-                ps = connection.prepareStatement("INSERT INTO meal (meal_id, name, calories, notes) "
-                        + "VALUES(?, ?, ?, ?)");
+                ps = connection.prepareStatement("INSERT INTO meal (name, calories, notes) "
+                        + "VALUES( ?, ?, ?)", new String[]  {"MEAL_ID"} );
                 int i = 1;
-                ps.setLong(i++, meal.getMealId());
                 ps.setString(i++, meal.getFood());
-                ps.setInt(i++, meal.getCalories())
+                ps.setInt(i++, meal.getCalories());
                 ps.setString(i++, meal.getNotes());
                 ps.executeUpdate();
+                rs = ps.getGeneratedKeys();
+                rs.next();
+                meal.setMealId(rs.getLong(1));
                 ps.close();
                 success = true;
             } catch (SQLException e) {
-//                e.printStackTrace();
+                
                 MainApp.printError(e);
             }
         }
         return success;
     }
 
-    public boolean insertEats(Meal meal, String userId){
+    public boolean insertEats(Meal meal, long userIdValue){
         success = false;
         if (connect()) {
             try {
                 ps = connection.prepareStatement("INSERT INTO eats (user_id, meal_id, rating) "
                         + "VALUES(?, ?, ?)");
                 int i = 1;
-                ps.setString(i++, userId);
+                ps.setLong(i++, userIdValue);
                 ps.setLong(i++, meal.getMealId());
-                ps.setInt(i++, meal.getRating())
+                ps.setInt(i++, meal.getRating());
                 ps.executeUpdate();
                 ps.close();
                 success = true;
             } catch (SQLException e) {
-//                e.printStackTrace();
+                
                 MainApp.printError(e);
             }
         }
         return success;
     }
 
-    public boolean insertRelated(String patientId, String relationId){
+    public boolean insertRelated(long patientId, long relationId){
         success = false;
         if (connect()) {
             try {
                 ps = connection.prepareStatement("INSERT INTO related (patient_id, relation_id) "
-                        + "VALUES(?, ?, ?)");
+                        + "VALUES(?, ?)");
                 int i = 1;
-                ps.setString(i++, patientId);
-                ps.setString(i++, relationId);
+                ps.setLong(i++, patientId);
+                ps.setLong(i++, relationId);
                 ps.executeUpdate();
                 ps.close();
                 success = true;
             } catch (SQLException e) {
-//                e.printStackTrace();
+                
                 MainApp.printError(e);
             }
         }
         return success;
     }
 
-    public boolean insertHealthInfo(HealthAttribute<?> healthInfo, String userId){
+    public boolean insertStaffAssignment(long patientId, long medId){
         success = false;
         if (connect()) {
             try {
-                ps = connection.prepareStatement("INSERT INTO health_info (health_id, user_id, date, name, value) "
-                        + "VALUES(?, ?, ?, ?, ?)");
+                ps = connection.prepareStatement("INSERT INTO staff_assignment (patient_id, med_id) "
+                        + "VALUES(?, ?)");
                 int i = 1;
-                ps.setLong(i++, healthInfo.getHealthAttributeId());
-                ps.setString(i++, userId);
-                ps.setTimestamp(i++, localDateToTimestamp(healthInfo.getDate()));
-                ps.setString(i++, healthInfo.getName());
-                ps.setString(i++, healthInfo.getStringValue());
+                ps.setLong(i++, patientId);
+                ps.setLong(i++, medId);
                 ps.executeUpdate();
                 ps.close();
                 success = true;
             } catch (SQLException e) {
-//                e.printStackTrace();
+                
                 MainApp.printError(e);
             }
         }
         return success;
+    }
+
+    public boolean insertHealthInfo(HealthAttribute<?> healthInfo, long userIdValue){
+        success = false;
+        if (connect()) {
+            try {
+                ps = connection.prepareStatement("INSERT INTO health_info (user_id, date, name, value) "
+                        + "VALUES( ?, ?, ?, ?)", new String[]  {"HEALTH_ID"} );
+                int i = 1;
+                ps.setLong(i++, userIdValue);
+                ps.setTimestamp(i++, localDateToTimestamp(healthInfo.getDate()));
+                ps.setString(i++, healthInfo.getName());
+                ps.setString(i++, healthInfo.getStringValue());
+                ps.executeUpdate();
+                rs = ps.getGeneratedKeys();
+                rs.next();
+                healthInfo.setHealthAttributeId(rs.getLong(1));
+                ps.close();
+                success = true;
+            } catch (SQLException e) {
+                
+                MainApp.printError(e);
+            }
+        }
+        return success;
+    }
+
+    public AbsUser getFilledUserByUsername(String username){
+        if (connect()) {
+            AbsUser user = getAbsUser(username);
+            List<ContactElement> contactInfo = getContactInfo(user.getUserIdValue());
+            user.setContactInfo(new Contact(contactInfo));
+            return user;
+        }
+        return null;
     }
 
     public AbsUser getAbsUser(String username) {
         if (connect()) {
             try {
-                ps = connection.prepareStatement("SELECT * FROM user WHERE username = ? ");
+                ps = connection.prepareStatement("SELECT * FROM user_account WHERE username = ? ");
                 ps.setString(1, username);
                 rs = ps.executeQuery();
 
@@ -456,7 +609,7 @@ public class DBHandler {
                     return getAdministratorByUsername(username);
                 }
             } catch (SQLException e) {
-//                e.printStackTrace();
+                
                 MainApp.printError(e);
             }
         }
@@ -466,13 +619,12 @@ public class DBHandler {
     public Administrator getAdministratorByUsername(String username) {
         try {
             if (connect()) {
-
-                ps = connection.prepareStatement(" SELECT * FROM user WHERE username = ? AND user_type = ?");
+                ps = connection.prepareStatement(" SELECT * FROM user_account WHERE username = ? AND user_type = ?");
                 ps.setString(1, username);
                 ps.setString(2, Administrator.getUserType());
                 rs = ps.executeQuery();
                 if (rs.next()) {
-                    Administrator admin = new Administrator(rs.getString("user_id"), rs.getString("firstname"),
+                    Administrator admin = new Administrator(rs.getLong("user_id"), rs.getString("firstname"),
                             rs.getString("lastname"), rs.getString("username"), rs.getString("password"),
                             timestampToLocalDate(rs.getTimestamp("birthday")), rs.getString("room"),
                             rs.getString("picture"));
@@ -486,16 +638,16 @@ public class DBHandler {
         return new Administrator();
     }
 
-    public Administrator getAdministratorById(String userId) {
+    public Administrator getAdministratorById(long userIdValue) {
         try {
             if (connect()) {
 
-                ps = connection.prepareStatement(" SELECT * FROM user WHERE user_id = ? AND user_type = ?");
-                ps.setString(1, userId);
+                ps = connection.prepareStatement(" SELECT * FROM user_account WHERE user_id = ? AND user_type = ?");
+                ps.setLong(1, userIdValue);
                 ps.setString(2, Administrator.getUserType());
                 rs = ps.executeQuery();
                 if (rs.next()) {
-                    Administrator admin = new Administrator(rs.getString("user_id"), rs.getString("firstname"),
+                    Administrator admin = new Administrator(rs.getLong("user_id"), rs.getString("firstname"),
                             rs.getString("lastname"), rs.getString("username"), rs.getString("password"),
                             timestampToLocalDate(rs.getTimestamp("birthday")), rs.getString("room"),
                             rs.getString("picture"));
@@ -513,7 +665,7 @@ public class DBHandler {
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
-                        "birthday, room, picture FROM  user WHERE username = ? AND user_type = ?");
+                        "birthday, room, picture FROM  user_account WHERE username = ? AND user_type = ?");
                 ps.setString(1, username);
                 ps.setString(2, Patient.getUserType());
                 return getPatient(ps.executeQuery());
@@ -524,18 +676,18 @@ public class DBHandler {
         return null;
     }
 
-    public Patient getPatientById(String userId) {
+    public Patient getPatientById(long userIdValue) {
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
-                        "birthday, room, picture FROM  user WHERE user_id = ? AND user_type = ?");
-                ps.setString(1, userId);
+                        "birthday, room, picture FROM  user_account WHERE user_id = ? AND user_type = ?");
+                ps.setLong(1, userIdValue);
                 ps.setString(2, Patient.getUserType());
                 return getPatient(ps.executeQuery());
             }
             return getPatient(ps.executeQuery());
         } catch (SQLException e) {
-//            e.printStackTrace();
+            
             MainApp.printError(e);
         }
         return null;
@@ -545,12 +697,12 @@ public class DBHandler {
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
-                        "birthday, room, picture FROM  user WHERE username = ? AND user_type = ?");
+                        "birthday, room, picture FROM  user_account WHERE username = ? AND user_type = ?");
                 ps.setString(1, username);
                 ps.setString(2, MedicalStaff.getUserType());
                 rs = ps.executeQuery();
                 if(rs.next()) {
-                    MedicalStaff medicalStaff = new MedicalStaff(rs.getString("user_id"), rs.getString("firstname"),
+                    MedicalStaff medicalStaff = new MedicalStaff(rs.getLong("user_id"), rs.getString("firstname"),
                             rs.getString("lastname"), rs.getString("username"), rs.getString("password"),
                             timestampToLocalDate(rs.getTimestamp("birthday")), rs.getString("room"),
                             rs.getString("picture"));
@@ -563,16 +715,16 @@ public class DBHandler {
         return null;
     }
 
-    public MedicalStaff getMedicalStaffById(String userId) {
+    public MedicalStaff getMedicalStaffById(long userIdValue) {
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
-                        "birthday, room, picture FROM  user WHERE user_id = ? AND user_type = ?");
-                ps.setString(1, userId);
+                        "birthday, room, picture FROM  user_account WHERE user_id = ? AND user_type = ?");
+                ps.setLong(1, userIdValue);
                 ps.setString(2, MedicalStaff.getUserType());
                 rs = ps.executeQuery();
                 if(rs.next()) {
-                    MedicalStaff medicalStaff = new MedicalStaff(rs.getString("user_id"), rs.getString("firstname"),
+                    MedicalStaff medicalStaff = new MedicalStaff(rs.getLong("user_id"), rs.getString("firstname"),
                             rs.getString("lastname"), rs.getString("username"), rs.getString("password"),
                             timestampToLocalDate(rs.getTimestamp("birthday")), rs.getString("room"),
                             rs.getString("picture"));
@@ -580,17 +732,33 @@ public class DBHandler {
                 }
             }
         } catch (SQLException e) {
-//            e.printStackTrace();
+            
             MainApp.printError(e);
         }
         return null;
+    }
+
+    public List<MedicalStaff> getPatientMedicalStaff(long userIdValue){
+        List<MedicalStaff> staff = new LinkedList<>();
+        try {
+            if (connect()) {
+                ps = connection.prepareStatement(" SELECT med_id FROM staff_assignment WHERE patient_id = ?");
+                ps.setLong(1, userIdValue);
+                while(rs.next()){
+                    staff.add(getMedicalStaffById(rs.getLong("med_id")));
+                }
+            }
+        } catch (SQLException e) {
+            MainApp.printError(e);
+        }
+        return staff;
     }
 
     public AbsRelation getRelationByUsername(String username) {
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
-                        "birthday, room, picture FROM user WHERE username = ? AND user_type = ?");
+                        "birthday, room, picture FROM user_account WHERE username = ? AND user_type = ?");
                 ps.setString(1, username);
                 ps.setString(2, AbsRelation.getUserType());
                 return getAbsRelation(ps.executeQuery());
@@ -601,17 +769,16 @@ public class DBHandler {
         return null;
     }
 
-    public AbsRelation getRelationById(String userId) {
+    public AbsRelation getRelationById(long userIdValue) {
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
-                        "birthday, room, picture FROM  user WHERE user_id = ?");
-                ps.setString(1, userId);
-                ps.setString(2, AbsRelation.getUserType());
+                        "birthday, room, picture FROM  user_account WHERE user_id = ?");
+                ps.setLong(1, userIdValue);
                 return getAbsRelation(ps.executeQuery());
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            
         }
         return null;
     }
@@ -621,12 +788,12 @@ public class DBHandler {
             if(rs.next()) {
                 AbsRelation relation;
                 if (rs.getString("role") == Caregiver.getRole()) {
-                    relation = new Caregiver(rs.getString("user_id"), rs.getString("firstname"),
+                    relation = new Caregiver(rs.getLong("user_id"), rs.getString("firstname"),
                             rs.getString("lastname"), rs.getString("username"), rs.getString("password"),
                             timestampToLocalDate(rs.getTimestamp("birthday")), rs.getString("room"),
                             rs.getString("picture"), rs.getString("relationship"), rs.getBoolean("isFamily"));
                 } else {
-                    relation = new Family(rs.getString("user_id"), rs.getString("firstname"),
+                    relation = new Family(rs.getLong("user_id"), rs.getString("firstname"),
                             rs.getString("lastname"), rs.getString("username"), rs.getString("password"),
                             timestampToLocalDate(rs.getTimestamp("birthday")), rs.getString("room"),
                             rs.getString("picture"), rs.getString("relationship"), rs.getBoolean("isCaregiver"));
@@ -638,12 +805,29 @@ public class DBHandler {
         } catch (SQLException e) {
             MainApp.printError(e);
         }
+        return null;
+    }
+
+    public List<AbsRelation> getPatientRelations(long userIdValue){
+        List<AbsRelation> relations = new LinkedList<>();
+        try {
+            if (connect()) {
+                ps = connection.prepareStatement(" SELECT relation_id FROM related WHERE patient_id = ?");
+                ps.setLong(1, userIdValue);
+                while(rs.next()){
+                    relations.add(getRelationById(rs.getLong("relation_id")));
+                }
+            }
+        } catch (SQLException e) {
+            MainApp.printError(e);
+        }
+        return relations;
     }
 
     public Patient getPatient(ResultSet rs) {
         try {
             if (rs.next()) {
-                Patient patient = new Patient(rs.getString("user_id"), rs.getString("firstname"),
+                Patient patient = new Patient(rs.getLong("user_id"), rs.getString("firstname"),
                         rs.getString("lastname"), rs.getString("username"), rs.getString("password"),
                         timestampToLocalDate(rs.getTimestamp("birthday")), rs.getString("room"),
                         rs.getString("picture"));
@@ -651,7 +835,7 @@ public class DBHandler {
                 return patient;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            
         }
         return null;
     }
@@ -660,7 +844,7 @@ public class DBHandler {
         LinkedList<Patient> patientList = new LinkedList<Patient>();
         try {
             if (connect()) {
-                ps = connection.prepareStatement(" SELECT * FROM user WHERE user_type = ?");
+                ps = connection.prepareStatement(" SELECT * FROM user_account WHERE user_type = ?");
                 ps.setString(1, Patient.getUserType());
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -675,12 +859,12 @@ public class DBHandler {
         return patientList;
     }
 
-    public List<ContactElement> getContactInfo(String userId){
+    public List<ContactElement> getContactInfo(long userIdValue){
         List<ContactElement> elements = new LinkedList<>();
         if(connect()){
             try {
                 ps = connection.prepareStatement(" SELECT * FROM contact WHERE user_id = ?");
-                ps.setString(1, userId);
+                ps.setLong(1, userIdValue);
                 while(rs.next()){
                     ContactElement element;
                     String type = rs.getString("contact_type");
@@ -701,7 +885,100 @@ public class DBHandler {
     }
 
     public Meal getMeal(long mealId){
-        
+        if(connect()){
+            try {
+                ps = connection.prepareStatement(" SELECT name, calories, notes FROM  meal WHERE meal_id = ? ");
+                ps.setLong(1, mealId);
+                rs = ps.executeQuery();
+                if(rs.next()){
+                    return new Meal(mealId, rs.getString("name"), rs.getInt("calories"), rs.getString("notes"));
+                }
+            } catch (SQLException e) {
+                
+            }
+        }
+        return null;
+    }
+
+    public List<Meal> getPatientMeals(long userIdValue){
+        List<Meal> meals = new LinkedList<>();
+        if(connect()){
+            try {
+                ps = connection.prepareStatement("SELECT * FROM eats JOIN user_account ON eats.user_id = user_account.user_id WHERE eats.user_id = ? ");
+                ps.setLong(1, userIdValue);
+                while(rs.next()){
+                    meals.add(new Meal(rs.getLong("meal_id"), rs.getString("name"), rs.getInt("calories"),
+                            rs.getInt("rating"), rs.getString("notes")));
+                }
+            } catch (SQLException e) {
+//                
+                MainApp.printError(e);
+            }
+        }
+        return meals;
+    }
+
+    public Pet getPet(long petId){
+        if(connect()){
+            try {
+                ps = connection.prepareStatement(" SELECT name, species, allergey_friendly FROM  pet WHERE pet_id = ? ");
+                ps.setLong(1, petId);
+                rs = ps.executeQuery();
+                if(rs.next()){
+                    return new Pet(petId, rs.getString("name"), rs.getString("species"), rs.getBoolean("allergy_friendly"));
+                }
+            } catch (SQLException e) {
+                
+            }
+        }
+        return null;
+    }
+
+    public List<Pet> getPatientPets(long userIdValue){
+        List<Pet> pets = new LinkedList<>();
+        if(connect()){
+            try {
+                ps = connection.prepareStatement("SELECT * FROM pet WHERE user_id = ? ");
+                ps.setLong(1, userIdValue);
+                while(rs.next()){
+                    pets.add(new Pet(rs.getLong("pet_id"), rs.getString("name"), rs.getString("species"),
+                            rs.getBoolean("allergy_friendly")));
+                }
+            } catch (SQLException e) {
+//                
+                MainApp.printError(e);
+            }
+        }
+        return pets;
+    }
+
+    public List<HealthAttribute<?>> getHealthInfo(long userIdValue){
+        List<HealthAttribute<?>> healthInfo  = new LinkedList<>();
+        if(connect()){
+            try {
+                ps = connection.prepareStatement("SELECT (health_id, name, date, value) FROM health_info WHERE user_id = ?");
+                ps.setLong(1, userIdValue);
+                rs = ps.executeQuery();
+                while(rs.next()){
+                    if(RandomGenerator.isInteger(rs.getString("value")))
+                        healthInfo.add(new HealthAttribute<Integer>(rs.getLong("health_id"),
+                                timestampToLocalDate(rs.getTimestamp("date")),
+                                rs.getString("name"), Integer.parseInt(rs.getString("value"))));
+                    else if(RandomGenerator.isDouble(rs.getString("value")))
+                        healthInfo.add(new HealthAttribute<Double>(rs.getLong("health_id"),
+                                timestampToLocalDate(rs.getTimestamp("date")),
+                                rs.getString("name"), Double.parseDouble(rs.getString("value"))));
+                    else
+                        healthInfo.add(new HealthAttribute<>(rs.getLong("health_id"),
+                                timestampToLocalDate(rs.getTimestamp("date")),
+                                rs.getString("name"), rs.getString("value")));
+                }
+            } catch (SQLException e) {
+//                
+                MainApp.printError(e);
+            }
+        }
+        return healthInfo;
     }
 
     public boolean updatePatient(Patient p) {
@@ -723,22 +1000,31 @@ public class DBHandler {
     }
 
     public NamedParameterStatement setBasicParameters(NamedParameterStatement nps, AbsUser user) {
-        try {
-            nps.setString("userId", user.getUserId());
-            nps.setString("firstname", user.getFirstName());
-            nps.setString("lastname", user.getLastName());
-            nps.setString("username", user.getUsername());
-            nps.setString("password", user.getPassword());
-            nps.setString("room", user.getRoom());
-            nps.setString("picture", user.getPicture());
-            nps.setTimestamp("birthday", localDateToTimestamp(user.getBirthday()));
-            nps.setString("userType", user.getUserType());
-        } catch (SQLException e) {
-//            e.printStackTrace();
-            MainApp.printError(e);
-        }
+        //            nps.setString(1, user.getUserId());
+//            nps.setString(2, user.getFirstName());
+//            nps.setString(3, user.getLastName());
+//            nps.setString(4, user.getUsername());
+//            nps.setString(5, user.getPassword());
+//            nps.setString(6, user.getRoom());
+//            nps.setString(7, user.getPicture());
+//            nps.setTimestamp(8, localDateToTimestamp(user.getBirthday()));
+//            nps.setString(9, user.getUserType());
 
         return nps;
+    }
+
+    public boolean isUniqueId(long userIdValue){
+        try {
+            if (connect()) {
+                ps = connection.prepareStatement(" SELECT * FROM  user_account WHERE user_id = ? ");
+                ps.setLong(1, userIdValue);
+                System.out.println("not unique:" + rs.next());
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            MainApp.printError(e);
+        }
+        return false;
     }
 
     public static LocalDate timestampToLocalDate(Timestamp timestamp) {

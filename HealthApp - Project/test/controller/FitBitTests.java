@@ -22,8 +22,8 @@ public class FitBitTests {
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
     		File fitbitData = fc.getSelectedFile();
-    		Set<HealthInfo> hi = new HashSet<HealthInfo>();
-    		assertEquals(FitBitParsingUtils.fitBitImport(fitbitData).size(), 31);
+//    		Set<HealthInfo> hi = new HashSet<HealthInfo>();
+//    		assertEquals(FitBitParsingUtils.fitBitImport(fitbitData).size(), 31);
 //    		System.out.println(hi.get(0).getDate() + "\n" + hi.get(0).getWeight() + "\n" + hi.get(0).getCaloriesBurned() + "\n" + hi.get(0).getMinAsleep());
         } 
 	}

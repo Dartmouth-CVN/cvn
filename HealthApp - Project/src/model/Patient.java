@@ -17,32 +17,37 @@ public class Patient extends AbsUser{
     HealthProfile healthProfile;
 
     public Patient() {
-        this("enter id", "enter first name", "enter last name", "enter username", "enter password", LocalDate.now(), "enter room",
+        this(0L, "enter first name", "enter last name", "enter username", "enter password", LocalDate.now(), "enter room",
                 "enter picture", new Contact());
     }
 
-    public Patient(String userId, String firstName, String lastName, String username, String password, LocalDate birthday,
+    public Patient(long userIdValue, String firstName, String lastName, String username, String password, LocalDate birthday,
                    String room, String picture) {
-        this(userId, firstName, lastName, username, password, birthday, room, picture, new Contact(), new LinkedList<Pet>(),
+        this(userIdValue, firstName, lastName, username, password, birthday, room, picture, new Contact(), new LinkedList<Pet>(),
                 new LinkedList<Meal>(), new LinkedList<AbsRelation>(), new LinkedList<MedicalStaff>(), new HealthProfile());
     }
 
-    public Patient(String userId, String firstName, String lastName, String username, String password, LocalDate birthday,
+    public Patient(long userIdValue, String firstName, String lastName, String username, String password, LocalDate birthday,
                    String room, String picture, Contact contactInfo) {
-        this(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo, new LinkedList<Pet>(),
+        this(userIdValue, firstName, lastName, username, password, birthday, room, picture, contactInfo, new LinkedList<Pet>(),
                 new LinkedList<Meal>(), new LinkedList<AbsRelation>(), new LinkedList<MedicalStaff>(), new HealthProfile());
+    }
+
+    @Override
+    public String getUserId() {
+        return "PA" + userIdValue;
     }
 
     public Patient(AbsUser user, List<Pet> pets, List<Meal> meals, List<AbsRelation> relations,
                    List<MedicalStaff> assignedStaff, HealthProfile healthProfile) {
-        this(user.getUserId(), user.getFirstName(), user.getLastName(), user.getUsername(), user.getPassword(),
+        this(user.getUserIdValue(), user.getFirstName(), user.getLastName(), user.getUsername(), user.getPassword(),
                 user.getBirthday(), user.getRoom(), user.getPicture(), user.getContactInfo(), pets, meals, relations, assignedStaff, healthProfile);
     }
 
-    public Patient(String userId, String firstName, String lastName, String username, String password, LocalDate birthday,
+    public Patient(long userIdValue, String firstName, String lastName, String username, String password, LocalDate birthday,
                    String room, String picture, Contact contactInfo, List<Pet> pets, List<Meal> meals, List<AbsRelation> relations,
                    List<MedicalStaff> assignedStaff, HealthProfile healthProfile) {
-        super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo);
+        super(userIdValue, firstName, lastName, username, password, birthday, room, picture, contactInfo);
         this.pets = pets;
         this.meals = meals;
         this.relations = relations;
@@ -83,7 +88,7 @@ public class Patient extends AbsUser{
 
     public void addRelation(AbsRelation relation) {
         this.relations.add(relation);
-        relation.setUserId(userId);
+        relation.setUserIdValue(userIdValue);
     }
 
     public List<Pet> getPets() {
@@ -97,7 +102,6 @@ public class Patient extends AbsUser{
 
     public void addPet(Pet p) {
         this.pets.add(p);
-        p.setUserId(userId);
     }
 
     public List<Meal> getMeals() {

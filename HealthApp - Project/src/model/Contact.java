@@ -50,6 +50,21 @@ public class Contact implements Serializable {
         }
     }
 
+    public Contact(List<ContactElement> contactInfo) {
+        contactId = 0L;
+        phoneNumbers = new LinkedList<>();
+        emails = new LinkedList<>();
+        addresses = new LinkedList<>();
+        for(ContactElement e : contactInfo){
+            if(e instanceof Phone)
+                addPhone(e);
+            else if(e instanceof Email)
+                addEmail(e);
+            else if(e instanceof Address)
+                addAddress(e);
+        }
+    }
+
     public long getContactId() {
         return contactId;
     }

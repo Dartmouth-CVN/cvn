@@ -31,7 +31,7 @@ public class SearchController extends AbsController {
 	@FXML
 	private Tab profileTab = new Tab();
 
-	private String userId;
+	private long userId;
 
 	// Reference to the main application.
 	private MainApp mainApp;
@@ -60,7 +60,7 @@ public class SearchController extends AbsController {
 		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
 		idColumn.setCellValueFactory(cellData -> cellData.getValue().getUserIdProperty());
 		profileTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-			userId = newValue.getUserIdProperty().get();
+			userId = newValue.getUserIdValueProperty().get();
 		});
 		handleFindPatient();
 		profileTable.setRowFactory( tv -> {

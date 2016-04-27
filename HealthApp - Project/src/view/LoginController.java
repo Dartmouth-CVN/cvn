@@ -37,7 +37,7 @@ public class LoginController extends AbsController {
 		if (uname.equals("") || pass.equals(""))
 			System.out.println("Must enter username and password");
 		else {
-			AbsUser user = DBHandler.getUniqueInstance().getAbsUser(uname);
+			AbsUser user = DBHandler.getUniqueInstance().getFilledUserByUsername(uname);
 			if(pass.equals(user.getPassword())){
 				if(user instanceof Administrator){
 					mainApp.showAdminDash((Administrator)user);

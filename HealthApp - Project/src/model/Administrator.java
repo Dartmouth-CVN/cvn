@@ -8,13 +8,18 @@ public class Administrator extends AbsUser {
 
     }
 
-    public Administrator(String userId, String firstName, String lastName, String username, String password,
-                         LocalDate birthday, String room, String picture) {
-        super(userId, firstName, lastName, username, password, birthday, room, picture);
+    @Override
+    public String getUserId() {
+        return "AD" + userIdValue;
     }
-    public Administrator(String userId, String firstName, String lastName, String username, String password,
+
+    public Administrator(long userIdValue, String firstName, String lastName, String username, String password,
+                         LocalDate birthday, String room, String picture) {
+        super(userIdValue, firstName, lastName, username, password, birthday, room, picture);
+    }
+    public Administrator(long userIdValue, String firstName, String lastName, String username, String password,
                          LocalDate birthday, String room, String picture, Contact contactInfo) {
-        super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo);
+        super(userIdValue, firstName, lastName, username, password, birthday, room, picture, contactInfo);
     }
 
     public static String getUserType() {
