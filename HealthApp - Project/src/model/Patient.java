@@ -102,10 +102,6 @@ public class Patient extends AbsUser{
 
     public void addPet(Pet p) {
         this.pets.add(p);
-<<<<<<< HEAD
-=======
-        //TODO: p.setUserId(userId);
->>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
     }
 
     public List<Meal> getMeals() {

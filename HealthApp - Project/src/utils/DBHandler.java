@@ -50,7 +50,7 @@ public class DBHandler {
 
         Administrator admin = RandomGenerator.getRandomAdmin();
         System.out.printf("admin username:%s, password:%s\n", admin.getUsername(), admin.getPassword());
-        insertAdmin(admin);
+        insertAdminAlgorithm(admin);
     }
 
     /**
@@ -110,7 +110,7 @@ public class DBHandler {
             try {
                 ps = connection.prepareStatement("CREATE TABLE contact( " +
                         "contact_id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), " +
-                        "user_id BIGINT, value VARCHAR(10), type VARCHAR(10), contact_type VARCHAR(10), " +
+                        "user_id BIGINT, value VARCHAR(500), type VARCHAR(20), contact_type VARCHAR(20), " +
                         "FOREIGN KEY(user_id) REFERENCES user_account(user_id), PRIMARY KEY (contact_id) )");
                 ps.execute();
                 success = true;
@@ -301,7 +301,19 @@ public class DBHandler {
         }
         for(HealthAttribute<?> attribute : p.getHealthProfile().getHealthInfo())
             insertHealthInfo(attribute, p.getUserIdValue());
+        for(ContactElement e : p.getContactInfo().getAllContactElements())
+            insertContact(e, p.getUserIdValue());
 
+        return success;
+    }
+
+    public boolean insertAdminAlgorithm(Administrator admin){
+        success = true;
+        insertAdmin(admin);
+        for(ContactElement e : admin.getContactInfo().getAllContactElements()){
+//            System.out.println(e.getValue());
+            insertContact(e, admin.getUserIdValue());
+        }
         return success;
     }
 
@@ -430,7 +442,7 @@ public class DBHandler {
         if (connect()) {
             try {
                ps = connection.prepareStatement("INSERT INTO contact (user_id, value, type, contact_type) "
-                        + "VALUES(?, ?, ?, ?)");
+                        + "VALUES(?, ?, ?, ?)", new String[]  {"CONTACT_ID"});
 
                 ps.setLong(1, userIdValue);
                 ps.setString(2, c.getValue());
@@ -438,7 +450,9 @@ public class DBHandler {
                 ps.setString(4, c.getContactType());
                 ps.executeUpdate();
                 rs = ps.getGeneratedKeys();
-                c.setElementId(rs.getLong("contact_id"));
+                rs.next();
+                c.setElementId(rs.getLong(1));
+                System.out.println("generated id: " + c.getElementId());
                 ps.close();
                 success = true;
             } catch (SQLException e) {
@@ -865,6 +879,7 @@ public class DBHandler {
             try {
                 ps = connection.prepareStatement(" SELECT * FROM contact WHERE user_id = ?");
                 ps.setLong(1, userIdValue);
+                rs = ps.executeQuery();
                 while(rs.next()){
                     ContactElement element;
                     String type = rs.getString("contact_type");
@@ -1018,7 +1033,6 @@ public class DBHandler {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT * FROM  user_account WHERE user_id = ? ");
                 ps.setLong(1, userIdValue);
-                System.out.println("not unique:" + rs.next());
                 return rs.next();
             }
         } catch (SQLException e) {

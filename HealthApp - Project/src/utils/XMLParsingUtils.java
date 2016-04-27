@@ -187,7 +187,6 @@ public class XMLParsingUtils implements ParsingUtils {
         String[] staff = fields[3].split(",");
         for (String member : staff)
 //			output.getAssignedStaff().add(new MedicalStaff("", member, member, member,  member, null, member, null));
-<<<<<<< HEAD
 		//TODO: get actual medical staff here again
 		;
 		@SuppressWarnings("unused") // Medication currently disabled
@@ -235,53 +234,4 @@ public class XMLParsingUtils implements ParsingUtils {
 	public AbsUser getUserFromContents(String contents) {
 		return null;
 	}
-=======
-            //TODO: get actual medical staff here again
-            ;
-        @SuppressWarnings("unused") // Medication currently disabled
-                String[] meds = fields[4].split(",");
-        // for (String med : meds)
-        // output.addMedication(new Medication(med));
-
-        String[] addressArray = fields[5].split(",");
-        for (String address : addressArray)
-            output.getContactInfo().addAddress(new ContactElement("address", address));
-        String[] phonenumArray = fields[6].split(",");
-        for (String phone : phonenumArray)
-            output.getContactInfo().addPhone(new ContactElement("phone", phone));
-        String[] emails = fields[7].split(",");
-        for (String email : emails)
-            output.getContactInfo().addEmail(new ContactElement("email", email));
-        String[] pets = fields[8].split(",");
-        //for (String pet : pets)
-            //output.getPets().add(new Pet(pet, null, false, ""));
-        String[] allergies = fields[9].split(",");
-        for (String allergy : allergies)
-            output.getHealthProfile().getAllergies().add(allergy);
-        String[] dietaryNeeds = fields[10].split(",");
-        for (String diet : dietaryNeeds)
-            output.getHealthProfile().getDietaryRestrictions().add(diet);
-
-        return output;
-    }
-
-    public static Node patientToNode(Patient p, boolean[] toInclude) {
-        return null;
-    }
-
-    @Override
-    public File getFile(String name) {
-        return null;
-    }
-
-    @Override
-    public List<String> getFileContents(File file) {
-        return null;
-    }
-
-    @Override
-    public AbsUser getUserFromContents(String contents) {
-        return null;
-    }
->>>>>>> 9374f8125830d48d0e80b85d73e6ab5d3c15fee4
 }
