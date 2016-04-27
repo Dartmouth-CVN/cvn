@@ -1,7 +1,6 @@
 package model;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Date;
 
 public abstract class AbsUser implements Serializable {
@@ -15,13 +14,14 @@ public abstract class AbsUser implements Serializable {
 	String picture;
 
 	Contact contactInfo;
-//	Schedule schedule;
+	Schedule schedule;
+
 private static final long serialVersionUID = 1L;
 
 	public AbsUser(){
-		
+
 	}
-	
+
 	public AbsUser(String userId, String firstName, String lastName, String username, String password, Date birthday,
 				   String room, String picture, Contact contactInfo) {
 		setUserId(userId);
@@ -33,8 +33,9 @@ private static final long serialVersionUID = 1L;
 		setRoom(room);
 		setPicture(picture);
 		setContactInfo(contactInfo);
+		this.schedule = new Schedule();
 	}
-	
+
 	public String getUserId() {
 		return userId;
 	}
@@ -90,7 +91,9 @@ private static final long serialVersionUID = 1L;
 	public void setContactInfo(Contact contactInfo) {
 		this.contactInfo = contactInfo;
 	}
-
+	public Schedule getSchedule() {
+		return schedule;
+	}
 
 	@Override
 	public int hashCode(){

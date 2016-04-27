@@ -6,21 +6,24 @@ import java.util.List;
 
 public class Event {
 
-	long eventId;
-	 LocalDateTime date;
-	 String location;
-	 List<AbsUser> attendees;
-	 String notes;
+	private long eventId;
+	private String title;
+	private LocalDateTime date;
+	private String location;
+	private List<AbsUser> attendees;
+	private String notes;
 
-	public Event(LocalDateTime date, String location, List<AbsUser> attendees, String notes) {
+	public Event(LocalDateTime date, String title, List<AbsUser> attendees,
+	             String notes, String location) {
 		this.date = date;
+		this.title = title;
 		this.location = location;
 		this.attendees = attendees;
 		this.notes = notes;
 	}
 
 	public Event(LocalDateTime date, String location, String notes) {
-		this(date, location, new LinkedList<AbsUser>(), notes);
+		this(date, "Title", new LinkedList<AbsUser>(), notes, location);
 	}
 	public long getEventId() {
 		return eventId;
@@ -74,5 +77,13 @@ public class Event {
 	@Override
 	public int hashCode(){
 		return location.hashCode() * notes.hashCode();
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 }
