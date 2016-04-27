@@ -97,7 +97,7 @@ public class Patient extends AbsUser{
 
     public void addPet(Pet p) {
         this.pets.add(p);
-        p.setUserId(userId);
+        //TODO: p.setUserId(userId);
     }
 
     public List<Meal> getMeals() {

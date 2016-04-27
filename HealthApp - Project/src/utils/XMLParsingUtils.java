@@ -204,8 +204,8 @@ public class XMLParsingUtils implements ParsingUtils {
         for (String email : emails)
             output.getContactInfo().addEmail(new ContactElement("email", email));
         String[] pets = fields[8].split(",");
-        for (String pet : pets)
-            output.getPets().add(new Pet(pet, null, false, ""));
+        //for (String pet : pets)
+            //output.getPets().add(new Pet(pet, null, false, ""));
         String[] allergies = fields[9].split(",");
         for (String allergy : allergies)
             output.getHealthProfile().getAllergies().add(allergy);

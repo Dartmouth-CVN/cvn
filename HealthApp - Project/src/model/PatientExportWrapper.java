@@ -49,6 +49,7 @@ public class PatientExportWrapper implements IExportable {
         this.patient = p;
     }
 
+
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
