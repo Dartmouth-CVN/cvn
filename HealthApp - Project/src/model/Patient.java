@@ -2,6 +2,7 @@ package model;
 
 import utils.DBHandler;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,11 +17,11 @@ public class Patient extends AbsUser{
     HealthProfile healthProfile;
 
     public Patient() {
-        this("enter id", "enter first name", "enter last name", "enter username", "enter password", new Date(), "enter room",
+        this("enter id", "enter first name", "enter last name", "enter username", "enter password", LocalDate.now(), "enter room",
                 "enter picture", new Contact());
     }
 
-    public Patient(String userId, String firstName, String lastName, String username, String password, Date birthday,
+    public Patient(String userId, String firstName, String lastName, String username, String password, LocalDate birthday,
                    String room, String picture, Contact contactInfo) {
         this(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo, new LinkedList<Pet>(),
                 new LinkedList<Meal>(), new LinkedList<AbsRelation>(), new LinkedList<MedicalStaff>(), new HealthProfile());
@@ -32,7 +33,7 @@ public class Patient extends AbsUser{
                 user.getBirthday(), user.getRoom(), user.getPicture(), user.getContactInfo(), pets, meals, relations, assignedStaff, healthProfile);
     }
 
-    public Patient(String userId, String firstName, String lastName, String username, String password, Date birthday,
+    public Patient(String userId, String firstName, String lastName, String username, String password, LocalDate birthday,
                    String room, String picture, Contact contactInfo, List<Pet> pets, List<Meal> meals, List<AbsRelation> relations,
                    List<MedicalStaff> assignedStaff, HealthProfile healthProfile) {
         super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo);

@@ -1,6 +1,6 @@
 package model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,12 +13,12 @@ public class MedicalStaff extends AbsUser {
     }
 
     public MedicalStaff(String userId, String firstName, String lastName, String username, String password,
-                        Date birthday, String room, String picture, Contact contactInfo) {
+                        LocalDate birthday, String room, String picture, Contact contactInfo) {
         this(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo, new LinkedList<Patient>());
     }
 
     public MedicalStaff(String userId, String firstName, String lastName, String username, String password,
-                        Date birthday, String room, String picture, Contact contactInfo, List<Patient> assignedPatients) {
+                        LocalDate birthday, String room, String picture, Contact contactInfo, List<Patient> assignedPatients) {
         super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo);
         this.assignedPatients = assignedPatients;
     }

@@ -1,6 +1,6 @@
 package model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Administrator extends AbsUser {
 
@@ -9,7 +9,7 @@ public class Administrator extends AbsUser {
     }
 
     public Administrator(String userId, String firstName, String lastName, String username, String password,
-                         Date birthday, String room, String picture, Contact contactInfo) {
+                         LocalDate birthday, String room, String picture, Contact contactInfo) {
         super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo);
     }
 

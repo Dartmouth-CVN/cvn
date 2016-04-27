@@ -1,6 +1,6 @@
 package model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Created by mrampiah on 4/23/16.
@@ -14,7 +14,7 @@ public abstract class AbsRelation extends AbsUser {
     }
 
     public AbsRelation(String userId, String firstName, String lastName, String username, String password,
-                       Date birthday, String room, String picture, Contact contactInfo, String relationship,
+                       LocalDate birthday, String room, String picture, Contact contactInfo, String relationship,
                        boolean isFamily, boolean isCaregiver) {
         super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo);
         this.relationship = relationship;

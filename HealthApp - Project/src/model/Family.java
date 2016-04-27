@@ -3,6 +3,7 @@ package model;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -14,8 +15,8 @@ public class Family extends AbsRelation {
 
     }
 
-    public Family(java.lang.String userId, java.lang.String firstName, java.lang.String lastName, java.lang.String username, java.lang.String password,
-                  Date birthday, java.lang.String room, String picture, Contact contactInfo, java.lang.String relation, boolean isCaregiver) {
+    public Family(String userId, String firstName, String lastName, String username, String password,
+                  LocalDate birthday, String room, String picture, Contact contactInfo, String relation, boolean isCaregiver) {
         super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo, relation, true, isCaregiver);
     }
 

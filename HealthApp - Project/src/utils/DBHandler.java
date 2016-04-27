@@ -630,15 +630,11 @@ public class DBHandler {
         }
     }
 
-//    public static LocalDate dateToLocalDate(java.sql.Date d) {
-//        if(d==null) return null;
-//        return new LocalDate(d.getTime(), jodaTzUTC);
-//    }
-//
-//    // from  LocalDate to java.sql.Date:
-//    public static java.sql.Date localdateToDate(LocalDate ld) {
-//        if(ld==null) return null;
-//        return new java.sql.Date(
-//                ld.toDateTimeAtStartOfDay(jodaTzUTC).getMillis());
-//    }
+    public static LocalDate timestampToLocalDate(Timestamp timestamp) {
+        return timestamp.toLocalDateTime().toLocalDate();
+    }
+
+    public static Timestamp localDateToTimestamp(LocalDate localDate) {
+        return Timestamp.valueOf(localDate.atStartOfDay());
+    }
 }

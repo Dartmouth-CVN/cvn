@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
@@ -11,7 +12,7 @@ public abstract class AbsUser implements IParsable{
     String lastName;
     String username;
     String password;
-    Date birthday;
+    LocalDate birthday;
     String room;
     String picture;
     Contact contactInfo;
@@ -20,7 +21,7 @@ public abstract class AbsUser implements IParsable{
 
     }
 
-    public AbsUser(String userId, String firstName, String lastName, String username, String password, Date birthday,
+    public AbsUser(String userId, String firstName, String lastName, String username, String password, LocalDate birthday,
                    String room, String picture, Contact contactInfo) {
         setUserId(userId);
         setFirstName(firstName);
@@ -73,11 +74,11 @@ public abstract class AbsUser implements IParsable{
         this.password = password;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 
