@@ -50,7 +50,7 @@
                                                 <Label alignment="CENTER" prefHeight="31.0" prefWidth="129.0" text="Dummy Administrator" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                                                 <ImageView fitHeight="85.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
-                                                        <Image url="@../../resources/images/blank-profile-picture.png" />
+                                                        <Image url="@images/blank-profile-picture.png" />
                                                     </image>
                                                 </ImageView>
                                             </children>
@@ -74,27 +74,25 @@
                                                     <children>
                                                         <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                                             <image>
-                                                                <Image url="@../../resources/images/import%20icon.png" />
+                                                                <Image url="@images/import%20icon.png" />
                                                             </image></ImageView>
-                                                        <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                                                        <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                                             <image>
+                                                <Image url="@images/search%20icon.png" />
+                                             </image></ImageView>
                                                         <ImageView fx:id="searchImage" fitHeight="115.0" fitWidth="127.0" onMouseClicked="#handleSearchImage" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                                                             <image>
-                                                                <Image url="@../../resources/images/search%20icon.png" />
+                                                                <Image url="@images/my%20patients.png" />
                                                             </image>
                                                         </ImageView>
                                                         <ImageView fx:id="scheduleImage" fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER">
                                                             <image>
-                                                                <Image url="@../../resources/images/schedule%20icon.png" />
+                                                                <Image url="@images/schedule%20icon.png" />
                                                             </image>
                                                         </ImageView>
                                                         <ImageView fitHeight="121.0" fitWidth="161.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                                                             <image>
-                                                                <Image url="@../../resources/images/add%20patient.png" />
-                                                            </image>
-                                                        </ImageView>
-                                                        <ImageView fitHeight="120.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
-                                                            <image>
-                                                                <Image url="@../../resources/images/my%20patients.png" />
+                                                                <Image url="@images/add%20patient.png" />
                                                             </image>
                                                         </ImageView>
                                                     </children>
