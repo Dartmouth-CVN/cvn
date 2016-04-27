@@ -82,7 +82,8 @@
                                                                 <Image url="@images/add%20patient.png" />
                                                             </image>
                                                         </ImageView>
-                                                        <ImageView fx:id="scheduleImage" fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER">
+                                                        <ImageView fx:id="scheduleImage" fitHeight="115.0" fitWidth="127.0" onMouseClicked="#handleScheduleImage" pickOnBounds="true" preserveRatio="true"
+                                                                   GridPane.valignment="CENTER">
                                                             <image>
                                                                 <Image url="@images/schedule%20icon.png" />
                                                             </image>
