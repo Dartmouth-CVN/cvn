@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ee70ff0e-076a-4edc-941d-8d0ae613cf2a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/PatientExportWrapper.java" afterPath="$PROJECT_DIR$/src/model/PatientExportWrapper.java" />
     </list>
     <ignored path="HealthApp - Project.iws" />
@@ -29,21 +28,34 @@
       <file leaf-file-name="PatientExportWrapper.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/model/PatientExportWrapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="85" column="31" selection-start-line="85" selection-start-column="31" selection-end-line="85" selection-end-column="31" />
+            <state relative-caret-position="285">
+              <caret line="140" column="0" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="docComment;class#PatientExportWrapper#0" expanded="false" />
                 <element signature="e#2066#2067#0" expanded="true" />
                 <element signature="e#2139#2140#0" expanded="true" />
-                <element signature="e#2916#2924#0" expanded="true" />
-                <element signature="e#2984#2992#0" expanded="true" />
-                <element signature="e#3046#3054#0" expanded="true" />
-                <element signature="e#3116#3124#0" expanded="true" />
-                <element signature="e#3180#3188#0" expanded="true" />
-                <element signature="e#3246#3254#0" expanded="true" />
-                <element signature="e#5156#5157#0" expanded="true" />
-                <element signature="e#5194#5195#0" expanded="true" />
+                <element signature="method#toXMLString#0;class#PatientExportWrapper#0" expanded="false" />
+                <element signature="e#3090#3098#0" expanded="true" />
+                <element signature="e#3158#3166#0" expanded="true" />
+                <element signature="e#3220#3228#0" expanded="true" />
+                <element signature="e#3290#3298#0" expanded="true" />
+                <element signature="e#3354#3362#0" expanded="true" />
+                <element signature="e#3420#3428#0" expanded="true" />
+                <element signature="e#5036#5044#0" expanded="true" />
+                <element signature="e#5233#5241#0" expanded="true" />
+                <element signature="method#XMLLine#0;class#PatientExportWrapper#0" expanded="false" />
+                <element signature="method#toSVString#0;class#PatientExportWrapper#0" expanded="false" />
+                <element signature="e#7246#7254#0" expanded="true" />
+                <element signature="e#7314#7322#0" expanded="true" />
+                <element signature="e#7376#7384#0" expanded="true" />
+                <element signature="e#7446#7454#0" expanded="true" />
+                <element signature="e#7510#7518#0" expanded="true" />
+                <element signature="e#7576#7584#0" expanded="true" />
+                <element signature="e#9552#9553#0" expanded="true" />
+                <element signature="e#9590#9591#0" expanded="true" />
+                <element signature="e#9639#9640#0" expanded="true" />
+                <element signature="e#9678#9679#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -708,7 +720,7 @@
       <workItem from="1461714613763" duration="2634000" />
       <workItem from="1461722507252" duration="5572000" />
       <workItem from="1461730039211" duration="22978000" />
-      <workItem from="1461780601044" duration="3044000" />
+      <workItem from="1461780601044" duration="5190000" />
     </task>
     <task id="LOCAL-00001" summary="patientexportwrapper template">
       <created>1461724721718</created>
@@ -728,7 +740,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46662000" />
+    <option name="totallyTimeSpent" value="48808000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
@@ -788,8 +800,14 @@
           <properties />
           <option name="timeStamp" value="6" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/model/PatientExportWrapper.java</url>
+          <line>153</line>
+          <properties />
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="11" />
+      <option name="time" value="12" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -876,6 +894,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="25">
           <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1071,6 +1090,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
           <caret line="54" column="5" selection-start-line="54" selection-start-column="5" selection-end-line="54" selection-end-column="5" />
+          <folding>
+            <element signature="e#266#267#0" expanded="false" />
+            <element signature="e#321#322#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1335,21 +1358,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/PatientExportWrapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="85" column="31" selection-start-line="85" selection-start-column="31" selection-end-line="85" selection-end-column="31" />
+        <state relative-caret-position="285">
+          <caret line="140" column="0" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;class#PatientExportWrapper#0" expanded="false" />
             <element signature="e#2066#2067#0" expanded="true" />
             <element signature="e#2139#2140#0" expanded="true" />
-            <element signature="e#2916#2924#0" expanded="true" />
-            <element signature="e#2984#2992#0" expanded="true" />
-            <element signature="e#3046#3054#0" expanded="true" />
-            <element signature="e#3116#3124#0" expanded="true" />
-            <element signature="e#3180#3188#0" expanded="true" />
-            <element signature="e#3246#3254#0" expanded="true" />
-            <element signature="e#5156#5157#0" expanded="true" />
-            <element signature="e#5194#5195#0" expanded="true" />
+            <element signature="method#toXMLString#0;class#PatientExportWrapper#0" expanded="false" />
+            <element signature="e#3090#3098#0" expanded="true" />
+            <element signature="e#3158#3166#0" expanded="true" />
+            <element signature="e#3220#3228#0" expanded="true" />
+            <element signature="e#3290#3298#0" expanded="true" />
+            <element signature="e#3354#3362#0" expanded="true" />
+            <element signature="e#3420#3428#0" expanded="true" />
+            <element signature="e#5036#5044#0" expanded="true" />
+            <element signature="e#5233#5241#0" expanded="true" />
+            <element signature="method#XMLLine#0;class#PatientExportWrapper#0" expanded="false" />
+            <element signature="method#toSVString#0;class#PatientExportWrapper#0" expanded="false" />
+            <element signature="e#7246#7254#0" expanded="true" />
+            <element signature="e#7314#7322#0" expanded="true" />
+            <element signature="e#7376#7384#0" expanded="true" />
+            <element signature="e#7446#7454#0" expanded="true" />
+            <element signature="e#7510#7518#0" expanded="true" />
+            <element signature="e#7576#7584#0" expanded="true" />
+            <element signature="e#9552#9553#0" expanded="true" />
+            <element signature="e#9590#9591#0" expanded="true" />
+            <element signature="e#9639#9640#0" expanded="true" />
+            <element signature="e#9678#9679#0" expanded="true" />
           </folding>
         </state>
       </provider>
