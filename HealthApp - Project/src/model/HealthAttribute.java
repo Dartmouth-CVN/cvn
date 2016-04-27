@@ -2,16 +2,17 @@ package model;
 
 import utils.RandomGenerator;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class HealthAttribute<V> implements Serializable{
 	long healthAttributeId;
-	Date date;
+	LocalDate date;
 	String name;
 	V value;
 	String stringValue;
 	
-	public HealthAttribute(long healthAttributeId, Date date, String name, V value) {
+	public HealthAttribute(long healthAttributeId, LocalDate date, String name, V value) {
 		this.date = date;
 		this.healthAttributeId = healthAttributeId;
 		this.name = name;
@@ -19,7 +20,7 @@ public class HealthAttribute<V> implements Serializable{
 	}
 
 
-	public HealthAttribute(Date date, String name, V value) {
+	public HealthAttribute(LocalDate date, String name, V value) {
 		this(RandomGenerator.getRandomId(new Object()), date, name, value);
 	}
 	
@@ -50,11 +51,11 @@ public class HealthAttribute<V> implements Serializable{
 		stringValue = String.valueOf(value);
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 

@@ -1,6 +1,9 @@
 package model;
 
 import java.io.IOException;
+
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
 import utils.DBHandler;
 import view.AbsDashController;
 import view.AdminDashController;
@@ -13,15 +16,12 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import javax.swing.*;
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
-
 public class MainApp extends Application {
 
-	private Stage primaryStage;
+	private static Stage primaryStage;
 	static DBHandler database;
-
 	static AbsDashController dashController;
+	static Scene primaryScene;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -48,6 +48,13 @@ public class MainApp extends Application {
 	public void setStageDimensions() {
 		primaryStage.setHeight(800);
 		primaryStage.setWidth(1200);
+		primaryStage.setResizable(true);
+	}
+
+	public static void centerStage(){
+		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+		primaryStage.setX((screenBounds.getWidth() - primaryScene.getWidth() ) / 2);
+		primaryStage.setY((screenBounds.getHeight() - primaryScene.getHeight()) / 2);
 	}
 
 	public void showLogin() {
@@ -59,8 +66,9 @@ public class MainApp extends Application {
 
 			controller = loader.getController();
 			controller.setMainApp(this);
+			primaryScene = new Scene(login);
 			
-			primaryStage.setScene(new Scene(login));
+			primaryStage.setScene(primaryScene);
 			primaryStage.show();
 		} catch (IOException e) {
 			printError(e);
@@ -80,9 +88,10 @@ public class MainApp extends Application {
 			controller.setMainApp(this);
 			controller.setAdmin(admin);
 			dashController = controller;
-			
-			primaryStage.setScene(new Scene(adminDash));
+			primaryScene = new Scene(adminDash);
+			primaryStage.setScene(primaryScene);
 			primaryStage.show();
+			centerStage();
 		} catch (IOException e) {
 			printError(e);
 		}

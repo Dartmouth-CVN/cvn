@@ -15,7 +15,7 @@
       <Button layoutX="158.0" layoutY="227.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="44.0" prefWidth="83.0" text="Login" />
       <ImageView fitHeight="44.0" fitWidth="294.0" layoutX="64.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../resources/images/dh-logo.png" />
+            <Image url="@images/dh-logo.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />

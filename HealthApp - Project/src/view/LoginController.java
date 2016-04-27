@@ -7,11 +7,7 @@ import javafx.scene.control.TextField;
 import model.AbsUser;
 import model.Administrator;
 import model.MainApp;
-import model.Patient;
-import sun.awt.AWTAccessor;
-import sun.util.resources.cldr.zh.CalendarData_zh_Hans_HK;
 import utils.DBHandler;
-import utils.ObjectNotFoundException;
 
 public class LoginController extends AbsController {
 

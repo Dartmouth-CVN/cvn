@@ -1,7 +1,5 @@
 package view;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import javafx.fxml.FXML;
@@ -15,13 +13,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import model.Administrator;
 import model.MainApp;
 import model.MedicalStaff;
 import model.Patient;
 import utils.ObjectNotFoundException;
-
-import javax.imageio.ImageIO;
 
 public class MiniPatientProfileController extends AbsController {
 	
@@ -90,7 +85,7 @@ public class MiniPatientProfileController extends AbsController {
 	}
 	
 	public void loadPatientDetails(){
-//		profilePic.setImage(patient.getPicture());
+		profilePic.setImage(new Image("file:" + patient.getPicture()));
 		nameLabel.setText(patient.getFirstName() + " " + patient.getLastName());
 		idLabel.setText(String.valueOf(patient.getUserId()));
 

@@ -15,7 +15,7 @@
    <children>
       <ImageView fx:id="profilePic" fitHeight="132.0" fitWidth="142.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../resources/images/blank-profile-picture.png" />
+            <Image url="@images/blank-profile-picture.png" />
          </image>
       </ImageView>
       <GridPane layoutX="178.0" layoutY="14.0" prefHeight="119.0" prefWidth="397.0">
@@ -57,7 +57,7 @@
             <Label fx:id="assignedStaffLabel" prefHeight="39.0" prefWidth="314.0" text="Assigned Staff" />
             <ImageView fitHeight="112.0" fitWidth="118.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <image>
-                  <Image url="@../../resources/images/blank-profile-picture.png" />
+                  <Image url="@images/blank-profile-picture.png" />
                </image>
             </ImageView>
             <Button fx:id="viewMedicalStaffProfileButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="92.0" text="View Profile" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />

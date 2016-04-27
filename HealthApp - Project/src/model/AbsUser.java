@@ -1,16 +1,17 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 public abstract class AbsUser implements Serializable {
-	java.lang.String userId;
-	java.lang.String firstName;
-	java.lang.String lastName;
-	java.lang.String username;
-	java.lang.String password;
+	String userId;
+	String firstName;
+	String lastName;
+	String username;
+	String password;
 	Date birthday;
-	java.lang.String room;
+	String room;
 	String picture;
 
 	Contact contactInfo;
@@ -21,8 +22,8 @@ private static final long serialVersionUID = 1L;
 		
 	}
 	
-	public AbsUser(java.lang.String userId, java.lang.String firstName, java.lang.String lastName, java.lang.String username, java.lang.String password, Date birthday,
-				   java.lang.String room, String picture, Contact contactInfo) {
+	public AbsUser(String userId, String firstName, String lastName, String username, String password, Date birthday,
+				   String room, String picture, Contact contactInfo) {
 		setUserId(userId);
 		setFirstName(firstName);
 		setLastName(lastName);
@@ -34,34 +35,34 @@ private static final long serialVersionUID = 1L;
 		setContactInfo(contactInfo);
 	}
 	
-	public java.lang.String getUserId() {
+	public String getUserId() {
 		return userId;
 	}
-	public void setUserId(java.lang.String userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public java.lang.String getFirstName() {
+	public String getFirstName() {
 		return firstName;
 	}
-	public void setFirstName(java.lang.String firstName) {
+	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-	public java.lang.String getLastName() {
+	public String getLastName() {
 		return lastName;
 	}
-	public void setLastName(java.lang.String lastName) {
+	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public java.lang.String getUsername() {
+	public String getUsername() {
 		return username;
 	}
-	public void setUsername(java.lang.String username) {
+	public void setUsername(String username) {
 		this.username = username;
 	}
-	public java.lang.String getPassword() {
+	public String getPassword() {
 		return password;
 	}
-	public void setPassword(java.lang.String password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 	public Date getBirthday() {
@@ -70,10 +71,10 @@ private static final long serialVersionUID = 1L;
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
-	public java.lang.String getRoom() {
+	public String getRoom() {
 		return room;
 	}
-	public void setRoom(java.lang.String room) {
+	public void setRoom(String room) {
 		this.room = room;
 	}
 	public String getPicture(){

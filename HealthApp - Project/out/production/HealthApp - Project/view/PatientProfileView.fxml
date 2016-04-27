@@ -65,7 +65,7 @@
                         </TableView>
                         <ImageView fitHeight="132.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../resources/images/blank-profile-picture.png" />
+                              <Image url="@view/images/blank-profile-picture.png" />
                            </image>
                            <GridPane.margin>
                               <Insets left="5.0" top="5.0" />

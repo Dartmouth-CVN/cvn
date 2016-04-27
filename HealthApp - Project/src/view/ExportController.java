@@ -8,10 +8,6 @@ import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TitledPane;
-import model.MainApp;
-import utils.CSVParsingUtils;
-import utils.TSVParsingUtils;
-import utils.XMLParsingUtils;
 
 public class ExportController extends AbsController {
 

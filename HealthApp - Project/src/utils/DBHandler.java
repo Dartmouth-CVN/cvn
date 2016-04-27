@@ -5,6 +5,7 @@ import org.apache.derby.jdbc.EmbeddedDataSource;
 
 import java.io.*;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,6 +21,7 @@ public class DBHandler {
     private static DatabaseMetaData metaData;
     private boolean success;// monitors if sql interactions result in errors
     private static DBHandler uniqueInstance;
+//    public static final DateTimeZone jodaTzUTC = DateTimeZone.forID("UTC");
 
     private DBHandler() {
         connect();
@@ -42,7 +44,7 @@ public class DBHandler {
         }
 
         Administrator admin = RandomGenerator.getRandomAdmin();
-        System.out.printf("admin username:%s, password:%s", admin.getUsername(), admin.getPassword());
+        System.out.printf("admin username:%s, password:%s\n", admin.getUsername(), admin.getPassword());
         insertAdmin(admin);
     }
 
@@ -627,4 +629,16 @@ public class DBHandler {
             default: return new Patient();
         }
     }
+
+//    public static LocalDate dateToLocalDate(java.sql.Date d) {
+//        if(d==null) return null;
+//        return new LocalDate(d.getTime(), jodaTzUTC);
+//    }
+//
+//    // from  LocalDate to java.sql.Date:
+//    public static java.sql.Date localdateToDate(LocalDate ld) {
+//        if(ld==null) return null;
+//        return new java.sql.Date(
+//                ld.toDateTimeAtStartOfDay(jodaTzUTC).getMillis());
+//    }
 }

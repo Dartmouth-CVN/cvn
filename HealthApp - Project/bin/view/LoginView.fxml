@@ -14,7 +14,7 @@
       <Button layoutX="169.0" layoutY="232.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="44.0" prefWidth="83.0" text="Login" />
       <ImageView fitHeight="71.0" fitWidth="290.0" layoutX="68.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../resources/images/dh-logo.png" />
+            <Image url="@../../src/view/images/dh-logo.png" />
          </image>
       </ImageView>
    </children>

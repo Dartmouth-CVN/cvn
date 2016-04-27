@@ -15,8 +15,6 @@ public class Patient extends AbsUser {
 	List<MedicalStaff> assignedStaff;
 	HealthProfile healthProfile;
 
-	MedicalStaff medStaffKey;
-	
 	public Patient(){
 		this ("enter id", "enter first name", "enter last name", "enter username", "enter password", new Date(), "enter room",
 				"enter picture", new Contact());
@@ -117,7 +115,6 @@ public class Patient extends AbsUser {
 	}
 
 	public boolean updatePatient(){
-		System.out.println("upddating");
 		return DBHandler.getUniqueInstance().updatePatient(this);
 	}
 }
