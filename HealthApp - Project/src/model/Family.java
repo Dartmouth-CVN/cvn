@@ -20,6 +20,11 @@ public class Family extends AbsRelation {
         super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo, relation, true, isCaregiver);
     }
 
+    public Family(String userId, String firstName, String lastName, String username, String password,
+                  LocalDate birthday, String room, String picture, String relation, boolean isCaregiver) {
+        super(userId, firstName, lastName, username, password, birthday, room, picture, new Contact(), relation, true, isCaregiver);
+    }
+
     @Override
     public AbsUser fromXMLString() {
         return null;

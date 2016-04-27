@@ -22,6 +22,13 @@ public abstract class AbsRelation extends AbsUser {
         this.isCaregiver = isCaregiver;
     }
 
+    public AbsRelation(String userId, String firstName, String lastName, String username, String password,
+                       LocalDate birthday, String room, String picture, String relationship,
+                       boolean isFamily, boolean isCaregiver) {
+        this(userId, firstName, lastName, username, password, birthday, room, picture,
+                new Contact(), relationship, isFamily, isCaregiver);
+    }
+
     public String getRelationship() {
         return relationship;
     }
@@ -44,5 +51,9 @@ public abstract class AbsRelation extends AbsUser {
 
     public void setCaregiver(boolean caregiver) {
         isCaregiver = caregiver;
+    }
+
+    public static String getRole(){
+        return "RELATION";
     }
 }

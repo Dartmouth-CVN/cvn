@@ -34,6 +34,22 @@ public class Contact implements Serializable {
         this.addresses = addresses;
     }
 
+
+    public Contact(long id, List<ContactElement> contactInfo) {
+        contactId = id;
+        phoneNumbers = new LinkedList<>();
+        emails = new LinkedList<>();
+        addresses = new LinkedList<>();
+        for(ContactElement e : contactInfo){
+            if(e instanceof Phone)
+                addPhone(e);
+            else if(e instanceof Email)
+                addEmail(e);
+            else if(e instanceof Address)
+                addAddress(e);
+        }
+    }
+
     public long getContactId() {
         return contactId;
     }

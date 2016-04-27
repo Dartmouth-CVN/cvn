@@ -5,9 +5,11 @@ package model;
  */
 public class Address extends ContactElement {
 
+    public Address(long elementId, String value, String type) {
+        super(elementId, value, type);
+    }
 
-    @Override
-    public String getContactType(){
+    public static String getContactType(){
         return "ADDRESS";
     }
 }

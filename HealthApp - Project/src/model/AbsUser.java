@@ -22,6 +22,11 @@ public abstract class AbsUser implements IParsable{
     }
 
     public AbsUser(String userId, String firstName, String lastName, String username, String password, LocalDate birthday,
+                   String room, String picture) {
+        this(userId, firstName, lastName, username, password, birthday, room, picture, new Contact());
+    }
+
+    public AbsUser(String userId, String firstName, String lastName, String username, String password, LocalDate birthday,
                    String room, String picture, Contact contactInfo) {
         setUserId(userId);
         setFirstName(firstName);
@@ -112,6 +117,10 @@ public abstract class AbsUser implements IParsable{
     }
 
     public static String getUserType(){
+        return "ABS_USER";
+    }
+
+    public static String getRole(){
         return "ABS_USER";
     }
 }

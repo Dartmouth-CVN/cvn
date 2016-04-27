@@ -17,8 +17,7 @@ public class Nurse extends MedicalStaff {
         super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo);
     }
 
-    @Override
-    public String getRole() {
-        return "Nurse";
+    public static String getRole(){
+        return "NURSE";
     }
 }

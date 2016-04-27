@@ -13,6 +13,11 @@ public class Caregiver extends AbsRelation {
         super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo, relation, isFamily, true);
     }
 
+    public Caregiver(String userId, String firstName, String lastName, String username, String password,
+                     LocalDate birthday, String room, String picture, String relation, boolean isFamily) {
+        super(userId, firstName, lastName, username, password, birthday, room, picture, new Contact(), relation, isFamily, true);
+    }
+
     @Override
     public AbsUser fromXMLString() {
         return null;

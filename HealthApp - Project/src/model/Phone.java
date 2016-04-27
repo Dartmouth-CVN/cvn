@@ -9,8 +9,7 @@ public class Phone extends ContactElement {
         super(elementId, value, type);
     }
 
-    @Override
-    public String getContactType(){
+    public static String getContactType(){
         return "PHONE";
     }
 }

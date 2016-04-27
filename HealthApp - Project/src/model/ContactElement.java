@@ -52,7 +52,7 @@ public class ContactElement{
         return value.hashCode() * type.hashCode();
     }
 
-    public String getContactType(){
+    public static String getContactType(){
         return "CONTACT ELEMENT";
     }
 }

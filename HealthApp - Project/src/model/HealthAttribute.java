@@ -24,6 +24,14 @@ public class HealthAttribute<V>{
         this(RandomGenerator.getRandomId(new Object()), date, name, value);
     }
 
+    public HealthAttribute(long healthAttributeId, LocalDate date, String name, String stringValue) {
+        this.date = date;
+        this.healthAttributeId = healthAttributeId;
+        this.name = name;
+        this.stringValue = stringValue;
+        this.value = (V) stringValue;
+    }
+
     public long getHealthAttributeId() {
         return healthAttributeId;
     }
