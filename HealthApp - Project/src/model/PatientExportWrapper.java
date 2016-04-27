@@ -4,18 +4,57 @@ package model;
  * Created by mrampiah on 4/26/16.
  */
 public class PatientExportWrapper implements IParsable {
-    boolean userId;
-    boolean firstName;
-    boolean lastName;
-    boolean username;
+    boolean userId, firstName, lastName, username, birthday, room;
+    boolean picture, contactInfo, pets, meals, relations;
+    boolean assignedStaff, healthProfile;
 
+    Patient patient;
 
-
-    public PatientExportWrapper(boolean userId, boolean firstName, boolean lastName, boolean username, boolean password, boolean birthday,
-                                boolean room, boolean picture, boolean contactInfo, boolean pets, boolean meals, boolean relations,
-                                boolean assignedStaff, boolean healthProfile){
-
+    public PatientExportWrapper(boolean userId, boolean firstName, boolean lastName, boolean username, boolean birthday,
+                                boolean room, boolean picture, boolean contactInfo, boolean pets, boolean meals,
+                                boolean relations, boolean assignedStaff, boolean healthProfile) {
+        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.birthday = birthday;
+        this.room = room;
+        this.picture = picture;
+        this.contactInfo = contactInfo;
+        this.pets = pets;
+        this.meals = meals;
+        this.relations = relations;
+        this.assignedStaff = assignedStaff;
+        this.healthProfile = healthProfile;
     }
+
+    public PatientExportWrapper(boolean userId, boolean firstName, boolean lastName, boolean username, boolean birthday,
+                                boolean room, boolean picture, boolean contactInfo, boolean pets, boolean meals,
+                                boolean relations, boolean assignedStaff, boolean healthProfile, Patient p) {
+        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.birthday = birthday;
+        this.room = room;
+        this.picture = picture;
+        this.contactInfo = contactInfo;
+        this.pets = pets;
+        this.meals = meals;
+        this.relations = relations;
+        this.assignedStaff = assignedStaff;
+        this.healthProfile = healthProfile;
+        this.patient = p;
+    }
+
+    public void setPatient(Patient patient){
+        this.patient = patient;
+    }
+
+    public Patient getPatient(){
+        return patient;
+    }
+
     @Override
     public String toXMLString() {
         return null;
