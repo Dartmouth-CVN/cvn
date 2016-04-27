@@ -364,7 +364,7 @@ public class DBHandler {
                 int i = 1;
                 ps.setLong(i++, meal.getMealId());
                 ps.setString(i++, meal.getFood());
-                ps.setInt(i++, meal.getCalories())
+                ps.setInt(i++, meal.getCalories());
                 ps.setString(i++, meal.getNotes());
                 ps.executeUpdate();
                 ps.close();
@@ -386,7 +386,7 @@ public class DBHandler {
                 int i = 1;
                 ps.setString(i++, userId);
                 ps.setLong(i++, meal.getMealId());
-                ps.setInt(i++, meal.getRating())
+                ps.setInt(i++, meal.getRating());
                 ps.executeUpdate();
                 ps.close();
                 success = true;

@@ -1,8 +1,5 @@
 package model;
 
-import sun.awt.image.ImageWatched;
-
-import javax.management.relation.Relation;
 import java.util.LinkedList;
 
 /**
@@ -98,7 +95,7 @@ public class PatientExportWrapper implements IExportable {
                 relationships.add(XMLLine(XMLLine(ar.getFirstName(), "firstname") + "\n"
                         + XMLLine(ar.getLastName(), "lastname") + "\n"
                         + XMLLine(ar.getRelationship(), "relation") + "\n"
-                        + XMLLine(ar.getBirthday().toString(), "birthday"), "relative", true);
+                        + XMLLine(ar.getBirthday().toString(), "birthday"), "relative", true));
             }
         }
         if (pets) {
@@ -224,7 +221,36 @@ public class PatientExportWrapper implements IExportable {
 
     @Override
     public String toHTMLString() {
-        return null;
+        String[] cells = splitSVLine(toCSVString(), ",");
+        for(String s: cells){
+            s=XMLLine(s.replace(';','\n'), "td");
+        }
+        return XMLLine(String.join("\n", cells),"tr",true);
+    }
+
+    private static String[] splitSVLine(String s, String delimiter) {
+        LinkedList<String> output = new LinkedList<String>();
+        String curVal = "";
+        boolean inQuotes = false;
+        for (int i = 0; i < s.length(); i++) {
+            char curChar = s.charAt(i);
+            if (curChar == '\"')
+                inQuotes = !inQuotes;
+            else if (curChar == delimiter.charAt(0) && !inQuotes) {
+                String toAdd = curVal.trim();
+                output.add(toAdd);
+                curVal = "";
+            } else {
+                curVal += curChar;
+            }
+        }
+        if (curVal.length() > 0) {
+            String toAdd = curVal.trim();
+            output.add(toAdd);
+        }
+        String[] outputArr = new String[output.size()];
+        output.toArray(outputArr);
+        return outputArr;
     }
 
     @Override
@@ -244,8 +270,6 @@ public class PatientExportWrapper implements IExportable {
 
     @Override
     public AbsUser fromSVString(String delimiter) {
-
-
         return null;
     }
 
