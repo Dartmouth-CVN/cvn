@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import model.MainApp;
 import model.Patient;
 import model.PatientWrapper;
 import utils.DBHandler;

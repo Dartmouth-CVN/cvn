@@ -110,4 +110,8 @@ public abstract class AbsUser implements IParsable{
     public int hashCode() {
         return firstName.hashCode() * lastName.hashCode() * username.hashCode();
     }
+
+    public static String getUserType(){
+        return "ABS_USER";
+    }
 }

@@ -6,7 +6,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import model.AbsUser;
 import model.Administrator;
-import model.MainApp;
 import utils.DBHandler;
 
 public class LoginController extends AbsController {

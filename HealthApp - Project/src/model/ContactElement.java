@@ -51,4 +51,8 @@ public class ContactElement{
     public int hashCode() {
         return value.hashCode() * type.hashCode();
     }
+
+    public String getContactType(){
+        return "CONTACT ELEMENT";
+    }
 }

@@ -10,10 +10,9 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
 
 import model.HealthAttribute;
-import model.MainApp;
+import view.MainApp;
 import model.Patient;
 
 public class FitBitParsingUtils {

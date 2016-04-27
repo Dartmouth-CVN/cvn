@@ -5,22 +5,20 @@ public class Pet{
     String name;
     String species;
     boolean allergyFriendly;
-    String userId;
 
     public Pet() {
-        this(0, "Enter name", "Enter species", true, "");
+        this(0, "Enter name", "Enter species", true);
     }
 
-    public Pet(String name, String species, boolean allergyFriendly, String userId) {
-        this(0, name, species, allergyFriendly, userId);
+    public Pet(String name, String species, boolean allergyFriendly) {
+        this(0, name, species, allergyFriendly);
     }
 
-    public Pet(long id, String name, String species, boolean allergyFriendly, String userId) {
+    public Pet(long id, String name, String species, boolean allergyFriendly) {
         this.petId = id;
         this.name = name;
         this.species = species;
         this.allergyFriendly = allergyFriendly;
-        this.userId = userId;
     }
 
     public long getPetId() {
@@ -54,13 +52,5 @@ public class Pet{
 
     public void setAllergyFriendly(boolean allergyFriendly) {
         this.allergyFriendly = allergyFriendly;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String id) {
-        userId = id;
     }
 }

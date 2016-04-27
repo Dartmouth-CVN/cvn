@@ -9,7 +9,6 @@ package view;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
-import model.MainApp;
 
 public class MyScheduleController {
 

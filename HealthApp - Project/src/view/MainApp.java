@@ -1,4 +1,4 @@
-package model;
+package view;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +9,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import model.Administrator;
 import utils.DBHandler;
 import view.AbsDashController;
 import view.AdminDashController;

@@ -22,6 +22,12 @@ public class Patient extends AbsUser{
     }
 
     public Patient(String userId, String firstName, String lastName, String username, String password, LocalDate birthday,
+                   String room, String picture) {
+        this(userId, firstName, lastName, username, password, birthday, room, picture, new Contact(), new LinkedList<Pet>(),
+                new LinkedList<Meal>(), new LinkedList<AbsRelation>(), new LinkedList<MedicalStaff>(), new HealthProfile());
+    }
+
+    public Patient(String userId, String firstName, String lastName, String username, String password, LocalDate birthday,
                    String room, String picture, Contact contactInfo) {
         this(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo, new LinkedList<Pet>(),
                 new LinkedList<Meal>(), new LinkedList<AbsRelation>(), new LinkedList<MedicalStaff>(), new HealthProfile());
@@ -117,6 +123,11 @@ public class Patient extends AbsUser{
 
     public boolean updatePatient() {
         return DBHandler.getUniqueInstance().updatePatient(this);
+    }
+
+
+    public static String getUserType(){
+        return "PATIENT";
     }
 
     @Override

@@ -5,12 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
-import java.util.stream.Collectors;
 
-import model.MainApp;
+import view.MainApp;
 import model.Patient;
 import model.PatientExportWrapper;
-import model.Pet;
 
 public abstract class SVParsingUtils implements ParsingUtils {
 	String delimiter;
@@ -68,7 +66,7 @@ public abstract class SVParsingUtils implements ParsingUtils {
 		List<Patient> output = new LinkedList<Patient>();
 		Patient placeholder = new Patient();
 		for (String patient : lines)
-			output.add((Patient)placeholder.fromSVString(getDelimiter()));
+			output.add((Patient)placeholder.fromSVString(patient));
 		return output;
 	}
 
@@ -77,8 +75,6 @@ public abstract class SVParsingUtils implements ParsingUtils {
 	 *
 	 * @param filename
 	 *            the file to write to
-	 * @param toInclude
-	 *            which fields to export
 	 */
 	public  void exportData(String filename, List<Patient> patients, PatientExportWrapper exportWrapper) {
 		PrintWriter toFile;
@@ -93,7 +89,6 @@ public abstract class SVParsingUtils implements ParsingUtils {
 			exportWrapper.toSVString(delimiter);
 			toFile.println();
 		}
-
 		toFile.close();
 	}
 
@@ -103,29 +98,31 @@ public abstract class SVParsingUtils implements ParsingUtils {
 	 *
 	 * @param toSplit
 	 *            the line to split
-	 * @return the array of values
+	 * @return the list of values
 	 */
 	public List<String> splitLine(String toSplit) {
 		LinkedList<String> output = new LinkedList<String>();
-		String curVal = "";
-		boolean inQuotes = false;
-		for (int i = 0; i < toSplit.length(); i++) {
-			char curChar = toSplit.charAt(i);
-			if (curChar == '\"')
-				inQuotes = !inQuotes;
-			else if (curChar == getDelimiter().charAt(0) && !inQuotes) {
-				String toAdd = curVal.trim();
-				output.add(toAdd);
-				curVal = "";
-			} else {
-				curVal += curChar;
-			}
-		}
-		if (curVal.length() > 0) {
-			String toAdd = curVal.trim();
-			output.add(toAdd);
-		}
-		return output;
+		String regex = delimiter + "(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
+		String[] split = toSplit.split(regex);
+		return Arrays.asList(split);
 
+//		String curVal = "";
+//		boolean inQuotes = false;
+//		for (int i = 0; i < toSplit.length(); i++) {
+//			char curChar = toSplit.charAt(i);
+//			if (curChar == '\"')
+//				inQuotes = !inQuotes;
+//			else if (curChar == getDelimiter().charAt(0) && !inQuotes) {
+//				String toAdd = curVal.trim();
+//				output.add(toAdd);
+//				curVal = "";
+//			} else {
+//				curVal += curChar;
+//			}
+//		}
+//		if (curVal.length() > 0) {
+//			String toAdd = curVal.trim();
+//			output.add(toAdd);
+//		}
 	}
 }

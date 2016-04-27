@@ -13,6 +13,10 @@ public class Administrator extends AbsUser {
         super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo);
     }
 
+    public static String getUserType() {
+        return "ADMIN";
+    }
+
     @Override
     public AbsUser fromXMLString() {
         return null;

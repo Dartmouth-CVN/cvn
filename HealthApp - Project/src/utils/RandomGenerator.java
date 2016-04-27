@@ -1,6 +1,8 @@
 package utils;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -92,24 +94,16 @@ public class RandomGenerator {
 				+ firstNames[randomNumber.nextInt(firstNames.length)].toLowerCase().charAt(0);
 	}
 
-	public static Date getRandomBirthday() {
-//		 String input = String.format("%4d-%02d-%02d",
-//		 (randomNumber.nextInt(80) + 1930), randomNumber.nextInt(12) + 1,
-//		 randomNumber.nextInt(27) + 1);
-//		 DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
-//		 return LocalDate.parse(input, formatter);
-		return new Date((randomNumber.nextInt(80) + 1930), randomNumber.nextInt(12) + 1, randomNumber.nextInt(27) + 1);
+	public static LocalDate getRandomBirthday() {
+		 String input = String.format("%4d-%02d-%02d", (randomNumber.nextInt(80) + 1930), randomNumber.nextInt(12) + 1,
+				 randomNumber.nextInt(27) + 1);
+		 DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+		 return LocalDate.parse(input, formatter);
+//		return new Date((randomNumber.nextInt(80) + 1930), randomNumber.nextInt(12) + 1, randomNumber.nextInt(27) + 1);
 	}
 
 	public static String getRandomPicture(){
 		return profilePic[randomNumber.nextInt(profilePic.length)];
-//		System.out.println(file.getPath());
-//		if(file.exists()) {
-//			return new String(new Image("file:" + file.getPath()));
-//		}
-//		else
-//			System.out.println("File not found");
-//		return null;
 	}
 
 	public static String getRandomRoom() {
@@ -120,7 +114,7 @@ public class RandomGenerator {
 		String firstname = getRandomFirstName();
 		String lastname = getRandomLastName();
 		String username = createUsername(firstname, lastname);
-		Date birthday = getRandomBirthday();
+		LocalDate birthday = getRandomBirthday();
 		String room = getRandomRoom();
 		Contact contactInfo = getRandomContactInfo();
 		return new Patient(getRandomUserId(new Patient()), firstname, lastname, username, lastname, birthday,
@@ -161,7 +155,7 @@ public class RandomGenerator {
 		String firstname = getRandomFirstName();
 		String lastname = getRandomLastName();
 		String username = createUsername(firstname, lastname);
-		Date birthday = getRandomBirthday();
+		LocalDate birthday = getRandomBirthday();
 		String room = getRandomRoom();
 		Contact contactInfo = getRandomContactInfo();
 		String relation = relationTypes[randomNumber.nextInt(relationTypes.length)];
@@ -174,7 +168,7 @@ public class RandomGenerator {
 		String firstname = getRandomFirstName();
 		String lastname = getRandomLastName();
 		String username = createUsername(firstname, lastname);
-		Date birthday = getRandomBirthday();
+		LocalDate birthday = getRandomBirthday();
 		String room = getRandomRoom();
 		Contact contactInfo = getRandomContactInfo();
 		String relation = relationTypes[randomNumber.nextInt(relationTypes.length)];
@@ -187,7 +181,7 @@ public class RandomGenerator {
 		String firstname = getRandomFirstName();
 		String lastname = getRandomLastName();
 		String username = createUsername(firstname, lastname);
-		Date birthday = getRandomBirthday();
+		LocalDate birthday = getRandomBirthday();
 		String room = getRandomRoom();
 		Contact contactInfo = getRandomContactInfo();
 		return new MedicalStaff(getRandomUserId(new MedicalStaff()), firstname, lastname, username, lastname, birthday,
@@ -198,7 +192,7 @@ public class RandomGenerator {
 		String firstname = getRandomFirstName();
 		String lastname = getRandomLastName();
 		String username = createUsername(firstname, lastname);
-		Date birthday = getRandomBirthday();
+		LocalDate birthday = getRandomBirthday();
 		String room = getRandomRoom();
 		Contact contactInfo = getRandomContactInfo();
 		return new Administrator(getRandomUserId(new Administrator()), firstname, lastname, username, lastname,

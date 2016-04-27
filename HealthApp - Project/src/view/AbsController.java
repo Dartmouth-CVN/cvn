@@ -1,7 +1,6 @@
 package view;
 
 import javafx.fxml.FXMLLoader;
-import model.MainApp;
 
 public abstract class AbsController {
 	

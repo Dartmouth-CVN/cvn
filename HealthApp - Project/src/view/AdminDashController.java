@@ -11,7 +11,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import model.Administrator;
 import model.ContactElement;
-import model.MainApp;
 import utils.ObjectNotFoundException;
 
 public class AdminDashController extends MedicalStaffDashController {

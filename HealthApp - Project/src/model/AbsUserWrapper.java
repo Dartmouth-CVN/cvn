@@ -3,7 +3,7 @@ package model;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Created by mrampiah on 4/24/16.
@@ -85,7 +85,7 @@ public class AbsUserWrapper {
         return birthdayProperty;
     }
 
-    public void setBirthdayProperty(Date birthday) {
-        birthdayProperty = new SimpleStringProperty(String.valueOf(birthday));
+    public void setBirthdayProperty(LocalDate birthday) {
+        birthdayProperty = new SimpleStringProperty(birthday.toString());
     }
 }
