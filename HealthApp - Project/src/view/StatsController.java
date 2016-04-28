@@ -27,8 +27,6 @@ import java.io.IOException;
  */
 public class StatsController  extends AbsController{
 
-    @FXML // fx:id="myChoices"
-    private ChoiceBox<String> myChoices; // Value injected by FXMLLoader
     @FXML
     private Label unitResult = new Label();
     @FXML
@@ -42,7 +40,7 @@ public class StatsController  extends AbsController{
     @FXML
     private Label titleLabel = new Label();
     @FXML
-    public LineChart chart;
+    public LineChart lineChart;
     @FXML
     public XYChart<Integer, Double> xyChart;
     @FXML
@@ -86,12 +84,12 @@ public class StatsController  extends AbsController{
         // listen for changes to the combo box selection and update the displayed chart and stat fields accordingly.
         myCombobox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue<? extends String> selected, String oldAtt, String newAtt) {
-                if (oldAtt != null) {
-                    switch(oldAtt) {
-                        case "test": updateChartAxis("Year","test"); break;
-                        case "test2":  updateChartAxis("Year","test2"); break;
-                    }
-                }
+//                if (oldAtt != null) {
+//                    switch(oldAtt) {
+//                        case "caloriesBurned": updateChartAxis("Year","caloriesBurned"); break;
+//                        case "test2":  updateChartAxis("Year","test2"); break;
+//                    }
+//                }
                 if (newAtt != null) {
                     switch(newAtt) {
                         case "test":  break;
@@ -112,25 +110,25 @@ public class StatsController  extends AbsController{
         switch(xAxisType) {
             case "Day":
                 //per hour
-                xAxis.setLowerBound(1);
+                xAxis.setLowerBound(0);
                 xAxis.setUpperBound(24);
                 xAxis.setTickUnit(1);
                 break;
             case "Week":
                 //per day
-                xAxis.setLowerBound(1);
+                xAxis.setLowerBound(0);
                 xAxis.setUpperBound(7);
                 xAxis.setTickUnit(1);
                 break;
             case "Month":
                 //per week
-                xAxis.setLowerBound(1);
+                xAxis.setLowerBound(0);
                 xAxis.setUpperBound(4);
                 xAxis.setTickUnit(1);
                 break;
             case "Year":
                 //per month
-                xAxis.setLowerBound(1);
+                xAxis.setLowerBound(0);
                 xAxis.setUpperBound(12);
                 xAxis.setTickUnit(1);
                 break;
@@ -138,7 +136,7 @@ public class StatsController  extends AbsController{
         }
 
         switch(yAxisType){
-            case "test":
+            case "caloriesBurned":
                 yAxis.setLowerBound(0);
                 yAxis.setUpperBound(10);
                 yAxis.setTickUnit(2);
@@ -152,6 +150,33 @@ public class StatsController  extends AbsController{
 
 
     }
+
+    /**
+     * Clears current data from chart and updates with new data to display
+     * @param series
+     */
+    private void updateChart(XYChart.Series series){
+        lineChart.getData().clear();
+        lineChart.getData().add(series);
+    }
+
+    /**
+     * Creates a series of data to enter into graph
+     * makes x y pairs of data based on lists
+     * @return
+     */
+    //List of health attributes
+    private  XYChart.Series makeSeries(){
+
+        XYChart.Series series = new XYChart.Series<>();
+        //series.getData().add(new XYChart.Data<>("Jan", 23));
+        return series;
+    }
+
+
+    /**
+     * Sorts health info attributes into lists
+     */
 
 }
 

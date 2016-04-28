@@ -39,7 +39,7 @@
             <Label prefHeight="27.0" prefWidth="77.0" text="result" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
-      <LineChart layoutX="425.0" layoutY="150.0" prefHeight="507.0" prefWidth="808.0">
+      <LineChart layoutX="425.0" layoutY="150.0" prefHeight="485.0" prefWidth="795.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -48,12 +48,12 @@
         </yAxis>
       </LineChart>
       <Label layoutX="441.0" layoutY="83.0" prefHeight="52.0" prefWidth="432.0" text="Stat" />
-      <ButtonBar layoutX="540.0" layoutY="702.0" prefHeight="36.0" prefWidth="469.0">
+      <ButtonBar layoutX="506.0" layoutY="656.0" prefHeight="52.0" prefWidth="674.0">
         <buttons>
-            <Button mnemonicParsing="false" text="Day" />
-            <Button mnemonicParsing="false" text="Week" />
-            <Button mnemonicParsing="false" text="Month" />
-          <Button mnemonicParsing="false" text="Year" />
+            <Button contentDisplay="TOP" graphicTextGap="8.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="185.0" text="Day" />
+            <Button mnemonicParsing="false" prefHeight="34.0" text="Week" />
+            <Button mnemonicParsing="false" prefHeight="34.0" text="Month" />
+          <Button mnemonicParsing="false" prefHeight="32.0" text="Year" />
         </buttons>
       </ButtonBar>
       <ComboBox fx:id="myCombobox" layoutX="32.0" layoutY="157.0" prefHeight="36.0" prefWidth="269.0" />
