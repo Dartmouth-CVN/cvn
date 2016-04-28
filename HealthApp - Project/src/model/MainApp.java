@@ -1,112 +1,167 @@
 package model;
 
-import java.io.IOException;
-
-import javafx.geometry.Rectangle2D;
-import javafx.stage.Screen;
-import utils.DBHandler;
-import view.AbsDashController;
-import view.AdminDashController;
-import view.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+import model.Administrator;
+import model.Patient;
+import org.apache.derby.impl.tools.sysinfo.Main;
+import utils.DBHandler;
+import view.*;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 public class MainApp extends Application {
 
-	private static Stage primaryStage;
-	static DBHandler database;
-	static AbsDashController dashController;
-	static Scene primaryScene;
-	
-	@Override
-	public void start(Stage primaryStage) {
-		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("DHMC - Health App v2.0");
-		database = DBHandler.getUniqueInstance();
-		database.connect();
-		database.initDB();
-		showLogin();
-	}
+    static DBHandler database;
+    static AbsDashController dashController;
+    static LoadedScene scene;
+    static Scene primaryScene;
+    private static Stage primaryStage;
+    private static List<LoadedScene> loadedScenes;
 
-	public static void setDashController(AbsDashController controller){
-		dashController = controller;
-	}
+    public static AbsDashController getDashController() {
+        return dashController;
+    }
 
-	public static AbsDashController getDashController(){
-		return dashController;
-	}
+    public static void setDashController(AbsDashController controller) {
+        dashController = controller;
+    }
 
-	public static void main(String[] args) {
-		launch(args);
-	}
+    public static void main(String[] args) {
+        launch(args);
+    }
 
-	public void setStageDimensions() {
-		primaryStage.setHeight(800);
-		primaryStage.setWidth(1200);
-		primaryStage.setResizable(true);
-	}
+    public static void centerStage() {
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        primaryStage.setX((screenBounds.getWidth() - primaryScene.getWidth()) / 2);
+        primaryStage.setY((screenBounds.getHeight() - primaryScene.getHeight()) / 2);
+    }
 
-	public static void centerStage(){
-		Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-		primaryStage.setX((screenBounds.getWidth() - primaryScene.getWidth() ) / 2);
-		primaryStage.setY((screenBounds.getHeight() - primaryScene.getHeight()) / 2);
-	}
+    public static void printError(Exception e) {
+//        System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
+        e.printStackTrace();
+    }
 
-	public void showLogin() {
-		try {
-			// Load root layout from fxml file.
-			LoginController controller = new LoginController();
-			FXMLLoader loader = controller.getLoader();
-			AnchorPane login = (AnchorPane) controller.getLoader().load();
+    public static void showAlert(String message) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("General Information");
+        alert.setHeaderText("Info");
+        alert.setContentText(message);
 
-			controller = loader.getController();
-			controller.setMainApp(this);
-			primaryScene = new Scene(login);
-			
-			primaryStage.setScene(primaryScene);
-			primaryStage.show();
-		} catch (IOException e) {
-			printError(e);
-		}
-	}
+        alert.showAndWait();
+    }
 
-	public void showAdminDash(Administrator admin) {
-		System.out.println("Login success, loading Admin Dash...");
-		AdminDashController controller = new AdminDashController();
-		setStageDimensions();
-		
-		try {
-			AnchorPane adminDash = (AnchorPane) controller.getLoader().load();
-			
-			FXMLLoader loader = controller.getLoader();
-			controller = loader.getController();
-			controller.setMainApp(this);
-			controller.setAdmin(admin);
-			dashController = controller;
-			primaryScene = new Scene(adminDash);
-			primaryStage.setScene(primaryScene);
-			primaryStage.show();
-			centerStage();
-		} catch (IOException e) {
-			printError(e);
-		}
-	}
+    @Override
+    public void start(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+        this.primaryStage.setTitle("DHMC - Health App v2.0");
+        database = DBHandler.getUniqueInstance();
+        loadedScenes = new LinkedList<>();
+        database.initDB();
+        loadScenes();
+        showLogin();
+    }
 
-	public static void printError(Exception e) {
-		System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
-	}
+    public void loadScenes() {
+        AbsController controller;
+        //load login controller
+        controller = new LoginController();
+        setupController(controller);
 
-	public static void showAlert(String message) {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("General Information");
-		alert.setHeaderText("Info");
-		alert.setContentText(message);
+        //load admin dash controller
+        controller = new AdminDashController();
+        setupController(controller);
 
-		alert.showAndWait();
-	}
+        //load search controller
+        controller = new SearchController();
+        setupController(controller);
+
+        //load mini patient profile controller
+        controller = new MiniPatientProfileController();
+        setupController(controller);
+
+        //load add/edit patient controller
+        controller = new EditPatientController();
+        setupController(controller);
+
+        //load patient dash controller
+        controller = new PatientDashController();
+        setupController(controller);
+
+        //load export dash controller
+        controller = new ExportController();
+        setupController(controller);
+    }
+
+    public void setupController(AbsController controller){
+        FXMLLoader loader;
+        AnchorPane pane;
+        loader = controller.getLoader();
+        System.out.println(controller.getLoader().getLocation());
+        try {
+            pane = (AnchorPane) loader.load();
+            controller = loader.getController();
+            controller.setMainApp(this);
+            loadedScenes.add(new LoadedScene(controller, loader, pane));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setStageDimensions() {
+        primaryStage.setHeight(800);
+        primaryStage.setWidth(1200);
+        primaryStage.setResizable(true);
+    }
+
+    public void showLogin() {
+        // Load root layout from fxml file.
+        scene = getLoadedSceneOfType(new LoginController());
+        primaryScene = new Scene(scene.getPane());
+
+        primaryStage.setScene(primaryScene);
+        primaryStage.show();
+    }
+
+    public void showAdminDash(Administrator admin) {
+        System.out.println("Login success, loading Admin Dash...");
+        setStageDimensions();
+
+        scene = getLoadedSceneOfType(new AdminDashController());
+        primaryScene = new Scene(scene.getPane());
+        primaryStage.setScene(primaryScene);
+        ( (AdminDashController) scene.getController()).setAdmin(admin);
+        primaryStage.show();
+        centerStage();
+    }
+
+    public void showPatientDash(Patient p){
+        System.out.println("Login success, loading Patient Dash...");
+        setStageDimensions();
+
+        scene = getLoadedSceneOfType(new PatientDashController());
+        primaryScene = new Scene(scene.getPane());
+        primaryStage.setScene(primaryScene);
+        ((PatientDashController) scene.getController()).setPatient(p);
+        primaryStage.show();
+        centerStage();
+    }
+
+    public static LoadedScene getLoadedSceneOfType(AbsController type) {
+        for (LoadedScene l : loadedScenes) {
+            if (l.getController().getKey().equals(type.getKey()))
+                return l;
+        }
+        return null;
+    }
 }

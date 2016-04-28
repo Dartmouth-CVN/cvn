@@ -6,13 +6,13 @@ import java.util.List;
 /**
  * Created by mrampiah on 4/24/16.
  */
-public class PatientWrapper extends  AbsUserWrapper{
+public class PatientWrapper extends AbsUserWrapper {
     List<PetWrapper> petWrapperList;
     List<MealWrapper> mealWrapperList;
     List<AbsRelationWrapper> absRelationWrapperList;
     List<MedicalStaffWrapper> medicalStaffWrapperList;
 
-    public PatientWrapper(Patient p){
+    public PatientWrapper(Patient p) {
         super(p);
         setPetWrapperList(p.getPets());
         setMealWrapperList(p.getMeals());
@@ -26,7 +26,7 @@ public class PatientWrapper extends  AbsUserWrapper{
 
     public void setPetWrapperList(List<Pet> petList) {
         petWrapperList = new LinkedList<PetWrapper>();
-        for(Pet p: petList)
+        for (Pet p : petList)
             petWrapperList.add(new PetWrapper(p));
     }
 
@@ -36,7 +36,7 @@ public class PatientWrapper extends  AbsUserWrapper{
 
     public void setMealWrapperList(List<Meal> mealList) {
         mealWrapperList = new LinkedList<MealWrapper>();
-        for(Meal m: mealList)
+        for (Meal m : mealList)
             mealWrapperList.add(new MealWrapper(m));
     }
 
@@ -46,7 +46,7 @@ public class PatientWrapper extends  AbsUserWrapper{
 
     public void setAbsRelationWrapperList(List<AbsRelation> absRelationList) {
         absRelationWrapperList = new LinkedList<AbsRelationWrapper>();
-        for(AbsRelation relation : absRelationList)
+        for (AbsRelation relation : absRelationList)
             absRelationWrapperList.add(new AbsRelationWrapper(relation));
     }
 
@@ -56,7 +56,7 @@ public class PatientWrapper extends  AbsUserWrapper{
 
     public void setMedicalStaffWrapperList(List<MedicalStaff> medicalStaffList) {
         medicalStaffWrapperList = new LinkedList<MedicalStaffWrapper>();
-        for(MedicalStaff m: medicalStaffList)
+        for (MedicalStaff m : medicalStaffList)
             medicalStaffWrapperList.add(new MedicalStaffWrapper(m));
     }
 }

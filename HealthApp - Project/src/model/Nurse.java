@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -7,16 +8,16 @@ import java.util.Date;
  */
 public class Nurse extends MedicalStaff {
 
-    public Nurse(){
+    public Nurse() {
 
     }
-    public Nurse(java.lang.String userId, java.lang.String firstName, java.lang.String lastName, java.lang.String username, java.lang.String password,
-                 Date birthday, java.lang.String room, String picture, Contact contactInfo) {
-        super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo);
+
+    public Nurse(long userIdValue, String firstName, String lastName, String username, String password,
+                 LocalDate birthday, String room, String picture, Contact contactInfo) {
+        super(userIdValue, firstName, lastName, username, password, birthday, room, picture, contactInfo);
     }
 
-    @Override
-    public java.lang.String getRole(){
-        return "Nurse";
+    public static String getRole(){
+        return "NURSE";
     }
 }

@@ -18,28 +18,28 @@ public class HealthAttributeWrapper<V> {
         return healthAttributeIdProperty;
     }
 
-    public StringProperty getNameProperty() {
-        return nameProperty;
-    }
-
-    public ObjectProperty<V> getValueProperty() {
-        return valueProperty;
-    }
-
-    public StringProperty getStringValueProperty() {
-        return stringValueProperty;
-    }
-
     public void setHealthAttributeIdProperty(long healthAttributeId) {
         healthAttributeIdProperty = new SimpleLongProperty(healthAttributeId);
+    }
+
+    public StringProperty getNameProperty() {
+        return nameProperty;
     }
 
     public void setNameProperty(String name) {
         nameProperty = new SimpleStringProperty(name);
     }
 
+    public ObjectProperty<V> getValueProperty() {
+        return valueProperty;
+    }
+
     public void setValueProperty(V value) {
         valueProperty = new SimpleObjectProperty<V>(value);
+    }
+
+    public StringProperty getStringValueProperty() {
+        return stringValueProperty;
     }
 
     public void setStringValueProperty(String stringValue) {

@@ -1,6 +1,8 @@
 package utils;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -92,24 +94,16 @@ public class RandomGenerator {
 				+ firstNames[randomNumber.nextInt(firstNames.length)].toLowerCase().charAt(0);
 	}
 
-	public static Date getRandomBirthday() {
-//		 String input = String.format("%4d-%02d-%02d",
-//		 (randomNumber.nextInt(80) + 1930), randomNumber.nextInt(12) + 1,
-//		 randomNumber.nextInt(27) + 1);
-//		 DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
-//		 return LocalDate.parse(input, formatter);
-		return new Date((randomNumber.nextInt(80) + 1930), randomNumber.nextInt(12) + 1, randomNumber.nextInt(27) + 1);
+	public static LocalDate getRandomBirthday() {
+		 String input = String.format("%4d-%02d-%02d", (randomNumber.nextInt(80) + 1930), randomNumber.nextInt(12) + 1,
+				 randomNumber.nextInt(27) + 1);
+		 DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+		 return LocalDate.parse(input, formatter);
+//		return new Date((randomNumber.nextInt(80) + 1930), randomNumber.nextInt(12) + 1, randomNumber.nextInt(27) + 1);
 	}
 
 	public static String getRandomPicture(){
 		return profilePic[randomNumber.nextInt(profilePic.length)];
-//		System.out.println(file.getPath());
-//		if(file.exists()) {
-//			return new String(new Image("file:" + file.getPath()));
-//		}
-//		else
-//			System.out.println("File not found");
-//		return null;
 	}
 
 	public static String getRandomRoom() {
@@ -120,10 +114,10 @@ public class RandomGenerator {
 		String firstname = getRandomFirstName();
 		String lastname = getRandomLastName();
 		String username = createUsername(firstname, lastname);
-		Date birthday = getRandomBirthday();
+		LocalDate birthday = getRandomBirthday();
 		String room = getRandomRoom();
 		Contact contactInfo = getRandomContactInfo();
-		return new Patient(getRandomUserId(new Patient()), firstname, lastname, username, lastname, birthday,
+		return new Patient(0L, firstname, lastname, username, lastname, birthday,
 				room, getRandomPicture(),  contactInfo);
 	}
 
@@ -161,12 +155,12 @@ public class RandomGenerator {
 		String firstname = getRandomFirstName();
 		String lastname = getRandomLastName();
 		String username = createUsername(firstname, lastname);
-		Date birthday = getRandomBirthday();
+		LocalDate birthday = getRandomBirthday();
 		String room = getRandomRoom();
 		Contact contactInfo = getRandomContactInfo();
 		String relation = relationTypes[randomNumber.nextInt(relationTypes.length)];
 		boolean isFamily =  randomNumber.nextInt(10) < 7? true : false;
-		return new Caregiver(getRandomUserId(new Caregiver()), firstname, lastname, username, lastname, birthday, room, getRandomPicture(),contactInfo,
+		return new Caregiver(0L, firstname, lastname, username, lastname, birthday, room, getRandomPicture(),contactInfo,
 				relation, isFamily);
 	}
 
@@ -174,12 +168,12 @@ public class RandomGenerator {
 		String firstname = getRandomFirstName();
 		String lastname = getRandomLastName();
 		String username = createUsername(firstname, lastname);
-		Date birthday = getRandomBirthday();
+		LocalDate birthday = getRandomBirthday();
 		String room = getRandomRoom();
 		Contact contactInfo = getRandomContactInfo();
 		String relation = relationTypes[randomNumber.nextInt(relationTypes.length)];
 		boolean isCaregiver =  randomNumber.nextInt(10) < 7? true : false;
-		return new Family(getRandomUserId(new Caregiver()), firstname, lastname, username, lastname, birthday, room,
+		return new Family(0L, firstname, lastname, username, lastname, birthday, room,
 				getRandomPicture(), contactInfo, relation, isCaregiver);
 	}
 
@@ -187,10 +181,10 @@ public class RandomGenerator {
 		String firstname = getRandomFirstName();
 		String lastname = getRandomLastName();
 		String username = createUsername(firstname, lastname);
-		Date birthday = getRandomBirthday();
+		LocalDate birthday = getRandomBirthday();
 		String room = getRandomRoom();
 		Contact contactInfo = getRandomContactInfo();
-		return new MedicalStaff(getRandomUserId(new MedicalStaff()), firstname, lastname, username, lastname, birthday,
+		return new MedicalStaff(0L, firstname, lastname, username, lastname, birthday,
 				room, getRandomPicture(), contactInfo);
 	}
 
@@ -198,10 +192,10 @@ public class RandomGenerator {
 		String firstname = getRandomFirstName();
 		String lastname = getRandomLastName();
 		String username = createUsername(firstname, lastname);
-		Date birthday = getRandomBirthday();
+		LocalDate birthday = getRandomBirthday();
 		String room = getRandomRoom();
 		Contact contactInfo = getRandomContactInfo();
-		return new Administrator(getRandomUserId(new Administrator()), firstname, lastname, username, lastname,
+		return new Administrator(0L, firstname, lastname, username, lastname,
 				birthday, room, getRandomPicture(), contactInfo);
 	}
 
@@ -213,17 +207,17 @@ public class RandomGenerator {
 
 		// add phone numbers
 		for (String type : types) {
-			phoneNumbers.add(new ContactElement(getRandomPhoneNumber(), type));
+			phoneNumbers.add(new ContactElement(getRandomPhoneNumber(), type, "PHONE"));
 		}
 
 		// add email addresses
 		for (String type : types) {
-			emails.add(new ContactElement(getRandomEmail(), type));
+			emails.add(new ContactElement(getRandomEmail(), type, "EMAIL"));
 		}
 
 		// add addresses
 		for (String type : types) {
-			addresses.add(new ContactElement(getRandomAddress(), type));
+			addresses.add(new ContactElement(getRandomAddress(), type, "ADDRESS"));
 		}
 
 		return new Contact(getRandomId(), phoneNumbers, emails, addresses);
@@ -231,7 +225,7 @@ public class RandomGenerator {
 
 	public static Pet getRandomPet() {
 		return new Pet( getRandomId(), petNames[randomNumber.nextInt(petNames.length)],
-				petTypes[randomNumber.nextInt(petTypes.length)], randomNumber.nextInt(10) < 5 ? true : false, "");
+				petTypes[randomNumber.nextInt(petTypes.length)], randomNumber.nextInt(10) < 5 ? true : false);
 	}
 
 	public static Meal getRandomMeal() {
@@ -240,21 +234,26 @@ public class RandomGenerator {
 	}
 
 	public static String getRandomUserId(AbsUser user){
-		String id = "";
-		if(user instanceof Patient)
-			id = "PA" + getRandomId();
-		else if (user instanceof AbsRelation)
-			id = "RE" + getRandomId();
-		else if (user instanceof Administrator) {
-			id = "AD" + getRandomId();
-		}
-		else if (user instanceof  MedicalStaff)
-			id = "MS" + getRandomId();
-		return id;
+//		String id = "";
+//		do{
+//			if(user instanceof Patient)
+//				id = "PA" + getRandomId();
+//			else if (user instanceof AbsRelation)
+//				id = "RE" + getRandomId();
+//			else if (user instanceof Administrator) {
+//				id = "AD" + getRandomId();
+//			}
+//			else if (user instanceof  MedicalStaff)
+//				id = "MS" + getRandomId();
+//			System.out.println(id);
+//		}while(DBHandler.getUniqueInstance().isUniqueId(id));
+//
+//		return id;
+		return "";
 	}
 
 	public static long getRandomId(){
-		return System.currentTimeMillis();
+		return randomNumber.nextLong();
 	}
 
 	public static long getRandomId(Object o){
@@ -280,6 +279,5 @@ public class RandomGenerator {
 		}
 		return parsable;
 	}
-
 
 }

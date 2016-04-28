@@ -1,6 +1,5 @@
 package view;
 
-import java.io.IOException;
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -8,7 +7,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import model.MainApp;
 import model.Patient;
 import model.PatientWrapper;
@@ -32,7 +30,7 @@ public class SearchController extends AbsController {
 	@FXML
 	private Tab profileTab = new Tab();
 
-	private String userId;
+	private long userId;
 
 	// Reference to the main application.
 	private MainApp mainApp;
@@ -42,6 +40,7 @@ public class SearchController extends AbsController {
 	 * method.
 	 */
 	public SearchController() {
+		key = "search";
 	}
 
 	@FXML
@@ -61,7 +60,7 @@ public class SearchController extends AbsController {
 		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
 		idColumn.setCellValueFactory(cellData -> cellData.getValue().getUserIdProperty());
 		profileTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-			userId = newValue.getUserIdProperty().get();
+			userId = newValue.getUserIdValueProperty().get();
 		});
 		handleFindPatient();
 		profileTable.setRowFactory( tv -> {
@@ -116,51 +115,30 @@ public class SearchController extends AbsController {
 
 
 	public void showMiniPatientProfile() {
-		MiniPatientProfileController controller = new MiniPatientProfileController();
+		LoadedScene scene = MainApp.getLoadedSceneOfType(new MiniPatientProfileController());
+		Patient patient = (Patient) DBHandler.getUniqueInstance().getFilledUserById(userId);
+		((MiniPatientProfileController) scene.getController()).setPatient(patient);
 
-		try {
-			AnchorPane miniProfile = (AnchorPane) controller.getLoader().load();
-			Patient patient = DBHandler.getUniqueInstance().getPatientById(userId);
+		if(profileTabPane.getTabs().isEmpty()){
+            Tab profileTab = new Tab(patient.getLastName());
+            profileTab.setContent(scene.getPane());
+            profileTabPane.getTabs().add(profileTab);
+        }else{
+            Tab profileTab = profileTabPane.getTabs().get(0);
+            profileTab.setText(patient.getLastName());
+            profileTab.setContent(scene.getPane());
+        }
 
-			if(profileTabPane.getTabs().isEmpty()){
-				Tab profileTab = new Tab(patient.getLastName());
-				profileTab.setContent(miniProfile);
-				profileTabPane.getTabs().add(profileTab);
-			}else{
-				Tab profileTab = profileTabPane.getTabs().get(0);
-				profileTab.setText(patient.getLastName());
-				profileTab.setContent(miniProfile);
-			}
-
-
-
-			FXMLLoader loader = controller.getLoader();
-			controller = loader.getController();
-			controller.setMainApp(this.mainApp);
-			controller.setPatient(patient);
-		} catch (IOException e) {
-			MainApp.printError(e);
-		}
 	}
 
 	public void showNewMiniPatientProfile() {
-		MiniPatientProfileController controller = new MiniPatientProfileController();
+		Patient patient = DBHandler.getUniqueInstance().getPatientById(userId);
+		LoadedScene scene = MainApp.getLoadedSceneOfType(new MiniPatientProfileController());
+		((MiniPatientProfileController) scene.getController()).setPatient(patient);
+		Tab profileTab = new Tab(patient.getLastName());
+		profileTab.setContent(scene.getPane());
+		profileTabPane.getTabs().add(profileTab);
 
-		try {
-			AnchorPane miniProfile = (AnchorPane) controller.getLoader().load();
-			Patient patient = DBHandler.getUniqueInstance().getPatientById(userId);
-
-			Tab profileTab = new Tab(patient.getLastName());
-			profileTab.setContent(miniProfile);
-			profileTabPane.getTabs().add(profileTab);
-
-			FXMLLoader loader = controller.getLoader();
-			controller = loader.getController();
-			controller.setMainApp(this.mainApp);
-			controller.setPatient(patient);
-		} catch (IOException e) {
-			MainApp.printError(e);
-		}
 	}
 
 }

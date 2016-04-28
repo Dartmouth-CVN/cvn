@@ -70,6 +70,7 @@ public class MiniPatientProfileController extends AbsController {
 	}
 	
 	public MiniPatientProfileController() {
+		key = "mini patient profile";
 	}
 
 	/**
@@ -104,9 +105,8 @@ public class MiniPatientProfileController extends AbsController {
 	 */
 	@FXML
 	private void handleEditProfile() {
-		AbsDashController controller = MainApp.getDashController() ;
-		((AdminDashController) controller).loadEditPatientTab(patient);
-
+		( (AdminDashController) MainApp.getLoadedSceneOfType(
+				new AdminDashController()).getController()).loadEditPatientTab(patient);
 	}
 	
 	/**

@@ -2,12 +2,20 @@ package view;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TitledPane;
+import javafx.scene.layout.AnchorPane;
+import model.MainApp;
+import model.PatientExportWrapper;
+import utils.*;
 
 public class ExportController extends AbsController {
 
@@ -22,22 +30,20 @@ public class ExportController extends AbsController {
 	@FXML
 	private TitledPane personalPane = new TitledPane();
 	@FXML
-	private TitledPane healthPane = new TitledPane();
-	@FXML
-	private TitledPane preferencePane = new TitledPane();
+	private TitledPane otherPane = new TitledPane();
 
-	CheckBox[] personal = new CheckBox[6];
-	CheckBox[] health = new CheckBox[18];
-	CheckBox[] preference = new CheckBox[2];
-
-	private ArrayList<Boolean> fieldCheck;
+	List<CheckBox> personal;
+	List<CheckBox> other;
+	List<Boolean> fieldCheck;
 
 	/**
 	 * The constructor. The constructor is called before the initialize()
 	 * method.
 	 */
 	public ExportController() {
-		super();
+		key = "export controller";
+		personal = new LinkedList<>();
+		other = new LinkedList<>();
 	}
 
 	/**
@@ -46,154 +52,139 @@ public class ExportController extends AbsController {
 	 */
 	@FXML
 	private void initialize() {
-		fieldCheck = new ArrayList<Boolean>();
 		loadCheckBoxArrays();
 	}
 
-	/**
-	 * Called when the user clicks the Go button.
-	 */
-	public void handlePersonalExport() {
 
-		boolean[] fields = new boolean[12];
-
-		for (boolean bool : fields)
-			fieldCheck.add(bool);
-	}
-
-	/**
-	 * Called when the user clicks the Go button.
-	 */
-	public void handleHealthExport() {
-		boolean[] fields = new boolean[20];
-
-		for (boolean bool : fields)
-			fieldCheck.add(bool);
-	}
-
-	// Ignore this method, preference according WILL NOT BE IMPLEMENTED
-	/**
-	 * Called when the user clicks the Go button.
-	 */
-	public void handlePreferenceExport() {
-
-		// boolean[] fields = new boolean[12];
-
+	@Override
+	public FXMLLoader getLoader() {
+		loader.setLocation(MainApp.class.getResource("../view/ExportView.fxml"));
+		return loader;
 	}
 
 	@FXML
 	private void handlePersonalSelectButton() {
-
-		for (int i = 0; i < personal.length; i++) {
-
-			personal[i].setSelected(true);
-		}
 	}
 
 	@FXML
 	private void handlePersonalClearButton() {
-
-		for (int i = 0; i < personal.length; i++) {
-
-			personal[i].setSelected(false);
-		}
 	}
 
 	@FXML
 	private void handleHealthSelectButton() {
-
-		for (int i = 0; i < health.length; i++) {
-
-			health[i].setSelected(true);
-		}
 	}
 
 	@FXML
 	private void handleHealthClearButton() {
-
-		for (int i = 0; i < health.length; i++) {
-
-			health[i].setSelected(false);
-		}
 	}
 
 	@FXML
 	private void handlePreferenceSelectButton() {
-
-		for (int i = 0; i < preference.length; i++) {
-
-			preference[i].setSelected(true);
-		}
 	}
 
 	@FXML
 	private void handlePreferenceClearButton() {
-
-		for (int i = 0; i < preference.length; i++) {
-
-			preference[i].setSelected(false);
-		}
 	}
 
 	@FXML
 	private void handleExport() {
-		handlePersonalExport();
-		handleHealthExport();
-		handlePreferenceExport();
-
-		boolean[] fields = new boolean[fieldCheck.size()];
-		for (int i = 0; i < fields.length; i++) {
-			fields[i] = fieldCheck.get(i);
-		}
 		String name = "Exported" + LocalTime.now();
-//		if (CSVRadioButton.isSelected()) {
-//			CSVParsingUtils.exportData(name + ".csv", MainApp.getDatabaseHandler().getPatientList(), fields);
-//			MainApp.showAlert("Export CSV done");
-//		} else if (TSVRadioButton.isSelected()) {
-//			TSVParsingUtils.exportData(name + ".tsv", MainApp.getDatabaseHandler().getPatientList(), fields);
-//			MainApp.showAlert("Export TSV done");
-//		} else if (XMLRadioButton.isSelected()) {
-//			XMLParsingUtils.exportData(name + ".xml", MainApp.getDatabaseHandler().getPatientList(), null);
-//			MainApp.showAlert("Export XML done");
-//		} else if (HTMLRadioButton.isSelected()) {
-//			XMLParsingUtils.exportData(name + ".html", MainApp.getDatabaseHandler().getPatientList(), null);
-//			MainApp.showAlert("Export HTML done");
-//		}
+		getFields();
+		PatientExportWrapper wrapper = new PatientExportWrapper(fieldCheck);
+
+		if (CSVRadioButton.isSelected()) {
+			SVParsingUtils utils = new CSVParsingUtils();
+			utils.exportData(name + ".csv", DBHandler.getUniqueInstance().getAllFilledPatients(), wrapper);
+			MainApp.showAlert("Export CSV done");
+		} else if (TSVRadioButton.isSelected()) {
+			SVParsingUtils utils = new TSVParsingUtils();
+			utils.exportData(name + ".tsv", DBHandler.getUniqueInstance().getAllFilledPatients(), wrapper);
+			MainApp.showAlert("Export TSV done");
+		} else if (XMLRadioButton.isSelected()) {
+			XMLParsingUtils utils = new XMLParsingUtils();
+			utils.exportData(utils.getFile(name + ".xml"), DBHandler.getUniqueInstance().getAllFilledPatients(), wrapper);
+			MainApp.showAlert("Export XML done");
+		} else if (HTMLRadioButton.isSelected()) {
+			HTMLParsingUtils utils = new HTMLParsingUtils();
+			utils.exportData(utils.getFile(name + ".html"), DBHandler.getUniqueInstance().getAllFilledPatients(), wrapper);
+			MainApp.showAlert("Export HTML done");
+		}
+	}
+
+	private void getFields(){
+		fieldCheck = new ArrayList<Boolean>();
+		boolean firstname = getCheckBoxFor("First Name").isSelected();
+		boolean lastname = getCheckBoxFor("Last Name").isSelected();
+		boolean username = getCheckBoxFor("Username").isSelected();
+		boolean birthday = getCheckBoxFor("Birthday").isSelected();
+		boolean room = getCheckBoxFor("Room").isSelected();
+		boolean picture = getCheckBoxFor("Picture").isSelected();
+		boolean contactInfo = getCheckBoxFor("First Name").isSelected();
+		boolean pets = getCheckBoxFor("Pets").isSelected();
+		boolean meals = getCheckBoxFor("Meals").isSelected();
+		boolean relations = getCheckBoxFor("Relations").isSelected();
+		boolean assignedStaff = getCheckBoxFor("Medical Staff").isSelected();
+		boolean healthProfile = getCheckBoxFor("Health Info").isSelected();
+
+		fieldCheck.add(firstname);
+		fieldCheck.add(lastname);
+		fieldCheck.add(username);
+		fieldCheck.add(birthday);
+		fieldCheck.add(room);
+		fieldCheck.add(picture);
+		fieldCheck.add(contactInfo);
+		fieldCheck.add(pets);
+		fieldCheck.add(meals);
+		fieldCheck.add(relations);
+		fieldCheck.add(assignedStaff);
+		fieldCheck.add(healthProfile);
 	}
 
 	private void loadCheckBoxArrays() {
-
 		int i = 0;
-
-		for (Node m : personalPane.getChildrenUnmodifiable()) {
-
+		for (Node m : getAllNodes((AnchorPane) personalPane.getContent())) {
 			if (m instanceof CheckBox) {
-
-				personal[i] = (CheckBox) m;
+				personal.add( (CheckBox) m);
 				i++;
 			}
 		}
 
 		i = 0;
-
-		for (Node n : healthPane.getChildrenUnmodifiable()) {
-
+		for (Node n : getAllNodes((AnchorPane) otherPane.getContent())){
 			if (n instanceof CheckBox) {
-
-				health[i] = (CheckBox) n;
+				other.add( (CheckBox) n);
 				i++;
 			}
 		}
+	}
 
-		i = 0;
-
-		for (Node o : preferencePane.getChildrenUnmodifiable()) {
-
-			if (o instanceof CheckBox) {
-
-				preference[i] = (CheckBox) o;
-				i++;
+	private CheckBox getCheckBoxFor(String label){
+		for(CheckBox c : personal){
+			if(c.getText().equals(label)){
+				return c;
 			}
+		}
+
+		for(CheckBox c : other){
+			if(c.getText().equals(label)){
+				return c;
+			}
+		}
+
+		return null;
+	}
+
+	public static ArrayList<Node> getAllNodes(Parent root) {
+		ArrayList<Node> nodes = new ArrayList<Node>();
+		addAllDescendents(root, nodes);
+		return nodes;
+	}
+
+	private static void addAllDescendents(Parent parent, ArrayList<Node> nodes) {
+		for (Node node : parent.getChildrenUnmodifiable()) {
+			nodes.add(node);
+			if (node instanceof Parent)
+				addAllDescendents((Parent)node, nodes);
 		}
 	}
 

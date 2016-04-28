@@ -8,20 +8,8 @@ import javafx.beans.property.SimpleBooleanProperty;
  */
 public class CaregiverWrapper extends AbsRelationWrapper {
 
-    BooleanProperty isFamilyProperty;
 
-    public CaregiverWrapper(Caregiver caregiver){
+    public CaregiverWrapper(Caregiver caregiver) {
         super(caregiver);
-        setIsFamilyProperty(caregiver.getIsFamily());
     }
-
-    public void setIsFamilyProperty(boolean isFamily){
-        isFamilyProperty = new SimpleBooleanProperty(isFamily);
-    }
-
-    public BooleanProperty getIsFamilyProperty() {
-        return isFamilyProperty;
-    }
-
-
 }

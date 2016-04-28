@@ -7,21 +7,15 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
 
 import model.HealthAttribute;
-import model.HealthInfo;
 import model.MainApp;
 import model.Patient;
 
 public class FitBitParsingUtils {
-
-	Set<HealthInfo> healthInfo;
-
 	public static List<HealthAttribute<?>> fitBitImport(String str) {
 		return fitBitImport(new File(str));
 	}
@@ -128,7 +122,7 @@ public class FitBitParsingUtils {
 						hi = new HealthAttribute<Double>(RandomGenerator.getRandomId(),
 								LocalDate.parse(info[0], formatter), titles.get(i), Double.parseDouble(info[i]));
 					}else{
-						hi = new HealthAttribute<String>(RandomGenerator.getRandomId(),
+						hi = new HealthAttribute<>(RandomGenerator.getRandomId(),
 								LocalDate.parse(info[0], formatter), titles.get(i), info[i]);
 					}
 					healthInfo.add(hi);
@@ -145,7 +139,7 @@ public class FitBitParsingUtils {
 					hi = new HealthAttribute<Double>(RandomGenerator.getRandomId(),
 							LocalDate.parse(info[0], formatter), titles.get(i), Double.parseDouble(info[i]));
 				}else{
-					hi = new HealthAttribute<String>(RandomGenerator.getRandomId(),
+					hi = new HealthAttribute<>(RandomGenerator.getRandomId(),
 							LocalDate.parse(info[0], formatter), titles.get(i), info[i]);
 				}
 					healthInfo.add(hi);
@@ -162,7 +156,7 @@ public class FitBitParsingUtils {
 					hi = new HealthAttribute<Double>(RandomGenerator.getRandomId(),
 							LocalDate.parse(info[0], formatter), titles.get(i), Double.parseDouble(info[i]));
 				}else{
-					hi = new HealthAttribute<String>(RandomGenerator.getRandomId(),
+					hi = new HealthAttribute<>(RandomGenerator.getRandomId(),
 							LocalDate.parse(info[0], formatter), titles.get(i), info[i]);
 				}
 					healthInfo.add(hi);
@@ -200,10 +194,10 @@ public class FitBitParsingUtils {
 		for (Patient p : pts) {
 			
 			toWrite.println(p.getFirstName() + " " + p.getLastName());
-//			for (HealthInfo h : p.getHealthProfile().getHealthInfo().values()) {
-//				String toPrint = h.toString();
-//				toWrite.println(toPrint);
-//			}
+			for (HealthAttribute h : p.getHealthProfile().getHealthInfo()) {
+				String toPrint = h.toString();
+				toWrite.println(toPrint);
+			}
 		}
 		toWrite.close();
 	}

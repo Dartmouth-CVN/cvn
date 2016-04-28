@@ -1,20 +1,19 @@
 package view;
 
-import java.io.IOException;
-
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import model.AbsUser;
+import model.ContactElement;
 import model.MainApp;
 import model.Patient;
+import utils.ObjectNotFoundException;
 
 public abstract class AbsDashController extends AbsController {
-
-	public AbsDashController() {
-	}
 
 	@FXML
 	protected TabPane tabPane;
@@ -34,7 +33,29 @@ public abstract class AbsDashController extends AbsController {
 	protected ImageView searchImage;
 
 	@FXML
+	protected ImageView profilePic;
+	@FXML
+	protected Label name;
+	@FXML
+	protected Label email;
+	@FXML
+	protected Label room;
+	@FXML
+	protected Label number;
+
+	@FXML
+	private AnchorPane iconPane;
+
+	public AbsDashController() {
+		key = "abs dash";
+	}
+
+	@FXML
 	private void initialize() {
+	}
+
+	public void setIconPane(AnchorPane pane){
+		iconPane = pane;
 	}
 
 	public void initializeTabs(){
@@ -50,55 +71,45 @@ public abstract class AbsDashController extends AbsController {
 		});
 	}
 
-	public void loadSearchTab() {
-		SearchController controller = new SearchController();
-
+	public void loadUserFields(AbsUser user){
 		try {
-			AnchorPane searchView = (AnchorPane) controller.getLoader().load();
+			if(user != null) {
+				profilePic.setImage(new Image("file:" + user.getPicture()));
+				name.setText(user.getFirstName() + " " + user.getLastName());
+				ContactElement mail = user.getContactInfo().getPrimaryEmail();
+				ContactElement phone = user.getContactInfo().getPrimaryPhone();
 
-			FXMLLoader loader = controller.getLoader();
-			controller = loader.getController();
-			controller.setMainApp(this.mainApp);
-			searchTab.setContent(searchView);
-		} catch (IOException e) {
-			MainApp.printError(e);
+				email.setText(mail.getValue() + " (" + mail.getType() + ")");
+				room.setText(user.getRoom());
+				number.setText(phone.getValue() + " (" + phone.getType() + ")");
+			}
+		} catch (ObjectNotFoundException e) {
+			e.printStackTrace();
 		}
+	}
+
+	public void loadSearchTab() {
+		LoadedScene scene = MainApp.getLoadedSceneOfType(new SearchController());
+		searchTab.setContent(scene.getPane());
 	}
 
 	public void loadAddPatientTab(){
-		EditPatientController controller = new EditPatientController();
-
-		try {
-			AnchorPane editPatientView = (AnchorPane) controller.getLoader().load();
-
-			FXMLLoader loader = controller.getLoader();
-			controller = loader.getController();
-			controller.setMainApp(this.mainApp);
-			controller.setPatient(new Patient());
-			addPatientTab.setContent(editPatientView);
-		} catch (IOException e) {
-			MainApp.printError(e);
-			e.printStackTrace();
-		}
+		LoadedScene scene = MainApp.getLoadedSceneOfType(new EditPatientController());
+		((EditPatientController) scene.getController()).setPatient(new Patient());
+		addPatientTab.setContent(scene.getPane());
 	}
 
 	public void loadEditPatientTab(Patient p) {
-		EditPatientController controller = new EditPatientController();
+		LoadedScene scene = MainApp.getLoadedSceneOfType(new EditPatientController());
+		((EditPatientController) scene.getController()).setPatient(p);
+		editPatientTab.setContent(scene.getPane());
+		tabPane.getSelectionModel().select(editPatientTab);
+	}
 
-		try {
-			AnchorPane editPatientView = (AnchorPane) controller.getLoader().load();
+	public void loadExportTab(){
+		LoadedScene scene = MainApp.getLoadedSceneOfType(new ExportController());
+		exportTab.setContent(scene.getPane());
 
-			FXMLLoader loader = controller.getLoader();
-			controller = loader.getController();
-			controller.setMainApp(this.mainApp);
-			controller.setPatient(p);
-			editPatientTab.setContent(editPatientView);
-			tabPane.getSelectionModel().select(editPatientTab);
-
-		} catch (IOException e) {
-			MainApp.printError(e);
-			e.printStackTrace();
-		}
 	}
 
 	/**

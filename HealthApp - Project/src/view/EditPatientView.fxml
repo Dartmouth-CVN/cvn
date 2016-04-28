@@ -60,7 +60,7 @@
                                     <Image url="@images/blank-profile-picture.png" />
                                  </image>
                               </ImageView>
-                              <Button layoutX="314.0" layoutY="409.0" mnemonicParsing="false" onAction="#importFitBitCSV" text="Import FitBit Data" />
+                              <Button layoutX="314.0" layoutY="409.0" mnemonicParsing="false" text="Import FitBit Data" />
                            </children>
                         </AnchorPane>
                      </content>

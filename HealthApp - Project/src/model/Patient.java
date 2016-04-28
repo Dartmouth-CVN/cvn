@@ -2,119 +2,156 @@ package model;
 
 import utils.DBHandler;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 
-public class Patient extends AbsUser {
+public class Patient extends AbsUser{
 
-	List<Pet> pets;
-	List<Meal> meals;
-	List<AbsRelation> relations;
-	List<MedicalStaff> assignedStaff;
-	HealthProfile healthProfile;
+    List<Pet> pets;
+    List<Meal> meals;
+    List<AbsRelation> relations;
+    List<MedicalStaff> assignedStaff;
+    HealthProfile healthProfile;
 
-	public Patient(){
-		this ("enter id", "enter first name", "enter last name", "enter username", "enter password", new Date(), "enter room",
-				"enter picture", new Contact());
-	}
-	
-	public Patient(String userId, String firstName, String lastName, String username, String password, Date birthday,
-				   String room, String picture, Contact contactInfo) {
-		this(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo, new LinkedList<Pet>(),
-				new LinkedList<Meal>(), new LinkedList<AbsRelation>(),  new LinkedList<MedicalStaff>(), new HealthProfile());
-	}
+    public Patient() {
+        this(0L, "enter first name", "enter last name", "enter username", "enter password", LocalDate.now(), "enter room",
+                "enter picture", new Contact());
+    }
 
-	public Patient(AbsUser user, List<Pet> pets, List<Meal> meals, List<AbsRelation> relations,
-				   List<MedicalStaff> assignedStaff, HealthProfile healthProfile){
-		this(user.getUserId(), user.getFirstName(), user.getLastName(), user.getUsername(), user.getPassword(),
-				user.getBirthday(), user.getRoom(), user.getPicture(),  user.getContactInfo(), pets, meals, relations, assignedStaff, healthProfile);
-	}
+    public Patient(long userIdValue, String firstName, String lastName, String username, String password, LocalDate birthday,
+                   String room, String picture) {
+        this(userIdValue, firstName, lastName, username, password, birthday, room, picture, new Contact(), new LinkedList<Pet>(),
+                new LinkedList<Meal>(), new LinkedList<AbsRelation>(), new LinkedList<MedicalStaff>(), new HealthProfile());
+    }
 
-	public Patient(java.lang.String userId, java.lang.String firstName, java.lang.String lastName, java.lang.String username, java.lang.String password, Date birthday,
-				   java.lang.String room, String picture, Contact contactInfo, List<Pet> pets, List<Meal> meals, List<AbsRelation> relations,
-				   List<MedicalStaff> assignedStaff, HealthProfile healthProfile) {
-		super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo);
-		this.pets = pets;
-		this.meals = meals;
-		this.relations = relations;
-		this.assignedStaff = assignedStaff;
-		this.healthProfile = healthProfile;
-	}
+    public Patient(long userIdValue, String firstName, String lastName, String username, String password, LocalDate birthday,
+                   String room, String picture, Contact contactInfo) {
+        this(userIdValue, firstName, lastName, username, password, birthday, room, picture, contactInfo, new LinkedList<Pet>(),
+                new LinkedList<Meal>(), new LinkedList<AbsRelation>(), new LinkedList<MedicalStaff>(), new HealthProfile());
+    }
 
-	public HealthProfile getHealthProfile() {
-		return healthProfile;
-	}
+    @Override
+    public String getUserId() {
+        return "PA" + userIdValue;
+    }
 
-	public void setHealthProfile(HealthProfile healthProfile) {
-		this.healthProfile = healthProfile;
-	}
+    public Patient(AbsUser user, List<Pet> pets, List<Meal> meals, List<AbsRelation> relations,
+                   List<MedicalStaff> assignedStaff, HealthProfile healthProfile) {
+        this(user.getUserIdValue(), user.getFirstName(), user.getLastName(), user.getUsername(), user.getPassword(),
+                user.getBirthday(), user.getRoom(), user.getPicture(), user.getContactInfo(), pets, meals, relations, assignedStaff, healthProfile);
+    }
 
-	public List<MedicalStaff> getAssignedStaff() {
-		return assignedStaff;
-	}
+    public Patient(long userIdValue, String firstName, String lastName, String username, String password, LocalDate birthday,
+                   String room, String picture, Contact contactInfo, List<Pet> pets, List<Meal> meals, List<AbsRelation> relations,
+                   List<MedicalStaff> assignedStaff, HealthProfile healthProfile) {
+        super(userIdValue, firstName, lastName, username, password, birthday, room, picture, contactInfo);
+        this.pets = pets;
+        this.meals = meals;
+        this.relations = relations;
+        this.assignedStaff = assignedStaff;
+        this.healthProfile = healthProfile;
+    }
 
-	public void setAssignedStaff(List<MedicalStaff> assignedStaff) {
-		for(MedicalStaff m : assignedStaff)
-			addAssignedStaff(m);
-	}
+    public HealthProfile getHealthProfile() {
+        return healthProfile;
+    }
 
-	public void addAssignedStaff(MedicalStaff m){
-		this.assignedStaff.add(m);
-		m.addPatient(this);
-	}
-	
-	public List<AbsRelation> getRelations() {
-		return relations;
-	}
+    public void setHealthProfile(HealthProfile healthProfile) {
+        this.healthProfile = healthProfile;
+    }
 
-	public void setRelations(List<AbsRelation> relations) {
-		for(AbsRelation rel : relations)
-			addRelation(rel);
-	}
+    public List<MedicalStaff> getAssignedStaff() {
+        return assignedStaff;
+    }
 
-	public void addRelation(AbsRelation relation){
-		this.relations.add(relation);
-		relation.setUserId(userId);
-	}
+    public void setAssignedStaff(List<MedicalStaff> assignedStaff) {
+        for (MedicalStaff m : assignedStaff)
+            addAssignedStaff(m);
+    }
 
-	public List<Pet> getPets() {
-		return pets;
-	}
+    public void addAssignedStaff(MedicalStaff m) {
+        this.assignedStaff.add(m);
+        m.addPatient(this);
+    }
 
-	public void setPets(List<Pet> pets) {
-		for(Pet p: pets)
-			addPet(p);
-	}
+    public List<AbsRelation> getRelations() {
+        return relations;
+    }
 
-	public void addPet(Pet p){
-		this.pets.add(p);
-		p.setUserId(userId);
-	}
+    public void setRelations(List<AbsRelation> relations) {
+        for (AbsRelation rel : relations)
+            addRelation(rel);
+    }
 
-	public List<Meal> getMeals() {
-		return meals;
-	}
+    public void addRelation(AbsRelation relation) {
+        this.relations.add(relation);
+        relation.setUserIdValue(userIdValue);
+    }
 
-	public void setMeals(List<Meal> meals) {
-		for(Meal m : meals)
-			addMeal(m);
-	}
+    public List<Pet> getPets() {
+        return pets;
+    }
 
-	public void addMeal(Meal m){
-		this.meals.add(m);
-	}
+    public void setPets(List<Pet> pets) {
+        for (Pet p : pets)
+            addPet(p);
+    }
 
-	public boolean getIsNewPatient(){
-		return userId.equals("enter id") && username.equals("enter username");
-	}
+    public void addPet(Pet p) {
+        this.pets.add(p);
+    }
 
-	public boolean savePatient(){
-		return DBHandler.getUniqueInstance().insertPatient(this);
-	}
+    public List<Meal> getMeals() {
+        return meals;
+    }
 
-	public boolean updatePatient(){
-		return DBHandler.getUniqueInstance().updatePatient(this);
-	}
+    public void setMeals(List<Meal> meals) {
+        for (Meal m : meals)
+            addMeal(m);
+    }
+
+    public void addMeal(Meal m) {
+        this.meals.add(m);
+    }
+
+    public boolean getIsNewPatient() {
+        return userId.equals("enter id") && username.equals("enter username");
+    }
+
+    public boolean savePatient() {
+        return DBHandler.getUniqueInstance().insertPatient(this);
+    }
+
+    public boolean updatePatient() {
+        return DBHandler.getUniqueInstance().updatePatient(this);
+    }
+
+
+    public static String getUserType(){
+        return "PATIENT";
+    }
+
+    @Override
+    public AbsUser fromXMLString() {
+        return null;
+    }
+
+    @Override
+    public AbsUser fromCSVString() {
+        return null;
+    }
+
+    @Override
+    public AbsUser fromTSVString() {
+        return null;
+    }
+
+    @Override
+    public AbsUser fromSVString(String delimiter) {
+        return null;
+    }
+
 }

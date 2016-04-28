@@ -1,19 +1,15 @@
 package utils;
 
-import java.util.Set;
+import model.AbsUser;
 
-import model.Patient;
+import java.io.File;
+import java.util.List;
 
 public interface ParsingUtils {
-	public static Set<Patient> importData(String filename) {
-		return null;
-	}
-	public static void exportData(String filename, Set<Patient> patients, boolean[] toInclude) {
-	}
-	public static Patient makePatient(String pt) {
-		return null;
-	}
-	public static String patientToString(Patient p, boolean[] toInclude) {
-		return null;
-	}
+
+	public File getFile(String name);
+
+	public List<String> getFileContents(File file);
+
+	public AbsUser getUserFromContents(String contents);
 }

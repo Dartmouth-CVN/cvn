@@ -3,40 +3,50 @@ package model;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
  * Created by mrampiah on 4/23/16.
  */
 public class Family extends AbsRelation {
-    boolean isCaregiver;
 
-    BooleanProperty isCaregiverProperty;
-
-    public Family(){
+    public Family() {
 
     }
 
-    public Family(java.lang.String userId, java.lang.String firstName, java.lang.String lastName, java.lang.String username, java.lang.String password,
-                  Date birthday, java.lang.String room, String picture, Contact contactInfo, java.lang.String relation, boolean isCaregiver) {
-        super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo, relation);
-        setIsCaregiver(isCaregiver);
+    @Override
+    public String getUserId() {
+        return "FA" + userIdValue;
     }
 
-    public void setIsCaregiver(boolean isCaregiver){
-        this.isCaregiver = isCaregiver;
-        setIsCaregiverProperty(isCaregiver);
+    public Family(long userIdValue, String firstName, String lastName, String username, String password,
+                  LocalDate birthday, String room, String picture, Contact contactInfo, String relation, boolean isCaregiver) {
+        super(userIdValue, firstName, lastName, username, password, birthday, room, picture, contactInfo, relation, true, isCaregiver);
     }
 
-    public boolean getIsCaregiver(){
-        return isCaregiver;
+    public Family(long userIdValue, String firstName, String lastName, String username, String password,
+                  LocalDate birthday, String room, String picture, String relation, boolean isCaregiver) {
+        super(userIdValue, firstName, lastName, username, password, birthday, room, picture, new Contact(), relation, true, isCaregiver);
     }
 
-    public void setIsCaregiverProperty(boolean isCaregiver){
-        isCaregiverProperty = new SimpleBooleanProperty(isCaregiver);
+    @Override
+    public AbsUser fromXMLString() {
+        return null;
     }
 
-    public BooleanProperty getIsCaregiverProperty(){
-        return isCaregiverProperty;
+    @Override
+    public AbsUser fromCSVString() {
+        return null;
+    }
+
+    @Override
+    public AbsUser fromTSVString() {
+        return null;
+    }
+
+    @Override
+    public AbsUser fromSVString(String delimiter) {
+        return null;
     }
 }

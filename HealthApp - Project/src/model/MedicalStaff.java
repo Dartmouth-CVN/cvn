@@ -1,41 +1,71 @@
 package model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
+
 public class MedicalStaff extends AbsUser {
-	List<Patient> assignedPatients;
+    List<Patient> assignedPatients;
 
 
-	public MedicalStaff(){
+    public MedicalStaff() {
 
-	}
+    }
 
-	public MedicalStaff(java.lang.String userId, java.lang.String firstName, java.lang.String lastName, java.lang.String username, java.lang.String password,
-						Date birthday, java.lang.String room, String picture, Contact contactInfo) {
-		this(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo, new LinkedList<Patient>());
-	}
-	
-	public MedicalStaff(java.lang.String userId, java.lang.String firstName, java.lang.String lastName, java.lang.String username, java.lang.String password,
-						Date birthday, java.lang.String room, String picture, Contact contactInfo, List<Patient> assignedPatients) {
-		super(userId, firstName, lastName, username, password, birthday, room, picture, contactInfo);
-		this.assignedPatients = assignedPatients;
-	}
+    public MedicalStaff(long userIdValue, String firstName, String lastName, String username, String password,
+                        LocalDate birthday, String room, String picture) {
+        this(userIdValue, firstName, lastName, username, password, birthday, room, picture, new Contact(), new LinkedList<Patient>());
+    }
 
-	public List<Patient> getAssignedPatients() {
-		return assignedPatients;
-	}
+    public MedicalStaff(long userIdValue, String firstName, String lastName, String username, String password,
+                        LocalDate birthday, String room, String picture, Contact contactInfo) {
+        this(userIdValue, firstName, lastName, username, password, birthday, room, picture, contactInfo, new LinkedList<Patient>());
+    }
 
-	public void setAssignedPatients(List<Patient> assignedPatients) {
-		this.assignedPatients = assignedPatients;
-	}
+    @Override
+    public String getUserId() {
+        return "MS" + userIdValue;
+    }
 
-	public java.lang.String getRole(){
-		return "Medical Staff";
-	}
+    public MedicalStaff(long userIdValue, String firstName, String lastName, String username, String password,
+                        LocalDate birthday, String room, String picture, Contact contactInfo, List<Patient> assignedPatients) {
+        super(userIdValue, firstName, lastName, username, password, birthday, room, picture, contactInfo);
+        this.assignedPatients = assignedPatients;
+    }
 
-	public void addPatient(Patient p){
-		assignedPatients.add(p);
-	}
+    public List<Patient> getAssignedPatients() {
+        return assignedPatients;
+    }
 
+    public void setAssignedPatients(List<Patient> assignedPatients) {
+        this.assignedPatients = assignedPatients;
+    }
+
+    public void addPatient(Patient p) {
+        assignedPatients.add(p);
+    }
+
+    @Override
+    public AbsUser fromXMLString() {
+        return null;
+    }
+
+    @Override
+    public AbsUser fromCSVString() {
+        return null;
+    }
+
+    @Override
+    public AbsUser fromTSVString() {
+        return null;
+    }
+
+    @Override
+    public AbsUser fromSVString(String delimiter) {
+        return null;
+    }
+
+    public static String getRole(){
+        return "MED_STAFF";
+    }
 }
