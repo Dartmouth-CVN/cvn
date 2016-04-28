@@ -66,6 +66,9 @@ public class SearchController extends AbsController {
 		profileTable.setRowFactory( tv -> {
 			TableRow<PatientWrapper> row = new TableRow<>();
 			row.setOnMouseClicked(event -> {
+
+				profileTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
+
 				if (event.getClickCount() == 2 && (! row.isEmpty()) )
 					showNewMiniPatientProfile();
 				else if(event.getClickCount() == 2 && (! row.isEmpty()) )
