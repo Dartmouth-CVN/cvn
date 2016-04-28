@@ -8,7 +8,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import model.AbsUser;
 import model.Event;
-import model.MainApp;
 
 import java.time.LocalDateTime;
 
@@ -43,15 +42,18 @@ public class ScheduleController extends AbsController {
 	private ObservableList<Event> upcomingEventList;
 
 
-	public ScheduleController(MainApp mainApp, AbsUser user) {
-		setMainApp(mainApp);
-		setUser(user);
+	public ScheduleController() {
+
 	}
 
 	@FXML
 	private void initialize() {
 		myEventList.addAll(user.getSchedule().getEvents());
 		myEvents.setItems(myEventList);
+		myTime.setCellValueFactory(cellData -> cellData.getValue().getDateProperty());
+		myTitle.setCellValueFactory(cellData -> cellData.getValue().getTitleProperty());
+		myLocation.setCellValueFactory(cellData -> cellData.getValue().getLocationProperty());
+		//myNotes.setText(user.getSchedule().);
 	}
 
 	public AbsUser getUser() {

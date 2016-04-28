@@ -1,8 +1,5 @@
 package view;
 
-import java.io.IOException;
-import java.util.List;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,6 +10,9 @@ import model.MainApp;
 import model.Patient;
 import model.PatientWrapper;
 import utils.DBHandler;
+
+import java.io.IOException;
+import java.util.List;
 
 public class SearchController extends AbsController {
 
@@ -41,8 +41,7 @@ public class SearchController extends AbsController {
 	 * The constructor. The constructor is called before the initialize()
 	 * method.
 	 */
-	public SearchController() {
-	}
+	public SearchController() {}
 
 	@FXML
 	public FXMLLoader getLoader() {

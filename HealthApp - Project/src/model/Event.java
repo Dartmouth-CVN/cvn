@@ -1,51 +1,52 @@
 package model;
 
+import javafx.beans.property.*;
+
 import java.time.LocalDateTime;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Event {
 
-	private long eventId;
-	private String title;
-	private LocalDateTime date;
-	private String location;
-	private List<AbsUser> attendees;
-	private String notes;
+	private LongProperty eventId;
+	private StringProperty title;
+	private ObjectProperty<LocalDateTime> date;
+	private StringProperty location;
+	private ListProperty<AbsUser> attendees;
+	private StringProperty notes;
 
-	public Event(LocalDateTime date, String title, List<AbsUser> attendees,
+	public Event(LocalDateTime date, String title, ListProperty<AbsUser> attendees,
 	             String notes, String location) {
-		this.date = date;
-		this.title = title;
-		this.location = location;
-		this.attendees = attendees;
-		this.notes = notes;
+		this.date = new SimpleObjectProperty<LocalDateTime>(date);
+		this.title = new SimpleStringProperty(title);
+		this.location = new SimpleStringProperty(location);
+		this.attendees = new SimpleListProperty(attendees);
+		this.notes = new SimpleStringProperty(notes);
 	}
 
 	public Event(LocalDateTime date, String location, String notes) {
-		this(date, "Title", new LinkedList<AbsUser>(), notes, location);
+		this(date, "Title", new SimpleListProperty<AbsUser>(), notes, location);
 	}
 	public long getEventId() {
-		return eventId;
+		return eventId.get();
 	}
 
-	public void setEventId(long eventId) {
+	public void setEventId(LongProperty eventId) {
 		this.eventId = eventId;
 	}
 
-	public void setAttendees(List<AbsUser> attendees) {
+	public void setAttendees(ListProperty<AbsUser> attendees) {
 		this.attendees = attendees;
 	}
 
-	public void setDate(LocalDateTime date) {
+	public void setDate(ObjectProperty<LocalDateTime> date) {
 		this.date = date;
 	}
 
-	public void setLocation(String location) {
+	public void setLocation(StringProperty location) {
 		this.location = location;
 	}
 
-	public void setNotes(String notes) {
+	public void setNotes(StringProperty notes) {
 		this.notes = notes;
 	}
 
@@ -54,7 +55,7 @@ public class Event {
 	}
 
 	public String getLocation() {
-		return this.location;
+		return this.location.get();
 	}
 
 	public List<AbsUser> getAttendees() {
@@ -62,7 +63,7 @@ public class Event {
 	}
 
 	public String getNotes() {
-		return this.notes;
+		return this.notes.get();
 	}
 
 	public void addAttendee(AbsUser user){
@@ -79,11 +80,15 @@ public class Event {
 		return location.hashCode() * notes.hashCode();
 	}
 
-	public String getTitle() {
-		return title;
-	}
+	public String getTitle() {return title.get(); }
 
-	public void setTitle(String title) {
+	public void setTitle(StringProperty title) {
 		this.title = title;
 	}
+
+	public StringProperty getTitleProperty() {return this.title;}
+	public ObjectProperty<LocalDateTime> getDateProperty() {return this.date;}
+	public StringProperty getLocationProperty() {return this.location;}
+	public StringProperty getNotesProperty() {return this.notes;}
+
 }

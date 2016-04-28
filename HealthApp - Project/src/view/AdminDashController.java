@@ -1,14 +1,11 @@
 package view;
 
-import java.io.IOException;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import model.Administrator;
 import model.ContactElement;
 import model.MainApp;
@@ -70,31 +67,10 @@ public class AdminDashController extends MedicalStaffDashController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public FXMLLoader getLoader(){
 		loader.setLocation(MainApp.class.getResource("../view/AdminDash.fxml"));
 		return loader;
 	}
-
-	/**
-	 * Loads and sets content of the schedule tab.
-	 */
-	@FXML
-	private void loadScheduleTab() {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("../view/MySchedule.fxml"));
-			AnchorPane mySchedule = (AnchorPane) loader.load();
-
-			scheduleTab.setContent(mySchedule);
-
-			MyScheduleController controller = loader.getController();
-			controller.setMainApp(mainApp);
-
-		} catch (IOException e) {
-			MainApp.printError(e);
-		}
-	}
-	
 }

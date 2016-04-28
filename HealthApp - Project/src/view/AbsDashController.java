@@ -1,15 +1,16 @@
 package view;
 
-import java.io.IOException;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import model.AbsUser;
 import model.MainApp;
 import model.Patient;
+
+import java.io.IOException;
 
 public abstract class AbsDashController extends AbsController {
 
@@ -101,6 +102,25 @@ public abstract class AbsDashController extends AbsController {
 		}
 	}
 
+	public void loadScheduleTab(AbsUser user) {
+		ScheduleController controller = new ScheduleController();
+
+		try {
+			AnchorPane searchView = (AnchorPane) controller.getLoader().load();
+
+			FXMLLoader loader = controller.getLoader();
+			controller = loader.getController();
+			controller.setMainApp(this.mainApp);
+			controller.setUser(user);
+			searchTab.setContent(searchView);
+			tabPane.getSelectionModel().select(searchTab);
+
+		} catch (IOException e) {
+			MainApp.printError(e);
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * Clicking search image opens the search tab.
 	 */
@@ -115,6 +135,7 @@ public abstract class AbsDashController extends AbsController {
 	 */
 	@FXML
 	protected void handleScheduleImage() {
+		loadScheduleTab(new Patient());
 		tabPane.getSelectionModel().select(scheduleTab);
 	}
 
