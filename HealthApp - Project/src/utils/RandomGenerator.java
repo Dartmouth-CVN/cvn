@@ -84,8 +84,8 @@ public class RandomGenerator {
 	}
 
 	private static boolean isUniqueUsername(String username) {
-		Patient p = null;
-		//p = DBHandler.getUniqueInstance().getPatientByUsername(username);
+		Patient p;
+		p = DBHandler.getUniqueInstance().getPatientByUsername(username);
 		return p == null;
 	}
 
