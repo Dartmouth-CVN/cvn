@@ -1,6 +1,9 @@
 package model;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by mrampiah on 4/26/16.
@@ -47,6 +50,32 @@ public class PatientExportWrapper implements IExportable {
         this.assignedStaff = assignedStaff;
         this.healthProfile = healthProfile;
         this.patient = p;
+    }
+
+    public PatientExportWrapper(List<Boolean> selected, Patient p){
+        int i = 0;
+        this.userId = true;
+        this.firstName = selected.get(i++);
+        this.lastName = selected.get(i++);
+        this.username = selected.get(i++);
+        this.birthday = selected.get(i++);
+        this.room = selected.get(i++);
+        this.picture = selected.get(i++);
+        this.contactInfo = selected.get(i++);
+        this.pets = selected.get(i++);
+        this.meals = selected.get(i++);
+        this.relations = selected.get(i++);
+        this.assignedStaff = selected.get(i++);
+        this.healthProfile = selected.get(i++);
+        this.patient = p;
+
+//        System.out.printf("firtname %s, lastname %s, username %s, birthday %s, room %s, picture %s, contact %s, pets %s," +
+//                "meals %s, relations %s, assigned staff %s, health profile %s", firstName, lastName, username, birthday, room,
+//                picture, contactInfo, pets, meals, relations, assignedStaff, healthProfile);
+    }
+
+    public PatientExportWrapper(List<Boolean> selected){
+        this(selected, new Patient());
     }
 
 
@@ -166,7 +195,6 @@ public class PatientExportWrapper implements IExportable {
 
         LinkedList<String> mealslist = new LinkedList<String>();
         String healthplist = "";
-
 
         if (contactInfo) {
             for (ContactElement c : patient.getContactInfo().getAddresses())

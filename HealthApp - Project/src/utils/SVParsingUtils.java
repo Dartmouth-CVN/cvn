@@ -86,7 +86,10 @@ public abstract class SVParsingUtils implements ParsingUtils {
 		for (Patient patient : patients) {
 			exportWrapper.setPatient(patient);
 			toFile.println(exportWrapper.toSVString(delimiter));
+<<<<<<< HEAD
 
+=======
+>>>>>>> ef2a29fbcc6c76293f47938a2d4457ad40e1a614
 		}
 		toFile.close();
 	}

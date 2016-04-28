@@ -2,12 +2,11 @@ package model;
 
 import utils.ObjectNotFoundException;
 
-import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
 
-public class Contact implements Serializable {
+public class Contact{
     long contactId;
     List<ContactElement> phoneNumbers;
     List<ContactElement> emails;
@@ -55,12 +54,13 @@ public class Contact implements Serializable {
         phoneNumbers = new LinkedList<>();
         emails = new LinkedList<>();
         addresses = new LinkedList<>();
+
         for(ContactElement e : contactInfo){
-            if(e instanceof Phone)
+            if(e.getContactType().equals("PHONE"))
                 addPhone(e);
-            else if(e instanceof Email)
+            else if(e.getContactType().equals("EMAIL"))
                 addEmail(e);
-            else if(e instanceof Address)
+            else if(e.getContactType().equals("ADDRESS"))
                 addAddress(e);
         }
     }

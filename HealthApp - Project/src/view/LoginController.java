@@ -6,6 +6,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import model.AbsUser;
 import model.Administrator;
+import model.Patient;
 import utils.DBHandler;
 
 public class LoginController extends AbsController {
@@ -17,6 +18,7 @@ public class LoginController extends AbsController {
 	private PasswordField password;
 
 	public LoginController() {
+		key = "login";
 	}
 	
 	@Override
@@ -38,10 +40,12 @@ public class LoginController extends AbsController {
 			System.out.println("Must enter username and password");
 		else {
 			AbsUser user = DBHandler.getUniqueInstance().getFilledUserByUsername(uname);
+			System.out.println(user.getUsername());
 			if(pass.equals(user.getPassword())){
-				if(user instanceof Administrator){
+				if(user instanceof Administrator)
 					mainApp.showAdminDash((Administrator)user);
-				}
+				else if(user instanceof Patient)
+					mainApp.showPatientDash((Patient) user);
 			}
 		}
 	}

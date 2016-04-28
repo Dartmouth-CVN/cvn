@@ -1,10 +1,7 @@
 package utils;
 
 import model.*;
-import org.apache.derby.iapi.sql.*;
-import org.apache.derby.impl.tools.sysinfo.Main;
 import org.apache.derby.jdbc.EmbeddedDataSource;
-import sun.awt.image.ImageWatched;
 import view.MainApp;
 
 import java.io.*;
@@ -14,7 +11,6 @@ import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.jar.Attributes;
 
 /**
  * Created by mrampiah on 4/24/16.
@@ -35,7 +31,7 @@ public class DBHandler {
     public void initDB() {
         if (connect()) {
             createTables();
-            populateDatabase(100);
+            populateDatabase(10);
         } else {
             System.out.println("Couldn't connect");
         }
@@ -301,6 +297,7 @@ public class DBHandler {
         }
         for(HealthAttribute<?> attribute : p.getHealthProfile().getHealthInfo())
             insertHealthInfo(attribute, p.getUserIdValue());
+
         for(ContactElement e : p.getContactInfo().getAllContactElements())
             insertContact(e, p.getUserIdValue());
 
@@ -310,10 +307,9 @@ public class DBHandler {
     public boolean insertAdminAlgorithm(Administrator admin){
         success = true;
         insertAdmin(admin);
-        for(ContactElement e : admin.getContactInfo().getAllContactElements()){
-//            System.out.println(e.getValue());
+        for(ContactElement e : admin.getContactInfo().getAllContactElements())
             insertContact(e, admin.getUserIdValue());
-        }
+
         return success;
     }
 
@@ -333,13 +329,14 @@ public class DBHandler {
                 ps.setTimestamp(i++, localDateToTimestamp(p.getBirthday()));
                 ps.setString(i++, p.getRoom());
                 ps.setString(i++, p.getPicture());
-                ps.setString(i++, p.getUserType());
+                ps.setString(i++, "PATIENT");
                 ps.executeUpdate();
                 rs = ps.getGeneratedKeys();
                 rs.next();
                 p.setUserIdValue(rs.getLong(1));
                 ps.close();
                 success = true;
+                System.out.printf("patient username: %s, password: %s user type: %s\n", p.getUsername(), p.getPassword(), Patient.getUserType());
             }
         } catch (SQLException e) {
             MainApp.printError(e);
@@ -452,7 +449,6 @@ public class DBHandler {
                 rs = ps.getGeneratedKeys();
                 rs.next();
                 c.setElementId(rs.getLong(1));
-                System.out.println("generated id: " + c.getElementId());
                 ps.close();
                 success = true;
             } catch (SQLException e) {
@@ -600,15 +596,27 @@ public class DBHandler {
 
     public AbsUser getFilledUserByUsername(String username){
         if (connect()) {
-            AbsUser user = getAbsUser(username);
-            List<ContactElement> contactInfo = getContactInfo(user.getUserIdValue());
-            user.setContactInfo(new Contact(contactInfo));
+            AbsUser user = getAbsUserByUsername(username);
+            List<ContactElement> info = getContactInfo(user.getUserIdValue());
+            Contact contactInfo = new Contact(info);
+            user.setContactInfo(contactInfo);
             return user;
         }
         return null;
     }
 
-    public AbsUser getAbsUser(String username) {
+    public AbsUser getFilledUserById(long userId){
+        if (connect()) {
+            AbsUser user = getAbsUserById(userId);
+            List<ContactElement> info = getContactInfo(user.getUserIdValue());
+            Contact contactInfo = new Contact(info);
+            user.setContactInfo(contactInfo);
+            return user;
+        }
+        return null;
+    }
+
+    public AbsUser getAbsUserByUsername(String username) {
         if (connect()) {
             try {
                 ps = connection.prepareStatement("SELECT * FROM user_account WHERE username = ? ");
@@ -617,13 +625,38 @@ public class DBHandler {
 
                 if (rs.next()) {
                     String userType = rs.getString("user_type");
-                    if (userType.equals(Patient.getUserType()))
+                    System.out.println("user type: " + userType);
+
+                    if (userType.equals(Patient.getUserType())) {
                         return getPatientByUsername(username);
+                    }
                     else if (userType.equals(Administrator.getUserType())) ;
                     return getAdministratorByUsername(username);
                 }
             } catch (SQLException e) {
                 
+                MainApp.printError(e);
+            }
+        }
+        return null;
+    }
+
+    public AbsUser getAbsUserById(long userId) {
+        if (connect()) {
+            try {
+                ps = connection.prepareStatement("SELECT * FROM user_account WHERE user_id = ? ");
+                ps.setLong(1, userId);
+                rs = ps.executeQuery();
+
+                if (rs.next()) {
+                    String userType = rs.getString("user_type");
+                    if (userType.equals(Patient.getUserType()))
+                        return getPatientById(userId);
+                    else if (userType.equals(Administrator.getUserType())) ;
+                    return getAdministratorById(userId);
+                }
+            } catch (SQLException e) {
+
                 MainApp.printError(e);
             }
         }
@@ -845,7 +878,6 @@ public class DBHandler {
                         rs.getString("lastname"), rs.getString("username"), rs.getString("password"),
                         timestampToLocalDate(rs.getTimestamp("birthday")), rs.getString("room"),
                         rs.getString("picture"));
-                connection.close();
                 return patient;
             }
         } catch (SQLException e) {
@@ -873,6 +905,25 @@ public class DBHandler {
         return patientList;
     }
 
+    public List<Patient> getAllFilledPatients() {
+        LinkedList<Patient> patientList = new LinkedList<Patient>();
+        try {
+            if (connect()) {
+                ps = connection.prepareStatement(" SELECT * FROM user_account WHERE user_type = ?");
+                ps.setString(1, Patient.getUserType());
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    Patient patient = (Patient) getFilledUserById(rs.getLong("user_id"));
+                    patientList.add(patient);
+                }
+                connection.close();
+            }
+        } catch (SQLException | NullPointerException e) {
+            MainApp.printError(e);
+        }
+        return patientList;
+    }
+
     public List<ContactElement> getContactInfo(long userIdValue){
         List<ContactElement> elements = new LinkedList<>();
         if(connect()){
@@ -881,15 +932,8 @@ public class DBHandler {
                 ps.setLong(1, userIdValue);
                 rs = ps.executeQuery();
                 while(rs.next()){
-                    ContactElement element;
-                    String type = rs.getString("contact_type");
-                    if(type.equals(Phone.getContactType()))
-                        element = new Phone(rs.getLong("contact_id"), rs.getString("value"), rs.getString("type"));
-                    else if(type.equals(Email.getContactType()))
-                        element = new Email(rs.getLong("contact_id"), rs.getString("value"), rs.getString("type"));
-                    else
-                        element = new Address(rs.getLong("contact_id"), rs.getString("value"), rs.getString("type"));
-
+                    ContactElement element = new Phone(rs.getLong("contact_id"),
+                            rs.getString("value"), rs.getString("type"), rs.getString("contact_type"));
                     elements.add(element);
                 }
             } catch (SQLException e) {

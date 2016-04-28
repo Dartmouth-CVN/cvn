@@ -16,17 +16,6 @@ import utils.ObjectNotFoundException;
 public class AdminDashController extends MedicalStaffDashController {
 
 	@FXML
-	private ImageView profilePic;
-	@FXML
-	private Label name;
-	@FXML
-	private Label email;
-	@FXML
-	private Label room;
-	@FXML
-	private Label number;
-
-	@FXML
 	protected Tab addPatientTab;
 
 	private Administrator admin;
@@ -36,12 +25,20 @@ public class AdminDashController extends MedicalStaffDashController {
 	 * method.
 	 */
 	public AdminDashController() {
+		key = "admin dash";
 	}
 
 	@FXML
 	private void initialize() {
 		loadAdminFields();
 		super.initializeTabs();
+		System.out.println("loading this stuff");
+		tabPane.getSelectionModel().selectedItemProperty().addListener((ov, oldTab, newTab) -> {
+			if(newTab.equals(exportTab)) {
+				loadExportTab();
+				tabPane.getSelectionModel().select(exportTab);
+			}
+			});
 	}
 
 	public Administrator getAdmin(){
@@ -54,20 +51,7 @@ public class AdminDashController extends MedicalStaffDashController {
 	}
 
 	public void loadAdminFields(){
-		try {
-			if(admin != null) {
-				profilePic.setImage(new Image("file:" + admin.getPicture()));
-				name.setText(admin.getFirstName() + " " + admin.getLastName());
-				ContactElement mail = admin.getContactInfo().getPrimaryEmail();
-				ContactElement phone = admin.getContactInfo().getPrimaryPhone();
-
-				email.setText(mail.getValue() + " (" + mail.getType() + ")");
-				room.setText(admin.getRoom());
-				number.setText(phone.getValue() + " (" + phone.getType() + ")");
-			}
-		} catch (ObjectNotFoundException e) {
-			e.printStackTrace();
-		}
+		super.loadUserFields(admin);
 	}
 	
 	@Override

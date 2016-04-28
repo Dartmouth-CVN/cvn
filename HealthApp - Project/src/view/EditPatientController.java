@@ -96,6 +96,7 @@ public class EditPatientController extends AbsController {
     private Patient patient;
 
     public EditPatientController() {
+        key = "edit patient";
     }
 
 
