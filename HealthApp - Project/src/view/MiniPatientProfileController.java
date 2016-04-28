@@ -13,6 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import model.MainApp;
 import model.MedicalStaff;
 import model.Patient;
 import utils.ObjectNotFoundException;

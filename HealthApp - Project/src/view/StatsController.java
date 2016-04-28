@@ -1,25 +1,15 @@
 package view;
-import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.*;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.layout.AnchorPane;
-import model.Administrator;
-import javafx.stage.Stage;
+import model.MainApp;
 import model.Patient;
-import model.PatientWrapper;
-import utils.DBHandler;
-
-import java.io.IOException;
 
 
 /**

@@ -1,6 +1,5 @@
 package view;
 
-import java.io.IOException;
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -8,7 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
+import model.MainApp;
 import model.Patient;
 import model.PatientWrapper;
 import utils.DBHandler;

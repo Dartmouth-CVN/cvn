@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import model.HealthAttribute;
-import view.MainApp;
+import model.MainApp;
 import model.Patient;
 
 public class FitBitParsingUtils {

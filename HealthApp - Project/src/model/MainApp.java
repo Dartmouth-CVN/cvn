@@ -1,4 +1,4 @@
-package view;
+package model;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,9 +13,7 @@ import model.Administrator;
 import model.Patient;
 import org.apache.derby.impl.tools.sysinfo.Main;
 import utils.DBHandler;
-import view.AbsDashController;
-import view.AdminDashController;
-import view.LoginController;
+import view.*;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -109,6 +107,7 @@ public class MainApp extends Application {
         FXMLLoader loader;
         AnchorPane pane;
         loader = controller.getLoader();
+        System.out.println(controller.getLoader().getLocation());
         try {
             pane = (AnchorPane) loader.load();
             controller = loader.getController();

@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 
-import view.MainApp;
+import model.MainApp;
 import model.Patient;
 import model.PatientExportWrapper;
 

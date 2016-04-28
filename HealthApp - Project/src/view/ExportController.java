@@ -13,9 +13,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import model.AbsUser;
-import model.Patient;
+import model.MainApp;
 import model.PatientExportWrapper;
 import utils.*;
 

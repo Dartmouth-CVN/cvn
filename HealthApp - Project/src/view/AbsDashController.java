@@ -1,9 +1,6 @@
 package view;
 
-import java.io.IOException;
-
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -12,8 +9,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import model.AbsUser;
 import model.ContactElement;
+import model.MainApp;
 import model.Patient;
-import sun.applet.Main;
 import utils.ObjectNotFoundException;
 
 public abstract class AbsDashController extends AbsController {

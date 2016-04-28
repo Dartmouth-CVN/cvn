@@ -2,7 +2,7 @@ package utils;
 
 import model.*;
 import org.apache.derby.jdbc.EmbeddedDataSource;
-import view.MainApp;
+import model.MainApp;
 
 import java.io.*;
 import java.sql.*;
