@@ -5,11 +5,7 @@ package model;
  */
 public class Phone extends ContactElement {
 
-    public Phone(long elementId, String value, String type) {
-        super(elementId, value, type);
-    }
-
-    public static String getContactType(){
-        return "PHONE";
+    public Phone(long elementId, String value, String type, String contactType) {
+        super(elementId, value, type, contactType);
     }
 }

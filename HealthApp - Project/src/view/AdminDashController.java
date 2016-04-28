@@ -36,6 +36,7 @@ public class AdminDashController extends MedicalStaffDashController {
 	 * method.
 	 */
 	public AdminDashController() {
+		key = "admin dash";
 	}
 
 	@FXML

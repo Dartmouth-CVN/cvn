@@ -27,6 +27,7 @@ public class AbsUserWrapper {
 
     public AbsUserWrapper(AbsUser user) {
         setUserIdProperty(user.getUserId());
+        setUserIdValueProperty(user.getUserIdValue());
         setFirstNameProperty(user.getFirstName());
         setLastNameProperty(user.getLastName());
         setUsernameProperty(user.getUsername());

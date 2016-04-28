@@ -207,17 +207,17 @@ public class RandomGenerator {
 
 		// add phone numbers
 		for (String type : types) {
-			phoneNumbers.add(new ContactElement(getRandomPhoneNumber(), type));
+			phoneNumbers.add(new ContactElement(getRandomPhoneNumber(), type, "PHONE"));
 		}
 
 		// add email addresses
 		for (String type : types) {
-			emails.add(new ContactElement(getRandomEmail(), type));
+			emails.add(new ContactElement(getRandomEmail(), type, "EMAIL"));
 		}
 
 		// add addresses
 		for (String type : types) {
-			addresses.add(new ContactElement(getRandomAddress(), type));
+			addresses.add(new ContactElement(getRandomAddress(), type, "ADDRESS"));
 		}
 
 		return new Contact(getRandomId(), phoneNumbers, emails, addresses);

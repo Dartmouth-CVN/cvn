@@ -9,10 +9,12 @@ import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import model.Patient;
+import sun.applet.Main;
 
 public abstract class AbsDashController extends AbsController {
 
 	public AbsDashController() {
+		key = "abs dash";
 	}
 
 	@FXML
@@ -50,54 +52,21 @@ public abstract class AbsDashController extends AbsController {
 	}
 
 	public void loadSearchTab() {
-		SearchController controller = new SearchController();
-
-		try {
-			AnchorPane searchView = (AnchorPane) controller.getLoader().load();
-
-			FXMLLoader loader = controller.getLoader();
-			controller = loader.getController();
-			controller.setMainApp(this.mainApp);
-			searchTab.setContent(searchView);
-		} catch (IOException e) {
-			MainApp.printError(e);
-		}
+		LoadedScene scene = MainApp.getLoadedSceneOfType(new SearchController());
+		searchTab.setContent(scene.getPane());
 	}
 
 	public void loadAddPatientTab(){
-		EditPatientController controller = new EditPatientController();
-
-		try {
-			AnchorPane editPatientView = (AnchorPane) controller.getLoader().load();
-
-			FXMLLoader loader = controller.getLoader();
-			controller = loader.getController();
-			controller.setMainApp(this.mainApp);
-			controller.setPatient(new Patient());
-			addPatientTab.setContent(editPatientView);
-		} catch (IOException e) {
-			MainApp.printError(e);
-			e.printStackTrace();
-		}
+		LoadedScene scene = MainApp.getLoadedSceneOfType(new EditPatientController());
+		((EditPatientController) scene.getController()).setPatient(new Patient());
+		addPatientTab.setContent(scene.getPane());
 	}
 
 	public void loadEditPatientTab(Patient p) {
-		EditPatientController controller = new EditPatientController();
-
-		try {
-			AnchorPane editPatientView = (AnchorPane) controller.getLoader().load();
-
-			FXMLLoader loader = controller.getLoader();
-			controller = loader.getController();
-			controller.setMainApp(this.mainApp);
-			controller.setPatient(p);
-			editPatientTab.setContent(editPatientView);
-			tabPane.getSelectionModel().select(editPatientTab);
-
-		} catch (IOException e) {
-			MainApp.printError(e);
-			e.printStackTrace();
-		}
+		LoadedScene scene = MainApp.getLoadedSceneOfType(new EditPatientController());
+		((EditPatientController) scene.getController()).setPatient(p);
+		editPatientTab.setContent(scene.getPane());
+		tabPane.getSelectionModel().select(editPatientTab);
 	}
 
 	/**

@@ -17,6 +17,7 @@ public class LoginController extends AbsController {
 	private PasswordField password;
 
 	public LoginController() {
+		key = "login";
 	}
 	
 	@Override

@@ -10,19 +10,25 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import model.Administrator;
+import org.apache.derby.impl.tools.sysinfo.Main;
 import utils.DBHandler;
 import view.AbsDashController;
 import view.AdminDashController;
 import view.LoginController;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 public class MainApp extends Application {
 
     static DBHandler database;
     static AbsDashController dashController;
+    static LoadedScene scene;
     static Scene primaryScene;
     private static Stage primaryStage;
+    private static List<LoadedScene> loadedScenes;
 
     public static AbsDashController getDashController() {
         return dashController;
@@ -61,9 +67,47 @@ public class MainApp extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("DHMC - Health App v2.0");
         database = DBHandler.getUniqueInstance();
-        database.connect();
+        loadedScenes = new LinkedList<>();
+        loadScenes();
         database.initDB();
         showLogin();
+    }
+
+    public void loadScenes() {
+        AbsController controller;
+        //load login controller
+        controller = new LoginController();
+        setupController(controller);
+
+        //load admin dash controller
+        controller = new AdminDashController();
+        setupController(controller);
+
+        //load search controller
+        controller = new SearchController();
+        setupController(controller);
+
+        //load mini patient profile controller
+        controller = new MiniPatientProfileController();
+        setupController(controller);
+
+        //load add/edit patient controller
+        controller = new EditPatientController();
+        setupController(controller);
+    }
+
+    public void setupController(AbsController controller){
+        FXMLLoader loader;
+        AnchorPane pane;
+        loader = controller.getLoader();
+        try {
+            pane = (AnchorPane) loader.load();
+            controller = loader.getController();
+            controller.setMainApp(this);
+            loadedScenes.add(new LoadedScene(controller, loader, pane));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setStageDimensions() {
@@ -73,42 +117,31 @@ public class MainApp extends Application {
     }
 
     public void showLogin() {
-        try {
-            // Load root layout from fxml file.
-            LoginController controller = new LoginController();
-            FXMLLoader loader = controller.getLoader();
-            AnchorPane login = (AnchorPane) controller.getLoader().load();
+        // Load root layout from fxml file.
+        scene = getLoadedSceneOfType(new LoginController());
+        primaryScene = new Scene(scene.getPane());
 
-            controller = loader.getController();
-            controller.setMainApp(this);
-            primaryScene = new Scene(login);
-
-            primaryStage.setScene(primaryScene);
-            primaryStage.show();
-        } catch (IOException e) {
-            printError(e);
-        }
+        primaryStage.setScene(primaryScene);
+        primaryStage.show();
     }
 
     public void showAdminDash(Administrator admin) {
         System.out.println("Login success, loading Admin Dash...");
-        AdminDashController controller = new AdminDashController();
         setStageDimensions();
 
-        try {
-            AnchorPane adminDash = (AnchorPane) controller.getLoader().load();
+        scene = getLoadedSceneOfType(new AdminDashController());
+        primaryScene = new Scene(scene.getPane());
+        primaryStage.setScene(primaryScene);
+        ( (AdminDashController) scene.getController()).setAdmin(admin);
+        primaryStage.show();
+        centerStage();
+    }
 
-            FXMLLoader loader = controller.getLoader();
-            controller = loader.getController();
-            controller.setMainApp(this);
-            controller.setAdmin(admin);
-            dashController = controller;
-            primaryScene = new Scene(adminDash);
-            primaryStage.setScene(primaryScene);
-            primaryStage.show();
-            centerStage();
-        } catch (IOException e) {
-            printError(e);
+    public static LoadedScene getLoadedSceneOfType(AbsController type) {
+        for (LoadedScene l : loadedScenes) {
+            if (l.getController().getKey().equals(type.getKey()))
+                return l;
         }
+        return null;
     }
 }
