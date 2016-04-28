@@ -223,10 +223,11 @@ public class PatientExportWrapper implements IExportable {
     @Override
     public String toHTMLString() {
         String[] cells = splitSVLine(toCSVString(), ",");
-        for(String s: cells){
-            s=XMLLine(s.replace(';','\n'), "td");
+        for (int i = 0; i < cells.length; i++) {
+            cells[i] = XMLLine(cells[i].replace(';', '\n'), "td");
+            System.out.println(cells[i]);
         }
-        return XMLLine(String.join("\n", cells),"tr",true);
+        return XMLLine(String.join("\n", cells), "tr", true);
     }
 
     private static String[] splitSVLine(String s, String delimiter) {
