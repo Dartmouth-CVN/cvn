@@ -1,7 +1,10 @@
 package view;
 
+<<<<<<< HEAD
 import java.util.List;
 
+=======
+>>>>>>> f88a3051f151a85fd647267e20b59d859dcea7db
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,6 +14,9 @@ import model.MainApp;
 import model.Patient;
 import model.PatientWrapper;
 import utils.DBHandler;
+
+import java.io.IOException;
+import java.util.List;
 
 public class SearchController extends AbsController {
 
@@ -39,9 +45,13 @@ public class SearchController extends AbsController {
 	 * The constructor. The constructor is called before the initialize()
 	 * method.
 	 */
+<<<<<<< HEAD
 	public SearchController() {
 		key = "search";
 	}
+=======
+	public SearchController() {}
+>>>>>>> f88a3051f151a85fd647267e20b59d859dcea7db
 
 	@FXML
 	public FXMLLoader getLoader() {
@@ -66,6 +76,9 @@ public class SearchController extends AbsController {
 		profileTable.setRowFactory( tv -> {
 			TableRow<PatientWrapper> row = new TableRow<>();
 			row.setOnMouseClicked(event -> {
+
+				profileTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
+
 				if (event.getClickCount() == 2 && (! row.isEmpty()) )
 					showNewMiniPatientProfile();
 				else if(event.getClickCount() == 2 && (! row.isEmpty()) )

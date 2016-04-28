@@ -1,5 +1,13 @@
 
 .root {
+<<<<<<< HEAD
+=======
+	
+	-fx-background-color: #005A58;
+}
+
+#loginPane {
+>>>>>>> f88a3051f151a85fd647267e20b59d859dcea7db
 	-fx-background-color: #FFFFFF;
 }
 
@@ -211,6 +219,7 @@
 
 .root:top .tab-header-area .headers-region .tab:top .tab-container .tab-label .text{
 	-fx-fill: #FFFFFF;
+	-fx-font-size: 16px;
 }
 
 .root:top .tab-header-area .tab-header-background{

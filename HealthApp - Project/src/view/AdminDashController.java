@@ -1,17 +1,36 @@
 package view;
 
-import java.io.IOException;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
+<<<<<<< HEAD
 import javafx.scene.layout.AnchorPane;
+=======
+import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+>>>>>>> f88a3051f151a85fd647267e20b59d859dcea7db
 import model.Administrator;
 import model.MainApp;
 
 public class AdminDashController extends MedicalStaffDashController {
 
 	@FXML
+<<<<<<< HEAD
+=======
+	private ImageView profilePic;
+	@FXML
+	private Label name;
+	@FXML
+	private Label email;
+	@FXML
+	private Label room;
+	@FXML
+	private Label number;
+
+
+	@FXML
+>>>>>>> f88a3051f151a85fd647267e20b59d859dcea7db
 	protected Tab addPatientTab;
 
 	private Administrator admin;
@@ -49,31 +68,10 @@ public class AdminDashController extends MedicalStaffDashController {
 	public void loadAdminFields(){
 		super.loadUserFields(admin);
 	}
-	
+
 	@Override
 	public FXMLLoader getLoader(){
 		loader.setLocation(MainApp.class.getResource("../view/AdminDash.fxml"));
 		return loader;
 	}
-
-	/**
-	 * Loads and sets content of the schedule tab.
-	 */
-	@FXML
-	private void loadScheduleTab() {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("../view/MySchedule.fxml"));
-			AnchorPane mySchedule = (AnchorPane) loader.load();
-
-			scheduleTab.setContent(mySchedule);
-
-			MyScheduleController controller = loader.getController();
-			controller.setMainApp(mainApp);
-
-		} catch (IOException e) {
-			MainApp.printError(e);
-		}
-	}
-	
 }

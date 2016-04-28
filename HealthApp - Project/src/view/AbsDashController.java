@@ -8,10 +8,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import model.AbsUser;
+<<<<<<< HEAD
 import model.ContactElement;
+=======
+>>>>>>> f88a3051f151a85fd647267e20b59d859dcea7db
 import model.MainApp;
 import model.Patient;
 import utils.ObjectNotFoundException;
+
+import java.io.IOException;
 
 public abstract class AbsDashController extends AbsController {
 
@@ -31,6 +36,10 @@ public abstract class AbsDashController extends AbsController {
 	protected ImageView scheduleImage;
 	@FXML
 	protected ImageView searchImage;
+	@FXML
+	protected ImageView addPatientImage;
+	@FXML
+	protected ImageView exportImage;
 
 	@FXML
 	protected ImageView profilePic;
@@ -112,6 +121,24 @@ public abstract class AbsDashController extends AbsController {
 
 	}
 
+	public void loadScheduleTab(AbsUser user) {
+		ScheduleController controller = new ScheduleController();
+
+		try {
+			AnchorPane scheduleView = (AnchorPane) controller.getLoader().load();
+
+			FXMLLoader loader = controller.getLoader();
+			controller = loader.getController();
+			controller.setMainApp(this.mainApp);
+			scheduleTab.setContent(scheduleView);
+			tabPane.getSelectionModel().select(scheduleTab);
+
+		} catch (IOException e) {
+			MainApp.printError(e);
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * Clicking search image opens the search tab.
 	 */
@@ -126,7 +153,51 @@ public abstract class AbsDashController extends AbsController {
 	 */
 	@FXML
 	protected void handleScheduleImage() {
+		loadScheduleTab(new Patient());
 		tabPane.getSelectionModel().select(scheduleTab);
+	}
+
+	@FXML
+	public void handleExportImage() {
+		//loadExportTab();
+		tabPane.getSelectionModel().select(exportTab);
+	}
+
+	@FXML
+	public void handleAddPatientImage() {
+		loadAddPatientTab();
+		tabPane.getSelectionModel().select(addPatientTab);
+	}
+
+	@FXML
+	public void swipeLeft(){
+
+		int currentTab = tabPane.getSelectionModel().getSelectedIndex() - 1;
+
+		if (currentTab <= 0 ) {
+
+
+		} else {
+
+			tabPane.getSelectionModel().select(currentTab);
+
+		}
+	}
+
+	@FXML
+	public void swipeRight(){
+
+		int currentTab = tabPane.getSelectionModel().getSelectedIndex() + 1;
+
+		if (currentTab >= tabPane.getTabs().size() - 1) {
+
+
+		} else {
+
+			tabPane.getSelectionModel().select(currentTab);
+
+		}
+
 	}
 
 }
