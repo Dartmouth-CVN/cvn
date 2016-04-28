@@ -194,10 +194,10 @@ public class FitBitParsingUtils {
 		for (Patient p : pts) {
 			
 			toWrite.println(p.getFirstName() + " " + p.getLastName());
-//			for (HealthInfo h : p.getHealthProfile().getHealthInfo().values()) {
-//				String toPrint = h.toString();
-//				toWrite.println(toPrint);
-//			}
+			for (HealthAttribute h : p.getHealthProfile().getHealthInfo()) {
+				String toPrint = h.toString();
+				toWrite.println(toPrint);
+			}
 		}
 		toWrite.close();
 	}

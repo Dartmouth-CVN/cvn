@@ -1,6 +1,5 @@
 
 .root {
-	
 	-fx-background-color: #FFFFFF;
 }
 
@@ -32,7 +31,7 @@
 
 }
 
-.table-view:row-selection .column-header-background .nested-column-header .table-column:last-visible .label .text{
+.table-view:row-selection .column-header-background .nested-column-header .label .text{
 	-fx-font-weight: regular;
 }
 
@@ -79,7 +78,7 @@
 	-fx-background-color: #FFFFFF;
 }
 
-.check-box: determinate .box{
+.check-box .box{
 	-fx-background-color:#005A58;
 }
 
@@ -131,11 +130,11 @@
 }
 
 .scroll-bar .thumb{
-	-fx-background-color:derive(#353535, 75%);
+	-fx-background-color:derive  (#353535, 75%);
 }
 
 .scroll-bar .thumb:hover{
-	-fx-background-color:derive(#353535, 50%);
+	-fx-background-color:derive (#353535, 50%);
 }
 
 .scroll-bar .thumb:pressed{
@@ -143,13 +142,13 @@
 }
 
 .scroll-pane .scroll-bar:vertical .decrement-button:hover {
-	-fx-background-color:derive(#353535, 50%);
-	-fx-border-color:derive(#353535, 50%);
+	-fx-background-color:derive (#353535, 50%);
+	-fx-border-color:derive (#353535, 50%);
 }
 
 .scroll-pane .scroll-bar:vertical .decrement-button:pressed {
 	-fx-background-color:#353535;
-	-fx-border-color:derive: #353535;
+	-fx-border-color:derive #353535;
 }
 
 .scroll-pane .scroll-bar:vertical .decrement-button .decrement-arrow:pressed{
@@ -157,13 +156,13 @@
 }
 
 .scroll-pane .scroll-bar:vertical .increment-button:hover {
-	-fx-background-color:derive(#353535, 50%);
-	-fx-border-color:derive(#353535, 50%);
+	-fx-background-color:derive (#353535, 50%);
+	-fx-border-color:derive (#353535, 50%);
 }
 
 .scroll-pane .scroll-bar:vertical .increment-button:pressed {
 	-fx-background-color:#353535;
-	-fx-border-color:derive: #353535;
+	-fx-border-color:derive #353535;
 }
 
 .scroll-pane .scroll-bar:vertical .increment-button .increment-arrow:pressed{
@@ -171,13 +170,13 @@
 }
 
 .scroll-pane .scroll-bar:horizontal .decrement-button:hover {
-	-fx-background-color:derive(#353535, 50%);
-	-fx-border-color:derive(#353535, 50%);
+	-fx-background-color:derive (#353535, 50%);
+	-fx-border-color:derive (#353535, 50%);
 }
 
 .scroll-pane .scroll-bar:horizontal .decrement-button:pressed {
 	-fx-background-color:#353535;
-	-fx-border-color:derive: #353535;
+	-fx-border-color:derive #353535;
 }
 
 .scroll-pane .scroll-bar:horizontal .decrement-button .decrement-arrow:pressed{
@@ -185,13 +184,13 @@
 }
 
 .scroll-pane .scroll-bar:horizontal .increment-button:hover {
-	-fx-background-color:derive(#353535, 50%);
-	-fx-border-color:derive(#353535, 50%);
+	-fx-background-color:derive (#353535, 50%);
+	-fx-border-color:derive (#353535, 50%);
 }
 
 .scroll-pane .scroll-bar:horizontal .increment-button:pressed {
 	-fx-background-color:#353535;
-	-fx-border-color:derive: #353535;
+	-fx-border-color:derive #353535;
 }
 
 .scroll-pane .scroll-bar:horizontal .increment-button .increment-arrow:pressed{
