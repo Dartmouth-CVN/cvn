@@ -57,9 +57,9 @@ public class StatsController  extends AbsController{
     private MainApp mainApp;
     private Patient myPatient;
 
-    public StatsController (Patient p){
-        setPatient(p);
+    public StatsController (){
     }
+
     @FXML
     public FXMLLoader getLoader(){
         loader.setLocation(MainApp.class.getResource("../view/StatsView.fxml"));
