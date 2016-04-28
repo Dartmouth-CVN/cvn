@@ -1,0 +1,18 @@
+----------------------------------------------------------------
+Wed Apr 27 15:03:27 EDT 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): instance a816c00e-0154-591a-c3e2-0000009559a8 
+on database directory C:\Users\1W Guest\Documents\cvn\HealthApp - Project\HealthApp with class loader sun.misc.Launcher$AppClassLoader@1bbe9ba 
+Loaded from file:/C:/Users/1W%20Guest/Documents/cvn/HealthApp%20-%20Project/resources/jars/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_91-b14
+user.dir=C:\Users\1W Guest\Documents\cvn\HealthApp - Project
+os.name=Windows 10
+os.arch=x86
+os.version=10.0
+derby.system.home=null
+------------  Begin Error Message -------------
+
+System may be in a inconsistent state, missing file C:\Users\1W Guest\Documents\cvn\HealthApp - Project\HealthApp\log\log1.dat
+------------  End Error Message -------------
+
+Database Class Loader started - derby.database.classpath=''
