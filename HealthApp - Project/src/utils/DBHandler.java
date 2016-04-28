@@ -329,13 +329,14 @@ public class DBHandler {
                 ps.setTimestamp(i++, localDateToTimestamp(p.getBirthday()));
                 ps.setString(i++, p.getRoom());
                 ps.setString(i++, p.getPicture());
-                ps.setString(i++, p.getUserType());
+                ps.setString(i++, "PATIENT");
                 ps.executeUpdate();
                 rs = ps.getGeneratedKeys();
                 rs.next();
                 p.setUserIdValue(rs.getLong(1));
                 ps.close();
                 success = true;
+                System.out.printf("patient username: %s, password: %s user type: %s\n", p.getUsername(), p.getPassword(), Patient.getUserType());
             }
         } catch (SQLException e) {
             MainApp.printError(e);
@@ -624,8 +625,11 @@ public class DBHandler {
 
                 if (rs.next()) {
                     String userType = rs.getString("user_type");
-                    if (userType.equals(Patient.getUserType()))
+                    System.out.println("user type: " + userType);
+
+                    if (userType.equals(Patient.getUserType())) {
                         return getPatientByUsername(username);
+                    }
                     else if (userType.equals(Administrator.getUserType())) ;
                     return getAdministratorByUsername(username);
                 }
@@ -891,6 +895,25 @@ public class DBHandler {
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     Patient patient = getPatient(rs);
+                    patientList.add(patient);
+                }
+                connection.close();
+            }
+        } catch (SQLException | NullPointerException e) {
+            MainApp.printError(e);
+        }
+        return patientList;
+    }
+
+    public List<Patient> getAllFilledPatients() {
+        LinkedList<Patient> patientList = new LinkedList<Patient>();
+        try {
+            if (connect()) {
+                ps = connection.prepareStatement(" SELECT * FROM user_account WHERE user_type = ?");
+                ps.setString(1, Patient.getUserType());
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    Patient patient = (Patient) getFilledUserById(rs.getLong("user_id"));
                     patientList.add(patient);
                 }
                 connection.close();

@@ -59,9 +59,9 @@
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="485.0" prefWidth="600.0">
                            <children>
-                              <ScrollPane prefHeight="420.0" prefWidth="770.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <ScrollPane prefHeight="459.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <content>
-                                    <GridPane prefHeight="420.0" prefWidth="600.0">
+                                    <GridPane prefHeight="452.0" prefWidth="885.0">
                                       <columnConstraints>
                                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -75,21 +75,21 @@
                                           <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                                           <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                              <image>
-                                                <Image url="@images/add%20patient.png" />
+                                                <Image url="@images/add_patient.png" />
                                              </image></ImageView>
                                           <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                              <image>
-                                                <Image url="@images/import%20icon.png" />
+                                                <Image url="@images/import_icon.png" />
                                              </image></ImageView>
                                           <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                                           <ImageView fx:id="searchImage" fitHeight="115.0" fitWidth="127.0" onMouseClicked="#handleSearchImage" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                                              <image>
-                                                <Image url="@images/search%20icon.png" />
+                                                <Image url="@images/search_icon.png" />
                                              </image>
                                           </ImageView>
                                           <ImageView fx:id="scheduleImage" fitHeight="115.0" fitWidth="127.0" onMouseClicked="#handleScheduleImage" pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER">
                                              <image>
-                                                <Image url="@images/schedule%20icon.png" />
+                                                <Image url="@images/schedule_icon.png" />
                                              </image>
                                           </ImageView>
                                        </children>

@@ -4,18 +4,19 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import model.AbsUser;
+import model.ContactElement;
 import model.Patient;
 import sun.applet.Main;
+import utils.ObjectNotFoundException;
 
 public abstract class AbsDashController extends AbsController {
-
-	public AbsDashController() {
-		key = "abs dash";
-	}
 
 	@FXML
 	protected TabPane tabPane;
@@ -35,7 +36,29 @@ public abstract class AbsDashController extends AbsController {
 	protected ImageView searchImage;
 
 	@FXML
+	protected ImageView profilePic;
+	@FXML
+	protected Label name;
+	@FXML
+	protected Label email;
+	@FXML
+	protected Label room;
+	@FXML
+	protected Label number;
+
+	@FXML
+	private AnchorPane iconPane;
+
+	public AbsDashController() {
+		key = "abs dash";
+	}
+
+	@FXML
 	private void initialize() {
+	}
+
+	public void setIconPane(AnchorPane pane){
+		iconPane = pane;
 	}
 
 	public void initializeTabs(){
@@ -49,6 +72,23 @@ public abstract class AbsDashController extends AbsController {
 				tabPane.getSelectionModel().select(addPatientTab);
 			}
 		});
+	}
+
+	public void loadUserFields(AbsUser user){
+		try {
+			if(user != null) {
+				profilePic.setImage(new Image("file:" + user.getPicture()));
+				name.setText(user.getFirstName() + " " + user.getLastName());
+				ContactElement mail = user.getContactInfo().getPrimaryEmail();
+				ContactElement phone = user.getContactInfo().getPrimaryPhone();
+
+				email.setText(mail.getValue() + " (" + mail.getType() + ")");
+				room.setText(user.getRoom());
+				number.setText(phone.getValue() + " (" + phone.getType() + ")");
+			}
+		} catch (ObjectNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void loadSearchTab() {
@@ -67,6 +107,12 @@ public abstract class AbsDashController extends AbsController {
 		((EditPatientController) scene.getController()).setPatient(p);
 		editPatientTab.setContent(scene.getPane());
 		tabPane.getSelectionModel().select(editPatientTab);
+	}
+
+	public void loadExportTab(){
+		LoadedScene scene = MainApp.getLoadedSceneOfType(new ExportController());
+		exportTab.setContent(scene.getPane());
+
 	}
 
 	/**

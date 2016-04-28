@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import model.Administrator;
+import model.Patient;
 import org.apache.derby.impl.tools.sysinfo.Main;
 import utils.DBHandler;
 import view.AbsDashController;
@@ -68,8 +69,8 @@ public class MainApp extends Application {
         this.primaryStage.setTitle("DHMC - Health App v2.0");
         database = DBHandler.getUniqueInstance();
         loadedScenes = new LinkedList<>();
-        loadScenes();
         database.initDB();
+        loadScenes();
         showLogin();
     }
 
@@ -93,6 +94,14 @@ public class MainApp extends Application {
 
         //load add/edit patient controller
         controller = new EditPatientController();
+        setupController(controller);
+
+        //load patient dash controller
+        controller = new PatientDashController();
+        setupController(controller);
+
+        //load export dash controller
+        controller = new ExportController();
         setupController(controller);
     }
 
@@ -133,6 +142,18 @@ public class MainApp extends Application {
         primaryScene = new Scene(scene.getPane());
         primaryStage.setScene(primaryScene);
         ( (AdminDashController) scene.getController()).setAdmin(admin);
+        primaryStage.show();
+        centerStage();
+    }
+
+    public void showPatientDash(Patient p){
+        System.out.println("Login success, loading Patient Dash...");
+        setStageDimensions();
+
+        scene = getLoadedSceneOfType(new PatientDashController());
+        primaryScene = new Scene(scene.getPane());
+        primaryStage.setScene(primaryScene);
+        ((PatientDashController) scene.getController()).setPatient(p);
         primaryStage.show();
         centerStage();
     }
