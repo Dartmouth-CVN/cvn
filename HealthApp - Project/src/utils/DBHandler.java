@@ -1061,12 +1061,12 @@ public class DBHandler {
         return success;
     }
 
-    public List<Event> getUserEventsByUsername(String username) {
+    public List<Event> getUserEventsByUsername(long userID) {
         List<Event> events = new LinkedList<>();
         if (connect()) {
             try {
-                ps = connection.prepareStatement("SELECT * FROM event JOIN attend_event ON event.user_id = attend_event.user_id WHERE username = ? ");
-                ps.setString(1, username);
+                ps = connection.prepareStatement("SELECT * FROM event JOIN attend_event ON event.user_id = attend_event.user_id WHERE user_id = ? ");
+                ps.setLong(1, userID);
                 rs = ps.executeQuery();
 
                 while (rs.next()) {
