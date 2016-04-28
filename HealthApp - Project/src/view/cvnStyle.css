@@ -1,7 +1,7 @@
 
 .root {
 
-	-fx-background-color: #FFFFFF;
+	-fx-background-color: #005A58;
 }
 
 .button {
@@ -212,6 +212,7 @@
 
 .root:top .tab-header-area .headers-region .tab:top .tab-container .tab-label .text{
 	-fx-fill: #FFFFFF;
+	-fx-font-size: 16px;
 }
 
 .root:top .tab-header-area .tab-header-background{
