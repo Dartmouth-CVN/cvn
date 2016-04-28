@@ -52,14 +52,15 @@ public class StatsController  extends AbsController{
     @FXML
     private ComboBox<String> myCombobox;
     @FXML
-    private Label selectedField; // Value injected by FXMLLoader
+    private Label selectedField;
+
 
     // Reference to the main application.
     private MainApp mainApp;
+    private Patient myPatient;
 
-
-    public StatsController (){
-
+    public StatsController (Patient p){
+        setPatient(p);
     }
     @FXML
     public FXMLLoader getLoader(){
@@ -67,6 +68,9 @@ public class StatsController  extends AbsController{
         return loader;
     }
 
+    private void setPatient(Patient p){
+        this.myPatient = p;
+    }
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -85,30 +89,48 @@ public class StatsController  extends AbsController{
                 if (oldAtt != null) {
                     switch(oldAtt) {
                         case "test": updateChartAxis("Year","test"); break;
-                        case "test1":  updateChartAxis("Year","test1"); break;
+                        case "test2":  updateChartAxis("Year","test2"); break;
                     }
                 }
                 if (newAtt != null) {
                     switch(newAtt) {
                         case "test":  break;
-                        case "test1":  break;
+                        case "test2":  break;
                     }
                 }
             }
         });
     }
 
+    /**
+     * Updates chart axis boundaries based on type of passed in axis
+     * @param xAxisType, timeframe either day, week, month, year
+     * @param yAxisType, health attribute
+     */
     private void updateChartAxis(String xAxisType, String yAxisType){
         //xyChart
         switch(xAxisType) {
             case "Day":
+                //per hour
+                xAxis.setLowerBound(1);
+                xAxis.setUpperBound(24);
+                xAxis.setTickUnit(1);
                 break;
             case "Week":
+                //per day
+                xAxis.setLowerBound(1);
+                xAxis.setUpperBound(7);
+                xAxis.setTickUnit(1);
                 break;
             case "Month":
+                //per week
+                xAxis.setLowerBound(1);
+                xAxis.setUpperBound(4);
+                xAxis.setTickUnit(1);
                 break;
             case "Year":
-                xAxis.setLowerBound(0);
+                //per month
+                xAxis.setLowerBound(1);
                 xAxis.setUpperBound(12);
                 xAxis.setTickUnit(1);
                 break;
@@ -130,7 +152,7 @@ public class StatsController  extends AbsController{
 
 
     }
-    
+
 }
 
 
