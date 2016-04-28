@@ -8,7 +8,10 @@ import java.io.*;
 import java.sql.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -1058,6 +1061,28 @@ public class DBHandler {
         return success;
     }
 
+    public List<Event> getUserEventsByUsername(String username) {
+        List<Event> events = new LinkedList<>();
+        if (connect()) {
+            try {
+                ps = connection.prepareStatement("SELECT * FROM event JOIN attend_event ON event.user_id = attend_event.user_id WHERE username = ? ");
+                ps.setString(1, username);
+                rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    Event event = new Event((timestampToLocalDateTime(rs.getTimestamp("date"))), rs.getString("name"),
+                            rs.getString("notes"), rs.getString("location"));
+                    events.add(event);
+                    connection.close();
+                    return events;
+                }
+            } catch (SQLException e) {
+
+                MainApp.printError(e);
+            }
+        }
+        return null;
+    }
     public NamedParameterStatement setBasicParameters(NamedParameterStatement nps, AbsUser user) {
         //            nps.setString(1, user.getUserId());
 //            nps.setString(2, user.getFirstName());
@@ -1087,6 +1112,10 @@ public class DBHandler {
 
     public static LocalDate timestampToLocalDate(Timestamp timestamp) {
         return timestamp.toLocalDateTime().toLocalDate();
+    }
+
+    public static LocalDateTime timestampToLocalDateTime(Timestamp timestamp) {
+        return timestamp.toLocalDateTime();
     }
 
     public static Timestamp localDateToTimestamp(LocalDate localDate) {
