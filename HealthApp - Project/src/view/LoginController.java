@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import model.AbsUser;
 import model.Administrator;
 import model.MainApp;
@@ -16,6 +17,8 @@ public class LoginController extends AbsController {
 
 	@FXML
 	private PasswordField password;
+	@FXML
+	private AnchorPane loginPane;
 
 	public LoginController() {
 	}
