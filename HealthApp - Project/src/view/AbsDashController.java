@@ -33,6 +33,10 @@ public abstract class AbsDashController extends AbsController {
 	protected ImageView scheduleImage;
 	@FXML
 	protected ImageView searchImage;
+	@FXML
+	protected ImageView addPatientImage;
+	@FXML
+	protected ImageView exportImage;
 
 	@FXML
 	private void initialize() {
@@ -106,14 +110,13 @@ public abstract class AbsDashController extends AbsController {
 		ScheduleController controller = new ScheduleController();
 
 		try {
-			AnchorPane searchView = (AnchorPane) controller.getLoader().load();
+			AnchorPane scheduleView = (AnchorPane) controller.getLoader().load();
 
 			FXMLLoader loader = controller.getLoader();
 			controller = loader.getController();
 			controller.setMainApp(this.mainApp);
-			controller.setUser(user);
-			searchTab.setContent(searchView);
-			tabPane.getSelectionModel().select(searchTab);
+			scheduleTab.setContent(scheduleView);
+			tabPane.getSelectionModel().select(scheduleTab);
 
 		} catch (IOException e) {
 			MainApp.printError(e);
@@ -137,6 +140,49 @@ public abstract class AbsDashController extends AbsController {
 	protected void handleScheduleImage() {
 		loadScheduleTab(new Patient());
 		tabPane.getSelectionModel().select(scheduleTab);
+	}
+
+	@FXML
+	public void handleExportImage() {
+		//loadExportTab();
+		tabPane.getSelectionModel().select(exportTab);
+	}
+
+	@FXML
+	public void handleAddPatientImage() {
+		loadAddPatientTab();
+		tabPane.getSelectionModel().select(addPatientTab);
+	}
+
+	@FXML
+	public void swipeLeft(){
+
+		int currentTab = tabPane.getSelectionModel().getSelectedIndex() - 1;
+
+		if (currentTab <= 0 ) {
+
+
+		} else {
+
+			tabPane.getSelectionModel().select(currentTab);
+
+		}
+	}
+
+	@FXML
+	public void swipeRight(){
+
+		int currentTab = tabPane.getSelectionModel().getSelectedIndex() + 1;
+
+		if (currentTab >= tabPane.getTabs().size() - 1) {
+
+
+		} else {
+
+			tabPane.getSelectionModel().select(currentTab);
+
+		}
+
 	}
 
 }

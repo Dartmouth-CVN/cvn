@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import model.Administrator;
@@ -23,6 +24,7 @@ public class AdminDashController extends MedicalStaffDashController {
 	private Label room;
 	@FXML
 	private Label number;
+
 
 	@FXML
 	protected Tab addPatientTab;

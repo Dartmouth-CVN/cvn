@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane fx:id="adminDash" prefHeight="800.0" prefWidth="1280.0" styleClass="root" stylesheets="@cvnStyle.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AdminDashController">
+<AnchorPane fx:id="adminDash" onSwipeLeft="#swipeLeft" onSwipeRight="#swipeRight" prefHeight="800.0" prefWidth="1280.0" styleClass="root" stylesheets="@cvnStyle.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AdminDashController">
     <children>
         <TabPane fx:id="tabPane" prefHeight="600.0" prefWidth="600.0" styleClass="root" stylesheets="@baseTheme.css" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="100.0" tabMaxWidth="100.0" tabMinHeight="35.0" tabMinWidth="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <tabs>
@@ -59,22 +59,22 @@
                                                   <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                                               </rowConstraints>
                                               <children>
-                                                  <ImageView fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                                  <ImageView fx:id="searchImage" fitHeight="115.0" fitWidth="127.0" onMouseClicked="#handleSearchImage" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                                       <image>
                                                           <Image url="@images/search%20icon.png" />
                                                       </image>
                                     </ImageView>
-                                                  <ImageView fx:id="searchImage" fitHeight="115.0" fitWidth="127.0" onMouseClicked="#handleSearchImage" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                                                  <ImageView fx:id="exportImage" fitHeight="115.0" fitWidth="127.0" onMouseClicked="#handleAddPatientImage" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                                                       <image>
                                                           <Image url="@images/add%20patient.png" />
                                                       </image>
                                                   </ImageView>
-                                                  <ImageView fx:id="scheduleImage" fitHeight="115.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER">
+                                                  <ImageView fx:id="scheduleImage" fitHeight="115.0" fitWidth="127.0" onMouseClicked="#handleScheduleImage" pickOnBounds="true" preserveRatio="true" GridPane.valignment="CENTER">
                                                       <image>
                                                           <Image url="@images/schedule%20icon.png" />
                                                       </image>
                                                   </ImageView>
-                                                  <ImageView fitHeight="121.0" fitWidth="161.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                                                  <ImageView fx:id="exportImage" fitHeight="121.0" fitWidth="161.0" onMouseClicked="#handleExportImage" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                                                       <image>
                                                           <Image url="@images/import%20icon.png" />
                                                       </image>
@@ -87,7 +87,7 @@
                         </SplitPane>
                     </content>
                 </Tab>
-            <Tab fx:id="addPatientTab1" text="Schedule">
+            <Tab fx:id="scheduleTab" text="Schedule">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
