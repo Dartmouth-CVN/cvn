@@ -46,11 +46,7 @@ public class DBHandler {
 
         Administrator admin = RandomGenerator.getRandomAdmin();
         System.out.printf("admin username:%s, password:%s\n", admin.getUsername(), admin.getPassword());
-<<<<<<< HEAD
-        insertAdmin(admin);
-=======
         insertAdminAlgorithm(admin);
->>>>>>> dbwork
     }
 
     /**

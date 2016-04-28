@@ -1,6 +1,7 @@
 package view;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -8,10 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import model.AbsUser;
-<<<<<<< HEAD
 import model.ContactElement;
-=======
->>>>>>> f88a3051f151a85fd647267e20b59d859dcea7db
 import model.MainApp;
 import model.Patient;
 import utils.ObjectNotFoundException;

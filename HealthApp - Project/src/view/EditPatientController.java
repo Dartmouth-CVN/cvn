@@ -190,7 +190,7 @@ public class EditPatientController extends AbsController {
         profilePic.setImage(new Image("file:" + patient.getPicture()));
         firstName.setText(patient.getFirstName());
         lastName.setText(patient.getLastName());
-        patientBirthday.setValue(patient.getBirthday());
+//        patientBirthday.setValue(patient.getBirthday());
 
         for (ContactElement e : patient.getContactInfo().getPhoneNumbers())
             patientPhones.add(new ContactElementWrapper(e));

@@ -2,22 +2,15 @@ package view;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
-<<<<<<< HEAD
-import javafx.scene.layout.AnchorPane;
-=======
-import javafx.scene.control.TabPane;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
->>>>>>> f88a3051f151a85fd647267e20b59d859dcea7db
 import model.Administrator;
 import model.MainApp;
 
 public class AdminDashController extends MedicalStaffDashController {
 
 	@FXML
-<<<<<<< HEAD
-=======
 	private ImageView profilePic;
 	@FXML
 	private Label name;
@@ -30,7 +23,6 @@ public class AdminDashController extends MedicalStaffDashController {
 
 
 	@FXML
->>>>>>> f88a3051f151a85fd647267e20b59d859dcea7db
 	protected Tab addPatientTab;
 
 	private Administrator admin;

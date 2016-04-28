@@ -23,59 +23,11 @@
                <content>
                   <AnchorPane accessibleText="Name" prefHeight="0.0" prefWidth="1208.0">
                      <children>
-                        <TextField fx:id="firstName" layoutX="93.0" layoutY="240.0" prefHeight="32.0" prefWidth="221.0" promptText="First Name" />
-                        <TextField fx:id="lastName" layoutX="359.0" layoutY="241.0" prefHeight="31.0" prefWidth="200.0" promptText="Last Name" />
-                        <AnchorPane layoutX="674.0" layoutY="42.0" prefHeight="561.0" prefWidth="554.0">
-                           <children>
-<<<<<<< HEAD
                               <TextField fx:id="firstName" layoutX="93.0" layoutY="240.0" prefHeight="32.0" prefWidth="221.0" promptText="First Name" />
                               <TextField fx:id="lastName" layoutX="359.0" layoutY="241.0" prefHeight="31.0" prefWidth="200.0" promptText="Last Name" />
                               <AnchorPane layoutX="674.0" layoutY="42.0" prefHeight="561.0" prefWidth="554.0">
                                  <children>
                                     <TableView fx:id="patientPhoneTable" editable="true" layoutX="15.0" layoutY="37.0" prefHeight="256.0" prefWidth="264.0">
-                                       <columns>
-                                          <TableColumn fx:id="patientPhoneColumn" prefWidth="263.0" text="Phone Numbers" />
-                                       </columns>
-                                    </TableView>
-                                    <ButtonBar layoutX="37.0" layoutY="302.0" prefHeight="1.0" prefWidth="141.0">
-                                       <buttons>
-                                          <Button mnemonicParsing="false" onAction="#addPatientPhone" text="+" />
-                                          <Button mnemonicParsing="false" onAction="#removePatientPhone" prefWidth="78.0" text="-" />
-                                       </buttons>
-                                    </ButtonBar>
-                                    <ButtonBar layoutX="304.0" layoutY="302.0" prefHeight="22.0" prefWidth="79.0">
-                                       <buttons>
-                                          <Button mnemonicParsing="false" onAction="#addPatientEmail" text="+" />
-                                          <Button mnemonicParsing="false" onAction="#removePatientEmail" prefWidth="78.0" text="-" />
-                                       </buttons>
-                                    </ButtonBar>
-                                    <TextArea fx:id="patientAddress" layoutX="37.0" layoutY="366.0" prefHeight="176.0" prefWidth="479.0" promptText="Address" />
-                                    <TableView fx:id="patientEmailTable" editable="true" layoutX="300.0" layoutY="37.0" prefHeight="255.0" prefWidth="238.0">
-                                       <columns>
-                                          <TableColumn fx:id="patientEmailColumn" prefWidth="237.0" text="Email Addresses" />
-                                       </columns>
-                                    </TableView>
-                                 </children>
-                              </AnchorPane>
-                              <DatePicker fx:id="patientBirthday" layoutX="92.0" layoutY="298.0" promptText="Birthday" />
-                              <ImageView fx:id="profilePic" fitHeight="150.0" fitWidth="200.0" layoutX="105.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@images/blank-profile-picture.png" />
-                                 </image>
-                              </ImageView>
-                              <Button layoutX="314.0" layoutY="409.0" mnemonicParsing="false" text="Import FitBit Data" />
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </TitledPane>
-                  <TitledPane animated="false" layoutX="10.0" layoutY="41.0" prefHeight="357.0" prefWidth="1210.0" text="Family &amp; Pet Information">
-                     <content>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <TableView fx:id="relationTable" layoutX="58.0" layoutY="31.0" prefHeight="283.0" prefWidth="489.0">
-=======
-                              <TableView fx:id="patientPhoneTable" editable="true" layoutX="15.0" layoutY="37.0" prefHeight="256.0" prefWidth="264.0">
->>>>>>> f88a3051f151a85fd647267e20b59d859dcea7db
                                  <columns>
                                     <TableColumn fx:id="patientPhoneColumn" prefWidth="263.0" text="Phone Numbers" />
                                  </columns>
@@ -106,7 +58,7 @@
                               <Image url="@images/blank-profile-picture.png" />
                            </image>
                         </ImageView>
-                        <Button layoutX="314.0" layoutY="409.0" mnemonicParsing="false" onAction="#importFitBitCSV" text="Import FitBit Data" />
+                        <Button layoutX="314.0" layoutY="409.0" mnemonicParsing="false" text="Import FitBit Data" />
                      </children>
                   </AnchorPane>
                </content>

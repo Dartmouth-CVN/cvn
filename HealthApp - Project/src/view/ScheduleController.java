@@ -48,7 +48,7 @@ public class ScheduleController extends AbsController {
 
 	@FXML
 	private void initialize() {
-		myEventList.addAll(user.getSchedule().getEvents());
+//		myEventList.addAll(user.getSchedule().getEvents());
 		myEvents.setItems(myEventList);
 		myTime.setCellValueFactory(cellData -> cellData.getValue().getDateProperty());
 		myTitle.setCellValueFactory(cellData -> cellData.getValue().getTitleProperty());

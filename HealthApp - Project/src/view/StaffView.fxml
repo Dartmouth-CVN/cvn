@@ -135,7 +135,7 @@
                                                       <Label text="Name" GridPane.rowIndex="1" />
                                                       <ImageView fitHeight="71.0" fitWidth="77.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@../../../resources/images/blank-profile-picture.png" />
+                                                            <Image url="@images/blank-profile-picture.png" />
                                                          </image>
                                                       </ImageView>
                                                    </children>
@@ -176,7 +176,7 @@
                                                       <Label text="Name" GridPane.rowIndex="1" />
                                                       <ImageView fitHeight="71.0" fitWidth="77.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@../../../resources/images/blank-profile-picture.png" />
+                                                            <Image url="@images/blank-profile-picture.png" />
                                                          </image>
                                                       </ImageView>
                                                    </children>
@@ -217,7 +217,7 @@
                                                       <Label text="Name" GridPane.rowIndex="1" />
                                                       <ImageView fitHeight="71.0" fitWidth="77.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@../../../resources/images/blank-profile-picture.png" />
+                                                            <Image url="@images/blank-profile-picture.png" />
                                                          </image>
                                                       </ImageView>
                                                    </children>
@@ -258,7 +258,7 @@
                                                       <Label text="Name" GridPane.rowIndex="1" />
                                                       <ImageView fitHeight="71.0" fitWidth="77.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@../../../resources/images/blank-profile-picture.png" />
+                                                            <Image url="@images/blank-profile-picture.png" />
                                                          </image>
                                                       </ImageView>
                                                    </children>

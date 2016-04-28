@@ -1,25 +1,13 @@
 ----------------------------------------------------------------
-<<<<<<< HEAD
-<<<<<<< HEAD
-Wed Apr 27 00:04:31 EDT 2016:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): instance a816c00e-0154-55e3-c71a-0000062f57c8 
-=======
-Thu Apr 28 15:13:37 EDT 2016:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): instance a816c00e-0154-5e4a-7208-0000061b5a28 
->>>>>>> dbwork
+Thu Apr 28 15:49:35 EDT 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): instance a816c00e-0154-5e6b-5c83-0000062cc880 
 on database directory /Users/mrampiah/Documents/workspace/git/cvn/HealthApp - Project/HealthApp with class loader sun.misc.Launcher$AppClassLoader@24d46ca6 
 Loaded from file:/Users/mrampiah/Documents/workspace/git/cvn/HealthApp%20-%20Project/resources/jars/derby.jar
-=======
-Wed Apr 27 21:43:59 EDT 2016:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.2 - (1629631): instance a816c00e-0154-5a89-7797-00000094e7d8 
-on database directory C:\Users\1W Guest\Documents\cvn\HealthApp - Project\HealthApp with class loader sun.misc.Launcher$AppClassLoader@1bbe9ba 
-Loaded from file:/C:/Users/1W%20Guest/Documents/cvn/HealthApp%20-%20Project/resources/jars/derby.jar
->>>>>>> f88a3051f151a85fd647267e20b59d859dcea7db
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_91-b14
-user.dir=C:\Users\1W Guest\Documents\cvn\HealthApp - Project
-os.name=Windows 10
-os.arch=x86
-os.version=10.0
+java.runtime.version=1.8.0_77-b03
+user.dir=/Users/mrampiah/Documents/workspace/git/cvn/HealthApp - Project
+os.name=Mac OS X
+os.arch=x86_64
+os.version=10.11.4
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''

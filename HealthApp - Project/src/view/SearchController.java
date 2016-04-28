@@ -1,10 +1,6 @@
 package view;
 
-<<<<<<< HEAD
 import java.util.List;
-
-=======
->>>>>>> f88a3051f151a85fd647267e20b59d859dcea7db
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -45,13 +41,9 @@ public class SearchController extends AbsController {
 	 * The constructor. The constructor is called before the initialize()
 	 * method.
 	 */
-<<<<<<< HEAD
 	public SearchController() {
 		key = "search";
 	}
-=======
-	public SearchController() {}
->>>>>>> f88a3051f151a85fd647267e20b59d859dcea7db
 
 	@FXML
 	public FXMLLoader getLoader() {
