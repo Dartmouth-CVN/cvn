@@ -41,10 +41,9 @@
                                             </children>
                                         </GridPane>
                                           <ImageView fx:id="profilePic" fitHeight="140.0" fitWidth="164.0" layoutX="14.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="16.0">
-                                              <image>
-                                                  <Image url="@images/blank-profile-picture.png" />
-                                              </image>
-                                          </ImageView>
+                                 <image>
+                                    <Image url="@images/blank-profile-picture.png" />
+                                 </image></ImageView>
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="485.0" prefWidth="600.0">
