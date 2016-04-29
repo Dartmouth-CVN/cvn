@@ -8,7 +8,7 @@ import java.io.*;
 import java.sql.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.time.*;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,11 +21,32 @@ public class DBHandler {
     private static ResultSet rs;
     private static Connection connection;
     private static DatabaseMetaData metaData;
-    private static DBHandler uniqueInstance;
     private boolean success;// monitors if sql interactions result in errors
+    private static DBHandler uniqueInstance;
 
     private DBHandler() {
         connect();
+    }
+
+    public void initDB() {
+        if (connect()) {
+            createTables();
+            populateDatabase(10);
+        } else {
+            System.out.println("Couldn't connect");
+        }
+    }
+
+    public void populateDatabase(int number) {
+        for (int i = 0; i < number; i++) {
+            Patient p = RandomGenerator.getRandomPatient();
+            p = RandomGenerator.fillPatient(p);
+            insertPatientAlgorithm(p);
+        }
+
+        Administrator admin = RandomGenerator.getRandomAdmin();
+        System.out.printf("admin username:%s, password:%s\n", admin.getUsername(), admin.getPassword());
+        insertAdminAlgorithm(admin);
     }
 
     /**
@@ -40,48 +61,6 @@ public class DBHandler {
             uniqueInstance = new DBHandler();
             return uniqueInstance;
         }
-    }
-
-    public static LocalDate timestampToLocalDate(Timestamp timestamp) {
-        return timestamp.toLocalDateTime().toLocalDate();
-    }
-
-    public static Timestamp localDateToTimestamp(LocalDate localDate) {
-        return Timestamp.valueOf(localDate.atStartOfDay());
-    }
-
-    public static byte[] serialize(Object obj) throws IOException {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ObjectOutputStream os = new ObjectOutputStream(out);
-        os.writeObject(obj);
-        return out.toByteArray();
-    }
-
-    public static Object deserialize(byte[] data) throws IOException, ClassNotFoundException {
-        ByteArrayInputStream in = new ByteArrayInputStream(data);
-        ObjectInputStream is = new ObjectInputStream(in);
-        return is.readObject();
-    }
-
-    public void initDB() {
-        if (connect()) {
-            createTables();
-            populateDatabase(10);
-        } else {
-            System.out.println("Couldn't connect");
-        }
-    }
-
-    public void populateDatabase(int number) {
-        for (int i = 1; i < number; i++) {
-            Patient p = RandomGenerator.getRandomPatient();
-            p = RandomGenerator.fillPatient(p);
-            insertPatientAlgorithm(p);
-        }
-
-        Administrator admin = RandomGenerator.getRandomAdmin();
-        System.out.printf("admin username:%s, password:%s\n", admin.getUsername(), admin.getPassword());
-        insertAdminAlgorithm(admin);
     }
 
     public boolean connect() {
@@ -106,8 +85,6 @@ public class DBHandler {
 
     public boolean createUserTable() {
         success = false;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
         try {
             ps = connection.prepareStatement("CREATE TABLE user_account("
                     + "user_id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), f" +
@@ -117,7 +94,6 @@ public class DBHandler {
                     "isFamily BOOLEAN, isCaregiver BOOLEAN, relationship VARCHAR(20), PRIMARY KEY(user_id) )");
             ps.execute();
             success = true;
-            ps.close();
         } catch (SQLException e) {
             MainApp.printError(e);
         }
@@ -126,8 +102,6 @@ public class DBHandler {
 
     public boolean createContactTable() {
         success = false;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
         if (connect()) {
             try {
                 ps = connection.prepareStatement("CREATE TABLE contact( " +
@@ -136,7 +110,6 @@ public class DBHandler {
                         "FOREIGN KEY(user_id) REFERENCES user_account(user_id), PRIMARY KEY (contact_id) )");
                 ps.execute();
                 success = true;
-                ps.close();
             } catch (SQLException e) {
                 MainApp.printError(e);
             }
@@ -146,49 +119,37 @@ public class DBHandler {
 
     public boolean createPetTable() {
         success = false;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        if (connect()) {
-            try {
-                ps = connection.prepareStatement("CREATE TABLE pet("
-                        + "pet_id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
-                        " name VARCHAR(10), species VARCHAR(20), allergy_friendly BOOLEAN, user_id BIGINT,"
-                        + "FOREIGN KEY(user_id) REFERENCES user_account(user_id))");
-                ps.execute();
-                success = true;
-                ps.close();
-            } catch (SQLException e) {
-                MainApp.printError(e);
-//
-            }
+        try {
+            ps = connection.prepareStatement("CREATE TABLE pet("
+                    + "pet_id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
+                    " name VARCHAR(10), species VARCHAR(20), allergy_friendly BOOLEAN, user_id BIGINT,"
+                    + "FOREIGN KEY(user_id) REFERENCES user_account(user_id))");
+            ps.execute();
+            success = true;
+        } catch (SQLException e) {
+            MainApp.printError(e);
+//             
         }
         return success;
     }
 
     public boolean createMealTable() {
         success = false;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        if (connect()) {
-            try {
-                ps = connection.prepareStatement("CREATE TABLE meal("
-                        + "meal_id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
-                        " name VARCHAR(20), calories INT, notes VARCHAR(200), PRIMARY KEY(meal_id) )");
-                ps.execute();
-                success = true;
-                ps.close();
-            } catch (SQLException e) {
-                MainApp.printError(e);
-//
-            }
+        try {
+            ps = connection.prepareStatement("CREATE TABLE meal("
+                    + "meal_id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
+                    " name VARCHAR(20), calories INT, notes VARCHAR(200), PRIMARY KEY(meal_id) )");
+            ps.execute();
+            success = true;
+        } catch (SQLException e) {
+            MainApp.printError(e);
+//             
         }
         return success;
     }
 
     public boolean createEatsTable() {
         success = false;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
         if (connect()) {
             try {
                 ps = connection.prepareStatement("CREATE TABLE eats(user_id BIGINT, meal_id BIGINT, rating int," +
@@ -196,9 +157,8 @@ public class DBHandler {
                         "FOREIGN KEY(meal_id) REFERENCES meal(meal_id))");
                 ps.execute();
                 success = true;
-                ps.close();
             } catch (SQLException e) {
-//
+//                
                 MainApp.printError(e);
             }
         }
@@ -207,99 +167,64 @@ public class DBHandler {
 
     public boolean createEventTable() {
         success = false;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        if (connect()) {
-            try {
-                ps = connection.prepareStatement("CREATE TABLE event("
-                        + "event_id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
-                        " name VARCHAR(20), date TIMESTAMP , category VARCHAR(20), "
-                        + "notes VARCHAR(200), PRIMARY KEY(event_id) )");
-                ps.execute();
-                success = true;
-                ps.close();
-            } catch (SQLException e) {
-                MainApp.printError(e);
-
-            }
-        }
-        return success;
-    }
-
-    public boolean createAttendEventTable() {
-        success = false;
         try {
-            ps = connection.prepareStatement("CREATE TABLE attend_event("
-                    + "event_id BIGINT," +
-                    " user_id BIGINT"
-                    + ", FOREIGN KEY(event_id) REFERENCES event(event_id),"
-                    + " FOREIGN KEY(user_id) REFERENCES user_account(user_id),"
-                    + " CONSTRAINT userEvent_PK PRIMARY KEY (event_id, user_id))");
+            ps = connection.prepareStatement("CREATE TABLE event("
+                    + "event_id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
+                    " name VARCHAR(20), date TIMESTAMP , category VARCHAR(20), "
+                    + "notes VARCHAR(200), PRIMARY KEY(event_id) )");
             ps.execute();
             success = true;
         } catch (SQLException e) {
             MainApp.printError(e);
-
+            
         }
         return success;
     }
 
     public boolean createHealthInfoTable() {
         success = false;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        if (connect()) {
-            try {
-                ps = connection.prepareStatement("CREATE TABLE health_info("
-                        + "health_id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
-                        " user_id BIGINT, date TIMESTAMP, name VARCHAR(20), value VARCHAR(10),"
-                        + "FOREIGN KEY(user_id) REFERENCES user_account(user_id), Primary Key(health_id) )");
-                ps.execute();
-                success = true;
-            } catch (SQLException e) {
-                MainApp.printError(e);
-
-            }
+        try {
+            ps = connection.prepareStatement("CREATE TABLE health_info("
+                    + "health_id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1)," +
+                    " user_id BIGINT, date TIMESTAMP, name VARCHAR(20), value VARCHAR(10),"
+                    + "FOREIGN KEY(user_id) REFERENCES user_account(user_id), Primary Key(health_id) )");
+            ps.execute();
+            success = true;
+        } catch (SQLException e) {
+            MainApp.printError(e);
+            
         }
         return success;
     }
 
     public boolean createStaffAssignmentTable() {
         success = false;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        if (connect()) {
-            try {
-                ps = connection.prepareStatement("CREATE TABLE staff_assignment("
-                        + "patient_id BIGINT, med_id BIGINT, " +
-                        "FOREIGN KEY(patient_id) REFERENCES user_account (user_id),"
-                        + "FOREIGN KEY(med_id) REFERENCES user_account(user_id))");
-                ps.execute();
-                success = true;
-            } catch (SQLException e) {
-                MainApp.printError(e);
-
-            }
+        try {
+            ps = connection.prepareStatement("CREATE TABLE staff_assignment("
+                    + "patient_id BIGINT, med_id BIGINT, " +
+                    "FOREIGN KEY(patient_id) REFERENCES user_account (user_id),"
+                    + "FOREIGN KEY(med_id) REFERENCES user_account(user_id))");
+            ps.execute();
+            success = true;
+        } catch (SQLException e) {
+            MainApp.printError(e);
+            
         }
         return success;
     }
 
     public boolean createRelatedTable() {
         success = false;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        if (connect()) {
-            try {
-                ps = connection.prepareStatement("CREATE TABLE related("
-                        + "patient_id BIGINT, relation_id BIGINT, " +
-                        "FOREIGN KEY(patient_id) REFERENCES user_account (user_id),"
-                        + "FOREIGN KEY(relation_id) REFERENCES user_account(user_id))");
-                ps.execute();
-                success = true;
-            } catch (SQLException e) {
-                MainApp.printError(e);
-
-            }
+        try {
+            ps = connection.prepareStatement("CREATE TABLE related("
+                    + "patient_id BIGINT, relation_id BIGINT, " +
+                    "FOREIGN KEY(patient_id) REFERENCES user_account (user_id),"
+                    + "FOREIGN KEY(relation_id) REFERENCES user_account(user_id))");
+            ps.execute();
+            success = true;
+        } catch (SQLException e) {
+            MainApp.printError(e);
+            
         }
         return success;
     }
@@ -344,10 +269,6 @@ public class DBHandler {
             if (!rs.next())
                 createStaffAssignmentTable();
 
-            rs = metaData.getTables(null, "APP", "ATTEND_EVENT", null);
-            if (!rs.next())
-                 createAttendEventTable();
-
             if (ps != null) {
                 ps.close();
                 System.out.println("Tables created");
@@ -357,36 +278,36 @@ public class DBHandler {
         }
     }
 
-    public boolean insertPatientAlgorithm(Patient p) {
+    public boolean insertPatientAlgorithm(Patient p){
         success = true;
         insertPatient(p);
-        for (Pet pet : p.getPets())
+        for(Pet pet : p.getPets())
             insertPet(pet, p.getUserIdValue());
-        for (Meal meal : p.getMeals()) {
+        for(Meal meal : p.getMeals()) {
             insertMeal(meal);
             insertEats(meal, p.getUserIdValue());
         }
-        for (AbsRelation relation : p.getRelations()) {
+        for(AbsRelation relation : p.getRelations()){
             insertRelation(relation);
             insertRelated(p.getUserIdValue(), relation.getUserIdValue());
         }
-        for (MedicalStaff medStaff : p.getAssignedStaff()) {
+        for(MedicalStaff medStaff : p.getAssignedStaff()){
             insertMedicalStaff(medStaff);
             insertStaffAssignment(p.getUserIdValue(), medStaff.getUserIdValue());
         }
-        for (HealthAttribute<?> attribute : p.getHealthProfile().getHealthInfo())
+        for(HealthAttribute<?> attribute : p.getHealthProfile().getHealthInfo())
             insertHealthInfo(attribute, p.getUserIdValue());
 
-        for (ContactElement e : p.getContactInfo().getAllContactElements())
+        for(ContactElement e : p.getContactInfo().getAllContactElements())
             insertContact(e, p.getUserIdValue());
 
         return success;
     }
 
-    public boolean insertAdminAlgorithm(Administrator admin) {
+    public boolean insertAdminAlgorithm(Administrator admin){
         success = true;
         insertAdmin(admin);
-        for (ContactElement e : admin.getContactInfo().getAllContactElements())
+        for(ContactElement e : admin.getContactInfo().getAllContactElements())
             insertContact(e, admin.getUserIdValue());
 
         return success;
@@ -394,13 +315,11 @@ public class DBHandler {
 
     public boolean insertPatient(Patient p) {
         success = false;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
         try {
             if (connect()) {
                 ps = connection.prepareStatement("INSERT INTO user_account (firstname, lastname," +
                         "username, password, birthday, room, picture, user_type) "
-                        + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)", new String[]{"USER_ID"});
+                        + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)", new String[]  {"USER_ID"});
 
                 int i = 1;
                 ps.setString(i++, p.getFirstName());
@@ -415,33 +334,23 @@ public class DBHandler {
                 rs = ps.getGeneratedKeys();
                 rs.next();
                 p.setUserIdValue(rs.getLong(1));
+                ps.close();
                 success = true;
                 System.out.printf("patient username: %s, password: %s user type: %s\n", p.getUsername(), p.getPassword(), Patient.getUserType());
             }
         } catch (SQLException e) {
             MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
-                MainApp.printError(e);
-            }
-            return success;
         }
+        return success;
     }
 
-    public boolean insertMedicalStaff(MedicalStaff med) {
+    public boolean insertMedicalStaff(MedicalStaff med){
         success = false;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        ;
         try {
             if (connect()) {
                 ps = connection.prepareStatement("INSERT INTO user_account (firstname, lastname," +
                         "username, password, birthday, room, picture, user_type) "
-                        + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)", new String[]{"USER_ID"});
+                        + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)", new String[]  {"USER_ID"});
 
                 int i = 1;
                 ps.setString(i++, med.getFirstName());
@@ -456,31 +365,22 @@ public class DBHandler {
                 rs = ps.getGeneratedKeys();
                 rs.next();
                 med.setUserIdValue(rs.getLong(1));
+                ps.close();
                 success = true;
             }
         } catch (SQLException e) {
             MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
-                MainApp.printError(e);
-            }
-            return success;
         }
+        return success;
     }
 
     public boolean insertAdmin(Administrator admin) {
         success = false;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
         try {
             if (connect()) {
                 ps = connection.prepareStatement("INSERT INTO user_account (firstname, lastname," +
                         "username, password, birthday, room, picture, user_type) "
-                        + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)", new String[]{"USER_ID"});
+                        + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)", new String[]  {"USER_ID"});
 
                 int i = 1;
                 ps.setString(i++, admin.getFirstName());
@@ -495,31 +395,22 @@ public class DBHandler {
                 rs = ps.getGeneratedKeys();
                 rs.next();
                 admin.setUserIdValue(rs.getLong(1));
+                ps.close();
                 success = true;
             }
         } catch (SQLException e) {
             MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
-                MainApp.printError(e);
-            }
-            return success;
         }
+        return success;
     }
 
-    public boolean insertRelation(AbsRelation rel) {
+    public boolean insertRelation(AbsRelation rel){
         success = false;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
         try {
             if (connect()) {
                 ps = connection.prepareStatement("INSERT INTO user_account (firstname, lastname," +
                         "username, password, birthday, room, picture, user_type) "
-                        + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)", new String[]{"USER_ID"});
+                        + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)", new String[]  {"USER_ID"});
 
                 int i = 1;
                 ps.setString(i++, rel.getFirstName());
@@ -534,30 +425,21 @@ public class DBHandler {
                 rs = ps.getGeneratedKeys();
                 rs.next();
                 rel.setUserIdValue(rs.getLong(1));
+                ps.close();
                 success = true;
             }
         } catch (SQLException e) {
             MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
-                MainApp.printError(e);
-            }
-            return success;
         }
+        return success;
     }
 
     public boolean insertContact(ContactElement c, long userIdValue) {
         success = false;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            if (connect()) {
-                ps = connection.prepareStatement("INSERT INTO contact (user_id, value, type, contact_type) "
-                        + "VALUES(?, ?, ?, ?)", new String[]{"CONTACT_ID"});
+        if (connect()) {
+            try {
+               ps = connection.prepareStatement("INSERT INTO contact (user_id, value, type, contact_type) "
+                        + "VALUES(?, ?, ?, ?)", new String[]  {"CONTACT_ID"});
 
                 ps.setLong(1, userIdValue);
                 ps.setString(2, c.getValue());
@@ -567,30 +449,22 @@ public class DBHandler {
                 rs = ps.getGeneratedKeys();
                 rs.next();
                 c.setElementId(rs.getLong(1));
+                ps.close();
                 success = true;
-            }
-        } catch (SQLException e) {
-            MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
+            } catch (SQLException e) {
+                
                 MainApp.printError(e);
             }
-            return success;
         }
+        return success;
     }
 
     public boolean insertPet(Pet pet, long userIdValue) {
         success = false;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            if (connect()) {
+        if (connect()) {
+            try {
                 ps = connection.prepareStatement("INSERT INTO pet (user_id, name, species, allergy_friendly) "
-                        + "VALUES( ?, ?, ?, ?)", new String[]{"PET_ID"});
+                        + "VALUES( ?, ?, ?, ?)", new String[]  {"PET_ID"} );
                 int i = 1;
                 ps.setLong(i++, userIdValue);
                 ps.setString(i++, pet.getName());
@@ -600,32 +474,22 @@ public class DBHandler {
                 rs = ps.getGeneratedKeys();
                 rs.next();
                 pet.setPetId(rs.getLong(1));
+                ps.close();
                 success = true;
-            }
-        } catch (SQLException e) {
-
-            MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
+            } catch (SQLException e) {
+                
                 MainApp.printError(e);
             }
-            return success;
         }
-
+        return success;
     }
 
-    public boolean insertMeal(Meal meal) {
+    public boolean insertMeal(Meal meal){
         success = false;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            if (connect()) {
+        if (connect()) {
+            try {
                 ps = connection.prepareStatement("INSERT INTO meal (name, calories, notes) "
-                        + "VALUES( ?, ?, ?)", new String[]{"MEAL_ID"});
+                        + "VALUES( ?, ?, ?)", new String[]  {"MEAL_ID"} );
                 int i = 1;
                 ps.setString(i++, meal.getFood());
                 ps.setInt(i++, meal.getCalories());
@@ -634,28 +498,20 @@ public class DBHandler {
                 rs = ps.getGeneratedKeys();
                 rs.next();
                 meal.setMealId(rs.getLong(1));
+                ps.close();
                 success = true;
-            }
-        } catch (SQLException e) {
-            MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
+            } catch (SQLException e) {
+                
                 MainApp.printError(e);
             }
-            return success;
         }
+        return success;
     }
 
-    public boolean insertEats(Meal meal, long userIdValue) {
+    public boolean insertEats(Meal meal, long userIdValue){
         success = false;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            if (connect()) {
+        if (connect()) {
+            try {
                 ps = connection.prepareStatement("INSERT INTO eats (user_id, meal_id, rating) "
                         + "VALUES(?, ?, ?)");
                 int i = 1;
@@ -665,86 +521,60 @@ public class DBHandler {
                 ps.executeUpdate();
                 ps.close();
                 success = true;
-            }
-        } catch (SQLException e) {
-
-            MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
+            } catch (SQLException e) {
+                
                 MainApp.printError(e);
             }
-            return success;
         }
+        return success;
     }
 
-    public boolean insertRelated(long patientId, long relationId) {
+    public boolean insertRelated(long patientId, long relationId){
         success = false;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            if (connect()) {
+        if (connect()) {
+            try {
                 ps = connection.prepareStatement("INSERT INTO related (patient_id, relation_id) "
                         + "VALUES(?, ?)");
                 int i = 1;
                 ps.setLong(i++, patientId);
                 ps.setLong(i++, relationId);
                 ps.executeUpdate();
+                ps.close();
                 success = true;
-            }
-        } catch (SQLException e) {
-            MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
+            } catch (SQLException e) {
+                
                 MainApp.printError(e);
             }
-            return success;
         }
+        return success;
     }
 
-    public boolean insertStaffAssignment(long patientId, long medId) {
+    public boolean insertStaffAssignment(long patientId, long medId){
         success = false;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            if (connect()) {
+        if (connect()) {
+            try {
                 ps = connection.prepareStatement("INSERT INTO staff_assignment (patient_id, med_id) "
                         + "VALUES(?, ?)");
                 int i = 1;
                 ps.setLong(i++, patientId);
                 ps.setLong(i++, medId);
                 ps.executeUpdate();
+                ps.close();
                 success = true;
-            }
-        } catch (SQLException e) {
-            MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
+            } catch (SQLException e) {
+                
                 MainApp.printError(e);
             }
-            return success;
         }
+        return success;
     }
 
-    public boolean insertHealthInfo(HealthAttribute<?> healthInfo, long userIdValue) {
+    public boolean insertHealthInfo(HealthAttribute<?> healthInfo, long userIdValue){
         success = false;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            if (connect()) {
+        if (connect()) {
+            try {
                 ps = connection.prepareStatement("INSERT INTO health_info (user_id, date, name, value) "
-                        + "VALUES( ?, ?, ?, ?)", new String[]{"HEALTH_ID"});
+                        + "VALUES( ?, ?, ?, ?)", new String[]  {"HEALTH_ID"} );
                 int i = 1;
                 ps.setLong(i++, userIdValue);
                 ps.setTimestamp(i++, localDateToTimestamp(healthInfo.getDate()));
@@ -754,37 +584,10 @@ public class DBHandler {
                 rs = ps.getGeneratedKeys();
                 rs.next();
                 healthInfo.setHealthAttributeId(rs.getLong(1));
-                success = true;
-            }
-        } catch (SQLException e) {
-            MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
-                MainApp.printError(e);
-            }
-            return success;
-        }
-    }
-
-    public boolean insertEvent(Event event){
-        success = false;
-        if (connect()) {
-            try {
-                ps = connection.prepareStatement("INSERT INTO staff_assignment (name, date, location, notes) "
-                        + "VALUES(?, ?, ?, ?)");
-                ps.setString(1, event.getTitle());
-                ps.setTimestamp(2, localDateTimetoTimestamp(event.getDateTime()));
-                ps.setString(3, event.getLocation());
-                ps.setString(4, event.getNotes());
-                ps.executeUpdate();
                 ps.close();
                 success = true;
             } catch (SQLException e) {
-
+                
                 MainApp.printError(e);
             }
         }
@@ -802,81 +605,65 @@ public class DBHandler {
         return null;
     }
 
-    public AbsUser getFilledUserById(long userId) {
+    public AbsUser getFilledUserById(long userId){
         if (connect()) {
             AbsUser user = getAbsUserById(userId);
             List<ContactElement> info = getContactInfo(user.getUserIdValue());
-            if (info.size() > 0) {
-                Contact contactInfo = new Contact(info);
-                user.setContactInfo(contactInfo);
-            }
+            Contact contactInfo = new Contact(info);
+            user.setContactInfo(contactInfo);
             return user;
         }
         return null;
     }
 
     public AbsUser getAbsUserByUsername(String username) {
-        AbsUser user = null;
-        try {
-            if (connect()) {
+        if (connect()) {
+            try {
                 ps = connection.prepareStatement("SELECT * FROM user_account WHERE username = ? ");
                 ps.setString(1, username);
                 rs = ps.executeQuery();
 
                 if (rs.next()) {
                     String userType = rs.getString("user_type");
+                    System.out.println("user type: " + userType);
 
                     if (userType.equals(Patient.getUserType())) {
-                        user = getPatientByUsername(username);
-                    } else if (userType.equals(Administrator.getUserType())) ;
-                    user = getAdministratorByUsername(username);
+                        return getPatientByUsername(username);
+                    }
+                    else if (userType.equals(Administrator.getUserType())) ;
+                    return getAdministratorByUsername(username);
                 }
-            }
-        } catch (SQLException e) {
-            MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
+            } catch (SQLException e) {
+                
                 MainApp.printError(e);
             }
-            return user;
         }
+        return null;
     }
 
     public AbsUser getAbsUserById(long userId) {
-        AbsUser user = null;
-        try {
-            if (connect()) {
+        if (connect()) {
+            try {
                 ps = connection.prepareStatement("SELECT * FROM user_account WHERE user_id = ? ");
                 ps.setLong(1, userId);
                 rs = ps.executeQuery();
+
                 if (rs.next()) {
                     String userType = rs.getString("user_type");
                     if (userType.equals(Patient.getUserType()))
-                        user = getPatientById(userId);
-                    else if (userType.equals(Administrator.getUserType()))
-                        user = getAdministratorById(userId);
+                        return getPatientById(userId);
+                    else if (userType.equals(Administrator.getUserType())) ;
+                    return getAdministratorById(userId);
                 }
-            }
-        } catch (SQLException e) {
-            MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
+            } catch (SQLException e) {
+
                 MainApp.printError(e);
             }
-            return user;
         }
+        return null;
     }
 
     public Administrator getAdministratorByUsername(String username) {
-        Administrator admin = null;
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT * FROM user_account WHERE username = ? AND user_type = ?");
@@ -884,28 +671,21 @@ public class DBHandler {
                 ps.setString(2, Administrator.getUserType());
                 rs = ps.executeQuery();
                 if (rs.next()) {
-                    admin = new Administrator(rs.getLong("user_id"), rs.getString("firstname"),
+                    Administrator admin = new Administrator(rs.getLong("user_id"), rs.getString("firstname"),
                             rs.getString("lastname"), rs.getString("username"), rs.getString("password"),
                             timestampToLocalDate(rs.getTimestamp("birthday")), rs.getString("room"),
                             rs.getString("picture"));
+                    connection.close();
+                    return admin;
                 }
             }
         } catch (SQLException e) {
             MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
-                MainApp.printError(e);
-            }
-            return admin;
         }
+        return new Administrator();
     }
 
     public Administrator getAdministratorById(long userIdValue) {
-        Administrator admin = null;
         try {
             if (connect()) {
 
@@ -914,91 +694,53 @@ public class DBHandler {
                 ps.setString(2, Administrator.getUserType());
                 rs = ps.executeQuery();
                 if (rs.next()) {
-                    admin = new Administrator(rs.getLong("user_id"), rs.getString("firstname"),
+                    Administrator admin = new Administrator(rs.getLong("user_id"), rs.getString("firstname"),
                             rs.getString("lastname"), rs.getString("username"), rs.getString("password"),
                             timestampToLocalDate(rs.getTimestamp("birthday")), rs.getString("room"),
                             rs.getString("picture"));
+                    connection.close();
+                    return admin;
                 }
             }
         } catch (SQLException e) {
             MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
-                MainApp.printError(e);
-            }
-            return admin;
         }
+        return new Administrator();
     }
 
     public Patient getPatientByUsername(String username) {
-        Patient p = null;
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
                         "birthday, room, picture FROM  user_account WHERE username = ? AND user_type = ?");
                 ps.setString(1, username);
                 ps.setString(2, Patient.getUserType());
-                p = getPatient(ps.executeQuery());
+                return getPatient(ps.executeQuery());
             }
         } catch (SQLException e) {
             MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
-                MainApp.printError(e);
-            }
-            return p;
         }
+        return null;
     }
 
     public Patient getPatientById(long userIdValue) {
-        Patient p = null;
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
                         "birthday, room, picture FROM  user_account WHERE user_id = ? AND user_type = ?");
                 ps.setLong(1, userIdValue);
                 ps.setString(2, Patient.getUserType());
-                p = getPatient(ps.executeQuery());
+                return getPatient(ps.executeQuery());
             }
             return getPatient(ps.executeQuery());
         } catch (SQLException e) {
+            
             MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
-                MainApp.printError(e);
-            }
-            return p;
         }
-    }
-
-    public Patient getFilledPatientByUsername(String username) {
-        Patient p = (Patient) getAbsUserByUsername(username);
-        p.getHealthProfile().setHealthInfo(getHealthInfo(p.getUserIdValue()));
-
-        return p;
-    }
-
-    public Patient getFilledPatientById(long userIdValue) {
-        Patient p = (Patient) getAbsUserById(userIdValue);
-        p.getHealthProfile().setHealthInfo(getHealthInfo(p.getUserIdValue()));
-
-        return p;
+        return null;
     }
 
     public MedicalStaff getMedicalStaffByUsername(String username) {
-        MedicalStaff med = null;
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
@@ -1006,29 +748,21 @@ public class DBHandler {
                 ps.setString(1, username);
                 ps.setString(2, MedicalStaff.getUserType());
                 rs = ps.executeQuery();
-                if (rs.next()) {
-                    med = new MedicalStaff(rs.getLong("user_id"), rs.getString("firstname"),
+                if(rs.next()) {
+                    MedicalStaff medicalStaff = new MedicalStaff(rs.getLong("user_id"), rs.getString("firstname"),
                             rs.getString("lastname"), rs.getString("username"), rs.getString("password"),
                             timestampToLocalDate(rs.getTimestamp("birthday")), rs.getString("room"),
                             rs.getString("picture"));
+                    return medicalStaff;
                 }
             }
         } catch (SQLException e) {
             MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
-                MainApp.printError(e);
-            }
-            return med;
         }
+        return null;
     }
 
     public MedicalStaff getMedicalStaffById(long userIdValue) {
-        MedicalStaff med = null;
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
@@ -1036,103 +770,69 @@ public class DBHandler {
                 ps.setLong(1, userIdValue);
                 ps.setString(2, MedicalStaff.getUserType());
                 rs = ps.executeQuery();
-                if (rs.next()) {
-                    med = new MedicalStaff(rs.getLong("user_id"), rs.getString("firstname"),
+                if(rs.next()) {
+                    MedicalStaff medicalStaff = new MedicalStaff(rs.getLong("user_id"), rs.getString("firstname"),
                             rs.getString("lastname"), rs.getString("username"), rs.getString("password"),
                             timestampToLocalDate(rs.getTimestamp("birthday")), rs.getString("room"),
                             rs.getString("picture"));
+                    return medicalStaff;
                 }
             }
         } catch (SQLException e) {
+            
             MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
-                MainApp.printError(e);
-            }
-            return med;
         }
+        return null;
     }
 
-    public List<MedicalStaff> getPatientMedicalStaff(long userIdValue) {
+    public List<MedicalStaff> getPatientMedicalStaff(long userIdValue){
         List<MedicalStaff> staff = new LinkedList<>();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT med_id FROM staff_assignment WHERE patient_id = ?");
                 ps.setLong(1, userIdValue);
-                while (rs.next()) {
+                while(rs.next()){
                     staff.add(getMedicalStaffById(rs.getLong("med_id")));
                 }
             }
         } catch (SQLException e) {
             MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
-                MainApp.printError(e);
-            }
-            return staff;
         }
+        return staff;
     }
 
     public AbsRelation getRelationByUsername(String username) {
-        AbsRelation relation = null;
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
                         "birthday, room, picture FROM user_account WHERE username = ? AND user_type = ?");
                 ps.setString(1, username);
                 ps.setString(2, AbsRelation.getUserType());
-                relation = getAbsRelation(ps.executeQuery());
+                return getAbsRelation(ps.executeQuery());
             }
         } catch (SQLException e) {
             MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
-                MainApp.printError(e);
-            }
-            return relation;
         }
+        return null;
     }
 
     public AbsRelation getRelationById(long userIdValue) {
-        AbsRelation relation = null;
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
                         "birthday, room, picture FROM  user_account WHERE user_id = ?");
                 ps.setLong(1, userIdValue);
-                relation = getAbsRelation(ps.executeQuery());
+                return getAbsRelation(ps.executeQuery());
             }
         } catch (SQLException e) {
-            MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
-                MainApp.printError(e);
-            }
-            return relation;
+            
         }
+        return null;
     }
 
-    public AbsRelation getAbsRelation(ResultSet rs) {
+    public AbsRelation getAbsRelation(ResultSet rs){
         try {
-            if (rs.next()) {
+            if(rs.next()) {
                 AbsRelation relation;
                 if (rs.getString("role") == Caregiver.getRole()) {
                     relation = new Caregiver(rs.getLong("user_id"), rs.getString("firstname"),
@@ -1155,30 +855,20 @@ public class DBHandler {
         return null;
     }
 
-    public List<AbsRelation> getPatientRelations(long userIdValue) {
+    public List<AbsRelation> getPatientRelations(long userIdValue){
         List<AbsRelation> relations = new LinkedList<>();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT relation_id FROM related WHERE patient_id = ?");
                 ps.setLong(1, userIdValue);
-                while (rs.next()) {
+                while(rs.next()){
                     relations.add(getRelationById(rs.getLong("relation_id")));
                 }
             }
         } catch (SQLException e) {
             MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
-                MainApp.printError(e);
-            }
-            return relations;
         }
+        return relations;
     }
 
     public Patient getPatient(ResultSet rs) {
@@ -1191,15 +881,13 @@ public class DBHandler {
                 return patient;
             }
         } catch (SQLException e) {
-            MainApp.printError(e);
+            
         }
         return null;
     }
 
     public List<Patient> getAllPatients() {
         LinkedList<Patient> patientList = new LinkedList<Patient>();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT * FROM user_account WHERE user_type = ?");
@@ -1209,198 +897,133 @@ public class DBHandler {
                     Patient patient = getPatient(rs);
                     patientList.add(patient);
                 }
+                connection.close();
             }
         } catch (SQLException | NullPointerException e) {
             MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
-                MainApp.printError(e);
-            }
-            return patientList;
         }
+        return patientList;
     }
 
     public List<Patient> getAllFilledPatients() {
         LinkedList<Patient> patientList = new LinkedList<Patient>();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT * FROM user_account WHERE user_type = ?");
                 ps.setString(1, Patient.getUserType());
                 rs = ps.executeQuery();
                 while (rs.next()) {
-                    Patient patient = getFilledPatientById(rs.getLong("user_id"));
+                    Patient patient = (Patient) getFilledUserById(rs.getLong("user_id"));
                     patientList.add(patient);
                 }
+                connection.close();
             }
         } catch (SQLException | NullPointerException e) {
             MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
-                MainApp.printError(e);
-            }
-            return patientList;
         }
+        return patientList;
     }
 
-    public List<ContactElement> getContactInfo(long userIdValue) {
+    public List<ContactElement> getContactInfo(long userIdValue){
         List<ContactElement> elements = new LinkedList<>();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            if (connect()) {
+        if(connect()){
+            try {
                 ps = connection.prepareStatement(" SELECT * FROM contact WHERE user_id = ?");
                 ps.setLong(1, userIdValue);
                 rs = ps.executeQuery();
-                while (rs.next()) {
+                while(rs.next()){
                     ContactElement element = new Phone(rs.getLong("contact_id"),
                             rs.getString("value"), rs.getString("type"), rs.getString("contact_type"));
                     elements.add(element);
                 }
-            }
-        } catch (SQLException | NullPointerException e) {
-            MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 MainApp.printError(e);
             }
-            return elements;
         }
+        return elements;
     }
 
-    public Meal getMeal(long mealId) {
-        Meal meal = null;
-        try {
-            if (connect()) {
+    public Meal getMeal(long mealId){
+        if(connect()){
+            try {
                 ps = connection.prepareStatement(" SELECT name, calories, notes FROM  meal WHERE meal_id = ? ");
                 ps.setLong(1, mealId);
                 rs = ps.executeQuery();
-                if (rs.next()) {
-                    meal = new Meal(mealId, rs.getString("name"), rs.getInt("calories"), rs.getString("notes"));
+                if(rs.next()){
+                    return new Meal(mealId, rs.getString("name"), rs.getInt("calories"), rs.getString("notes"));
                 }
+            } catch (SQLException e) {
+                
             }
-        } catch (SQLException e) {
-            MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
-                MainApp.printError(e);
-            }
-            return meal;
         }
+        return null;
     }
 
-    public List<Meal> getPatientMeals(long userIdValue) {
+    public List<Meal> getPatientMeals(long userIdValue){
         List<Meal> meals = new LinkedList<>();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            if (connect()) {
+        if(connect()){
+            try {
                 ps = connection.prepareStatement("SELECT * FROM eats JOIN user_account ON eats.user_id = user_account.user_id WHERE eats.user_id = ? ");
                 ps.setLong(1, userIdValue);
-                while (rs.next()) {
+                while(rs.next()){
                     meals.add(new Meal(rs.getLong("meal_id"), rs.getString("name"), rs.getInt("calories"),
                             rs.getInt("rating"), rs.getString("notes")));
                 }
-            }
-        } catch (SQLException e) {
-            MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
+            } catch (SQLException e) {
+//                
                 MainApp.printError(e);
             }
-            return meals;
         }
+        return meals;
     }
 
-    public Pet getPet(long petId) {
-        Pet p = null;
-        try {
-            if (connect()) {
+    public Pet getPet(long petId){
+        if(connect()){
+            try {
                 ps = connection.prepareStatement(" SELECT name, species, allergey_friendly FROM  pet WHERE pet_id = ? ");
                 ps.setLong(1, petId);
                 rs = ps.executeQuery();
-                if (rs.next()) {
-                    p = new Pet(petId, rs.getString("name"), rs.getString("species"), rs.getBoolean("allergy_friendly"));
+                if(rs.next()){
+                    return new Pet(petId, rs.getString("name"), rs.getString("species"), rs.getBoolean("allergy_friendly"));
                 }
+            } catch (SQLException e) {
+                
             }
-        } catch (SQLException e) {
-            MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
-                MainApp.printError(e);
-            }
-            return p;
         }
+        return null;
     }
 
-    public List<Pet> getPatientPets(long userIdValue) {
+    public List<Pet> getPatientPets(long userIdValue){
         List<Pet> pets = new LinkedList<>();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            if (connect()) {
+        if(connect()){
+            try {
                 ps = connection.prepareStatement("SELECT * FROM pet WHERE user_id = ? ");
                 ps.setLong(1, userIdValue);
-
-                while (rs.next()) {
+                while(rs.next()){
                     pets.add(new Pet(rs.getLong("pet_id"), rs.getString("name"), rs.getString("species"),
                             rs.getBoolean("allergy_friendly")));
                 }
-            }
-        } catch (SQLException e) {
-            MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
+            } catch (SQLException e) {
+//                
                 MainApp.printError(e);
             }
-            return pets;
         }
+        return pets;
     }
 
-    public List<HealthAttribute<?>> getHealthInfo(long userIdValue) {
-        List<HealthAttribute<?>> healthInfo = new LinkedList<>();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            if (connect()) {
-                ps = connection.prepareStatement("SELECT health_id, name, date, value FROM health_info WHERE user_id = ?");
+    public List<HealthAttribute<?>> getHealthInfo(long userIdValue){
+        List<HealthAttribute<?>> healthInfo  = new LinkedList<>();
+        if(connect()){
+            try {
+                ps = connection.prepareStatement("SELECT (health_id, name, date, value) FROM health_info WHERE user_id = ?");
                 ps.setLong(1, userIdValue);
                 rs = ps.executeQuery();
-                while (rs.next()) {
-                    if (RandomGenerator.isInteger(rs.getString("value")))
+                while(rs.next()){
+                    if(RandomGenerator.isInteger(rs.getString("value")))
                         healthInfo.add(new HealthAttribute<Integer>(rs.getLong("health_id"),
                                 timestampToLocalDate(rs.getTimestamp("date")),
                                 rs.getString("name"), Integer.parseInt(rs.getString("value"))));
-                    else if (RandomGenerator.isDouble(rs.getString("value")))
+                    else if(RandomGenerator.isDouble(rs.getString("value")))
                         healthInfo.add(new HealthAttribute<Double>(rs.getLong("health_id"),
                                 timestampToLocalDate(rs.getTimestamp("date")),
                                 rs.getString("name"), Double.parseDouble(rs.getString("value"))));
@@ -1409,181 +1032,30 @@ public class DBHandler {
                                 timestampToLocalDate(rs.getTimestamp("date")),
                                 rs.getString("name"), rs.getString("value")));
                 }
-            }
-        } catch (SQLException e) {
-//
-            MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
+            } catch (SQLException e) {
+//                
                 MainApp.printError(e);
             }
-            return healthInfo;
         }
-    }
-
-    public boolean updatePatientAlgorithm(Patient p) {
-        success = true;
-        updatePatient(p);
-        for (Pet pet : p.getPets())
-            updatePet(pet);
-
-        for (Meal meal : p.getMeals()) {
-            updateMeal(meal);
-            updateMealRating(meal);
-        }
-
-        for (AbsRelation relation : p.getRelations())
-            updateRelation(relation);
-
-        for (MedicalStaff medStaff : p.getAssignedStaff())
-            updateMedicalStaff(medStaff);
-
-        for (HealthAttribute<?> attribute : p.getHealthProfile().getHealthInfo())
-            insertHealthInfo(attribute, p.getUserIdValue());
-
-        for (ContactElement e : p.getContactInfo().getAllContactElements())
-            updateContact(e);
-
-        return success;
-    }
-
-    public boolean updateRelation(AbsRelation relation) {
-        success = false;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            if (connect()) {
-                ps = connection.prepareStatement("UPDATE user_account SET firstname = ?, lastname = ?," +
-                        "username = ?, password = ?, birthday = ?, room = ?, picture = ? WHERE " +
-                        "user_type = ? AND user_id = ?) ");
-
-                setUpdateParameters(relation, AbsRelation.getUserType(), ps);
-                ps.execute();
-                success = true;
-            }
-        } catch (SQLException e) {
-            MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
-                MainApp.printError(e);
-            }
-            return success;
-        }
+        return healthInfo;
     }
 
     public boolean updatePatient(Patient p) {
         success = false;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
         try {
             if (connect()) {
-                ps = connection.prepareStatement("UPDATE user_account SET firstname = ?, lastname = ?," +
-                        "username = ?, password = ?, birthday = ?, room = ?, picture = ? WHERE " +
-                        "user_type = ? AND user_id = ? ");
-                setUpdateParameters(p, Patient.getUserType(), ps);
-                ps.executeUpdate();
+                String query = "UPDATE user_account SET user_id=:userId, firstname =:firstname, lastname =:lastname," +
+                        "username =:username, password =:password, birthday =:birthday, room =:room, picture =:picture," +
+                        "user_type =:userType) ";
+                NamedParameterStatement nps = setBasicParameters(new NamedParameterStatement(connection, query), p);
+                nps.executeUpdate();
+                nps.close();
                 success = true;
             }
         } catch (SQLException e) {
             MainApp.printError(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (Exception e) {
-                MainApp.printError(e);
-            }
-            return success;
         }
-    }
-
-    public List<Event> getUserEventsByID(long userID) {
-        List<Event> events = new LinkedList<>();
-        if (connect()) {
-            try {
-                ps = connection.prepareStatement("SELECT * FROM event JOIN attend_event ON event.user_id = attend_event.user_id WHERE user_id = ? ");
-                ps.setLong(1, userID);
-                rs = ps.executeQuery();
-
-                while (rs.next()) {
-                    Event event = new Event((timestampToLocalDateTime(rs.getTimestamp("date"))), rs.getString("name"),
-                            rs.getString("notes"), rs.getString("location"), rs.getLong("event_id"));
-                    events.add(event);
-                    connection.close();
-                    return events;
-                }
-            } catch (SQLException e) {
-
-                MainApp.printError(e);
-            }
-        }
-        return null;
-    }
-
-    public List<Event> getAllEvents() {
-        List<Event> events = new LinkedList<>();
-        if (connect()) {
-            try {
-                ps = connection.prepareStatement("SELECT * FROM event ");
-                rs = ps.executeQuery();
-
-                while (rs.next()) {
-                    Event event = new Event((timestampToLocalDateTime(rs.getTimestamp("date"))), rs.getString("name"),
-                            rs.getString("notes"), rs.getString("location"), rs.getLong("event_id"));
-                    events.add(event);
-                    connection.close();
-                    return events;
-                }
-            } catch (SQLException e) {
-
-                MainApp.printError(e);
-            }
-        }
-        return null;
-    }
-
-    public List<AbsUser> getEventAttendingUsersListByID(long eventID) {
-        List<AbsUser> usersList = new LinkedList<>();
-        if (connect()) {
-            try {
-                ps = connection.prepareStatement("SELECT * FROM user_account JOIN attend_event ON user_account.user_id = attend_event.user_id WHERE event_id = ? ");
-                ps.setLong(1, eventID);
-                rs = ps.executeQuery();
-
-                while (rs.next()) {
-                    if (rs.getString("role").equals("DOCTOR") || rs.getString("role").equals("NURSE") || rs.getString("role").equals("MED_STAFF")){
-                        MedicalStaff staff = new MedicalStaff(rs.getLong("user_id"), rs.getString("firstname"), rs.getString("lastname"),
-                                rs.getString("username"), rs.getString("password"), timestampToLocalDate(rs.getTimestamp("birthday")),
-                                rs.getString("room"), rs.getString("picture"));
-                        usersList.add(staff);
-                    } else if (rs.getString("user_type").equals("PATIENT")){
-                        Patient patient = getPatient(rs);
-                        usersList.add(patient);
-                    } else {
-                        Administrator admin = new Administrator(rs.getLong("user_id"), rs.getString("firstname"),
-                                rs.getString("lastname"), rs.getString("username"), rs.getString("password"),
-                                timestampToLocalDate(rs.getTimestamp("birthday")), rs.getString("room"),
-                                rs.getString("picture"));
-                        usersList.add(admin);
-                    }
-                }
-                connection.close();
-                return usersList;
-            } catch (SQLException e) {
-
-                MainApp.printError(e);
-            }
-        }
-        return null;
+        return success;
     }
 
     public NamedParameterStatement setBasicParameters(NamedParameterStatement nps, AbsUser user) {
@@ -1600,7 +1072,7 @@ public class DBHandler {
         return nps;
     }
 
-    public boolean isUniqueId(long userIdValue) {
+    public boolean isUniqueId(long userIdValue){
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT * FROM  user_account WHERE user_id = ? ");
@@ -1617,16 +1089,8 @@ public class DBHandler {
         return timestamp.toLocalDateTime().toLocalDate();
     }
 
-    public static LocalDateTime timestampToLocalDateTime(Timestamp timestamp) {
-        return timestamp.toLocalDateTime();
-    }
-
     public static Timestamp localDateToTimestamp(LocalDate localDate) {
         return Timestamp.valueOf(localDate.atStartOfDay());
-    }
-
-    public static Timestamp localDateTimetoTimestamp(LocalDateTime due) {
-        return Timestamp.from(due.toInstant(ZoneOffset.ofHours(0)));
     }
 
     public static byte[] serialize(Object obj) throws IOException {

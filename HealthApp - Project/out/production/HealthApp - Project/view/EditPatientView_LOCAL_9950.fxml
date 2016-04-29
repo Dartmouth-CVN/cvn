@@ -16,7 +16,7 @@
 
 <AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EditPatientController">
    <children>
-      <Button fx:id="saveButton" layoutX="1146.0" layoutY="648.0" mnemonicParsing="false" onAction="#save" prefHeight="30.0" prefWidth="90.0" stylesheets="@cvnStyle.css" text="Save" AnchorPane.bottomAnchor="22.0" AnchorPane.rightAnchor="14.0" />
+      <Button layoutX="1146.0" layoutY="648.0" mnemonicParsing="false" onAction="#save" prefHeight="30.0" prefWidth="90.0" stylesheets="@cvnStyle.css" text="Save" AnchorPane.bottomAnchor="22.0" AnchorPane.rightAnchor="14.0" />
       <Accordion prefHeight="634.0" prefWidth="1250.0" stylesheets="@cvnStyle.css" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <panes>
             <TitledPane animated="false" prefHeight="534.0" prefWidth="1250.0" text="General Information">
@@ -58,7 +58,7 @@
                               <Image url="@images/blank-profile-picture.png" />
                            </image>
                         </ImageView>
-                        <Button layoutX="314.0" layoutY="409.0" mnemonicParsing="false" text="Import FitBit Data" />
+                        <Button layoutX="314.0" layoutY="409.0" mnemonicParsing="false" onAction="#handleFitBitImport" text="Import FitBit Data" />
                      </children>
                   </AnchorPane>
                </content>

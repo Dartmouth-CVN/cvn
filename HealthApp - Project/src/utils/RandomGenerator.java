@@ -43,9 +43,9 @@ public class RandomGenerator {
 
 	static String[] relationTypes = {"Daughter", "Son", "Sister", "Daughter-in-Law", "Son-in-Law", "Mother", "Father"};
 
-	static String[] profilePic = {"profile_pictures/pic1.jpg",
-			"profile_pictures/pic2.jpg",
-			"profile_pictures/pic3.png"};
+	static String[] profilePic = {"profile_pictures\\pic1.jpg",
+			"profile_pictures\\pic2.jpg",
+			"profile_pictures\\pic3.png"};
 
 	static Random randomNumber = getRandomNumber();
 

@@ -2,13 +2,16 @@ package utils;
 
 import model.*;
 import org.apache.derby.jdbc.EmbeddedDataSource;
-import model.MainApp;
 
 import java.io.*;
 import java.sql.*;
+<<<<<<< HEAD
+import java.time.LocalDate;
+=======
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.*;
+>>>>>>> c2f9fc0143efb915fd6c7a5a47e46a12a9817288
 import java.util.LinkedList;
 import java.util.List;
 
@@ -770,6 +773,9 @@ public class DBHandler {
         }
     }
 
+<<<<<<< HEAD
+    public AbsUser getFilledUserByUsername(String username) {
+=======
     public boolean insertEvent(Event event){
         success = false;
         if (connect()) {
@@ -792,6 +798,7 @@ public class DBHandler {
     }
 
     public AbsUser getFilledUserByUsername(String username){
+>>>>>>> c2f9fc0143efb915fd6c7a5a47e46a12a9817288
         if (connect()) {
             AbsUser user = getAbsUserByUsername(username);
             List<ContactElement> info = getContactInfo(user.getUserIdValue());
@@ -1506,6 +1513,197 @@ public class DBHandler {
         }
     }
 
+    public boolean updateMedicalStaff(MedicalStaff medStaff) {
+        success = false;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            if (connect()) {
+                ps = connection.prepareStatement("UPDATE user_account SET firstname = ?, lastname = ?," +
+                        "username = ?, password = ?, birthday = ?, room = ?, picture = ? WHERE " +
+                        "user_type = ? AND user_id = ? ");
+                setUpdateParameters(medStaff, MedicalStaff.getUserType(), ps);
+                ps.execute();
+                success = true;
+            }
+        } catch (SQLException e) {
+            MainApp.printError(e);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (connection != null) connection.close();
+            } catch (Exception e) {
+                MainApp.printError(e);
+            }
+            return success;
+        }
+    }
+
+    public boolean updatePet(Pet p) {
+        success = false;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            if (connect()) {
+                ps = connection.prepareStatement("UPDATE pet SET name = ?, species = ?," +
+                        "allergy_friendly = ? WHERE pet_id = ? ");
+                int i = 1;
+                ps.setString(i++, p.getName());
+                ps.setString(i++, p.getSpecies());
+                ps.setBoolean(i++, p.isAllergyFriendly());
+                ps.setLong(i++, p.getPetId());
+                ps.execute();
+                success = true;
+            }
+        } catch (SQLException e) {
+            MainApp.printError(e);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (connection != null) connection.close();
+            } catch (Exception e) {
+                MainApp.printError(e);
+            }
+            return success;
+        }
+    }
+
+    public boolean updateMeal(Meal m) {
+        success = false;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            if (connect()) {
+                ps = connection.prepareStatement("UPDATE meal SET name = ?, calories = ?," +
+                        "notes = ? WHERE meal_id = ? ");
+                int i = 1;
+                ps.setString(i++, m.getFood());
+                ps.setInt(i++, m.getCalories());
+                ps.setString(i++, m.getNotes());
+                ps.setLong(i++, m.getMealId());
+                ps.execute();
+                success = true;
+            }
+        } catch (SQLException e) {
+            MainApp.printError(e);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (connection != null) connection.close();
+            } catch (Exception e) {
+                MainApp.printError(e);
+            }
+            return success;
+        }
+    }
+
+    public boolean updateMealRating(Meal m) {
+        success = false;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            if (connect()) {
+                ps = connection.prepareStatement("UPDATE eats SET rating = ?," +
+                        " WHERE meal_id = ? ");
+                int i = 1;
+                ps.setInt(i++, m.getRating());
+                ps.setLong(i++, m.getMealId());
+                ps.execute();
+                success = true;
+            }
+        } catch (SQLException e) {
+            MainApp.printError(e);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (connection != null) connection.close();
+            } catch (Exception e) {
+                MainApp.printError(e);
+            }
+            return success;
+        }
+    }
+
+    public boolean updateContact(ContactElement e) {
+        success = false;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            if (connect()) {
+                ps = connection.prepareStatement("UPDATE contact SET value = ?, type = ? " +
+                        " WHERE contact_id = ? ");
+                int i = 1;
+                ps.setString(i++, e.getValue());
+                ps.setString(i++, e.getType());
+                ps.setLong(i++, e.getElementId());
+                ps.execute();
+                success = true;
+            }
+        } catch (SQLException ex) {
+            MainApp.printError(ex);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (connection != null) connection.close();
+            } catch (Exception ex) {
+                MainApp.printError(ex);
+            }
+            return success;
+        }
+    }
+
+    public boolean updateHealthInfo(HealthAttribute<?> healthAttribute) {
+        success = false;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            if (connect()) {
+                ps = connection.prepareStatement("UPDATE health_info SET date = ?, name = ?, value = ?, " +
+                        "WHERE health_id = ? ");
+                int i = 1;
+                ps.setTimestamp(i++, localDateToTimestamp(healthAttribute.getDate()));
+                ps.setString(i++, healthAttribute.getName());
+                ps.setString(i++, healthAttribute.getStringValue());
+                ps.setLong(i++, healthAttribute.getHealthAttributeId());
+                ps.execute();
+                success = true;
+            }
+        } catch (SQLException e) {
+            MainApp.printError(e);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (connection != null) connection.close();
+            } catch (Exception e) {
+                MainApp.printError(e);
+            }
+            return success;
+        }
+    }
+
+    public void setUpdateParameters(AbsUser user, String userType, PreparedStatement ps) {
+        int i = 1;
+        try {
+            ps.setString(i++, user.getFirstName());
+            ps.setString(i++, user.getLastName());
+            ps.setString(i++, user.getUsername());
+            ps.setString(i++, user.getPassword());
+            ps.setTimestamp(i++, localDateToTimestamp(user.getBirthday()));
+            ps.setString(i++, user.getRoom());
+            ps.setString(i++, user.getPicture());
+            ps.setString(i++, userType);
+            ps.setLong(i++, user.getUserIdValue());
+        } catch (SQLException e) {
+            MainApp.printError(e);
+        }
+    }
+
     public List<Event> getUserEventsByID(long userID) {
         List<Event> events = new LinkedList<>();
         if (connect()) {
@@ -1612,6 +1810,8 @@ public class DBHandler {
         }
         return false;
     }
+<<<<<<< HEAD
+=======
 
     public static LocalDate timestampToLocalDate(Timestamp timestamp) {
         return timestamp.toLocalDateTime().toLocalDate();
@@ -1641,4 +1841,5 @@ public class DBHandler {
         ObjectInputStream is = new ObjectInputStream(in);
         return is.readObject();
     }
+>>>>>>> c2f9fc0143efb915fd6c7a5a47e46a12a9817288
 }

@@ -22,6 +22,15 @@ public class Event {
 		this.notes = new SimpleStringProperty(notes);
 	}
 
+	public Event(LocalDateTime date, String title,
+				 String notes, String location, Long id) {
+		this.date = new SimpleObjectProperty<LocalDateTime>(date);
+		this.title = new SimpleStringProperty(title);
+		this.location = new SimpleStringProperty(location);
+		this.notes = new SimpleStringProperty(notes);
+		this.eventId = new SimpleLongProperty(id);
+	}
+
 	public Event(LocalDateTime date, String location, String notes) {
 		this(date, "Title", new SimpleListProperty<AbsUser>(), notes, location);
 	}
@@ -51,6 +60,10 @@ public class Event {
 
 	public String getDate() {
 		return this.date.toString();
+	}
+
+	public LocalDateTime getDateTime() {
+		return this.date.get();
 	}
 
 	public String getLocation() {

@@ -2,13 +2,10 @@ package utils;
 
 import model.*;
 import org.apache.derby.jdbc.EmbeddedDataSource;
-import model.MainApp;
 
 import java.io.*;
 import java.sql.*;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.time.*;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -226,24 +223,6 @@ public class DBHandler {
         return success;
     }
 
-    public boolean createAttendEventTable() {
-        success = false;
-        try {
-            ps = connection.prepareStatement("CREATE TABLE attend_event("
-                    + "event_id BIGINT," +
-                    " user_id BIGINT"
-                    + ", FOREIGN KEY(event_id) REFERENCES event(event_id),"
-                    + " FOREIGN KEY(user_id) REFERENCES user_account(user_id),"
-                    + " CONSTRAINT userEvent_PK PRIMARY KEY (event_id, user_id))");
-            ps.execute();
-            success = true;
-        } catch (SQLException e) {
-            MainApp.printError(e);
-
-        }
-        return success;
-    }
-
     public boolean createHealthInfoTable() {
         success = false;
         PreparedStatement ps = null;
@@ -343,10 +322,6 @@ public class DBHandler {
             rs = metaData.getTables(null, "APP", "STAFF_ASSIGNMENT", null);
             if (!rs.next())
                 createStaffAssignmentTable();
-
-            rs = metaData.getTables(null, "APP", "ATTEND_EVENT", null);
-            if (!rs.next())
-                 createAttendEventTable();
 
             if (ps != null) {
                 ps.close();
@@ -770,28 +745,7 @@ public class DBHandler {
         }
     }
 
-    public boolean insertEvent(Event event){
-        success = false;
-        if (connect()) {
-            try {
-                ps = connection.prepareStatement("INSERT INTO staff_assignment (name, date, location, notes) "
-                        + "VALUES(?, ?, ?, ?)");
-                ps.setString(1, event.getTitle());
-                ps.setTimestamp(2, localDateTimetoTimestamp(event.getDateTime()));
-                ps.setString(3, event.getLocation());
-                ps.setString(4, event.getNotes());
-                ps.executeUpdate();
-                ps.close();
-                success = true;
-            } catch (SQLException e) {
-
-                MainApp.printError(e);
-            }
-        }
-        return success;
-    }
-
-    public AbsUser getFilledUserByUsername(String username){
+    public AbsUser getFilledUserByUsername(String username) {
         if (connect()) {
             AbsUser user = getAbsUserByUsername(username);
             List<ContactElement> info = getContactInfo(user.getUserIdValue());
@@ -1506,84 +1460,195 @@ public class DBHandler {
         }
     }
 
-    public List<Event> getUserEventsByID(long userID) {
-        List<Event> events = new LinkedList<>();
-        if (connect()) {
+    public boolean updateMedicalStaff(MedicalStaff medStaff) {
+        success = false;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            if (connect()) {
+                ps = connection.prepareStatement("UPDATE user_account SET firstname = ?, lastname = ?," +
+                        "username = ?, password = ?, birthday = ?, room = ?, picture = ? WHERE " +
+                        "user_type = ? AND user_id = ? ");
+                setUpdateParameters(medStaff, MedicalStaff.getUserType(), ps);
+                ps.execute();
+                success = true;
+            }
+        } catch (SQLException e) {
+            MainApp.printError(e);
+        } finally {
             try {
-                ps = connection.prepareStatement("SELECT * FROM event JOIN attend_event ON event.user_id = attend_event.user_id WHERE user_id = ? ");
-                ps.setLong(1, userID);
-                rs = ps.executeQuery();
-
-                while (rs.next()) {
-                    Event event = new Event((timestampToLocalDateTime(rs.getTimestamp("date"))), rs.getString("name"),
-                            rs.getString("notes"), rs.getString("location"), rs.getLong("event_id"));
-                    events.add(event);
-                    connection.close();
-                    return events;
-                }
-            } catch (SQLException e) {
-
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (connection != null) connection.close();
+            } catch (Exception e) {
                 MainApp.printError(e);
             }
+            return success;
         }
-        return null;
     }
 
-    public List<Event> getAllEvents() {
-        List<Event> events = new LinkedList<>();
-        if (connect()) {
+    public boolean updatePet(Pet p) {
+        success = false;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            if (connect()) {
+                ps = connection.prepareStatement("UPDATE pet SET name = ?, species = ?," +
+                        "allergy_friendly = ? WHERE pet_id = ? ");
+                int i = 1;
+                ps.setString(i++, p.getName());
+                ps.setString(i++, p.getSpecies());
+                ps.setBoolean(i++, p.isAllergyFriendly());
+                ps.setLong(i++, p.getPetId());
+                ps.execute();
+                success = true;
+            }
+        } catch (SQLException e) {
+            MainApp.printError(e);
+        } finally {
             try {
-                ps = connection.prepareStatement("SELECT * FROM event ");
-                rs = ps.executeQuery();
-
-                while (rs.next()) {
-                    Event event = new Event((timestampToLocalDateTime(rs.getTimestamp("date"))), rs.getString("name"),
-                            rs.getString("notes"), rs.getString("location"), rs.getLong("event_id"));
-                    events.add(event);
-                    connection.close();
-                    return events;
-                }
-            } catch (SQLException e) {
-
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (connection != null) connection.close();
+            } catch (Exception e) {
                 MainApp.printError(e);
             }
+            return success;
         }
-        return null;
     }
 
-    public List<AbsUser> getEventAttendingUsersListByID(long eventID) {
-        List<AbsUser> usersList = new LinkedList<>();
-        if (connect()) {
+    public boolean updateMeal(Meal m) {
+        success = false;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            if (connect()) {
+                ps = connection.prepareStatement("UPDATE meal SET name = ?, calories = ?," +
+                        "notes = ? WHERE meal_id = ? ");
+                int i = 1;
+                ps.setString(i++, m.getFood());
+                ps.setInt(i++, m.getCalories());
+                ps.setString(i++, m.getNotes());
+                ps.setLong(i++, m.getMealId());
+                ps.execute();
+                success = true;
+            }
+        } catch (SQLException e) {
+            MainApp.printError(e);
+        } finally {
             try {
-                ps = connection.prepareStatement("SELECT * FROM user_account JOIN attend_event ON user_account.user_id = attend_event.user_id WHERE event_id = ? ");
-                ps.setLong(1, eventID);
-                rs = ps.executeQuery();
-
-                while (rs.next()) {
-                    if (rs.getString("role").equals("DOCTOR") || rs.getString("role").equals("NURSE") || rs.getString("role").equals("MED_STAFF")){
-                        MedicalStaff staff = new MedicalStaff(rs.getLong("user_id"), rs.getString("firstname"), rs.getString("lastname"),
-                                rs.getString("username"), rs.getString("password"), timestampToLocalDate(rs.getTimestamp("birthday")),
-                                rs.getString("room"), rs.getString("picture"));
-                        usersList.add(staff);
-                    } else if (rs.getString("user_type").equals("PATIENT")){
-                        Patient patient = getPatient(rs);
-                        usersList.add(patient);
-                    } else {
-                        Administrator admin = new Administrator(rs.getLong("user_id"), rs.getString("firstname"),
-                                rs.getString("lastname"), rs.getString("username"), rs.getString("password"),
-                                timestampToLocalDate(rs.getTimestamp("birthday")), rs.getString("room"),
-                                rs.getString("picture"));
-                        usersList.add(admin);
-                    }
-                }
-                connection.close();
-                return usersList;
-            } catch (SQLException e) {
-
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (connection != null) connection.close();
+            } catch (Exception e) {
                 MainApp.printError(e);
             }
+            return success;
         }
-        return null;
+    }
+
+    public boolean updateMealRating(Meal m) {
+        success = false;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            if (connect()) {
+                ps = connection.prepareStatement("UPDATE eats SET rating = ?," +
+                        " WHERE meal_id = ? ");
+                int i = 1;
+                ps.setInt(i++, m.getRating());
+                ps.setLong(i++, m.getMealId());
+                ps.execute();
+                success = true;
+            }
+        } catch (SQLException e) {
+            MainApp.printError(e);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (connection != null) connection.close();
+            } catch (Exception e) {
+                MainApp.printError(e);
+            }
+            return success;
+        }
+    }
+
+    public boolean updateContact(ContactElement e) {
+        success = false;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            if (connect()) {
+                ps = connection.prepareStatement("UPDATE contact SET value = ?, type = ? " +
+                        " WHERE contact_id = ? ");
+                int i = 1;
+                ps.setString(i++, e.getValue());
+                ps.setString(i++, e.getType());
+                ps.setLong(i++, e.getElementId());
+                ps.execute();
+                success = true;
+            }
+        } catch (SQLException ex) {
+            MainApp.printError(ex);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (connection != null) connection.close();
+            } catch (Exception ex) {
+                MainApp.printError(ex);
+            }
+            return success;
+        }
+    }
+
+    public boolean updateHealthInfo(HealthAttribute<?> healthAttribute) {
+        success = false;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            if (connect()) {
+                ps = connection.prepareStatement("UPDATE health_info SET date = ?, name = ?, value = ?, " +
+                        "WHERE health_id = ? ");
+                int i = 1;
+                ps.setTimestamp(i++, localDateToTimestamp(healthAttribute.getDate()));
+                ps.setString(i++, healthAttribute.getName());
+                ps.setString(i++, healthAttribute.getStringValue());
+                ps.setLong(i++, healthAttribute.getHealthAttributeId());
+                ps.execute();
+                success = true;
+            }
+        } catch (SQLException e) {
+            MainApp.printError(e);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (connection != null) connection.close();
+            } catch (Exception e) {
+                MainApp.printError(e);
+            }
+            return success;
+        }
+    }
+
+    public void setUpdateParameters(AbsUser user, String userType, PreparedStatement ps) {
+        int i = 1;
+        try {
+            ps.setString(i++, user.getFirstName());
+            ps.setString(i++, user.getLastName());
+            ps.setString(i++, user.getUsername());
+            ps.setString(i++, user.getPassword());
+            ps.setTimestamp(i++, localDateToTimestamp(user.getBirthday()));
+            ps.setString(i++, user.getRoom());
+            ps.setString(i++, user.getPicture());
+            ps.setString(i++, userType);
+            ps.setLong(i++, user.getUserIdValue());
+        } catch (SQLException e) {
+            MainApp.printError(e);
+        }
     }
 
     public NamedParameterStatement setBasicParameters(NamedParameterStatement nps, AbsUser user) {
@@ -1611,34 +1676,5 @@ public class DBHandler {
             MainApp.printError(e);
         }
         return false;
-    }
-
-    public static LocalDate timestampToLocalDate(Timestamp timestamp) {
-        return timestamp.toLocalDateTime().toLocalDate();
-    }
-
-    public static LocalDateTime timestampToLocalDateTime(Timestamp timestamp) {
-        return timestamp.toLocalDateTime();
-    }
-
-    public static Timestamp localDateToTimestamp(LocalDate localDate) {
-        return Timestamp.valueOf(localDate.atStartOfDay());
-    }
-
-    public static Timestamp localDateTimetoTimestamp(LocalDateTime due) {
-        return Timestamp.from(due.toInstant(ZoneOffset.ofHours(0)));
-    }
-
-    public static byte[] serialize(Object obj) throws IOException {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ObjectOutputStream os = new ObjectOutputStream(out);
-        os.writeObject(obj);
-        return out.toByteArray();
-    }
-
-    public static Object deserialize(byte[] data) throws IOException, ClassNotFoundException {
-        ByteArrayInputStream in = new ByteArrayInputStream(data);
-        ObjectInputStream is = new ObjectInputStream(in);
-        return is.readObject();
     }
 }
