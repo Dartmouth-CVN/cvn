@@ -89,7 +89,7 @@ public abstract class SVParsingUtils implements ParsingUtils {
         List<Patient> output = new LinkedList<Patient>();
 
         String[] headerFields = {"first name", "last name", "username", "birthday", "picture", "room", "addresses",
-                "phone numbers", "emails", "relationships", "pets", "meals", "allergies", "dietary restrictions"};
+                "phone numbers", "emails", "relationships", "pets", "meals", "health info", "allergies", "dietary restrictions"};
         if (lines.size() > 0 && lines.get(0).equals(String.join(delimiter, headerFields))) {
             lines.remove(0);
         }
@@ -112,7 +112,7 @@ public abstract class SVParsingUtils implements ParsingUtils {
         try {
             toFile = new PrintWriter(filename, "UTF-8");
             String[] headerFields = {"first name", "last name", "username", "birthday", "picture", "room", "addresses",
-                    "phone numbers", "emails", "relationships", "pets", "meals", "allergies", "dietary restrictions"};
+                    "phone numbers", "emails", "relationships", "pets", "meals", "health info", "allergies", "dietary restrictions"};
             toFile.println(String.join(",", headerFields));
             for (Patient patient : patients) {
                 exportWrapper.setPatient(patient);

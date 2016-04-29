@@ -581,7 +581,6 @@ public class DBHandler {
                 success = true;
             }
         } catch (SQLException e) {
-
             MainApp.printError(e);
         } finally {
             try {
@@ -951,8 +950,10 @@ public class DBHandler {
 
     public Patient getFilledPatientById(long userIdValue) {
         Patient p = (Patient) getAbsUserById(userIdValue);
+        p.setPets(getPatientPets(userIdValue));
+        p.setMeals(getPatientMeals(userIdValue));
+        p.setContactInfo(new Contact(getContactInfo(userIdValue)));
         p.getHealthProfile().setHealthInfo(getHealthInfo(p.getUserIdValue()));
-
         return p;
     }
 
@@ -1273,6 +1274,7 @@ public class DBHandler {
             if (connect()) {
                 ps = connection.prepareStatement("SELECT * FROM eats JOIN user_account ON eats.user_id = user_account.user_id WHERE eats.user_id = ? ");
                 ps.setLong(1, userIdValue);
+                rs = ps.executeQuery();
                 while (rs.next()) {
                     meals.add(new Meal(rs.getLong("meal_id"), rs.getString("name"), rs.getInt("calories"),
                             rs.getInt("rating"), rs.getString("notes")));
@@ -1325,10 +1327,11 @@ public class DBHandler {
             if (connect()) {
                 ps = connection.prepareStatement("SELECT * FROM pet WHERE user_id = ? ");
                 ps.setLong(1, userIdValue);
-
+                rs = ps.executeQuery();
                 while (rs.next()) {
                     pets.add(new Pet(rs.getLong("pet_id"), rs.getString("name"), rs.getString("species"),
                             rs.getBoolean("allergy_friendly")));
+                    System.out.println("pet name " + pets.get(0).getName() );
                 }
             }
         } catch (SQLException e) {
@@ -1370,7 +1373,6 @@ public class DBHandler {
                 }
             }
         } catch (SQLException e) {
-//
             MainApp.printError(e);
         } finally {
             try {

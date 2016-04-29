@@ -65,7 +65,7 @@ public class HealthProfile{
     public String getHealthInfoAsString(){
         String info = "";
         for(HealthAttribute<?> attribute : healthInfo)
-            info += attribute.toString() + "\n";
+            info += attribute.toString() + ";";
         return info;
     }
 

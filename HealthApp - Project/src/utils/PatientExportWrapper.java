@@ -229,6 +229,7 @@ public class PatientExportWrapper implements IExportable {
             }
         }
         if (pets) {
+            System.out.println("pet size: " + patient.getPets().size());
             for (Pet p : patient.getPets()) {
                 petslist.add(String.format("%s, %s", p.getName(), p.getSpecies()));
             }
@@ -388,8 +389,9 @@ public class PatientExportWrapper implements IExportable {
         String[] meals = splitSVLine(fields[11], ";");
 
         //The below two statements must be parsed into a HealthProfile
-        String[] allergies = splitSVLine(fields[12], ";");
-        String[] diets = splitSVLine(fields[13], ";");
+        String[] healthInfo = splitSVLine(fields[12], ";");
+        String[] allergies = splitSVLine(fields[13], ";");
+        String[] diets = splitSVLine(fields[14], ";");
 
         //assigning the basic values
         if (true) {
@@ -449,9 +451,17 @@ public class PatientExportWrapper implements IExportable {
             newmeal.setNotes(mealfields[2]);
         }
         output.setMeals(mealL);
+
+        List<HealthAttribute<?>> attributes = new LinkedList<>();
+        for(String hi : healthInfo){
+           HealthAttribute<?> healthAttribute =  HealthAttribute.fromSVString(hi);
+            attributes.add(healthAttribute);
+        }
+
         //Assigning the HealthProfile
         HealthProfile hp = new HealthProfile();
         if (true) {
+            hp.setHealthInfo(attributes);
             hp.setAllergies(Arrays.asList(allergies));
             hp.setDietaryRestrictions(Arrays.asList(diets));
         }

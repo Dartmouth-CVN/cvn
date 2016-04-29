@@ -43,9 +43,9 @@ public class RandomGenerator {
 
 	static String[] relationTypes = {"Daughter", "Son", "Sister", "Daughter-in-Law", "Son-in-Law", "Mother", "Father"};
 
-	static String[] profilePic = {"profile_pictures\\pic1.jpg",
-			"profile_pictures\\pic2.jpg",
-			"profile_pictures\\pic3.png"};
+	static String[] profilePic = {"profile_pictures/pic1.jpg",
+			"profile_pictures/pic2.jpg",
+			"profile_pictures/pic3.png"};
 
 	static Random randomNumber = getRandomNumber();
 
@@ -127,7 +127,6 @@ public class RandomGenerator {
 		for(int i = 0; i < rand; i++)
 			pets.add(RandomGenerator.getRandomPet());
 
-
 		List<Meal> meals = new LinkedList<Meal>();
 		rand = RandomGenerator.getRandomNumber().nextInt(10);
 		for(int i = 0; i < rand; i++)
@@ -147,7 +146,6 @@ public class RandomGenerator {
 		patient.setMeals(meals);
 		patient.setRelations(caregivers);
 		patient.setAssignedStaff(medStaff);
-
 		return patient;
 	}
 

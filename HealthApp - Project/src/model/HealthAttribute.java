@@ -80,7 +80,27 @@ public class HealthAttribute<V>{
 
     @Override
     public String toString(){
-        return String.format("%s %s %s", name, date, stringValue == null? String.valueOf(value) : stringValue);
+        return String.format("%s, %s, %s", name, date, stringValue == null? String.valueOf(value) : stringValue);
+    }
+
+    public static HealthAttribute<?> fromSVString(String line){
+        HealthAttribute<?> healthAttribute = null;
+        String[] values = line.split(",");
+        String name = "";
+        LocalDate date = LocalDate.now();
+        String stringValue = "";
+        if(values.length > 0) {
+            name = values[0];
+            date = LocalDate.parse(stringValue);
+            stringValue = values[2];
+            if(RandomGenerator.isInteger(stringValue))
+                healthAttribute = new HealthAttribute<Integer>(date, name, Integer.parseInt(stringValue));
+            else if(RandomGenerator.isDouble(stringValue))
+                healthAttribute = new HealthAttribute<Double>(date, name, Double.parseDouble(stringValue));
+            else
+                healthAttribute = new HealthAttribute<>(date, name, stringValue);
+        }
+        return healthAttribute;
     }
 
     @Override

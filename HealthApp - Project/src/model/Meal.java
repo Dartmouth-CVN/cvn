@@ -75,12 +75,12 @@ public class Meal{
     }
 
     public String toString(){
-        return String.format("%s, %d %d %s", food, calories, rating, notes);
+        return String.format("%s, %d, %d, %s", food, calories, rating, notes);
     }
 
 
     public static Meal fromSVString(String line){
-        String[] values = line.split(" ");
+        String[] values = line.split(",");
         String food = "";
         int calories = 0;
         int rating = 0;
