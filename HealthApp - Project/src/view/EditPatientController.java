@@ -1,13 +1,7 @@
 package view;
 
-import java.io.File;
-import java.time.format.DateTimeFormatter;
-import java.util.LinkedList;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -18,6 +12,10 @@ import javafx.stage.FileChooser;
 import model.*;
 import utils.FitBitParsingUtils;
 import utils.ObjectNotFoundException;
+
+import java.io.File;
+import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
 
 public class EditPatientController extends AbsController {
 
@@ -311,6 +309,14 @@ public class EditPatientController extends AbsController {
 
         for (AbsRelationWrapper relation : relations)
             patientRelations.add(relation.toAbsRelation());
+
+        for (ContactElementWrapper phoneNumber : patientPhones)
+            patient.getContactInfo().addPhone(phoneNumber.toContactElement());
+
+        for (ContactElementWrapper email : patientEmails)
+            patient.getContactInfo().addEmail(email.toContactElement());
+
+        patient.getContactInfo().addAddress(new ContactElement(patientAddress.getText(), "Address"));
 
         patient.setMeals(patientMeals);
         patient.setPets(patientPets);

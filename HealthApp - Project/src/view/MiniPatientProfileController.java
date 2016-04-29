@@ -1,7 +1,5 @@
 package view;
 
-import java.io.IOException;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,11 +10,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.MainApp;
 import model.MedicalStaff;
 import model.Patient;
 import utils.ObjectNotFoundException;
+
+import java.io.IOException;
 
 public class MiniPatientProfileController extends AbsController {
 	
@@ -51,6 +52,8 @@ public class MiniPatientProfileController extends AbsController {
 	private Label emailLabel;
 	@FXML
 	private Label assignedStaffLabel;
+	@FXML
+	private AnchorPane miniProfilePane;
 	
 
 	private int userId;
