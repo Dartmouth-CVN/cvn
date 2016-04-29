@@ -65,6 +65,7 @@ public class FitBitParsingUtils {
 		return splitSepValuesLine(s, delimiter, true);
 	}
 
+	static List<HealthAttribute<?>> healthInfo;
 	/**
 	 * 
 	 * @param f:
@@ -72,7 +73,7 @@ public class FitBitParsingUtils {
 	 * @return a LinkedList of HealthInfo that contains all of the FitBit data
 	 */
 	public static List<HealthAttribute<?>> fitBitImport(File f) {
-		List<HealthAttribute<?>> healthInfo = new LinkedList<>();
+		healthInfo = new LinkedList<>();
 		Scanner fileReader;
 		try {
 			fileReader = new Scanner(f);
@@ -82,7 +83,7 @@ public class FitBitParsingUtils {
 			return null;
 		}
 		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("mm/dd/yyyy");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-DD");
 		String state = "No State";
 		List<String> titles = new ArrayList<String>();
 		while (fileReader.hasNextLine()) {
@@ -113,60 +114,41 @@ public class FitBitParsingUtils {
 			switch (state) {
 			case "Body":
 				System.out.println("Importing Body Info");
-				
-				for (int i = 1; i < info.length-5; i++) {
-					if(RandomGenerator.isInteger(info[i])) {
-						hi = new HealthAttribute<Integer>(RandomGenerator.getRandomId(),
-								LocalDate.parse(info[0], formatter), titles.get(i), Integer.parseInt(info[i]));
-					}else if(RandomGenerator.isDouble(info[i])){
-						hi = new HealthAttribute<Double>(RandomGenerator.getRandomId(),
-								LocalDate.parse(info[0], formatter), titles.get(i), Double.parseDouble(info[i]));
-					}else{
-						hi = new HealthAttribute<>(RandomGenerator.getRandomId(),
-								LocalDate.parse(info[0], formatter), titles.get(i), info[i]);
-					}
-					healthInfo.add(hi);
-				}
+				addAttributesToInfo(info, titles);
 				break;
 
 			case "Activities":
 				System.out.println("Importing Activity Info");
-				for (int i = 1; i < info.length-5; i++) {
-				if(RandomGenerator.isInteger(info[i])) {
-					hi = new HealthAttribute<Integer>(RandomGenerator.getRandomId(),
-							LocalDate.parse(info[0], formatter), titles.get(i), Integer.parseInt(info[i]));
-				}else if(RandomGenerator.isDouble(info[i])){
-					hi = new HealthAttribute<Double>(RandomGenerator.getRandomId(),
-							LocalDate.parse(info[0], formatter), titles.get(i), Double.parseDouble(info[i]));
-				}else{
-					hi = new HealthAttribute<>(RandomGenerator.getRandomId(),
-							LocalDate.parse(info[0], formatter), titles.get(i), info[i]);
-				}
-					healthInfo.add(hi);
-			}
+				addAttributesToInfo(info, titles);
 				break;
 
 			case "Sleep":
 				System.out.println("Importing Sleep Info");
-				for (int i = 1; i < info.length-5; i++) {
-				if(RandomGenerator.isInteger(info[i])) {
-					hi = new HealthAttribute<Integer>(RandomGenerator.getRandomId(),
-							LocalDate.parse(info[0], formatter), titles.get(i), Integer.parseInt(info[i]));
-				}else if(RandomGenerator.isDouble(info[i])){
-					hi = new HealthAttribute<Double>(RandomGenerator.getRandomId(),
-							LocalDate.parse(info[0], formatter), titles.get(i), Double.parseDouble(info[i]));
-				}else{
-					hi = new HealthAttribute<>(RandomGenerator.getRandomId(),
-							LocalDate.parse(info[0], formatter), titles.get(i), info[i]);
-				}
-					healthInfo.add(hi);
-			}
+				addAttributesToInfo(info, titles);
 				break;
 			}
 		}
 		fileReader.close();
-		System.out.println("FitBit Import Complete!");
+		System.out.println("health size: " + healthInfo.size());
 		return healthInfo;
+	}
+
+	public static void addAttributesToInfo(String info[], List<String> titles){
+		HealthAttribute<?> hi;
+		for (int i = 1; i < info.length-5; i++) {
+
+			if(RandomGenerator.isInteger(info[i])) {
+				hi = new HealthAttribute<Integer>(RandomGenerator.getRandomId(),
+						LocalDate.parse(info[0]), titles.get(i), Integer.parseInt(info[i]));
+			}else if(RandomGenerator.isDouble(info[i])){
+				hi = new HealthAttribute<Double>(RandomGenerator.getRandomId(),
+						LocalDate.parse(info[0]), titles.get(i), Double.parseDouble(info[i]));
+			}else{
+				hi = new HealthAttribute<>(RandomGenerator.getRandomId(),
+						LocalDate.parse(info[0]), titles.get(i), info[i]);
+			}
+			healthInfo.add(hi);
+		}
 	}
 
 	/**

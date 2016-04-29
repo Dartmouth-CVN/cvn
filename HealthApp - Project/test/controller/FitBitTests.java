@@ -6,6 +6,7 @@ import java.io.File;
 import javax.swing.JFileChooser;
 
 import org.junit.Test;
+import utils.FitBitParsingUtils;
 
 public class FitBitTests {
 
@@ -16,8 +17,8 @@ public class FitBitTests {
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
     		File fitbitData = fc.getSelectedFile();
-//    		System.out.println(hi.get(0).getDate() + "\n" + hi.get(0).getWeight() + "\n" + hi.get(0).getCaloriesBurned() + "\n" + hi.get(0).getMinAsleep());
-        } 
+			FitBitParsingUtils.fitBitImport(fitbitData);
+        }
 	}
 
 }

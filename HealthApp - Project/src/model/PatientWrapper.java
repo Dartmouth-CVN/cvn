@@ -14,10 +14,14 @@ public class PatientWrapper extends AbsUserWrapper {
 
     public PatientWrapper(Patient p) {
         super(p);
-        setPetWrapperList(p.getPets());
-        setMealWrapperList(p.getMeals());
-        setAbsRelationWrapperList(p.getRelations());
+        try {
+            setPetWrapperList(p.getPets());
+            setMealWrapperList(p.getMeals());
+            setAbsRelationWrapperList(p.getRelations());
 //        setMedicalStaffWrapperList(p.getAssignedStaff());
+        }catch(NullPointerException e){
+
+        }
     }
 
     public List<PetWrapper> getPetWrapperList() {

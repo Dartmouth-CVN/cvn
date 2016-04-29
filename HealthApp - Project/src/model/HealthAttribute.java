@@ -79,6 +79,11 @@ public class HealthAttribute<V>{
     }
 
     @Override
+    public String toString(){
+        return String.format("Health info: %s on %s was %s", name, date, stringValue == null? String.valueOf(value) : stringValue);
+    }
+
+    @Override
     public int hashCode() {
         return name.hashCode() * stringValue.hashCode();
     }

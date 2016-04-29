@@ -1,10 +1,9 @@
 package model;
 
-import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class HealthProfile implements Serializable {
+public class HealthProfile{
     long healthProfileId;
     List<HealthAttribute<?>> healthInfo;
     List<String> allergies;
@@ -12,7 +11,7 @@ public class HealthProfile implements Serializable {
     String userId;
 
     public HealthProfile() {
-        this(0, "", new LinkedList<HealthAttribute<?>>(), new LinkedList<String>(), new LinkedList<String>());
+        this(0, "", new LinkedList<>(), new LinkedList<>(), new LinkedList<>());
     }
 
     public HealthProfile(long id, String userId, List<HealthAttribute<?>> healthInfo, List<String> allergies, List<String> dietaryRestrictions) {
@@ -61,6 +60,13 @@ public class HealthProfile implements Serializable {
 
     public void setDietaryRestrictions(List<String> dietaryRestrictions) {
         this.dietaryRestrictions = dietaryRestrictions;
+    }
+
+    public String getHealthInfoAsString(){
+        String info = "";
+        for(HealthAttribute<?> attribute : healthInfo)
+            info += attribute.toString() + "\n";
+        return info;
     }
 
     public String toString() {

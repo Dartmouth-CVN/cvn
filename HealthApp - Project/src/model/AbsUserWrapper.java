@@ -4,6 +4,7 @@ import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import org.apache.derby.impl.tools.sysinfo.Main;
 
 import java.time.LocalDate;
 
@@ -26,14 +27,18 @@ public class AbsUserWrapper {
     }
 
     public AbsUserWrapper(AbsUser user) {
-        setUserIdProperty(user.getUserId());
-        setUserIdValueProperty(user.getUserIdValue());
-        setFirstNameProperty(user.getFirstName());
-        setLastNameProperty(user.getLastName());
-        setUsernameProperty(user.getUsername());
-        setPasswordProperty(user.getPassword());
-        setRoomProperty(user.getRoom());
-        setBirthdayProperty(user.getBirthday());
+        try {
+            setUserIdProperty(user.getUserId());
+            setUserIdValueProperty(user.getUserIdValue());
+            setFirstNameProperty(user.getFirstName());
+            setLastNameProperty(user.getLastName());
+            setUsernameProperty(user.getUsername());
+            setPasswordProperty(user.getPassword());
+            setRoomProperty(user.getRoom());
+            setBirthdayProperty(user.getBirthday());
+        }catch(NullPointerException e){
+
+        }
     }
 
 
@@ -42,6 +47,7 @@ public class AbsUserWrapper {
     }
 
     public void setUserIdProperty(String userId) {
+        if(userId != null)
         userIdProperty = new SimpleStringProperty(userId);
     }
 

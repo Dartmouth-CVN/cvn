@@ -118,15 +118,15 @@ public class Patient extends AbsUser{
     }
 
     public boolean getIsNewPatient() {
-        return userId.equals("enter id") && username.equals("enter username");
+        return ((userId != null) && userId.equals("enter id")) && ((username != null) && (username.equals("enter username")));
     }
 
     public boolean savePatient() {
-        return DBHandler.getUniqueInstance().insertPatient(this);
+        return DBHandler.getUniqueInstance().insertPatientAlgorithm(this);
     }
 
     public boolean updatePatient() {
-        return DBHandler.getUniqueInstance().updatePatient(this);
+        return DBHandler.getUniqueInstance().updatePatientAlgorithm(this);
     }
 
 

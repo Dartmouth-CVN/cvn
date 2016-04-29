@@ -1,21 +1,22 @@
 package view;
 
+import java.io.File;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import model.*;
+import utils.FitBitParsingUtils;
 import utils.ObjectNotFoundException;
 
 public class EditPatientController extends AbsController {
@@ -282,11 +283,18 @@ public class EditPatientController extends AbsController {
     }
 
     @FXML
-    private void save() {
-        saveInfo();
+    private void handleFitBitImport() {
+        FileChooser fileChooser = new FileChooser();
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            patient.getHealthProfile().setHealthInfo(FitBitParsingUtils.fitBitImport(selectedFile));
+            MainApp.showAlert("FitBit import done");
+        }
+
     }
 
-    public void saveInfo() {
+    @FXML
+    private void save() {
         patient.setFirstName(firstName.getText());
         patient.setLastName(lastName.getText());
         patient.setBirthday(patient.getBirthday());

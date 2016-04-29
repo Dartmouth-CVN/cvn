@@ -222,7 +222,7 @@ public class PatientExportWrapper implements IExportable {
         }
         if (healthProfile) {
             HealthProfile hp = patient.getHealthProfile();
-            healthplist = String.format("%s; %s", hp.getAllergies(), hp.getDietaryRestrictions());
+            healthplist = String.format("%s; %s; %s", hp.getHealthInfoAsString(), hp.getAllergies(), hp.getDietaryRestrictions());
         }
 
         String firsthalf = String.join(delimiter, stringFields) + delimiter;
