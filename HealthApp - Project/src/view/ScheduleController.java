@@ -2,12 +2,14 @@ package view;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import model.AbsUser;
 import model.Event;
+import model.MainApp;
 
 import java.time.LocalDateTime;
 
@@ -47,9 +49,15 @@ public class ScheduleController extends AbsController {
 	}
 
 	@FXML
+	public FXMLLoader getLoader() {
+		loader.setLocation(MainApp.class.getResource("../view/ScheduleView.fxml"));
+		return loader;
+	}
+
+	@FXML
 	private void initialize() {
 //		myEventList.addAll(user.getSchedule().getEvents());
-		myEvents.setItems(myEventList);
+		//myEvents.setItems(myEventList);
 		myTime.setCellValueFactory(cellData -> cellData.getValue().getDateProperty());
 		myTitle.setCellValueFactory(cellData -> cellData.getValue().getTitleProperty());
 		myLocation.setCellValueFactory(cellData -> cellData.getValue().getLocationProperty());

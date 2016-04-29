@@ -9,14 +9,10 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import model.Administrator;
-import model.Patient;
-import org.apache.derby.impl.tools.sysinfo.Main;
 import utils.DBHandler;
 import view.*;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -100,6 +96,9 @@ public class MainApp extends Application {
 
         //load export dash controller
         controller = new ExportController();
+        setupController(controller);
+
+        controller = new ScheduleController();
         setupController(controller);
     }
 
