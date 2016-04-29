@@ -127,5 +127,10 @@
       <RadioButton fx:id="HTMLRadioButton" layoutX="235.0" layoutY="331.0" mnemonicParsing="false" text="HTML File" toggleGroup="$fileType" AnchorPane.bottomAnchor="17.0" AnchorPane.rightAnchor="319.0" />
       <RadioButton fx:id="CSVRadioButton" layoutX="347.0" layoutY="331.0" mnemonicParsing="false" text="CSV File" toggleGroup="$fileType" AnchorPane.bottomAnchor="17.0" AnchorPane.rightAnchor="219.0" />
       <RadioButton fx:id="TSVRadioButton" layoutX="450.0" layoutY="331.0" mnemonicParsing="false" text="TSV File" toggleGroup="$fileType" AnchorPane.bottomAnchor="17.0" AnchorPane.rightAnchor="119.0" />
+      <Button layoutX="14.0" layoutY="328.0" mnemonicParsing="false" onAction="#handleImport" text="Import" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

@@ -1,11 +1,7 @@
 package utils;
 
 import model.Patient;
-import model.PatientExportWrapper;
-
-import java.io.OutputStream;
 import java.util.LinkedList;
-import java.util.Random;
 
 /**
  * Created by Sean on 4/27/2016.

@@ -9,10 +9,13 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import model.MainApp;
-import model.PatientExportWrapper;
+import model.Patient;
 import utils.*;
 
+import java.io.File;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -90,6 +93,24 @@ public class ExportController extends AbsController {
 	}
 
 	@FXML
+	private void handleImport(){
+		SVParsingUtils utils = new CSVParsingUtils();
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open Resource File");
+		File file = fileChooser.showOpenDialog(new Stage());
+
+		if(file != null){
+//			List<Patient> patients = XMLParsingUtils.importData(file);
+			List<Patient> patients = utils.importData(file);
+			for(Patient p : patients){
+				System.out.println("patient name " + p.getFirstName() );
+				DBHandler.getUniqueInstance().insertPatientAlgorithm(p);
+			}
+			MainApp.showAlert("Finished Import");
+		}
+	}
+
+	@FXML
 	private void handleExport() {
 		String name = "Exported" + LocalTime.now();
 		getFields();
@@ -109,7 +130,7 @@ public class ExportController extends AbsController {
 			MainApp.showAlert("Export XML done");
 		} else if (HTMLRadioButton.isSelected()) {
 			HTMLParsingUtils utils = new HTMLParsingUtils();
-			utils.exportData(name + ".html", DBHandler.getUniqueInstance().getAllFilledPatients(), wrapper);
+			utils.exportData(utils.getFile(name + ".html"), DBHandler.getUniqueInstance().getAllFilledPatients(), wrapper);
 			MainApp.showAlert("Export HTML done");
 		}
 	}
