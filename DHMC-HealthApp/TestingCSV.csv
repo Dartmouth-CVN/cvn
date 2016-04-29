@@ -1,5 +1,0 @@
-User ID,First name,Last name,caregivers,assigned staff,medication,address,phone,email,pets,allergies,dietary restrictions
-1,String,String,LinkedList,LinkedList,LinkedList,LinkedList,LinkedList,LinkedList,PatientProfile,LinkedList,LinkedList
-2,Null,Null,Null,"Hello, darkness, my old friend",Null,Null,Null,Null,Null,Null,Null
-3,John,Smith,Null,Null,Advil,"1 Main Street Worcester, MA 01609","000-000-0000, 111-111-1111",jsmith@email.com,"dog, cat, mouse, owl","Peanuts, Death",Meat only
-4,a,fish,Null,Fishdoctor,fishfood,big lake,Null,q@q.com,bubbles,Air,"Smaller fish, plants "
