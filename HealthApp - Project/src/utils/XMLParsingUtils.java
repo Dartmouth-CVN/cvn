@@ -80,6 +80,7 @@ public class XMLParsingUtils implements ParsingUtils {
                 toFile.println(exportWrapper.toXMLString());
             }
             toFile.println("\n</patient-list>");
+            toFile.close();
         } catch (FileNotFoundException e) {
             System.err.println("The file selected is either inaccessible or does not exist.");
         }

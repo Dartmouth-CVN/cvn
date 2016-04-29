@@ -169,7 +169,9 @@ public class PatientExportWrapper implements IExportable {
     private String XMLLine(String content, String tag, boolean major) {
         if (major)
             content = "\n" + content + "\n";
-        return "<" + tag + ">" + content + "</" + tag + ">";
+
+        String line = "<" + tag + ">" + content + "</" + tag + ">";
+        return line;
     }
 
     private String XMLLine(String content, String tag) {
@@ -251,10 +253,12 @@ public class PatientExportWrapper implements IExportable {
     @Override
     public String toHTMLString() {
         String[] cells = splitSVLine(toCSVString(), ",");
+        String returnString = "";
         for(String s: cells){
-            s=XMLLine(s.replace(';','\n'), "td");
+             returnString += XMLLine(s.replace(';','\n'), "td");
         }
-        return XMLLine(String.join("\n", cells),"tr",true);
+        String line = XMLLine(String.join("\n", returnString),"tr",true);
+        return line;
     }
 
     private static String[] splitSVLine(String s, String delimiter) {

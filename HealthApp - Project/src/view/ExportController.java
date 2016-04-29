@@ -109,7 +109,7 @@ public class ExportController extends AbsController {
 			MainApp.showAlert("Export XML done");
 		} else if (HTMLRadioButton.isSelected()) {
 			HTMLParsingUtils utils = new HTMLParsingUtils();
-			utils.exportData(utils.getFile(name + ".html"), DBHandler.getUniqueInstance().getAllFilledPatients(), wrapper);
+			utils.exportData(name + ".html", DBHandler.getUniqueInstance().getAllFilledPatients(), wrapper);
 			MainApp.showAlert("Export HTML done");
 		}
 	}
