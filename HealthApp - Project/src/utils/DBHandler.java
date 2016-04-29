@@ -1111,7 +1111,7 @@ public class DBHandler {
 
                 while (rs.next()) {
                     Event event = new Event((timestampToLocalDateTime(rs.getTimestamp("date"))), rs.getString("name"),
-                            rs.getString("notes"), rs.getString("location"));
+                            rs.getString("notes"), rs.getString("location"), rs.getLong("event_id"));
                     events.add(event);
                     connection.close();
                     return events;
@@ -1133,7 +1133,7 @@ public class DBHandler {
 
                 while (rs.next()) {
                     Event event = new Event((timestampToLocalDateTime(rs.getTimestamp("date"))), rs.getString("name"),
-                            rs.getString("notes"), rs.getString("location"));
+                            rs.getString("notes"), rs.getString("location"), rs.getLong("event_id"));
                     events.add(event);
                     connection.close();
                     return events;

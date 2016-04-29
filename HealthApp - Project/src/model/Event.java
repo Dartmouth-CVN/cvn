@@ -23,11 +23,12 @@ public class Event {
 	}
 
 	public Event(LocalDateTime date, String title,
-				 String notes, String location) {
+				 String notes, String location, Long id) {
 		this.date = new SimpleObjectProperty<LocalDateTime>(date);
 		this.title = new SimpleStringProperty(title);
 		this.location = new SimpleStringProperty(location);
 		this.notes = new SimpleStringProperty(notes);
+		this.eventId = new SimpleLongProperty(id);
 	}
 
 	public Event(LocalDateTime date, String location, String notes) {
