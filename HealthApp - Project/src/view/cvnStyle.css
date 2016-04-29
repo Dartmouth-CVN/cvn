@@ -7,6 +7,10 @@
 	-fx-background-color: #FFFFFF;
 }
 
+#miniProfilePane {
+	-fx-background-color: #FFFFFF;
+}
+
 #exportButton {
 	-fx-background-color: #FFFFFF;
 	-fx-text-fill: #1A3B61;
@@ -68,7 +72,13 @@
 }
 
 .button {
-	-fx-background-color: #1A3B61;
+    -fx-background-color: 
+        #000000,
+        linear-gradient(#7ebcea, #2f4b8f),
+        linear-gradient(#426ab7, #263e75),
+        linear-gradient(#395cab, #223768);
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 3,2,2,2;
 	-fx-text-fill: #FFFFFF;
 	-fx-cursor: hand;
 }
@@ -259,6 +269,10 @@
 
 .scroll-pane .scroll-bar:horizontal .increment-button .increment-arrow:pressed{
 	-fx-background-color:#FFFFFF;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+	-fx-border-color: #C55132;
 }
 
 .root:top .tab-header-area .headers-region .tab:top{
