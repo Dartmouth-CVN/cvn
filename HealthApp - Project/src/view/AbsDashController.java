@@ -1,7 +1,6 @@
 package view;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -13,8 +12,6 @@ import model.ContactElement;
 import model.MainApp;
 import model.Patient;
 import utils.ObjectNotFoundException;
-
-import java.io.IOException;
 
 public abstract class AbsDashController extends AbsController {
 
@@ -70,8 +67,7 @@ public abstract class AbsDashController extends AbsController {
 			if(newTab.equals(searchTab)) {
 				loadSearchTab();
 				tabPane.getSelectionModel().select(searchTab);
-			}
-			else if(newTab.equals(addPatientTab)) {
+			} else if(newTab.equals(addPatientTab)) {
 				loadAddPatientTab();
 				tabPane.getSelectionModel().select(addPatientTab);
 			}
@@ -85,10 +81,10 @@ public abstract class AbsDashController extends AbsController {
 				name.setText(user.getFirstName() + " " + user.getLastName());
 				ContactElement mail = user.getContactInfo().getPrimaryEmail();
 				ContactElement phone = user.getContactInfo().getPrimaryPhone();
-
 				email.setText(mail.getValue() + " (" + mail.getType() + ")");
 				room.setText(user.getRoom());
 				number.setText(phone.getValue() + " (" + phone.getType() + ")");
+				loadScheduleTab(user);
 			}
 		} catch (ObjectNotFoundException e) {
 			e.printStackTrace();
@@ -120,21 +116,9 @@ public abstract class AbsDashController extends AbsController {
 	}
 
 	public void loadScheduleTab(AbsUser user) {
-		ScheduleController controller = new ScheduleController();
-
-		try {
-			AnchorPane scheduleView = (AnchorPane) controller.getLoader().load();
-
-			FXMLLoader loader = controller.getLoader();
-			controller = loader.getController();
-			controller.setMainApp(this.mainApp);
-			scheduleTab.setContent(scheduleView);
-			tabPane.getSelectionModel().select(scheduleTab);
-
-		} catch (IOException e) {
-			MainApp.printError(e);
-			e.printStackTrace();
-		}
+		LoadedScene scene = MainApp.getLoadedSceneOfType(new ScheduleController());
+		((ScheduleController) scene.getController()).setUser(user);
+		scheduleTab.setContent(scene.getPane());
 	}
 
 	/**
