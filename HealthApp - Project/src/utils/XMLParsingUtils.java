@@ -222,7 +222,7 @@ public class XMLParsingUtils implements ParsingUtils {
 
 	@Override
 	public File getFile(String name) {
-		return null;
+        return new File(name);
 	}
 
 	@Override

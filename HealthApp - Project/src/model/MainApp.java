@@ -126,7 +126,7 @@ public class MainApp extends Application {
     public void showLogin() {
         // Load root layout from fxml file.
         scene = getLoadedSceneOfType(new LoginController());
-        primaryScene = new Scene(scene.getPane());
+        primaryScene = scene.getScene();
 
         primaryStage.setScene(primaryScene);
         primaryStage.show();
@@ -137,7 +137,7 @@ public class MainApp extends Application {
         setStageDimensions();
 
         scene = getLoadedSceneOfType(new AdminDashController());
-        primaryScene = new Scene(scene.getPane());
+        primaryScene = scene.getScene();
         primaryStage.setScene(primaryScene);
         ( (AdminDashController) scene.getController()).setAdmin(admin);
         primaryStage.show();
@@ -149,7 +149,7 @@ public class MainApp extends Application {
         setStageDimensions();
 
         scene = getLoadedSceneOfType(new PatientDashController());
-        primaryScene = new Scene(scene.getPane());
+        primaryScene = scene.getScene();
         primaryStage.setScene(primaryScene);
         ((PatientDashController) scene.getController()).setPatient(p);
         primaryStage.show();

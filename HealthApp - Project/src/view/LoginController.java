@@ -45,6 +45,10 @@ public class LoginController extends AbsController {
 		else {
 			AbsUser user = DBHandler.getUniqueInstance().getFilledUserByUsername(uname);
 			if(pass.equals(user.getPassword())){
+				username.setText("");
+				password.setText("");
+				username.requestFocus();
+
 				if(user instanceof Administrator)
 					mainApp.showAdminDash((Administrator)user);
 				else if(user instanceof Patient)

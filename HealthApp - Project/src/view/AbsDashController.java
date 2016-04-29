@@ -16,6 +16,7 @@ import model.Patient;
 import utils.ObjectNotFoundException;
 
 import static model.MainApp.getLoadedSceneOfType;
+import static model.MainApp.main;
 
 public abstract class AbsDashController extends AbsController {
 
@@ -58,6 +59,7 @@ public abstract class AbsDashController extends AbsController {
 
 	static LoadedScene scene;
 	static Scene primaryScene;
+	AbsUser user;
 
 	public AbsDashController() {
 		key = "abs dash";
@@ -83,7 +85,7 @@ public abstract class AbsDashController extends AbsController {
 		});
 	}
 
-	public void loadUserFields(AbsUser user){
+	public void loadUserFields(){
 		try {
 			if(user != null) {
 				profilePic.setImage(new Image("file:" + user.getPicture()));
@@ -193,20 +195,8 @@ public abstract class AbsDashController extends AbsController {
 
 	@FXML
 	public void handleLogoutButton() {
-
-		Stage stage = (Stage) logoutButton.getScene().getWindow();
-		stage.close();
-
-		//needs to be implemented
-/*
-			Stage loginStage = new Stage();
-
-			scene = getLoadedSceneOfType(new LoginController());
-			scene.getPane().getScene().setRoot(null);
-			primaryScene = new Scene(scene.getPane());
-
-			loginStage.setScene(primaryScene);
-			loginStage.show();*/
+		user = null;
+		mainApp.showLogin();
 	}
 
 }

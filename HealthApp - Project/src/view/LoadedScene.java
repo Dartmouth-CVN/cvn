@@ -11,11 +11,13 @@ public class LoadedScene {
     private AbsController controller;
     private FXMLLoader loader;
     private Pane pane;
+    private Scene scene;
 
     public LoadedScene(AbsController controller, FXMLLoader loader, Pane pane) {
         this.controller = controller;
         this.loader = loader;
         this.pane = pane;
+        this.scene = new Scene(pane);
     }
 
     public AbsController getController() {
@@ -40,5 +42,13 @@ public class LoadedScene {
 
     public void setPane(Pane pane) {
         this.pane = pane;
+    }
+
+    public Scene getScene(){
+        return scene;
+    }
+
+    public void setScene(Scene scene){
+        this.scene = scene;
     }
 }

@@ -25,8 +25,6 @@ public class AdminDashController extends MedicalStaffDashController {
 	@FXML
 	protected Tab addPatientTab;
 
-	private Administrator admin;
-
 	/**
 	 * The constructor. The constructor is called before the initialize()
 	 * method.
@@ -49,16 +47,16 @@ public class AdminDashController extends MedicalStaffDashController {
 	}
 
 	public Administrator getAdmin(){
-		return admin;
+		return (Administrator) user;
 	}
 
 	public void setAdmin(Administrator admin){
-		this.admin = admin;
+		user =  admin;
 		loadAdminFields();
 	}
 
 	public void loadAdminFields(){
-		super.loadUserFields(admin);
+		super.loadUserFields();
 	}
 
 	@Override

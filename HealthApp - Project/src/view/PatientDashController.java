@@ -36,8 +36,6 @@ public class PatientDashController extends AbsDashController {
 	@FXML
 	private Label number;
 
-	private Patient patient;
-
 	public PatientDashController() {
 		key = "patient dash";
 	}
@@ -55,29 +53,16 @@ public class PatientDashController extends AbsDashController {
 	}
 
 	public void setPatient(Patient p){
-		this.patient = p;
+		user = p;
 		loadPatientFields();
 	}
 
 	public void loadPatientFields(){
-		try {
-			if(patient != null) {
-				profilePic.setImage(new Image("file:" + patient.getPicture()));
-				name.setText(patient.getFirstName() + " " + patient.getLastName());
-				ContactElement mail = patient.getContactInfo().getPrimaryEmail();
-				ContactElement phone = patient.getContactInfo().getPrimaryPhone();
-
-				email.setText(mail.getValue() + " (" + mail.getType() + ")");
-				room.setText(patient.getRoom());
-				number.setText(phone.getValue() + " (" + phone.getType() + ")");
-			}
-		} catch (ObjectNotFoundException e) {
-			e.printStackTrace();
-		}
+		super.loadUserFields();
 	}
 
 	public Patient getPatient(){
-		return patient;
+		return (Patient) user;
 	}
 
 	public void showMySchedule() {

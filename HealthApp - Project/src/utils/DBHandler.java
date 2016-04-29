@@ -1,5 +1,6 @@
 package utils;
 
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import model.*;
 import org.apache.derby.jdbc.EmbeddedDataSource;
 
@@ -24,6 +25,8 @@ public class DBHandler {
     private DBHandler() {
         connect();
     }
+
+    private enum UserType{PATIENT, ADMIN, MEDICAL_STAFF, RELATION};
 
     /**
      * Get the unique database instance
@@ -110,7 +113,7 @@ public class DBHandler {
                     + "user_id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), f" +
                     "irstname VARCHAR(20), lastname VARCHAR(20)," +
                     "username VARCHAR(20), password VARCHAR(50), birthday TIMESTAMP, room VARCHAR(10)," +
-                    " picture VARCHAR(200), user_type VARCHAR(10), role VARCHAR(10)," +
+                    " picture VARCHAR(200), user_type VARCHAR(20), role VARCHAR(10)," +
                     "isFamily BOOLEAN, isCaregiver BOOLEAN, relationship VARCHAR(20), PRIMARY KEY(user_id) )");
             ps.execute();
             success = true;
@@ -391,7 +394,7 @@ public class DBHandler {
                 rs.next();
                 p.setUserIdValue(rs.getLong(1));
                 success = true;
-                System.out.printf("patient username: %s, password: %s user type: %s\n", p.getUsername(), p.getPassword(), Patient.getUserType());
+                System.out.printf("patient username: %s, password: %s user type: %s\n", p.getUsername(), p.getPassword(), UserType.PATIENT);
             }
         } catch (SQLException e) {
             MainApp.printError(e);
@@ -426,7 +429,7 @@ public class DBHandler {
                 ps.setTimestamp(i++, localDateToTimestamp(med.getBirthday()));
                 ps.setString(i++, med.getRoom());
                 ps.setString(i++, med.getPicture());
-                ps.setString(i++, med.getUserType());
+                ps.setString(i++, UserType.MEDICAL_STAFF.name());
                 ps.executeUpdate();
                 rs = ps.getGeneratedKeys();
                 rs.next();
@@ -465,7 +468,7 @@ public class DBHandler {
                 ps.setTimestamp(i++, localDateToTimestamp(admin.getBirthday()));
                 ps.setString(i++, admin.getRoom());
                 ps.setString(i++, admin.getPicture());
-                ps.setString(i++, admin.getUserType());
+                ps.setString(i++, UserType.ADMIN.name());
                 ps.executeUpdate();
                 rs = ps.getGeneratedKeys();
                 rs.next();
@@ -504,7 +507,7 @@ public class DBHandler {
                 ps.setTimestamp(i++, localDateToTimestamp(rel.getBirthday()));
                 ps.setString(i++, rel.getRoom());
                 ps.setString(i++, rel.getPicture());
-                ps.setString(i++, rel.getUserType());
+                ps.setString(i++, UserType.RELATION.name());
                 ps.executeUpdate();
                 rs = ps.getGeneratedKeys();
                 rs.next();
@@ -776,13 +779,15 @@ public class DBHandler {
                 ps = connection.prepareStatement("SELECT * FROM user_account WHERE username = ? ");
                 ps.setString(1, username);
                 rs = ps.executeQuery();
+                System.out.println("nullies");
 
                 if (rs.next()) {
                     String userType = rs.getString("user_type");
-
-                    if (userType.equals(Patient.getUserType())) {
+                    System.out.printf("usertype: %s admin usertype: %s patient usertype: %s\n", userType, Administrator.getUserType(),
+                            UserType.PATIENT.name());
+                    if (userType.equals(UserType.PATIENT.name())) {
                         user = getPatientByUsername(username);
-                    } else if (userType.equals(Administrator.getUserType())) ;
+                    } else if (userType.equals(UserType.ADMIN.name())) ;
                     user = getAdministratorByUsername(username);
                 }
             }
@@ -809,9 +814,9 @@ public class DBHandler {
                 rs = ps.executeQuery();
                 if (rs.next()) {
                     String userType = rs.getString("user_type");
-                    if (userType.equals(Patient.getUserType()))
+                    if (userType.equals(UserType.PATIENT.name()))
                         user = getPatientById(userId);
-                    else if (userType.equals(Administrator.getUserType()))
+                    else if (userType.equals(UserType.ADMIN.name()))
                         user = getAdministratorById(userId);
                 }
             }
@@ -835,7 +840,7 @@ public class DBHandler {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT * FROM user_account WHERE username = ? AND user_type = ?");
                 ps.setString(1, username);
-                ps.setString(2, Administrator.getUserType());
+                ps.setString(2, UserType.ADMIN.name());
                 rs = ps.executeQuery();
                 if (rs.next()) {
                     admin = new Administrator(rs.getLong("user_id"), rs.getString("firstname"),
@@ -865,7 +870,7 @@ public class DBHandler {
 
                 ps = connection.prepareStatement(" SELECT * FROM user_account WHERE user_id = ? AND user_type = ?");
                 ps.setLong(1, userIdValue);
-                ps.setString(2, Administrator.getUserType());
+                ps.setString(2, UserType.ADMIN.name());
                 rs = ps.executeQuery();
                 if (rs.next()) {
                     admin = new Administrator(rs.getLong("user_id"), rs.getString("firstname"),
@@ -895,7 +900,7 @@ public class DBHandler {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
                         "birthday, room, picture FROM  user_account WHERE username = ? AND user_type = ?");
                 ps.setString(1, username);
-                ps.setString(2, Patient.getUserType());
+                ps.setString(2, UserType.PATIENT.name());
                 p = getPatient(ps.executeQuery());
             }
         } catch (SQLException e) {
@@ -919,7 +924,7 @@ public class DBHandler {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
                         "birthday, room, picture FROM  user_account WHERE user_id = ? AND user_type = ?");
                 ps.setLong(1, userIdValue);
-                ps.setString(2, Patient.getUserType());
+                ps.setString(2, UserType.PATIENT.name());
                 p = getPatient(ps.executeQuery());
             }
             return getPatient(ps.executeQuery());
@@ -958,7 +963,7 @@ public class DBHandler {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
                         "birthday, room, picture FROM  user_account WHERE username = ? AND user_type = ?");
                 ps.setString(1, username);
-                ps.setString(2, MedicalStaff.getUserType());
+                ps.setString(2, UserType.MEDICAL_STAFF.name());
                 rs = ps.executeQuery();
                 if (rs.next()) {
                     med = new MedicalStaff(rs.getLong("user_id"), rs.getString("firstname"),
@@ -988,7 +993,7 @@ public class DBHandler {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
                         "birthday, room, picture FROM  user_account WHERE user_id = ? AND user_type = ?");
                 ps.setLong(1, userIdValue);
-                ps.setString(2, MedicalStaff.getUserType());
+                ps.setString(2, UserType.MEDICAL_STAFF.name());
                 rs = ps.executeQuery();
                 if (rs.next()) {
                     med = new MedicalStaff(rs.getLong("user_id"), rs.getString("firstname"),
@@ -1044,7 +1049,7 @@ public class DBHandler {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
                         "birthday, room, picture FROM user_account WHERE username = ? AND user_type = ?");
                 ps.setString(1, username);
-                ps.setString(2, AbsRelation.getUserType());
+                ps.setString(2, UserType.RELATION.name());
                 relation = getAbsRelation(ps.executeQuery());
             }
         } catch (SQLException e) {
@@ -1157,7 +1162,7 @@ public class DBHandler {
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT * FROM user_account WHERE user_type = ?");
-                ps.setString(1, Patient.getUserType());
+                ps.setString(1, UserType.PATIENT.name());
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     Patient patient = getPatient(rs);
@@ -1185,7 +1190,7 @@ public class DBHandler {
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT * FROM user_account WHERE user_type = ?");
-                ps.setString(1, Patient.getUserType());
+                ps.setString(1, UserType.PATIENT.name());
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     Patient patient = getFilledPatientById(rs.getLong("user_id"));
@@ -1346,7 +1351,7 @@ public class DBHandler {
         ResultSet rs = null;
         try {
             if (connect()) {
-                ps = connection.prepareStatement("SELECT (health_id, name, date, value) FROM health_info WHERE user_id = ?");
+                ps = connection.prepareStatement("SELECT health_id, name, date, value FROM health_info WHERE user_id = ?");
                 ps.setLong(1, userIdValue);
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -1415,7 +1420,7 @@ public class DBHandler {
                         "username = ?, password = ?, birthday = ?, room = ?, picture = ? WHERE " +
                         "user_type = ? AND user_id = ?) ");
 
-                setUpdateParameters(relation, AbsRelation.getUserType(), ps);
+                setUpdateParameters(relation, UserType.RELATION.name(), ps);
                 ps.execute();
                 success = true;
             }
@@ -1442,7 +1447,7 @@ public class DBHandler {
                 ps = connection.prepareStatement("UPDATE user_account SET firstname = ?, lastname = ?," +
                         "username = ?, password = ?, birthday = ?, room = ?, picture = ? WHERE " +
                         "user_type = ? AND user_id = ? ");
-                setUpdateParameters(p, Patient.getUserType(), ps);
+                setUpdateParameters(p, UserType.PATIENT.name(), ps);
                 ps.executeUpdate();
                 success = true;
             }
@@ -1469,7 +1474,7 @@ public class DBHandler {
                 ps = connection.prepareStatement("UPDATE user_account SET firstname = ?, lastname = ?," +
                         "username = ?, password = ?, birthday = ?, room = ?, picture = ? WHERE " +
                         "user_type = ? AND user_id = ? ");
-                setUpdateParameters(medStaff, MedicalStaff.getUserType(), ps);
+                setUpdateParameters(medStaff, UserType.MEDICAL_STAFF.name(), ps);
                 ps.execute();
                 success = true;
             }

@@ -80,7 +80,7 @@ public class HealthAttribute<V>{
 
     @Override
     public String toString(){
-        return String.format("Health info: %s on %s was %s", name, date, stringValue == null? String.valueOf(value) : stringValue);
+        return String.format("%s %s %s", name, date, stringValue == null? String.valueOf(value) : stringValue);
     }
 
     @Override
