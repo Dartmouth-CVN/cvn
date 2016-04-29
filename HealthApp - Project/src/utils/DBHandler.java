@@ -1146,6 +1146,41 @@ public class DBHandler {
         return null;
     }
 
+    public List<AbsUser> getEventAttendingUsersListByID(long eventID) {
+        List<AbsUser> usersList = new LinkedList<>();
+        if (connect()) {
+            try {
+                ps = connection.prepareStatement("SELECT * FROM user_account JOIN attend_event ON user_account.user_id = attend_event.user_id WHERE event_id = ? ");
+                ps.setLong(1, eventID);
+                rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    if (rs.getString("role").equals("DOCTOR") || rs.getString("role").equals("NURSE") || rs.getString("role").equals("MED_STAFF")){
+                        MedicalStaff staff = new MedicalStaff(rs.getLong("user_id"), rs.getString("firstname"), rs.getString("lastname"),
+                                rs.getString("username"), rs.getString("password"), timestampToLocalDate(rs.getTimestamp("birthday")),
+                                rs.getString("room"), rs.getString("picture"));
+                        usersList.add(staff);
+                    } else if (rs.getString("user_type").equals("PATIENT")){
+                        Patient patient = getPatient(rs);
+                        usersList.add(patient);
+                    } else {
+                        Administrator admin = new Administrator(rs.getLong("user_id"), rs.getString("firstname"),
+                                rs.getString("lastname"), rs.getString("username"), rs.getString("password"),
+                                timestampToLocalDate(rs.getTimestamp("birthday")), rs.getString("room"),
+                                rs.getString("picture"));
+                        usersList.add(admin);
+                    }
+                }
+                connection.close();
+                return usersList;
+            } catch (SQLException e) {
+
+                MainApp.printError(e);
+            }
+        }
+        return null;
+    }
+
     public NamedParameterStatement setBasicParameters(NamedParameterStatement nps, AbsUser user) {
         //            nps.setString(1, user.getUserId());
 //            nps.setString(2, user.getFirstName());
