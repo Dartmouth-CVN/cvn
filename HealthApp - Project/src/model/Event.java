@@ -61,6 +61,10 @@ public class Event {
 		return this.date.toString();
 	}
 
+	public LocalDateTime getDateTime() {
+		return this.date.get();
+	}
+
 	public String getLocation() {
 		return this.location.get();
 	}
