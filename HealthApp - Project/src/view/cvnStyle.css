@@ -1,13 +1,9 @@
 
 .root {
-<<<<<<< HEAD
-=======
-	
 	-fx-background-color: #005A58;
 }
 
 #loginPane {
->>>>>>> f88a3051f151a85fd647267e20b59d859dcea7db
 	-fx-background-color: #FFFFFF;
 }
 
@@ -156,7 +152,7 @@
 
 .scroll-pane .scroll-bar:vertical .decrement-button:pressed {
 	-fx-background-color:#353535;
-	-fx-border-color:derive #353535;
+	-fx-border-color:#353535;
 }
 
 .scroll-pane .scroll-bar:vertical .decrement-button .decrement-arrow:pressed{
@@ -170,7 +166,7 @@
 
 .scroll-pane .scroll-bar:vertical .increment-button:pressed {
 	-fx-background-color:#353535;
-	-fx-border-color:derive #353535;
+	-fx-border-color:#353535;
 }
 
 .scroll-pane .scroll-bar:vertical .increment-button .increment-arrow:pressed{
@@ -184,7 +180,7 @@
 
 .scroll-pane .scroll-bar:horizontal .decrement-button:pressed {
 	-fx-background-color:#353535;
-	-fx-border-color:derive #353535;
+	-fx-border-color:#353535;
 }
 
 .scroll-pane .scroll-bar:horizontal .decrement-button .decrement-arrow:pressed{
@@ -198,7 +194,7 @@
 
 .scroll-pane .scroll-bar:horizontal .increment-button:pressed {
 	-fx-background-color:#353535;
-	-fx-border-color:derive #353535;
+	-fx-border-color:#353535;
 }
 
 .scroll-pane .scroll-bar:horizontal .increment-button .increment-arrow:pressed{
