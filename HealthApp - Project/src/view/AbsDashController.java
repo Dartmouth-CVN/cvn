@@ -1,17 +1,21 @@
 package view;
 
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import model.AbsUser;
 import model.ContactElement;
-import model.MainApp;
 import model.Patient;
 import utils.ObjectNotFoundException;
+
+import static model.MainApp.getLoadedSceneOfType;
 
 public abstract class AbsDashController extends AbsController {
 
@@ -35,6 +39,8 @@ public abstract class AbsDashController extends AbsController {
 	protected ImageView addPatientImage;
 	@FXML
 	protected ImageView exportImage;
+	@FXML
+	protected Button logoutButton;
 
 	@FXML
 	protected ImageView profilePic;
@@ -49,6 +55,9 @@ public abstract class AbsDashController extends AbsController {
 
 	@FXML
 	private AnchorPane iconPane;
+
+	static LoadedScene scene;
+	static Scene primaryScene;
 
 	public AbsDashController() {
 		key = "abs dash";
@@ -92,31 +101,31 @@ public abstract class AbsDashController extends AbsController {
 	}
 
 	public void loadSearchTab() {
-		LoadedScene scene = MainApp.getLoadedSceneOfType(new SearchController());
+		LoadedScene scene = getLoadedSceneOfType(new SearchController());
 		searchTab.setContent(scene.getPane());
 	}
 
 	public void loadAddPatientTab(){
-		LoadedScene scene = MainApp.getLoadedSceneOfType(new EditPatientController());
+		LoadedScene scene = getLoadedSceneOfType(new EditPatientController());
 		((EditPatientController) scene.getController()).setPatient(new Patient());
 		addPatientTab.setContent(scene.getPane());
 	}
 
 	public void loadEditPatientTab(Patient p) {
-		LoadedScene scene = MainApp.getLoadedSceneOfType(new EditPatientController());
+		LoadedScene scene = getLoadedSceneOfType(new EditPatientController());
 		((EditPatientController) scene.getController()).setPatient(p);
 		editPatientTab.setContent(scene.getPane());
 		tabPane.getSelectionModel().select(editPatientTab);
 	}
 
 	public void loadExportTab(){
-		LoadedScene scene = MainApp.getLoadedSceneOfType(new ExportController());
+		LoadedScene scene = getLoadedSceneOfType(new ExportController());
 		exportTab.setContent(scene.getPane());
 
 	}
 
 	public void loadScheduleTab(AbsUser user) {
-		LoadedScene scene = MainApp.getLoadedSceneOfType(new ScheduleController());
+		LoadedScene scene = getLoadedSceneOfType(new ScheduleController());
 		((ScheduleController) scene.getController()).setUser(user);
 		scheduleTab.setContent(scene.getPane());
 	}
@@ -141,7 +150,7 @@ public abstract class AbsDashController extends AbsController {
 
 	@FXML
 	public void handleExportImage() {
-		//loadExportTab();
+		loadExportTab();
 		tabPane.getSelectionModel().select(exportTab);
 	}
 
@@ -152,7 +161,7 @@ public abstract class AbsDashController extends AbsController {
 	}
 
 	@FXML
-	public void swipeLeft(){
+	public void handleSwipeLeft(){
 
 		int currentTab = tabPane.getSelectionModel().getSelectedIndex() - 1;
 
@@ -167,7 +176,7 @@ public abstract class AbsDashController extends AbsController {
 	}
 
 	@FXML
-	public void swipeRight(){
+	public void handleSwipeRight(){
 
 		int currentTab = tabPane.getSelectionModel().getSelectedIndex() + 1;
 
@@ -180,6 +189,24 @@ public abstract class AbsDashController extends AbsController {
 
 		}
 
+	}
+
+	@FXML
+	public void handleLogoutButton() {
+
+		Stage stage = (Stage) logoutButton.getScene().getWindow();
+		stage.close();
+
+		//needs to be implemented
+/*
+			Stage loginStage = new Stage();
+
+			scene = getLoadedSceneOfType(new LoginController());
+			scene.getPane().getScene().setRoot(null);
+			primaryScene = new Scene(scene.getPane());
+
+			loginStage.setScene(primaryScene);
+			loginStage.show();*/
 	}
 
 }

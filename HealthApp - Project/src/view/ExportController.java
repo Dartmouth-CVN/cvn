@@ -1,14 +1,10 @@
 package view;
 
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TitledPane;
@@ -16,6 +12,11 @@ import javafx.scene.layout.AnchorPane;
 import model.MainApp;
 import model.PatientExportWrapper;
 import utils.*;
+
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class ExportController extends AbsController {
 
@@ -31,6 +32,8 @@ public class ExportController extends AbsController {
 	private TitledPane personalPane = new TitledPane();
 	@FXML
 	private TitledPane otherPane = new TitledPane();
+	@FXML
+	private Button exportButton;
 
 	List<CheckBox> personal;
 	List<CheckBox> other;

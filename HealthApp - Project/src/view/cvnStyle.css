@@ -7,6 +7,66 @@
 	-fx-background-color: #FFFFFF;
 }
 
+#exportButton {
+	-fx-background-color: #FFFFFF;
+	-fx-text-fill: #1A3B61;
+	-fx-cursor: hand;
+}
+
+#logoutButton {
+	-fx-background-color: #FFFFFF;
+	-fx-text-fill: #1A3B61;
+	-fx-cursor: hand;
+}
+
+#CSVRadioButton:selected .dot{
+	-fx-background-color:#005A58;
+}
+
+#CSVRadioButton .radio{
+	-fx-background-color:#FFFFFF;
+}
+
+#CSVRadioButton .text{
+	-fx-fill: #FFFFFF;
+}
+
+#TSVRadioButton:selected .dot{
+	-fx-background-color:#005A58;
+}
+
+#TSVRadioButton .radio{
+	-fx-background-color:#FFFFFF;
+}
+
+#TSVRadioButton .text{
+	-fx-fill: #FFFFFF;
+}
+
+#XMLRadioButton:selected .dot{
+	-fx-background-color:#005A58;
+}
+
+#XMLRadioButton .radio{
+	-fx-background-color:#FFFFFF;
+}
+
+#XMLRadioButton .text{
+	-fx-fill: #FFFFFF;
+}
+
+#HTMLRadioButton:selected .dot{
+	-fx-background-color:#005A58;
+}
+
+#HTMLRadioButton .radio{
+	-fx-background-color:#FFFFFF;
+}
+
+#HTMLRadioButton .text{
+	-fx-fill: #FFFFFF;
+}
+
 .button {
 	-fx-background-color: #1A3B61;
 	-fx-text-fill: #FFFFFF;
