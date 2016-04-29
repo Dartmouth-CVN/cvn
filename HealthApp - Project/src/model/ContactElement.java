@@ -65,4 +65,21 @@ public class ContactElement{
     public void setContactType(String contactType){
         this.contactType = contactType;
     }
+    @Override
+    public String toString(){
+        return String.format("%s, %s, %s", value, type, contactType);
+    }
+
+    public static ContactElement fromSVString(String line){
+        String[] values = line.split(",");
+        String value = "";
+        String type = "";
+        String contactType = "";
+        if(values.length > 0) {
+            value = values[0];
+            type = values[1];
+            contactType = values[2];
+        }
+        return new ContactElement(value, type, contactType);
+    }
 }

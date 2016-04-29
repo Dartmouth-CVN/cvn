@@ -52,4 +52,22 @@ public class Pet{
     public void setAllergyFriendly(boolean allergyFriendly) {
         this.allergyFriendly = allergyFriendly;
     }
+
+    @Override
+    public String toString(){
+        return String.format("%s, %s, %s", name, species, allergyFriendly);
+    }
+
+    public static Pet fromSVString(String line){
+        String[] values = line.split(",");
+        String name = "";
+        String species = "";
+        boolean allergyFriendly = false;
+        if(values.length > 0) {
+            name = values[0];
+            species = values[1];
+            allergyFriendly = Boolean.parseBoolean(values[2]);
+        }
+        return new Pet(name, species, allergyFriendly);
+    }
 }

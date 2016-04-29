@@ -338,7 +338,6 @@ public class DBHandler {
     public boolean insertPatientAlgorithm(Patient p) {
         success = true;
         insertPatient(p);
-        System.out.println("Pet size " + p.getPets().size());
         for (Pet pet : p.getPets())
             insertPet(pet, p.getUserIdValue());
         for (Meal meal : p.getMeals()) {

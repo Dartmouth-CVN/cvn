@@ -171,9 +171,14 @@ public class Contact{
 
     public List<ContactElement> getAllContactElements() {
         List<ContactElement> elements = new LinkedList<ContactElement>();
-        elements.addAll(phoneNumbers);
-        elements.addAll(emails);
-        elements.addAll(addresses);
+        try{
+            elements.addAll(phoneNumbers);
+            elements.addAll(emails);
+            elements.addAll(addresses);
+
+        }catch (NullPointerException e){
+//            MainApp.printError(e);
+        }
         return elements;
     }
 

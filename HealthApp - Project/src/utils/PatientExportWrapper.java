@@ -1,21 +1,18 @@
 package utils;
 
 import model.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.StringReader;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import javax.xml.parsers.*;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.*;
-import javax.xml.transform.stream.*;
-
-import org.xml.sax.*;
-import org.w3c.dom.*;
 
 /**
  * Created by mrampiah on 4/26/16.
@@ -28,7 +25,7 @@ public class PatientExportWrapper implements IExportable {
     Patient patient;
     String toImport;
 
-    public PatientExportWrapper(){
+    public PatientExportWrapper() {
 
     }
 
@@ -219,7 +216,7 @@ public class PatientExportWrapper implements IExportable {
 
         if (contactInfo) {
             for (ContactElement c : patient.getContactInfo().getAddresses())
-                addresses.add(c.getValue());
+                addresses.add(c.getValue().replace("\n", ","));
             for (ContactElement c : patient.getContactInfo().getPhoneNumbers())
                 phonenumbers.add(c.getValue());
             for (ContactElement c : patient.getContactInfo().getEmails())
@@ -243,7 +240,7 @@ public class PatientExportWrapper implements IExportable {
         }
         if (healthProfile) {
             HealthProfile hp = patient.getHealthProfile();
-            healthplist = String.format("\"%s\", \"%s\"", String.join(";", hp.getAllergies()), String.join(";", hp.getDietaryRestrictions()));
+            healthplist = String.format("\"%s\", \"%s\", \"%s\"", String.join(";", hp.getHealthInfoAsString()), String.join(";", hp.getAllergies()), String.join(";", hp.getDietaryRestrictions()));
         }
 
         String firsthalf = String.join(delimiter, stringFields) + delimiter;
@@ -281,6 +278,9 @@ public class PatientExportWrapper implements IExportable {
 
     private static String[] splitSVLine(String s, String delimiter) {
         LinkedList<String> output = new LinkedList<String>();
+        if (s == null || s.equals("")) {
+            return new String[0];
+        }
         String curVal = "";
         boolean inQuotes = false;
         for (int i = 0; i < s.length(); i++) {
@@ -363,15 +363,15 @@ public class PatientExportWrapper implements IExportable {
         Patient output = new Patient();
 
         String[] fields = splitSVLine(toImport, delimiter);
-
+        if(fields.length< 14){return null;}
         String firstname = fields[0];
         String lastname = fields[1];
         String username = fields[2];
         LocalDate birthday;
-        try{
+        try {
             birthday = LocalDate.parse(fields[3]);
 
-        }catch(DateTimeParseException ex){
+        } catch (DateTimeParseException ex) {
             birthday = LocalDate.now();
         }
         String picture = fields[4];

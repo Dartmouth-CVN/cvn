@@ -103,8 +103,10 @@ public class ExportController extends AbsController {
 //			List<Patient> patients = XMLParsingUtils.importData(file);
 			List<Patient> patients = utils.importData(file);
 			for(Patient p : patients){
+				if(p!=null){
 				System.out.println("patient name " + p.getFirstName() );
 				DBHandler.getUniqueInstance().insertPatientAlgorithm(p);
+				}
 			}
 			MainApp.showAlert("Finished Import");
 		}

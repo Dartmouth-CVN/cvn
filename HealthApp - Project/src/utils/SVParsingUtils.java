@@ -96,7 +96,6 @@ public abstract class SVParsingUtils implements ParsingUtils {
 
         PatientExportWrapper placeholder = new PatientExportWrapper();
         for (String patient : lines) {
-            System.out.println(patient);
             placeholder.setImport(patient);
             output.add((Patient) placeholder.fromSVString(","));
         }

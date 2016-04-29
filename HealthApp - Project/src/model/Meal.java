@@ -74,5 +74,24 @@ public class Meal{
         this.notes = notes;
     }
 
+    public String toString(){
+        return String.format("%s, %d %d %s", food, calories, rating, notes);
+    }
+
+
+    public static Meal fromSVString(String line){
+        String[] values = line.split(" ");
+        String food = "";
+        int calories = 0;
+        int rating = 0;
+        String notes = "";
+        if(values.length > 0) {
+            food = values[0];
+            calories = Integer.parseInt(values[1]);
+            rating = Integer.parseInt(values[2]);
+            notes = values[3];
+        }
+        return new Meal(food, calories, rating, notes);
+    }
 }
 
