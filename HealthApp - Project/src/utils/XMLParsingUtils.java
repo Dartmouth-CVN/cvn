@@ -100,6 +100,7 @@ public class XMLParsingUtils implements ParsingUtils {
                     Pet newpet = new Pet();
                     newpet.setName(getSimpleChildString(pe, "name"));
                     newpet.setSpecies(getSimpleChildString(pe, "species"));
+                    petL.add(newpet);
                 }
                 newpat.setPets(petL);
 
@@ -110,6 +111,7 @@ public class XMLParsingUtils implements ParsingUtils {
                     newmeal.setFood(getSimpleChildString(me, "food"));
                     newmeal.setCalories(Integer.parseInt(getSimpleChildString(me, "calories")));
                     newmeal.setNotes(getSimpleChildString(me, "notes"));
+                    mealL.add(newmeal);
                 }
                 newpat.setMeals(mealL);
 
@@ -131,14 +133,17 @@ public class XMLParsingUtils implements ParsingUtils {
     }
 
     private static Element getSimpleChild(Element e, String tag) {
+        if (e == null || e.getElementsByTagName(tag).getLength() < 1) return null;
         return (Element) e.getElementsByTagName(tag).item(0);
     }
 
     private static String getSimpleChildString(Element e, String tag) {
+        if (e == null || e.getElementsByTagName(tag).getLength() < 1) return "";
         return e.getElementsByTagName(tag).item(0).getFirstChild().getTextContent();
     }
 
     private static String[] getListChild(Element e, String tag, String subtag) {
+        if (e == null) return new String[0];
         NodeList layerone = e.getElementsByTagName(tag);
         String[] output = new String[layerone.getLength()];
         for (int i = 0; i < output.length; i++) {
@@ -148,6 +153,7 @@ public class XMLParsingUtils implements ParsingUtils {
     }
 
     private static Element[] getComplexChild(Element e, String tag, String subtag) {
+        if (e == null) return new Element[0];
         NodeList layerone = getSimpleChild(e, tag).getElementsByTagName(subtag);
         Element[] output = new Element[layerone.getLength()];
         for (int i = 0; i < output.length; i++) {

@@ -212,7 +212,7 @@ public class PatientExportWrapper implements IExportable {
         LinkedList<String> petslist = new LinkedList<String>();
 
         LinkedList<String> mealslist = new LinkedList<String>();
-        String healthplist = "";
+        String healthplist = "\" \",\" \" ,\" \"";
 
         if (contactInfo) {
             for (ContactElement c : patient.getContactInfo().getAddresses())
@@ -306,6 +306,7 @@ public class PatientExportWrapper implements IExportable {
     }
 
     @Override
+    //For the record, this is never used, if it is used, then it won't work, because this function doesn't work. Don't use it.
     public AbsUser fromXMLString() {
         Document dom;
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -364,7 +365,9 @@ public class PatientExportWrapper implements IExportable {
         Patient output = new Patient();
 
         String[] fields = splitSVLine(toImport, delimiter);
-        if(fields.length< 14){return null;}
+        if (fields.length < 14) {
+            return null;
+        }
         String firstname = fields[0];
         String lastname = fields[1];
         String username = fields[2];
@@ -388,7 +391,7 @@ public class PatientExportWrapper implements IExportable {
         String[] pets = splitSVLine(fields[10], ";");
         String[] meals = splitSVLine(fields[11], ";");
 
-        //The below two statements must be parsed into a HealthProfile
+        //The last two statements must be parsed into a HealthProfile
         String[] healthInfo = splitSVLine(fields[12], ";");
         String[] allergies = splitSVLine(fields[13], ";");
         String[] diets = splitSVLine(fields[14], ";");
@@ -423,6 +426,7 @@ public class PatientExportWrapper implements IExportable {
         for (String re : relationships) {
             Family newrel = new Family();
             String[] relfields = splitSVLine(re, ";");
+            if (relfields.length < 4) break;
             newrel.setFirstName(relfields[0]);
             newrel.setLastName(relfields[1]);
             newrel.setRelationship(relfields[2]);
@@ -436,8 +440,10 @@ public class PatientExportWrapper implements IExportable {
         for (String pe : pets) {
             Pet newpet = new Pet();
             String[] petfields = splitSVLine(pe, ";");
+            if (petfields.length < 2) break;
             newpet.setName(petfields[0]);
             newpet.setSpecies(petfields[1]);
+            petL.add(newpet);
         }
         output.setPets(petL);
 
@@ -446,15 +452,17 @@ public class PatientExportWrapper implements IExportable {
         for (String me : meals) {
             Meal newmeal = new Meal();
             String[] mealfields = splitSVLine(me, ";");
+            if (mealfields.length < 3) break;
             newmeal.setFood(mealfields[0]);
             newmeal.setCalories(Integer.parseInt(mealfields[1]));
             newmeal.setNotes(mealfields[2]);
+            mealL.add(newmeal);
         }
         output.setMeals(mealL);
 
         List<HealthAttribute<?>> attributes = new LinkedList<>();
-        for(String hi : healthInfo){
-           HealthAttribute<?> healthAttribute =  HealthAttribute.fromSVString(hi);
+        for (String hi : healthInfo) {
+            HealthAttribute<?> healthAttribute = HealthAttribute.fromSVString(hi);
             attributes.add(healthAttribute);
         }
 
