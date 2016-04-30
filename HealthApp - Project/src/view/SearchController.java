@@ -59,7 +59,6 @@ public class SearchController extends AbsController {
 	 */
 	@FXML
 	private void initialize() {
-
 		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
 		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
 		idColumn.setCellValueFactory(cellData -> cellData.getValue().getUserIdProperty());
@@ -70,7 +69,6 @@ public class SearchController extends AbsController {
 //				MainApp.printError(e);
 			}
 		});
-		handleFindPatient();
 		profileTable.setRowFactory( tv -> {
 			TableRow<PatientWrapper> row = new TableRow<>();
 			row.setOnMouseClicked(event -> {
@@ -79,7 +77,6 @@ public class SearchController extends AbsController {
 					showNewMiniPatientProfile();
 				else if(event.getClickCount() == 2 && (! row.isEmpty()) )
 					showMiniPatientProfile();
-
 			});
 			return row ;
 		});

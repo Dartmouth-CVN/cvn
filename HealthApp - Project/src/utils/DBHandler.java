@@ -1695,20 +1695,15 @@ public class DBHandler {
      * http://www.w3schools.com/sql/sql_like.asp
      * ^^ for how to use LIKE
      */
-    public AbsUser getAbsUserByName(String name) {
-        AbsUser user = null;
+    public List<Patient> patientNameSearch(String name) {
+        List<Patient> patientList = new LinkedList<>();
         try {
             if (connect()) {
-                ps = connection.prepareStatement("SELECT * FROM user_account WHERE firstname LIKE '%' + name + '%' ");
-                ps.setLong(1, name);
-                rs = ps.executeQuery();
-                if (rs.next()) {
-                    String userType = rs.getString("user_type");
-                    if (userType.equals(UserType.PATIENT.name()))
-                        user = getPatientById(userId);
-                    else if (userType.equals(UserType.ADMIN.name()))
-                        user = getAdministratorById(userId);
-                }
+                ps = connection.prepareStatement("SELECT * FROM user_account WHERE firstname LIKE ? OR lastname ?");
+                ps.setString(1, "%" + name + "%");
+                ps.setString(2, "%" + name + "%");
+                Patient p = getPatient(ps.executeQuery());
+                patientList.add(p);
             }
         } catch (SQLException e) {
             MainApp.printError(e);
@@ -1720,7 +1715,7 @@ public class DBHandler {
             } catch (Exception e) {
                 MainApp.printError(e);
             }
-            return user;
         }
+        return patientList;
     }
 }
