@@ -43,6 +43,10 @@ public class AbsRelationWrapper extends AbsUserWrapper {
         return isFamilyProperty;
     }
 
+    public Boolean getIsFamilyBoolean(){
+        return isFamilyProperty.getValue();
+    }
+
     public void setIsFamilyProperty(boolean isFamily) {
         isFamilyProperty = new SimpleBooleanProperty(isFamily);
     }
@@ -50,6 +54,10 @@ public class AbsRelationWrapper extends AbsUserWrapper {
 
     public BooleanProperty getIsCaregiverProperty() {
         return isCaregiverProperty;
+    }
+
+    public Boolean getIsCaregiverBoolean(){
+        return isCaregiverProperty.getValue();
     }
 
     public void setIsCaregiverProperty(boolean isCaregiver) {

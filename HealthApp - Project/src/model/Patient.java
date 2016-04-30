@@ -79,7 +79,7 @@ public class Patient extends AbsUser{
     }
 
     public List<AbsRelation> getRelations() {
-        return relations;
+        return relations == null? new LinkedList<AbsRelation>() : relations;
     }
 
     public void setRelations(List<AbsRelation> relations) {

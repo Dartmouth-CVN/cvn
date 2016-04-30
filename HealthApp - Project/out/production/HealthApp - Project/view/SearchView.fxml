@@ -121,7 +121,7 @@
                                        <children>
                                           <TableView fx:id="profileTable" onMouseClicked="#handleClickPatient" prefHeight="512.0" prefWidth="532.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <columns>
-                                                <TableColumn prefWidth="42.714444637298584" />
+                                                <TableColumn fx:id="patientSelectColumn" prefWidth="42.714444637298584" />
                                                 <TableColumn fx:id="firstNameColumn" prefWidth="186.0" text="First Name" />
                                                 <TableColumn fx:id="lastNameColumn" prefWidth="174.0" text="Last Name" />
                                                 <TableColumn fx:id="idColumn" prefWidth="128.0" text="User ID" />

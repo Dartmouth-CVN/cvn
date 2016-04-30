@@ -12,11 +12,13 @@ public class ContactElementWrapper {
     LongProperty elementIdProperty;
     StringProperty valueProperty;
     StringProperty typeProperty;
+    ContactElement element;
 
     public ContactElementWrapper(ContactElement element) {
         setElementIdProperty(element.getElementId());
         setValueProperty(element.getValue());
         setTypeProperty(element.getType());
+        this.element = element;
     }
 
     public LongProperty getElementIdProperty() {
@@ -43,5 +45,12 @@ public class ContactElementWrapper {
         typeProperty = new SimpleStringProperty(type);
     }
 
+    public void setElement(ContactElement element){
+        this.element = element;
+    }
+
+    public ContactElement toContactElement(){
+        return element;
+    }
 
 }

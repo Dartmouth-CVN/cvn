@@ -140,7 +140,9 @@ public class EditPatientController extends AbsController {
 
     public void setPatient(Patient p) {
         this.patient = p;
-        loadFields();
+        if(!p.getIsNewPatient())
+            loadFields();
+
     }
 
     @FXML
@@ -172,11 +174,10 @@ public class EditPatientController extends AbsController {
         patientPhoneColumn.setOnEditCommit((event) -> {
             int phoneIndex = patientPhoneTable.getSelectionModel().getSelectedIndex();
             long id = patientPhones.get(phoneIndex).getElementIdProperty().get();
-            try {
-                patientPhones.set(phoneIndex, new ContactElementWrapper(patient.getContactInfo().getElementById(id)));
-            } catch (ObjectNotFoundException e) {
-                e.printStackTrace();
-            }
+            ContactElement element = patientPhones.get(phoneIndex).toContactElement();
+            element.setValue(patientPhoneColumn.getCellData(phoneIndex));
+            element.setType(patientPhoneLabelColumn.getCellData(phoneIndex));
+            patientPhones.set(phoneIndex, new ContactElementWrapper(element));
         });
 
         patientEmailColumn.setOnEditCommit((event) -> {
@@ -185,7 +186,7 @@ public class EditPatientController extends AbsController {
                 long id = patientEmails.get(emailIndex).getElementIdProperty().get();
                 patientEmails.set(emailIndex, new ContactElementWrapper(patient.getContactInfo().getElementById(id)));
             } catch (ObjectNotFoundException e) {
-                e.printStackTrace();
+                MainApp.printError(e);
             }
         });
 
@@ -197,6 +198,7 @@ public class EditPatientController extends AbsController {
         relationPhones = FXCollections.observableArrayList();
         relationEmails = FXCollections.observableArrayList();
         relationTable.setItems(relations);
+
         relationPhoneTable.setItems(relationPhones);
         relationEmailTable.setItems(relationEmails);
         relationTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -240,11 +242,6 @@ public class EditPatientController extends AbsController {
         petAllergyFriendlyColumn.setCellValueFactory(cellData -> cellData.getValue().getAllergyFriendlyProperty());
     }
 
-    @FXML
-    private void handleAddPet(){
-
-    }
-
     private void handlePetChange(){
         Pet p = pets.get(petIndex).toPet();
         petName.setText(p.getName());
@@ -267,7 +264,7 @@ public class EditPatientController extends AbsController {
         mealRatingColumn.setCellValueFactory(cellData -> cellData.getValue().getRatingProperty());
         mealNotesColumn.setCellValueFactory(cellData -> cellData.getValue().getNotesProperty());
         stars = new Rating(10, 0);
-        stars.setPartialRating(true);
+        stars.setUpdateOnHover(true);
         mealRating.getChildren().add(stars);
     }
 
@@ -307,60 +304,60 @@ public class EditPatientController extends AbsController {
     }
 
     @FXML
-    private void addPatientPhone() {
+    private void handleAddPatientPhone() {
         patientPhones.add(new ContactElementWrapper(new ContactElement()));
     }
 
     @FXML
-    private void removePatientPhone() {
+    private void handleRemovePatientPhone() {
         int index = patientPhoneTable.getSelectionModel().getSelectedIndex();
         if(index >= 0)
             patientPhones.remove(index);
     }
 
     @FXML
-    private void addPatientEmail() {
+    private void handleAddPatientEmail() {
         patientEmails.add(new ContactElementWrapper(new ContactElement()));
     }
 
     @FXML
-    private void removePatientEmail() {
+    private void handleRemovePatientEmail() {
         int index = patientEmailTable.getSelectionModel().getSelectedIndex();
         if(index >= 0)
             patientEmails.remove(index);
     }
 
     @FXML
-    private void addRelationPhone() {
+    private void handleAddRelationPhone() {
         relationPhones.add(new ContactElementWrapper(new ContactElement()));
     }
 
     @FXML
-    private void removeRelationPhone() {
+    private void handleRemoveRelationPhone() {
         int index = relationPhoneTable.getSelectionModel().getSelectedIndex();
         if(index >= 0)
             relationPhones.remove(index);
     }
 
     @FXML
-    private void addRelationEmail() {
+    private void handleAddRelationEmail() {
         relationEmails.add(new ContactElementWrapper(new ContactElement()));
     }
 
     @FXML
-    private void removeRelationEmail() {
+    private void handleRemoveRelationEmail() {
         int index = relationEmailTable.getSelectionModel().getSelectedIndex();
         if(index >= 0)
             relationEmails.remove(index);
     }
 
     @FXML
-    private void addPet() {
+    private void handleAddPet() {
         petTable.getItems().add(new PetWrapper(new Pet()));
     }
 
     @FXML
-    private void removePet() {
+    private void handleRemovePet() {
         int selectionIndex = petTable.getSelectionModel().getSelectedIndex();
 
         if (selectionIndex >= 0) {

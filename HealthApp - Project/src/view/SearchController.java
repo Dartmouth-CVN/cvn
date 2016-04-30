@@ -26,6 +26,8 @@ public class SearchController extends AbsController {
 	@FXML
 	private TableColumn<PatientWrapper, String> lastNameColumn;
 	@FXML
+	private TableColumn<PatientWrapper, Boolean> patientSelectColumn;
+	@FXML
 	private TextField searchField;
 	@FXML
 	private TabPane profileTabPane = new TabPane();
