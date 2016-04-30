@@ -16,7 +16,7 @@ import model.Patient;
 import utils.*;
 
 import java.io.File;
-import java.time.LocalTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -114,7 +114,7 @@ public class ExportController extends AbsController {
 
 	@FXML
 	private void handleExport() {
-		String name = "Exported" + LocalTime.now();
+		String name = "Exported" + LocalDate.now().toString();
 		getFields();
 		PatientExportWrapper wrapper = new PatientExportWrapper(fieldCheck);
 
