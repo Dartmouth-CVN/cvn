@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="adminDash" onSwipeLeft="#handleSwipeLeft" onSwipeRight="#handleSwipeRight" prefHeight="800.0" prefWidth="1280.0" styleClass="root" stylesheets="@cvnStyle.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AdminDashController">
    <children>
@@ -124,6 +125,9 @@
             <Image url="@images/dhlogo_inverted.png" />
          </image>
       </ImageView>
-      <Button fx:id="logoutButton" layoutX="365.0" layoutY="13.0" mnemonicParsing="false" onAction="#handleLogoutButton" prefHeight="32.0" prefWidth="65.0" text="Log Out" translateX="847.0" AnchorPane.rightAnchor="856.0" AnchorPane.topAnchor="13.0" />
+      <Button fx:id="logoutButton" layoutX="365.0" layoutY="13.0" mnemonicParsing="false" onAction="#handleLogoutButton" prefHeight="32.0" prefWidth="65.0" text="Log Out" translateX="847.0" AnchorPane.rightAnchor="856.0" AnchorPane.topAnchor="13.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
     </children>
 </AnchorPane>
