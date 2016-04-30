@@ -109,7 +109,9 @@ public abstract class AbsDashController extends AbsController {
 
 	public void loadAddPatientTab(){
 		LoadedScene scene = getLoadedSceneOfType(new EditPatientController());
-		((EditPatientController) scene.getController()).setPatient(new Patient());
+		Patient p = new Patient();
+		p.setNewPatient();
+		((EditPatientController) scene.getController()).setPatient(p);
 		addPatientTab.setContent(scene.getPane());
 	}
 

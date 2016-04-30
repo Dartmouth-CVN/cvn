@@ -15,6 +15,7 @@ public class Patient extends AbsUser{
     List<AbsRelation> relations;
     List<MedicalStaff> assignedStaff;
     HealthProfile healthProfile;
+    boolean isNewPatient = false;
 
     public Patient() {
         this(0L, "enter first name", "enter last name", "enter username", "enter password", LocalDate.now(), "enter room",
@@ -125,7 +126,11 @@ public class Patient extends AbsUser{
     }
 
     public boolean getIsNewPatient() {
-        return ((userId != null) && userId.equals("enter id")) && ((username != null) && (username.equals("enter username")));
+        return isNewPatient;
+    }
+
+    public void setNewPatient(){
+        isNewPatient = true;
     }
 
     public boolean savePatient() {

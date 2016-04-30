@@ -105,10 +105,6 @@
 
 }
 
-.table-view:row-selection .column-header-background .nested-column-header .label .text{
-	-fx-font-weight: regular;
-}
-
 .table-row-cell:odd {
 	-fx-background-color: -fx-table-cell-border-color, #B1B1B1;
 }

@@ -355,10 +355,8 @@ public class DBHandler {
         }
         for (HealthAttribute<?> attribute : p.getHealthProfile().getHealthInfo())
             insertHealthInfo(attribute, p.getUserIdValue());
-
         for (ContactElement e : p.getContactInfo().getAllContactElements())
             insertContact(e, p.getUserIdValue());
-
         return success;
     }
 
@@ -389,13 +387,13 @@ public class DBHandler {
                 ps.setTimestamp(i++, localDateToTimestamp(p.getBirthday()));
                 ps.setString(i++, p.getRoom());
                 ps.setString(i++, p.getPicture());
-                ps.setString(i++, "PATIENT");
+                ps.setString(i++, UserType.PATIENT.name());
                 ps.executeUpdate();
                 rs = ps.getGeneratedKeys();
                 rs.next();
                 p.setUserIdValue(rs.getLong(1));
                 success = true;
-                System.out.printf("patient username: %s, password: %s user type: %s\n", p.getUsername(), p.getPassword(), UserType.PATIENT);
+//                System.out.printf("patient username: %s, password: %s user type: %s\n", p.getUsername(), p.getPassword(), UserType.PATIENT);
             }
         } catch (SQLException e) {
             MainApp.printError(e);
