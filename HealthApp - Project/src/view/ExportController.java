@@ -145,7 +145,7 @@ public class ExportController extends AbsController {
 		boolean birthday = getCheckBoxFor("Birthday").isSelected();
 		boolean room = getCheckBoxFor("Room").isSelected();
 		boolean picture = getCheckBoxFor("Picture").isSelected();
-		boolean contactInfo = getCheckBoxFor("First Name").isSelected();
+		boolean contactInfo = getCheckBoxFor("Contact Info").isSelected();
 		boolean pets = getCheckBoxFor("Pets").isSelected();
 		boolean meals = getCheckBoxFor("Meals").isSelected();
 		boolean relations = getCheckBoxFor("Relations").isSelected();
