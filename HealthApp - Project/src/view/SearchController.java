@@ -64,15 +64,17 @@ public class SearchController extends AbsController {
 		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
 		idColumn.setCellValueFactory(cellData -> cellData.getValue().getUserIdProperty());
 		profileTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-			userId = newValue.getUserIdValueProperty().get();
+			try{
+				userId = newValue.getUserIdValueProperty().get();
+			}catch(NullPointerException e){
+//				MainApp.printError(e);
+			}
 		});
 		handleFindPatient();
 		profileTable.setRowFactory( tv -> {
 			TableRow<PatientWrapper> row = new TableRow<>();
 			row.setOnMouseClicked(event -> {
-
 				profileTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
-
 				if (event.getClickCount() == 2 && (! row.isEmpty()) )
 					showNewMiniPatientProfile();
 				else if(event.getClickCount() == 2 && (! row.isEmpty()) )

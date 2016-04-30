@@ -13,6 +13,7 @@ public class Contact{
     List<ContactElement> addresses;
 
     public Contact() {
+        this(0L, new LinkedList<ContactElement>(), new LinkedList<ContactElement>(), new LinkedList<ContactElement>());
     }
 
     public Contact(long id) {

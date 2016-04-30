@@ -153,6 +153,8 @@ public class EditPatientController extends AbsController {
         initializeDietaryPreferences();
     }
 
+    int phoneIndex = 0;
+    int emailIndex = 0;
     public void initializePersonalInfo() {
         patientPhones = FXCollections.observableArrayList();
         patientEmails = FXCollections.observableArrayList();
@@ -172,24 +174,38 @@ public class EditPatientController extends AbsController {
         patientPhoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         patientEmailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         patientPhoneColumn.setOnEditCommit((event) -> {
-            int phoneIndex = patientPhoneTable.getSelectionModel().getSelectedIndex();
-            long id = patientPhones.get(phoneIndex).getElementIdProperty().get();
-            ContactElement element = patientPhones.get(phoneIndex).toContactElement();
-            element.setValue(patientPhoneColumn.getCellData(phoneIndex));
-            element.setType(patientPhoneLabelColumn.getCellData(phoneIndex));
+            setPhoneIndex();
+            element.setValue(event.getNewValue());
+            patientPhones.set(phoneIndex, new ContactElementWrapper(element));
+        });
+        patientPhoneLabelColumn.setOnEditCommit((event) -> {
+            setPhoneIndex();
+            element.setType(event.getNewValue());
             patientPhones.set(phoneIndex, new ContactElementWrapper(element));
         });
 
         patientEmailColumn.setOnEditCommit((event) -> {
-            try {
-                int emailIndex = patientEmailTable.getSelectionModel().getSelectedIndex();
-                long id = patientEmails.get(emailIndex).getElementIdProperty().get();
-                patientEmails.set(emailIndex, new ContactElementWrapper(patient.getContactInfo().getElementById(id)));
-            } catch (ObjectNotFoundException e) {
-                MainApp.printError(e);
-            }
+            setEmailIndex();
+            element.setValue(event.getNewValue());
+            patientEmails.set(emailIndex, new ContactElementWrapper(element));
+        });
+        patientEmailLabelColumn.setOnEditCommit((event) -> {
+            setEmailIndex();
+            element.setType(event.getNewValue());
+            patientEmails.set(emailIndex, new ContactElementWrapper(element));
         });
 
+    }
+
+    ContactElement element;
+    private void setPhoneIndex(){
+        phoneIndex = patientPhoneTable.getSelectionModel().getSelectedIndex();
+        element = patientPhones.get(phoneIndex).toContactElement();
+    }
+
+    private void setEmailIndex(){
+        emailIndex = patientEmailTable.getSelectionModel().getSelectedIndex();
+        element = patientEmails.get(emailIndex).toContactElement();
     }
 
     int relationIndex = 0;
@@ -404,6 +420,14 @@ public class EditPatientController extends AbsController {
 
         for (AbsRelationWrapper relation : relations)
             patient.addRelation(relation.toAbsRelation());
+
+        for(ContactElementWrapper phone : patientPhones)
+            patient.getContactInfo().addPhone(phone.toContactElement());
+
+        for(ContactElementWrapper email : patientEmails)
+            patient.getContactInfo().addEmail(email.toContactElement());
+
+//        System.out.printf("patient phones size: %d patient emails size: %d\n", patientPhones.size(), patientEmails.size());
 
         if (patient.getIsNewPatient() && patient.savePatient() ||
                 !patient.getIsNewPatient() && patient.updatePatient()) {
