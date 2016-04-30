@@ -17,6 +17,7 @@ import utils.*;
 
 import java.io.File;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -114,7 +115,7 @@ public class ExportController extends AbsController {
 
 	@FXML
 	private void handleExport() {
-		String name = "Exported" + LocalDate.now().toString();
+		String name = "Exported at " + LocalDate.now().toString()+"_"+ LocalTime.now().toString().replace(":","-");
 		getFields();
 		PatientExportWrapper wrapper = new PatientExportWrapper(fieldCheck);
 
