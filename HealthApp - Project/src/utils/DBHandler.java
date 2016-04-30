@@ -1,6 +1,5 @@
 package utils;
 
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import model.*;
 import org.apache.derby.jdbc.EmbeddedDataSource;
 
@@ -26,7 +25,9 @@ public class DBHandler {
         connect();
     }
 
-    private enum UserType{PATIENT, ADMIN, MEDICAL_STAFF, RELATION};
+    private enum UserType {PATIENT, ADMIN, MEDICAL_STAFF, RELATION}
+
+    ;
 
     /**
      * Get the unique database instance
@@ -89,7 +90,7 @@ public class DBHandler {
         try {
             // connect method - embedded driver
             EmbeddedDataSource ds = new EmbeddedDataSource();
-            ds.setDatabaseName("HealthApp");
+            ds.setDatabaseName("HealthAppDB");
             ds.setCreateDatabase("create");
 
             connection = ds.getConnection();
@@ -496,8 +497,8 @@ public class DBHandler {
         try {
             if (connect()) {
                 ps = connection.prepareStatement("INSERT INTO user_account (firstname, lastname," +
-                        "username, password, birthday, room, picture, user_type) "
-                        + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)", new String[]{"USER_ID"});
+                        "username, password, birthday, room, picture, relationship, user_type) "
+                        + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", new String[]{"USER_ID"});
 
                 int i = 1;
                 ps.setString(i++, rel.getFirstName());
@@ -507,6 +508,7 @@ public class DBHandler {
                 ps.setTimestamp(i++, localDateToTimestamp(rel.getBirthday()));
                 ps.setString(i++, rel.getRoom());
                 ps.setString(i++, rel.getPicture());
+                ps.setString(i++, rel.getRelationship());
                 ps.setString(i++, UserType.RELATION.name());
                 ps.executeUpdate();
                 rs = ps.getGeneratedKeys();
@@ -749,11 +751,15 @@ public class DBHandler {
 
     public AbsUser getFilledUserByUsername(String username) {
         if (connect()) {
-            AbsUser user = getAbsUserByUsername(username);
-            List<ContactElement> info = getContactInfo(user.getUserIdValue());
-            Contact contactInfo = new Contact(info);
-            user.setContactInfo(contactInfo);
-            return user;
+            try {
+                AbsUser user = getAbsUserByUsername(username);
+                List<ContactElement> info = getContactInfo(user.getUserIdValue());
+                Contact contactInfo = new Contact(info);
+                user.setContactInfo(contactInfo);
+                return user;
+            } catch (NullPointerException e) {
+                MainApp.printError(e);
+            }
         }
         return null;
     }
@@ -778,12 +784,9 @@ public class DBHandler {
                 ps = connection.prepareStatement("SELECT * FROM user_account WHERE username = ? ");
                 ps.setString(1, username);
                 rs = ps.executeQuery();
-                System.out.println("nullies");
 
                 if (rs.next()) {
                     String userType = rs.getString("user_type");
-                    System.out.printf("usertype: %s admin usertype: %s patient usertype: %s\n", userType, Administrator.getUserType(),
-                            UserType.PATIENT.name());
                     if (userType.equals(UserType.PATIENT.name())) {
                         user = getPatientByUsername(username);
                     } else if (userType.equals(UserType.ADMIN.name())) ;
@@ -953,7 +956,9 @@ public class DBHandler {
         p.setPets(getPatientPets(userIdValue));
         p.setMeals(getPatientMeals(userIdValue));
         p.setContactInfo(new Contact(getContactInfo(userIdValue)));
+        p.setRelations(getPatientRelations(userIdValue));
         p.getHealthProfile().setHealthInfo(getHealthInfo(p.getUserIdValue()));
+        p.setAssignedStaff(getPatientMedicalStaff(userIdValue));
         return p;
     }
 
@@ -1025,6 +1030,7 @@ public class DBHandler {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT med_id FROM staff_assignment WHERE patient_id = ?");
                 ps.setLong(1, userIdValue);
+                rs = ps.executeQuery();
                 while (rs.next()) {
                     staff.add(getMedicalStaffById(rs.getLong("med_id")));
                 }
@@ -1072,7 +1078,8 @@ public class DBHandler {
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
-                        "birthday, room, picture FROM  user_account WHERE user_id = ?");
+                        "birthday, room, picture, role, relationship, isCaregiver, isFamily " +
+                        "FROM  user_account WHERE user_id = ?");
                 ps.setLong(1, userIdValue);
                 relation = getAbsRelation(ps.executeQuery());
             }
@@ -1123,6 +1130,7 @@ public class DBHandler {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT relation_id FROM related WHERE patient_id = ?");
                 ps.setLong(1, userIdValue);
+                rs = ps.executeQuery();
                 while (rs.next()) {
                     relations.add(getRelationById(rs.getLong("relation_id")));
                 }
@@ -1272,7 +1280,7 @@ public class DBHandler {
         ResultSet rs = null;
         try {
             if (connect()) {
-                ps = connection.prepareStatement("SELECT * FROM eats JOIN user_account ON eats.user_id = user_account.user_id WHERE eats.user_id = ? ");
+                ps = connection.prepareStatement("SELECT * FROM eats JOIN meal ON eats.meal_id = meal.meal_id WHERE eats.user_id = ? ");
                 ps.setLong(1, userIdValue);
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -1331,7 +1339,6 @@ public class DBHandler {
                 while (rs.next()) {
                     pets.add(new Pet(rs.getLong("pet_id"), rs.getString("name"), rs.getString("species"),
                             rs.getBoolean("allergy_friendly")));
-                    System.out.println("pet name " + pets.get(0).getName() );
                 }
             }
         } catch (SQLException e) {
@@ -1420,7 +1427,7 @@ public class DBHandler {
             if (connect()) {
                 ps = connection.prepareStatement("UPDATE user_account SET firstname = ?, lastname = ?," +
                         "username = ?, password = ?, birthday = ?, room = ?, picture = ? WHERE " +
-                        "user_type = ? AND user_id = ?) ");
+                        "user_type = ? AND user_id = ?");
 
                 setUpdateParameters(relation, UserType.RELATION.name(), ps);
                 ps.execute();
@@ -1560,7 +1567,7 @@ public class DBHandler {
         ResultSet rs = null;
         try {
             if (connect()) {
-                ps = connection.prepareStatement("UPDATE eats SET rating = ?," +
+                ps = connection.prepareStatement("UPDATE eats SET rating = ?" +
                         " WHERE meal_id = ? ");
                 int i = 1;
                 ps.setInt(i++, m.getRating());

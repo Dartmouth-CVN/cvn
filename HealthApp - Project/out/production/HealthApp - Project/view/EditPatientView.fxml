@@ -2,9 +2,12 @@
 
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
@@ -13,150 +16,207 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EditPatientController">
+<AnchorPane prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EditPatientController">
    <children>
-      <Button layoutX="1146.0" layoutY="648.0" mnemonicParsing="false" onAction="#save" prefHeight="30.0" prefWidth="90.0" stylesheets="@cvnStyle.css" text="Save" AnchorPane.bottomAnchor="22.0" AnchorPane.rightAnchor="14.0" />
-      <Accordion prefHeight="634.0" prefWidth="1250.0" stylesheets="@cvnStyle.css" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <panes>
-            <TitledPane animated="false" prefHeight="534.0" prefWidth="1250.0" text="General Information">
-               <content>
-                  <AnchorPane accessibleText="Name" prefHeight="0.0" prefWidth="1208.0">
-                     <children>
-                              <TextField fx:id="firstName" layoutX="93.0" layoutY="240.0" prefHeight="32.0" prefWidth="221.0" promptText="First Name" />
-                              <TextField fx:id="lastName" layoutX="359.0" layoutY="241.0" prefHeight="31.0" prefWidth="200.0" promptText="Last Name" />
-                              <AnchorPane layoutX="674.0" layoutY="42.0" prefHeight="561.0" prefWidth="554.0">
+      <SplitPane dividerPositions="0.933641975308642" orientation="VERTICAL" prefHeight="700.0" prefWidth="1238.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <Accordion prefHeight="550.0" prefWidth="1200.0" stylesheets="@cvnStyle.css">
+                     <panes>
+                        <TitledPane animated="false" prefHeight="500.0" prefWidth="1200.0" text="General Information">
+                           <content>
+                              <AnchorPane accessibleText="Name" prefHeight="500.0" prefWidth="1200.0">
                                  <children>
-                                    <TableView fx:id="patientPhoneTable" editable="true" layoutX="15.0" layoutY="37.0" prefHeight="256.0" prefWidth="264.0">
-                                 <columns>
-                                    <TableColumn fx:id="patientPhoneColumn" prefWidth="263.0" text="Phone Numbers" />
-                                 </columns>
-                              </TableView>
-                              <ButtonBar layoutX="37.0" layoutY="302.0" prefHeight="1.0" prefWidth="141.0">
-                                 <buttons>
-                                    <Button mnemonicParsing="false" onAction="#addPatientPhone" text="+" />
-                                    <Button mnemonicParsing="false" onAction="#removePatientPhone" prefWidth="78.0" text="-" />
-                                 </buttons>
-                              </ButtonBar>
-                              <ButtonBar layoutX="304.0" layoutY="302.0" prefHeight="22.0" prefWidth="79.0">
-                                 <buttons>
-                                    <Button mnemonicParsing="false" onAction="#addPatientEmail" text="+" />
-                                    <Button mnemonicParsing="false" onAction="#removePatientEmail" prefWidth="78.0" text="-" />
-                                 </buttons>
-                              </ButtonBar>
-                              <TextArea fx:id="patientAddress" layoutX="37.0" layoutY="366.0" prefHeight="176.0" prefWidth="479.0" promptText="Address" />
-                              <TableView fx:id="patientEmailTable" editable="true" layoutX="300.0" layoutY="37.0" prefHeight="255.0" prefWidth="238.0">
-                                 <columns>
-                                    <TableColumn fx:id="patientEmailColumn" prefWidth="237.0" text="Email Addresses" />
-                                 </columns>
-                              </TableView>
-                           </children>
-                        </AnchorPane>
-                        <DatePicker fx:id="patientBirthday" layoutX="92.0" layoutY="298.0" promptText="Birthday" />
-                        <ImageView fx:id="profilePic" fitHeight="150.0" fitWidth="200.0" layoutX="105.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/blank-profile-picture.png" />
-                           </image>
-                        </ImageView>
-                        <Button layoutX="314.0" layoutY="409.0" mnemonicParsing="false" onAction="#handleFitBitImport" text="Import FitBit Data" />
-                     </children>
-                  </AnchorPane>
-               </content>
-            </TitledPane>
-            <TitledPane animated="false" layoutX="10.0" layoutY="41.0" prefHeight="357.0" prefWidth="1210.0" text="Family &amp; Pet Information">
-               <content>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <TableView fx:id="relationTable" layoutX="58.0" layoutY="31.0" prefHeight="283.0" prefWidth="489.0">
-                           <columns>
-                              <TableColumn fx:id="relationNameColumn" prefWidth="306.2144241333008" text="Name" />
-                              <TableColumn fx:id="relationRelationshipColumn" prefWidth="182.78558349609375" text="Relationship" />
-                           </columns>
-                        </TableView>
-                        <ButtonBar layoutX="168.0" layoutY="314.0" prefHeight="40.0" prefWidth="200.0">
-                           <buttons>
-                              <Button mnemonicParsing="false" text="+" />
-                              <Button mnemonicParsing="false" text="-" />
-                           </buttons>
-                        </ButtonBar>
-                        <AnchorPane layoutX="652.0" layoutY="19.0" prefHeight="532.0" prefWidth="554.0">
-                           <children>
-                              <TextField fx:id="relationName" layoutX="39.0" layoutY="51.0" prefHeight="35.0" prefWidth="480.0" promptText="Enter name..." />
-                              <TextField fx:id="relationshipField" layoutX="317.0" layoutY="100.0" prefHeight="33.0" prefWidth="204.0" promptText="Relationship" />
-                              <Label layoutX="44.0" layoutY="16.0" text="Family member details:" />
-                              <ButtonBar layoutX="33.0" layoutY="476.0" prefHeight="40.0" prefWidth="152.0">
-                                 <buttons>
-                                    <Button mnemonicParsing="false" onAction="#addFamilyMemPhone" text="+" />
-                                    <Button mnemonicParsing="false" onAction="#removeFamilyMemPhone" prefWidth="78.0" text="-" />
-                                 </buttons>
-                              </ButtonBar>
-                              <ButtonBar layoutX="312.0" layoutY="475.0" prefHeight="40.0" prefWidth="152.0">
-                                 <buttons>
-                                    <Button mnemonicParsing="false" onAction="#addFamilyMemEmail" text="+" />
-                                    <Button mnemonicParsing="false" onAction="#removeFamilyMemEmail" prefWidth="78.0" text="-" />
-                                 </buttons>
-                              </ButtonBar>
-                              <DatePicker fx:id="relationBirthday" layoutX="40.0" layoutY="103.0" prefHeight="28.0" prefWidth="156.0" promptText="Birthday" />
-                              <TableView fx:id="relationPhoneTable" layoutX="39.0" layoutY="212.0" prefHeight="203.0" prefWidth="209.0">
-                                <columns>
-                                  <TableColumn fx:id="relationPhoneColumn" prefWidth="208.0" text="Phone Numbers" />
-                                </columns>
-                              </TableView>
-                              <TableView fx:id="relationEmailTable" layoutX="315.0" layoutY="212.0" prefHeight="203.0" prefWidth="209.0">
-                                 <columns>
-                                    <TableColumn fx:id="relationEmailColumn" prefWidth="208.0" text="Emails" />
-                                 </columns>
-                              </TableView>
-                           </children>
-                        </AnchorPane>
-                        <TableView fx:id="petTable" layoutX="67.0" layoutY="367.0" prefHeight="169.0" prefWidth="489.0">
-                           <columns>
-                              <TableColumn fx:id="petNameColumn" prefWidth="186.00003051757812" text="Name" />
-                              <TableColumn fx:id="petSpeciesColumn" prefWidth="166.0" text="Species" />
-                              <TableColumn fx:id="petAllergyFriendlyColumn" prefWidth="143.0" text="Allergy Friendly" />
-                           </columns>
-                        </TableView>
-                        <ButtonBar layoutX="168.0" layoutY="531.0" prefHeight="40.0" prefWidth="200.0">
-                           <buttons>
-                              <Button mnemonicParsing="false" onAction="#addPet" text="+" />
-                              <Button mnemonicParsing="false" onAction="#removePet" text="-" />
-                           </buttons>
-                        </ButtonBar>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </TitledPane>
-            <TitledPane animated="false" layoutX="10.0" layoutY="37.0" prefHeight="357.0" prefWidth="1210.0" text="Dietary Information">
-               <content>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <TableView fx:id="mealTable" layoutX="35.0" layoutY="55.0" prefHeight="478.0" prefWidth="694.0">
-                           <columns>
-                              <TableColumn fx:id="mealNameColumn" prefWidth="236.5583324432373" text="Name" />
-                              <TableColumn fx:id="mealCaloriesColumn" prefWidth="113.0" text="Calories" />
-                              <TableColumn fx:id="mealRatingColumn" prefWidth="103.0" text="Rating" />
-                              <TableColumn fx:id="mealNotesColumn" prefWidth="240.0" text="Notes" />
-                           </columns>
-                        </TableView>
-                        <AnchorPane layoutX="779.0" layoutY="54.0" prefHeight="462.0" prefWidth="414.0">
-                           <children>
-                              <TextField fx:id="mealName" layoutX="39.0" layoutY="55.0" prefHeight="35.0" prefWidth="335.0" promptText="Name" />
-                              <TextField fx:id="mealCalories" layoutX="39.0" layoutY="113.0" prefHeight="27.0" prefWidth="147.0" promptText="Calories" />
-                              <TextArea fx:id="mealNotes" layoutX="41.0" layoutY="181.0" prefHeight="190.0" prefWidth="331.0" promptText="Special notes..." />
-                              <TextField fx:id="mealRating" layoutX="225.0" layoutY="113.0" prefHeight="27.0" prefWidth="147.0" promptText="Rating" />
-                           </children>
-                        </AnchorPane>
-                        <ButtonBar layoutX="258.0" layoutY="533.0" prefHeight="40.0" prefWidth="200.0">
-                           <buttons>
-                              <Button mnemonicParsing="false" onAction="#addMeal" text="+" />
-                              <Button mnemonicParsing="false" onAction="#removeMeal" text="-" />
-                           </buttons>
-                        </ButtonBar>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </TitledPane>
-         </panes>
-      </Accordion>
+                                    <TextField fx:id="firstName" layoutX="43.0" layoutY="184.0" prefHeight="32.0" prefWidth="221.0" promptText="First Name" />
+                                    <TextField fx:id="lastName" layoutX="309.0" layoutY="185.0" prefHeight="31.0" prefWidth="200.0" promptText="Last Name" />
+                                    <AnchorPane layoutX="544.0" layoutY="5.0" prefHeight="475.0" prefWidth="604.0">
+                                       <children>
+                                          <TableView fx:id="patientPhoneTable" editable="true" layoutX="29.0" layoutY="38.0" prefHeight="204.0" prefWidth="497.0">
+                                             <columns>
+                                                <TableColumn prefWidth="35.0" />
+                                                <TableColumn fx:id="patientPhoneColumn" prefWidth="302.0" text="Phone Numbers" />
+                                                <TableColumn fx:id="patientPhoneLabelColumn" prefWidth="159.0" text="Contact Label" />
+                                             </columns>
+                                          </TableView>
+                                          <TableView fx:id="patientEmailTable" editable="true" layoutX="29.0" layoutY="281.0" prefHeight="192.0" prefWidth="502.0">
+                                             <columns>
+                                                <TableColumn prefWidth="36.0" />
+                                                <TableColumn fx:id="patientEmailColumn" prefWidth="321.0" text="Email Addresses" />
+                                                <TableColumn fx:id="patientEmailLabelColumn" prefWidth="144.0" text="Contact Label" />
+                                             </columns>
+                                          </TableView>
+                                          <VBox layoutX="534.0" layoutY="67.0" prefHeight="72.0" prefWidth="51.0" spacing="10.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" onAction="#addPatientPhone" prefHeight="26.0" prefWidth="51.0" text="+">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button mnemonicParsing="false" onAction="#removePatientPhone" prefHeight="27.0" prefWidth="55.0" text="-">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Button>
+                                             </children>
+                                          </VBox>
+                                          <VBox layoutX="537.0" layoutY="311.0" prefHeight="72.0" prefWidth="51.0" spacing="10.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" onAction="#addPatientEmail" prefHeight="26.0" prefWidth="51.0" text="+">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button mnemonicParsing="false" onAction="#removePatientEmail" prefHeight="27.0" prefWidth="55.0" text="-">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Button>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                    <DatePicker fx:id="patientBirthday" layoutX="42.0" layoutY="242.0" promptText="Birthday" />
+                                    <ImageView fx:id="profilePic" fitHeight="150.0" fitWidth="200.0" layoutX="47.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@images/blank-profile-picture.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Button layoutX="309.0" layoutY="243.0" mnemonicParsing="false" onAction="#handleFitBitImport" text="Import FitBit Data" />
+                                    <TextArea fx:id="patientAddress" layoutX="42.0" layoutY="284.0" prefHeight="176.0" prefWidth="479.0" promptText="Address" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </TitledPane>
+                        <TitledPane animated="false" layoutX="10.0" layoutY="41.0" prefHeight="600.0" prefWidth="1200.0" text="Relation Information">
+                           <content>
+                              <AnchorPane prefHeight="500.0" prefWidth="1200.0">
+                                 <children>
+                                    <TableView fx:id="relationTable" layoutX="26.0" layoutY="31.0" prefHeight="461.0" prefWidth="567.0">
+                                       <columns>
+                                          <TableColumn prefWidth="36.350791931152344" />
+                                          <TableColumn fx:id="relationNameColumn" prefWidth="212.20331573486328" text="Name" />
+                                          <TableColumn fx:id="relationRelationshipColumn" prefWidth="127.79664611816406" text="Relationship" />
+                                          <TableColumn prefWidth="83.458984375" text="Family?" />
+                                          <TableColumn minWidth="0.0" prefWidth="106.95245361328125" text="Caregiver" />
+                                       </columns>
+                                    </TableView>
+                                    <AnchorPane layoutX="603.0" layoutY="7.0" prefHeight="518.0" prefWidth="587.0">
+                                       <children>
+                                          <TextField fx:id="relationName" layoutX="39.0" layoutY="51.0" prefHeight="35.0" prefWidth="309.0" promptText="Enter name..." />
+                                          <TextField fx:id="relationshipField" layoutX="379.0" layoutY="107.0" prefHeight="33.0" prefWidth="145.0" promptText="Relationship" />
+                                          <Label layoutX="38.0" layoutY="16.0" text="Relation details:" />
+                                          <DatePicker fx:id="relationBirthday" layoutX="40.0" layoutY="161.0" prefHeight="28.0" prefWidth="156.0" promptText="Birthday" />
+                                          <TableView fx:id="relationPhoneTable" layoutX="29.0" layoutY="199.0" prefHeight="151.0" prefWidth="484.0">
+                                             <columns>
+                                                <TableColumn prefWidth="28.0" />
+                                                <TableColumn fx:id="relationPhoneColumn" prefWidth="306.37664794921875" text="Phone Numbers" />
+                                                <TableColumn fx:id="relationPhoneLabelColumn" prefWidth="169.62335205078125" text="Contact Label" />
+                                             </columns>
+                                          </TableView>
+                                          <TableView fx:id="relationEmailTable" layoutX="27.0" layoutY="358.0" prefHeight="151.0" prefWidth="488.0">
+                                             <columns>
+                                                <TableColumn prefWidth="33.0" />
+                                                <TableColumn fx:id="relationEmailColumn" prefWidth="298.20263671875" text="Emails" />
+                                                <TableColumn fx:id="relationEmailLabelColumn" prefWidth="174.79742431640625" text="Contact Label" />
+                                             </columns>
+                                          </TableView>
+                                          <TextField fx:id="relationName1" layoutX="39.0" layoutY="106.0" prefHeight="35.0" prefWidth="309.0" promptText="Enter name..." />
+                                          <Button layoutX="472.0" layoutY="8.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="55.0" text="+">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font></Button>
+                                          <ComboBox layoutX="377.0" layoutY="55.0" prefWidth="150.0" promptText="Relation Type" />
+                                          <CheckBox alignment="CENTER" layoutX="243.0" layoutY="162.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" text="Family" />
+                                          <CheckBox alignment="CENTER" layoutX="405.0" layoutY="162.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Caregiver" />
+                                          <VBox layoutX="528.0" layoutY="200.0" prefHeight="72.0" prefWidth="51.0" spacing="10.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" onAction="#addRelationPhone" prefHeight="26.0" prefWidth="51.0" text="+">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button mnemonicParsing="false" onAction="#removeRelationPhone" prefHeight="27.0" prefWidth="55.0" text="-">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Button>
+                                             </children>
+                                          </VBox>
+                                          <VBox layoutX="525.0" layoutY="357.0" prefHeight="72.0" prefWidth="51.0" spacing="10.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" onAction="#addRelationEmail" prefHeight="26.0" prefWidth="51.0" text="+">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button mnemonicParsing="false" onAction="#removeRelationEmail" prefHeight="27.0" prefWidth="55.0" text="-">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Button>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </TitledPane>
+                        <TitledPane animated="false" layoutX="10.0" layoutY="37.0" text="Dietary &amp; Pet Information">
+                           <content>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <TableView fx:id="mealTable" layoutX="35.0" layoutY="31.0" prefHeight="235.0" prefWidth="680.0">
+                                       <columns>
+                                          <TableColumn prefWidth="48.511146545410156" />
+                                          <TableColumn fx:id="mealNameColumn" prefWidth="233.43173217773438" text="Name" />
+                                          <TableColumn fx:id="mealCaloriesColumn" prefWidth="113.46563720703125" text="Calories" />
+                                          <TableColumn fx:id="mealRatingColumn" prefWidth="155.18191528320312" text="Rating" />
+                                          <TableColumn fx:id="mealNotesColumn" prefWidth="144.81805419921875" text="Notes" />
+                                       </columns>
+                                    </TableView>
+                                    <AnchorPane layoutX="751.0" layoutY="12.0" prefHeight="518.0" prefWidth="422.0">
+                                       <children>
+                                          <TextField fx:id="mealName" layoutX="16.0" layoutY="58.0" prefHeight="35.0" prefWidth="283.0" promptText="Meal Name" />
+                                          <TextField fx:id="mealCalories" layoutX="333.0" layoutY="60.0" prefHeight="32.0" prefWidth="73.0" promptText="Calories" />
+                                          <TextArea fx:id="mealNotes" layoutX="20.0" layoutY="171.0" prefHeight="95.0" prefWidth="385.0" promptText="Special notes..." />
+                                          <Button layoutX="373.0" layoutY="4.0" mnemonicParsing="false" onAction="#handleAddMeal" text="+" />
+                                          <Button layoutX="374.0" layoutY="313.0" mnemonicParsing="false" onAction="#handleAddPet" text="+" />
+                                          <TextField fx:id="petName" layoutX="33.0" layoutY="371.0" prefHeight="35.0" prefWidth="372.0" promptText="Pet Name" />
+                                          <TextField fx:id="petSpecies" layoutX="33.0" layoutY="443.0" prefHeight="35.0" prefWidth="201.0" promptText="Pet Species" />
+                                          <CheckBox fx:id="allergyFriendlyCheckBox" layoutX="265.0" layoutY="446.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="140.0" text="Allergy Friendly" />
+                                          <Separator layoutX="48.0" layoutY="290.0" prefHeight="6.0" prefWidth="323.0" />
+                                          <Label layoutX="18.0" layoutY="7.0" text="Meal Information" />
+                                          <Label layoutX="31.0" layoutY="317.0" prefHeight="24.0" prefWidth="115.0" text="Pet Information" />
+                                          <AnchorPane fx:id="mealRating" layoutX="35.0" layoutY="111.0" prefHeight="42.0" prefWidth="372.0" />
+                                       </children>
+                                    </AnchorPane>
+                                    <TableView fx:id="petTable" layoutX="37.0" layoutY="301.0" prefHeight="208.0" prefWidth="681.0">
+                                       <columns>
+                                          <TableColumn prefWidth="38.420196533203125" />
+                                          <TableColumn fx:id="petNameColumn" prefWidth="293.5481185913086" text="Name" />
+                                          <TableColumn fx:id="petSpeciesColumn" prefWidth="184.80258178710938" text="Species" />
+                                          <TableColumn fx:id="petAllergyFriendlyColumn" prefWidth="176.1973876953125" text="Allergy Friendly" />
+                                       </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </TitledPane>
+                     </panes>
+                  </Accordion>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="35.0" prefWidth="1198.0">
+               <children>
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#save" prefHeight="30.0" prefWidth="90.0" stylesheets="@cvnStyle.css" text="Save" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
    </children>
 </AnchorPane>

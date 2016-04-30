@@ -72,13 +72,13 @@
 }
 
 .button {
-    -fx-background-color: 
-        #000000,
-        linear-gradient(#7ebcea, #2f4b8f),
-        linear-gradient(#426ab7, #263e75),
-        linear-gradient(#395cab, #223768);
-    -fx-background-insets: 0,1,2,3;
-    -fx-background-radius: 3,2,2,2;
+	-fx-background-color:
+			#000000,
+			linear-gradient(#7ebcea, #2f4b8f),
+			linear-gradient(#426ab7, #263e75),
+			linear-gradient(#395cab, #223768);
+	-fx-background-insets: 0,1,2,3;
+	-fx-background-radius: 3,2,2,2;
 	-fx-text-fill: #FFFFFF;
 	-fx-cursor: hand;
 }
@@ -204,11 +204,11 @@
 }
 
 .scroll-bar .thumb{
-	-fx-background-color:derive  (#353535, 75%);
+	-fx-background-color:derive(#353535, 75%);
 }
 
 .scroll-bar .thumb:hover{
-	-fx-background-color:derive (#353535, 50%);
+	-fx-background-color:derive(#353535, 50%);
 }
 
 .scroll-bar .thumb:pressed{
@@ -216,8 +216,8 @@
 }
 
 .scroll-pane .scroll-bar:vertical .decrement-button:hover {
-	-fx-background-color:derive (#353535, 50%);
-	-fx-border-color:derive (#353535, 50%);
+	-fx-background-color:derive(#353535, 50%);
+	-fx-border-color:derive(#353535, 50%);
 }
 
 .scroll-pane .scroll-bar:vertical .decrement-button:pressed {
@@ -230,8 +230,8 @@
 }
 
 .scroll-pane .scroll-bar:vertical .increment-button:hover {
-	-fx-background-color:derive (#353535, 50%);
-	-fx-border-color:derive (#353535, 50%);
+	-fx-background-color:derive(#353535, 50%);
+	-fx-border-color:derive(#353535, 50%);
 }
 
 .scroll-pane .scroll-bar:vertical .increment-button:pressed {
@@ -244,8 +244,8 @@
 }
 
 .scroll-pane .scroll-bar:horizontal .decrement-button:hover {
-	-fx-background-color:derive (#353535, 50%);
-	-fx-border-color:derive (#353535, 50%);
+	-fx-background-color:derive(#353535, 50%);
+	-fx-border-color:derive(#353535, 50%);
 }
 
 .scroll-pane .scroll-bar:horizontal .decrement-button:pressed {
@@ -258,8 +258,8 @@
 }
 
 .scroll-pane .scroll-bar:horizontal .increment-button:hover {
-	-fx-background-color:derive (#353535, 50%);
-	-fx-border-color:derive (#353535, 50%);
+	-fx-background-color:derive(#353535, 50%);
+	-fx-border-color:derive(#353535, 50%);
 }
 
 .scroll-pane .scroll-bar:horizontal .increment-button:pressed {

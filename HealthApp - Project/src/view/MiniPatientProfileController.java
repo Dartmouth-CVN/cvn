@@ -1,23 +1,20 @@
 package view;
 
+import java.io.IOException;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.MainApp;
-import model.MedicalStaff;
-import model.Patient;
+import model.*;
 import utils.ObjectNotFoundException;
-
-import java.io.IOException;
 
 public class MiniPatientProfileController extends AbsController {
 	
@@ -25,13 +22,13 @@ public class MiniPatientProfileController extends AbsController {
 
 	// Integer will be replaced with Profile model
 	@FXML
-	private TableView<MedicalStaff> assignedStaffTable;
+	private TableView<MedicalStaffWrapper> assignedStaffTable;
 	@FXML
-	private TableColumn<MedicalStaff, String> positionColumn;
+	private TableColumn<MedicalStaffWrapper, String> positionColumn;
 	@FXML
-	private TableColumn<MedicalStaff, String> firstNameColumn;
+	private TableColumn<MedicalStaffWrapper, String> firstNameColumn;
 	@FXML
-	private TableColumn<MedicalStaff, String> lastNameColumn;
+	private TableColumn<MedicalStaffWrapper, String> lastNameColumn;
 	@FXML
 	private Button viewPatientProfileButton = new Button();
 	@FXML
@@ -41,7 +38,9 @@ public class MiniPatientProfileController extends AbsController {
 	@FXML
 	private Button removeProfileButton = new Button();
 	@FXML
-	private ImageView profilePic;
+	private ImageView patientProfilePic;
+	@FXML
+	private ImageView staffProfilePic;
 	@FXML
 	private Label nameLabel;
 	@FXML
@@ -51,10 +50,10 @@ public class MiniPatientProfileController extends AbsController {
 	@FXML
 	private Label emailLabel;
 	@FXML
-	private Label assignedStaffLabel;
+	private Label staffNameLabel;
 	@FXML
 	private AnchorPane miniProfilePane;
-	
+
 
 	private int userId;
 	
@@ -87,9 +86,12 @@ public class MiniPatientProfileController extends AbsController {
 		this.patient = patient;
 		loadPatientDetails();
 	}
+
+	private int staffIndex;
+	ObservableList<MedicalStaffWrapper> medStaff;
 	
 	public void loadPatientDetails(){
-		profilePic.setImage(new Image("file:" + patient.getPicture()));
+		patientProfilePic.setImage(new Image("file:" + patient.getPicture()));
 		nameLabel.setText(patient.getFirstName() + " " + patient.getLastName());
 		idLabel.setText(String.valueOf(patient.getUserId()));
 
@@ -97,9 +99,27 @@ public class MiniPatientProfileController extends AbsController {
 			phoneLabel.setText(patient.getContactInfo().getPrimaryPhone().getValue());
 			emailLabel.setText(patient.getContactInfo().getPrimaryEmail().getValue());
 		} catch (ObjectNotFoundException e) {
-			e.printStackTrace();
+			MainApp.printError(e);
 		}
 
+		medStaff  = FXCollections.observableArrayList();
+		for(MedicalStaff med : patient.getAssignedStaff())
+			medStaff.add(new MedicalStaffWrapper(med));
+
+		assignedStaffTable.setItems(medStaff);
+		assignedStaffTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			staffIndex = assignedStaffTable.getSelectionModel().getSelectedIndex();
+			handleStaffSwitch();
+		});
+		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
+		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
+		positionColumn.setCellValueFactory(cellData -> cellData.getValue().getRoleProperty());
+	}
+
+	private void handleStaffSwitch(){
+		MedicalStaff med = medStaff.get(staffIndex).getMedicalStaff();
+		staffNameLabel.setText(med.getFirstName() + " " + med.getLastName());
+		staffProfilePic.setImage(new Image("file:" + med.getPicture()));
 	}
 	
 

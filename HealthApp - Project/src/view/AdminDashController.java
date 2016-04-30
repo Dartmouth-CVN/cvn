@@ -37,7 +37,6 @@ public class AdminDashController extends MedicalStaffDashController {
 	private void initialize() {
 		loadAdminFields();
 		super.initializeTabs();
-		System.out.println("loading this stuff");
 		tabPane.getSelectionModel().selectedItemProperty().addListener((ov, oldTab, newTab) -> {
 			if(newTab.equals(exportTab)) {
 				loadExportTab();

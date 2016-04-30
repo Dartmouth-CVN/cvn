@@ -93,5 +93,14 @@ public class Meal{
         }
         return new Meal(food, calories, rating, notes);
     }
+
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof  Meal){
+            Meal other = (Meal) o;
+            return food.equals(other.getFood()) ;
+        }
+        return false;
+    }
 }
 

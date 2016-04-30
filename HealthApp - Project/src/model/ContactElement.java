@@ -9,6 +9,7 @@ public class ContactElement{
     String value;
     String type;
     String contactType;//TYPES: PHONE, EMAIL, ADDRESS
+    public static enum contactLabel {WORK, HOME, OFFICE};
 
     public ContactElement() {
         this(0, "Enter contact info...", "Personal", "PHONE");

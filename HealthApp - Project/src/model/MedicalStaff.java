@@ -42,7 +42,8 @@ public class MedicalStaff extends AbsUser {
     }
 
     public void addPatient(Patient p) {
-        assignedPatients.add(p);
+        if(!assignedPatients.contains(p))
+            assignedPatients.add(p);
     }
 
     @Override

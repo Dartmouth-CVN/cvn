@@ -43,9 +43,9 @@ public class RandomGenerator {
 
 	static String[] relationTypes = {"Daughter", "Son", "Sister", "Daughter-in-Law", "Son-in-Law", "Mother", "Father"};
 
-	static String[] profilePic = {"profile_pictures/pic1.jpg",
-			"profile_pictures/pic2.jpg",
-			"profile_pictures/pic3.png"};
+	static String[] profilePic = {"profile_pictures/pic1.jpg", "profile_pictures/pic2.jpg",
+			"profile_pictures/pic3.png", "profile_pictures/pic4.jpg", "profile_pictures/pic5.jpg",
+			"profile_pictures/pic6.jpg"};
 
 	static Random randomNumber = getRandomNumber();
 
@@ -122,30 +122,37 @@ public class RandomGenerator {
 	}
 
 	public static Patient fillPatient(Patient patient){
-		int rand = RandomGenerator.getRandomNumber().nextInt(10);
+		int rand = RandomGenerator.getRandomNumber().nextInt(5);
 		List<Pet> pets = new LinkedList<Pet>();
 		for(int i = 0; i < rand; i++)
 			pets.add(RandomGenerator.getRandomPet());
 
 		List<Meal> meals = new LinkedList<Meal>();
-		rand = RandomGenerator.getRandomNumber().nextInt(10);
+		rand = RandomGenerator.getRandomNumber().nextInt(5);
 		for(int i = 0; i < rand; i++)
 			meals.add(RandomGenerator.getRandomMeal());
 
 		List<AbsRelation> caregivers = new LinkedList<AbsRelation>();
-		rand = RandomGenerator.getRandomNumber().nextInt(10);
+		rand = RandomGenerator.getRandomNumber().nextInt(5);
 		for(int i = 0; i < rand; i++)
 			caregivers.add(RandomGenerator.getRandomCaregiver());
 
+		List<AbsRelation> family = new LinkedList<AbsRelation>();
+		rand = RandomGenerator.getRandomNumber().nextInt(5);
+		for(int i = 0; i < rand; i++)
+			family.add(RandomGenerator.getRandomFamily());
+
 		List<MedicalStaff> medStaff = new LinkedList<MedicalStaff>();
-		rand = RandomGenerator.getRandomNumber().nextInt(10);
+		rand = RandomGenerator.getRandomNumber().nextInt(5);
 		for(int i = 0; i < rand; i++)
 			medStaff.add(RandomGenerator.getRandomMedicalStaff());
 
 		patient.setPets(pets);
 		patient.setMeals(meals);
 		patient.setRelations(caregivers);
+		patient.addRelations(family);
 		patient.setAssignedStaff(medStaff);
+
 		return patient;
 	}
 
@@ -228,7 +235,7 @@ public class RandomGenerator {
 
 	public static Meal getRandomMeal() {
 		return new Meal( getRandomId(), foodNames[randomNumber.nextInt(foodNames.length)],
-				randomNumber.nextInt(10) + 1, randomNumber.nextInt(200), "");
+				randomNumber.nextInt(10) + 1, randomNumber.nextInt(10), "");
 	}
 
 	public static String getRandomUserId(AbsUser user){

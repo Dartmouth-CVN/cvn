@@ -70,4 +70,13 @@ public class Pet{
         }
         return new Pet(name, species, allergyFriendly);
     }
+
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof  Pet){
+            Pet other = (Pet) o;
+            return name.equals(other.getName()) && species.equals(other.getSpecies());
+        }
+        return false;
+    }
 }

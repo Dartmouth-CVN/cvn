@@ -10,6 +10,8 @@ public abstract class AbsRelation extends AbsUser {
     boolean isFamily;
     boolean isCaregiver;
 
+    public static enum relationType {CAREGIVER, FAMILY};
+
     public AbsRelation() {
     }
 

@@ -118,11 +118,9 @@ public class SearchController extends AbsController {
 		showMiniPatientProfile();
 	}
 
-
 	public void showMiniPatientProfile() {
 		LoadedScene scene = MainApp.getLoadedSceneOfType(new MiniPatientProfileController());
 		Patient patient = (Patient) DBHandler.getUniqueInstance().getFilledPatientById(userId);
-		System.out.println("searched user pets " + patient.getPets().size() );
 		((MiniPatientProfileController) scene.getController()).setPatient(patient);
 
 		if(profileTabPane.getTabs().isEmpty()){
@@ -134,7 +132,6 @@ public class SearchController extends AbsController {
             profileTab.setText(patient.getLastName());
             profileTab.setContent(scene.getPane());
         }
-
 	}
 
 	public void showNewMiniPatientProfile() {

@@ -72,9 +72,10 @@ public class Patient extends AbsUser{
             addAssignedStaff(m);
     }
 
-    public void addAssignedStaff(MedicalStaff m) {
-        this.assignedStaff.add(m);
-        m.addPatient(this);
+    public void addAssignedStaff(MedicalStaff med) {
+        if(!assignedStaff.contains(med))
+            assignedStaff.add(med);
+            med.addPatient(this);
     }
 
     public List<AbsRelation> getRelations() {
@@ -82,6 +83,10 @@ public class Patient extends AbsUser{
     }
 
     public void setRelations(List<AbsRelation> relations) {
+        this.relations = relations;
+    }
+
+    public void addRelations(List<AbsRelation> relations) {
         for (AbsRelation rel : relations)
             addRelation(rel);
     }
@@ -101,7 +106,8 @@ public class Patient extends AbsUser{
     }
 
     public void addPet(Pet p) {
-        this.pets.add(p);
+        if(!pets.contains(p))
+            pets.add(p);
     }
 
     public List<Meal> getMeals() {
@@ -114,7 +120,8 @@ public class Patient extends AbsUser{
     }
 
     public void addMeal(Meal m) {
-        this.meals.add(m);
+        if(!meals.contains(m))
+            meals.add(m);
     }
 
     public boolean getIsNewPatient() {
