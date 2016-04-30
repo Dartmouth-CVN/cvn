@@ -1,19 +1,16 @@
 package utils;
 
+import model.HealthAttribute;
+import model.MainApp;
+import model.Patient;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
-
-import model.HealthAttribute;
-import model.MainApp;
-import model.Patient;
+import java.time.format.DateTimeParseException;
+import java.util.*;
 
 public class FitBitParsingUtils {
 	public static List<HealthAttribute<?>> fitBitImport(String str) {
@@ -82,8 +79,7 @@ public class FitBitParsingUtils {
 			e1.printStackTrace();
 			return null;
 		}
-		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-DD");
+
 		String state = "No State";
 		List<String> titles = new ArrayList<String>();
 		while (fileReader.hasNextLine()) {
@@ -134,18 +130,41 @@ public class FitBitParsingUtils {
 	}
 
 	public static void addAttributesToInfo(String info[], List<String> titles){
+		DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+		DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("M/dd/yyyy");
+		DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("MM/d/yyyy");
+		DateTimeFormatter formatter4 = DateTimeFormatter.ofPattern("M/d/yyyy");
+		LocalDate t;
+		t = LocalDate.now();
 		HealthAttribute<?> hi;
 		for (int i = 1; i < info.length-5; i++) {
 
+			try {
+				t = LocalDate.parse(info[0], formatter1);
+			} catch (DateTimeParseException e) {}
+
+			try {
+				t = LocalDate.parse(info[0], formatter2);
+			} catch (DateTimeParseException e) {}
+
+			try {
+				t = LocalDate.parse(info[0], formatter3);
+			} catch (DateTimeParseException e) {}
+
+			try {
+				t = LocalDate.parse(info[0], formatter4);
+			} catch (DateTimeParseException e) {}
+
+
 			if(RandomGenerator.isInteger(info[i])) {
-				hi = new HealthAttribute<Integer>(RandomGenerator.getRandomId(),
-						LocalDate.parse(info[0]), titles.get(i), Integer.parseInt(info[i]));
+				hi = new HealthAttribute<Integer>(RandomGenerator.getRandomId(), t
+						, titles.get(i), Integer.parseInt(info[i]));
 			}else if(RandomGenerator.isDouble(info[i])){
 				hi = new HealthAttribute<Double>(RandomGenerator.getRandomId(),
-						LocalDate.parse(info[0]), titles.get(i), Double.parseDouble(info[i]));
+						t, titles.get(i), Double.parseDouble(info[i]));
 			}else{
 				hi = new HealthAttribute<>(RandomGenerator.getRandomId(),
-						LocalDate.parse(info[0]), titles.get(i), info[i]);
+						t, titles.get(i), info[i]);
 			}
 			healthInfo.add(hi);
 		}
@@ -174,7 +193,7 @@ public class FitBitParsingUtils {
 			return;
 		}
 		for (Patient p : pts) {
-			
+
 			toWrite.println(p.getFirstName() + " " + p.getLastName());
 			for (HealthAttribute h : p.getHealthProfile().getHealthInfo()) {
 				String toPrint = h.toString();
