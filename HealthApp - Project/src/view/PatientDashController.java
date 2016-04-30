@@ -1,21 +1,18 @@
 package view;
 
-import java.io.IOException;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import model.ContactElement;
 import model.MainApp;
 import model.Patient;
-import utils.ObjectNotFoundException;
+
+import java.io.IOException;
 
 public class PatientDashController extends AbsDashController {
 	@FXML
@@ -24,6 +21,8 @@ public class PatientDashController extends AbsDashController {
 	BorderPane layout;
 	@FXML
 	private Tab statsTab;
+	@FXML
+	private ImageView statsImage;
 
 	@FXML
 	private ImageView profilePic;
@@ -80,6 +79,12 @@ public class PatientDashController extends AbsDashController {
 
 	public void showCalendar(Scene calendar) {
 		// primaryStage.setScene(calendar);
+	}
+
+	@FXML
+	public void handleStatsImage() {
+		loadStatsTab();
+		tabPane.getSelectionModel().select(statsTab);
 	}
 
 	public void loadStatsTab() {

@@ -29,5 +29,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="controlsfx-8.40.10" level="project" />
+    <orderEntry type="library" name="jars1" level="project" />
   </component>
 </module>
