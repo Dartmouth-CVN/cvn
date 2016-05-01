@@ -30,7 +30,9 @@ public class HTMLParsingUtils implements ParsingUtils {
     public void exportData(File f, List<Patient> patients, PatientExportWrapper exportWrapper) {
         try {
             PrintWriter toFile = new PrintWriter(f);
-            toFile.println("<html><head><title>Patient List</title></head><body>\n<table>\n");
+            toFile.println("<html><head><title>Patient List</title>");
+            toFile.println(getStyleString());
+            toFile.println("</head><body>\n<table>\n");
             for (Patient p : patients) {
                 exportWrapper.setPatient(p);
                 toFile.println(exportWrapper.toHTMLString());
@@ -41,5 +43,19 @@ public class HTMLParsingUtils implements ParsingUtils {
             System.err.println("The file selected is either inaccessible or does not exist.");
         }
 
+    }
+
+    private String getStyleString() {
+        String output = "";
+        output += "<style>\n";
+        output += "table{\n border-collapse: collapse\n}\n";
+        output += "table, th, td {\n border: 1px solid black;\n}\n";
+        output += "tr:hover {\nbackground-color: #f5fff5\n}\n";
+        output += "</style>";
+        return output;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new HTMLParsingUtils().getStyleString());
     }
 }
