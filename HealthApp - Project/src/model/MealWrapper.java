@@ -58,4 +58,13 @@ public class MealWrapper {
     public Meal toMeal() {
         return this.meal;
     }
+
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof MealWrapper){
+            Meal other = ((MealWrapper) o).toMeal();
+            return other.getFood().equals(meal.getFood());
+        }
+        return false;
+    }
 }

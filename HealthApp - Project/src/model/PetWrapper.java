@@ -49,4 +49,13 @@ public class PetWrapper {
     public Pet toPet() {
         return this.pet;
     }
+
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof PetWrapper){
+            Pet other = ((PetWrapper) o).toPet();
+            return other.getName().equals(pet.getName()) && other.getSpecies().equals(pet.getSpecies());
+        }
+        return false;
+    }
 }

@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EditPatientController">
+<AnchorPane prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EditPatientController">
    <children>
       <SplitPane dividerPositions="0.933641975308642" orientation="VERTICAL" prefHeight="700.0" prefWidth="1238.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -162,6 +162,11 @@
                                                       <Font size="18.0" />
                                                    </font>
                                                 </Button>
+                                                <Button mnemonicParsing="false" onAction="#handleSaveRelation" prefHeight="27.0" prefWidth="55.0" text="O">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Button>
                                              </children>
                                           </VBox>
                                        </children>
@@ -182,7 +187,7 @@
                                           <TableColumn fx:id="mealNotesColumn" prefWidth="175.00006103515625" text="Notes" />
                                        </columns>
                                     </TableView>
-                                    <AnchorPane layoutX="751.0" layoutY="12.0" prefHeight="483.0" prefWidth="422.0">
+                                    <AnchorPane layoutX="736.0" layoutY="14.0" prefHeight="483.0" prefWidth="438.0">
                                        <children>
                                           <TextField fx:id="mealName" layoutX="16.0" layoutY="58.0" prefHeight="35.0" prefWidth="283.0" promptText="Meal Name" />
                                           <TextField fx:id="mealCalories" layoutX="333.0" layoutY="60.0" prefHeight="32.0" prefWidth="73.0" promptText="Calories" />
@@ -193,8 +198,8 @@
                                           <Separator layoutX="48.0" layoutY="290.0" prefHeight="6.0" prefWidth="323.0" />
                                           <Label layoutX="18.0" layoutY="7.0" text="Meal Information" />
                                           <Label layoutX="31.0" layoutY="317.0" prefHeight="24.0" prefWidth="115.0" text="Pet Information" />
-                                          <AnchorPane fx:id="mealRating" layoutX="35.0" layoutY="111.0" prefHeight="42.0" prefWidth="372.0" />
-                                          <HBox alignment="CENTER" layoutX="299.0" layoutY="307.0" prefHeight="45.0" prefWidth="110.0" spacing="15.0">
+                                          <AnchorPane fx:id="mealRating" layoutX="34.0" layoutY="111.0" prefHeight="42.0" prefWidth="372.0" />
+                                          <HBox alignment="CENTER" layoutX="282.0" layoutY="307.0" prefHeight="45.0" prefWidth="110.0" spacing="15.0">
                                              <children>
                                                 <Button mnemonicParsing="false" onAction="#handleAddPet" prefHeight="34.0" prefWidth="38.0" text="+">
                                                    <font>
@@ -206,9 +211,14 @@
                                                       <Font size="18.0" />
                                                    </font>
                                                 </Button>
+                                                <Button mnemonicParsing="false" onAction="#handleSavePet" prefHeight="31.0" prefWidth="42.0" text="O">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Button>
                                              </children>
                                           </HBox>
-                                          <HBox alignment="CENTER" layoutX="301.0" layoutY="6.0" prefHeight="45.0" prefWidth="110.0" spacing="15.0">
+                                          <HBox alignment="CENTER" layoutX="271.0" layoutY="6.0" prefHeight="45.0" prefWidth="153.0" spacing="15.0">
                                              <children>
                                                 <Button mnemonicParsing="false" onAction="#handleAddMeal" prefHeight="34.0" prefWidth="38.0" text="+">
                                                    <font>
@@ -216,6 +226,11 @@
                                                    </font>
                                                 </Button>
                                                 <Button mnemonicParsing="false" onAction="#handleRemoveMeal" prefHeight="31.0" prefWidth="42.0" text="-">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button mnemonicParsing="false" onAction="#handleSaveMeal" prefHeight="31.0" prefWidth="42.0" text="O">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
