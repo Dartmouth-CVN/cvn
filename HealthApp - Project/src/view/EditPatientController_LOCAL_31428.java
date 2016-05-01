@@ -23,9 +23,6 @@ import org.apache.derby.impl.tools.sysinfo.Main;
 import org.controlsfx.control.Rating;
 import utils.FitBitParsingUtils;
 
-import java.io.File;
-import java.time.format.DateTimeFormatter;
-
 public class EditPatientController extends AbsController {
 
     @FXML
@@ -132,8 +129,6 @@ public class EditPatientController extends AbsController {
     int emailIndex = 0;
     ContactElement element;
 
-
-
     DateTimeFormatter myDateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private Patient patient;
 
@@ -143,7 +138,7 @@ public class EditPatientController extends AbsController {
 
     @FXML
     public FXMLLoader getLoader() {
-        loader.setLocation(MainApp.class.getResource("/view/EditPatientView.fxml"));
+        loader.setLocation(MainApp.class.getResource("../view/EditPatientView.fxml"));
         return loader;
     }
 
@@ -312,17 +307,10 @@ public class EditPatientController extends AbsController {
     }
 
     private void handlePetChange(){
-        Pet p;
-        if(pets.size() > 0) {
-            p = pets.get(petIndex).toPet();
-            petName.setText(p.getName());
-            petSpecies.setText(p.getSpecies());
-            allergyFriendlyCheckBox.setSelected(p.isAllergyFriendly());
-        } else {
-            petName.clear();
-            petSpecies.clear();
-            allergyFriendlyCheckBox.setSelected(false);
-        }
+        Pet p = pets.get(petIndex).toPet();
+        petName.setText(p.getName());
+        petSpecies.setText(p.getSpecies());
+        allergyFriendlyCheckBox.setSelected(p.isAllergyFriendly());
     }
 
     public void initializeDietaryPreferences() {
@@ -343,19 +331,11 @@ public class EditPatientController extends AbsController {
     }
 
     private void handleMealChange(){
-        Meal m;
-        if(meals.size() > 0) {
-            m = meals.get(mealIndex).toMeal();
-            mealName.setText(m.getFood());
-            mealCalories.setText(String.valueOf(m.getCalories()));
-            mealNotes.setText(m.getNotes());
-            stars.setRating(m.getRating());
-        } else {
-            mealName.clear();
-            mealCalories.clear();
-            mealNotes.clear();
-            stars.setRating(0);
-        }
+        Meal m = meals.get(mealIndex).toMeal();
+        mealName.setText(m.getFood());
+        mealCalories.setText(String.valueOf(m.getCalories()));
+        mealNotes.setText(m.getNotes());
+        stars.setRating(m.getRating());
     }
 
     public void loadFields() {
@@ -435,76 +415,29 @@ public class EditPatientController extends AbsController {
 
     @FXML
     private void handleAddPet() {
-        String name = petName.getText();
-        String species = petSpecies.getText();
-        Boolean allergyFriendly = allergyFriendlyCheckBox.isSelected();
-
-        Pet pet = new Pet(name, species, allergyFriendly);
-        pets.add(new PetWrapper(pet));
+        petTable.getItems().add(new PetWrapper(new Pet()));
     }
 
     @FXML
     private void handleRemovePet() {
         int selectionIndex = petTable.getSelectionModel().getSelectedIndex();
 
-        if(pets.size() > 0) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setHeaderText("Remove pet");
-            alert.setContentText("Are you sure you want to remove this pet?");
-            alert.showAndWait().ifPresent(rs -> {
-                if (rs == ButtonType.CANCEL) {
-                    return;
-                } else if (rs == ButtonType.OK) {
-                    if (selectionIndex >= 0) {
-                        petTable.getItems().remove(selectionIndex);
-                    }
-
-                    petName.clear();
-                    petSpecies.clear();
-                    allergyFriendlyCheckBox.setSelected(false);
-                }
-            });
+        if (selectionIndex >= 0) {
+            petTable.getItems().remove(selectionIndex);
         }
     }
 
     @FXML
     private void handleAddMeal() {
-        String name = mealName.getText();
-        int calories;
-        int rating = (int) stars.getRating();
-        String notes = mealNotes.getText();
-
-        try{
-            calories = Integer.parseInt(mealCalories.getText());
-        } catch (NumberFormatException e) {
-            calories = 0;
-        }
-
-        Meal meal = new Meal(name, calories, rating, notes);
-        meals.add(new MealWrapper(meal));
+        mealTable.getItems().add(new MealWrapper(new Meal()));
     }
 
     @FXML
-    private void handleRemoveMeal() {
+    private void removeMeal() {
         int selectionIndex = mealTable.getSelectionModel().getSelectedIndex();
 
-        if(meals.size() > 0) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setHeaderText("Remove meal");
-            alert.setContentText("Are you sure you want to remove this meal?");
-            alert.showAndWait().ifPresent(rs -> {
-                if (rs == ButtonType.CANCEL) {
-                    return;
-                } else if (rs == ButtonType.OK) {
-                    if (selectionIndex >= 0) {
-                        mealTable.getItems().remove(selectionIndex);
-                    }
-                    mealName.clear();
-                    mealCalories.clear();
-                    stars.setRating(0);
-                    mealNotes.clear();
-                }
-            });
+        if (selectionIndex >= 0) {
+            mealTable.getItems().remove(selectionIndex);
         }
     }
 

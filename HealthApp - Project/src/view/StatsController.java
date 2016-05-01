@@ -52,7 +52,7 @@ public class StatsController  extends AbsController{
 
     @FXML
     public FXMLLoader getLoader(){
-        loader.setLocation(MainApp.class.getResource("../view/StatsView.fxml"));
+        loader.setLocation(MainApp.class.getResource("/view/StatsView.fxml"));
         return loader;
     }
 

@@ -49,7 +49,7 @@ public class SearchController extends AbsController {
 
 	@FXML
 	public FXMLLoader getLoader() {
-		loader.setLocation(MainApp.class.getResource("../view/SearchView.fxml"));
+		loader.setLocation(MainApp.class.getResource("/view/SearchView.fxml"));
 		return loader;
 	}
 
@@ -94,6 +94,13 @@ public class SearchController extends AbsController {
 			ObservableList<PatientWrapper> patientList = FXCollections.observableArrayList();
 			for (Patient patient : patients)
                 patientList.add(new PatientWrapper(patient));
+
+			profileTable.setItems(patientList);
+		} else if(!key.equals("")){
+			List<Patient> patients = DBHandler.getUniqueInstance().patientNameSearch(key);
+			ObservableList<PatientWrapper> patientList = FXCollections.observableArrayList();
+			for (Patient patient : patients)
+				patientList.add(new PatientWrapper(patient));
 
 			profileTable.setItems(patientList);
 		}
