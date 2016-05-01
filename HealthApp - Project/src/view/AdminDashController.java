@@ -60,7 +60,7 @@ public class AdminDashController extends MedicalStaffDashController {
 
 	@Override
 	public FXMLLoader getLoader(){
-		loader.setLocation(MainApp.class.getResource("../view/AdminDash.fxml"));
+		loader.setLocation(MainApp.class.getResource("/view/AdminDash.fxml"));
 		return loader;
 	}
 }

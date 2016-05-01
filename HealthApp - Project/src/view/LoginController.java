@@ -27,7 +27,7 @@ public class LoginController extends AbsController {
 	
 	@Override
 	public FXMLLoader getLoader() {
-		loader.setLocation(MainApp.class.getResource("../view/LoginView.fxml"));
+		loader.setLocation(MainApp.class.getResource("/view/LoginView.fxml"));
 		return loader;
 	}
 

@@ -49,7 +49,7 @@ public class SearchController extends AbsController {
 
 	@FXML
 	public FXMLLoader getLoader() {
-		loader.setLocation(MainApp.class.getResource("../view/SearchView.fxml"));
+		loader.setLocation(MainApp.class.getResource("/view/SearchView.fxml"));
 		return loader;
 	}
 

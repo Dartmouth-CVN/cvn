@@ -1,9 +1,5 @@
 package view;
 
-import java.io.File;
-import java.time.format.DateTimeFormatter;
-import java.util.LinkedList;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,13 +10,14 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.util.converter.DefaultStringConverter;
 import model.*;
 import org.controlsfx.control.Rating;
 import utils.FitBitParsingUtils;
-import utils.ObjectNotFoundException;
+
+import java.io.File;
+import java.time.format.DateTimeFormatter;
 
 public class EditPatientController extends AbsController {
 
@@ -130,7 +127,7 @@ public class EditPatientController extends AbsController {
 
     @FXML
     public FXMLLoader getLoader() {
-        loader.setLocation(MainApp.class.getResource("../view/EditPatientView.fxml"));
+        loader.setLocation(MainApp.class.getResource("/view/EditPatientView.fxml"));
         return loader;
     }
 
