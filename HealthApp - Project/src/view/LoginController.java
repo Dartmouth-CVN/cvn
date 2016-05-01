@@ -50,6 +50,7 @@ public class LoginController extends AbsController {
                     username.setText("");
                     password.setText("");
                     username.requestFocus();
+                    System.out.printf("user contact size: %d\n", user.getContactInfo().getAllContactElements().size());
 
                     if (user instanceof Administrator)
                         mainApp.showAdminDash((Administrator) user);

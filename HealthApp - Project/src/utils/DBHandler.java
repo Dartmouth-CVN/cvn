@@ -809,9 +809,9 @@ public class DBHandler {
         if (connect()) {
             try {
                 AbsUser user = getAbsUserByUsername(username);
-               // List<ContactElement> info = getContactInfo(user.getUserIdValue());
-               // Contact contactInfo = new Contact(info);
-               // user.setContactInfo(contactInfo);
+                List<ContactElement> info = getContactInfo(user.getUserIdValue());
+                Contact contactInfo = new Contact(info);
+                user.setContactInfo(contactInfo);
                 return user;
             } catch (NullPointerException e) {
                 MainApp.printError(e);
@@ -843,7 +843,6 @@ public class DBHandler {
                     if (userType.equals(UserType.PATIENT.name())) {
                         user = getPatientByUsername(username);
                     } else if (userType.equals(UserType.ADMIN.name())) {
-
                         user = getAdministratorByUsername(username);
                     }
                 }
