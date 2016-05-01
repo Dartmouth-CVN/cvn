@@ -13,6 +13,11 @@ public class Caregiver extends AbsRelation {
         return "CA" + userIdValue;
     }
 
+    public Caregiver(String firstName, String lastName, String username, String password,
+                     LocalDate birthday, String room, String picture, Contact contactInfo, String relation, boolean isFamily) {
+        this(0L, firstName, lastName, username, password, birthday, room, picture, contactInfo, relation, isFamily);
+    }
+
     public Caregiver(long userIdValue, String firstName, String lastName, String username, String password,
                      LocalDate birthday, String room, String picture, Contact contactInfo, String relation, boolean isFamily) {
         super(userIdValue, firstName, lastName, username, password, birthday, room, picture, contactInfo, relation, isFamily, true);

@@ -297,10 +297,10 @@
 }
 
 .combo-box{
-	-fx-background-color:#353535;
+	/*-fx-background-color:#353535;*/
 }
 
 .combo-box .list-view{
-	-fx-background-color:#353535;
+	/*-fx-background-color:#353535;*/
 }
 

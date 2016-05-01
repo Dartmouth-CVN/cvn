@@ -212,17 +212,21 @@ public class RandomGenerator {
 
 		// add phone numbers
 		for (String type : types) {
-			phoneNumbers.add(new ContactElement(getRandomPhoneNumber(), type, "PHONE"));
+			phoneNumbers.add(new ContactElement(getRandomPhoneNumber(), ContactElement.contactLabel.HOME.name(),
+					Contact.contactTypes.PHONE.name()));
 		}
 
 		// add email addresses
 		for (String type : types) {
-			emails.add(new ContactElement(getRandomEmail(), type, "EMAIL"));
+			emails.add(new ContactElement(getRandomEmail(), ContactElement.contactLabel.WORK.name(), Contact.contactTypes.EMAIL.name()));
+
 		}
 
 		// add addresses
 		for (String type : types) {
-			addresses.add(new ContactElement(getRandomAddress(), type, "ADDRESS"));
+			addresses.add(new ContactElement(getRandomAddress(), ContactElement.contactLabel.HOME.name(),
+					Contact.contactTypes.ADDRESS.name()));
+
 		}
 
 		return new Contact(getRandomId(), phoneNumbers, emails, addresses);

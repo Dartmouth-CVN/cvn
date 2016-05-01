@@ -96,16 +96,8 @@
                                  <children>
                                     <TableView fx:id="relationTable" editable="true" layoutX="26.0" layoutY="31.0" prefHeight="461.0" prefWidth="567.0">
                                        <columns>
-                                          <TableColumn fx:id="relationNameColumn" prefWidth="212.20331573486328" text="Name" />
-                                          <TableColumn fx:id="relationRelationshipColumn" prefWidth="140.12657165527344" text="Relationship" />
-                                          <TableColumn fx:id="isFamilyColumn" prefWidth="96.87347412109375" text="Family?">
-                                             <!--<cellValueFactory><PropertyValueFactory property="isFamilyBoolean" /></cellValueFactory>-->
-                                             <!--<cellFactory><CheckBoxCellFactory /></cellFactory>-->
-                                          </TableColumn>
-                                          <TableColumn fx:id="isCaregiverColumn" minWidth="0.0" prefWidth="116.74697875976562" text="Caregiver?">
-                                             <!--<cellValueFactory><PropertyValueFactory property="isCaregiverBoolean" /></cellValueFactory>-->
-                                             <!--<cellFactory><CheckBoxCellFactory /></cellFactory>-->
-                                          </TableColumn>
+                                          <TableColumn fx:id="relationNameColumn" prefWidth="331.99998474121094" text="Name" />
+                                          <TableColumn fx:id="relationRelationshipColumn" prefWidth="236.0" text="Relationship" />
                                        </columns>
                                     </TableView>
                                     <AnchorPane layoutX="603.0" layoutY="7.0" prefHeight="518.0" prefWidth="587.0">
@@ -128,8 +120,8 @@
                                           </TableView>
                                           <TextField fx:id="relationLastName" layoutX="39.0" layoutY="106.0" prefHeight="35.0" prefWidth="284.0" promptText="Enter last name..." />
                                           <ComboBox fx:id="relationType" layoutX="355.0" layoutY="50.0" prefHeight="29.0" prefWidth="150.0" promptText="Relation Type" />
-                                          <CheckBox alignment="CENTER" layoutX="243.0" layoutY="162.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" text="Family" />
-                                          <CheckBox alignment="CENTER" layoutX="405.0" layoutY="162.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Caregiver" />
+                                          <CheckBox fx:id="isFamilyCheckBox" alignment="CENTER" layoutX="243.0" layoutY="162.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" text="Family" />
+                                          <CheckBox fx:id="isCaregiverCheckBox" alignment="CENTER" layoutX="405.0" layoutY="162.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Caregiver" />
                                           <VBox layoutX="528.0" layoutY="200.0" prefHeight="72.0" prefWidth="51.0" spacing="10.0">
                                              <children>
                                                 <Button mnemonicParsing="false" onAction="#handleAddRelationPhone" prefHeight="26.0" prefWidth="51.0" text="+">
@@ -160,12 +152,12 @@
                                           </VBox>
                                           <VBox layoutX="525.0" layoutY="49.0" prefHeight="72.0" prefWidth="51.0" spacing="10.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#handleAddRelationPhone" prefHeight="26.0" prefWidth="51.0" text="+">
+                                                <Button mnemonicParsing="false" onAction="#handleAddRelation" prefHeight="26.0" prefWidth="51.0" text="+">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
                                                 </Button>
-                                                <Button mnemonicParsing="false" onAction="#handleRemoveRelationPhone" prefHeight="27.0" prefWidth="55.0" text="-">
+                                                <Button mnemonicParsing="false" onAction="#handleRemoveRelation" prefHeight="27.0" prefWidth="55.0" text="-">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
