@@ -9,7 +9,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import model.AbsUser;
 import model.ContactElement;
 import model.MainApp;
@@ -19,7 +18,6 @@ import utils.ObjectNotFoundException;
 import java.io.IOException;
 
 import static model.MainApp.getLoadedSceneOfType;
-import static model.MainApp.main;
 
 public abstract class AbsDashController extends AbsController {
 
@@ -186,7 +184,7 @@ public abstract class AbsDashController extends AbsController {
 	@FXML
 	public void handleSwipeLeft(){
 
-		int currentTab = tabPane.getSelectionModel().getSelectedIndex() - 1;
+		int currentTab = tabPane.getSelectionModel().getSelectedIndex();
 
 		if (currentTab <= 0 ) {
 
@@ -201,7 +199,7 @@ public abstract class AbsDashController extends AbsController {
 	@FXML
 	public void handleSwipeRight(){
 
-		int currentTab = tabPane.getSelectionModel().getSelectedIndex() + 1;
+		int currentTab = tabPane.getSelectionModel().getSelectedIndex();
 
 		if (currentTab >= tabPane.getTabs().size() - 1) {
 
