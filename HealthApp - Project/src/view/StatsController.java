@@ -48,6 +48,7 @@ public class StatsController  extends AbsController{
     private Patient myPatient;
 
     public StatsController (){
+        key = "stats";
     }
 
     @FXML
@@ -56,7 +57,7 @@ public class StatsController  extends AbsController{
         return loader;
     }
 
-    private void setPatient(Patient p){
+    public void setPatient(Patient p){
         this.myPatient = p;
     }
 
@@ -70,7 +71,7 @@ public class StatsController  extends AbsController{
         myCombobox.getItems().setAll("test","test1");
 
         // bind the selected attribute label to the selected attribute text in the combo box.
-        selectedField.textProperty().bind(myCombobox.getSelectionModel().selectedItemProperty());
+        //selectedField.textProperty().bind(myCombobox.getSelectionModel().selectedItemProperty());
         // listen for changes to the combo box selection and update the displayed chart and stat fields accordingly.
         myCombobox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue<? extends String> selected, String oldAtt, String newAtt) {
