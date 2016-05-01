@@ -96,6 +96,13 @@ public class SearchController extends AbsController {
                 patientList.add(new PatientWrapper(patient));
 
 			profileTable.setItems(patientList);
+		} else if(!key.equals("")){
+			List<Patient> patients = DBHandler.getUniqueInstance().patientNameSearch(key);
+			ObservableList<PatientWrapper> patientList = FXCollections.observableArrayList();
+			for (Patient patient : patients)
+				patientList.add(new PatientWrapper(patient));
+
+			profileTable.setItems(patientList);
 		}
 	}
 

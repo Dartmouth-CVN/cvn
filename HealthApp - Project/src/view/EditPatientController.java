@@ -118,6 +118,8 @@ public class EditPatientController extends AbsController {
     ObservableList<String> contactLabelValues;
     ObservableList<String> relationTypeValues;
 
+
+
     DateTimeFormatter myDateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private Patient patient;
 
@@ -256,10 +258,17 @@ public class EditPatientController extends AbsController {
     }
 
     private void handlePetChange(){
-        Pet p = pets.get(petIndex).toPet();
-        petName.setText(p.getName());
-        petSpecies.setText(p.getSpecies());
-        allergyFriendlyCheckBox.setSelected(p.isAllergyFriendly());
+        Pet p;
+        if(pets.size() > 0) {
+            p = pets.get(petIndex).toPet();
+            petName.setText(p.getName());
+            petSpecies.setText(p.getSpecies());
+            allergyFriendlyCheckBox.setSelected(p.isAllergyFriendly());
+        } else {
+            petName.clear();
+            petSpecies.clear();
+            allergyFriendlyCheckBox.setSelected(false);
+        }
     }
 
     int mealIndex = 0;
@@ -282,11 +291,19 @@ public class EditPatientController extends AbsController {
     }
 
     private void handleMealChange(){
-        Meal m = meals.get(mealIndex).toMeal();
-        mealName.setText(m.getFood());
-        mealCalories.setText(String.valueOf(m.getCalories()));
-        mealNotes.setText(m.getNotes());
-        stars.setRating(m.getRating());
+        Meal m;
+        if(meals.size() > 0) {
+            m = meals.get(mealIndex).toMeal();
+            mealName.setText(m.getFood());
+            mealCalories.setText(String.valueOf(m.getCalories()));
+            mealNotes.setText(m.getNotes());
+            stars.setRating(m.getRating());
+        } else {
+            mealName.clear();
+            mealCalories.clear();
+            mealNotes.clear();
+            stars.setRating(0);
+        }
     }
 
     public void loadFields() {
@@ -366,29 +383,76 @@ public class EditPatientController extends AbsController {
 
     @FXML
     private void handleAddPet() {
-        petTable.getItems().add(new PetWrapper(new Pet()));
+        String name = petName.getText();
+        String species = petSpecies.getText();
+        Boolean allergyFriendly = allergyFriendlyCheckBox.isSelected();
+
+        Pet pet = new Pet(name, species, allergyFriendly);
+        pets.add(new PetWrapper(pet));
     }
 
     @FXML
     private void handleRemovePet() {
         int selectionIndex = petTable.getSelectionModel().getSelectedIndex();
 
-        if (selectionIndex >= 0) {
-            petTable.getItems().remove(selectionIndex);
+        if(pets.size() > 0) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText("Remove pet");
+            alert.setContentText("Are you sure you want to remove this pet?");
+            alert.showAndWait().ifPresent(rs -> {
+                if (rs == ButtonType.CANCEL) {
+                    return;
+                } else if (rs == ButtonType.OK) {
+                    if (selectionIndex >= 0) {
+                        petTable.getItems().remove(selectionIndex);
+                    }
+
+                    petName.clear();
+                    petSpecies.clear();
+                    allergyFriendlyCheckBox.setSelected(false);
+                }
+            });
         }
     }
 
     @FXML
     private void handleAddMeal() {
-        mealTable.getItems().add(new MealWrapper(new Meal()));
+        String name = mealName.getText();
+        int calories;
+        int rating = (int) stars.getRating();
+        String notes = mealNotes.getText();
+
+        try{
+            calories = Integer.parseInt(mealCalories.getText());
+        } catch (NumberFormatException e) {
+            calories = 0;
+        }
+
+        Meal meal = new Meal(name, calories, rating, notes);
+        meals.add(new MealWrapper(meal));
     }
 
     @FXML
-    private void removeMeal() {
+    private void handleRemoveMeal() {
         int selectionIndex = mealTable.getSelectionModel().getSelectedIndex();
 
-        if (selectionIndex >= 0) {
-            mealTable.getItems().remove(selectionIndex);
+        if(meals.size() > 0) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText("Remove meal");
+            alert.setContentText("Are you sure you want to remove this meal?");
+            alert.showAndWait().ifPresent(rs -> {
+                if (rs == ButtonType.CANCEL) {
+                    return;
+                } else if (rs == ButtonType.OK) {
+                    if (selectionIndex >= 0) {
+                        mealTable.getItems().remove(selectionIndex);
+                    }
+                    mealName.clear();
+                    mealCalories.clear();
+                    stars.setRating(0);
+                    mealNotes.clear();
+                }
+            });
         }
     }
 
