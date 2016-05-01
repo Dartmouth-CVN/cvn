@@ -20,6 +20,11 @@ public class Family extends AbsRelation {
         return "FA" + userIdValue;
     }
 
+    public Family(String firstName, String lastName, String username, String password,
+                  LocalDate birthday, String room, String picture, Contact contactInfo, String relation, boolean isCaregiver) {
+        this(0L, firstName, lastName, username, password, birthday, room, picture, contactInfo, relation, isCaregiver);
+    }
+
     public Family(long userIdValue, String firstName, String lastName, String username, String password,
                   LocalDate birthday, String room, String picture, Contact contactInfo, String relation, boolean isCaregiver) {
         super(userIdValue, firstName, lastName, username, password, birthday, room, picture, contactInfo, relation, true, isCaregiver);

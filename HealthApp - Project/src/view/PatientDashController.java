@@ -47,7 +47,7 @@ public class PatientDashController extends AbsDashController {
 
 	@Override
 	public FXMLLoader getLoader(){
-		loader.setLocation(MainApp.class.getResource("../view/PatientDash.fxml"));
+		loader.setLocation(MainApp.class.getResource("/view/PatientDash.fxml"));
 		return loader;
 	}
 

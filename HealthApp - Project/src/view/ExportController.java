@@ -65,7 +65,7 @@ public class ExportController extends AbsController {
 
     @Override
     public FXMLLoader getLoader() {
-        loader.setLocation(MainApp.class.getResource("../view/ExportView.fxml"));
+        loader.setLocation(MainApp.class.getResource("/view/ExportView.fxml"));
         return loader;
     }
 

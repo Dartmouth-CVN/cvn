@@ -1,11 +1,14 @@
 package view;
 
+<<<<<<< HEAD
 import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 
+=======
+>>>>>>> be6ac550f2b29d14204e20e9f8e8c162bd6807a6
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -22,9 +25,12 @@ import model.*;
 import org.apache.derby.impl.tools.sysinfo.Main;
 import org.controlsfx.control.Rating;
 import utils.FitBitParsingUtils;
+<<<<<<< HEAD
+=======
 
 import java.io.File;
 import java.time.format.DateTimeFormatter;
+>>>>>>> be6ac550f2b29d14204e20e9f8e8c162bd6807a6
 
 public class EditPatientController extends AbsController {
 

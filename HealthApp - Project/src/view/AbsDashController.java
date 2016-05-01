@@ -12,8 +12,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.AbsUser;
 import model.ContactElement;
+import model.MainApp;
 import model.Patient;
 import utils.ObjectNotFoundException;
+
+import java.io.IOException;
 
 import static model.MainApp.getLoadedSceneOfType;
 import static model.MainApp.main;
@@ -81,8 +84,11 @@ public abstract class AbsDashController extends AbsController {
 			} else if(newTab.equals(addPatientTab)) {
 				loadAddPatientTab();
 				tabPane.getSelectionModel().select(addPatientTab);
-			}
-		});
+			} else if(newTab.equals(editPatientTab)){
+			tabPane.getSelectionModel().select(editPatientTab);
+		}
+
+	});
 	}
 
 	public void loadUserFields(){
@@ -110,14 +116,27 @@ public abstract class AbsDashController extends AbsController {
 	public void loadAddPatientTab(){
 		LoadedScene scene = getLoadedSceneOfType(new EditPatientController());
 		Patient p = new Patient();
+		resetScene(scene);
 		p.setNewPatient();
 		((EditPatientController) scene.getController()).setPatient(p);
 		addPatientTab.setContent(scene.getPane());
 	}
 
+	private void resetScene(LoadedScene scene){
+		try {
+			scene.getLoader().setRoot(null);
+			scene.getLoader().setController(null);
+			scene.getLoader().load();
+		} catch (IOException e) {
+			MainApp.printError(e);
+		}
+	}
+
+
 	public void loadEditPatientTab(Patient p) {
 		LoadedScene scene = getLoadedSceneOfType(new EditPatientController());
 		((EditPatientController) scene.getController()).setPatient(p);
+		resetScene(scene);
 		editPatientTab.setContent(scene.getPane());
 		tabPane.getSelectionModel().select(editPatientTab);
 	}

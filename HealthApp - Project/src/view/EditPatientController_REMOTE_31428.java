@@ -1,11 +1,5 @@
 package view;
 
-import java.io.File;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.LinkedList;
-import java.util.List;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,7 +13,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.util.converter.DefaultStringConverter;
 import model.*;
-import org.apache.derby.impl.tools.sysinfo.Main;
 import org.controlsfx.control.Rating;
 import utils.FitBitParsingUtils;
 
@@ -93,9 +86,9 @@ public class EditPatientController extends AbsController {
     @FXML
     TableColumn<AbsRelationWrapper, String> relationRelationshipColumn;
     @FXML
-    CheckBox isFamilyCheckBox;
+    TableColumn<AbsRelationWrapper, Boolean> isFamilyColumn;
     @FXML
-    CheckBox isCaregiverCheckBox;
+    TableColumn<AbsRelationWrapper, Boolean> isCaregiverColumn;
     @FXML
     TableView<PetWrapper> petTable;
     @FXML
@@ -124,13 +117,6 @@ public class EditPatientController extends AbsController {
     ObservableList<MealWrapper> meals;
     ObservableList<String> contactLabelValues;
     ObservableList<String> relationTypeValues;
-    int relationIndex = 0;
-    int petIndex = 0;
-    int mealIndex = 0;
-    Rating stars;
-    int phoneIndex = 0;
-    int emailIndex = 0;
-    ContactElement element;
 
 
 
@@ -152,26 +138,10 @@ public class EditPatientController extends AbsController {
     }
 
     public void setPatient(Patient p) {
-        clearFields();
-
         this.patient = p;
         if(!p.getIsNewPatient())
             loadFields();
 
-    }
-
-    public void clearFields() {
-        profilePic.setImage(new Image("file:src/view/images/blank-profile-picture.png"));
-        firstName.setText("");
-        lastName.setText("");
-        patientBirthday.setValue(null);
-        patientPhones.clear();
-        patientEmails.clear();
-        patientAddress.clear();
-        relations.clear();
-        pets.clear();
-        meals.clear();
-        resetRelationFields();
     }
 
     @FXML
@@ -182,6 +152,8 @@ public class EditPatientController extends AbsController {
         initializeDietaryPreferences();
     }
 
+    int phoneIndex = 0;
+    int emailIndex = 0;
     public void initializePersonalInfo() {
         patientPhones = FXCollections.observableArrayList();
         patientEmails = FXCollections.observableArrayList();
@@ -224,6 +196,7 @@ public class EditPatientController extends AbsController {
 
     }
 
+    ContactElement element;
     private void setPhoneIndex(){
         phoneIndex = patientPhoneTable.getSelectionModel().getSelectedIndex();
         element = patientPhones.get(phoneIndex).toContactElement();
@@ -234,6 +207,7 @@ public class EditPatientController extends AbsController {
         element = patientEmails.get(emailIndex).toContactElement();
     }
 
+    int relationIndex = 0;
     public void initializeRelationInfo() {
         relations = FXCollections.observableArrayList();
         relationPhones = FXCollections.observableArrayList();
@@ -248,12 +222,14 @@ public class EditPatientController extends AbsController {
         });
 
         relationTypeValues = FXCollections.observableArrayList();
-        for(int i = 0; i < AbsRelation.relationTypes.values().length; i++)
-            relationTypeValues.add(AbsRelation.relationTypes.values()[i].name());
-        relationType.setItems(relationTypeValues);
-
+        for(int i = 0; i < AbsRelation.relationType.values().length; i++){
+            relationTypeValues.add(AbsRelation.relationType.values()[i].name());
+        }
         relationNameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
         relationRelationshipColumn.setCellValueFactory(cellData -> cellData.getValue().getRelationshipProperty());
+        isFamilyColumn.setCellValueFactory(cellData -> cellData.getValue().getIsFamilyProperty());
+        isCaregiverColumn.setCellValueFactory(cellData -> cellData.getValue().getIsCaregiverProperty());
+
         relationPhoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         relationPhoneLabelColumn.setCellValueFactory(cellData -> cellData.getValue().getTypeProperty());
         relationEmailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -264,40 +240,10 @@ public class EditPatientController extends AbsController {
         relationEmailLabelColumn.setCellFactory(ComboBoxTableCell.forTableColumn(new DefaultStringConverter(), contactLabelValues));
     }
 
-    private void resetRelationFields(){
-        relationFirstName.setText("");
-        relationLastName.setText("");
-        relationBirthday.setValue(LocalDate.now());
-        relationshipField.setText("");
-        isFamilyCheckBox.setSelected(false);
-        isCaregiverCheckBox.setSelected(false);
-        relationPhones.clear();
-        relationEmails.clear();
-        relationType.getSelectionModel().selectFirst();
+    private void handleRelationChange(){
     }
 
-    private void handleRelationChange() {
-        AbsRelation relation = relationTable.getSelectionModel().getSelectedItem().toAbsRelation();
-        resetRelationFields();
-        relationFirstName.setText(relation.getFirstName());
-        relationLastName.setText(relation.getLastName());
-        relationBirthday.setValue(relation.getBirthday());
-        relationshipField.setText(relation.getRelationship());
-        isFamilyCheckBox.setSelected(relation.isFamily());
-        isCaregiverCheckBox.setSelected(relation.isCaregiver());
-
-        for(ContactElement phone : relation.getContactInfo().getPhoneNumbers())
-            relationPhones.add( new ContactElementWrapper(phone));
-
-        for(ContactElement email : relation.getContactInfo().getEmails())
-            relationEmails.add( new ContactElementWrapper(email));
-
-        if(relation.isCaregiver() && !relation.isFamily())
-            relationType.getSelectionModel().select("CAREGIVER");
-        else if (relation.isFamily() && !relation.isCaregiver())
-            relationType.getSelectionModel().select("FAMILY");
-    }
-
+    int petIndex = 0;
     public void initializePetInfo() {
         pets = FXCollections.observableArrayList();
         petTable.setItems(pets);
@@ -325,6 +271,8 @@ public class EditPatientController extends AbsController {
         }
     }
 
+    int mealIndex = 0;
+    Rating stars;
     public void initializeDietaryPreferences() {
         meals = FXCollections.observableArrayList();
         mealTable.setItems(meals);
@@ -506,44 +454,6 @@ public class EditPatientController extends AbsController {
                 }
             });
         }
-    }
-
-    @FXML
-    private void handleAddRelation(){
-        String firstName = relationFirstName.getText();
-        String lastName = relationLastName.getText();
-        String relationship = relationshipField.getText();
-        LocalDate birthday = relationBirthday.getValue();
-        boolean isFamily = isFamilyCheckBox.isSelected();
-        boolean isCaregiver = isCaregiverCheckBox.isSelected();
-        List<ContactElement> elements = new LinkedList<>();
-
-        for(ContactElementWrapper elementWrapper : relationPhones)
-            elements.add(elementWrapper.toContactElement());
-
-        for(ContactElementWrapper elementWrapper : relationEmails)
-            elements.add(elementWrapper.toContactElement());
-        Contact contactInfo = new Contact(elements);
-        try {
-            AbsRelation relation = null;
-            if (relationType.getSelectionModel().getSelectedItem().equals(AbsRelation.relationTypes.FAMILY)) {
-                relation = new Family(firstName, lastName, "N/A", "N/A", birthday, "N/A", "N/A", contactInfo,
-                        relationship, isCaregiver);
-            } else {
-                relation = new Caregiver(firstName, lastName, "N/A", "N/A", birthday, "N/A", "N/A", contactInfo,
-                        relationship, isFamily);
-            }
-            relations.add(new AbsRelationWrapper(relation));
-            resetRelationFields();
-        }catch(NullPointerException e){
-            MainApp.printError(e);
-        }
-    }
-
-    @FXML
-    private void handleRemoveRelation(){
-        relations.remove(relationIndex);
-        resetRelationFields();
     }
 
     @FXML

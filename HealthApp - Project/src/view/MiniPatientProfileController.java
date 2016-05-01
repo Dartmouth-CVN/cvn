@@ -67,7 +67,7 @@ public class MiniPatientProfileController extends AbsController {
 	
 	@Override
 	public FXMLLoader getLoader(){
-		loader.setLocation(MainApp.class.getResource("../view/MiniPatientProfileView.fxml"));
+		loader.setLocation(MainApp.class.getResource("/view/MiniPatientProfileView.fxml"));
 		return loader;
 	}
 	
@@ -144,7 +144,7 @@ public class MiniPatientProfileController extends AbsController {
 		
 	        Parent root;
 	        try {
-	            root = FXMLLoader.load(getClass().getClassLoader().getResource("../view/PatientProfile.fxml"));
+	            root = FXMLLoader.load(getClass().getClassLoader().getResource("/view/PatientProfile.fxml"));
 	            Stage stage = new Stage();
 	            stage.setTitle("My New Stage Title");
 	            stage.setScene(new Scene(root, 450, 450));
