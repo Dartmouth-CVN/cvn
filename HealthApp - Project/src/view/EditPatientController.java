@@ -443,12 +443,20 @@ public class EditPatientController extends AbsController {
 
     @FXML
     private void handleAddPet() {
-        String name = petName.getText();
-        String species = petSpecies.getText();
-        Boolean allergyFriendly = allergyFriendlyCheckBox.isSelected();
+        resetPetFields();
+        petName.requestFocus();
+    }
 
-        Pet pet = new Pet(name, species, allergyFriendly);
-        pets.add(new PetWrapper(pet));
+    @FXML
+    private void handleSavePet(){
+        PetWrapper pet = getPet();
+        int index = pets.indexOf(pet);
+        if(index < 0)
+            pets.add(pet);
+        else {
+//            MainApp.showAlert("Pet already exists");
+            pets.set(index, pet);
+        }
     }
 
     @FXML
@@ -466,30 +474,22 @@ public class EditPatientController extends AbsController {
                     if (selectionIndex >= 0) {
                         petTable.getItems().remove(selectionIndex);
                     }
-
-                    petName.clear();
-                    petSpecies.clear();
-                    allergyFriendlyCheckBox.setSelected(false);
+                    resetPetFields();
                 }
             });
         }
     }
 
+    private void resetPetFields(){
+        petName.clear();
+        petSpecies.clear();
+        allergyFriendlyCheckBox.setSelected(false);
+    }
+
     @FXML
     private void handleAddMeal() {
-        String name = mealName.getText();
-        int calories;
-        int rating = (int) stars.getRating();
-        String notes = mealNotes.getText();
-
-        try{
-            calories = Integer.parseInt(mealCalories.getText());
-        } catch (NumberFormatException e) {
-            calories = 0;
-        }
-
-        Meal meal = new Meal(name, calories, rating, notes);
-        meals.add(new MealWrapper(meal));
+        resetMealFields();
+        mealName.requestFocus();
     }
 
     @FXML
@@ -507,17 +507,56 @@ public class EditPatientController extends AbsController {
                     if (selectionIndex >= 0) {
                         mealTable.getItems().remove(selectionIndex);
                     }
-                    mealName.clear();
-                    mealCalories.clear();
-                    stars.setRating(0);
-                    mealNotes.clear();
+                    resetMealFields();
                 }
             });
         }
     }
 
+    private void resetMealFields(){
+        mealName.clear();
+        mealCalories.clear();
+        stars.setRating(0);
+        mealNotes.clear();
+    }
+
     @FXML
-    private void handleAddRelation(){
+    private void handleSaveMeal(){
+        MealWrapper meal = getMeal();
+        int index = meals.indexOf(meal);
+        if(index < 0)
+            meals.add(meal);
+        else{
+            meals.set(index, meal);
+        }
+
+    }
+
+    public MealWrapper getMeal(){
+        String name = mealName.getText();
+        int calories;
+        int rating = (int) stars.getRating();
+        String notes = mealNotes.getText();
+
+        try{
+            calories = Integer.parseInt(mealCalories.getText());
+        } catch (NumberFormatException e) {
+            calories = 0;
+        }
+
+       return new MealWrapper(new Meal(name, calories, rating, notes));
+    }
+
+    public PetWrapper getPet(){
+        String name = petName.getText();
+        String species = petSpecies.getText();
+        Boolean allergyFriendly = allergyFriendlyCheckBox.isSelected();
+
+        return new PetWrapper(new Pet(name, species, allergyFriendly));
+    }
+
+    public AbsRelationWrapper getRelation(){
+        AbsRelation relation = null;
         String firstName = relationFirstName.getText();
         String lastName = relationLastName.getText();
         String relationship = relationshipField.getText();
@@ -533,7 +572,6 @@ public class EditPatientController extends AbsController {
             elements.add(elementWrapper.toContactElement());
         Contact contactInfo = new Contact(elements);
         try {
-            AbsRelation relation = null;
             if (relationType.getSelectionModel().getSelectedItem().equals(AbsRelation.relationTypes.FAMILY)) {
                 relation = new Family(firstName, lastName, "N/A", "N/A", birthday, "N/A", "N/A", contactInfo,
                         relationship, isCaregiver);
@@ -541,10 +579,28 @@ public class EditPatientController extends AbsController {
                 relation = new Caregiver(firstName, lastName, "N/A", "N/A", birthday, "N/A", "N/A", contactInfo,
                         relationship, isFamily);
             }
-            relations.add(new AbsRelationWrapper(relation));
-            resetRelationFields();
         }catch(NullPointerException e){
             MainApp.printError(e);
+        }
+        return new AbsRelationWrapper(relation);
+    }
+
+    @FXML
+    private void handleAddRelation(){
+        resetRelationFields();
+        relationFirstName.requestFocus();
+    }
+
+    @FXML
+    private void handleSaveRelation(){
+        AbsRelationWrapper relationWrapper = getRelation();
+        int index = relations.indexOf(relationWrapper);
+        if(index < 0) {
+            relations.add(relationWrapper);
+            resetRelationFields();
+        }else{
+//            MainApp.showAlert("Relation already exists");
+            relations.set(index, relationWrapper);
         }
     }
 
