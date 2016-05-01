@@ -190,7 +190,9 @@ public class XMLParsingUtils implements ParsingUtils {
             NodeList patientList = doc.getElementsByTagName("patient");
 
             for (int i = 0; i < patientList.getLength(); i++) {
-                output.add(makePatient(patientList.item(i)));
+                Patient toAdd = makePatient(patientList.item(i));
+                if (toAdd != null)
+                    output.add(toAdd);
             }
             return output;
         } catch (Exception e) {

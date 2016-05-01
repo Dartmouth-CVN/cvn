@@ -1,5 +1,6 @@
 package utils;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import model.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -13,6 +14,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.BooleanSupplier;
 
 /**
  * Created by mrampiah on 4/26/16.
@@ -21,6 +23,12 @@ public class PatientExportWrapper implements IExportable {
     boolean userId, firstName, lastName, username, birthday, room;
     boolean picture, contactInfo, pets, meals, relations;
     boolean assignedStaff, healthProfile;
+
+    //This method should not exist, but due to time constraints and limited WPI dollars, it does.
+    public List<Boolean> getFieldsPractical() {
+        Boolean[] fields = {firstName, lastName, username, birthday, picture, room, contactInfo, contactInfo, contactInfo, pets, meals, relations, healthProfile, healthProfile, healthProfile};
+        return Arrays.asList(fields);
+    }
 
     Patient patient;
     String toImport;
@@ -271,8 +279,11 @@ public class PatientExportWrapper implements IExportable {
     public String toHTMLString() {
         String[] cells = splitSVLine(toCSVString(), ",");
         LinkedList<String> tableCells = new LinkedList<String>();
-        for (String s : cells) {
-            tableCells.add(XMLLine(s.replace(";", "<br>"), "td"));
+        List<Boolean> toExport = getFieldsPractical();
+        for (int i = 0; i < cells.length; i++) {
+            String s = cells[i];
+            if (toExport.get(i))
+                tableCells.add(XMLLine(s.replace(";", "<br>"), "td"));
         }
         return XMLLine(String.join("\n", tableCells), "tr", true);
     }
