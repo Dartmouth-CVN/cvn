@@ -1699,7 +1699,7 @@ public class DBHandler {
         List<Patient> patientList = new LinkedList<>();
         try {
             if (connect()) {
-                ps = connection.prepareStatement("SELECT * FROM user_account WHERE firstname LIKE ? OR lastname ?");
+                ps = connection.prepareStatement("SELECT * FROM user_account WHERE firstname LIKE UPPER(?) OR lastname LIKE UPPER(?)");
                 ps.setString(1, "%" + name + "%");
                 ps.setString(2, "%" + name + "%");
                 Patient p = getPatient(ps.executeQuery());
