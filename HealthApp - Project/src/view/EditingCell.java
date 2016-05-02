@@ -25,6 +25,7 @@ public class EditingCell extends TableCell<ContactElementWrapper, String> {
             setText(null);
             setGraphic(textField);
             textField.selectAll();
+            textField.requestFocus();
         }
     }
 
