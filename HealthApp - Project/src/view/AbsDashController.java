@@ -186,7 +186,7 @@ public abstract class AbsDashController extends AbsController {
 
 		int currentTab = tabPane.getSelectionModel().getSelectedIndex();
 
-		if (currentTab <= 0 ) {
+		if (currentTab >= tabPane.getTabs().size() - 1) {
 
 
 		} else {
@@ -201,7 +201,7 @@ public abstract class AbsDashController extends AbsController {
 
 		int currentTab = tabPane.getSelectionModel().getSelectedIndex();
 
-		if (currentTab >= tabPane.getTabs().size() - 1) {
+		if (currentTab <= 0 ) {
 
 
 		} else {
