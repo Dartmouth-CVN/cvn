@@ -136,6 +136,8 @@ public class EditPatientController extends AbsController {
     int emailIndex = 0;
     ContactElement element;
 
+
+
     DateTimeFormatter myDateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private Patient patient;
 
@@ -178,17 +180,15 @@ public class EditPatientController extends AbsController {
 
     @FXML
     private void initialize() {
-        accord.setExpandedPane(pane1);
-        pane1.setCollapsible(false);
-        pane2.setCollapsible(false);
-        pane3.setCollapsible(false);
+        //accord.setExpandedPane(pane1);
+        //pane1.setCollapsible(false);
+        //pane2.setCollapsible(false);
+        //pane3.setCollapsible(false);
         initializePersonalInfo();
         initializeRelationInfo();
         initializePetInfo();
         initializeDietaryPreferences();
     }
-
-//    List<TextFieldTableCell<ContactElementWrapper, String>> textFieldList;
 
     public void initializePersonalInfo() {
         patientPhones = FXCollections.observableArrayList();
