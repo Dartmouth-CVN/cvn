@@ -194,8 +194,8 @@ public class EditPatientController extends AbsController {
         patientPhones = FXCollections.observableArrayList();
         patientEmails = FXCollections.observableArrayList();
         contactLabelValues = FXCollections.observableArrayList();
-        for(int i = 0; i < ContactElement.contactLabel.values().length; i++){
-            contactLabelValues.add(ContactElement.contactLabel.values()[i].name());
+        for(int i = 0; i < ContactElement.contactLabels.values().length; i++){
+            contactLabelValues.add(ContactElement.contactLabels.values()[i].name());
         }
 
         patientPhoneTable.setItems(patientPhones);
