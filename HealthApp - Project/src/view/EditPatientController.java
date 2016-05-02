@@ -1,11 +1,5 @@
 package view;
 
-import java.io.File;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.LinkedList;
-import java.util.List;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,12 +13,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.util.converter.DefaultStringConverter;
 import model.*;
-import org.apache.derby.impl.tools.sysinfo.Main;
 import org.controlsfx.control.Rating;
 import utils.FitBitParsingUtils;
 
 import java.io.File;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
+import java.util.List;
 
 public class EditPatientController extends AbsController {
 
@@ -114,6 +110,14 @@ public class EditPatientController extends AbsController {
     TableColumn<MealWrapper, Number> mealRatingColumn;
     @FXML
     TableColumn<MealWrapper, String> mealNotesColumn;
+    @FXML
+    Accordion accord;
+    @FXML
+    TitledPane pane1;
+    @FXML
+    TitledPane pane2;
+    @FXML
+    TitledPane pane3;
 
     ObservableList<ContactElementWrapper> patientPhones;
     ObservableList<ContactElementWrapper> patientEmails;
@@ -174,6 +178,10 @@ public class EditPatientController extends AbsController {
 
     @FXML
     private void initialize() {
+        accord.setExpandedPane(pane1);
+        pane1.setCollapsible(false);
+        pane2.setCollapsible(false);
+        pane3.setCollapsible(false);
         initializePersonalInfo();
         initializeRelationInfo();
         initializePetInfo();
