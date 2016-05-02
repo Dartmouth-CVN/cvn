@@ -224,10 +224,10 @@ public class EditPatientController extends AbsController {
         patientPhoneTable.setItems(patientPhones);
         patientEmailTable.setItems(patientEmails);
         patientPhoneColumn.setCellValueFactory(cellData -> cellData.getValue().getValueProperty());
-        patientPhoneLabelColumn.setCellValueFactory(cellData -> cellData.getValue().getTypeProperty());
+        patientPhoneLabelColumn.setCellValueFactory(cellData -> cellData.getValue().getLabelProperty());
         patientPhoneLabelColumn.setCellFactory(ComboBoxTableCell.forTableColumn(new DefaultStringConverter(), contactLabelValues));
         patientEmailColumn.setCellValueFactory(cellData -> cellData.getValue().getValueProperty());
-        patientEmailLabelColumn.setCellValueFactory(cellData -> cellData.getValue().getTypeProperty());
+        patientEmailLabelColumn.setCellValueFactory(cellData -> cellData.getValue().getLabelProperty());
         patientEmailLabelColumn.setCellFactory(ComboBoxTableCell.forTableColumn(new DefaultStringConverter(), contactLabelValues));
         patientPhoneColumn.setCellFactory(cellFactory);
         patientEmailColumn.setCellFactory(cellFactory);
@@ -238,7 +238,7 @@ public class EditPatientController extends AbsController {
         });
         patientPhoneLabelColumn.setOnEditCommit((event) -> {
             setPhoneIndex();
-            element.setType(event.getNewValue());
+            element.setContactLabel(event.getNewValue());
             patientPhones.set(phoneIndex, new ContactElementWrapper(element));
         });
 
@@ -249,7 +249,7 @@ public class EditPatientController extends AbsController {
         });
         patientEmailLabelColumn.setOnEditCommit((event) -> {
             setEmailIndex();
-            element.setType(event.getNewValue());
+            element.setContactLabel(event.getNewValue());
             patientEmails.set(emailIndex, new ContactElementWrapper(element));
         });
     }
@@ -274,7 +274,8 @@ public class EditPatientController extends AbsController {
         relationEmailTable.setItems(relationEmails);
         relationTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             relationIndex = relationTable.getSelectionModel().getSelectedIndex();
-            handleRelationChange();
+            if(relationIndex >= 0)
+                handleRelationChange();
         });
 
         relationTypeValues = FXCollections.observableArrayList();
@@ -446,8 +447,7 @@ public class EditPatientController extends AbsController {
             patientEmails.add(new ContactElementWrapper(e));
 
         String addresses = "";
-        for (ContactElement e : patient.getContactInfo().getAddresses())
-            addresses += e.getValue() + "\n";
+        addresses += patient.getContactInfo().getAddress().getValue() + "\n";
         patientAddress.setText(addresses);
 
         for (AbsRelation relation : patient.getRelations())
@@ -474,7 +474,7 @@ public class EditPatientController extends AbsController {
 
     @FXML
     private void handleAddPatientEmail() {
-        patientEmails.add(new ContactElementWrapper(new ContactElement()));
+        patientEmails.add(new ContactElementWrapper(new ContactElement(Contact.contactTypes.EMAIL.name())));
     }
 
     @FXML
@@ -498,7 +498,7 @@ public class EditPatientController extends AbsController {
 
     @FXML
     private void handleAddRelationEmail() {
-        relationEmails.add(new ContactElementWrapper(new ContactElement()));
+        relationEmails.add(new ContactElementWrapper(new ContactElement(Contact.contactTypes.EMAIL.name())));
     }
 
     @FXML
@@ -588,6 +588,7 @@ public class EditPatientController extends AbsController {
             meals.add(meal);
         else
             MainApp.showAlert("Meal already exists");
+        resetMealFields();
 
     }
 
@@ -694,13 +695,20 @@ public class EditPatientController extends AbsController {
         for (AbsRelationWrapper relation : relations)
             patient.addRelation(relation.toAbsRelation());
 
-        for(ContactElementWrapper phone : patientPhones)
+        for(ContactElementWrapper phone : patientPhones) {
             patient.getContactInfo().addPhone(phone.toContactElement());
+//            System.out.printf("in edit phone: type: %s, label: %s\n", phone.toContactElement().getType(), phone.toContactElement().getContactLabel() );
+        }
 
-        for(ContactElementWrapper email : patientEmails)
+        for(ContactElementWrapper email : patientEmails) {
             patient.getContactInfo().addEmail(email.toContactElement());
+        }
 
-        patient.getHealthProfile().addHealthInfoList(healthAttributes);
+        patient.getContactInfo().setAddress(new ContactElement(patientAddress.getText(),
+                Contact.contactTypes.ADDRESS.name(), ContactElement.contactLabels.HOME.name()));
+
+        if(healthAttributes != null)
+            patient.getHealthProfile().addHealthInfoList(healthAttributes);
 
 //        System.out.printf("patient phones size: %d patient emails size: %d\n", patientPhones.size(), patientEmails.size());
 

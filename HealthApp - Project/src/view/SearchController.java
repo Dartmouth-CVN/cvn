@@ -145,7 +145,11 @@ public class SearchController extends AbsController {
 
 	@FXML
 	private void handleClickPatient() {
-		showMiniPatientProfile();
+		try{
+			showMiniPatientProfile();
+		}catch (NullPointerException e){
+			MainApp.printError(e);
+		}
 	}
 
 	public void showMiniPatientProfile() {

@@ -45,8 +45,8 @@ public class MainApp extends Application {
     }
 
     public static void printError(Exception e) {
-//        System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
-        if(e instanceof NullPointerException || e instanceof ObjectNotFoundException);
+        if(e instanceof NullPointerException || e instanceof ObjectNotFoundException)
+            System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
         else
             e.printStackTrace();
     }

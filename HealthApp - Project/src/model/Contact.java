@@ -10,29 +10,29 @@ public class Contact{
     long contactId;
     List<ContactElement> phoneNumbers;
     List<ContactElement> emails;
-    List<ContactElement> addresses;
+    ContactElement address;
     public static enum contactTypes {PHONE, EMAIL, ADDRESS}
 
     public Contact() {
-        this(0L, new LinkedList<ContactElement>(), new LinkedList<ContactElement>(), new LinkedList<ContactElement>());
+        this(0L, new LinkedList<ContactElement>(), new LinkedList<ContactElement>(), new ContactElement());
     }
 
     public Contact(long id) {
-        this(id, new LinkedList<ContactElement>(), new LinkedList<ContactElement>(), new LinkedList<ContactElement>());
+        this(id, new LinkedList<ContactElement>(), new LinkedList<ContactElement>(), new ContactElement());
         setContactId(id);
     }
 
     public Contact(List<ContactElement> phoneNumbers, List<ContactElement> emails,
-                   List<ContactElement> addresses) {
-        this(0, phoneNumbers, emails, addresses);
+                   ContactElement address) {
+        this(0, phoneNumbers, emails, address);
     }
 
     public Contact(long id, List<ContactElement> phoneNumbers, List<ContactElement> emails,
-                   List<ContactElement> addresses) {
+                   ContactElement address) {
         contactId = id;
         this.phoneNumbers = phoneNumbers;
         this.emails = emails;
-        this.addresses = addresses;
+        this.address = address;
     }
 
 
@@ -40,14 +40,13 @@ public class Contact{
         contactId = id;
         phoneNumbers = new LinkedList<>();
         emails = new LinkedList<>();
-        addresses = new LinkedList<>();
         for(ContactElement e : contactInfo){
             if(e.getType().equals(contactTypes.PHONE.name()))
                 addPhone(e);
-//            else if(e.getType().equals(cont))
-//                addEmail(e);
+            else if(e.getType().equals(contactTypes.EMAIL.name()))
+                addEmail(e);
             else if(e instanceof Address)
-                addAddress(e);
+                setAddress(e);
         }
     }
 
@@ -55,15 +54,13 @@ public class Contact{
         contactId = 0L;
         phoneNumbers = new LinkedList<>();
         emails = new LinkedList<>();
-        addresses = new LinkedList<>();
         for(ContactElement e : contactInfo){
-            System.out.printf("type: %s enum type: %s\n", e.getType(), contactTypes.PHONE.name());
             if(e.getType().equals(contactTypes.PHONE.name()))
                 addPhone(e);
             else if(e.getType().equals(contactTypes.EMAIL.name()))
                 addEmail(e);
             else if(e.getType().equals(contactTypes.ADDRESS.name()))
-                addAddress(e);
+                setAddress(e);
         }
     }
 
@@ -91,12 +88,12 @@ public class Contact{
         this.emails = email;
     }
 
-    public List<ContactElement> getAddresses() {
-        return this.addresses == null ? new LinkedList<ContactElement>() : addresses;
+    public ContactElement getAddress() {
+        return this.address == null ? new ContactElement() : address;
     }
 
-    public void setAddresses(List<ContactElement> address) {
-        this.addresses = address;
+    public void setAddress(ContactElement address) {
+        this.address = address;
     }
 
     public ContactElement getPrimaryPhone() throws ObjectNotFoundException {
@@ -113,13 +110,6 @@ public class Contact{
             throw new ObjectNotFoundException("Email ");
     }
 
-    public ContactElement getPrimaryAddress() throws ObjectNotFoundException {
-        if (!this.addresses.isEmpty())
-            return this.addresses.get(0);
-        else
-            throw new ObjectNotFoundException("Address ");
-    }
-
     public void addPhone(ContactElement phone) {
         if(!phoneNumbers.contains(phone))
             phoneNumbers.add(phone);
@@ -128,12 +118,6 @@ public class Contact{
     public void addEmail(ContactElement email) {
         if (this.emails.indexOf(email) < 0) {
             this.emails.add(email);
-        }
-    }
-
-    public void addAddress(ContactElement address) {
-        if (this.addresses.indexOf(address) < 0) {
-            this.addresses.add(address);
         }
     }
 
@@ -149,10 +133,8 @@ public class Contact{
         }
     }
 
-    public void removeAddress(ContactElement address) {
-        if (this.addresses.indexOf(address) >= 0) {
-            this.addresses.remove(address);
-        }
+    public void removeAddress() {
+       this.address = null;
     }
 
     public void makePrimaryPhone(ContactElement phone) {
@@ -165,17 +147,12 @@ public class Contact{
         ((LinkedList<ContactElement>) this.emails).addFirst(email);
     }
 
-    public void makePrimaryAddress(ContactElement address) {
-        this.removeAddress(address);
-        ((LinkedList<ContactElement>) this.addresses).addFirst(address);
-    }
-
     public List<ContactElement> getAllContactElements() {
         List<ContactElement> elements = new LinkedList<ContactElement>();
         try{
             elements.addAll(phoneNumbers);
             elements.addAll(emails);
-            elements.addAll(addresses);
+            elements.add(address);
 
         }catch (NullPointerException e){
 //            MainApp.printError(e);
@@ -193,6 +170,6 @@ public class Contact{
 
     @Override
     public int hashCode() {
-        return phoneNumbers.hashCode() * emails.hashCode() * addresses.hashCode();
+        return phoneNumbers.hashCode() * emails.hashCode() * address.hashCode();
     }
 }

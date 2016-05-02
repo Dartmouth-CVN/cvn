@@ -126,7 +126,7 @@ public class DBHandler {
                     "isFamily BOOLEAN, isCaregiver BOOLEAN, relationship VARCHAR(20), PRIMARY KEY(user_id) )");
             ps.execute();
             success = true;
-            ps.close();
+            if(ps != null) ps.close();
         } catch (SQLException e) {
             MainApp.printError(e);
         }
@@ -145,7 +145,7 @@ public class DBHandler {
                         "FOREIGN KEY(user_id) REFERENCES user_account(user_id), PRIMARY KEY (contact_id) )");
                 ps.execute();
                 success = true;
-                ps.close();
+                if(ps != null) ps.close();
             } catch (SQLException e) {
                 MainApp.printError(e);
             }
@@ -166,7 +166,7 @@ public class DBHandler {
                 ps.execute();
 
                 success = true;
-                ps.close();
+                if(ps != null) ps.close();
             } catch (SQLException e) {
                 MainApp.printError(e);
 //
@@ -186,7 +186,7 @@ public class DBHandler {
                         " name VARCHAR(20), calories INT, notes VARCHAR(200), PRIMARY KEY(meal_id) )");
                 ps.execute();
                 success = true;
-                ps.close();
+                if(ps != null) ps.close();
             } catch (SQLException e) {
                 MainApp.printError(e);
 //
@@ -207,7 +207,7 @@ public class DBHandler {
 
                 ps.execute();
                 success = true;
-                ps.close();
+                if(ps != null) ps.close();
             } catch (SQLException e) {
 //
                 MainApp.printError(e);
@@ -228,7 +228,7 @@ public class DBHandler {
                         + "notes VARCHAR(200), PRIMARY KEY(event_id) )");
                 ps.execute();
                 success = true;
-                ps.close();
+                if(ps != null) ps.close();
             } catch (SQLException e) {
                 MainApp.printError(e);
 
@@ -360,7 +360,7 @@ public class DBHandler {
             createIndexes();
 
             if (ps != null) {
-                ps.close();
+                if(ps != null) ps.close();
                 System.out.println("Tables created");
             }
         } catch (SQLException e) {
@@ -377,7 +377,9 @@ public class DBHandler {
             insertMeal(meal);
             insertEats(meal, p.getUserIdValue());
         }
-        for (ContactElement e : p.getContactInfo().getAllContactElements())
+        for (ContactElement e : p.getContactInfo().getPhoneNumbers())
+            insertContact(e, p.getUserIdValue());
+        for (ContactElement e : p.getContactInfo().getEmails())
             insertContact(e, p.getUserIdValue());
 
         for (AbsRelation relation : p.getRelations()) {
@@ -448,8 +450,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -488,8 +490,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -527,8 +529,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -568,8 +570,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -609,8 +611,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -633,6 +635,7 @@ public class DBHandler {
                 ps.setString(3, c.getContactLabel());
                 ps.setString(4, c.getType());
                 ps.executeUpdate();
+                System.out.printf("inserted contact type:%s label:%s\n", c.getType(), c.getContactLabel());
                 rs = ps.getGeneratedKeys();
                 if (rs.next()) {
                     c.setElementId(rs.getLong(1));
@@ -643,8 +646,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-                rs.close();
-                ps.close();
+                if(rs != null) rs.close();
+                if(ps != null) ps.close();
                 connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -676,8 +679,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -709,8 +712,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -732,7 +735,7 @@ public class DBHandler {
                 ps.setLong(i++, meal.getMealId());
                 ps.setInt(i++, meal.getRating());
                 ps.executeUpdate();
-                ps.close();
+                if(ps != null) ps.close();
                 success = true;
             }
         } catch (SQLException e) {
@@ -740,8 +743,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -768,8 +771,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -796,8 +799,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -829,8 +832,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -885,8 +888,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -914,8 +917,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -944,8 +947,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -975,8 +978,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -1001,8 +1004,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -1027,8 +1030,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -1075,8 +1078,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -1105,8 +1108,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -1132,8 +1135,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -1156,8 +1159,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -1180,8 +1183,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -1235,8 +1238,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -1276,8 +1279,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -1304,8 +1307,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -1325,16 +1328,17 @@ public class DBHandler {
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     ContactElement element = new ContactElement(rs.getLong("contact_id"),
-                            rs.getString("value"), rs.getString("contact_label"), rs.getString("contact_type"));
+                            rs.getString("value"), rs.getString("contact_type"), rs.getString("contact_label"));
                     elements.add(element);
+                    System.out.printf("from db element type: %s label: %s\n", element.getType(), element.getContactLabel());
                 }
             }
         } catch (SQLException | NullPointerException e) {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -1358,8 +1362,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -1387,8 +1391,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -1412,8 +1416,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -1440,8 +1444,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -1479,8 +1483,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -1492,26 +1496,26 @@ public class DBHandler {
     public boolean updatePatientAlgorithm(Patient p) {
         success = true;
         updatePatient(p);
-
-        for (Pet pet : p.getPets())
-            updatePet(pet);
-
-        for (Meal meal : p.getMeals()) {
-            updateMeal(meal);
-            updateMealRating(meal);
-        }
-
-        for (AbsRelation relation : p.getRelations())
-            updateRelation(relation);
-
-        for (MedicalStaff medStaff : p.getAssignedStaff())
-            updateMedicalStaff(medStaff);
-
-        for (HealthAttribute<?> attribute : p.getHealthProfile().getHealthInfo())
-            insertHealthInfo(attribute, p.getUserIdValue());
-
-        for (ContactElement e : p.getContactInfo().getAllContactElements())
-            updateContact(e);
+//
+//        for (Pet pet : p.getPets())
+//            updatePet(pet);
+//
+//        for (Meal meal : p.getMeals()) {
+//            updateMeal(meal);
+//            updateMealRating(meal);
+//        }
+//
+//        for (AbsRelation relation : p.getRelations())
+//            updateRelation(relation);
+//
+//        for (MedicalStaff medStaff : p.getAssignedStaff())
+//            updateMedicalStaff(medStaff);
+//
+//        for (HealthAttribute<?> attribute : p.getHealthProfile().getHealthInfo())
+//            insertHealthInfo(attribute, p.getUserIdValue());
+//
+//        for (ContactElement e : p.getContactInfo().getAllContactElements())
+//            updateContact(e);
 
         return success;
     }
@@ -1534,8 +1538,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -1560,8 +1564,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -1587,8 +1591,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -1617,8 +1621,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -1647,8 +1651,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -1675,8 +1679,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -1704,8 +1708,8 @@ public class DBHandler {
             MainApp.printError(ex);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception ex) {
                 MainApp.printError(ex);
@@ -1734,8 +1738,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
@@ -1809,8 +1813,8 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               rs.close();
-               ps.close();
+               if(rs != null) rs.close();
+               if(ps != null) ps.close();
                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);

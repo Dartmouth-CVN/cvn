@@ -71,13 +71,13 @@ public class XMLParsingUtils implements ParsingUtils {
                 if (true) {
                     //Setting addresses
                     for (String address : addresses)
-                        ci.addAddress(new ContactElement(address, "address"));
+                        ci.setAddress(new ContactElement(address, "address"));
                     //Setting phone numbers
                     for (String phonenum : phonenumbers)
-                        ci.addAddress(new ContactElement(phonenum, "phonenumber"));
+                        ci.addPhone(new ContactElement(phonenum, "phonenumber"));
                     //Setting emails
                     for (String email : emails)
-                        ci.addAddress(new ContactElement(email, "email"));
+                        ci.addEmail(new ContactElement(email, "email"));
                 }
 
 
@@ -290,7 +290,7 @@ public class XMLParsingUtils implements ParsingUtils {
 
         String[] addressArray = fields[5].split(",");
         for (String address : addressArray)
-            output.getContactInfo().addAddress(new ContactElement("address", address));
+            output.getContactInfo().setAddress(new ContactElement("address", address));
         String[] phonenumArray = fields[6].split(",");
         for (String phone : phonenumArray)
             output.getContactInfo().addPhone(new ContactElement("phone", phone));

@@ -10,22 +10,26 @@ public class ContactElement{
     public static enum contactLabels {WORK, HOME, OFFICE}
 
     public ContactElement() {
-        this(0, "ENTER INFO", contactLabels.HOME.name(), Contact.contactTypes.PHONE.name());
+        this(0, "ENTER INFO", Contact.contactTypes.PHONE.name(), contactLabels.HOME.name());
     }
 
-    public ContactElement(long elementId, String value, String contactLabel, String type) {
+    public ContactElement(String type) {
+        this(0, "ENTER INFO", type, contactLabels.HOME.name());
+    }
+
+    public ContactElement(long elementId, String value, String type, String contactLabel) {
         setElementId(elementId);
         setValue(value);
         setContactLabel(contactLabel);
         setType(type);
     }
 
-    public ContactElement( String value, String contactLabel, String type) {
+    public ContactElement( String value, String type, String contactLabel) {
         this(0L, value, type, contactLabel);
     }
 
     public ContactElement(String value, String type) {
-        this(RandomGenerator.getRandomId(), value, contactLabels.HOME.name(), type);
+        this(RandomGenerator.getRandomId(), value, type, contactLabels.HOME.name());
     }
 
     public long getElementId() {

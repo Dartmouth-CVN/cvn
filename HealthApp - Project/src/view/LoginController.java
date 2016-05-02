@@ -44,7 +44,9 @@ public class LoginController extends AbsController {
             System.out.println("Must enter username and password");
         else {
             AbsUser user = DBHandler.getUniqueInstance().getFilledUserByUsername(uname);
-            if (user == null);
+            if (user == null){
+                MainApp.showAlert("Invalid user");
+            }
             else{
                 if (pass.equals(user.getPassword())) {
                     username.setText("");

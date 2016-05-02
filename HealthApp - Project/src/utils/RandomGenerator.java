@@ -208,28 +208,29 @@ public class RandomGenerator {
 		String[] types = { "personal", "work", "home" };
 		List<ContactElement> phoneNumbers = new LinkedList<ContactElement>();
 		List<ContactElement> emails = new LinkedList<ContactElement>();
-		List<ContactElement> addresses = new LinkedList<ContactElement>();
+		ContactElement address = new ContactElement();
 
 		// add phone numbers
 		for (String type : types) {
-			phoneNumbers.add(new ContactElement(getRandomPhoneNumber(), ContactElement.contactLabels.HOME.name(),
-					Contact.contactTypes.PHONE.name()));
+			phoneNumbers.add(new ContactElement(getRandomPhoneNumber(),Contact.contactTypes.PHONE.name(),
+					ContactElement.contactLabels.HOME.name()));
 		}
 
 		// add email addresses
 		for (String type : types) {
-			emails.add(new ContactElement(getRandomEmail(), ContactElement.contactLabels.WORK.name(), Contact.contactTypes.EMAIL.name()));
+			emails.add(new ContactElement(getRandomEmail(), Contact.contactTypes.EMAIL.name(),
+					ContactElement.contactLabels.WORK.name()));
 
 		}
 
 		// add addresses
 		for (String type : types) {
-			addresses.add(new ContactElement(getRandomAddress(), ContactElement.contactLabels.HOME.name(),
-					Contact.contactTypes.ADDRESS.name()));
+			address = new ContactElement(getRandomAddress(), Contact.contactTypes.ADDRESS.name(),
+					ContactElement.contactLabels.HOME.name());
 
 		}
 
-		return new Contact(getRandomId(), phoneNumbers, emails, addresses);
+		return new Contact(getRandomId(), phoneNumbers, emails, address);
 	}
 
 	public static Pet getRandomPet() {

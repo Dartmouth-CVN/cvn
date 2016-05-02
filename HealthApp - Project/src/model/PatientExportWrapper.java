@@ -1,7 +1,5 @@
 package model;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -112,8 +110,7 @@ public class PatientExportWrapper implements IExportable {
 
 
         if (contactInfo) {
-            for (ContactElement c : patient.getContactInfo().getAddresses())
-                addresses.add(XMLLine(c.getValue(), "address"));
+                addresses.add(XMLLine(patient.getContactInfo().getAddress().getValue(), "address"));
             for (ContactElement c : patient.getContactInfo().getPhoneNumbers())
                 phonenumbers.add(XMLLine(c.getValue(), "phonenumber"));
             for (ContactElement c : patient.getContactInfo().getEmails())
@@ -199,8 +196,7 @@ public class PatientExportWrapper implements IExportable {
         String healthplist = "";
 
         if (contactInfo) {
-            for (ContactElement c : patient.getContactInfo().getAddresses())
-                addresses.add(c.getValue());
+                addresses.add(patient.getContactInfo().getAddress().getValue());
             for (ContactElement c : patient.getContactInfo().getPhoneNumbers())
                 phonenumbers.add(c.getValue());
             for (ContactElement c : patient.getContactInfo().getEmails())

@@ -1,6 +1,5 @@
 package utils;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import model.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -14,7 +13,6 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.BooleanSupplier;
 
 /**
  * Created by mrampiah on 4/26/16.
@@ -138,8 +136,7 @@ public class PatientExportWrapper implements IExportable {
 
 
         if (contactInfo) {
-            for (ContactElement c : patient.getContactInfo().getAddresses())
-                addresses.add(XMLLine(c.getValue(), "address"));
+            addresses.add(XMLLine(patient.getContactInfo().getAddress().getValue(), "address"));
             for (ContactElement c : patient.getContactInfo().getPhoneNumbers())
                 phonenumbers.add(XMLLine(c.getValue(), "phonenumber"));
             for (ContactElement c : patient.getContactInfo().getEmails())
@@ -223,8 +220,7 @@ public class PatientExportWrapper implements IExportable {
         String healthplist = "\" \",\" \" ,\" \"";
 
         if (contactInfo) {
-            for (ContactElement c : patient.getContactInfo().getAddresses())
-                addresses.add(c.getValue().replace("\n", ","));
+                addresses.add(patient.getContactInfo().getAddress().getValue().replace("\n", ","));
             for (ContactElement c : patient.getContactInfo().getPhoneNumbers())
                 phonenumbers.add(c.getValue());
             for (ContactElement c : patient.getContactInfo().getEmails())
@@ -422,13 +418,13 @@ public class PatientExportWrapper implements IExportable {
         if (true) {
             //Setting addresses
             for (String address : addresses)
-                ci.addAddress(new ContactElement(address, "address"));
+                ci.setAddress(new ContactElement(address, "address"));
             //Setting phone numbers
             for (String phonenum : phonenumbers)
-                ci.addAddress(new ContactElement(phonenum, "phonenumber"));
+                ci.addPhone(new ContactElement(phonenum, "phonenumber"));
             //Setting emails
             for (String email : emails)
-                ci.addAddress(new ContactElement(email, "email"));
+                ci.addEmail(new ContactElement(email, "email"));
         }
 
 
