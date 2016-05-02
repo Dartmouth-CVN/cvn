@@ -31,12 +31,10 @@
             <Label text="Average" GridPane.rowIndex="1" />
             <Label text="Max" GridPane.rowIndex="2" />
             <Label text="Min" GridPane.rowIndex="3" />
-            <Label text="Standard Deviation" GridPane.rowIndex="4" />
-            <Label prefHeight="27.0" prefWidth="77.0" text="result" GridPane.columnIndex="1" />
-            <Label prefHeight="27.0" prefWidth="77.0" text="result" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label prefHeight="27.0" prefWidth="77.0" text="result" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label prefHeight="27.0" prefWidth="77.0" text="result" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label prefHeight="27.0" prefWidth="77.0" text="result" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="unitResult" prefHeight="27.0" prefWidth="77.0" text="result" GridPane.columnIndex="1" />
+            <Label fx:id="averageResult" prefHeight="27.0" prefWidth="77.0" text="result" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="maxResult" prefHeight="27.0" prefWidth="77.0" text="result" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="minResult" prefHeight="27.0" prefWidth="77.0" text="result" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <LineChart fx:id="lineChart" layoutX="425.0" layoutY="150.0" prefHeight="485.0" prefWidth="795.0">
