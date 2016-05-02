@@ -26,7 +26,6 @@ public class PatientDashController extends AbsDashController {
     private Tab statsTab;
     @FXML
     private ImageView statsImage;
-
     @FXML
     private ImageView profilePic;
     @FXML
@@ -54,6 +53,7 @@ public class PatientDashController extends AbsDashController {
                 loadAddPatientTab();
                 tabPane.getSelectionModel().select(addPatientTab);
             } else if(newTab.equals(editPatientTab)){
+                loadEditPatientTab((Patient) user);
                 tabPane.getSelectionModel().select(editPatientTab);
             } else if (newTab.equals(statsTab)) {
                 loadStatsTab(user);
