@@ -88,6 +88,8 @@ public class DBHandler {
         }
 
         Administrator admin = RandomGenerator.getRandomAdmin();
+        admin.setUsername("admin");
+        admin.setPassword("pass");
         System.out.printf("admin username:%s, password:%s\n", admin.getUsername(), admin.getPassword());
         insertAdminAlgorithm(admin);
     }
@@ -296,7 +298,6 @@ public class DBHandler {
         }
         return success;
     }
-
 
     public void createIndexes(){
         try {
@@ -1264,7 +1265,7 @@ public class DBHandler {
         }
         return null;
     }
-    
+
     public List<AbsRelation> getPatientRelations(long userIdValue) {
         List<AbsRelation> relations = new LinkedList<>();
         PreparedStatement ps = null;
@@ -1546,28 +1547,54 @@ public class DBHandler {
     public boolean updatePatientAlgorithm(Patient p) {
         success = true;
         updatePatient(p);
-//
-//        for (Pet pet : p.getPets())
-//            updatePet(pet);
-//
-//        for (Meal meal : p.getMeals()) {
-//            updateMeal(meal);
-//            updateMealRating(meal);
-//        }
-//
-//        for (AbsRelation relation : p.getRelations())
-//            updateRelation(relation);
-//
-//        for (MedicalStaff medStaff : p.getAssignedStaff())
-//            updateMedicalStaff(medStaff);
-//
-//        for (HealthAttribute<?> attribute : p.getHealthProfile().getHealthInfo())
-//            insertHealthInfo(attribute, p.getUserIdValue());
-//
-//        for (ContactElement e : p.getContactInfo().getAllContactElements())
-//            updateContact(e);
+
+        for (Pet pet : p.getPets())
+            updatePet(pet);
+
+        for (Meal meal : p.getMeals()) {
+            updateMeal(meal);
+            updateMealRating(meal);
+        }
+
+        for (AbsRelation relation : p.getRelations())
+            updateRelation(relation);
+
+        for (MedicalStaff medStaff : p.getAssignedStaff())
+            updateMedicalStaff(medStaff);
+
+        for (HealthAttribute<?> attribute : p.getHealthProfile().getHealthInfo())
+            insertHealthInfo(attribute, p.getUserIdValue());
+
+        removePatientContacts(p.getUserIdValue());
+        for (ContactElement e : p.getContactInfo().getAllContactElements())
+            insertContact(e, p.getUserIdValue());
 
         return success;
+    }
+
+    public boolean removePatientContacts(long userId) {
+        success = false;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            if (connect()) {
+                ps = connection.prepareStatement("DELETE FROM contact WHERE user_id = ?");
+                ps.setLong(1, userId);
+                ps.executeUpdate();
+                success = true;
+            }
+        } catch (SQLException e) {
+            MainApp.printError(e);
+        } finally {
+            try {
+                if(rs != null) rs.close();
+                if(ps != null) ps.close();
+                connection.close();
+            } catch (Exception e) {
+                MainApp.printError(e);
+            }
+            return success;
+        }
     }
 
     public boolean updateRelation(AbsRelation relation) {
