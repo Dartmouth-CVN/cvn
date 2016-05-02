@@ -468,18 +468,12 @@ public class EditPatientController extends AbsController {
 
     @FXML
     private void handleAddPet() {
-        resetPetFields();
-        petName.requestFocus();
-    }
-
-    @FXML
-    private void handleSavePet(){
         PetWrapper pet = getPet();
         int index = pets.indexOf(pet);
         if(index < 0)
             pets.add(pet);
         else {
-//            MainApp.showAlert("Pet already exists");
+            MainApp.showAlert("Pet already exists");
             pets.set(index, pet);
         }
     }
@@ -505,16 +499,11 @@ public class EditPatientController extends AbsController {
         }
     }
 
+    @FXML
     private void resetPetFields(){
         petName.clear();
         petSpecies.clear();
         allergyFriendlyCheckBox.setSelected(false);
-    }
-
-    @FXML
-    private void handleAddMeal() {
-        resetMealFields();
-        mealName.requestFocus();
     }
 
     @FXML
@@ -538,6 +527,7 @@ public class EditPatientController extends AbsController {
         }
     }
 
+    @FXML
     private void resetMealFields(){
         mealName.clear();
         mealCalories.clear();
@@ -546,7 +536,7 @@ public class EditPatientController extends AbsController {
     }
 
     @FXML
-    private void handleSaveMeal(){
+    private void handleAddMeal(){
         MealWrapper meal = getMeal();
         int index = meals.indexOf(meal);
         if(index < 0)
