@@ -88,7 +88,9 @@ public class StatsController  extends AbsController{
                 if (newAtt != null) {
                     XYChart.Series series = new XYChart.Series<>();
                     int i = 0;
+                    double average = 0;
                     Integer r;
+
                     switch(newAtt) {
                         case "weight":
                             lineChart.getData().clear();
@@ -96,9 +98,12 @@ public class StatsController  extends AbsController{
                             for(HealthAttribute hi : myPatient.getHealthProfile().getWeights()) {
                                 r = i;
                                 series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                average += (int) hi.getValue();
                                 i++;
                             }
                             lineChart.getData().add(series);
+                            averageResult.setText(new Double(((double) average)/i).toString());
+                            unitResult.setText("Pounds");
                             return;
                         case "BMI":
                             i = 0;
@@ -107,9 +112,12 @@ public class StatsController  extends AbsController{
                             for(HealthAttribute hi : myPatient.getHealthProfile().getBMIs()) {
                                 r = i;
                                 series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                average += (int) hi.getValue();
                                 i++;
                             }
                             lineChart.getData().add(series);
+                            averageResult.setText(new Double(((double) average)/i).toString());
+                            unitResult.setText("N/A");
                             return;
                         case "Fat":
                             i = 0;
@@ -118,9 +126,12 @@ public class StatsController  extends AbsController{
                             for(HealthAttribute hi : myPatient.getHealthProfile().getFats()) {
                                 r = i;
                                 series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                average += (int) hi.getValue();
                                 i++;
                             }
                             lineChart.getData().add(series);
+                            averageResult.setText(new Double(((double) average)/i).toString());
+                            unitResult.setText("%");
                             return;
                         case "Calories Burned":
                             i = 0;
@@ -129,9 +140,11 @@ public class StatsController  extends AbsController{
                             for(HealthAttribute hi : myPatient.getHealthProfile().getCals()) {
                                 r = i;
                                 series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                average += (int) hi.getValue();
                                 i++;
                             }
                             lineChart.getData().add(series);
+                            averageResult.setText(new Double(((double) average)/i).toString());
                             return;
                         case "Steps":
                             i = 0;
@@ -140,9 +153,12 @@ public class StatsController  extends AbsController{
                             for(HealthAttribute hi : myPatient.getHealthProfile().getSteps()) {
                                 r = i;
                                 series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                average += (int) hi.getValue();
                                 i++;
                             }
                             lineChart.getData().add(series);
+                            averageResult.setText(new Double(((double) average)/i).toString());
+                            unitResult.setText("Steps");
                             return;
                         case "Distance":
                             i = 0;
@@ -151,9 +167,12 @@ public class StatsController  extends AbsController{
                             for(HealthAttribute hi : myPatient.getHealthProfile().getDistances()) {
                                 r = i;
                                 series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                average += (int) hi.getValue();
                                 i++;
                             }
                             lineChart.getData().add(series);
+                            averageResult.setText(new Double(((double) average)/i).toString());
+                            unitResult.setText("Miles");
                             return;
                         case "Floors":
                             i = 0;
@@ -162,9 +181,12 @@ public class StatsController  extends AbsController{
                             for(HealthAttribute hi : myPatient.getHealthProfile().getFloors()) {
                                 r = i;
                                 series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                average += (int) hi.getValue();
                                 i++;
                             }
                             lineChart.getData().add(series);
+                            averageResult.setText(new Double(((double) average)/i).toString());
+                            unitResult.setText("Floors");
                             return;
                         case "Minutes Sedentary":
                             i = 0;
@@ -173,9 +195,12 @@ public class StatsController  extends AbsController{
                             for(HealthAttribute hi : myPatient.getHealthProfile().getMinSed()) {
                                 r = i;
                                 series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                average += (int) hi.getValue();
                                 i++;
                             }
                             lineChart.getData().add(series);
+                            averageResult.setText(new Double(((double) average)/i).toString());
+                            unitResult.setText("Minutes");
                             return;
                         case "Minutes Lightly Active":
                             i = 0;
@@ -184,9 +209,12 @@ public class StatsController  extends AbsController{
                             for(HealthAttribute hi : myPatient.getHealthProfile().getMinLight()) {
                                 r = i;
                                 series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                average += (int) hi.getValue();
                                 i++;
                             }
                             lineChart.getData().add(series);
+                            averageResult.setText(new Double(((double) average)/i).toString());
+                            unitResult.setText("Minutes");
                             return;
                         case "Minutes Fairly Active":
                             i = 0;
@@ -195,9 +223,12 @@ public class StatsController  extends AbsController{
                             for(HealthAttribute hi : myPatient.getHealthProfile().getMinFairly()) {
                                 r = i;
                                 series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                average += (int) hi.getValue();
                                 i++;
                             }
                             lineChart.getData().add(series);
+                            averageResult.setText(new Double(((double) average)/i).toString());
+                            unitResult.setText("Minutes");
                             return;
                         case "Minutes Very Active":
                             i = 0;
@@ -206,9 +237,12 @@ public class StatsController  extends AbsController{
                             for(HealthAttribute hi : myPatient.getHealthProfile().getMinVery()) {
                                 r = i;
                                 series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                average += (int) hi.getValue();
                                 i++;
                             }
                             lineChart.getData().add(series);
+                            averageResult.setText(new Double(((double) average)/i).toString());
+                            unitResult.setText("Minutes");
                             return;
                         case "Activity Calories":
                             i = 0;
@@ -217,9 +251,12 @@ public class StatsController  extends AbsController{
                             for(HealthAttribute hi : myPatient.getHealthProfile().getActiveCal()) {
                                 r = i;
                                 series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                average += (int) hi.getValue();
                                 i++;
                             }
                             lineChart.getData().add(series);
+                            averageResult.setText(new Double(((double) average)/i).toString());
+                            unitResult.setText("Calories");
                             return;
                         case "Minutes Asleep":
                             i = 0;
@@ -228,9 +265,12 @@ public class StatsController  extends AbsController{
                             for(HealthAttribute hi : myPatient.getHealthProfile().getMinAsleep()) {
                                 r = i;
                                 series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                average += (int) hi.getValue();
                                 i++;
                             }
                             lineChart.getData().add(series);
+                            averageResult.setText(new Double(((double) average)/i).toString());
+                            unitResult.setText("Minutes");
                             return;
                         case "Minutes Awake":
                             i = 0;
@@ -239,9 +279,12 @@ public class StatsController  extends AbsController{
                             for(HealthAttribute hi : myPatient.getHealthProfile().getMinAwake()) {
                                 r = i;
                                 series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                average += (int) hi.getValue();
                                 i++;
                             }
                             lineChart.getData().add(series);
+                            averageResult.setText(new Double(((double) average)/i).toString());
+                            unitResult.setText("Minutes");
                             return;
                         case "Number of Awakenings":
                             i = 0;
@@ -250,9 +293,12 @@ public class StatsController  extends AbsController{
                             for(HealthAttribute hi : myPatient.getHealthProfile().getNumAwakening()) {
                                 r = i;
                                 series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                average += (int) hi.getValue();
                                 i++;
                             }
                             lineChart.getData().add(series);
+                            averageResult.setText(new Double(((double) average)/i).toString());
+                            unitResult.setText("Awakenings");
                             return;
                         case "Time in Bed":
                             i = 0;
@@ -261,9 +307,12 @@ public class StatsController  extends AbsController{
                             for(HealthAttribute hi : myPatient.getHealthProfile().getTimeInBed()) {
                                 r = i;
                                 series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                average += (int) hi.getValue();
                                 i++;
                             }
                             lineChart.getData().add(series);
+                            averageResult.setText(new Double(((double) average)/i).toString());
+                            unitResult.setText("Minutes");
                             return;
                     }
                 }
