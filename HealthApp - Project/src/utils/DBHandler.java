@@ -1,11 +1,18 @@
 package utils;
 
 import model.*;
+import org.apache.derby.iapi.sql.*;
 import org.apache.derby.jdbc.EmbeddedDataSource;
 
 import java.io.*;
+import java.math.BigDecimal;
+import java.net.URL;
 import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -94,6 +101,7 @@ public class DBHandler {
             ds.setCreateDatabase("create");
 
             connection = ds.getConnection();
+//            ds.
             if (connection != null) {
                 // System.out.println("Connected to database");
                 metaData = connection.getMetaData();
@@ -156,6 +164,7 @@ public class DBHandler {
                         " name VARCHAR(10), species VARCHAR(20), allergy_friendly BOOLEAN, user_id BIGINT,"
                         + "FOREIGN KEY(user_id) REFERENCES user_account(user_id))");
                 ps.execute();
+
                 success = true;
                 ps.close();
             } catch (SQLException e) {
@@ -195,6 +204,7 @@ public class DBHandler {
                 ps = connection.prepareStatement("CREATE TABLE eats(user_id BIGINT, meal_id BIGINT, rating int," +
                         " FOREIGN KEY(user_id) REFERENCES user_account(user_id), " +
                         "FOREIGN KEY(meal_id) REFERENCES meal(meal_id))");
+
                 ps.execute();
                 success = true;
                 ps.close();
@@ -287,6 +297,26 @@ public class DBHandler {
         return success;
     }
 
+
+    public void createIndexes(){
+        try {
+            Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+            statement.addBatch("CREATE INDEX user_id_index ON contact(user_id)");
+            statement.addBatch("CREATE INDEX user_id_index ON pet(user_id)");
+            statement.addBatch("CREATE INDEX user_id_index ON eats(user_id)");
+            statement.addBatch("CREATE INDEX user_id_index ON health_info(user_id)");
+            statement.addBatch("CREATE INDEX user_id_index ON staff_assignment(patient_id)");
+            statement.addBatch("CREATE INDEX med_id_index ON staff_assignment(med_id)");
+            statement.addBatch("CREATE INDEX user_id_index ON related(patient_id)");
+            statement.addBatch("CREATE INDEX relation_id_index ON related(relation_id)");
+
+            int[] rows = statement.executeBatch();
+        } catch (SQLException e) {
+            MainApp.printError(e);
+        }
+    }
+
     public void createTables() {
         try {
             connect();
@@ -327,6 +357,8 @@ public class DBHandler {
             if (!rs.next())
                 createStaffAssignmentTable();
 
+            createIndexes();
+
             if (ps != null) {
                 ps.close();
                 System.out.println("Tables created");
@@ -347,6 +379,7 @@ public class DBHandler {
         }
         for (ContactElement e : p.getContactInfo().getAllContactElements())
             insertContact(e, p.getUserIdValue());
+
         for (AbsRelation relation : p.getRelations()) {
             insertRelationAlgorithm(p, relation);
         }
@@ -355,8 +388,6 @@ public class DBHandler {
         }
         for (HealthAttribute<?> attribute : p.getHealthProfile().getHealthInfo())
             insertHealthInfo(attribute, p.getUserIdValue());
-
-        System.out.printf("contact size: %d\n", p.getContactInfo().getAllContactElements().size());
         return success;
     }
 
@@ -411,7 +442,7 @@ public class DBHandler {
                 rs.next();
                 p.setUserIdValue(rs.getLong(1));
                 success = true;
-                System.out.printf("patient username: %s, password: %s user type: %s\n", p.getUsername(), p.getPassword(), UserType.PATIENT);
+//                System.out.printf("patient username: %s, password: %s user type: %s\n", p.getUsername(), p.getPassword(), UserType.PATIENT);
             }
         } catch (SQLException e) {
             MainApp.printError(e);
@@ -837,7 +868,7 @@ public class DBHandler {
         AbsUser user = null;
         try {
             if (connect()) {
-                ps = connection.prepareStatement("SELECT * FROM user_account WHERE username = ? ");
+                ps = connection.prepareStatement("SELECT * FROM user_account WHERE username = ?  FOR UPDATE  ");
                 ps.setString(1, username);
                 rs = ps.executeQuery();
 
@@ -868,7 +899,7 @@ public class DBHandler {
         AbsUser user = null;
         try {
             if (connect()) {
-                ps = connection.prepareStatement("SELECT * FROM user_account WHERE user_id = ? ");
+                ps = connection.prepareStatement("SELECT * FROM user_account WHERE user_id = ? FOR UPDATE  ");
                 ps.setLong(1, userId);
                 rs = ps.executeQuery();
                 if (rs.next()) {
@@ -897,7 +928,8 @@ public class DBHandler {
         Administrator admin = null;
         try {
             if (connect()) {
-                ps = connection.prepareStatement(" SELECT * FROM user_account WHERE username = ? AND user_type = ?");
+                ps = connection.prepareStatement(" SELECT * FROM user_account WHERE username = ? AND user_type = ?  " +
+                        "FOR UPDATE  ");
                 ps.setString(1, username);
                 ps.setString(2, UserType.ADMIN.name());
                 rs = ps.executeQuery();
@@ -927,7 +959,8 @@ public class DBHandler {
         try {
             if (connect()) {
 
-                ps = connection.prepareStatement(" SELECT * FROM user_account WHERE user_id = ? AND user_type = ?");
+                ps = connection.prepareStatement(" SELECT * FROM user_account WHERE user_id = ? AND user_type = ?" +
+                        "  FOR UPDATE  ");
                 ps.setLong(1, userIdValue);
                 ps.setString(2, UserType.ADMIN.name());
                 rs = ps.executeQuery();
@@ -957,7 +990,7 @@ public class DBHandler {
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
-                        "birthday, room, picture FROM  user_account WHERE username = ? AND user_type = ?");
+                        "birthday, room, picture FROM  user_account WHERE username = ? AND user_type = ?  FOR UPDATE  ");
                 ps.setString(1, username);
                 ps.setString(2, UserType.PATIENT.name());
                 rs = ps.executeQuery();
@@ -983,7 +1016,7 @@ public class DBHandler {
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
-                        "birthday, room, picture FROM  user_account WHERE user_id = ? AND user_type = ?");
+                        "birthday, room, picture FROM  user_account WHERE user_id = ? AND user_type = ?  FOR UPDATE  ");
                 ps.setLong(1, userIdValue);
                 ps.setString(2, UserType.PATIENT.name());
                 rs = ps.executeQuery();
@@ -1057,7 +1090,7 @@ public class DBHandler {
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
-                        "birthday, room, picture FROM  user_account WHERE user_id = ? AND user_type = ?");
+                        "birthday, room, picture FROM  user_account WHERE user_id = ? AND user_type = ?  FOR UPDATE  ");
                 ps.setLong(1, userIdValue);
                 ps.setString(2, UserType.MEDICAL_STAFF.name());
                 rs = ps.executeQuery();
@@ -1088,7 +1121,7 @@ public class DBHandler {
         ResultSet rs = null;
         try {
             if (connect()) {
-                ps = connection.prepareStatement(" SELECT med_id FROM staff_assignment WHERE patient_id = ?");
+                ps = connection.prepareStatement(" SELECT med_id FROM staff_assignment WHERE patient_id = ?  FOR UPDATE  ");
                 ps.setLong(1, userIdValue);
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -1138,7 +1171,7 @@ public class DBHandler {
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
-                        "birthday, room, picture, role, relationship, isCaregiver, isFamily " +
+                        "birthday, room, picture, role, relationship, isCaregiver, isFamily  FOR UPDATE  " +
                         "FROM  user_account WHERE user_id = ?");
                 ps.setLong(1, userIdValue);
                 relation = getAbsRelation(ps.executeQuery());
@@ -1189,7 +1222,7 @@ public class DBHandler {
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT relation_id FROM related JOIN user_account ON " +
-                        "related.relation_id = user_account.user_id WHERE patient_id = ?");
+                        "related.relation_id = user_account.user_id WHERE patient_id = ? FOR UPDATE  ");
                 ps.setLong(1, userIdValue);
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -1231,7 +1264,7 @@ public class DBHandler {
         ResultSet rs = null;
         try {
             if (connect()) {
-                ps = connection.prepareStatement(" SELECT * FROM user_account WHERE user_type = ?");
+                ps = connection.prepareStatement(" SELECT * FROM user_account WHERE user_type = ?  FOR UPDATE  ");
                 ps.setString(1, UserType.PATIENT.name());
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -1259,7 +1292,7 @@ public class DBHandler {
         ResultSet rs = null;
         try {
             if (connect()) {
-                ps = connection.prepareStatement(" SELECT * FROM user_account WHERE user_type = ?");
+                ps = connection.prepareStatement(" SELECT * FROM user_account WHERE user_type = ? FOR UPDATE  ");
                 ps.setString(1, UserType.PATIENT.name());
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -1287,12 +1320,12 @@ public class DBHandler {
         ResultSet rs = null;
         try {
             if (connect()) {
-                ps = connection.prepareStatement(" SELECT * FROM contact WHERE user_id = ?");
+                ps = connection.prepareStatement(" SELECT * FROM contact WHERE user_id = ? FOR UPDATE  ");
                 ps.setLong(1, userIdValue);
                 rs = ps.executeQuery();
                 while (rs.next()) {
-                    ContactElement element = new Phone(rs.getLong("contact_id"),
-                            rs.getString("value"), rs.getString("contact_type"), rs.getString("contact_label"));
+                    ContactElement element = new ContactElement(rs.getLong("contact_id"),
+                            rs.getString("value"), rs.getString("contact_label"), rs.getString("contact_type"));
                     elements.add(element);
                 }
             }
@@ -1341,7 +1374,8 @@ public class DBHandler {
         ResultSet rs = null;
         try {
             if (connect()) {
-                ps = connection.prepareStatement("SELECT * FROM eats JOIN meal ON eats.meal_id = meal.meal_id WHERE eats.user_id = ? ");
+                ps = connection.prepareStatement("SELECT * FROM eats JOIN meal ON eats.meal_id = meal.meal_id " +
+                        "WHERE eats.user_id = ?  FOR UPDATE  ");
                 ps.setLong(1, userIdValue);
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -1394,7 +1428,7 @@ public class DBHandler {
         ResultSet rs = null;
         try {
             if (connect()) {
-                ps = connection.prepareStatement("SELECT * FROM pet WHERE user_id = ? ");
+                ps = connection.prepareStatement("SELECT * FROM pet WHERE user_id = ?  FOR UPDATE  ");
                 ps.setLong(1, userIdValue);
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -1422,7 +1456,8 @@ public class DBHandler {
         ResultSet rs = null;
         try {
             if (connect()) {
-                ps = connection.prepareStatement("SELECT health_id, name, date, value FROM health_info WHERE user_id = ?");
+                ps = connection.prepareStatement("SELECT health_id, name, date, value FROM health_info WHERE user_id = ? " +
+                        " FOR UPDATE  ");
                 ps.setLong(1, userIdValue);
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -1457,6 +1492,7 @@ public class DBHandler {
     public boolean updatePatientAlgorithm(Patient p) {
         success = true;
         updatePatient(p);
+
         for (Pet pet : p.getPets())
             updatePet(pet);
 
@@ -1510,10 +1546,9 @@ public class DBHandler {
 
     public boolean updatePatient(Patient p) {
         success = false;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
         try {
             if (connect()) {
+//                ds = new EmbeddedDataSource();
                 ps = connection.prepareStatement("UPDATE user_account SET firstname = ?, lastname = ?," +
                         "username = ?, password = ?, birthday = ?, room = ?, picture = ? WHERE " +
                         "user_type = ? AND user_id = ? ");
