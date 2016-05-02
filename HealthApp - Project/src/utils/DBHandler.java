@@ -379,8 +379,11 @@ public class DBHandler {
         }
         for (ContactElement e : p.getContactInfo().getPhoneNumbers())
             insertContact(e, p.getUserIdValue());
+
         for (ContactElement e : p.getContactInfo().getEmails())
             insertContact(e, p.getUserIdValue());
+
+        insertContact(p.getContactInfo().getAddress(), p.getUserIdValue());
 
         for (AbsRelation relation : p.getRelations()) {
             insertRelationAlgorithm(p, relation);
@@ -635,7 +638,6 @@ public class DBHandler {
                 ps.setString(3, c.getContactLabel());
                 ps.setString(4, c.getType());
                 ps.executeUpdate();
-                System.out.printf("inserted contact type:%s label:%s\n", c.getType(), c.getContactLabel());
                 rs = ps.getGeneratedKeys();
                 if (rs.next()) {
                     c.setElementId(rs.getLong(1));
@@ -1330,7 +1332,6 @@ public class DBHandler {
                     ContactElement element = new ContactElement(rs.getLong("contact_id"),
                             rs.getString("value"), rs.getString("contact_type"), rs.getString("contact_label"));
                     elements.add(element);
-                    System.out.printf("from db element type: %s label: %s\n", element.getType(), element.getContactLabel());
                 }
             }
         } catch (SQLException | NullPointerException e) {

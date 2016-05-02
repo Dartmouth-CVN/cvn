@@ -355,8 +355,6 @@ public class EditPatientController extends AbsController {
         relationLastName.setText(relation.getLastName());
         relationBirthday.setValue(relation.getBirthday());
         relationshipField.setText(relation.getRelationship());
-        isFamilyCheckBox.setSelected(relation.isFamily());
-        isCaregiverCheckBox.setSelected(relation.isCaregiver());
 
         for(ContactElement phone : relation.getContactInfo().getPhoneNumbers())
             relationPhones.add( new ContactElementWrapper(phone));
@@ -368,6 +366,9 @@ public class EditPatientController extends AbsController {
             relationType.getSelectionModel().select("CAREGIVER");
         else if (relation.isFamily() && !relation.isCaregiver())
             relationType.getSelectionModel().select("FAMILY");
+
+        isFamilyCheckBox.setSelected(relation.isFamily());
+        isCaregiverCheckBox.setSelected(relation.isCaregiver());
     }
 
     public void initializePetInfo() {
@@ -601,6 +602,7 @@ public class EditPatientController extends AbsController {
         try{
             calories = Integer.parseInt(mealCalories.getText());
         } catch (NumberFormatException e) {
+            MainApp.showAlert("Calories should be a number.\nCalories reset to zero");
             calories = 0;
         }
        return new MealWrapper(new Meal(name, calories, rating, notes));
@@ -684,7 +686,7 @@ public class EditPatientController extends AbsController {
     private void save() {
         patient.setFirstName(firstName.getText());
         patient.setLastName(lastName.getText());
-        patient.setBirthday(patient.getBirthday());
+        patient.setBirthday(patientBirthday.getValue());
 
         for (MealWrapper m : meals)
             patient.addMeal(m.toMeal());
@@ -704,8 +706,9 @@ public class EditPatientController extends AbsController {
             patient.getContactInfo().addEmail(email.toContactElement());
         }
 
-        patient.getContactInfo().setAddress(new ContactElement(patientAddress.getText(),
-                Contact.contactTypes.ADDRESS.name(), ContactElement.contactLabels.HOME.name()));
+        ContactElement address = new ContactElement(patientAddress.getText(),
+                Contact.contactTypes.ADDRESS.name(), ContactElement.contactLabels.HOME.name());
+        patient.getContactInfo().setAddress(address);
 
         if(healthAttributes != null)
             patient.getHealthProfile().addHealthInfoList(healthAttributes);
