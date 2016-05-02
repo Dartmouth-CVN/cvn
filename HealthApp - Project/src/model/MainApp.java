@@ -100,6 +100,10 @@ public class MainApp extends Application {
 
         controller = new ScheduleController();
         setupController(controller);
+
+        //load stats controller
+        controller = new StatsController();
+        setupController(controller);
     }
 
     public void setupController(AbsController controller){

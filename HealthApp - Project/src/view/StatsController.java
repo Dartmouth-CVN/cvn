@@ -2,12 +2,13 @@ package view;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.LineChart;
-import javafx.scene.control.*;
-import javafx.scene.chart.XYChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import model.MainApp;
 import model.Patient;
 
@@ -41,6 +42,8 @@ public class StatsController  extends AbsController{
     private ComboBox<String> myCombobox;
     @FXML
     private Label selectedField;
+    @FXML
+    private AnchorPane statsPane;
 
 
     // Reference to the main application.
@@ -48,15 +51,16 @@ public class StatsController  extends AbsController{
     private Patient myPatient;
 
     public StatsController (){
+        key = "stats";
     }
 
     @FXML
     public FXMLLoader getLoader(){
-        loader.setLocation(MainApp.class.getResource("../view/StatsView.fxml"));
+        loader.setLocation(MainApp.class.getResource("/view/StatsView.fxml"));
         return loader;
     }
 
-    private void setPatient(Patient p){
+    public void setPatient(Patient p){
         this.myPatient = p;
     }
 
@@ -70,7 +74,7 @@ public class StatsController  extends AbsController{
         myCombobox.getItems().setAll("test","test1");
 
         // bind the selected attribute label to the selected attribute text in the combo box.
-        selectedField.textProperty().bind(myCombobox.getSelectionModel().selectedItemProperty());
+        //selectedField.textProperty().bind(myCombobox.getSelectionModel().selectedItemProperty());
         // listen for changes to the combo box selection and update the displayed chart and stat fields accordingly.
         myCombobox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue<? extends String> selected, String oldAtt, String newAtt) {

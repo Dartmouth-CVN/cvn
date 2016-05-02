@@ -1,9 +1,7 @@
 package view;
 
-import java.io.File;
-import java.time.format.DateTimeFormatter;
-import java.util.LinkedList;
-
+import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,13 +12,18 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
+import javafx.util.Callback;
 import javafx.util.converter.DefaultStringConverter;
 import model.*;
 import org.controlsfx.control.Rating;
 import utils.FitBitParsingUtils;
-import utils.ObjectNotFoundException;
+
+import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
+import java.util.List;
 
 public class EditPatientController extends AbsController {
 
@@ -89,9 +92,9 @@ public class EditPatientController extends AbsController {
     @FXML
     TableColumn<AbsRelationWrapper, String> relationRelationshipColumn;
     @FXML
-    TableColumn<AbsRelationWrapper, Boolean> isFamilyColumn;
+    CheckBox isFamilyCheckBox;
     @FXML
-    TableColumn<AbsRelationWrapper, Boolean> isCaregiverColumn;
+    CheckBox isCaregiverCheckBox;
     @FXML
     TableView<PetWrapper> petTable;
     @FXML
@@ -110,6 +113,14 @@ public class EditPatientController extends AbsController {
     TableColumn<MealWrapper, Number> mealRatingColumn;
     @FXML
     TableColumn<MealWrapper, String> mealNotesColumn;
+    @FXML
+    Accordion accord;
+    @FXML
+    TitledPane pane1;
+    @FXML
+    TitledPane pane2;
+    @FXML
+    TitledPane pane3;
 
     ObservableList<ContactElementWrapper> patientPhones;
     ObservableList<ContactElementWrapper> patientEmails;
@@ -120,6 +131,16 @@ public class EditPatientController extends AbsController {
     ObservableList<MealWrapper> meals;
     ObservableList<String> contactLabelValues;
     ObservableList<String> relationTypeValues;
+    int relationIndex = 0;
+    int petIndex = 0;
+    int mealIndex = 0;
+    Rating stars;
+    int phoneIndex = 0;
+    int emailIndex = 0;
+    int relationPhoneIndex = 0;
+    int relationEmailIndex = 0;
+    ContactElement element;
+    Callback<TableColumn<ContactElementWrapper, String>, TableCell<ContactElementWrapper, String>> cellFactory;
 
     DateTimeFormatter myDateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private Patient patient;
@@ -130,7 +151,7 @@ public class EditPatientController extends AbsController {
 
     @FXML
     public FXMLLoader getLoader() {
-        loader.setLocation(MainApp.class.getResource("../view/EditPatientView.fxml"));
+        loader.setLocation(MainApp.class.getResource("/view/EditPatientView.fxml"));
         return loader;
     }
 
@@ -139,28 +160,64 @@ public class EditPatientController extends AbsController {
     }
 
     public void setPatient(Patient p) {
+        clearFields();
+
         this.patient = p;
         if(!p.getIsNewPatient())
             loadFields();
 
     }
 
+    public void clearFields() {
+        profilePic.setImage(new Image("file:src/view/images/blank-profile-picture.png"));
+        firstName.setText("");
+        lastName.setText("");
+        patientBirthday.setValue(null);
+        patientPhones.clear();
+        patientEmails.clear();
+        patientAddress.clear();
+        relations.clear();
+        pets.clear();
+        meals.clear();
+        resetRelationFields();
+    }
+
     @FXML
     private void initialize() {
+        accord.setExpandedPane(pane1);
         initializePersonalInfo();
         initializeRelationInfo();
         initializePetInfo();
         initializeDietaryPreferences();
+
+        accord.expandedPaneProperty().addListener((ObservableValue<? extends TitledPane> observable, TitledPane oldPane, TitledPane newPane) -> {
+            Boolean expand = true; // This value will change to false if there's (at least) one pane that is in "expanded" state, so we don't have to expand anything manually
+            for(TitledPane pane: accord.getPanes()) {
+                if(pane.isExpanded()) {
+                    expand = false;
+                }
+            }
+        /* Here we already know whether we need to expand the old pane again */
+            if((expand == true) && (oldPane != null)) {
+                Platform.runLater(() -> {
+                    accord.setExpandedPane(oldPane);
+                });
+            }
+        });
     }
 
-    int phoneIndex = 0;
-    int emailIndex = 0;
     public void initializePersonalInfo() {
+        cellFactory = new Callback<TableColumn<ContactElementWrapper, String>,
+                TableCell<ContactElementWrapper, String>>() {
+            public TableCell call(TableColumn p) {
+                return new EditingCell();
+            }
+        };
         patientPhones = FXCollections.observableArrayList();
         patientEmails = FXCollections.observableArrayList();
         contactLabelValues = FXCollections.observableArrayList();
-        for(int i = 0; i < ContactElement.contactLabel.values().length; i++){
-            contactLabelValues.add(ContactElement.contactLabel.values()[i].name());
+        for(int i = 0; i < ContactElement.contactLabels.values().length; i++){
+            contactLabelValues.add(ContactElement.contactLabels.values()[i].name());
         }
 
         patientPhoneTable.setItems(patientPhones);
@@ -171,8 +228,8 @@ public class EditPatientController extends AbsController {
         patientEmailColumn.setCellValueFactory(cellData -> cellData.getValue().getValueProperty());
         patientEmailLabelColumn.setCellValueFactory(cellData -> cellData.getValue().getTypeProperty());
         patientEmailLabelColumn.setCellFactory(ComboBoxTableCell.forTableColumn(new DefaultStringConverter(), contactLabelValues));
-        patientPhoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        patientEmailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        patientPhoneColumn.setCellFactory(cellFactory);
+        patientEmailColumn.setCellFactory(cellFactory);
         patientPhoneColumn.setOnEditCommit((event) -> {
             setPhoneIndex();
             element.setValue(event.getNewValue());
@@ -194,10 +251,8 @@ public class EditPatientController extends AbsController {
             element.setType(event.getNewValue());
             patientEmails.set(emailIndex, new ContactElementWrapper(element));
         });
-
     }
 
-    ContactElement element;
     private void setPhoneIndex(){
         phoneIndex = patientPhoneTable.getSelectionModel().getSelectedIndex();
         element = patientPhones.get(phoneIndex).toContactElement();
@@ -208,7 +263,6 @@ public class EditPatientController extends AbsController {
         element = patientEmails.get(emailIndex).toContactElement();
     }
 
-    int relationIndex = 0;
     public void initializeRelationInfo() {
         relations = FXCollections.observableArrayList();
         relationPhones = FXCollections.observableArrayList();
@@ -223,17 +277,25 @@ public class EditPatientController extends AbsController {
         });
 
         relationTypeValues = FXCollections.observableArrayList();
-        for(int i = 0; i < AbsRelation.relationType.values().length; i++){
-            relationTypeValues.add(AbsRelation.relationType.values()[i].name());
-        }
+        for(int i = 0; i < AbsRelation.relationTypes.values().length; i++)
+            relationTypeValues.add(AbsRelation.relationTypes.values()[i].name());
+        relationType.setItems(relationTypeValues);
+
         relationNameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
         relationRelationshipColumn.setCellValueFactory(cellData -> cellData.getValue().getRelationshipProperty());
-        isFamilyColumn.setCellValueFactory(cellData -> cellData.getValue().getIsFamilyProperty());
-        isCaregiverColumn.setCellValueFactory(cellData -> cellData.getValue().getIsCaregiverProperty());
-
-        relationPhoneColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        relationPhoneColumn.setCellFactory(cellFactory);
+        relationPhoneColumn.setOnEditCommit((event) -> {
+            setRelationPhoneIndex();
+            element.setValue(event.getNewValue());
+            relationPhones.set(relationPhoneIndex, new ContactElementWrapper(element));
+        });
         relationPhoneLabelColumn.setCellValueFactory(cellData -> cellData.getValue().getTypeProperty());
-        relationEmailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        relationEmailColumn.setCellFactory(cellFactory);
+        relationPhoneColumn.setOnEditCommit((event) -> {
+            setRelationEmailIndex();
+            element.setValue(event.getNewValue());
+            relationPhones.set(relationEmailIndex, new ContactElementWrapper(element));
+        });
         relationEmailLabelColumn.setCellValueFactory(cellData -> cellData.getValue().getTypeProperty());
         relationPhoneColumn.setCellValueFactory(cellData -> cellData.getValue().getValueProperty());
         relationPhoneLabelColumn.setCellFactory(ComboBoxTableCell.forTableColumn(new DefaultStringConverter(), contactLabelValues));
@@ -241,10 +303,48 @@ public class EditPatientController extends AbsController {
         relationEmailLabelColumn.setCellFactory(ComboBoxTableCell.forTableColumn(new DefaultStringConverter(), contactLabelValues));
     }
 
-    private void handleRelationChange(){
+    private void setRelationPhoneIndex(){
+        relationPhoneIndex = relationPhoneTable.getSelectionModel().getSelectedIndex();
     }
 
-    int petIndex = 0;
+    private void setRelationEmailIndex(){
+        relationEmailIndex = relationEmailTable.getSelectionModel().getSelectedIndex();
+    }
+
+    private void resetRelationFields(){
+        relationFirstName.setText("");
+        relationLastName.setText("");
+        relationBirthday.setValue(LocalDate.now());
+        relationshipField.setText("");
+        isFamilyCheckBox.setSelected(false);
+        isCaregiverCheckBox.setSelected(false);
+        relationPhones.clear();
+        relationEmails.clear();
+        relationType.getSelectionModel().selectFirst();
+    }
+
+    private void handleRelationChange() {
+        AbsRelation relation = relationTable.getSelectionModel().getSelectedItem().toAbsRelation();
+        resetRelationFields();
+        relationFirstName.setText(relation.getFirstName());
+        relationLastName.setText(relation.getLastName());
+        relationBirthday.setValue(relation.getBirthday());
+        relationshipField.setText(relation.getRelationship());
+        isFamilyCheckBox.setSelected(relation.isFamily());
+        isCaregiverCheckBox.setSelected(relation.isCaregiver());
+
+        for(ContactElement phone : relation.getContactInfo().getPhoneNumbers())
+            relationPhones.add( new ContactElementWrapper(phone));
+
+        for(ContactElement email : relation.getContactInfo().getEmails())
+            relationEmails.add( new ContactElementWrapper(email));
+
+        if(relation.isCaregiver() && !relation.isFamily())
+            relationType.getSelectionModel().select("CAREGIVER");
+        else if (relation.isFamily() && !relation.isCaregiver())
+            relationType.getSelectionModel().select("FAMILY");
+    }
+
     public void initializePetInfo() {
         pets = FXCollections.observableArrayList();
         petTable.setItems(pets);
@@ -259,14 +359,19 @@ public class EditPatientController extends AbsController {
     }
 
     private void handlePetChange(){
-        Pet p = pets.get(petIndex).toPet();
-        petName.setText(p.getName());
-        petSpecies.setText(p.getSpecies());
-        allergyFriendlyCheckBox.setSelected(p.isAllergyFriendly());
+        Pet p;
+        if(pets.size() > 0) {
+            p = pets.get(petIndex).toPet();
+            petName.setText(p.getName());
+            petSpecies.setText(p.getSpecies());
+            allergyFriendlyCheckBox.setSelected(p.isAllergyFriendly());
+        } else {
+            petName.clear();
+            petSpecies.clear();
+            allergyFriendlyCheckBox.setSelected(false);
+        }
     }
 
-    int mealIndex = 0;
-    Rating stars;
     public void initializeDietaryPreferences() {
         meals = FXCollections.observableArrayList();
         mealTable.setItems(meals);
@@ -285,11 +390,19 @@ public class EditPatientController extends AbsController {
     }
 
     private void handleMealChange(){
-        Meal m = meals.get(mealIndex).toMeal();
-        mealName.setText(m.getFood());
-        mealCalories.setText(String.valueOf(m.getCalories()));
-        mealNotes.setText(m.getNotes());
-        stars.setRating(m.getRating());
+        Meal m;
+        if(meals.size() > 0) {
+            m = meals.get(mealIndex).toMeal();
+            mealName.setText(m.getFood());
+            mealCalories.setText(String.valueOf(m.getCalories()));
+            mealNotes.setText(m.getNotes());
+            stars.setRating(m.getRating());
+        } else {
+            mealName.clear();
+            mealCalories.clear();
+            mealNotes.clear();
+            stars.setRating(0);
+        }
     }
 
     public void loadFields() {
@@ -369,30 +482,160 @@ public class EditPatientController extends AbsController {
 
     @FXML
     private void handleAddPet() {
-        petTable.getItems().add(new PetWrapper(new Pet()));
+        PetWrapper pet = getPet();
+        int index = pets.indexOf(pet);
+        if(index < 0)
+            pets.add(pet);
+        else {
+            MainApp.showAlert("Pet already exists");
+            pets.set(index, pet);
+        }
     }
 
     @FXML
     private void handleRemovePet() {
         int selectionIndex = petTable.getSelectionModel().getSelectedIndex();
 
-        if (selectionIndex >= 0) {
-            petTable.getItems().remove(selectionIndex);
+        if(pets.size() > 0) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText("Remove pet");
+            alert.setContentText("Are you sure you want to remove this pet?");
+            alert.showAndWait().ifPresent(rs -> {
+                if (rs == ButtonType.CANCEL) {
+                    return;
+                } else if (rs == ButtonType.OK) {
+                    if (selectionIndex >= 0) {
+                        petTable.getItems().remove(selectionIndex);
+                    }
+                    resetPetFields();
+                }
+            });
         }
     }
 
     @FXML
-    private void handleAddMeal() {
-        mealTable.getItems().add(new MealWrapper(new Meal()));
+    private void resetPetFields(){
+        petName.clear();
+        petSpecies.clear();
+        allergyFriendlyCheckBox.setSelected(false);
     }
 
     @FXML
-    private void removeMeal() {
+    private void handleRemoveMeal() {
         int selectionIndex = mealTable.getSelectionModel().getSelectedIndex();
 
-        if (selectionIndex >= 0) {
-            mealTable.getItems().remove(selectionIndex);
+        if(meals.size() > 0) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText("Remove meal");
+            alert.setContentText("Are you sure you want to remove this meal?");
+            alert.showAndWait().ifPresent(rs -> {
+                if (rs == ButtonType.CANCEL) {
+                    return;
+                } else if (rs == ButtonType.OK) {
+                    if (selectionIndex >= 0) {
+                        mealTable.getItems().remove(selectionIndex);
+                    }
+                    resetMealFields();
+                }
+            });
         }
+    }
+
+    @FXML
+    private void resetMealFields(){
+        mealName.clear();
+        mealCalories.clear();
+        stars.setRating(0);
+        mealNotes.clear();
+    }
+
+    @FXML
+    private void handleAddMeal(){
+        MealWrapper meal = getMeal();
+        int index = meals.indexOf(meal);
+        if(index < 0)
+            meals.add(meal);
+        else{
+            meals.set(index, meal);
+        }
+
+    }
+
+    public MealWrapper getMeal(){
+        String name = mealName.getText();
+        int calories;
+        int rating = (int) stars.getRating();
+        String notes = mealNotes.getText();
+
+        try{
+            calories = Integer.parseInt(mealCalories.getText());
+        } catch (NumberFormatException e) {
+            calories = 0;
+        }
+       return new MealWrapper(new Meal(name, calories, rating, notes));
+    }
+
+    public PetWrapper getPet(){
+        String name = petName.getText();
+        String species = petSpecies.getText();
+        Boolean allergyFriendly = allergyFriendlyCheckBox.isSelected();
+
+        return new PetWrapper(new Pet(name, species, allergyFriendly));
+    }
+
+    public AbsRelationWrapper getRelation(){
+        AbsRelation relation = null;
+        String firstName = relationFirstName.getText();
+        String lastName = relationLastName.getText();
+        String relationship = relationshipField.getText();
+        LocalDate birthday = relationBirthday.getValue();
+        boolean isFamily = isFamilyCheckBox.isSelected();
+        boolean isCaregiver = isCaregiverCheckBox.isSelected();
+        List<ContactElement> elements = new LinkedList<>();
+
+        for(ContactElementWrapper elementWrapper : relationPhones)
+            elements.add(elementWrapper.toContactElement());
+
+        for(ContactElementWrapper elementWrapper : relationEmails)
+            elements.add(elementWrapper.toContactElement());
+        Contact contactInfo = new Contact(elements);
+        try {
+            if (relationType.getSelectionModel().getSelectedItem().equals(AbsRelation.relationTypes.FAMILY)) {
+                relation = new Family(firstName, lastName, "N/A", "N/A", birthday, "N/A", "N/A", contactInfo,
+                        relationship, isCaregiver);
+            } else {
+                relation = new Caregiver(firstName, lastName, "N/A", "N/A", birthday, "N/A", "N/A", contactInfo,
+                        relationship, isFamily);
+            }
+        }catch(NullPointerException e){
+            MainApp.printError(e);
+        }
+        return new AbsRelationWrapper(relation);
+    }
+
+    @FXML
+    private void handleAddRelation(){
+        resetRelationFields();
+        relationFirstName.requestFocus();
+    }
+
+    @FXML
+    private void handleSaveRelation(){
+        AbsRelationWrapper relationWrapper = getRelation();
+        int index = relations.indexOf(relationWrapper);
+        if(index < 0) {
+            relations.add(relationWrapper);
+            resetRelationFields();
+        }else{
+//            MainApp.showAlert("Relation already exists");
+            relations.set(index, relationWrapper);
+        }
+    }
+
+    @FXML
+    private void handleRemoveRelation(){
+        relations.remove(relationIndex);
+        resetRelationFields();
     }
 
     @FXML

@@ -3,6 +3,10 @@
 	-fx-background-color: #005A58;
 }
 
+#statsPane {
+	-fx-background-color: #FFFFFF;
+}
+
 #loginPane {
 	-fx-background-color: #FFFFFF;
 }
@@ -297,10 +301,10 @@
 }
 
 .combo-box{
-	-fx-background-color:#353535;
+	/*-fx-background-color:#353535;*/
 }
 
 .combo-box .list-view{
-	-fx-background-color:#353535;
+	/*-fx-background-color:#353535;*/
 }
 

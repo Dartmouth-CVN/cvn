@@ -11,6 +11,7 @@ public class Contact{
     List<ContactElement> phoneNumbers;
     List<ContactElement> emails;
     List<ContactElement> addresses;
+    public static enum contactTypes {PHONE, EMAIL, ADDRESS}
 
     public Contact() {
         this(0L, new LinkedList<ContactElement>(), new LinkedList<ContactElement>(), new LinkedList<ContactElement>());
@@ -57,11 +58,11 @@ public class Contact{
         addresses = new LinkedList<>();
 
         for(ContactElement e : contactInfo){
-            if(e.getContactType().equals("PHONE"))
+            if(e.getContactLabel().equals(contactTypes.PHONE.name()))
                 addPhone(e);
-            else if(e.getContactType().equals("EMAIL"))
+            else if(e.getContactLabel().equals(contactTypes.EMAIL.name()))
                 addEmail(e);
-            else if(e.getContactType().equals("ADDRESS"))
+            else if(e.getContactLabel().equals(contactTypes.ADDRESS.name()))
                 addAddress(e);
         }
     }

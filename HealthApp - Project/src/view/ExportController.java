@@ -1,13 +1,12 @@
 package view;
 
+import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -38,6 +37,16 @@ public class ExportController extends AbsController {
     private TitledPane otherPane = new TitledPane();
     @FXML
     private Button exportButton;
+    @FXML
+    private Button prefSelectButton;
+    @FXML
+    private Button prefClearButton;
+    @FXML
+    private Button otherSelectButton;
+    @FXML
+    private Button otherClearButton;
+    @FXML
+    private Accordion accord;
 
     List<CheckBox> personal;
     List<CheckBox> other;
@@ -59,38 +68,68 @@ public class ExportController extends AbsController {
      */
     @FXML
     private void initialize() {
+
+        accord.setExpandedPane(personalPane);
+
         loadCheckBoxArrays();
+
+        accord.expandedPaneProperty().addListener((ObservableValue<? extends TitledPane> observable, TitledPane oldPane, TitledPane newPane) -> {
+            Boolean expand = true; // This value will change to false if there's (at least) one pane that is in "expanded" state, so we don't have to expand anything manually
+            for(TitledPane pane: accord.getPanes()) {
+                if(pane.isExpanded()) {
+                    expand = false;
+                }
+            }
+        /* Here we already know whether we need to expand the old pane again */
+            if((expand == true) && (oldPane != null)) {
+                Platform.runLater(() -> {
+                    accord.setExpandedPane(oldPane);
+                });
+            }
+        });
     }
 
 
     @Override
     public FXMLLoader getLoader() {
-        loader.setLocation(MainApp.class.getResource("../view/ExportView.fxml"));
+        loader.setLocation(MainApp.class.getResource("/view/ExportView.fxml"));
         return loader;
     }
 
     @FXML
     private void handlePersonalSelectButton() {
+
+        for(CheckBox ch : personal) {
+
+            ch.setSelected(true);
+        }
     }
 
     @FXML
     private void handlePersonalClearButton() {
+
+        for(CheckBox ch : personal) {
+
+            ch.setSelected(false);
+        }
     }
 
     @FXML
-    private void handleHealthSelectButton() {
+    private void handleOtherSelectButton() {
+
+        for(CheckBox ch : other) {
+
+            ch.setSelected(true);
+        }
     }
 
     @FXML
-    private void handleHealthClearButton() {
-    }
+    private void handleOtherClearButton() {
 
-    @FXML
-    private void handlePreferenceSelectButton() {
-    }
+        for(CheckBox ch : other) {
 
-    @FXML
-    private void handlePreferenceClearButton() {
+            ch.setSelected(false);
+        }
     }
 
     @FXML

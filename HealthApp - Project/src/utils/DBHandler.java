@@ -27,7 +27,7 @@ public class DBHandler {
 
     private enum UserType {PATIENT, ADMIN, MEDICAL_STAFF, RELATION}
 
-    ;
+    private enum UserRoles {FAMILY, CAREGIVER, DOCTOR, NURSE}
 
     /**
      * Get the unique database instance
@@ -114,7 +114,7 @@ public class DBHandler {
                     + "user_id BIGINT NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), f" +
                     "irstname VARCHAR(20), lastname VARCHAR(20)," +
                     "username VARCHAR(20), password VARCHAR(50), birthday TIMESTAMP, room VARCHAR(10)," +
-                    " picture VARCHAR(200), user_type VARCHAR(20), role VARCHAR(10)," +
+                    " picture VARCHAR(200), user_type VARCHAR(20), role VARCHAR(20)," +
                     "isFamily BOOLEAN, isCaregiver BOOLEAN, relationship VARCHAR(20), PRIMARY KEY(user_id) )");
             ps.execute();
             success = true;
@@ -346,12 +346,10 @@ public class DBHandler {
             insertEats(meal, p.getUserIdValue());
         }
         for (AbsRelation relation : p.getRelations()) {
-            insertRelation(relation);
-            insertRelated(p.getUserIdValue(), relation.getUserIdValue());
+            insertRelationAlgorithm(p, relation);
         }
         for (MedicalStaff medStaff : p.getAssignedStaff()) {
-            insertMedicalStaff(medStaff);
-            insertStaffAssignment(p.getUserIdValue(), medStaff.getUserIdValue());
+            insertMedicalStaffAlgorithm(p, medStaff);
         }
         for (HealthAttribute<?> attribute : p.getHealthProfile().getHealthInfo())
             insertHealthInfo(attribute, p.getUserIdValue());
@@ -366,6 +364,24 @@ public class DBHandler {
         for (ContactElement e : admin.getContactInfo().getAllContactElements())
             insertContact(e, admin.getUserIdValue());
 
+        return success;
+    }
+
+    public boolean insertRelationAlgorithm(Patient p, AbsRelation relation) {
+        success = true;
+        insertAbsRelation(relation);
+        insertRelated(p.getUserIdValue(), relation.getUserIdValue());
+        for (ContactElement e : relation.getContactInfo().getAllContactElements())
+            insertContact(e, relation.getUserIdValue());
+        return success;
+    }
+
+    public boolean insertMedicalStaffAlgorithm(Patient p, MedicalStaff medStaff) {
+        success = true;
+        insertMedicalStaff(medStaff);
+        insertStaffAssignment(p.getUserIdValue(), medStaff.getUserIdValue());
+        for (ContactElement e : medStaff.getContactInfo().getAllContactElements())
+            insertContact(e, medStaff.getUserIdValue());
         return success;
     }
 
@@ -393,7 +409,7 @@ public class DBHandler {
                 rs.next();
                 p.setUserIdValue(rs.getLong(1));
                 success = true;
-//                System.out.printf("patient username: %s, password: %s user type: %s\n", p.getUsername(), p.getPassword(), UserType.PATIENT);
+                System.out.printf("patient username: %s, password: %s user type: %s\n", p.getUsername(), p.getPassword(), UserType.PATIENT);
             }
         } catch (SQLException e) {
             MainApp.printError(e);
@@ -488,30 +504,72 @@ public class DBHandler {
         }
     }
 
-    public boolean insertRelation(AbsRelation rel) {
+    public boolean insertAbsRelation(AbsRelation relation) {
         success = false;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
             if (connect()) {
                 ps = connection.prepareStatement("INSERT INTO user_account (firstname, lastname," +
-                        "username, password, birthday, room, picture, relationship, user_type) "
-                        + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", new String[]{"USER_ID"});
+                        "username, password, birthday, room, picture, relationship, role, user_type) "
+                        + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", new String[]{"USER_ID"});
 
                 int i = 1;
-                ps.setString(i++, rel.getFirstName());
-                ps.setString(i++, rel.getLastName());
-                ps.setString(i++, rel.getUsername());
-                ps.setString(i++, rel.getPassword());
-                ps.setTimestamp(i++, localDateToTimestamp(rel.getBirthday()));
-                ps.setString(i++, rel.getRoom());
-                ps.setString(i++, rel.getPicture());
-                ps.setString(i++, rel.getRelationship());
+                ps.setString(i++, relation.getFirstName());
+                ps.setString(i++, relation.getLastName());
+                ps.setString(i++, relation.getUsername());
+                ps.setString(i++, relation.getPassword());
+                ps.setTimestamp(i++, localDateToTimestamp(relation.getBirthday()));
+                ps.setString(i++, relation.getRoom());
+                ps.setString(i++, relation.getPicture());
+                ps.setString(i++, relation.getRelationship());
+                ps.setString(i++, UserRoles.FAMILY.name());
                 ps.setString(i++, UserType.RELATION.name());
                 ps.executeUpdate();
                 rs = ps.getGeneratedKeys();
                 rs.next();
-                rel.setUserIdValue(rs.getLong(1));
+                relation.setUserIdValue(rs.getLong(1));
+                success = true;
+            }
+        } catch (SQLException e) {
+            MainApp.printError(e);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (connection != null) connection.close();
+            } catch (Exception e) {
+                MainApp.printError(e);
+            }
+            return success;
+        }
+    }
+
+    public boolean insertCaregiver(Caregiver care) {
+        success = false;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            if (connect()) {
+                ps = connection.prepareStatement("INSERT INTO user_account (firstname, lastname," +
+                        "username, password, birthday, room, picture, relationship, role, user_type) "
+                        + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", new String[]{"USER_ID"});
+
+                int i = 1;
+                ps.setString(i++, care.getFirstName());
+                ps.setString(i++, care.getLastName());
+                ps.setString(i++, care.getUsername());
+                ps.setString(i++, care.getPassword());
+                ps.setTimestamp(i++, localDateToTimestamp(care.getBirthday()));
+                ps.setString(i++, care.getRoom());
+                ps.setString(i++, care.getPicture());
+                ps.setString(i++, care.getRelationship());
+                ps.setString(i++, UserRoles.CAREGIVER.name());
+                ps.setString(i++, UserType.RELATION.name());
+                ps.executeUpdate();
+                rs = ps.getGeneratedKeys();
+                rs.next();
+                care.setUserIdValue(rs.getLong(1));
                 success = true;
             }
         } catch (SQLException e) {
@@ -540,7 +598,7 @@ public class DBHandler {
                 ps.setLong(1, userIdValue);
                 ps.setString(2, c.getValue());
                 ps.setString(3, c.getType());
-                ps.setString(4, c.getContactType());
+                ps.setString(4, c.getContactLabel());
                 ps.executeUpdate();
                 rs = ps.getGeneratedKeys();
                 rs.next();
@@ -762,17 +820,14 @@ public class DBHandler {
         return null;
     }
 
-    public AbsUser getFilledUserById(long userId) {
+    public void fillAbsRelation(AbsRelation relation) {
         if (connect()) {
-            AbsUser user = getAbsUserById(userId);
-            List<ContactElement> info = getContactInfo(user.getUserIdValue());
+            List<ContactElement> info = getContactInfo(relation.getUserIdValue());
             if (info.size() > 0) {
                 Contact contactInfo = new Contact(info);
-                user.setContactInfo(contactInfo);
+                relation.setContactInfo(contactInfo);
             }
-            return user;
         }
-        return null;
     }
 
     public AbsUser getAbsUserByUsername(String username) {
@@ -787,8 +842,9 @@ public class DBHandler {
                     String userType = rs.getString("user_type");
                     if (userType.equals(UserType.PATIENT.name())) {
                         user = getPatientByUsername(username);
-                    } else if (userType.equals(UserType.ADMIN.name())) ;
-                    user = getAdministratorByUsername(username);
+                    } else if (userType.equals(UserType.ADMIN.name())) {
+                        user = getAdministratorByUsername(username);
+                    }
                 }
             }
         } catch (SQLException e) {
@@ -901,7 +957,9 @@ public class DBHandler {
                         "birthday, room, picture FROM  user_account WHERE username = ? AND user_type = ?");
                 ps.setString(1, username);
                 ps.setString(2, UserType.PATIENT.name());
-                p = getPatient(ps.executeQuery());
+                rs = ps.executeQuery();
+                if (rs.next())
+                    p = getPatient(rs);
             }
         } catch (SQLException e) {
             MainApp.printError(e);
@@ -925,9 +983,10 @@ public class DBHandler {
                         "birthday, room, picture FROM  user_account WHERE user_id = ? AND user_type = ?");
                 ps.setLong(1, userIdValue);
                 ps.setString(2, UserType.PATIENT.name());
-                p = getPatient(ps.executeQuery());
+                rs = ps.executeQuery();
+                if (rs.next())
+                    p = getPatient(rs);
             }
-            return getPatient(ps.executeQuery());
         } catch (SQLException e) {
             MainApp.printError(e);
         } finally {
@@ -1099,7 +1158,7 @@ public class DBHandler {
         try {
             if (rs.next()) {
                 AbsRelation relation;
-                if (rs.getString("role") == Caregiver.getRole()) {
+                if (rs.getString("role").equals(UserRoles.CAREGIVER.name())) {
                     relation = new Caregiver(rs.getLong("user_id"), rs.getString("firstname"),
                             rs.getString("lastname"), rs.getString("username"), rs.getString("password"),
                             timestampToLocalDate(rs.getTimestamp("birthday")), rs.getString("room"),
@@ -1126,11 +1185,14 @@ public class DBHandler {
         ResultSet rs = null;
         try {
             if (connect()) {
-                ps = connection.prepareStatement(" SELECT relation_id FROM related WHERE patient_id = ?");
+                ps = connection.prepareStatement(" SELECT relation_id FROM related JOIN user_account ON " +
+                        "related.relation_id = user_account.user_id WHERE patient_id = ?");
                 ps.setLong(1, userIdValue);
                 rs = ps.executeQuery();
                 while (rs.next()) {
-                    relations.add(getRelationById(rs.getLong("relation_id")));
+                    AbsRelation relation = getRelationById(rs.getLong("relation_id"));
+                    fillAbsRelation(relation);
+                    relations.add(relation);
                 }
             }
         } catch (SQLException e) {
@@ -1149,13 +1211,11 @@ public class DBHandler {
 
     public Patient getPatient(ResultSet rs) {
         try {
-            if (rs.next()) {
-                Patient patient = new Patient(rs.getLong("user_id"), rs.getString("firstname"),
-                        rs.getString("lastname"), rs.getString("username"), rs.getString("password"),
-                        timestampToLocalDate(rs.getTimestamp("birthday")), rs.getString("room"),
-                        rs.getString("picture"));
-                return patient;
-            }
+            Patient patient = new Patient(rs.getLong("user_id"), rs.getString("firstname"),
+                    rs.getString("lastname"), rs.getString("username"), rs.getString("password"),
+                    timestampToLocalDate(rs.getTimestamp("birthday")), rs.getString("room"),
+                    rs.getString("picture"));
+            return patient;
         } catch (SQLException e) {
             MainApp.printError(e);
         }
@@ -1690,7 +1750,6 @@ public class DBHandler {
         return false;
     }
 
-
     /**
      * http://www.w3schools.com/sql/sql_like.asp
      * ^^ for how to use LIKE
@@ -1702,8 +1761,11 @@ public class DBHandler {
                 ps = connection.prepareStatement("SELECT * FROM user_account WHERE firstname LIKE UPPER(?) OR lastname LIKE UPPER(?)");
                 ps.setString(1, "%" + name + "%");
                 ps.setString(2, "%" + name + "%");
-                Patient p = getPatient(ps.executeQuery());
-                patientList.add(p);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    Patient p = getPatient(rs);
+                    patientList.add(p);
+                }
             }
         } catch (SQLException e) {
             MainApp.printError(e);

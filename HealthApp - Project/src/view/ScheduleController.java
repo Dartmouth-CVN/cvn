@@ -50,7 +50,7 @@ public class ScheduleController extends AbsController {
 
 	@FXML
 	public FXMLLoader getLoader() {
-		loader.setLocation(MainApp.class.getResource("../view/ScheduleView.fxml"));
+		loader.setLocation(MainApp.class.getResource("/view/ScheduleView.fxml"));
 		return loader;
 	}
 

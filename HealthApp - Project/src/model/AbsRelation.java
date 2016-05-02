@@ -10,9 +10,17 @@ public abstract class AbsRelation extends AbsUser {
     boolean isFamily;
     boolean isCaregiver;
 
-    public static enum relationType {CAREGIVER, FAMILY};
+    public static enum relationTypes {CAREGIVER, FAMILY};
 
     public AbsRelation() {
+    }
+
+
+    public AbsRelation(String firstName, String lastName, String username, String password,
+                       LocalDate birthday, String room, String picture, Contact contactInfo, String relationship,
+                       boolean isFamily, boolean isCaregiver) {
+        this(0L, firstName, lastName, username, password, birthday, room, picture,
+                contactInfo, relationship, isFamily, isCaregiver);
     }
 
     public AbsRelation(long userIdValue, String firstName, String lastName, String username, String password,
