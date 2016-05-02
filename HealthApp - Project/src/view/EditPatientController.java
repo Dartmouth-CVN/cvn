@@ -1,5 +1,7 @@
 package view;
 
+import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -180,14 +182,26 @@ public class EditPatientController extends AbsController {
 
     @FXML
     private void initialize() {
-        //accord.setExpandedPane(pane1);
-        //pane1.setCollapsible(false);
-        //pane2.setCollapsible(false);
-        //pane3.setCollapsible(false);
+        accord.setExpandedPane(pane1);
         initializePersonalInfo();
         initializeRelationInfo();
         initializePetInfo();
         initializeDietaryPreferences();
+
+        accord.expandedPaneProperty().addListener((ObservableValue<? extends TitledPane> observable, TitledPane oldPane, TitledPane newPane) -> {
+            Boolean expand = true; // This value will change to false if there's (at least) one pane that is in "expanded" state, so we don't have to expand anything manually
+            for(TitledPane pane: accord.getPanes()) {
+                if(pane.isExpanded()) {
+                    expand = false;
+                }
+            }
+        /* Here we already know whether we need to expand the old pane again */
+            if((expand == true) && (oldPane != null)) {
+                Platform.runLater(() -> {
+                    accord.setExpandedPane(oldPane);
+                });
+            }
+        });
     }
 
     public void initializePersonalInfo() {

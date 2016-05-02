@@ -20,5 +20,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="jars" level="project" />
+    <orderEntry type="library" name="controlsfx-8.40.10 (2)" level="project" />
+    <orderEntry type="library" name="jars1" level="project" />
   </component>
 </module>
