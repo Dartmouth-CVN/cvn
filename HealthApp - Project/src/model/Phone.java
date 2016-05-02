@@ -5,7 +5,7 @@ package model;
  */
 public class Phone extends ContactElement {
 
-    public Phone(long elementId, String value, String type, String contactType) {
-        super(elementId, value, type, contactType);
+    public Phone(long elementId, String value, String contactLabel, String contactType) {
+        super(elementId, value, contactLabel, contactType);
     }
 }

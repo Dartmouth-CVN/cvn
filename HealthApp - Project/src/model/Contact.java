@@ -42,10 +42,10 @@ public class Contact{
         emails = new LinkedList<>();
         addresses = new LinkedList<>();
         for(ContactElement e : contactInfo){
-            if(e instanceof Phone)
+            if(e.getType().equals(contactTypes.PHONE.name()))
                 addPhone(e);
-            else if(e instanceof Email)
-                addEmail(e);
+//            else if(e.getType().equals(cont))
+//                addEmail(e);
             else if(e instanceof Address)
                 addAddress(e);
         }
@@ -57,6 +57,7 @@ public class Contact{
         emails = new LinkedList<>();
         addresses = new LinkedList<>();
         for(ContactElement e : contactInfo){
+            System.out.printf("type: %s enum type: %s\n", e.getType(), contactTypes.PHONE.name());
             if(e.getType().equals(contactTypes.PHONE.name()))
                 addPhone(e);
             else if(e.getType().equals(contactTypes.EMAIL.name()))

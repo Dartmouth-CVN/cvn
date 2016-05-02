@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="adminDash" onSwipeLeft="#handleSwipeRight" onSwipeRight="#handleSwipeLeft" prefHeight="800.0" prefWidth="1280.0" styleClass="root" stylesheets="@cvnStyle.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AdminDashController">
+<AnchorPane fx:id="adminDash" onSwipeLeft="#handleSwipeLeft" onSwipeRight="#handleSwipeRight" prefHeight="800.0" prefWidth="1280.0" styleClass="root" stylesheets="@cvnStyle.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AdminDashController">
    <children>
       <TabPane fx:id="tabPane" prefHeight="600.0" prefWidth="729.0" styleClass="root" stylesheets="@baseTheme.css" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="100.0" tabMaxWidth="100.0" tabMinHeight="35.0" tabMinWidth="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>

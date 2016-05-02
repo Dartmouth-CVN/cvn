@@ -133,14 +133,14 @@ public class EditPatientController extends AbsController {
     ObservableList<MealWrapper> meals;
     ObservableList<String> contactLabelValues;
     ObservableList<String> relationTypeValues;
-    int relationIndex = 0;
-    int petIndex = 0;
-    int mealIndex = 0;
+    int relationIndex = -1;
+    int petIndex = -1;
+    int mealIndex = -1;
     Rating stars;
-    int phoneIndex = 0;
-    int emailIndex = 0;
-    int relationPhoneIndex = 0;
-    int relationEmailIndex = 0;
+    int phoneIndex = -1;
+    int emailIndex = -1;
+    int relationPhoneIndex = -1;
+    int relationEmailIndex = -1;
     ContactElement element;
     Callback<TableColumn<ContactElementWrapper, String>, TableCell<ContactElementWrapper, String>> cellFactory;
 
@@ -416,17 +416,21 @@ public class EditPatientController extends AbsController {
 
     private void handleMealChange(){
         Meal m;
-        if(meals.size() > 0 && mealIndex > 0) {
-            m = meals.get(mealIndex).toMeal();
-            mealName.setText(m.getFood());
-            mealCalories.setText(String.valueOf(m.getCalories()));
-            mealNotes.setText(m.getNotes());
-            stars.setRating(m.getRating());
-        } else {
-            mealName.clear();
-            mealCalories.clear();
-            mealNotes.clear();
-            stars.setRating(0);
+        try {
+            if (meals.size() > 0 && mealIndex > 0) {
+                m = meals.get(mealIndex).toMeal();
+                mealName.setText(m.getFood());
+                mealCalories.setText(String.valueOf(m.getCalories()));
+                mealNotes.setText(m.getNotes());
+                stars.setRating(m.getRating());
+            } else {
+                mealName.clear();
+                mealCalories.clear();
+                mealNotes.clear();
+                stars.setRating(0);
+            }
+        }catch(NullPointerException e){
+            MainApp.printError(e);
         }
     }
 
@@ -446,9 +450,7 @@ public class EditPatientController extends AbsController {
         for (ContactElement e : patient.getContactInfo().getAddresses())
             addresses += e.getValue() + "\n";
         patientAddress.setText(addresses);
-//        System.out.printf("contact size: %d\n", patient.getContactInfo().getAllContactElements().size());
 
-        System.out.printf("");
         for (AbsRelation relation : patient.getRelations())
             relations.add(new AbsRelationWrapper(relation));
 
@@ -511,12 +513,13 @@ public class EditPatientController extends AbsController {
     private void handleAddPet() {
         PetWrapper pet = getPet();
         int index = pets.indexOf(pet);
-        if(index < 0)
-            pets.add(pet);
-        else {
-            MainApp.showAlert("Pet already exists");
+        if(petIndex >= 0) //row selected
             pets.set(index, pet);
-        }
+        else if(index < 0)
+            pets.add(pet);
+        else
+            MainApp.showAlert("Pet already exists");
+        resetPetFields();
     }
 
     @FXML
@@ -580,11 +583,12 @@ public class EditPatientController extends AbsController {
     private void handleAddMeal(){
         MealWrapper meal = getMeal();
         int index = meals.indexOf(meal);
+        if(mealIndex >= 0)
+            meals.set(mealIndex, meal);
         if(index < 0)
             meals.add(meal);
-        else{
-            meals.set(index, meal);
-        }
+        else
+            MainApp.showAlert("Meal already exists");
 
     }
 
