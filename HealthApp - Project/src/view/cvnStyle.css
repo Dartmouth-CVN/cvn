@@ -3,6 +3,10 @@
 	-fx-background-color: #005A58;
 }
 
+#statsPane {
+	-fx-background-color: #FFFFFF;
+}
+
 #loginPane {
 	-fx-background-color: #FFFFFF;
 }

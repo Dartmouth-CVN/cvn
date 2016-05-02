@@ -58,8 +58,8 @@
                               <CheckBox fx:id="lastNameCheckBox2" mnemonicParsing="false" text="Room" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" />
                            </children>
                         </GridPane>
-                        <Button fx:id="personalClearAllButton" layoutX="556.0" layoutY="198.0" mnemonicParsing="false" onAction="#handlePersonalClearButton" text="Clear All" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="5.0" />
-                        <Button fx:id="personalSelectAllButton" layoutX="479.0" layoutY="198.0" mnemonicParsing="false" onAction="#handlePersonalSelectButton" text="Select All" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="80.0" />
+                        <Button fx:id="prefClearButton" layoutX="556.0" layoutY="198.0" mnemonicParsing="false" onAction="#handlePersonalClearButton" text="Clear All" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="5.0" />
+                        <Button fx:id="prefSelectButton" layoutX="479.0" layoutY="198.0" mnemonicParsing="false" onAction="#handlePersonalSelectButton" text="Select All" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="80.0" />
                      </children>
                   </AnchorPane>
             </content>
@@ -107,8 +107,8 @@
                               <CheckBox fx:id="fatCheckBox2" mnemonicParsing="false" text="Meals" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
-                        <Button fx:id="healthClearAllButton" layoutX="556.0" layoutY="198.0" mnemonicParsing="false" onAction="#handleHealthClearButton" text="Clear All" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="5.0" />
-                        <Button fx:id="healthSelectAllButton" layoutX="479.0" layoutY="198.0" mnemonicParsing="false" onAction="#handleHealthSelectButton" text="Select All" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="80.0" />
+                        <Button fx:id="otherClearButton" layoutX="556.0" layoutY="198.0" mnemonicParsing="false" onAction="#handleOtherClearButton" text="Clear All" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="5.0" />
+                        <Button fx:id="otherSelectButton" layoutX="479.0" layoutY="198.0" mnemonicParsing="false" onAction="#handleOtherSelectButton" text="Select All" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="80.0" />
                      </children>
                   </AnchorPane>
             </content>
