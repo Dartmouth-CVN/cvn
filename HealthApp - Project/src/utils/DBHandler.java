@@ -1,18 +1,11 @@
 package utils;
 
 import model.*;
-import org.apache.derby.iapi.sql.*;
 import org.apache.derby.jdbc.EmbeddedDataSource;
 
 import java.io.*;
-import java.math.BigDecimal;
-import java.net.URL;
 import java.sql.*;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -86,6 +79,12 @@ public class DBHandler {
             p = RandomGenerator.fillPatient(p);
             insertPatientAlgorithm(p);
         }
+
+        Patient p = RandomGenerator.getRandomPatient();
+        p = RandomGenerator.fillPatient(p);
+        p.setUsername("luke");
+        p.setPassword("luke");
+        insertPatientAlgorithm(p);
 
         Administrator admin = RandomGenerator.getRandomAdmin();
         admin.setUsername("admin");
@@ -448,7 +447,7 @@ public class DBHandler {
                 rs.next();
                 p.setUserIdValue(rs.getLong(1));
                 success = true;
-//                System.out.printf("patient username: %s, password: %s user type: %s\n", p.getUsername(), p.getPassword(), UserType.PATIENT);
+                System.out.printf("patient username: %s, password: %s user type: %s\n", p.getUsername(), p.getPassword(), UserType.PATIENT);
             }
         } catch (SQLException e) {
             MainApp.printError(e);
@@ -1435,6 +1434,7 @@ public class DBHandler {
                     meals.add(new Meal(rs.getLong("meal_id"), rs.getString("name"), rs.getInt("calories"),
                             rs.getInt("rating"), rs.getString("notes")));
                 }
+                System.out.println("Meal size: " + meals.size());
             }
         } catch (SQLException e) {
             MainApp.printError(e);

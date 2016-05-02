@@ -112,7 +112,7 @@ public class StatsController  extends AbsController{
                             for(HealthAttribute hi : myPatient.getHealthProfile().getBMIs()) {
                                 r = i;
                                 series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
-                                average += (int) hi.getValue();
+                                average += (double) hi.getValue();
                                 i++;
                             }
                             lineChart.getData().add(series);
@@ -167,7 +167,7 @@ public class StatsController  extends AbsController{
                             for(HealthAttribute hi : myPatient.getHealthProfile().getDistances()) {
                                 r = i;
                                 series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
-                                average += (int) hi.getValue();
+                                average += (double) hi.getValue();
                                 i++;
                             }
                             lineChart.getData().add(series);

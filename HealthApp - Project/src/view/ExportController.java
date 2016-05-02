@@ -180,7 +180,7 @@ public class ExportController extends AbsController {
         List<Patient> exportPatients = new LinkedList<>();
         for(PatientWrapper pwrapper : SearchController.patientList){
             if(pwrapper.getSelectedProperty().get() == true)
-                exportPatients.add(DBHandler.getUniqueInstance().getPatientById(pwrapper.getUserIdValueProperty().intValue()));
+                exportPatients.add(DBHandler.getUniqueInstance().getFilledPatientById(pwrapper.getUserIdValueProperty().intValue()));
         }
 
         if (CSVRadioButton.isSelected()) {
