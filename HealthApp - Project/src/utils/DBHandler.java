@@ -544,7 +544,7 @@ public class DBHandler {
             return success;
         }
     }
-    
+
     public boolean insertCaregiver(Caregiver care) {
         success = false;
         PreparedStatement ps = null;
@@ -585,7 +585,7 @@ public class DBHandler {
             return success;
         }
     }
-    
+
     public boolean insertContact(ContactElement c, long userIdValue) {
         success = false;
         PreparedStatement ps = null;
@@ -598,7 +598,7 @@ public class DBHandler {
                 ps.setLong(1, userIdValue);
                 ps.setString(2, c.getValue());
                 ps.setString(3, c.getType());
-                ps.setString(4, c.getContactType());
+                ps.setString(4, c.getContactLabel());
                 ps.executeUpdate();
                 rs = ps.getGeneratedKeys();
                 rs.next();
@@ -957,7 +957,9 @@ public class DBHandler {
                         "birthday, room, picture FROM  user_account WHERE username = ? AND user_type = ?");
                 ps.setString(1, username);
                 ps.setString(2, UserType.PATIENT.name());
-                p = getPatient(ps.executeQuery());
+                rs = ps.executeQuery();
+                if (rs.next())
+                    p = getPatient(rs);
             }
         } catch (SQLException e) {
             MainApp.printError(e);
@@ -981,9 +983,10 @@ public class DBHandler {
                         "birthday, room, picture FROM  user_account WHERE user_id = ? AND user_type = ?");
                 ps.setLong(1, userIdValue);
                 ps.setString(2, UserType.PATIENT.name());
-                p = getPatient(ps.executeQuery());
+                rs = ps.executeQuery();
+                if (rs.next())
+                    p = getPatient(rs);
             }
-            return getPatient(ps.executeQuery());
         } catch (SQLException e) {
             MainApp.printError(e);
         } finally {
@@ -1155,7 +1158,7 @@ public class DBHandler {
         try {
             if (rs.next()) {
                 AbsRelation relation;
-                if (rs.getString("role").equals(UserRoles.CAREGIVER.name()) ) {
+                if (rs.getString("role").equals(UserRoles.CAREGIVER.name())) {
                     relation = new Caregiver(rs.getLong("user_id"), rs.getString("firstname"),
                             rs.getString("lastname"), rs.getString("username"), rs.getString("password"),
                             timestampToLocalDate(rs.getTimestamp("birthday")), rs.getString("room"),
@@ -1208,13 +1211,11 @@ public class DBHandler {
 
     public Patient getPatient(ResultSet rs) {
         try {
-            if (rs.next()) {
-                Patient patient = new Patient(rs.getLong("user_id"), rs.getString("firstname"),
-                        rs.getString("lastname"), rs.getString("username"), rs.getString("password"),
-                        timestampToLocalDate(rs.getTimestamp("birthday")), rs.getString("room"),
-                        rs.getString("picture"));
-                return patient;
-            }
+            Patient patient = new Patient(rs.getLong("user_id"), rs.getString("firstname"),
+                    rs.getString("lastname"), rs.getString("username"), rs.getString("password"),
+                    timestampToLocalDate(rs.getTimestamp("birthday")), rs.getString("room"),
+                    rs.getString("picture"));
+            return patient;
         } catch (SQLException e) {
             MainApp.printError(e);
         }
@@ -1760,8 +1761,11 @@ public class DBHandler {
                 ps = connection.prepareStatement("SELECT * FROM user_account WHERE firstname LIKE UPPER(?) OR lastname LIKE UPPER(?)");
                 ps.setString(1, "%" + name + "%");
                 ps.setString(2, "%" + name + "%");
-                Patient p = getPatient(ps.executeQuery());
-                patientList.add(p);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    Patient p = getPatient(rs);
+                    patientList.add(p);
+                }
             }
         } catch (SQLException e) {
             MainApp.printError(e);

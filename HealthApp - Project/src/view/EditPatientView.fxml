@@ -34,7 +34,7 @@
                                  <children>
                                     <TextField fx:id="firstName" layoutX="43.0" layoutY="184.0" prefHeight="32.0" prefWidth="221.0" promptText="First Name" />
                                     <TextField fx:id="lastName" layoutX="309.0" layoutY="185.0" prefHeight="31.0" prefWidth="200.0" promptText="Last Name" />
-                                    <AnchorPane layoutX="544.0" layoutY="5.0" prefHeight="475.0" prefWidth="604.0">
+                                    <AnchorPane layoutX="544.0" layoutY="13.0" prefHeight="467.0" prefWidth="604.0">
                                        <children>
                                           <TableView fx:id="patientPhoneTable" editable="true" layoutX="29.0" layoutY="12.0" prefHeight="204.0" prefWidth="497.0">
                                              <columns>
@@ -48,7 +48,7 @@
                                                 <TableColumn fx:id="patientEmailLabelColumn" prefWidth="172.4329833984375" text="Contact Label" />
                                              </columns>
                                           </TableView>
-                                          <VBox layoutX="534.0" layoutY="67.0" prefHeight="72.0" prefWidth="51.0" spacing="10.0">
+                                          <VBox layoutX="538.0" layoutY="67.0" prefHeight="72.0" prefWidth="51.0" spacing="10.0">
                                              <children>
                                                 <Button mnemonicParsing="false" onAction="#handleAddPatientPhone" prefHeight="26.0" prefWidth="51.0" text="+">
                                                    <font>
@@ -62,7 +62,7 @@
                                                 </Button>
                                              </children>
                                           </VBox>
-                                          <VBox layoutX="537.0" layoutY="311.0" prefHeight="72.0" prefWidth="51.0" spacing="10.0">
+                                          <VBox layoutX="543.0" layoutY="311.0" prefHeight="72.0" prefWidth="51.0" spacing="10.0">
                                              <children>
                                                 <Button mnemonicParsing="false" onAction="#handleAddPatientEmail" prefHeight="26.0" prefWidth="51.0" text="+">
                                                    <font>

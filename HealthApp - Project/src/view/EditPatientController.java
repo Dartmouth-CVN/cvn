@@ -132,8 +132,6 @@ public class EditPatientController extends AbsController {
     int emailIndex = 0;
     ContactElement element;
 
-
-
     DateTimeFormatter myDateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private Patient patient;
 
@@ -181,6 +179,8 @@ public class EditPatientController extends AbsController {
         initializePetInfo();
         initializeDietaryPreferences();
     }
+
+//    List<TextFieldTableCell<ContactElementWrapper, String>> textFieldList;
 
     public void initializePersonalInfo() {
         patientPhones = FXCollections.observableArrayList();

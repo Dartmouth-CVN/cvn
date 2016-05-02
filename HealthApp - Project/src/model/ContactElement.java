@@ -2,28 +2,26 @@ package model;
 
 import utils.RandomGenerator;
 
-import java.io.Serializable;
-
 public class ContactElement{
     long elementId;
     String value;
     String type;
-    String contactType;//TYPES: PHONE, EMAIL, ADDRESS
-    public static enum contactLabel {WORK, HOME, OFFICE}
+    String contactLabel;//TYPES: PHONE, EMAIL, ADDRESS
+    public static enum contactLabels {WORK, HOME, OFFICE}
 
     public ContactElement() {
-        this(0, "", "", "");
+        this(0, "ENTER INFO", contactLabels.HOME.name(), "");
     }
 
-    public ContactElement(long elementId, String value, String type, String contactType) {
+    public ContactElement(long elementId, String value, String type, String contactLabel) {
         setElementId(elementId);
         setValue(value);
         setType(type);
-        setContactType(contactType);
+        setContactLabel(contactLabel);
     }
 
-    public ContactElement( String value, String type, String contactType) {
-        this(0L, value, type, contactType);
+    public ContactElement( String value, String type, String contactLabel) {
+        this(0L, value, type, contactLabel);
     }
 
     public ContactElement(String value, String type) {
@@ -59,16 +57,16 @@ public class ContactElement{
         return value.hashCode() * type.hashCode();
     }
 
-    public String getContactType(){
-        return contactType;
+    public String getContactLabel(){
+        return contactLabel;
     }
 
-    public void setContactType(String contactType){
-        this.contactType = contactType;
+    public void setContactLabel(String contactLabel){
+        this.contactLabel = contactLabel;
     }
     @Override
     public String toString(){
-        return String.format("%s, %s, %s", value, type, contactType);
+        return String.format("%s, %s, %s", value, type, contactLabel);
     }
 
     public static ContactElement fromSVString(String line){
