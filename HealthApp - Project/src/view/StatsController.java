@@ -2,12 +2,13 @@ package view;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.LineChart;
-import javafx.scene.control.*;
-import javafx.scene.chart.XYChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import model.MainApp;
 import model.Patient;
 
@@ -41,6 +42,8 @@ public class StatsController  extends AbsController{
     private ComboBox<String> myCombobox;
     @FXML
     private Label selectedField;
+    @FXML
+    private AnchorPane statsPane;
 
 
     // Reference to the main application.

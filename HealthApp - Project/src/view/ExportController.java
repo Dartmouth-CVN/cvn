@@ -38,6 +38,14 @@ public class ExportController extends AbsController {
     @FXML
     private Button exportButton;
     @FXML
+    private Button prefSelectButton;
+    @FXML
+    private Button prefClearButton;
+    @FXML
+    private Button otherSelectButton;
+    @FXML
+    private Button otherClearButton;
+    @FXML
     private Accordion accord;
 
     List<CheckBox> personal;
@@ -90,26 +98,38 @@ public class ExportController extends AbsController {
 
     @FXML
     private void handlePersonalSelectButton() {
+
+        for(CheckBox ch : personal) {
+
+            ch.setSelected(true);
+        }
     }
 
     @FXML
     private void handlePersonalClearButton() {
+
+        for(CheckBox ch : personal) {
+
+            ch.setSelected(false);
+        }
     }
 
     @FXML
-    private void handleHealthSelectButton() {
+    private void handleOtherSelectButton() {
+
+        for(CheckBox ch : other) {
+
+            ch.setSelected(true);
+        }
     }
 
     @FXML
-    private void handleHealthClearButton() {
-    }
+    private void handleOtherClearButton() {
 
-    @FXML
-    private void handlePreferenceSelectButton() {
-    }
+        for(CheckBox ch : other) {
 
-    @FXML
-    private void handlePreferenceClearButton() {
+            ch.setSelected(false);
+        }
     }
 
     @FXML

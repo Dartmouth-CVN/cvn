@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -42,34 +43,34 @@
                                                 <TableColumn fx:id="patientPhoneLabelColumn" prefWidth="177.1339111328125" text="Contact Label" />
                                              </columns>
                                           </TableView>
-                                          <TableView fx:id="patientEmailTable" editable="true" layoutX="29.0" layoutY="260.0" prefHeight="192.0" prefWidth="502.0">
+                                          <TableView fx:id="patientEmailTable" editable="true" layoutX="29.0" layoutY="273.0" prefHeight="192.0" prefWidth="502.0">
                                              <columns>
                                                 <TableColumn fx:id="patientEmailColumn" prefWidth="329.56689453125" text="Email Addresses" />
                                                 <TableColumn fx:id="patientEmailLabelColumn" prefWidth="172.4329833984375" text="Contact Label" />
                                              </columns>
                                           </TableView>
-                                          <VBox layoutX="538.0" layoutY="67.0" prefHeight="72.0" prefWidth="51.0" spacing="10.0">
+                                          <VBox layoutX="538.0" layoutY="67.0" prefHeight="106.0" prefWidth="51.0" spacing="10.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#handleAddPatientPhone" prefHeight="26.0" prefWidth="51.0" text="+">
+                                                <Button mnemonicParsing="false" onAction="#handleAddPatientPhone" prefHeight="50.0" prefWidth="51.0" text="+">
                                                    <font>
-                                                      <Font size="18.0" />
+                                                      <Font size="12.0" />
                                                    </font>
                                                 </Button>
-                                                <Button mnemonicParsing="false" onAction="#handleRemovePatientPhone" prefHeight="27.0" prefWidth="55.0" text="-">
+                                                <Button mnemonicParsing="false" onAction="#handleRemovePatientPhone" prefHeight="45.0" prefWidth="51.0" text="-">
                                                    <font>
-                                                      <Font size="18.0" />
+                                                      <Font size="12.0" />
                                                    </font>
                                                 </Button>
                                              </children>
                                           </VBox>
-                                          <VBox layoutX="543.0" layoutY="311.0" prefHeight="72.0" prefWidth="51.0" spacing="10.0">
+                                          <VBox layoutX="543.0" layoutY="311.0" prefHeight="103.0" prefWidth="51.0" spacing="10.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#handleAddPatientEmail" prefHeight="26.0" prefWidth="51.0" text="+">
+                                                <Button mnemonicParsing="false" onAction="#handleAddPatientEmail" prefHeight="49.0" prefWidth="51.0" text="+">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
                                                 </Button>
-                                                <Button mnemonicParsing="false" onAction="#handleRemovePatientEmail" prefHeight="27.0" prefWidth="55.0" text="-">
+                                                <Button mnemonicParsing="false" onAction="#handleRemovePatientEmail" prefHeight="45.0" prefWidth="51.0" text="-">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
@@ -94,83 +95,87 @@
                            <content>
                               <AnchorPane prefHeight="500.0" prefWidth="1200.0">
                                  <children>
-                                    <TableView fx:id="relationTable" editable="true" layoutX="26.0" layoutY="31.0" prefHeight="461.0" prefWidth="567.0">
+                                    <ScrollPane layoutX="609.0" layoutY="19.0" prefHeight="472.0" prefWidth="571.0">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="697.0" prefWidth="573.0">
+                                             <children>
+                                                <Label layoutX="15.0" layoutY="17.0" text="Relation details:" />
+                                                <HBox layoutX="165.0" layoutY="9.0" prefHeight="35.0" prefWidth="321.0" spacing="10.0">
+                                                   <children>
+                                                      <Button mnemonicParsing="false" onAction="#handleAddRelation" prefHeight="35.0" prefWidth="105.0" text="Add Relation">
+                                                         <font>
+                                                            <Font size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button mnemonicParsing="false" onAction="#handleRemoveRelation" prefHeight="39.0" prefWidth="125.0" text="Remove Relation">
+                                                         <font>
+                                                            <Font size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button mnemonicParsing="false" onAction="#handleSaveRelation" prefHeight="39.0" prefWidth="70.0" text="Clear">
+                                                         <font>
+                                                            <Font size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                   </children>
+                                                </HBox>
+                                                <TextField fx:id="relationFirstName" layoutX="20.0" layoutY="78.0" prefHeight="35.0" prefWidth="282.0" promptText="Enter first name..." />
+                                                <TextField fx:id="relationshipField" layoutX="337.0" layoutY="136.0" prefHeight="33.0" prefWidth="150.0" promptText="Relationship" />
+                                                <TextField fx:id="relationLastName" layoutX="20.0" layoutY="133.0" prefHeight="35.0" prefWidth="284.0" promptText="Enter last name..." />
+                                                <ComboBox fx:id="relationType" layoutX="336.0" layoutY="77.0" prefHeight="29.0" prefWidth="150.0" promptText="Relation Type" />
+                                                <DatePicker fx:id="relationBirthday" layoutX="22.0" layoutY="195.0" prefHeight="28.0" prefWidth="156.0" promptText="Birthday" />
+                                                <TableView fx:id="relationPhoneTable" layoutX="22.0" layoutY="287.0" prefHeight="151.0" prefWidth="484.0">
+                                                   <columns>
+                                                      <TableColumn fx:id="relationPhoneColumn" prefWidth="306.37664794921875" text="Phone Numbers" />
+                                                      <TableColumn fx:id="relationPhoneLabelColumn" prefWidth="176.0" text="Contact Label" />
+                                                   </columns>
+                                                </TableView>
+                                                <CheckBox fx:id="isFamilyCheckBox" alignment="CENTER" layoutX="225.0" layoutY="196.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" text="Family" />
+                                                <CheckBox fx:id="isCaregiverCheckBox" alignment="CENTER" layoutX="387.0" layoutY="196.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Caregiver" />
+                                                <TableView fx:id="relationEmailTable" layoutX="14.0" layoutY="488.0" prefHeight="151.0" prefWidth="488.0">
+                                                   <columns>
+                                                      <TableColumn fx:id="relationEmailColumn" prefWidth="298.20263671875" text="Emails" />
+                                                      <TableColumn fx:id="relationEmailLabelColumn" prefWidth="188.0" text="Contact Label" />
+                                                   </columns>
+                                                </TableView>
+                                                <HBox layoutX="29.0" layoutY="446.0" prefHeight="39.0" prefWidth="107.0" spacing="5.0">
+                                                   <children>
+                                                      <Button mnemonicParsing="false" onAction="#handleAddRelationEmail" prefHeight="39.0" prefWidth="51.0" text="+">
+                                                         <font>
+                                                            <Font size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button mnemonicParsing="false" onAction="#handleRemoveRelationEmail" prefHeight="40.0" prefWidth="51.0" text="-">
+                                                         <font>
+                                                            <Font size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                   </children>
+                                                </HBox>
+                                                <HBox layoutX="23.0" layoutY="243.0" prefHeight="40.0" prefWidth="107.0" spacing="5.0">
+                                                   <children>
+                                                      <Button mnemonicParsing="false" onAction="#handleAddRelationPhone" prefHeight="39.0" prefWidth="51.0" text="+">
+                                                         <font>
+                                                            <Font size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button mnemonicParsing="false" onAction="#handleRemoveRelationPhone" prefHeight="39.0" prefWidth="51.0" text="-">
+                                                         <font>
+                                                            <Font size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </ScrollPane>
+                                    <TableView fx:id="relationTable" editable="true" layoutX="17.0" layoutY="33.0" prefHeight="461.0" prefWidth="567.0">
                                        <columns>
                                           <TableColumn fx:id="relationNameColumn" prefWidth="331.99998474121094" text="Name" />
                                           <TableColumn fx:id="relationRelationshipColumn" prefWidth="236.0" text="Relationship" />
                                        </columns>
                                     </TableView>
-                                    <AnchorPane layoutX="603.0" layoutY="7.0" prefHeight="518.0" prefWidth="587.0">
-                                       <children>
-                                          <TextField fx:id="relationFirstName" layoutX="39.0" layoutY="51.0" prefHeight="35.0" prefWidth="282.0" promptText="Enter first name..." />
-                                          <TextField fx:id="relationshipField" layoutX="356.0" layoutY="109.0" prefHeight="33.0" prefWidth="150.0" promptText="Relationship" />
-                                          <Label layoutX="38.0" layoutY="16.0" text="Relation details:" />
-                                          <DatePicker fx:id="relationBirthday" layoutX="40.0" layoutY="161.0" prefHeight="28.0" prefWidth="156.0" promptText="Birthday" />
-                                          <TableView fx:id="relationPhoneTable" layoutX="29.0" layoutY="199.0" prefHeight="151.0" prefWidth="484.0">
-                                             <columns>
-                                                <TableColumn fx:id="relationPhoneColumn" prefWidth="306.37664794921875" text="Phone Numbers" />
-                                                <TableColumn fx:id="relationPhoneLabelColumn" prefWidth="176.0" text="Contact Label" />
-                                             </columns>
-                                          </TableView>
-                                          <TableView fx:id="relationEmailTable" layoutX="27.0" layoutY="358.0" prefHeight="151.0" prefWidth="488.0">
-                                             <columns>
-                                                <TableColumn fx:id="relationEmailColumn" prefWidth="298.20263671875" text="Emails" />
-                                                <TableColumn fx:id="relationEmailLabelColumn" prefWidth="188.0" text="Contact Label" />
-                                             </columns>
-                                          </TableView>
-                                          <TextField fx:id="relationLastName" layoutX="39.0" layoutY="106.0" prefHeight="35.0" prefWidth="284.0" promptText="Enter last name..." />
-                                          <ComboBox fx:id="relationType" layoutX="355.0" layoutY="50.0" prefHeight="29.0" prefWidth="150.0" promptText="Relation Type" />
-                                          <CheckBox fx:id="isFamilyCheckBox" alignment="CENTER" layoutX="243.0" layoutY="162.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" text="Family" />
-                                          <CheckBox fx:id="isCaregiverCheckBox" alignment="CENTER" layoutX="405.0" layoutY="162.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Caregiver" />
-                                          <VBox layoutX="528.0" layoutY="200.0" prefHeight="72.0" prefWidth="51.0" spacing="10.0">
-                                             <children>
-                                                <Button mnemonicParsing="false" onAction="#handleAddRelationPhone" prefHeight="26.0" prefWidth="51.0" text="+">
-                                                   <font>
-                                                      <Font size="18.0" />
-                                                   </font>
-                                                </Button>
-                                                <Button mnemonicParsing="false" onAction="#handleRemoveRelationPhone" prefHeight="27.0" prefWidth="55.0" text="-">
-                                                   <font>
-                                                      <Font size="18.0" />
-                                                   </font>
-                                                </Button>
-                                             </children>
-                                          </VBox>
-                                          <VBox layoutX="525.0" layoutY="357.0" prefHeight="72.0" prefWidth="51.0" spacing="10.0">
-                                             <children>
-                                                <Button mnemonicParsing="false" onAction="#handleAddRelationEmail" prefHeight="26.0" prefWidth="51.0" text="+">
-                                                   <font>
-                                                      <Font size="18.0" />
-                                                   </font>
-                                                </Button>
-                                                <Button mnemonicParsing="false" onAction="#handleRemoveRelationEmail" prefHeight="27.0" prefWidth="55.0" text="-">
-                                                   <font>
-                                                      <Font size="18.0" />
-                                                   </font>
-                                                </Button>
-                                             </children>
-                                          </VBox>
-                                          <VBox layoutX="525.0" layoutY="49.0" prefHeight="72.0" prefWidth="51.0" spacing="10.0">
-                                             <children>
-                                                <Button mnemonicParsing="false" onAction="#handleAddRelation" prefHeight="26.0" prefWidth="51.0" text="+">
-                                                   <font>
-                                                      <Font size="18.0" />
-                                                   </font>
-                                                </Button>
-                                                <Button mnemonicParsing="false" onAction="#handleRemoveRelation" prefHeight="27.0" prefWidth="55.0" text="-">
-                                                   <font>
-                                                      <Font size="18.0" />
-                                                   </font>
-                                                </Button>
-                                                <Button mnemonicParsing="false" onAction="#handleSaveRelation" prefHeight="27.0" prefWidth="55.0" text="O">
-                                                   <font>
-                                                      <Font size="18.0" />
-                                                   </font>
-                                                </Button>
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                    </AnchorPane>
                                  </children>
                               </AnchorPane>
                            </content>
@@ -199,40 +204,40 @@
                                           <Label layoutX="18.0" layoutY="7.0" text="Meal Information" />
                                           <Label layoutX="31.0" layoutY="317.0" prefHeight="24.0" prefWidth="115.0" text="Pet Information" />
                                           <AnchorPane fx:id="mealRating" layoutX="34.0" layoutY="111.0" prefHeight="42.0" prefWidth="372.0" />
-                                          <HBox alignment="CENTER" layoutX="282.0" layoutY="307.0" prefHeight="45.0" prefWidth="110.0" spacing="15.0">
+                                          <HBox alignment="CENTER" layoutX="216.0" layoutY="307.0" prefHeight="45.0" prefWidth="200.0" spacing="15.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#handleAddPet" prefHeight="34.0" prefWidth="38.0" text="+">
+                                                <Button mnemonicParsing="false" onAction="#handleAddPet" prefHeight="42.0" prefWidth="51.0" text="+">
                                                    <font>
-                                                      <Font size="18.0" />
+                                                      <Font size="12.0" />
                                                    </font>
                                                 </Button>
-                                                <Button mnemonicParsing="false" onAction="#handleRemovePet" prefHeight="31.0" prefWidth="42.0" text="-">
+                                                <Button mnemonicParsing="false" onAction="#handleRemovePet" prefHeight="40.0" prefWidth="50.0" text="-">
                                                    <font>
-                                                      <Font size="18.0" />
+                                                      <Font size="12.0" />
                                                    </font>
                                                 </Button>
-                                                <Button mnemonicParsing="false" onAction="#handleSavePet" prefHeight="31.0" prefWidth="42.0" text="O">
+                                                <Button mnemonicParsing="false" onAction="#resetPetFields" prefHeight="43.0" prefWidth="76.0" text="Clear">
                                                    <font>
-                                                      <Font size="18.0" />
+                                                      <Font size="14.0" />
                                                    </font>
                                                 </Button>
                                              </children>
                                           </HBox>
-                                          <HBox alignment="CENTER" layoutX="271.0" layoutY="6.0" prefHeight="45.0" prefWidth="153.0" spacing="15.0">
+                                          <HBox alignment="CENTER" layoutX="224.0" layoutY="6.0" prefHeight="45.0" prefWidth="200.0" spacing="15.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#handleAddMeal" prefHeight="34.0" prefWidth="38.0" text="+">
+                                                <Button mnemonicParsing="false" onAction="#handleAddMeal" prefHeight="42.0" prefWidth="55.0" text="+">
                                                    <font>
-                                                      <Font size="18.0" />
+                                                      <Font size="12.0" />
                                                    </font>
                                                 </Button>
-                                                <Button mnemonicParsing="false" onAction="#handleRemoveMeal" prefHeight="31.0" prefWidth="42.0" text="-">
+                                                <Button mnemonicParsing="false" onAction="#handleRemoveMeal" prefHeight="41.0" prefWidth="55.0" text="-">
                                                    <font>
-                                                      <Font size="18.0" />
+                                                      <Font size="12.0" />
                                                    </font>
                                                 </Button>
-                                                <Button mnemonicParsing="false" onAction="#handleSaveMeal" prefHeight="31.0" prefWidth="42.0" text="O">
+                                                <Button mnemonicParsing="false" onAction="#resetMealFields" prefHeight="40.0" prefWidth="74.0" text="Clear">
                                                    <font>
-                                                      <Font size="18.0" />
+                                                      <Font size="14.0" />
                                                    </font>
                                                 </Button>
                                              </children>
