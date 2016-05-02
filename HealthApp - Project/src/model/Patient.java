@@ -133,6 +133,9 @@ public class Patient extends AbsUser{
         isNewPatient = true;
     }
 
+    public void setNewPatient(boolean isNew){
+        isNewPatient = isNew;
+    }
     public boolean savePatient() {
         return DBHandler.getUniqueInstance().insertPatientAlgorithm(this);
     }
