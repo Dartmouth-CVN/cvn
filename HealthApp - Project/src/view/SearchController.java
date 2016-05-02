@@ -1,6 +1,7 @@
 package view;
 
-import java.util.List;
+import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,7 +12,6 @@ import model.Patient;
 import model.PatientWrapper;
 import utils.DBHandler;
 
-import java.io.IOException;
 import java.util.List;
 
 public class SearchController extends AbsController {
@@ -33,6 +33,10 @@ public class SearchController extends AbsController {
 	private TabPane profileTabPane = new TabPane();
 	@FXML
 	private Tab profileTab = new Tab();
+	@FXML
+	private Accordion accord;
+	@FXML
+	private TitledPane pane1;
 
 	private long userId;
 
@@ -59,6 +63,24 @@ public class SearchController extends AbsController {
 	 */
 	@FXML
 	private void initialize() {
+
+		accord.setExpandedPane(pane1);
+
+		accord.expandedPaneProperty().addListener((ObservableValue<? extends TitledPane> observable, TitledPane oldPane, TitledPane newPane) -> {
+			Boolean expand = true; // This value will change to false if there's (at least) one pane that is in "expanded" state, so we don't have to expand anything manually
+			for(TitledPane pane: accord.getPanes()) {
+				if(pane.isExpanded()) {
+					expand = false;
+				}
+			}
+        /* Here we already know whether we need to expand the old pane again */
+			if((expand == true) && (oldPane != null)) {
+				Platform.runLater(() -> {
+					accord.setExpandedPane(oldPane);
+				});
+			}
+		});
+
 		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
 		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
 		idColumn.setCellValueFactory(cellData -> cellData.getValue().getUserIdProperty());

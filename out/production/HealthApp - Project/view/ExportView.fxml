@@ -16,7 +16,7 @@
 
 <AnchorPane prefHeight="365.0" prefWidth="632.0" stylesheets="@cvnStyle.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ExportController">
    <children>
-      <Accordion layoutY="-2.0" prefHeight="315.0" prefWidth="632.0" AnchorPane.bottomAnchor="52.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Accordion fx:id="accord" layoutY="-2.0" prefHeight="315.0" prefWidth="632.0" AnchorPane.bottomAnchor="52.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <panes>
           <TitledPane fx:id="personalPane" animated="false" text="Personal Information">
             <content>
