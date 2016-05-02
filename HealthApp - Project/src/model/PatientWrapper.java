@@ -1,5 +1,8 @@
 package model;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,6 +14,7 @@ public class PatientWrapper extends AbsUserWrapper {
     List<MealWrapper> mealWrapperList;
     List<AbsRelationWrapper> absRelationWrapperList;
     List<MedicalStaffWrapper> medicalStaffWrapperList;
+    BooleanProperty selectedProperty;
 
     public PatientWrapper(Patient p) {
         super(p);
@@ -18,6 +22,7 @@ public class PatientWrapper extends AbsUserWrapper {
             setPetWrapperList(p.getPets());
             setMealWrapperList(p.getMeals());
             setAbsRelationWrapperList(p.getRelations());
+            setSelectedProperty(false);
 //        setMedicalStaffWrapperList(p.getAssignedStaff());
         }catch(NullPointerException e){
 
@@ -32,6 +37,14 @@ public class PatientWrapper extends AbsUserWrapper {
         petWrapperList = new LinkedList<PetWrapper>();
         for (Pet p : petList)
             petWrapperList.add(new PetWrapper(p));
+    }
+
+    public BooleanProperty getSelectedProperty() {
+        return selectedProperty;
+    }
+
+    public void setSelectedProperty(boolean selected) {
+            selectedProperty = new SimpleBooleanProperty(selected);
     }
 
     public List<MealWrapper> getMealWrapperList() {

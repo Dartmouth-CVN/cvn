@@ -7,6 +7,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.util.Callback;
 import model.MainApp;
 import model.Patient;
 import model.PatientWrapper;
@@ -42,6 +44,7 @@ public class SearchController extends AbsController {
 
 	// Reference to the main application.
 	private MainApp mainApp;
+	public static ObservableList<PatientWrapper> patientList =  FXCollections.observableArrayList();
 
 	/**
 	 * The constructor. The constructor is called before the initialize()
@@ -84,6 +87,19 @@ public class SearchController extends AbsController {
 		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().getFirstNameProperty());
 		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastNameProperty());
 		idColumn.setCellValueFactory(cellData -> cellData.getValue().getUserIdProperty());
+		patientSelectColumn.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<PatientWrapper,Boolean>,ObservableValue<Boolean>>()
+				{
+					//This callback tell the cell how to bind the data model 'Registered' property to
+					//the cell, itself.
+					@Override
+					public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<PatientWrapper, Boolean> param)
+					{
+						return param.getValue().getSelectedProperty();
+					}
+				});
+
+		patientSelectColumn.setCellFactory(CheckBoxTableCell.forTableColumn(patientSelectColumn));
 		profileTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			try{
 				userId = newValue.getUserIdValueProperty().get();
@@ -113,14 +129,14 @@ public class SearchController extends AbsController {
 
 		if (key.equals("")) {
 			List<Patient> patients = DBHandler.getUniqueInstance().getAllPatients();
-			ObservableList<PatientWrapper> patientList = FXCollections.observableArrayList();
+			patientList = FXCollections.observableArrayList();
 			for (Patient patient : patients)
                 patientList.add(new PatientWrapper(patient));
 
 			profileTable.setItems(patientList);
 		} else if(!key.equals("")){
 			List<Patient> patients = DBHandler.getUniqueInstance().patientNameSearch(key);
-			ObservableList<PatientWrapper> patientList = FXCollections.observableArrayList();
+			patientList = FXCollections.observableArrayList();
 			for (Patient patient : patients)
 				patientList.add(new PatientWrapper(patient));
 
@@ -175,7 +191,5 @@ public class SearchController extends AbsController {
 		Tab profileTab = new Tab(patient.getLastName());
 		profileTab.setContent(scene.getPane());
 		profileTabPane.getTabs().add(profileTab);
-
 	}
-
 }

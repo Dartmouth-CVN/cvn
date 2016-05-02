@@ -357,7 +357,7 @@ public class DBHandler {
             if (!rs.next())
                 createStaffAssignmentTable();
 
-            createIndexes();
+//            createIndexes();
 
             if (ps != null) {
                 if(ps != null) ps.close();

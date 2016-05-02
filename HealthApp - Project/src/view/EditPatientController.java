@@ -683,6 +683,16 @@ public class EditPatientController extends AbsController {
     }
 
     @FXML
+    private void handleAddImage(){
+        FileChooser fileChooser = new FileChooser();
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            patient.setPicture(selectedFile.getAbsolutePath());
+            profilePic.setImage(new Image("file:" + patient.getPicture()));
+        }
+    }
+
+    @FXML
     private void save() {
         patient.setFirstName(firstName.getText());
         patient.setLastName(lastName.getText());

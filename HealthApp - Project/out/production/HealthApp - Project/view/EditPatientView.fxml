@@ -87,6 +87,7 @@
                                     </ImageView>
                                     <Button layoutX="309.0" layoutY="243.0" mnemonicParsing="false" onAction="#handleFitBitImport" text="Import FitBit Data" />
                                     <TextArea fx:id="patientAddress" layoutX="42.0" layoutY="284.0" prefHeight="176.0" prefWidth="479.0" promptText="Address" />
+                                    <Button layoutX="241.0" layoutY="35.0" mnemonicParsing="false" onAction="#handleAddImage" text="Change picture" />
                                  </children>
                               </AnchorPane>
                            </content>

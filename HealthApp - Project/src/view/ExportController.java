@@ -12,6 +12,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.MainApp;
 import model.Patient;
+import model.PatientWrapper;
 import utils.*;
 
 import java.io.File;
@@ -176,22 +177,27 @@ public class ExportController extends AbsController {
         String name = "Exported at " + LocalDate.now().toString() + "_" + LocalTime.now().toString().replace(":", "-");
         getFields();
         PatientExportWrapper wrapper = new PatientExportWrapper(fieldCheck);
+        List<Patient> exportPatients = new LinkedList<>();
+        for(PatientWrapper pwrapper : SearchController.patientList){
+            if(pwrapper.getSelectedProperty().get() == true)
+                exportPatients.add(DBHandler.getUniqueInstance().getPatientById(pwrapper.getUserIdValueProperty().intValue()));
+        }
 
         if (CSVRadioButton.isSelected()) {
             SVParsingUtils utils = new CSVParsingUtils();
-            utils.exportData(name + ".csv", DBHandler.getUniqueInstance().getAllFilledPatients(), wrapper);
+            utils.exportData(name + ".csv", exportPatients, wrapper);
             MainApp.showAlert("Export CSV done");
         } else if (TSVRadioButton.isSelected()) {
             SVParsingUtils utils = new TSVParsingUtils();
-            utils.exportData(name + ".tsv", DBHandler.getUniqueInstance().getAllFilledPatients(), wrapper);
+            utils.exportData(name + ".tsv", exportPatients, wrapper);
             MainApp.showAlert("Export TSV done");
         } else if (XMLRadioButton.isSelected()) {
             XMLParsingUtils utils = new XMLParsingUtils();
-            utils.exportData(utils.getFile(name + ".xml"), DBHandler.getUniqueInstance().getAllFilledPatients(), wrapper);
+            utils.exportData(utils.getFile(name + ".xml"), exportPatients, wrapper);
             MainApp.showAlert("Export XML done");
         } else if (HTMLRadioButton.isSelected()) {
             HTMLParsingUtils utils = new HTMLParsingUtils();
-            utils.exportData(utils.getFile(name + ".html"), DBHandler.getUniqueInstance().getAllFilledPatients(), wrapper);
+            utils.exportData(utils.getFile(name + ".html"), exportPatients, wrapper);
             MainApp.showAlert("Export HTML done");
         }
     }
