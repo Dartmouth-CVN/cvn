@@ -26,9 +26,9 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Accordion prefHeight="550.0" prefWidth="1200.0" stylesheets="@cvnStyle.css">
+                  <Accordion fx:id="accord" prefHeight="550.0" prefWidth="1200.0" stylesheets="@cvnStyle.css">
                      <panes>
-                        <TitledPane animated="false" prefHeight="500.0" prefWidth="1200.0" text="General Information">
+                        <TitledPane fx:id="pane1" animated="false" prefHeight="500.0" prefWidth="1200.0" text="General Information">
                            <content>
                               <AnchorPane accessibleText="Name" prefHeight="500.0" prefWidth="1200.0">
                                  <children>
@@ -90,7 +90,7 @@
                               </AnchorPane>
                            </content>
                         </TitledPane>
-                        <TitledPane animated="false" layoutX="10.0" layoutY="41.0" prefHeight="600.0" prefWidth="1200.0" text="Relation Information">
+                        <TitledPane fx:id="pane2" animated="false" layoutX="10.0" layoutY="41.0" prefHeight="600.0" prefWidth="1200.0" text="Relation Information">
                            <content>
                               <AnchorPane prefHeight="500.0" prefWidth="1200.0">
                                  <children>
@@ -175,7 +175,7 @@
                               </AnchorPane>
                            </content>
                         </TitledPane>
-                        <TitledPane animated="false" layoutX="10.0" layoutY="37.0" text="Dietary &amp; Pet Information">
+                        <TitledPane fx:id="pane3" animated="false" layoutX="10.0" layoutY="37.0" text="Dietary &amp; Pet Information">
                            <content>
                               <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                  <children>

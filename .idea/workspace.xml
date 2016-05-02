@@ -23,30 +23,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="cvnStyle.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/HealthApp - Project/src/view/cvnStyle.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1785">
-              <caret line="105" column="1" selection-start-line="105" selection-start-column="1" selection-end-line="105" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PatientDash.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/HealthApp - Project/src/view/PatientDash.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2278">
-              <caret line="134" column="0" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AbsDashController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AbsDashController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/HealthApp - Project/src/view/AbsDashController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="419">
@@ -61,7 +38,7 @@
       <file leaf-file-name="AdminDashController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/HealthApp - Project/src/view/AdminDashController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-34">
+            <state relative-caret-position="17">
               <caret line="19" column="23" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
               <folding />
             </state>
@@ -71,9 +48,21 @@
       <file leaf-file-name="PatientDashController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/HealthApp - Project/src/view/PatientDashController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="708">
+            <state relative-caret-position="443">
               <caret line="85" column="23" selection-start-line="85" selection-start-column="23" selection-end-line="85" selection-end-column="23" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EditPatientController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/HealthApp - Project/src/view/EditPatientController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="457">
+              <caret line="185" column="10" selection-start-line="185" selection-start-column="10" selection-end-line="185" selection-end-column="10" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -103,6 +92,7 @@
         <option value="$PROJECT_DIR$/HealthApp - Project/src/view/PatientDash.fxml" />
         <option value="$PROJECT_DIR$/HealthApp - Project/src/view/PatientDashController.java" />
         <option value="$PROJECT_DIR$/HealthApp - Project/src/view/AbsDashController.java" />
+        <option value="$PROJECT_DIR$/HealthApp - Project/src/view/EditPatientController.java" />
       </list>
     </option>
   </component>
@@ -201,6 +191,38 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cvn" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HealthApp - Project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jars" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cvn" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HealthApp - Project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="lib" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -239,8 +261,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -704,11 +726,12 @@
       <workItem from="1461956303712" duration="407000" />
       <workItem from="1462040844776" duration="2337000" />
       <workItem from="1462135956578" duration="4305000" />
+      <workItem from="1462147016952" duration="1088000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39648000" />
+    <option name="totallyTimeSpent" value="40736000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1600" height="860" extended-state="0" />
@@ -716,12 +739,14 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32756326" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32756326" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
@@ -732,14 +757,12 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32756326" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32756326" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3288948" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1080,16 +1103,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HealthApp - Project/src/utils/DBHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="73" column="32" selection-start-line="73" selection-start-column="32" selection-end-line="73" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/HealthApp - Project/src/model/MainApp.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -1116,14 +1129,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="574">
           <caret line="53" column="9" selection-start-line="53" selection-start-column="9" selection-end-line="53" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HealthApp - Project/src/view/EditPatientController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
           <folding />
         </state>
       </provider>
@@ -1191,9 +1196,79 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/HealthApp - Project/src/view/AbsDashController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="419">
+          <caret line="201" column="71" selection-start-line="201" selection-start-column="71" selection-end-line="201" selection-end-column="71" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HealthApp - Project/src/utils/DBHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="816" column="38" selection-start-line="816" selection-start-column="38" selection-end-line="816" selection-end-column="38" />
+          <folding>
+            <marker date="1462139068950" expanded="true" signature="3361:3872" placeholder="CREATE TABLE... user_account" />
+            <marker date="1462139068950" expanded="true" signature="4291:4649" placeholder="CREATE TABLE... contact" />
+            <marker date="1462139068950" expanded="true" signature="5098:5420" placeholder="CREATE TABLE... pet" />
+            <marker date="1462139068950" expanded="true" signature="5873:6108" placeholder="CREATE TABLE... meal" />
+            <marker date="1462139068950" expanded="true" signature="6561:6782" placeholder="CREATE TABLE... eats" />
+            <marker date="1462139068950" expanded="true" signature="7236:7528" placeholder="CREATE TABLE... event" />
+            <marker date="1462139068950" expanded="true" signature="7985:8331" placeholder="CREATE TABLE... health_info" />
+            <marker date="1462139068950" expanded="true" signature="8765:9027" placeholder="CREATE TABLE... staff_assignment" />
+            <marker date="1462139068950" expanded="true" signature="9453:9716" placeholder="CREATE TABLE... related" />
+            <marker date="1462139068950" expanded="true" signature="13629:13819" placeholder="INSERT INTO user_account... " />
+            <marker date="1462139068950" expanded="true" signature="15306:15496" placeholder="INSERT INTO user_account... " />
+            <marker date="1462139068950" expanded="true" signature="16850:17040" placeholder="INSERT INTO user_account... " />
+            <marker date="1462139068950" expanded="true" signature="18409:18625" placeholder="INSERT INTO user_account... " />
+            <marker date="1462139068950" expanded="true" signature="20140:20356" placeholder="INSERT INTO user_account... " />
+            <marker date="1462139068950" expanded="true" signature="21856:21960" placeholder="INSERT INTO contact... " />
+            <marker date="1462139068950" expanded="true" signature="23015:23122" placeholder="INSERT INTO pet... " />
+            <marker date="1462139068950" expanded="true" signature="24203:24289" placeholder="INSERT INTO meal... " />
+            <marker date="1462139068950" expanded="true" signature="25335:25423" placeholder="INSERT INTO eats... " />
+            <marker date="1462139068950" expanded="true" signature="26354:26441" placeholder="INSERT INTO related... " />
+            <marker date="1462139068950" expanded="true" signature="27288:27379" placeholder="INSERT INTO staff_assignment... " />
+            <marker date="1462139068950" expanded="true" signature="28237:28338" placeholder="INSERT INTO health_info... " />
+            <marker date="1462139068950" expanded="true" signature="30299:30344" placeholder="SELECT * FRO... user_account" />
+            <marker date="1462139068950" expanded="true" signature="31416:31460" placeholder="SELECT * FRO... user_account" />
+            <marker date="1462139068950" expanded="true" signature="32513:32576" placeholder="SELECT * FRO... user_account" />
+            <marker date="1462139068950" expanded="true" signature="33726:33788" placeholder="SELECT * FRO... user_account" />
+            <marker date="1462139068950" expanded="true" signature="34921:35086" placeholder="SELECT user_... user_account" />
+            <marker date="1462139068950" expanded="true" signature="35814:35978" placeholder="SELECT user_... user_account" />
+            <marker date="1462139068950" expanded="true" signature="37523:37688" placeholder="SELECT user_... user_account" />
+            <marker date="1462139068950" expanded="true" signature="38835:38999" placeholder="SELECT user_... user_account" />
+            <marker date="1462139068950" expanded="true" signature="40244:40300" placeholder="SELECT med_i... staff_assignment" />
+            <marker date="1462139068950" expanded="true" signature="41113:41277" placeholder="SELECT user_... user_account" />
+            <marker date="1462139068950" expanded="true" signature="42040:42258" placeholder="SELECT user_... user_account" />
+            <marker date="1462139068950" expanded="true" signature="44336:44481" placeholder="SELECT relat... related" />
+            <marker date="1462139068950" expanded="true" signature="46069:46115" placeholder="SELECT * FRO... user_account" />
+            <marker date="1462139068950" expanded="true" signature="47081:47127" placeholder="SELECT * FRO... user_account" />
+            <marker date="1462139068950" expanded="true" signature="48130:48169" placeholder="SELECT * FRO... contact" />
+            <marker date="1462139068950" expanded="true" signature="49126:49183" placeholder="SELECT name,... meal" />
+            <marker date="1462139068950" expanded="true" signature="50096:50178" placeholder="SELECT * FRO... eats" />
+            <marker date="1462139068950" expanded="true" signature="51056:51122" placeholder="SELECT name,... pet" />
+            <marker date="1462139068950" expanded="true" signature="52036:52071" placeholder="SELECT * FRO... pet" />
+            <marker date="1462139068950" expanded="true" signature="53081:53151" placeholder="SELECT healt... " />
+            <marker date="1462139068950" expanded="true" signature="55667:55876" placeholder="UPDATE user_... " />
+            <marker date="1462139068950" expanded="true" signature="56654:56863" placeholder="UPDATE user_... " />
+            <marker date="1462139068950" expanded="true" signature="57656:57865" placeholder="UPDATE user_... " />
+            <marker date="1462139068950" expanded="true" signature="58640:58743" placeholder="UPDATE pet S... " />
+            <marker date="1462139068950" expanded="true" signature="59670:59765" placeholder="UPDATE meal " />
+            <marker date="1462139068950" expanded="true" signature="60687:60760" placeholder="UPDATE eats " />
+            <marker date="1462139068950" expanded="true" signature="61590:61679" placeholder="UPDATE conta... " />
+            <marker date="1462139068950" expanded="true" signature="62587:62689" placeholder="UPDATE healt... " />
+            <marker date="1462139068950" expanded="true" signature="64926:64971" placeholder="SELECT * FRO... user_account" />
+            <marker date="1462139068950" expanded="true" signature="65479:65561" placeholder="SELECT * FRO... user_account" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/HealthApp - Project/src/view/AdminDashController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-34">
+        <state relative-caret-position="17">
           <caret line="19" column="23" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
           <folding />
         </state>
@@ -1201,16 +1276,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/HealthApp - Project/src/view/PatientDashController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="708">
+        <state relative-caret-position="443">
           <caret line="85" column="23" selection-start-line="85" selection-start-column="23" selection-end-line="85" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/HealthApp - Project/src/view/AbsDashController.java">
+    <entry file="file://$PROJECT_DIR$/HealthApp - Project/src/view/EditPatientController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="201" column="71" selection-start-line="201" selection-start-column="71" selection-end-line="201" selection-end-column="71" />
+        <state relative-caret-position="457">
+          <caret line="185" column="10" selection-start-line="185" selection-start-column="10" selection-end-line="185" selection-end-column="10" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
