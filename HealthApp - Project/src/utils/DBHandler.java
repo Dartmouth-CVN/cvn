@@ -868,7 +868,7 @@ public class DBHandler {
         AbsUser user = null;
         try {
             if (connect()) {
-                ps = connection.prepareStatement("SELECT * FROM user_account WHERE username = ?  FOR UPDATE  ");
+                ps = connection.prepareStatement("SELECT * FROM user_account WHERE username = ?    ");
                 ps.setString(1, username);
                 rs = ps.executeQuery();
 
@@ -899,7 +899,7 @@ public class DBHandler {
         AbsUser user = null;
         try {
             if (connect()) {
-                ps = connection.prepareStatement("SELECT * FROM user_account WHERE user_id = ? FOR UPDATE  ");
+                ps = connection.prepareStatement("SELECT * FROM user_account WHERE user_id = ?   ");
                 ps.setLong(1, userId);
                 rs = ps.executeQuery();
                 if (rs.next()) {
@@ -929,7 +929,7 @@ public class DBHandler {
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT * FROM user_account WHERE username = ? AND user_type = ?  " +
-                        "FOR UPDATE  ");
+                        "  ");
                 ps.setString(1, username);
                 ps.setString(2, UserType.ADMIN.name());
                 rs = ps.executeQuery();
@@ -960,7 +960,7 @@ public class DBHandler {
             if (connect()) {
 
                 ps = connection.prepareStatement(" SELECT * FROM user_account WHERE user_id = ? AND user_type = ?" +
-                        "  FOR UPDATE  ");
+                        "    ");
                 ps.setLong(1, userIdValue);
                 ps.setString(2, UserType.ADMIN.name());
                 rs = ps.executeQuery();
@@ -990,7 +990,7 @@ public class DBHandler {
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
-                        "birthday, room, picture FROM  user_account WHERE username = ? AND user_type = ?  FOR UPDATE  ");
+                        "birthday, room, picture FROM  user_account WHERE username = ? AND user_type = ?    ");
                 ps.setString(1, username);
                 ps.setString(2, UserType.PATIENT.name());
                 rs = ps.executeQuery();
@@ -1016,7 +1016,7 @@ public class DBHandler {
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
-                        "birthday, room, picture FROM  user_account WHERE user_id = ? AND user_type = ?  FOR UPDATE  ");
+                        "birthday, room, picture FROM  user_account WHERE user_id = ? AND user_type = ?    ");
                 ps.setLong(1, userIdValue);
                 ps.setString(2, UserType.PATIENT.name());
                 rs = ps.executeQuery();
@@ -1090,7 +1090,7 @@ public class DBHandler {
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
-                        "birthday, room, picture FROM  user_account WHERE user_id = ? AND user_type = ?  FOR UPDATE  ");
+                        "birthday, room, picture FROM  user_account WHERE user_id = ? AND user_type = ?    ");
                 ps.setLong(1, userIdValue);
                 ps.setString(2, UserType.MEDICAL_STAFF.name());
                 rs = ps.executeQuery();
@@ -1121,7 +1121,7 @@ public class DBHandler {
         ResultSet rs = null;
         try {
             if (connect()) {
-                ps = connection.prepareStatement(" SELECT med_id FROM staff_assignment WHERE patient_id = ?  FOR UPDATE  ");
+                ps = connection.prepareStatement(" SELECT med_id FROM staff_assignment WHERE patient_id = ?    ");
                 ps.setLong(1, userIdValue);
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -1171,7 +1171,7 @@ public class DBHandler {
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
-                        "birthday, room, picture, role, relationship, isCaregiver, isFamily  FOR UPDATE  " +
+                        "birthday, room, picture, role, relationship, isCaregiver, isFamily    " +
                         "FROM  user_account WHERE user_id = ?");
                 ps.setLong(1, userIdValue);
                 relation = getAbsRelation(ps.executeQuery());
@@ -1222,7 +1222,7 @@ public class DBHandler {
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT relation_id FROM related JOIN user_account ON " +
-                        "related.relation_id = user_account.user_id WHERE patient_id = ? FOR UPDATE  ");
+                        "related.relation_id = user_account.user_id WHERE patient_id = ?   ");
                 ps.setLong(1, userIdValue);
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -1264,7 +1264,7 @@ public class DBHandler {
         ResultSet rs = null;
         try {
             if (connect()) {
-                ps = connection.prepareStatement(" SELECT * FROM user_account WHERE user_type = ?  FOR UPDATE  ");
+                ps = connection.prepareStatement(" SELECT * FROM user_account WHERE user_type = ?    ");
                 ps.setString(1, UserType.PATIENT.name());
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -1292,7 +1292,7 @@ public class DBHandler {
         ResultSet rs = null;
         try {
             if (connect()) {
-                ps = connection.prepareStatement(" SELECT * FROM user_account WHERE user_type = ? FOR UPDATE  ");
+                ps = connection.prepareStatement(" SELECT * FROM user_account WHERE user_type = ?   ");
                 ps.setString(1, UserType.PATIENT.name());
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -1320,7 +1320,7 @@ public class DBHandler {
         ResultSet rs = null;
         try {
             if (connect()) {
-                ps = connection.prepareStatement(" SELECT * FROM contact WHERE user_id = ? FOR UPDATE  ");
+                ps = connection.prepareStatement(" SELECT * FROM contact WHERE user_id = ?   ");
                 ps.setLong(1, userIdValue);
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -1375,7 +1375,7 @@ public class DBHandler {
         try {
             if (connect()) {
                 ps = connection.prepareStatement("SELECT * FROM eats JOIN meal ON eats.meal_id = meal.meal_id " +
-                        "WHERE eats.user_id = ?  FOR UPDATE  ");
+                        "WHERE eats.user_id = ?    ");
                 ps.setLong(1, userIdValue);
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -1428,7 +1428,7 @@ public class DBHandler {
         ResultSet rs = null;
         try {
             if (connect()) {
-                ps = connection.prepareStatement("SELECT * FROM pet WHERE user_id = ?  FOR UPDATE  ");
+                ps = connection.prepareStatement("SELECT * FROM pet WHERE user_id = ?    ");
                 ps.setLong(1, userIdValue);
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -1457,7 +1457,7 @@ public class DBHandler {
         try {
             if (connect()) {
                 ps = connection.prepareStatement("SELECT health_id, name, date, value FROM health_info WHERE user_id = ? " +
-                        " FOR UPDATE  ");
+                        "   ");
                 ps.setLong(1, userIdValue);
                 rs = ps.executeQuery();
                 while (rs.next()) {
