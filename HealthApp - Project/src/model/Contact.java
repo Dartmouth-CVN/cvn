@@ -56,13 +56,12 @@ public class Contact{
         phoneNumbers = new LinkedList<>();
         emails = new LinkedList<>();
         addresses = new LinkedList<>();
-
         for(ContactElement e : contactInfo){
-            if(e.getContactLabel().equals(contactTypes.PHONE.name()))
+            if(e.getType().equals(contactTypes.PHONE.name()))
                 addPhone(e);
-            else if(e.getContactLabel().equals(contactTypes.EMAIL.name()))
+            else if(e.getType().equals(contactTypes.EMAIL.name()))
                 addEmail(e);
-            else if(e.getContactLabel().equals(contactTypes.ADDRESS.name()))
+            else if(e.getType().equals(contactTypes.ADDRESS.name()))
                 addAddress(e);
         }
     }
@@ -121,9 +120,8 @@ public class Contact{
     }
 
     public void addPhone(ContactElement phone) {
-        if (this.phoneNumbers.indexOf(phone) < 0) {
-            this.phoneNumbers.add(phone);
-        }
+        if(!phoneNumbers.contains(phone))
+            phoneNumbers.add(phone);
     }
 
     public void addEmail(ContactElement email) {

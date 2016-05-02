@@ -1,6 +1,7 @@
 package view;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -280,6 +281,21 @@ public class EditPatientController extends AbsController {
         for(int i = 0; i < AbsRelation.relationTypes.values().length; i++)
             relationTypeValues.add(AbsRelation.relationTypes.values()[i].name());
         relationType.setItems(relationTypeValues);
+        relationType.valueProperty().addListener(new ChangeListener<String>() {
+            @Override public void changed(ObservableValue ov, String t, String t1) {
+                if(relationType.getSelectionModel().getSelectedItem().equals(AbsRelation.relationTypes.FAMILY.name())){
+                    isFamilyCheckBox.setSelected(true);
+                    isFamilyCheckBox.setDisable(true);
+                    isCaregiverCheckBox.setDisable(false);
+                    isCaregiverCheckBox.setSelected(false);
+                }else{
+                    isCaregiverCheckBox.setSelected(true);
+                    isCaregiverCheckBox.setDisable(true);
+                    isFamilyCheckBox.setDisable(false);
+                    isFamilyCheckBox.setSelected(false);
+                }
+            }
+        });
 
         relationNameColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
         relationRelationshipColumn.setCellValueFactory(cellData -> cellData.getValue().getRelationshipProperty());
@@ -287,14 +303,20 @@ public class EditPatientController extends AbsController {
         relationPhoneColumn.setOnEditCommit((event) -> {
             setRelationPhoneIndex();
             element.setValue(event.getNewValue());
-            relationPhones.set(relationPhoneIndex, new ContactElementWrapper(element));
+            if(relationPhoneIndex < 0)
+                relationPhones.add(new ContactElementWrapper(element));
+            else
+                relationPhones.set(relationPhoneIndex, new ContactElementWrapper(element));
         });
         relationPhoneLabelColumn.setCellValueFactory(cellData -> cellData.getValue().getTypeProperty());
         relationEmailColumn.setCellFactory(cellFactory);
-        relationPhoneColumn.setOnEditCommit((event) -> {
+        relationEmailColumn.setOnEditCommit((event) -> {
             setRelationEmailIndex();
             element.setValue(event.getNewValue());
-            relationPhones.set(relationEmailIndex, new ContactElementWrapper(element));
+            if(relationEmailIndex < 0)
+                relationEmails.add(new ContactElementWrapper(element));
+            else
+                relationEmails.set(relationEmailIndex, new ContactElementWrapper(element));
         });
         relationEmailLabelColumn.setCellValueFactory(cellData -> cellData.getValue().getTypeProperty());
         relationPhoneColumn.setCellValueFactory(cellData -> cellData.getValue().getValueProperty());
@@ -305,10 +327,12 @@ public class EditPatientController extends AbsController {
 
     private void setRelationPhoneIndex(){
         relationPhoneIndex = relationPhoneTable.getSelectionModel().getSelectedIndex();
+        element = relationPhoneIndex < 0? new ContactElement() : relationPhones.get(relationPhoneIndex).toContactElement();
     }
 
     private void setRelationEmailIndex(){
         relationEmailIndex = relationEmailTable.getSelectionModel().getSelectedIndex();
+        element = relationEmailIndex < 0? new ContactElement() : relationEmails.get(relationEmailIndex).toContactElement();
     }
 
     private void resetRelationFields(){
@@ -391,7 +415,7 @@ public class EditPatientController extends AbsController {
 
     private void handleMealChange(){
         Meal m;
-        if(meals.size() > 0) {
+        if(meals.size() > 0 && mealIndex > 0) {
             m = meals.get(mealIndex).toMeal();
             mealName.setText(m.getFood());
             mealCalories.setText(String.valueOf(m.getCalories()));
@@ -421,7 +445,9 @@ public class EditPatientController extends AbsController {
         for (ContactElement e : patient.getContactInfo().getAddresses())
             addresses += e.getValue() + "\n";
         patientAddress.setText(addresses);
+//        System.out.printf("contact size: %d\n", patient.getContactInfo().getAllContactElements().size());
 
+        System.out.printf("");
         for (AbsRelation relation : patient.getRelations())
             relations.add(new AbsRelationWrapper(relation));
 
@@ -615,21 +641,21 @@ public class EditPatientController extends AbsController {
 
     @FXML
     private void handleAddRelation(){
-        resetRelationFields();
-        relationFirstName.requestFocus();
-    }
-
-    @FXML
-    private void handleSaveRelation(){
         AbsRelationWrapper relationWrapper = getRelation();
         int index = relations.indexOf(relationWrapper);
-        if(index < 0) {
+        if(index < 0 && !relations.contains(relationWrapper)) {
             relations.add(relationWrapper);
             resetRelationFields();
         }else{
 //            MainApp.showAlert("Relation already exists");
             relations.set(index, relationWrapper);
         }
+    }
+
+    @FXML
+    private void handleClearRelation(){
+        resetRelationFields();
+        relationFirstName.requestFocus();
     }
 
     @FXML
@@ -677,6 +703,7 @@ public class EditPatientController extends AbsController {
         if (patient.getIsNewPatient() && patient.savePatient() ||
                 !patient.getIsNewPatient() && patient.updatePatient()) {
             MainApp.showAlert("Update successful!");
+            patient.setNewPatient(false);
         }
     }
 }

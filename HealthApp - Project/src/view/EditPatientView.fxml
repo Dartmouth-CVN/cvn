@@ -112,7 +112,7 @@
                                                             <Font size="12.0" />
                                                          </font>
                                                       </Button>
-                                                      <Button mnemonicParsing="false" onAction="#handleSaveRelation" prefHeight="39.0" prefWidth="70.0" text="Clear">
+                                                      <Button mnemonicParsing="false" onAction="#handleClearRelation" prefHeight="39.0" prefWidth="70.0" text="Clear">
                                                          <font>
                                                             <Font size="12.0" />
                                                          </font>
@@ -124,7 +124,7 @@
                                                 <TextField fx:id="relationLastName" layoutX="20.0" layoutY="133.0" prefHeight="35.0" prefWidth="284.0" promptText="Enter last name..." />
                                                 <ComboBox fx:id="relationType" layoutX="336.0" layoutY="77.0" prefHeight="29.0" prefWidth="150.0" promptText="Relation Type" />
                                                 <DatePicker fx:id="relationBirthday" layoutX="22.0" layoutY="195.0" prefHeight="28.0" prefWidth="156.0" promptText="Birthday" />
-                                                <TableView fx:id="relationPhoneTable" layoutX="22.0" layoutY="287.0" prefHeight="151.0" prefWidth="484.0">
+                                                <TableView fx:id="relationPhoneTable" editable="true" layoutX="22.0" layoutY="287.0" prefHeight="151.0" prefWidth="484.0">
                                                    <columns>
                                                       <TableColumn fx:id="relationPhoneColumn" prefWidth="306.37664794921875" text="Phone Numbers" />
                                                       <TableColumn fx:id="relationPhoneLabelColumn" prefWidth="176.0" text="Contact Label" />
@@ -132,7 +132,7 @@
                                                 </TableView>
                                                 <CheckBox fx:id="isFamilyCheckBox" alignment="CENTER" layoutX="225.0" layoutY="196.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" text="Family" />
                                                 <CheckBox fx:id="isCaregiverCheckBox" alignment="CENTER" layoutX="387.0" layoutY="196.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Caregiver" />
-                                                <TableView fx:id="relationEmailTable" layoutX="14.0" layoutY="488.0" prefHeight="151.0" prefWidth="488.0">
+                                                <TableView fx:id="relationEmailTable" editable="true" layoutX="14.0" layoutY="488.0" prefHeight="151.0" prefWidth="488.0">
                                                    <columns>
                                                       <TableColumn fx:id="relationEmailColumn" prefWidth="298.20263671875" text="Emails" />
                                                       <TableColumn fx:id="relationEmailLabelColumn" prefWidth="188.0" text="Contact Label" />

@@ -5,12 +5,12 @@ import utils.RandomGenerator;
 public class ContactElement{
     long elementId;
     String value;
-    String type;
-    String contactLabel;//TYPES: PHONE, EMAIL, ADDRESS
+    String type;//TYPES: PHONE, EMAIL, ADDRESS
+    String contactLabel;
     public static enum contactLabels {WORK, HOME, OFFICE}
 
     public ContactElement() {
-        this(0, "ENTER INFO", contactLabels.HOME.name(), "");
+        this(0, "ENTER INFO", Contact.contactTypes.PHONE.name(), contactLabels.HOME.name());
     }
 
     public ContactElement(long elementId, String value, String type, String contactLabel) {
@@ -25,7 +25,7 @@ public class ContactElement{
     }
 
     public ContactElement(String value, String type) {
-        this(RandomGenerator.getRandomId(), value, type, "CONTACT ELEMENT");
+        this(RandomGenerator.getRandomId(), value, type, contactLabels.HOME.name());
     }
 
     public long getElementId() {
