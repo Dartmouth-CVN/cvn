@@ -63,6 +63,7 @@ public class HealthProfile{
 
     public void addHealthInfoList(List<HealthAttribute<?>> info) {
         healthInfo.addAll(info);
+        separateCategories(info);
     }
 
     public List<String> getAllergies() {
@@ -125,5 +126,53 @@ public class HealthProfile{
         }
     }
 
+    public List<HealthAttribute> getWeights() {
+        return weightList;
+    }
+    public List<HealthAttribute> getBMIs() {
+        return bmiList;
+    }
+    public List<HealthAttribute> getFats() {
+        return fatList;
+    }
+    public List<HealthAttribute> getCals() {
+        return caloriesBurnedList;
+    }
+    public List<HealthAttribute> getSteps() {
+        return stepsList;
+    }
+    public List<HealthAttribute> getDistances() {
+        return distanceList;
+    }
+    public List<HealthAttribute> getFloors() {
+        return floorsList;
+    }
+    public List<HealthAttribute> getMinSed() {
+        return minSedentaryList;
+    }
+    public List<HealthAttribute> getMinLight() {
+        return minLightlyActiveList;
+    }
+    public List<HealthAttribute> getMinFairly() {
+        return minFairlyActiveList;
+    }
+    public List<HealthAttribute> getMinVery() {
+        return minVeryActiveList;
+    }
+    public List<HealthAttribute> getActiveCal() {
+        return activityCaloriesList;
+    }
+    public List<HealthAttribute> getMinAsleep() {
+        return minAsleepList;
+    }
+    public List<HealthAttribute> getMinAwake() {
+        return minAwakeList;
+    }
+    public List<HealthAttribute> getNumAwakening() {
+        return numbAwakeningsList;
+    }
+    public List<HealthAttribute> getTimeInBed() {
+        return timeInBedList;
+    }
 
 }

@@ -83,10 +83,9 @@ public abstract class AbsDashController extends AbsController {
 				loadAddPatientTab();
 				tabPane.getSelectionModel().select(addPatientTab);
 			} else if(newTab.equals(editPatientTab)){
-			tabPane.getSelectionModel().select(editPatientTab);
-		}
-
-	});
+				tabPane.getSelectionModel().select(editPatientTab);
+			}
+		});
 	}
 
 	public void loadUserFields(){
@@ -129,7 +128,6 @@ public abstract class AbsDashController extends AbsController {
 			MainApp.printError(e);
 		}
 	}
-
 
 	public void loadEditPatientTab(Patient p) {
 		LoadedScene scene = getLoadedSceneOfType(new EditPatientController());

@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.ComboBoxTableCell;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -18,7 +17,6 @@ import javafx.util.Callback;
 import javafx.util.converter.DefaultStringConverter;
 import model.*;
 import org.controlsfx.control.Rating;
-import utils.DBHandler;
 import utils.FitBitParsingUtils;
 
 import java.io.File;
@@ -124,6 +122,7 @@ public class EditPatientController extends AbsController {
     @FXML
     TitledPane pane3;
 
+    List<HealthAttribute<?>> healthAttributes;
     ObservableList<ContactElementWrapper> patientPhones;
     ObservableList<ContactElementWrapper> patientEmails;
     ObservableList<AbsRelationWrapper> relations;
@@ -674,10 +673,10 @@ public class EditPatientController extends AbsController {
         FileChooser fileChooser = new FileChooser();
         File selectedFile = fileChooser.showOpenDialog(null);
         if (selectedFile != null) {
-            patient.getHealthProfile().setHealthInfo(FitBitParsingUtils.fitBitImport(selectedFile));
+            healthAttributes = FitBitParsingUtils.fitBitImport(selectedFile);
             MainApp.showAlert("FitBit import done");
+            patient.getHealthProfile().addHealthInfoList(healthAttributes);
         }
-
     }
 
     @FXML
@@ -700,6 +699,9 @@ public class EditPatientController extends AbsController {
 
         for(ContactElementWrapper email : patientEmails)
             patient.getContactInfo().addEmail(email.toContactElement());
+
+        patient.getHealthProfile().addHealthInfoList(healthAttributes);
+
 //        System.out.printf("patient phones size: %d patient emails size: %d\n", patientPhones.size(), patientEmails.size());
 
         if (patient.getIsNewPatient() && patient.savePatient() ||

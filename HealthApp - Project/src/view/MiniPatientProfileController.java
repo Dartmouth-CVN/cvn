@@ -1,20 +1,26 @@
 package view;
 
-import java.io.IOException;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.*;
+import model.MainApp;
+import model.MedicalStaff;
+import model.MedicalStaffWrapper;
+import model.Patient;
 import utils.ObjectNotFoundException;
+
+import java.io.IOException;
 
 public class MiniPatientProfileController extends AbsController {
 	
@@ -144,7 +150,7 @@ public class MiniPatientProfileController extends AbsController {
 		
 	        Parent root;
 	        try {
-	            root = FXMLLoader.load(getClass().getClassLoader().getResource("/view/PatientProfile.fxml"));
+	            root = FXMLLoader.load(getClass().getClassLoader().getResource("/view/PatientProfileView.fxml"));
 	            Stage stage = new Stage();
 	            stage.setTitle("My New Stage Title");
 	            stage.setScene(new Scene(root, 450, 450));

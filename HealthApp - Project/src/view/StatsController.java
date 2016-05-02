@@ -9,6 +9,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import model.HealthAttribute;
 import model.MainApp;
 import model.Patient;
 
@@ -31,19 +32,19 @@ public class StatsController  extends AbsController{
     @FXML
     private Label titleLabel = new Label();
     @FXML
-    public LineChart lineChart;
-    @FXML
     public XYChart<Integer, Double> xyChart;
     @FXML
-    private NumberAxis xAxis ;
+    private NumberAxis xAxis = new NumberAxis();
     @FXML
-    private NumberAxis yAxis ;
+    private NumberAxis yAxis = new NumberAxis();
     @FXML
     private ComboBox<String> myCombobox;
     @FXML
     private Label selectedField;
     @FXML
     private AnchorPane statsPane;
+    @FXML
+    public LineChart lineChart = new LineChart<Number, Number>(xAxis, yAxis);
 
 
     // Reference to the main application.
@@ -71,7 +72,7 @@ public class StatsController  extends AbsController{
     @FXML
     private void initialize() {
         // populate the combo box with health attribute choices.
-        myCombobox.getItems().setAll("test","test1");
+        myCombobox.getItems().setAll("<Select A Category>","Weight","BMI","Fat","Calories Burned", "Steps", "Distance", "Floors", "Minutes Sedentary", "Minutes Lightly Active", "Minutes Fairly Active", "Minutes Very Active", "Activity Calories", "Minutes Asleep", "Minutes Awake", "Number of Awakenings", "Time in Bed");
 
         // bind the selected attribute label to the selected attribute text in the combo box.
         //selectedField.textProperty().bind(myCombobox.getSelectionModel().selectedItemProperty());
@@ -85,65 +86,241 @@ public class StatsController  extends AbsController{
 //                    }
 //                }
                 if (newAtt != null) {
+                    XYChart.Series series = new XYChart.Series<>();
+                    int i = 0;
+                    Integer r;
                     switch(newAtt) {
-                        case "test":  break;
-                        case "test2":  break;
+                        case "weight":
+                            lineChart.getData().clear();
+                            lineChart.setTitle(newAtt + " Over Time");
+                            for(HealthAttribute hi : myPatient.getHealthProfile().getWeights()) {
+                                r = i;
+                                series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                i++;
+                            }
+                            lineChart.getData().add(series);
+                            return;
+                        case "BMI":
+                            i = 0;
+                            lineChart.getData().clear();
+                            lineChart.setTitle(newAtt + " Over Time");
+                            for(HealthAttribute hi : myPatient.getHealthProfile().getBMIs()) {
+                                r = i;
+                                series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                i++;
+                            }
+                            lineChart.getData().add(series);
+                            return;
+                        case "Fat":
+                            i = 0;
+                            lineChart.getData().clear();
+                            lineChart.setTitle(newAtt + " Over Time");
+                            for(HealthAttribute hi : myPatient.getHealthProfile().getFats()) {
+                                r = i;
+                                series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                i++;
+                            }
+                            lineChart.getData().add(series);
+                            return;
+                        case "Calories Burned":
+                            i = 0;
+                            lineChart.getData().clear();
+                            lineChart.setTitle(newAtt + " Over Time");
+                            for(HealthAttribute hi : myPatient.getHealthProfile().getCals()) {
+                                r = i;
+                                series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                i++;
+                            }
+                            lineChart.getData().add(series);
+                            return;
+                        case "Steps":
+                            i = 0;
+                            lineChart.getData().clear();
+                            lineChart.setTitle(newAtt + " Over Time");
+                            for(HealthAttribute hi : myPatient.getHealthProfile().getSteps()) {
+                                r = i;
+                                series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                i++;
+                            }
+                            lineChart.getData().add(series);
+                            return;
+                        case "Distance":
+                            i = 0;
+                            lineChart.getData().clear();
+                            lineChart.setTitle(newAtt + " Over Time");
+                            for(HealthAttribute hi : myPatient.getHealthProfile().getDistances()) {
+                                r = i;
+                                series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                i++;
+                            }
+                            lineChart.getData().add(series);
+                            return;
+                        case "Floors":
+                            i = 0;
+                            lineChart.getData().clear();
+                            lineChart.setTitle(newAtt + " Over Time");
+                            for(HealthAttribute hi : myPatient.getHealthProfile().getFloors()) {
+                                r = i;
+                                series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                i++;
+                            }
+                            lineChart.getData().add(series);
+                            return;
+                        case "Minutes Sedentary":
+                            i = 0;
+                            lineChart.getData().clear();
+                            lineChart.setTitle(newAtt + " Over Time");
+                            for(HealthAttribute hi : myPatient.getHealthProfile().getMinSed()) {
+                                r = i;
+                                series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                i++;
+                            }
+                            lineChart.getData().add(series);
+                            return;
+                        case "Minutes Lightly Active":
+                            i = 0;
+                            lineChart.getData().clear();
+                            lineChart.setTitle(newAtt + " Over Time");
+                            for(HealthAttribute hi : myPatient.getHealthProfile().getMinLight()) {
+                                r = i;
+                                series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                i++;
+                            }
+                            lineChart.getData().add(series);
+                            return;
+                        case "Minutes Fairly Active":
+                            i = 0;
+                            lineChart.getData().clear();
+                            lineChart.setTitle(newAtt + " Over Time");
+                            for(HealthAttribute hi : myPatient.getHealthProfile().getMinFairly()) {
+                                r = i;
+                                series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                i++;
+                            }
+                            lineChart.getData().add(series);
+                            return;
+                        case "Minutes Very Active":
+                            i = 0;
+                            lineChart.getData().clear();
+                            lineChart.setTitle(newAtt + " Over Time");
+                            for(HealthAttribute hi : myPatient.getHealthProfile().getMinVery()) {
+                                r = i;
+                                series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                i++;
+                            }
+                            lineChart.getData().add(series);
+                            return;
+                        case "Activity Calories":
+                            i = 0;
+                            lineChart.getData().clear();
+                            lineChart.setTitle(newAtt + " Over Time");
+                            for(HealthAttribute hi : myPatient.getHealthProfile().getActiveCal()) {
+                                r = i;
+                                series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                i++;
+                            }
+                            lineChart.getData().add(series);
+                            return;
+                        case "Minutes Asleep":
+                            i = 0;
+                            lineChart.getData().clear();
+                            lineChart.setTitle(newAtt + " Over Time");
+                            for(HealthAttribute hi : myPatient.getHealthProfile().getMinAsleep()) {
+                                r = i;
+                                series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                i++;
+                            }
+                            lineChart.getData().add(series);
+                            return;
+                        case "Minutes Awake":
+                            i = 0;
+                            lineChart.getData().clear();
+                            lineChart.setTitle(newAtt + " Over Time");
+                            for(HealthAttribute hi : myPatient.getHealthProfile().getMinAwake()) {
+                                r = i;
+                                series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                i++;
+                            }
+                            lineChart.getData().add(series);
+                            return;
+                        case "Number of Awakenings":
+                            i = 0;
+                            lineChart.getData().clear();
+                            lineChart.setTitle(newAtt + " Over Time");
+                            for(HealthAttribute hi : myPatient.getHealthProfile().getNumAwakening()) {
+                                r = i;
+                                series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                i++;
+                            }
+                            lineChart.getData().add(series);
+                            return;
+                        case "Time in Bed":
+                            i = 0;
+                            lineChart.getData().clear();
+                            lineChart.setTitle(newAtt + " Over Time");
+                            for(HealthAttribute hi : myPatient.getHealthProfile().getTimeInBed()) {
+                                r = i;
+                                series.getData().add(new XYChart.Data<>(r.toString(), hi.getValue()));
+                                i++;
+                            }
+                            lineChart.getData().add(series);
+                            return;
                     }
                 }
             }
         });
     }
 
-    /**
-     * Updates chart axis boundaries based on type of passed in axis
-     * @param xAxisType, timeframe either day, week, month, year
-     * @param yAxisType, health attribute
-     */
-    private void updateChartAxis(String xAxisType, String yAxisType){
-        //xyChart
-        switch(xAxisType) {
-            case "Day":
-                //per hour
-                xAxis.setLowerBound(0);
-                xAxis.setUpperBound(24);
-                xAxis.setTickUnit(1);
-                break;
-            case "Week":
-                //per day
-                xAxis.setLowerBound(0);
-                xAxis.setUpperBound(7);
-                xAxis.setTickUnit(1);
-                break;
-            case "Month":
-                //per week
-                xAxis.setLowerBound(0);
-                xAxis.setUpperBound(4);
-                xAxis.setTickUnit(1);
-                break;
-            case "Year":
-                //per month
-                xAxis.setLowerBound(0);
-                xAxis.setUpperBound(12);
-                xAxis.setTickUnit(1);
-                break;
-
-        }
-
-        switch(yAxisType){
-            case "caloriesBurned":
-                yAxis.setLowerBound(0);
-                yAxis.setUpperBound(10);
-                yAxis.setTickUnit(2);
-                break;
-            case "test2":
-                yAxis.setLowerBound(0);
-                yAxis.setUpperBound(1);
-                yAxis.setTickUnit(0.1);
-                break;
-        }
-
-
-    }
+//    /**
+//     * Updates chart axis boundaries based on type of passed in axis
+//     * @param xAxisType, timeframe either day, week, month, year
+//     * @param yAxisType, health attribute
+//     */
+//    private void updateChartAxis(String xAxisType, String yAxisType){
+//        //xyChart
+//        switch(xAxisType) {
+//            case "Day":
+//                //per hour
+//                xAxis.setLowerBound(0);
+//                xAxis.setUpperBound(24);
+//                xAxis.setTickUnit(1);
+//                break;
+//            case "Week":
+//                //per day
+//                xAxis.setLowerBound(0);
+//                xAxis.setUpperBound(7);
+//                xAxis.setTickUnit(1);
+//                break;
+//            case "Month":
+//                //per week
+//                xAxis.setLowerBound(0);
+//                xAxis.setUpperBound(4);
+//                xAxis.setTickUnit(1);
+//                break;
+//            case "Year":
+//                //per month
+//                xAxis.setLowerBound(0);
+//                xAxis.setUpperBound(12);
+//                xAxis.setTickUnit(1);
+//                break;
+//
+//        }
+//
+//        switch(yAxisType){
+//            case "caloriesBurned":
+//                yAxis.setLowerBound(0);
+//                yAxis.setUpperBound(10);
+//                yAxis.setTickUnit(2);
+//                break;
+//            case "test2":
+//                yAxis.setLowerBound(0);
+//                yAxis.setUpperBound(1);
+//                yAxis.setTickUnit(0.1);
+//                break;
+//        }
+//
+//
+//    }
 
     /**
      * Clears current data from chart and updates with new data to display
@@ -153,20 +330,6 @@ public class StatsController  extends AbsController{
         lineChart.getData().clear();
         lineChart.getData().add(series);
     }
-
-    /**
-     * Creates a series of data to enter into graph
-     * makes x y pairs of data based on lists
-     * @return
-     */
-    //List of health attributes
-    private  XYChart.Series makeSeries(){
-
-        XYChart.Series series = new XYChart.Series<>();
-        //series.getData().add(new XYChart.Data<>("Jan", 23));
-        return series;
-    }
-
 
     /**
      * Sorts health info attributes into lists
