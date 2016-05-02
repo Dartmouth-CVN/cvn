@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import utils.DBHandler;
+import utils.ObjectNotFoundException;
 import view.*;
 
 import java.io.IOException;
@@ -45,7 +46,9 @@ public class MainApp extends Application {
 
     public static void printError(Exception e) {
 //        System.err.printf("ERROR: %s\n", e.getLocalizedMessage());
-        e.printStackTrace();
+        if(e instanceof NullPointerException || e instanceof ObjectNotFoundException);
+        else
+            e.printStackTrace();
     }
 
     public static void showAlert(String message) {
