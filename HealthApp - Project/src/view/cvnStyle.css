@@ -308,3 +308,47 @@
 	/*-fx-background-color:#353535;*/
 }
 
+.chart {
+    -fx-padding: 10px;   
+}
+.chart-content {
+    -fx-padding: 30px;    
+}
+ 
+.chart-title {
+  -fx-text-fill: #005A58;
+  -fx-font-size: 1.6em;
+}
+ 
+.axis-label {
+  -fx-text-fill: #005A58;
+}
+ 
+.chart-legend {
+   -fx-background-color:  transparent;
+   -fx-padding: 20px;
+}
+ 
+.chart-legend-item-symbol{
+   -fx-background-radius: 0;
+}
+ 
+.chart-legend-item{
+    -fx-text-fill: #005A58;
+}
+ 
+.chart-plot-background {
+    -fx-background-color: #FFFFFF;
+}
+.chart-vertical-grid-lines {
+    -fx-stroke: #005A58;
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke: #005A58;
+}
+.chart-alternative-row-fill {
+    -fx-fill: #B1B1B1;
+    -fx-stroke: transparent;
+    -fx-stroke-width: 0;
+}
+
