@@ -137,6 +137,8 @@ public class EditPatientController extends AbsController {
     Rating stars;
     int phoneIndex = 0;
     int emailIndex = 0;
+    int relationPhoneIndex = 0;
+    int relationEmailIndex = 0;
     ContactElement element;
     Callback<TableColumn<ContactElementWrapper, String>, TableCell<ContactElementWrapper, String>> cellFactory;
 
@@ -205,12 +207,12 @@ public class EditPatientController extends AbsController {
     }
 
     public void initializePersonalInfo() {
-       cellFactory = new Callback<TableColumn<ContactElementWrapper, String>,
-               TableCell<ContactElementWrapper, String>>() {
-                    public TableCell call(TableColumn p) {
-                        return new EditingCell();
-                    }
-                };
+        cellFactory = new Callback<TableColumn<ContactElementWrapper, String>,
+                TableCell<ContactElementWrapper, String>>() {
+            public TableCell call(TableColumn p) {
+                return new EditingCell();
+            }
+        };
         patientPhones = FXCollections.observableArrayList();
         patientEmails = FXCollections.observableArrayList();
         contactLabelValues = FXCollections.observableArrayList();
@@ -261,8 +263,6 @@ public class EditPatientController extends AbsController {
         element = patientEmails.get(emailIndex).toContactElement();
     }
 
-    int relationPhoneIndex = 0;
-    int relationEmailIndex = 0;
     public void initializeRelationInfo() {
         relations = FXCollections.observableArrayList();
         relationPhones = FXCollections.observableArrayList();
