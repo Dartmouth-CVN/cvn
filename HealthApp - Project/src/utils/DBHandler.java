@@ -844,20 +844,29 @@ public class DBHandler {
         }
     }
 
-    public AbsUser getFilledUserByUsername(String username) {
-        if (connect()) {
-            try {
-                AbsUser user = getAbsUserByUsername(username);
-                List<ContactElement> info = getContactInfo(user.getUserIdValue());
-                Contact contactInfo = new Contact(info);
-                user.setContactInfo(contactInfo);
-                return user;
-            } catch (NullPointerException e) {
-                MainApp.printError(e);
-            }
-        }
-        return null;
-    }
+//    public boolean login(String username, String password) {
+//        if (connect()) {
+//            try {
+//                ps = connection.prepareStatement("SELECT * FROM user_account WHERE username = ? AND password = ? ");
+//
+//                ps.setString(1, username);
+//                ps.setString(2, password);
+//                rs = ps.executeQuery();
+//
+//                if (rs.next()) {
+//                    String userType = rs.getString("user_type");
+//                    if (userType.equals(UserType.PATIENT.name())) {
+//                        user = getPatientByUsername(username);
+//                    } else if (userType.equals(UserType.ADMIN.name())) {
+//                        user = getAdministratorByUsername(username);
+//                    }
+//                }
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//
+//        return false;
+//    }
 
     public void fillAbsRelation(AbsRelation relation) {
         if (connect()) {
@@ -871,6 +880,8 @@ public class DBHandler {
 
     public AbsUser getAbsUserByUsername(String username) {
         AbsUser user = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             if (connect()) {
                 ps = connection.prepareStatement("SELECT * FROM user_account WHERE username = ?    ");
@@ -890,9 +901,9 @@ public class DBHandler {
             MainApp.printError(e);
         } finally {
             try {
-               if(rs != null) rs.close();
-               if(ps != null) ps.close();
-               connection.close();
+                if(rs != null) rs.close();
+                if(ps != null) ps.close();
+                connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
             }
@@ -902,6 +913,8 @@ public class DBHandler {
 
     public AbsUser getAbsUserById(long userId) {
         AbsUser user = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             if (connect()) {
                 ps = connection.prepareStatement("SELECT * FROM user_account WHERE user_id = ?   ");
@@ -931,6 +944,8 @@ public class DBHandler {
 
     public Administrator getAdministratorByUsername(String username) {
         Administrator admin = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT * FROM user_account WHERE username = ? AND user_type = ?  " +
@@ -961,6 +976,8 @@ public class DBHandler {
 
     public Administrator getAdministratorById(long userIdValue) {
         Administrator admin = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             if (connect()) {
 
@@ -992,6 +1009,8 @@ public class DBHandler {
 
     public Patient getPatientByUsername(String username) {
         Patient p = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
@@ -1018,6 +1037,8 @@ public class DBHandler {
 
     public Patient getPatientById(long userIdValue) {
         Patient p = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
@@ -1062,6 +1083,8 @@ public class DBHandler {
 
     public MedicalStaff getMedicalStaffByUsername(String username) {
         MedicalStaff med = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
@@ -1092,6 +1115,8 @@ public class DBHandler {
 
     public MedicalStaff getMedicalStaffById(long userIdValue) {
         MedicalStaff med = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
@@ -1149,6 +1174,8 @@ public class DBHandler {
 
     public AbsRelation getRelationByUsername(String username) {
         AbsRelation relation = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
@@ -1173,6 +1200,8 @@ public class DBHandler {
 
     public AbsRelation getRelationById(long userIdValue) {
         AbsRelation relation = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT user_id, firstname, lastname, username, password, " +
@@ -1196,6 +1225,7 @@ public class DBHandler {
     }
 
     public AbsRelation getAbsRelation(ResultSet rs) {
+        PreparedStatement ps = null;
         try {
             if (rs.next()) {
                 AbsRelation relation;
@@ -1220,6 +1250,21 @@ public class DBHandler {
         return null;
     }
 
+    public AbsUser getFilledUserByUsername(String username) {
+        if (connect()) {
+            try {
+                AbsUser user = getAbsUserByUsername(username);
+                List<ContactElement> info = getContactInfo(user.getUserIdValue());
+                Contact contactInfo = new Contact(info);
+                user.setContactInfo(contactInfo);
+                return user;
+            } catch (NullPointerException e) {
+                MainApp.printError(e);
+            }
+        }
+        return null;
+    }
+    
     public List<AbsRelation> getPatientRelations(long userIdValue) {
         List<AbsRelation> relations = new LinkedList<>();
         PreparedStatement ps = null;
@@ -1350,6 +1395,8 @@ public class DBHandler {
 
     public Meal getMeal(long mealId) {
         Meal meal = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT name, calories, notes FROM  meal WHERE meal_id = ? ");
@@ -1404,6 +1451,8 @@ public class DBHandler {
 
     public Pet getPet(long petId) {
         Pet p = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             if (connect()) {
                 ps = connection.prepareStatement(" SELECT name, species, allergey_friendly FROM  pet WHERE pet_id = ? ");
@@ -1551,8 +1600,12 @@ public class DBHandler {
 
     public boolean updatePatient(Patient p) {
         success = false;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
+            connection.close();
             if (connect()) {
+                ps = null;
 //                ds = new EmbeddedDataSource();
                 ps = connection.prepareStatement("UPDATE user_account SET firstname = ?, lastname = ?," +
                         "username = ?, password = ?, birthday = ?, room = ?, picture = ? WHERE " +
@@ -1567,7 +1620,7 @@ public class DBHandler {
             try {
                if(rs != null) rs.close();
                if(ps != null) ps.close();
-               connection.close();
+               if(connection != null) connection.close();
             } catch (Exception e) {
                 MainApp.printError(e);
             }
